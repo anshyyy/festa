@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../../presentation/basic_profile/basic_profile_screen.dart';
+import '../../../../../presentation/basic_profile/birthday_selection_screen.dart';
+import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../extensions/string_extension.dart';
@@ -13,7 +16,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
   switch (routingData.route) {
     case UserRoutes.mainNavRoute:
       return _getPageRoute(Container(), settings);
-    
+
     default:
       return commonNavigation(settings);
   }
@@ -42,7 +45,13 @@ Route<dynamic> commonNavigation(RouteSettings settings) {
           settings);
 
     case AuthRoutes.loginRoute:
-      return _getPageRoute(Container(), settings);
+      return _getPageRoute(const BasicProfileScreen(), settings);
+
+    case AuthRoutes.birthdayRoute:
+      return _getPageRoute(const BirthdayScreen(), settings);
+
+    case AuthRoutes.genderRoute:
+      return _getPageRoute(const GenderSelectionScreen(), settings);
 
     default:
       return _getPageRoute(const DefaultWidget(), settings);

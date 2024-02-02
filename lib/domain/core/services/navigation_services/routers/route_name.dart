@@ -8,6 +8,8 @@ class AuthRoutes {
   static const String loginRoute = 'login';
   static const String verifyOTPRoute = 'verifyOTP';
   static const String registerRoute = 'register';
+  static const String birthdayRoute = 'birthdayScreen';
+  static const String genderRoute = 'genderScreen';
 }
 
 class UserRoutes {

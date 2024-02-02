@@ -6,5 +6,9 @@ class AssetConstants {
   static const lottieFolder = '${assetFolder}lotties/';
 
   static const searchSvg = '${vectorsFolder}example.svg';
+  static const profileIcon = '${vectorsFolder}bprofile-icon.png';
+  static const selectedRadio = '${vectorsFolder}selectedRadio.svg';
+  static const unSelectedRadio = '${vectorsFolder}unselectedRadio.svg';
+
   static const updateRocket = '${gifFolder}update-rocket.gif';
 }

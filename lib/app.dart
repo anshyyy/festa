@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -37,17 +36,17 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           fontFamily: 'NotoSans',
-          primaryColor: const Color(0xff232E78),
-          scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+          primaryColor: const Color(0xFFFFFFFF),
+          scaffoldBackgroundColor: const Color(0xFF0D0D0D),
           colorScheme: ThemeData().colorScheme.copyWith(
                 tertiaryContainer: const Color(0xFF000000),
-                primary: const Color(0xff232E78),
-                primaryContainer: const Color(0xff0D1756),
+                primary: const Color(0xffff1795),
+                primaryContainer: const Color(0xffF2F4F7),
                 onPrimary: const Color(0xff333333),
                 background: const Color(0xffF2F4F7),
                 onBackground: const Color(0xffDDE0E6),
-                secondary: const Color(0xff12E27E),
-                secondaryContainer: const Color(0xff333333),
+                secondary: const Color(0xff7C7C7C),
+                secondaryContainer: const Color(0xff242424),
                 onSecondary: const Color(0xff888888),
                 tertiary: const Color(0xff64C2F5),
                 error: const Color(0xffE65A5A),
@@ -64,12 +63,12 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
               ),
           textTheme: TextTheme(
             bodyLarge: TextStyle(
-              fontSize: 27.sp,
+              fontSize: 25.sp,
               fontWeight: FontWeight.w600,
               fontFamily: 'NotoSans',
             ),
             bodyMedium: TextStyle(
-              fontSize: 21.sp,
+              fontSize: 22.sp,
               fontWeight: FontWeight.w700,
               fontFamily: 'NotoSans',
             ),
@@ -112,20 +111,21 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           ],
         );
       },
+      // navigatorKey: navigator<NavigationService>().navigatorKey,
+      // onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
+      //     ? authorizedNavigation
+      //     : commonNavigation,
+      // initialRoute: Provider.of<AppStateNotifier>(context).isOffline
+      //     ? GeneralRoutes.noNetworkAtStart
+      //     : Provider.of<AppStateNotifier>(context).isAuthorized
+      //         ? UserRoutes.mainNavRoute
+      //         : AuthRoutes.loginRoute,
       navigatorKey: navigator<NavigationService>().navigatorKey,
-      onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
-          ? authorizedNavigation
-          : commonNavigation,
-      initialRoute: Provider.of<AppStateNotifier>(context).isOffline
-          ? GeneralRoutes.noNetworkAtStart
-          : Provider.of<AppStateNotifier>(context).isAuthorized
-              ?UserRoutes.mainNavRoute
-              : AuthRoutes.loginRoute,
+      onGenerateRoute: commonNavigation,
+      initialRoute: AuthRoutes.loginRoute,
     );
   }
 }
-
-
 
 Future appInitializer(AppConfig appConfig) async {
   // Future.delayed(const Duration(seconds: 5)).then((value) => monitorNetwork());
@@ -147,6 +147,7 @@ Future appInitializer(AppConfig appConfig) async {
   final AppConfig configuredApp = AppConfig(
     appTitle: appConfig.appTitle,
     buildFlavor: appConfig.buildFlavor,
+    appUrl: appConfig.appUrl,
     serverUrl: appConfig.serverUrl,
     child: ChangeNotifierProvider<AppStateNotifier>(
       create: (context) {

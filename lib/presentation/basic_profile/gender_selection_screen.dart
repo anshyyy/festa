@@ -87,7 +87,7 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
                                       ),
                                 ),
                                 SizedBox(
-                                  width: 26.h,
+                                  width: 25.h,
                                 ),
                                 index == state.selectedSex
                                     ? SvgPicture.asset(

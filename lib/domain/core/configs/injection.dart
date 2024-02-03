@@ -8,8 +8,8 @@ import 'injection.config.dart';
 
 final getIt = GetIt.instance;
 
-@injectableInit
-void configureInjection() => $initGetIt(getIt);
+@InjectableInit()
+void configureInjection() => getIt();
 
 GetIt navigator = GetIt.instance;
 

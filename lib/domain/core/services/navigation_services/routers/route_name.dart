@@ -5,9 +5,11 @@ class GeneralRoutes {
 
 class AuthRoutes {
   static const String onBoardRoute = '';
-  static const String loginRoute = 'login';
+  static const String authRoute = 'auth';
   static const String verifyOTPRoute = 'verifyOTP';
   static const String registerRoute = 'register';
+  static const String startRoute = 'start';
+  static const String loginWithPhoneRoute = 'phone';
 }
 
 class UserRoutes {

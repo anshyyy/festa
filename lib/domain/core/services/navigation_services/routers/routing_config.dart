@@ -2,6 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../presentation/auth/auth_screen.dart';
+import '../../../../../presentation/auth/login_with_phone_screen.dart';
+import '../../../../../presentation/auth/start_screen.dart';
+import '../../../../../presentation/auth/verify_otp_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../extensions/string_extension.dart';
@@ -13,7 +18,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
   switch (routingData.route) {
     case UserRoutes.mainNavRoute:
       return _getPageRoute(Container(), settings);
-    
+
     default:
       return commonNavigation(settings);
   }
@@ -41,8 +46,17 @@ Route<dynamic> commonNavigation(RouteSettings settings) {
           ),
           settings);
 
-    case AuthRoutes.loginRoute:
-      return _getPageRoute(Container(), settings);
+    case AuthRoutes.startRoute:
+      return _getPageRoute(const StarterScreen(), settings);
+
+    case AuthRoutes.authRoute:
+      return _getPageRoute(const AuthScreen(), settings);
+
+    case AuthRoutes.loginWithPhoneRoute:
+      return _getPageRoute(const LoginPhoneScreen(), settings);
+
+    case AuthRoutes.verifyOTPRoute:
+      return _getPageRoute(const VerifyOtpScreen(), settings);
 
     default:
       return _getPageRoute(const DefaultWidget(), settings);

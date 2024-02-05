@@ -9,4 +9,11 @@ abstract class AuthRepository {
     required String dialCode,
     required Completer<String?> otpAutoFill,
   });
+
+  Future<Either<String, String>> verifyOtp ({
+    required String mobileNumber,
+    required String dialCode,
+    required String verificationCode,
+    required String code,
+  });
 }

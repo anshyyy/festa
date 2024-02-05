@@ -41,7 +41,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.isLoginSuccess) {
-          navigator<NavigationService>().navigateTo(AuthRoutes.verifyOTPRoute);
+          navigator<NavigationService>().navigateTo(AuthRoutes.verifyOTPRoute, isClearStack: true);
         }
       },
       builder: (context, state) {
@@ -68,7 +68,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                   ),
                   Text(
                     LoginScreenConstants.mobileLoginDescription,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                   SizedBox(
                     height: 2.h,

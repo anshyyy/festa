@@ -120,7 +120,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           ? GeneralRoutes.noNetworkAtStart
           : Provider.of<AppStateNotifier>(context).isAuthorized
               ? UserRoutes.mainNavRoute
-              : AuthRoutes.loginWithPhoneRoute,
+              : AuthRoutes.startRoute,
     );
   }
 }

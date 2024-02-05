@@ -37,7 +37,7 @@ class AuthScreenConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state.loginWithPhone) {
           navigator<NavigationService>()
-              .navigateTo(AuthRoutes.loginWithPhoneRoute);
+              .navigateTo(AuthRoutes.loginWithPhoneRoute, isClearStack: true);
         }
       },
       builder: (context, state) {
@@ -55,31 +55,29 @@ class AuthScreenConsumer extends StatelessWidget {
               const SizedBox(
                 height: 155,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    AuthOptionTile(
-                      authServiceMessage: 'Continue with Apple',
-                      authServiceIcon: AssetConstants.appleIcon,
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      onTap: () {},
-                    ),
-                    AuthOptionTile(
-                      authServiceMessage: 'Continue with Goole',
-                      authServiceIcon: AssetConstants.googleIcon,
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      onTap: () {},
-                    ),
-                    AuthOptionTile(
-                      authServiceMessage: 'Use mobile number',
-                      authServiceIcon: '',
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      onTap: () {
-                        context.read<AuthCubit>().loginWithPhone();
-                      },
-                    ),
-                  ],
-                ),
+              Column(
+                children: [
+                  AuthOptionTile(
+                    authServiceMessage: 'Continue with Apple',
+                    authServiceIcon: AssetConstants.appleIcon,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    onTap: () {},
+                  ),
+                  AuthOptionTile(
+                    authServiceMessage: 'Continue with Goole',
+                    authServiceIcon: AssetConstants.googleIcon,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    onTap: () {},
+                  ),
+                  AuthOptionTile(
+                    authServiceMessage: 'Use mobile number',
+                    authServiceIcon: '',
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    onTap: () {
+                      context.read<AuthCubit>().loginWithPhone();
+                    },
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 10,

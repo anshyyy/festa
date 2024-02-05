@@ -8,6 +8,7 @@ import '../../application/auth/auth_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../widgets/rounded_arrow_button.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({super.key});
@@ -17,7 +18,8 @@ class VerifyOtpScreen extends StatelessWidget {
     final AppConfig appConfig = AppConfig.of(context)!;
 
     return BlocProvider(
-      create: (context) => AuthCubit(AuthState.initial(apiBaseUrl: appConfig.serverUrl)),
+      create: (context) =>
+          AuthCubit(AuthState.initial(apiBaseUrl: appConfig.serverUrl)),
       child: const VerifyOtpScreenConsumer(),
     );
   }
@@ -48,10 +50,10 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 Text(
                   LoginScreenConstants.verifyNumberHeader,
                   style: themeData.textTheme.bodyLarge!.copyWith(
-                        fontSize: 25.sp,
-                        fontWeight: FontWeight.w500,
-                        color: themeData.colorScheme.background,
-                      ),
+                    fontSize: 25.sp,
+                    fontWeight: FontWeight.w500,
+                    color: themeData.colorScheme.background,
+                  ),
                 ),
                 SizedBox(
                   height: 1.h,
@@ -75,14 +77,14 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                   hintCharacter: '-',
                   keyboardType: TextInputType.number,
                   hintStyle: themeData.textTheme.bodyLarge!.copyWith(
-                        fontSize: 28.sp,
-                        color: themeData.colorScheme.background,
-                      ),
+                    fontSize: 28.sp,
+                    color: themeData.colorScheme.background,
+                  ),
                   textStyle: themeData.textTheme.bodyLarge!.copyWith(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                        color: themeData.scaffoldBackgroundColor,
-                      ),
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                    color: themeData.scaffoldBackgroundColor,
+                  ),
                   pinTheme: PinTheme(
                     inactiveColor: themeData.colorScheme.primaryContainer,
                     borderWidth: 0,
@@ -105,26 +107,20 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                   style: themeData.textTheme.bodyMedium,
                 ),
                 const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 6.h,
-                      width: 6.h,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: themeData.colorScheme.background,
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          AssetConstants.longArrowRight,
-                          color: themeData.colorScheme.primaryContainer,
-                          height: 5.h,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: RoundedArrowButton(
+                    height: 6.h,
+                    width: 6.h,
+                    contentIcon: AssetConstants.longArrowRight,
+                    isEnabled: state.isLoginEnabled,
+                    onTap: () {
+                      if (!state.isLoginEnabled) {
+                        context.read<AuthCubit>().verifyOtp();
+                      }
+                    },
+                  ),
+                )
               ],
             ),
           ),

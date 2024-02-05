@@ -16,7 +16,7 @@ class RoundedArrowButton extends StatelessWidget {
     this.height,
     this.width,
     this.backgroundColor,
-    this.onTap,
+    required this.onTap,
     this.isEnabled,
     this.contentIcon,
   });

@@ -39,9 +39,10 @@ class AuthCubit extends Cubit<AuthState> {
   void requestOtp() async {
     emit(state.copyWith(isLoading: true));
     Completer<String?> otpAutoFill = Completer<String?>();
+    String otpCode = '';
 
     otpAutoFill.future.then((otp) => {
-          if (otp != null) {state.otpController.text = otp}
+          if (otp != null) {otpCode = otp}
         });
 
     Either<String, String> response = await state.authRepository.requestOtp(
@@ -63,23 +64,9 @@ class AuthCubit extends Cubit<AuthState> {
         isOTPSentFailed: false,
         isOTPSentSuccessful: true,
         isLoginSuccess: true,
-        verificationCode: r
+        verificationCode: r,
+        otpCode: otpCode,
       ));
     });
-  }
-
-  void verifyOtp() async {
-    emit(state.copyWith(isLoading: true));
-
-    Either<String, String> response = await state.authRepository.verifyOtp(
-        mobileNumber: state.phoneController.text,
-        dialCode: state.selectedDialCode,
-        verificationCode: state.verificationCode!,
-        code: state.otpController.text);
-
-    response.fold(
-      (l) => debugPrint(l),
-      (r) => debugPrint(r),
-    );
   }
 }

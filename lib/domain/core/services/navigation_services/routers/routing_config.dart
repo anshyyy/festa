@@ -66,7 +66,16 @@ Route<dynamic> commonNavigation(RouteSettings settings) {
       return _getPageRoute(const LoginPhoneScreen(), settings);
 
     case AuthRoutes.verifyOTPRoute:
-      return _getPageRoute(const VerifyOtpScreen(), settings);
+      final routeData = routingData.queryParameters;
+      final String verificationCode = routeData['verificationCode'] ?? '';
+      final String otpCode = routeData['otpData'] ?? '';
+
+      return _getPageRoute(
+          VerifyOtpScreen(
+            verificationCode: verificationCode,
+            otpCode: otpCode,
+          ),
+          settings);
 
     default:
       return _getPageRoute(const DefaultWidget(), settings);

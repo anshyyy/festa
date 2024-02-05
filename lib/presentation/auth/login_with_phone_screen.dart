@@ -41,7 +41,10 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.isLoginSuccess) {
-          navigator<NavigationService>().navigateTo(AuthRoutes.verifyOTPRoute, isClearStack: true);
+          navigator<NavigationService>().navigateTo(AuthRoutes.verifyOTPRoute, queryParams: {
+            'verificationCode':state.verificationCode!,
+            'otpCode':state.otpCode,
+          });
         }
       },
       builder: (context, state) {

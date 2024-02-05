@@ -5,21 +5,27 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/auth/auth_cubit.dart';
+import '../../application/auth/verify_otp/verify_otp_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../widgets/rounded_arrow_button.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
-  const VerifyOtpScreen({super.key});
+  final String verificationCode;
+  final String otpCode;
+  const VerifyOtpScreen(
+      {super.key, required this.verificationCode, required this.otpCode});
 
   @override
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
 
     return BlocProvider(
-      create: (context) =>
-          AuthCubit(AuthState.initial(apiBaseUrl: appConfig.serverUrl)),
+      create: (context) => VerifyOtpCubit(VerifyOtpState.initial(
+        verificationCode: verificationCode,
+        otpCode: otpCode,
+      )),
       child: const VerifyOtpScreenConsumer(),
     );
   }
@@ -32,7 +38,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
 
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<VerifyOtpCubit,VerifyOtpState>(
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -66,7 +72,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                   height: 5.h,
                 ),
                 PinCodeTextField(
-                  controller: state.otpController,
+                  // controller: state.otpController,
                   appContext: context,
                   length: 6,
                   showCursor: false,
@@ -113,11 +119,11 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                     height: 6.h,
                     width: 6.h,
                     contentIcon: AssetConstants.longArrowRight,
-                    isEnabled: state.isLoginEnabled,
+                    isEnabled: true,
                     onTap: () {
-                      if (!state.isLoginEnabled) {
-                        context.read<AuthCubit>().verifyOtp();
-                      }
+                      // if (!state.isLoginEnabled) {
+                        // context.read<AuthCubit>().verifyOtp();
+                      // }
                     },
                   ),
                 )

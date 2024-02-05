@@ -23,8 +23,6 @@ class IAuthRepository extends AuthRepository {
     required String dialCode,
     required Completer<String?> otpAutoFill,
   }) async {
-    debugPrint(mobileNumber);
-    debugPrint(dialCode);
     try {
       completer = Completer<bool>();
 
@@ -35,6 +33,7 @@ class IAuthRepository extends AuthRepository {
       await _firebaseAuth.verifyPhoneNumber(
         phoneNumber: updatedMobileNumber,
         verificationCompleted: (authCredential) {
+            print('completed verification ->> ${authCredential.smsCode}');
           if (!otpAutoFill.isCompleted) {
             otpAutoFill.complete(authCredential.smsCode);
           }
@@ -61,7 +60,6 @@ class IAuthRepository extends AuthRepository {
         throw FirebaseAuthException(code: _verifyPhoneException!.code);
       }
     } on FirebaseAuthException catch (error) {
-      debugPrint(error.toString());
       if (error.code == 'invalid-phone-number') {
         return left(ErrorConstants.invalidMobileNumberError);
       }

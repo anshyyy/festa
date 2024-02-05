@@ -59,6 +59,7 @@ class LoginScreenConstants {
 }
 
 class ErrorConstants {
+  static const String requiredError = 'Required';
   static String unexpectedForMobileNumberError =
       'OTP Request Failed, Please try again';
   static String wrongOTP = 'Invalid OTP, please entered valid OTP!';

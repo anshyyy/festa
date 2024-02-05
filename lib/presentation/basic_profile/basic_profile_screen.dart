@@ -20,11 +20,10 @@ class BasicProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appStateNotifier = Provider.of<AppStateNotifier>(context);
-    final appConfig = AppConfig.of(context);
+    final appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) => BasicProfileCubit(BasicProfileState.initial(
           appStateNotifier: appStateNotifier,
-          appUrl: appConfig!.appUrl,
           serverUrl: appConfig.serverUrl)),
       child: const BasicProfileScreenConsumer(),
     );

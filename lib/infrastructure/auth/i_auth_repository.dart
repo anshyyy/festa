@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../domain/auth/auth_respository.dart';
+import '../../domain/core/constants/string_constants.dart';
 
 class IAuthRepository extends AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -11,9 +12,9 @@ class IAuthRepository extends AuthRepository {
   FirebaseAuthException? _verifyPhoneException;
   String? _verificationCode;
 
-  final String apiBaseUrl;
+  final String serverBaseUrl;
 
-  IAuthRepository({required this.apiBaseUrl});
+  IAuthRepository({required this.serverBaseUrl});
 
   @override
   Future<Either<String, String>> requestOtp({

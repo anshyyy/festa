@@ -12,6 +12,8 @@ class AuthRoutes {
   static const String genderRoute = 'genderScreen';
   static const String startRoute = 'start';
   static const String loginWithPhoneRoute = 'phone';
+  static const String basicInfoRoute = 'basicInfo';
+
 }
 
 class UserRoutes {

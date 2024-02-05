@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/configs/app_config.dart';
-import '../../../domain/core/constants/error_constants.dart';
+import '../../../domain/core/constants/string_constants.dart';
 import '../../../infrastructure/auth/i_auth_repository.dart';
 
 part 'basic_profile_state.dart';

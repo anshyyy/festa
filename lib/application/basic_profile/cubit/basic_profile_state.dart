@@ -19,7 +19,6 @@ class BasicProfileState with _$BasicProfileState {
 
   factory BasicProfileState.initial({
     required final AppStateNotifier appStateNotifier,
-    required String appUrl,
     required String serverUrl,
   }) =>
       BasicProfileState(
@@ -28,7 +27,7 @@ class BasicProfileState with _$BasicProfileState {
           isFailed: false,
           isSuccessful: false,
           isSaveDetailsEnable: false,
-          authRepository: IAuthRepository(appUrl: appUrl, serverUrl: serverUrl),
+          authRepository: IAuthRepository(serverBaseUrl: serverUrl),
           appStateNotifier: appStateNotifier,
           errorMessage: '',
           errorProfileImageFile: '',

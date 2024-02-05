@@ -34,6 +34,7 @@ mixin _$AuthState {
   bool get isOTPVerificationFailed => throw _privateConstructorUsedError;
   bool get isOTPVerificationSuccessful => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  String? get verificationCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -62,7 +63,8 @@ abstract class $AuthStateCopyWith<$Res> {
       bool isLoginSuccess,
       bool isOTPVerificationFailed,
       bool isOTPVerificationSuccessful,
-      String errorMessage});
+      String errorMessage,
+      String? verificationCode});
 }
 
 /// @nodoc
@@ -95,6 +97,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? isOTPVerificationFailed = null,
     Object? isOTPVerificationSuccessful = null,
     Object? errorMessage = null,
+    Object? verificationCode = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -165,6 +168,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      verificationCode: freezed == verificationCode
+          ? _value.verificationCode
+          : verificationCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -194,7 +201,8 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       bool isLoginSuccess,
       bool isOTPVerificationFailed,
       bool isOTPVerificationSuccessful,
-      String errorMessage});
+      String errorMessage,
+      String? verificationCode});
 }
 
 /// @nodoc
@@ -225,6 +233,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? isOTPVerificationFailed = null,
     Object? isOTPVerificationSuccessful = null,
     Object? errorMessage = null,
+    Object? verificationCode = freezed,
   }) {
     return _then(_$AuthStateImpl(
       isLoading: null == isLoading
@@ -295,6 +304,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      verificationCode: freezed == verificationCode
+          ? _value.verificationCode
+          : verificationCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -319,7 +332,8 @@ class _$AuthStateImpl implements _AuthState {
       required this.isLoginSuccess,
       required this.isOTPVerificationFailed,
       required this.isOTPVerificationSuccessful,
-      required this.errorMessage});
+      required this.errorMessage,
+      required this.verificationCode});
 
   @override
   final bool isLoading;
@@ -355,10 +369,12 @@ class _$AuthStateImpl implements _AuthState {
   final bool isOTPVerificationSuccessful;
   @override
   final String errorMessage;
+  @override
+  final String? verificationCode;
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, loginWithApple: $loginWithApple, loginWithGoogle: $loginWithGoogle, loginWithPhone: $loginWithPhone, selectedDialCode: $selectedDialCode, selectedLocale: $selectedLocale, phoneController: $phoneController, otpController: $otpController, isLoginEnabled: $isLoginEnabled, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, isOTPSentFailed: $isOTPSentFailed, isOTPSentSuccessful: $isOTPSentSuccessful, isLoginSuccess: $isLoginSuccess, isOTPVerificationFailed: $isOTPVerificationFailed, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, errorMessage: $errorMessage)';
+    return 'AuthState(isLoading: $isLoading, loginWithApple: $loginWithApple, loginWithGoogle: $loginWithGoogle, loginWithPhone: $loginWithPhone, selectedDialCode: $selectedDialCode, selectedLocale: $selectedLocale, phoneController: $phoneController, otpController: $otpController, isLoginEnabled: $isLoginEnabled, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, isOTPSentFailed: $isOTPSentFailed, isOTPSentSuccessful: $isOTPSentSuccessful, isLoginSuccess: $isLoginSuccess, isOTPVerificationFailed: $isOTPVerificationFailed, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, errorMessage: $errorMessage, verificationCode: $verificationCode)';
   }
 
   @override
@@ -402,7 +418,9 @@ class _$AuthStateImpl implements _AuthState {
                 other.isOTPVerificationSuccessful ==
                     isOTPVerificationSuccessful) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.verificationCode, verificationCode) ||
+                other.verificationCode == verificationCode));
   }
 
   @override
@@ -424,7 +442,8 @@ class _$AuthStateImpl implements _AuthState {
       isLoginSuccess,
       isOTPVerificationFailed,
       isOTPVerificationSuccessful,
-      errorMessage);
+      errorMessage,
+      verificationCode);
 
   @JsonKey(ignore: true)
   @override
@@ -451,7 +470,8 @@ abstract class _AuthState implements AuthState {
       required final bool isLoginSuccess,
       required final bool isOTPVerificationFailed,
       required final bool isOTPVerificationSuccessful,
-      required final String errorMessage}) = _$AuthStateImpl;
+      required final String errorMessage,
+      required final String? verificationCode}) = _$AuthStateImpl;
 
   @override
   bool get isLoading;
@@ -487,6 +507,8 @@ abstract class _AuthState implements AuthState {
   bool get isOTPVerificationSuccessful;
   @override
   String get errorMessage;
+  @override
+  String? get verificationCode;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

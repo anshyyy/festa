@@ -47,10 +47,7 @@ class GradientButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-          ),
+            style: Theme.of(context).textTheme.bodySmall),
         ),
       ),
     );

@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import '../../../../../presentation/basic_profile/basic_profile_screen.dart';
 import '../../../../../presentation/basic_profile/birthday_selection_screen.dart';
 import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
+
+import '../../../../../presentation/auth/auth_screen.dart';
+import '../../../../../presentation/auth/login_with_phone_screen.dart';
+import '../../../../../presentation/auth/start_screen.dart';
+import '../../../../../presentation/auth/verify_otp_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../extensions/string_extension.dart';
@@ -14,6 +19,14 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
   final routingData = settings.name!.getRoutingData;
 
   switch (routingData.route) {
+    case AuthRoutes.basicInfoRoute:
+      return _getPageRoute(const BasicProfileScreen(), settings);
+
+    case AuthRoutes.birthdayRoute:
+      return _getPageRoute(const BirthdayScreen(), settings);
+
+    case AuthRoutes.genderRoute:
+      return _getPageRoute(const GenderSelectionScreen(), settings);
     case UserRoutes.mainNavRoute:
       return _getPageRoute(Container(), settings);
 
@@ -43,15 +56,17 @@ Route<dynamic> commonNavigation(RouteSettings settings) {
             arguments: settings.arguments,
           ),
           settings);
+    case AuthRoutes.startRoute:
+      return _getPageRoute(const StarterScreen(), settings);
 
-    case AuthRoutes.loginRoute:
-      return _getPageRoute(const BasicProfileScreen(), settings);
+    case AuthRoutes.authRoute:
+      return _getPageRoute(const AuthScreen(), settings);
 
-    case AuthRoutes.birthdayRoute:
-      return _getPageRoute(const BirthdayScreen(), settings);
+    case AuthRoutes.loginWithPhoneRoute:
+      return _getPageRoute(const LoginPhoneScreen(), settings);
 
-    case AuthRoutes.genderRoute:
-      return _getPageRoute(const GenderSelectionScreen(), settings);
+    case AuthRoutes.verifyOTPRoute:
+      return _getPageRoute(const VerifyOtpScreen(), settings);
 
     default:
       return _getPageRoute(const DefaultWidget(), settings);

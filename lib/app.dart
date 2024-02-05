@@ -14,6 +14,7 @@ import 'domain/core/services/app_update_service/app_update_service.dart';
 import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
+import 'domain/core/themes/app_theme.dart';
 import 'presentation/common/app_update.dart';
 
 class MainApp extends StatelessWidget with WidgetsBindingObserver {
@@ -111,18 +112,15 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           ],
         );
       },
-      // navigatorKey: navigator<NavigationService>().navigatorKey,
-      // onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
-      //     ? authorizedNavigation
-      //     : commonNavigation,
-      // initialRoute: Provider.of<AppStateNotifier>(context).isOffline
-      //     ? GeneralRoutes.noNetworkAtStart
-      //     : Provider.of<AppStateNotifier>(context).isAuthorized
-      //         ? UserRoutes.mainNavRoute
-      //         : AuthRoutes.loginRoute,
       navigatorKey: navigator<NavigationService>().navigatorKey,
-      onGenerateRoute: commonNavigation,
-      initialRoute: AuthRoutes.loginRoute,
+      onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
+          ? authorizedNavigation
+          : commonNavigation,
+      initialRoute: Provider.of<AppStateNotifier>(context).isOffline
+          ? GeneralRoutes.noNetworkAtStart
+          : Provider.of<AppStateNotifier>(context).isAuthorized
+              ? UserRoutes.mainNavRoute
+              : AuthRoutes.loginWithPhoneRoute,
     );
   }
 }

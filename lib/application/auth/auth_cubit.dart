@@ -20,11 +20,9 @@ class AuthCubit extends Cubit<AuthState> {
   void loginWithGoogle() {}
 
   void loginWithPhone() {
-    emit(
-      state.copyWith(
-        loginWithPhone: true,
-      ),
-    );
+    emit(state.copyWith(
+      loginWithPhone: true,
+    ));
   }
 
   void onDialCodeChange({required String dialCode, required String locale}) {
@@ -49,10 +47,8 @@ class AuthCubit extends Cubit<AuthState> {
     Completer<String?> otpAutoFill = Completer<String?>();
 
     otpAutoFill.future.then((otp) => {
-      if(otp!=null){
-        state.otpController.text = '123456'
-      }
-    });
+          if (otp != null) {state.otpController.text = otp}
+        });
 
     Either<String, String> response = await state.authRepository.requestOtp(
       mobileNumber: state.phoneController.text,
@@ -65,18 +61,19 @@ class AuthCubit extends Cubit<AuthState> {
         isLoading: false,
         isOTPSentFailed: true,
         isOTPSentSuccessful: false,
-        // by pass flag
-        isLoginSuccess:true
+        isLoginSuccess: false,
       ));
     }, (r) {
       emit(state.copyWith(
         isLoading: false,
         isOTPSentFailed: false,
         isOTPSentSuccessful: true,
-        // by pass flag
-        isLoginSuccess:true
-
+        isLoginSuccess: true,
       ));
     });
+  }
+
+  void verifyOtp() async {
+    emit(state.copyWith(isLoading: true));
   }
 }

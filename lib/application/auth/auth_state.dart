@@ -17,6 +17,9 @@ class AuthState with _$AuthState {
     required bool isOTPSentFailed,
     required bool isOTPSentSuccessful,
     required bool isLoginSuccess,
+    required bool isOTPVerificationFailed,
+    required bool isOTPVerificationSuccessful,
+    required String errorMessage,
   }) = _AuthState;
 
   factory AuthState.initial({
@@ -39,5 +42,8 @@ class AuthState with _$AuthState {
         isOTPSentFailed: false,
         isOTPSentSuccessful: false,
         isLoginSuccess: false,
+        isOTPVerificationFailed: false,
+        isOTPVerificationSuccessful: false,
+        errorMessage: ''
       );
 }

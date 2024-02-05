@@ -1,10 +1,12 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepository {
-  Future<User?> authenticateUser();
-  Future<Either<String, File>> selectImage();
+  // Future<User?> authenticateUser();
+  Future<Either<String, String>> requestOtp({
+    required String mobileNumber,
+    required String dialCode,
+    required Completer<String?> otpAutoFill,
+  });
 }

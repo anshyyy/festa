@@ -21,16 +21,16 @@ class BasicProfileCubit extends Cubit<BasicProfileState> {
 
   //selectProfileImage
   Future<void> onSelectProfileImage() async {
-    final res = await state.authRepository.selectImage();
+    // final res = await state.authRepository.selectImage();
 
-    emit(res.fold((l) => state.copyWith(), (r) {
-      return state.copyWith(
-        errorMessage: '',
-        isFailed: false,
-        profileImageFile: r,
-        errorProfileImageFile: '',
-      );
-    }));
+    // emit(res.fold((l) => state.copyWith(), (r) {
+    //   return state.copyWith(
+    //     errorMessage: '',
+    //     isFailed: false,
+    //     profileImageFile: r,
+    //     errorProfileImageFile: '',
+    //   );
+    // }));
   }
 
   Future<void> onContinue() async {

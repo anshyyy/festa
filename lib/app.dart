@@ -145,7 +145,6 @@ Future appInitializer(AppConfig appConfig) async {
   final AppConfig configuredApp = AppConfig(
     appTitle: appConfig.appTitle,
     buildFlavor: appConfig.buildFlavor,
-    appUrl: appConfig.appUrl,
     serverUrl: appConfig.serverUrl,
     child: ChangeNotifierProvider<AppStateNotifier>(
       create: (context) {

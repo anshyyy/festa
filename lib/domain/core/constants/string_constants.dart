@@ -3,8 +3,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class AppConstants {
   static String appName = 'Festa';
+  static String continueText = 'Continue';
   static String updateAvailable = 'Update Available';
   static String ignore = 'Ignore';
+    static String andText = 'and';
   static String installNow = 'Install Now';
   static String updateNow = 'Update Now';
   static String pleaseTryAgain = 'Please try again!';
@@ -36,26 +38,31 @@ class GenderSelectionScreenConstants {
 
 class TermsAndConditionConstants {
   static String privacyMessage =
-      'Your privacy is our top concern and we want you to know how we process your personal information. By continuing you confirm that you’ve read and accepted our Terms and Privacy Policy.';
-
+      'Your privacy is our top concern and we want you to know how we process your personal information. By continuing you confirm that you\'ve read and accepted our';
+  static String privacyText = 'Privacy Policy';
+   static String termsText = 'Terms';
   static String authTermsAcceptMessage =
-      'By signing up, you agree to our Terms, See how we use your data in our Privacy Policy. We never post to Facebook. ';
+      'By signing up, you agree to our Terms, See how we use\nyour data in our Privacy Policy. We never post to Facebook. ';
 }
 
 class LoginScreenConstants {
-  static String mobileLoginHeader = 'What’s your mobile number?';
+  static String mobileLoginHeader = 'What\'s your mobile number?';
   static String mobileLoginDescription =
       'We protect our community by making sure everyone on Festa is real.';
   static String mobileLoginPrompt =
-      'We never share this with anyone and it won’t be on your profile.';
+      'We never share this with anyone and it won\'t be on your profile.';
   static String phoneConfirmation =
       'I affirm that the provided mobile number belongs to me.';
 
   static String verifyNumberHeader = 'Verify your number';
   static String verifyNumberDescription =
-      'Enter the code we’re sent by text to ';
+      'Enter the code we\'re sent by text to ';
   static String resendNow = 'Resend now ';
   static String resendAfter = 'Resend after ';
+   static String appleContinue = 'Continue with Apple';
+      static String googleContinue = 'Continue with Google';
+
+      static String phoneNumberContinue = 'Use mobile number';
 }
 
 class ErrorConstants {

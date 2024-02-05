@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../domain/core/constants/color_constants.dart';
+
 class GradientButton extends StatelessWidget {
   final String text;
   final void Function()? onTap;
-  final Color gradientColor1;
-  final Color gradientColor2;
+  final Color? gradientColor1;
+  final Color? gradientColor2;
+  final Color? fontColor;
+  final Color? showColor;
   final double height;
   final double width;
-  const GradientButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-    required this.gradientColor1,
-    required this.gradientColor2,
-    required this.height,
-    required this.width,
-  });
+  const GradientButton(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      required this.height,
+      required this.width,
+      this.gradientColor1,
+      this.gradientColor2,
+      this.showColor,
+      this.fontColor});
 
   @override
   Widget build(BuildContext context) {
+    final gradientColor1Safe =
+        (gradientColor2 ?? Theme.of(context).colorScheme.primary);
+
+    final gradientColor2Safe =
+        (gradientColor2 ?? Theme.of(context).colorScheme.secondary);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -29,25 +39,23 @@ class GradientButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(7),
           boxShadow: [
             BoxShadow(
-              color: gradientColor1.withOpacity(.3),
-              offset: const Offset(2, 2),
-              blurRadius: 50,
-            ),
-            BoxShadow(
-              color: gradientColor2.withOpacity(.3),
-              offset: const Offset(-2, -2),
-              blurRadius: 50,
+              color: showColor ??
+                  Theme.of(context).colorScheme.secondary, // Shadow color
+              blurRadius: 40, // Blur radius
+              offset: const Offset(0, 0), // X,Y offset from the container
             ),
           ],
           gradient: LinearGradient(
-              colors: [gradientColor1, gradientColor2],
+              colors: [gradientColor1Safe, gradientColor2Safe],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodySmall),
+          child: Text(text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: fontColor ?? Theme.of(context).backgroundColor,
+                    fontWeight: FontWeight.w700,
+                  )),
         ),
       ),
     );

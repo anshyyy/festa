@@ -19,12 +19,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   void loginWithGoogle() {}
 
-  void loginWithPhone() {
-    emit(state.copyWith(
-      loginWithPhone: true,
-    ));
-  }
-
   void onDialCodeChange({required String dialCode, required String locale}) {
     emit(
       state.copyWith(

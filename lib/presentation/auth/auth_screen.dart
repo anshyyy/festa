@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-// import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/auth/auth_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
@@ -35,10 +35,7 @@ class AuthScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state.loginWithPhone) {
-          navigator<NavigationService>()
-              .navigateTo(AuthRoutes.loginWithPhoneRoute, isClearStack: true);
-        }
+       
       },
       builder: (context, state) {
         return Scaffold(
@@ -49,47 +46,57 @@ class AuthScreenConsumer extends StatelessWidget {
               ),
               Image.asset(
                 AssetConstants.festaIconPng,
-                width: 110,
+                width: 25.w,
                 // height: 100,
               ),
               const SizedBox(
                 height: 155,
               ),
-              Column(
-                children: [
-                  AuthOptionTile(
-                    authServiceMessage: 'Continue with Apple',
-                    authServiceIcon: AssetConstants.appleIcon,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    onTap: () {},
-                  ),
-                  AuthOptionTile(
-                    authServiceMessage: 'Continue with Goole',
-                    authServiceIcon: AssetConstants.googleIcon,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    onTap: () {},
-                  ),
-                  AuthOptionTile(
-                    authServiceMessage: 'Use mobile number',
-                    authServiceIcon: '',
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    onTap: () {
-                      context.read<AuthCubit>().loginWithPhone();
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Text(
-                  TermsAndConditionConstants.authTermsAcceptMessage,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
+                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                child: Column(
+                  children: [
+                    AuthOptionTile(
+                      authServiceMessage: LoginScreenConstants.appleContinue,
+                      authServiceIcon: AssetConstants.appleIcon,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    AuthOptionTile(
+                      authServiceMessage: LoginScreenConstants.googleContinue,
+                      authServiceIcon: AssetConstants.googleIcon,
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    AuthOptionTile(
+                      authServiceMessage:
+                          LoginScreenConstants.phoneNumberContinue,
+                      authServiceIcon: '',
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      onTap: () {
+                        navigator<NavigationService>().navigateTo(
+                            AuthRoutes.loginWithPhoneRoute,
+                            isClearStack: true);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 23,
+                    ),
+                    Text(
+                      TermsAndConditionConstants.authTermsAcceptMessage,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontSize: 13.5.sp,
+                          ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -115,8 +122,7 @@ class AuthOptionTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 70,
-        // width: 100,
+        height: 17.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           color: Theme.of(context).colorScheme.background,

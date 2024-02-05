@@ -38,18 +38,25 @@ class StartScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          body: SingleChildScrollView(
+          body: SafeArea(
+            top: false,
             child: SizedBox(
               height: 100.h,
               child: Stack(
                 children: [
-                  Center(
-                    child: Image.asset(
-                      AssetConstants.festaIconPng,
+                  SizedBox(
+                    width: 100.w,
+                    height: 100.h,
+                    child: Column(
+                      children: [
+                        const Expanded(flex: 5, child: SizedBox()),
+                        Image.asset(
+                          AssetConstants.festaIconPng,
+                          width: 75.w,
+                        ),
+                        const Expanded(flex: 6, child: SizedBox()),
+                      ],
                     ),
-                    // child: SvgPicture.asset(
-                    //   AssetConstants.festaIconSvg,
-                    // ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -57,28 +64,72 @@ class StartScreenConsumer extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          TermsAndConditionConstants.privacyMessage,
+                        RichText(
                           textAlign: TextAlign.center,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontWeight: FontWeight.w100,
-                                  ),
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text:
+                                    '${TermsAndConditionConstants.privacyMessage} ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(fontSize: 13.sp),
+                              ),
+                              TextSpan(
+                                text: TermsAndConditionConstants.termsText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      fontSize: 13.sp,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: ' ${AppConstants.andText} ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(fontSize: 13.sp),
+                              ),
+                              TextSpan(
+                                text: TermsAndConditionConstants.privacyText,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      fontSize: 13.sp,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
+                                    ),
+                              ),
+                               TextSpan(
+                                text: '.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(fontSize: 13.sp),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 50,
                         ),
                         GradientButton(
-                            text: 'Continue',
-                            width: 1.w,
-                            height: 9.h,
-                            onTap: () {
-                              context.read<StarterCubit>().completeOnboarding();
-                            },
-                            gradientColor1:
-                                Theme.of(context).colorScheme.primary,
-                            gradientColor2:
-                                Theme.of(context).colorScheme.secondary)
+                          text: AppConstants.continueText,
+                          width: 1.w,
+                          height: 9.h,
+                          onTap: () {
+                            context.read<StarterCubit>().completeOnboarding();
+                          },
+                        )
                       ],
                     ),
                   )

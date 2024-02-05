@@ -90,7 +90,7 @@ class AuthScreenConsumer extends StatelessWidget {
                     Text(
                       TermsAndConditionConstants.authTermsAcceptMessage,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 13.5.sp,
+                            fontSize: 13.7.sp,
                           ),
                       textAlign: TextAlign.center,
                     )

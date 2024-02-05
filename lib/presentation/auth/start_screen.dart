@@ -94,7 +94,7 @@ class StartScreenConsumer extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(fontSize: 13.sp),
+                                    .copyWith(fontSize: 13.7.sp),
                               ),
                               TextSpan(
                                 text: TermsAndConditionConstants.privacyText,
@@ -102,7 +102,7 @@ class StartScreenConsumer extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      fontSize: 13.sp,
+                                      fontSize: 13.7.sp,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Theme.of(context)
                                           .colorScheme
@@ -114,7 +114,7 @@ class StartScreenConsumer extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(fontSize: 13.sp),
+                                    .copyWith(fontSize: 13.7.sp),
                               ),
                             ],
                           ),

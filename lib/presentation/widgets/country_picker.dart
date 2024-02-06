@@ -62,8 +62,7 @@ class CountryPickerConsumer extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: CustomTextField(
-                  // labelText: '',
-                  containerColor: Theme.of(context).colorScheme.onBackground,
+                  fillColor: Theme.of(context).colorScheme.onBackground,
                   borderRadius: 10,
                   height: 15.w,
                   hintTextStyle: Theme.of(context)

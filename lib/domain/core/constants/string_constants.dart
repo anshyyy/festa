@@ -6,7 +6,7 @@ class AppConstants {
   static String continueText = 'Continue';
   static String updateAvailable = 'Update Available';
   static String ignore = 'Ignore';
-    static String andText = 'and';
+  static String andText = 'and';
   static String installNow = 'Install Now';
   static String updateNow = 'Update Now';
   static String pleaseTryAgain = 'Please try again!';
@@ -40,7 +40,7 @@ class TermsAndConditionConstants {
   static String privacyMessage =
       'Your privacy is our top concern and we want you to know how we process your personal information. By continuing you confirm that you\'ve read and accepted our';
   static String privacyText = 'Privacy Policy';
-   static String termsText = 'Terms';
+  static String termsText = 'Terms';
   static String authTermsAcceptMessage =
       'By signing up, you agree to our Terms, See how we use\nyour data in our Privacy Policy. We never post to Facebook. ';
 }
@@ -59,10 +59,10 @@ class LoginScreenConstants {
       'Enter the code we\'re sent by text to ';
   static String resendNow = 'Resend now ';
   static String resendAfter = 'Resend after ';
-   static String appleContinue = 'Continue with Apple';
-      static String googleContinue = 'Continue with Google';
-
-      static String phoneNumberContinue = 'Use mobile number';
+  static String appleContinue = 'Continue with Apple';
+  static String googleContinue = 'Continue with Google';
+  static String phoneNumberContinue = 'Use mobile number';
+    static String phoneNumberHint = 'Phone number';
 }
 
 class ErrorConstants {

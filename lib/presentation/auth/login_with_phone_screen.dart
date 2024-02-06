@@ -41,9 +41,10 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.isLoginSuccess) {
-          navigator<NavigationService>().navigateTo(AuthRoutes.verifyOTPRoute, queryParams: {
-            'verificationCode':state.verificationCode!,
-            'otpCode':state.otpCode,
+          navigator<NavigationService>()
+              .navigateTo(AuthRoutes.verifyOTPRoute, queryParams: {
+            'verificationCode': state.verificationCode!,
+            'otpCode': state.otpCode,
           });
         }
       },
@@ -76,117 +77,113 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                   SizedBox(
                     height: 2.h,
                   ),
-                  SizedBox(
-                    height: 8.h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (context) => const CountryPicker(),
-                              backgroundColor: Theme.of(context)
-                                  .scaffoldBackgroundColor
-                                  .withOpacity(.4),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) => const CountryPicker(),
+                            backgroundColor: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withOpacity(.4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ).then((value) {
+                            if (value != null) {
+                              context.read<AuthCubit>().onDialCodeChange(
+                                    dialCode: value[0],
+                                    locale: value[1],
+                                  );
+                            }
+                          });
+                        },
+                        child: Container(
+                          width: 25.w,
+                          height: 56,
+                          padding: EdgeInsets.symmetric(horizontal: 2.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Theme.of(context).colorScheme.primaryContainer,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '${state.selectedLocale} ${state.selectedDialCode}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontSize: 16.sp,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                      ),
+                                ),
                               ),
-                            ).then((value) {
-                              if (value != null) {
-                                context.read<AuthCubit>().onDialCodeChange(
-                                      dialCode: value[0],
-                                      locale: value[1],
-                                    );
-                              }
-                            });
-                          },
-                          child: Container(
-                            width: 25.w,
-                            padding: EdgeInsets.symmetric(horizontal: 2.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    '${state.selectedLocale} ${state.selectedDialCode}',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontSize: 16.sp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                        ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 1.w,
-                                ),
-                                SvgPicture.asset(
-                                  AssetConstants.arrowDown,
-                                )
-                              ],
-                            ),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              SvgPicture.asset(
+                                AssetConstants.arrowDown,
+                              )
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          width: 5.w,
-                        ),
-                        Expanded(
-                          child: CustomTextField(
-                            controller: state.phoneController,
-                            keyboardType: TextInputType.number,
-                            maxLines: 1,
-                            height: 14.h,
-                            inputWithLabel: false,
-                            containerColor:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            hintText: 'Phone number',
-                            hintTextStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
+                      ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Expanded(
+                        child: CustomTextField(
+                          controller: state.phoneController,
+                          keyboardType: TextInputType.number,
+                          maxLines: 1,
+                          isFill: true,
+                          inputWithLabel: false,
+                          fillColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                          hintText: LoginScreenConstants.phoneNumberHint,
+                          hintTextStyle: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                fontSize: 17.sp,
+                              ),
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
                                   fontSize: 17.sp,
-                                ),
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    fontSize: 17.sp,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background),
-                            errorStyle: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                ),
-                            validator: (value) {
-                              if (value!.isEmpty || value.length < 6) {
-                                return ErrorConstants.invalidMobileNumberError;
-                              }
-                              return null;
-                            },
-                            onChanged: (value) => context
-                                .read<AuthCubit>()
-                                .onPhoneChange(text: value),
-                          ),
-                        )
-                      ],
-                    ),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background),
+                          errorStyle: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                          validator: (value) {
+                            if (value!.isEmpty || value.length < 6) {
+                              return ErrorConstants.invalidMobileNumberError;
+                            }
+                            return null;
+                          },
+                          onChanged: (value) => context
+                              .read<AuthCubit>()
+                              .onPhoneChange(text: value),
+                        ),
+                      )
+                    ],
                   ),
                   const Spacer(),
                   Row(

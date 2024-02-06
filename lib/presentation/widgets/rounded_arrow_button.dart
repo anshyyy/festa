@@ -39,7 +39,7 @@ class RoundedArrowButton extends StatelessWidget {
                   color: Colors.black,
                   height: 5.h,
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ),
       ),
     );

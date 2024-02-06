@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../domain/core/constants/color_constants.dart';
 
 class GradientButton extends StatelessWidget {
   final String text;
@@ -53,7 +52,7 @@ class GradientButton extends StatelessWidget {
         child: Center(
           child: Text(text,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: fontColor ?? Theme.of(context).backgroundColor,
+                    color: fontColor ?? Theme.of(context).colorScheme.background,
                     fontWeight: FontWeight.w700,
                   )),
         ),

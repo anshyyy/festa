@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 import '../../domain/auth/auth_repository.dart';
 import '../../domain/core/constants/string_constants.dart';
@@ -69,6 +68,7 @@ class IAuthRepository extends AuthRepository {
     }
   }
 
+  @override
   Future<Either<String, String>> verifyOtp({
     required String mobileNumber,
     required String dialCode,
@@ -86,9 +86,7 @@ class IAuthRepository extends AuthRepository {
             );
 
     String uid = user!.uid;
-    if (uid != null) {
-      return right(uid);
-    }
-    return left(uid);
+    return right(uid);
+      return left(uid);
   }
 }

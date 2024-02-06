@@ -5,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {Key? key,
+      {super.key,
       this.autofocus = false,
       this.autoCorrect = false,
       this.errorText,
@@ -40,8 +40,7 @@ class CustomTextField extends StatelessWidget {
       this.inputFormatters,
       this.textCapitalization,
       this.contentPadding,
-      this.prefixWidgetWidth})
-      : super(key: key);
+      this.prefixWidgetWidth});
 
   final TextCapitalization? textCapitalization;
   final Function()? onTap;

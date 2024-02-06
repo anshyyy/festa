@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
   //   }
   // }
 
-  MainApp({Key? key}) : super(key: key) {
+  MainApp({super.key}) {
     // WidgetsBinding.instance.addObserver(this);
   }
 
@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
             Expanded(child: child!),
             if (Provider.of<AppStateNotifier>(context).isOffline)
               Material(
-                color: Theme.of(context).errorColor,
+                color: Theme.of(context).colorScheme.error,
                 child: SafeArea(
                   top: false,
                   left: false,

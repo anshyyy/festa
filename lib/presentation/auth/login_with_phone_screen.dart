@@ -63,7 +63,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                     LoginScreenConstants.mobileLoginHeader,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 24.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                           color: Theme.of(context).colorScheme.background,
                         ),
                   ),
@@ -107,7 +107,8 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 2.w),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Theme.of(context).colorScheme.primaryContainer,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -152,26 +153,21 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                           fillColor:
                               Theme.of(context).colorScheme.primaryContainer,
                           hintText: LoginScreenConstants.phoneNumberHint,
-                          hintTextStyle: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                fontSize: 17.sp,
-                              ),
+                          hintTextStyle:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 17.sp,
+                                  ),
                           textStyle: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(
                                   fontSize: 17.sp,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .background),
-                          errorStyle: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.error,
-                              ),
+                                  color:
+                                      Theme.of(context).colorScheme.background),
+                          errorStyle:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                           validator: (value) {
                             if (value!.isEmpty || value.length < 6) {
                               return ErrorConstants.invalidMobileNumberError;
@@ -189,9 +185,9 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
+                      Expanded(
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
                               AssetConstants.securityIcon,
@@ -200,11 +196,18 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                             SizedBox(
                               width: 1.h,
                             ),
-                            Flexible(
+                            Expanded(
                               child: Text(
                                 LoginScreenConstants.mobileLoginPrompt,
                                 maxLines: 2,
-                                style: Theme.of(context).textTheme.bodyMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color:
+                                            Theme.of(context).colorScheme.background,
+                                            fontWeight: FontWeight.w400
+                                            ),
                               ),
                             ),
                           ],

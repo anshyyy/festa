@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../application/auth/auth_cubit.dart';
 import '../../application/auth/verify_otp/verify_otp_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/asset_constants.dart';

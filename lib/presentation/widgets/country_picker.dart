@@ -74,7 +74,7 @@ class CountryPickerConsumer extends StatelessWidget {
                       .bodyMedium!
                       .copyWith(fontSize: 16.sp),
                   hintText: 'Search for your country',
-                  suffixIcon: Icon(Icons.clear),
+                  suffixIcon: const Icon(Icons.clear),
                   onChanged: (value) {
                     context
                         .read<CountryPickerCubit>()
@@ -82,7 +82,7 @@ class CountryPickerConsumer extends StatelessWidget {
                   },
                 ),
               ),
-              Flexible(
+              Expanded(
                   child: ListView.separated(
                       separatorBuilder: (context, index) {
                         return Divider(

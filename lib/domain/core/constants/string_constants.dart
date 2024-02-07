@@ -94,4 +94,14 @@ class ErrorConstants {
       );
   static String invalidVideo = 'Invalid Video!';
   static String shortVideo = 'Captured video is too short!';
+
+}
+class HomeScreenConstants {
+  static String name = 'Hey James, Let’s party!';
+  static String pickYourExperience = 'Pick your experience';
+  static String explorerAll = 'Explore all';
+}
+
+class CartScreenConstants {
+  static String addText = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
 }

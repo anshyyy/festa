@@ -14,6 +14,7 @@ class AuthRoutes {
   static const String loginWithPhoneRoute = 'phone';
   static const String basicInfoRoute = 'basicInfo';
 
+  static const String homeRoute = 'homeScreen';
 }
 
 class UserRoutes {

@@ -30,3 +30,13 @@ class GenderSelectionScreenConstants {
   static String addText =
       'Lorem ipsum dolor sit amet consectetur. Duis aliquet tellus quis risus tincidunt purus enim nec. Vitae tincidunt suspendisse sed urna egestas dui scelerisque massa vitae. ';
 }
+
+class HomeScreenConstants {
+  static String name = 'Hey James, Let’s party!';
+  static String pickYourExperience = 'Pick your experience';
+  static String explorerAll = 'Explore all';
+}
+
+class CartScreenConstants {
+  static String addText = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
+}

@@ -10,6 +10,7 @@ class AuthRoutes {
   static const String registerRoute = 'register';
   static const String birthdayRoute = 'birthdayScreen';
   static const String genderRoute = 'genderScreen';
+  static const String homeRoute = 'homeScreen';
 }
 
 class UserRoutes {

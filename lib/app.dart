@@ -48,7 +48,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
                 secondary: const Color(0xff7C7C7C),
                 secondaryContainer: const Color(0xff242424),
                 onSecondary: const Color(0xff888888),
-                tertiary: const Color(0xff64C2F5),
+                tertiary: const Color(0xff1f1f1f),
                 error: const Color(0xffE65A5A),
                 onSurface: const Color(0xff3C64B4),
                 onTertiaryContainer: const Color(0xff4F4F4F),
@@ -111,18 +111,15 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           ],
         );
       },
-      // navigatorKey: navigator<NavigationService>().navigatorKey,
-      // onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
-      //     ? authorizedNavigation
-      //     : commonNavigation,
-      // initialRoute: Provider.of<AppStateNotifier>(context).isOffline
-      //     ? GeneralRoutes.noNetworkAtStart
-      //     : Provider.of<AppStateNotifier>(context).isAuthorized
-      //         ? UserRoutes.mainNavRoute
-      //         : AuthRoutes.loginRoute,
       navigatorKey: navigator<NavigationService>().navigatorKey,
-      onGenerateRoute: commonNavigation,
-      initialRoute: AuthRoutes.loginRoute,
+      onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
+          ? commonNavigation
+          : authorizedNavigation,
+      initialRoute: Provider.of<AppStateNotifier>(context).isOffline
+          ? GeneralRoutes.noNetworkAtStart
+          : Provider.of<AppStateNotifier>(context).isAuthorized
+              ? AuthRoutes.loginRoute
+              : UserRoutes.mainNavRoute,
     );
   }
 }

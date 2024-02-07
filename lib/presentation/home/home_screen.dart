@@ -9,7 +9,7 @@ import '../../domain/core/constants/string_constants.dart';
 import '../common/card_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -94,19 +94,22 @@ class HomeScreenConsumer extends StatelessWidget {
                                   image: AssetImage(state.imageList[index]),
                                 ),
                               ),
-                              child:Text(
-                                      state.categoriesList[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primaryContainer,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
+                              child:Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                        state.categoriesList[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                              ),
                             ),
                           );
                         },

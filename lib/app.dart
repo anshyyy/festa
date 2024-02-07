@@ -68,12 +68,12 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       navigatorKey: navigator<NavigationService>().navigatorKey,
       onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
           ? authorizedNavigation
-          : commonNavigation,
+          : authorizedNavigation,
       initialRoute: Provider.of<AppStateNotifier>(context).isOffline
           ? GeneralRoutes.noNetworkAtStart
           : Provider.of<AppStateNotifier>(context).isAuthorized
               ? UserRoutes.mainNavRoute
-              : AuthRoutes.startRoute,
+          : UserRoutes.mainNavRoute,
     );
   }
 }

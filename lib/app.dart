@@ -14,6 +14,7 @@ import 'domain/core/services/app_update_service/app_update_service.dart';
 import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
+import 'domain/core/themes/app_theme.dart';
 import 'presentation/common/app_update.dart';
 
 class MainApp extends StatelessWidget with WidgetsBindingObserver {
@@ -25,7 +26,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
   //   }
   // }
 
-  MainApp({Key? key}) : super(key: key) {
+  MainApp({super.key}) {
     // WidgetsBinding.instance.addObserver(this);
   }
 
@@ -34,61 +35,14 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
     return MaterialApp(
       title: AppConfig.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          fontFamily: 'NotoSans',
-          primaryColor: const Color(0xFFFFFFFF),
-          scaffoldBackgroundColor: const Color(0xFF0D0D0D),
-          colorScheme: ThemeData().colorScheme.copyWith(
-                tertiaryContainer: const Color(0xFF000000),
-                primary: const Color(0xffff1795),
-                primaryContainer: const Color(0xffF2F4F7),
-                onPrimary: const Color(0xff333333),
-                background: const Color(0xffF2F4F7),
-                onBackground: const Color(0xffDDE0E6),
-                secondary: const Color(0xff7C7C7C),
-                secondaryContainer: const Color(0xff242424),
-                onSecondary: const Color(0xff888888),
-                tertiary: const Color(0xff1f1f1f),
-                error: const Color(0xffE65A5A),
-                onSurface: const Color(0xff3C64B4),
-                onTertiaryContainer: const Color(0xff4F4F4F),
-                onTertiary: const Color(0xffFFC821),
-                inversePrimary: const Color(0xFFD0F9E5),
-                surface: const Color(0xFFEB5757),
-                outline: const Color(0xFF292D32),
-                shadow: const Color(0xFFFFFFFF),
-                onInverseSurface: const Color(0xFFDDE0E6),
-                surfaceTint: const Color(0xFF828282),
-                inverseSurface: const Color(0xFF7279A9),
-              ),
-          textTheme: TextTheme(
-            bodyLarge: TextStyle(
-              fontSize: 25.sp,
-              fontWeight: FontWeight.w600,
-              fontFamily: 'NotoSans',
-            ),
-            bodyMedium: TextStyle(
-              fontSize: 22.sp,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'NotoSans',
-            ),
-            bodySmall: TextStyle(
-              fontSize: 17.sp,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'NotoSans',
-            ),
-          ),
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.white,
-            elevation: 0,
-          )),
+      theme: appThemeData[AppTheme.Default],
       builder: (context, child) {
         return Column(
           children: [
             Expanded(child: child!),
             if (Provider.of<AppStateNotifier>(context).isOffline)
               Material(
-                color: Theme.of(context).errorColor,
+                color: Theme.of(context).colorScheme.error,
                 child: SafeArea(
                   top: false,
                   left: false,
@@ -113,12 +67,12 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       },
       navigatorKey: navigator<NavigationService>().navigatorKey,
       onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
-          ? commonNavigation
+          ? authorizedNavigation
           : authorizedNavigation,
       initialRoute: Provider.of<AppStateNotifier>(context).isOffline
           ? GeneralRoutes.noNetworkAtStart
           : Provider.of<AppStateNotifier>(context).isAuthorized
-              ? AuthRoutes.loginRoute
+              ? UserRoutes.mainNavRoute
               : UserRoutes.mainNavRoute,
     );
   }
@@ -144,7 +98,6 @@ Future appInitializer(AppConfig appConfig) async {
   final AppConfig configuredApp = AppConfig(
     appTitle: appConfig.appTitle,
     buildFlavor: appConfig.buildFlavor,
-    appUrl: appConfig.appUrl,
     serverUrl: appConfig.serverUrl,
     child: ChangeNotifierProvider<AppStateNotifier>(
       create: (context) {

@@ -3,7 +3,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.function,
     this.width,
@@ -20,7 +20,7 @@ class PrimaryButton extends StatelessWidget {
     this.isSuffixIcon = false,
     this.icon,
     this.isOnlyIcon = false,
-  }) : super(key: key);
+  });
   final double? width, height, borderRadius, elevation;
   final Color? borderColor, backgroundColor, textColor;
   final String text;

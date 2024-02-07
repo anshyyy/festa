@@ -21,7 +21,6 @@ class AppStateNotifier extends ChangeNotifier {
 class AppConfig extends InheritedWidget {
   final String appTitle;
   final String buildFlavor;
-  final String appUrl;
   final String serverUrl;
 
   @override
@@ -33,7 +32,6 @@ class AppConfig extends InheritedWidget {
     required this.appTitle,
     required this.buildFlavor,
     required this.child,
-    required this.appUrl,
     required this.serverUrl,
   }) : super(child: child);
 

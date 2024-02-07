@@ -54,9 +54,7 @@ class HomeScreenConsumer extends StatelessWidget {
                     Text(
                       HomeScreenConstants.name,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onTertiaryContainer,
+                            color: Theme.of(context).colorScheme.onSecondary,
                             fontWeight: FontWeight.w600,
                           ),
                     ),
@@ -65,9 +63,8 @@ class HomeScreenConsumer extends StatelessWidget {
                     ),
                     Text(
                       HomeScreenConstants.pickYourExperience,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.background,
                             fontWeight: FontWeight.w600,
                             fontSize: 18,
                           ),
@@ -94,19 +91,24 @@ class HomeScreenConsumer extends StatelessWidget {
                                   image: AssetImage(state.imageList[index]),
                                 ),
                               ),
-                              child:Text(
-                                      state.categoriesList[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primaryContainer,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 1.h),
+                                  child: Text(
+                                    state.categoriesList[index],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                              ),
                             ),
                           );
                         },
@@ -117,9 +119,8 @@ class HomeScreenConsumer extends StatelessWidget {
                     ),
                     Text(
                       HomeScreenConstants.explorerAll,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.background,
                             fontWeight: FontWeight.w600,
                             fontSize: 18,
                           ),
@@ -138,12 +139,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                 child: Container(
                                   margin: EdgeInsets.only(right: 1.h),
                                   decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).colorScheme.tertiary,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
                                     border: Border.all(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .tertiary,
+                                          .primaryContainer,
                                     ),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
@@ -159,9 +161,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                               .copyWith(
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .primaryContainer,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
+                                                    .background,
                                               ),
                                         ),
                                       ),
@@ -179,6 +179,7 @@ class HomeScreenConsumer extends StatelessWidget {
                       barsName: "Bobs's Bar",
                       bandName: CartScreenConstants.addText,
                       price: 5000,
+                      time: '10:00 AM - 12:30 AM',
                     )
                   ],
                 ),

@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../domain/core/constants/asset_constants.dart';
-import '../../domain/core/constants/string_constants.dart';
 
 class CardScreen extends StatelessWidget {
   final String? imageurl;
@@ -15,6 +14,7 @@ class CardScreen extends StatelessWidget {
   final String barsName;
   final int price;
   final String bandName;
+  final String time;
   final bool isHeartFilled;
   final List<String> imageList = [
     AssetConstants.homeBobsBarImg,
@@ -33,6 +33,7 @@ class CardScreen extends StatelessWidget {
     required this.barsName,
     required this.price,
     required this.bandName,
+    required this.time,
     this.isHeartFilled = false,
   });
 
@@ -73,7 +74,7 @@ class CardScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 3.h),
+              padding: EdgeInsets.symmetric(vertical: 2.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -87,12 +88,13 @@ class CardScreen extends StatelessWidget {
                         ),
                         Text(
                           barsName,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                       ],
                     ),
@@ -100,36 +102,39 @@ class CardScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: Container(
-                      width: 12.h,
-                      height: 4.h,
+                      width: 9.h,
+                      height: 3.h,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.tertiary,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         border: Border.all(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                         ),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(3.0),
+                        padding: const EdgeInsets.all(3),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SvgPicture.asset(
                               AssetConstants.homeFilledLocation,
-                              width: 16,
-                              height: 16,
+                              width: 9,
+                              height: 10,
                             ),
                             SizedBox(
                               width: 1.h,
                             ),
                             Text(
-                              '$km km',
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  fontSize: 16),
+                              '$km' 'km',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
                             ),
                           ],
                         ),
@@ -140,24 +145,25 @@ class CardScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-                bottom: 5.h,
+                bottom: 4.h,
                 left: 2.h,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
                     children: [
                       Container(
-                        width: 25.h,
-                        height: 4.h,
+                        width: 21.h,
+                        height: 3.h,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.tertiary,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                           border: Border.all(
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
                           ),
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.all(1),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,22 +171,25 @@ class CardScreen extends StatelessWidget {
                               Text(
                                 DateFormat('MMM dd,yyyy hh:mma')
                                     .format(dateTime),
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                    fontSize: 16),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                    ),
                               ),
                             ],
                           ),
                         ),
                       ),
                       SizedBox(
-                        width: 11.h,
+                        width: 15.h,
                       ),
                       Image(
                           image: AssetImage(
-                        isHeartFilled
+                        !isHeartFilled
                             ? AssetConstants.heartOutlinedIcon
                             : AssetConstants.heartFilledIcon,
                       ))
@@ -188,17 +197,19 @@ class CardScreen extends StatelessWidget {
                   ),
                 )),
             Positioned(
-              bottom: 1.h,
-              left: 12.h,
+              bottom: 2.h,
+              left: 18.h,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: DotsIndicator(
                   dotsCount: imageList.length,
                   position: 0,
                   decorator: DotsDecorator(
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    activeColor: Theme.of(context).colorScheme.primaryContainer,
-                  ),
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      activeColor: Theme.of(context).colorScheme.background,
+                      size: const Size(6, 6),
+                      activeSize: const Size(6, 6),
+                      spacing: const EdgeInsets.all(2)),
                 ),
               ),
             ),
@@ -208,17 +219,15 @@ class CardScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             bandName,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                fontSize: 18),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.background, fontSize: 18),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(right: 38.h),
+          padding: EdgeInsets.only(right: 40.h),
           child: SvgPicture.asset(
             AssetConstants.homeFilledLocation,
-            width: 24,
-            height: 24,
+            height: 16,
           ),
         ),
         Row(
@@ -227,15 +236,31 @@ class CardScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SvgPicture.asset(
                 AssetConstants.ticketIcon,
-                width: 24,
-                height: 24,
+                height: 16,
               ),
             ),
             Text(
               '₹${price % 1 == 0 ? price.toInt() : price.toStringAsFixed(2)}',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  fontSize: 16),
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.background,
+                  fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                AssetConstants.clockIcon,
+                height: 16,
+              ),
+            ),
+            Text(
+              time,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.background,
+                  fontWeight: FontWeight.w600),
             ),
           ],
         )

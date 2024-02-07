@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -20,11 +19,10 @@ class BasicProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appStateNotifier = Provider.of<AppStateNotifier>(context);
-    final appConfig = AppConfig.of(context);
+    final appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) => BasicProfileCubit(BasicProfileState.initial(
           appStateNotifier: appStateNotifier,
-          appUrl: appConfig!.appUrl,
           serverUrl: appConfig.serverUrl)),
       child: const BasicProfileScreenConsumer(),
     );

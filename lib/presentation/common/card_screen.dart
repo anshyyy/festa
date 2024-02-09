@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../application/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,6 +18,9 @@ class CardScreen extends StatelessWidget {
   final String bandName;
   final String time;
   final bool isHeartFilled;
+  final String ratings;
+  int selectedImageIndex;
+
   final List<String> imageList = [
     AssetConstants.homeBobsBarImg,
     AssetConstants.homeBobsBarImg,
@@ -35,31 +40,36 @@ class CardScreen extends StatelessWidget {
     required this.bandName,
     required this.time,
     this.isHeartFilled = false,
+    required this.ratings,
+    this.selectedImageIndex = 0,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              child: CarouselSlider(
+    return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
+      // TODO: implement listener
+    }, builder: (context, state) {
+      return Column(
+        children: [
+          Stack(
+            children: [
+              CarouselSlider(
                 items: imageList.map((String imageUrl) {
                   return Container(
                     margin: const EdgeInsets.all(6.0),
-                    width: 100.w,
-                    height: 10.h,
+                    width: 343,
+                    height: 375,
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onBackground,
-                      borderRadius: BorderRadius.circular(3.w),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8),
                       child: Image.asset(
                         imageUrl,
                         fit: BoxFit.fill,
-                        width: 200.w,
+                        width: 570,
+                        height: 380,
                       ),
                     ),
                   );
@@ -67,92 +77,46 @@ class CardScreen extends StatelessWidget {
                 options: CarouselOptions(
                   autoPlay: false,
                   enlargeCenterPage: false,
-                  aspectRatio: 100.w / 45.h,
+                  aspectRatio: 343 / 375,
                   enableInfiniteScroll: false,
                   viewportFraction: 1,
+                  onPageChanged: (index, reason) {
+                    context.read<HomeCubit>().onCarouseChanged(index: index);
+                  },
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25.0),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(AssetConstants.homeProfilePictureIcon),
-                        SizedBox(
-                          width: 1.h,
-                        ),
-                        Text(
-                          barsName,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontWeight: FontWeight.w600,
-                              ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 25.0),
-                    child: Container(
-                      width: 9.h,
-                      height: 3.h,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(3),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              AssetConstants.homeFilledLocation,
-                              width: 9,
-                              height: 10,
-                            ),
-                            SizedBox(
-                              width: 1.h,
-                            ),
-                            Text(
-                              '$km' 'km',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                            ),
-                          ],
-                        ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                              AssetConstants.homeProfilePictureIcon),
+                          SizedBox(
+                            width: 1.h,
+                          ),
+                          Text(
+                            barsName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-                bottom: 4.h,
-                left: 2.h,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 21.h,
+                    Padding(
+                      padding: const EdgeInsets.only(right: 25.0),
+                      child: Container(
+                        width: 9.h,
                         height: 3.h,
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primaryContainer,
@@ -163,17 +127,24 @@ class CardScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(1),
+                          padding: const EdgeInsets.all(3),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              SvgPicture.asset(
+                                AssetConstants.homeFilledLocation,
+                                width: 9,
+                                height: 10,
+                              ),
+                              SizedBox(
+                                width: 1.h,
+                              ),
                               Text(
-                                DateFormat('MMM dd,yyyy hh:mma')
-                                    .format(dateTime),
+                                '$km' 'km',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium!
+                                    .bodySmall!
                                     .copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -184,86 +155,287 @@ class CardScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 15.h,
-                      ),
-                      Image(
-                          image: AssetImage(
-                        !isHeartFilled
-                            ? AssetConstants.heartOutlinedIcon
-                            : AssetConstants.heartFilledIcon,
-                      ))
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                  bottom: 4.h,
+                  left: 2.h,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 18.h,
+                          height: 3.h,
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            border: Border.all(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(1),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  DateFormat('MMM dd,yyyy hh:mma')
+                                      .format(dateTime),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20.h,
+                        ),
+                        SvgPicture.asset(AssetConstants.heartOutlinedIcon)
+                      ],
+                    ),
+                  )),
+              Positioned(
+                bottom: 1.h,
+                left: 18.h,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    children: [
+                      ...List.generate(
+                          imageList.length,
+                          (dotIndex) => Padding(
+                                padding: const EdgeInsets.all(3),
+                                child: Container(
+                                  height: 2.h,
+                                  width: 2.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: dotIndex == state.selectedImageIndex
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .background
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
+                                  ),
+                                ),
+                              ))
                     ],
                   ),
-                )),
-            Positioned(
-              bottom: 2.h,
-              left: 18.h,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: DotsIndicator(
-                  dotsCount: imageList.length,
-                  position: 0,
-                  decorator: DotsDecorator(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                      activeColor: Theme.of(context).colorScheme.background,
-                      size: const Size(6, 6),
-                      activeSize: const Size(6, 6),
-                      spacing: const EdgeInsets.all(2)),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    bandName,
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.background,
+                          fontSize: 18,
+                        ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 4.h, right: 1.5.h),
+                  child: SvgPicture.asset(AssetConstants.shareIcon),
+                )
+              ],
+            ),
+          ),
+          const Profile(
+            artistName: 'Chester Bennington',
+            followers: '1M+ Followers',
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 40.h),
+            child: SvgPicture.asset(
+              AssetConstants.homeFilledLocation,
+              height: 16,
+            ),
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                  AssetConstants.ticketIcon,
+                  height: 16,
+                ),
+              ),
+              Text(
+                '₹${price % 1 == 0 ? price.toInt() : price.toStringAsFixed(2)}',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).colorScheme.background,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                  AssetConstants.clockIcon,
+                  height: 16,
+                ),
+              ),
+              Text(
+                time,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Theme.of(context).colorScheme.background,
+                    ),
+              ),
+              SizedBox(
+                width: 6.h,
+              ),
+              Padding(
+                padding: EdgeInsets.all(1.h),
+                child: SvgPicture.asset(
+                  AssetConstants.starIcon,
+                  height: 14,
+                ),
+              ),
+              Text(
+                ratings,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Theme.of(context).colorScheme.background,
+                    ),
+              ),
+            ],
+          )
+        ],
+      );
+    });
+  }
+}
+
+class Profile extends StatelessWidget {
+  final String followers;
+  final String artistName;
+  const Profile({
+    super.key,
+    required this.followers,
+    required this.artistName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              height: 50,
+              width: 174,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onSurface,
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 2.h,
+                      backgroundImage: const AssetImage(
+                        AssetConstants.circleAvtarProfile,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 1.h,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          artistName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        SizedBox(
+                          height: 0.5.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 5.h),
+                          child: Text(
+                            followers,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ShareIcon extends StatelessWidget {
+  const ShareIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 7.h,
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            bandName,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.background, fontSize: 18),
-          ),
+        SvgPicture.asset(AssetConstants.heartOutlinedIcon),
+        SizedBox(
+          height: 20.h,
         ),
-        Padding(
-          padding: EdgeInsets.only(right: 40.h),
-          child: SvgPicture.asset(
-            AssetConstants.homeFilledLocation,
-            height: 16,
-          ),
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                AssetConstants.ticketIcon,
-                height: 16,
-              ),
-            ),
-            Text(
-              '₹${price % 1 == 0 ? price.toInt() : price.toStringAsFixed(2)}',
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                AssetConstants.clockIcon,
-                height: 16,
-              ),
-            ),
-            Text(
-              time,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        )
+        SvgPicture.asset(AssetConstants.shareIcon)
       ],
     );
   }

@@ -22,8 +22,10 @@ mixin _$HomeState {
   bool get noUse => throw _privateConstructorUsedError;
   List<String> get imageList => throw _privateConstructorUsedError;
   List<String> get categoriesList => throw _privateConstructorUsedError;
-  List<String> get exploreList => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>> get exploreList =>
+      throw _privateConstructorUsedError;
   PageController get pageController => throw _privateConstructorUsedError;
+  int get selectedImageIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -42,8 +44,9 @@ abstract class $HomeStateCopyWith<$Res> {
       bool noUse,
       List<String> imageList,
       List<String> categoriesList,
-      List<String> exploreList,
-      PageController pageController});
+      List<Map<String, dynamic>> exploreList,
+      PageController pageController,
+      int selectedImageIndex});
 }
 
 /// @nodoc
@@ -67,6 +70,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? categoriesList = null,
     Object? exploreList = null,
     Object? pageController = null,
+    Object? selectedImageIndex = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -96,11 +100,15 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       exploreList: null == exploreList
           ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Map<String, dynamic>>,
       pageController: null == pageController
           ? _value.pageController
           : pageController // ignore: cast_nullable_to_non_nullable
               as PageController,
+      selectedImageIndex: null == selectedImageIndex
+          ? _value.selectedImageIndex
+          : selectedImageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -120,8 +128,9 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool noUse,
       List<String> imageList,
       List<String> categoriesList,
-      List<String> exploreList,
-      PageController pageController});
+      List<Map<String, dynamic>> exploreList,
+      PageController pageController,
+      int selectedImageIndex});
 }
 
 /// @nodoc
@@ -143,6 +152,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? categoriesList = null,
     Object? exploreList = null,
     Object? pageController = null,
+    Object? selectedImageIndex = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -172,11 +182,15 @@ class __$$HomeStateImplCopyWithImpl<$Res>
       exploreList: null == exploreList
           ? _value._exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<Map<String, dynamic>>,
       pageController: null == pageController
           ? _value.pageController
           : pageController // ignore: cast_nullable_to_non_nullable
               as PageController,
+      selectedImageIndex: null == selectedImageIndex
+          ? _value.selectedImageIndex
+          : selectedImageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -191,8 +205,9 @@ class _$HomeStateImpl implements _HomeState {
       required this.noUse,
       required final List<String> imageList,
       required final List<String> categoriesList,
-      required final List<String> exploreList,
-      required this.pageController})
+      required final List<Map<String, dynamic>> exploreList,
+      required this.pageController,
+      required this.selectedImageIndex})
       : _imageList = imageList,
         _categoriesList = categoriesList,
         _exploreList = exploreList;
@@ -221,9 +236,9 @@ class _$HomeStateImpl implements _HomeState {
     return EqualUnmodifiableListView(_categoriesList);
   }
 
-  final List<String> _exploreList;
+  final List<Map<String, dynamic>> _exploreList;
   @override
-  List<String> get exploreList {
+  List<Map<String, dynamic>> get exploreList {
     if (_exploreList is EqualUnmodifiableListView) return _exploreList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_exploreList);
@@ -231,10 +246,12 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   final PageController pageController;
+  @override
+  final int selectedImageIndex;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, categoriesList: $categoriesList, exploreList: $exploreList, pageController: $pageController)';
+    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, categoriesList: $categoriesList, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex)';
   }
 
   @override
@@ -256,7 +273,9 @@ class _$HomeStateImpl implements _HomeState {
             const DeepCollectionEquality()
                 .equals(other._exploreList, _exploreList) &&
             (identical(other.pageController, pageController) ||
-                other.pageController == pageController));
+                other.pageController == pageController) &&
+            (identical(other.selectedImageIndex, selectedImageIndex) ||
+                other.selectedImageIndex == selectedImageIndex));
   }
 
   @override
@@ -269,7 +288,8 @@ class _$HomeStateImpl implements _HomeState {
       const DeepCollectionEquality().hash(_imageList),
       const DeepCollectionEquality().hash(_categoriesList),
       const DeepCollectionEquality().hash(_exploreList),
-      pageController);
+      pageController,
+      selectedImageIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -286,8 +306,9 @@ abstract class _HomeState implements HomeState {
       required final bool noUse,
       required final List<String> imageList,
       required final List<String> categoriesList,
-      required final List<String> exploreList,
-      required final PageController pageController}) = _$HomeStateImpl;
+      required final List<Map<String, dynamic>> exploreList,
+      required final PageController pageController,
+      required final int selectedImageIndex}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -302,9 +323,11 @@ abstract class _HomeState implements HomeState {
   @override
   List<String> get categoriesList;
   @override
-  List<String> get exploreList;
+  List<Map<String, dynamic>> get exploreList;
   @override
   PageController get pageController;
+  @override
+  int get selectedImageIndex;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

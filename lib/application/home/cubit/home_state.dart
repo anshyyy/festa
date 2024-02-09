@@ -9,8 +9,9 @@ class HomeState with _$HomeState {
     required bool noUse,
     required List<String> imageList,
     required List<String> categoriesList,
-    required List<String> exploreList,
+    required List<Map<String, dynamic>> exploreList,
     required PageController pageController,
+    required int selectedImageIndex,
   }) = _HomeState;
 
   factory HomeState.initial() => HomeState(
@@ -38,12 +39,27 @@ class HomeState with _$HomeState {
           'Telugu'
         ],
         exploreList: [
-          'Filter',
-          'Today',
-          'This weekend',
-          'Sort',
-          'Date',
-          AssetConstants.heartOutlinedIcon,
+          {
+            'svgIcon': AssetConstants.filterIcon,
+            'label': 'Filter',
+          },
+          {
+            'label': 'Today',
+          },
+          {
+            'label': 'This weekend',
+          },
+          {
+            'svgIcon': AssetConstants.arrowDown,
+            'label': 'Sort',
+          },
+          {
+            'label': 'Date',
+          },
+          {
+            'svgIcon': AssetConstants.heartOutlinedIcon,
+          }
         ],
+        selectedImageIndex: 0,
       );
 }

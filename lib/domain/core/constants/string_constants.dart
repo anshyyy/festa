@@ -105,3 +105,8 @@ class HomeScreenConstants {
 class CartScreenConstants {
   static String addText = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
 }
+
+class EventCardScreenConstants {
+  static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
+  static String viewOnMaps = 'View on maps';
+}

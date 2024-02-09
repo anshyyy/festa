@@ -21,8 +21,7 @@ mixin _$CartState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   List<String> get imageList => throw _privateConstructorUsedError;
-  CarouselController get imageCarouselController =>
-      throw _privateConstructorUsedError;
+  int get selectedImageIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartStateCopyWith<CartState> get copyWith =>
@@ -40,7 +39,7 @@ abstract class $CartStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       List<String> imageList,
-      CarouselController imageCarouselController});
+      int selectedImageIndex});
 }
 
 /// @nodoc
@@ -61,7 +60,7 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
     Object? isFailed = null,
     Object? noUse = null,
     Object? imageList = null,
-    Object? imageCarouselController = null,
+    Object? selectedImageIndex = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -84,10 +83,10 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.imageList
           : imageList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      imageCarouselController: null == imageCarouselController
-          ? _value.imageCarouselController
-          : imageCarouselController // ignore: cast_nullable_to_non_nullable
-              as CarouselController,
+      selectedImageIndex: null == selectedImageIndex
+          ? _value.selectedImageIndex
+          : selectedImageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -106,7 +105,7 @@ abstract class _$$CartStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       List<String> imageList,
-      CarouselController imageCarouselController});
+      int selectedImageIndex});
 }
 
 /// @nodoc
@@ -125,7 +124,7 @@ class __$$CartStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? noUse = null,
     Object? imageList = null,
-    Object? imageCarouselController = null,
+    Object? selectedImageIndex = null,
   }) {
     return _then(_$CartStateImpl(
       isLoading: null == isLoading
@@ -148,10 +147,10 @@ class __$$CartStateImplCopyWithImpl<$Res>
           ? _value._imageList
           : imageList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      imageCarouselController: null == imageCarouselController
-          ? _value.imageCarouselController
-          : imageCarouselController // ignore: cast_nullable_to_non_nullable
-              as CarouselController,
+      selectedImageIndex: null == selectedImageIndex
+          ? _value.selectedImageIndex
+          : selectedImageIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -165,7 +164,7 @@ class _$CartStateImpl implements _CartState {
       required this.isFailed,
       required this.noUse,
       required final List<String> imageList,
-      required this.imageCarouselController})
+      required this.selectedImageIndex})
       : _imageList = imageList;
 
   @override
@@ -185,11 +184,11 @@ class _$CartStateImpl implements _CartState {
   }
 
   @override
-  final CarouselController imageCarouselController;
+  final int selectedImageIndex;
 
   @override
   String toString() {
-    return 'CartState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, imageCarouselController: $imageCarouselController)';
+    return 'CartState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, selectedImageIndex: $selectedImageIndex)';
   }
 
   @override
@@ -206,9 +205,8 @@ class _$CartStateImpl implements _CartState {
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             const DeepCollectionEquality()
                 .equals(other._imageList, _imageList) &&
-            (identical(
-                    other.imageCarouselController, imageCarouselController) ||
-                other.imageCarouselController == imageCarouselController));
+            (identical(other.selectedImageIndex, selectedImageIndex) ||
+                other.selectedImageIndex == selectedImageIndex));
   }
 
   @override
@@ -219,7 +217,7 @@ class _$CartStateImpl implements _CartState {
       isFailed,
       noUse,
       const DeepCollectionEquality().hash(_imageList),
-      imageCarouselController);
+      selectedImageIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -230,13 +228,12 @@ class _$CartStateImpl implements _CartState {
 
 abstract class _CartState implements CartState {
   const factory _CartState(
-          {required final bool isLoading,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          required final List<String> imageList,
-          required final CarouselController imageCarouselController}) =
-      _$CartStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      required final List<String> imageList,
+      required final int selectedImageIndex}) = _$CartStateImpl;
 
   @override
   bool get isLoading;
@@ -249,7 +246,7 @@ abstract class _CartState implements CartState {
   @override
   List<String> get imageList;
   @override
-  CarouselController get imageCarouselController;
+  int get selectedImageIndex;
   @override
   @JsonKey(ignore: true)
   _$$CartStateImplCopyWith<_$CartStateImpl> get copyWith =>

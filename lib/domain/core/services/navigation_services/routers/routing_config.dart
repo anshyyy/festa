@@ -13,6 +13,7 @@ import '../../../../../presentation/auth/verify_otp_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../../../presentation/home/home_screen.dart';
+import '../../../../../presentation/individual_event_card/individual_event_card_screen.dart';
 import '../../../extensions/string_extension.dart';
 import 'route_name.dart';
 
@@ -28,8 +29,12 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case AuthRoutes.genderRoute:
       return _getPageRoute(const GenderSelectionScreen(), settings);
+
     case UserRoutes.mainNavRoute:
       return _getPageRoute(const HomeScreen(), settings);
+
+    case UserRoutes.eventCardRoute:
+      return _getPageRoute(const EventCardScreen(), settings);
 
     default:
       return commonNavigation(settings);

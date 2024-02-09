@@ -21,9 +21,9 @@ class AssetConstants {
   static const telugu = '${vectorsFolder}Telugu.png';
   static const homeBobsBarImg = '${vectorsFolder}bobsbarimg.png';
   static const homeFilledLocation = '${vectorsFolder}home-filled-location.svg';
-  static const directionIcon = '${vectorsFolder}direction-icon.svg';
+  static const shareIcon = '${vectorsFolder}direction-icon.svg';
   static const ticketIcon = '${vectorsFolder}ticket.svg';
-  static const heartOutlinedIcon = '${vectorsFolder}heart-outlined-icon.png';
+  static const heartOutlinedIcon = '${vectorsFolder}heart-outlined-icon.svg';
   static const homeProfilePictureIcon =
       '${vectorsFolder}profile-picture-icon.svg';
   static const heartFilledIcon = '${vectorsFolder}heart-filled-icon.svg';
@@ -41,4 +41,7 @@ class AssetConstants {
   static const closeIcon = '${vectorsFolder}close-icon.svg';
   static const arrowDown = '${vectorsFolder}arrow-down.svg';
   static const clockIcon = '${vectorsFolder}clock-icon.svg';
+  static const starIcon = '${vectorsFolder}star-icon.svg';
+  static const filterIcon = '${vectorsFolder}filter-icon.svg';
+  static const circleAvtarProfile = '${vectorsFolder}profile-circle-avtar.png';
 }

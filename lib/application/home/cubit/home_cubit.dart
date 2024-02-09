@@ -9,4 +9,8 @@ part 'home_cubit.freezed.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(super.initialState);
+
+  void onCarouseChanged({required int index}) {
+    emit(state.copyWith(selectedImageIndex: index));
+  }
 }

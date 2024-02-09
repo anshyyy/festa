@@ -4,8 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
+import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../common/card_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +35,7 @@ class HomeScreenConsumer extends StatelessWidget {
           body: SafeArea(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 3.h),
+                padding: EdgeInsets.symmetric(horizontal: 1.5.h, vertical: 3.h),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +140,7 @@ class HomeScreenConsumer extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {},
                                 child: Container(
-                                  margin: EdgeInsets.only(right: 1.h),
+                                  margin: EdgeInsets.only(right: 0.5.h),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -149,23 +152,10 @@ class HomeScreenConsumer extends StatelessWidget {
                                     ),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Center(
-                                      child: FittedBox(
-                                        child: Text(
-                                          state.exploreList[index],
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .background,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
+                                  child: ExploreTile(
+                                    svgIcon: state.exploreList[index]
+                                        ['svgIcon'],
+                                    label: state.exploreList[index]['label'],
                                   ),
                                 ),
                               );
@@ -173,13 +163,20 @@ class HomeScreenConsumer extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    CardScreen(
-                      km: 2.3,
-                      dateTime: DateTime.now(),
-                      barsName: "Bobs's Bar",
-                      bandName: CartScreenConstants.addText,
-                      price: 5000,
-                      time: '10:00 AM - 12:30 AM',
+                    GestureDetector(
+                      onTap: () {
+                        navigator<NavigationService>()
+                            .navigateTo(UserRoutes.eventCardRoute);
+                      },
+                      child: CardScreen(
+                        km: 2.3,
+                        dateTime: DateTime.now(),
+                        barsName: "Bobs's Bar",
+                        bandName: CartScreenConstants.addText,
+                        price: 5000,
+                        time: '10:00 AM - 12:30 AM',
+                        ratings: '5.0(100 ratings)',
+                      ),
                     )
                   ],
                 ),
@@ -188,6 +185,44 @@ class HomeScreenConsumer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ExploreTile extends StatelessWidget {
+  final String? label;
+  final String? svgIcon;
+  const ExploreTile({super.key, this.label, this.svgIcon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(6),
+      child: FittedBox(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            label != null
+                ? Text(
+                    label!,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                  )
+                : const SizedBox(),
+            SizedBox(
+              width: 0.5.h,
+            ),
+            svgIcon != null
+                ? SvgPicture.asset(
+                    svgIcon!,
+                    height: 8,
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ),
     );
   }
 }

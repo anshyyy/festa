@@ -176,6 +176,8 @@ class HomeScreenConsumer extends StatelessWidget {
                         price: 5000,
                         time: '10:00 AM - 12:30 AM',
                         ratings: '5.0(100 ratings)',
+                        location:
+                            'Great Indian Music Hall, Indira Nagar, Bangalore',
                       ),
                     )
                   ],

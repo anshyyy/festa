@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
 class GradientButton extends StatelessWidget {
   final String text;
   final void Function()? onTap;
@@ -9,9 +8,9 @@ class GradientButton extends StatelessWidget {
   final Color? gradientColor2;
   final Color? fontColor;
   final Color? showColor;
-  final double height;
-  final double width;
-  const GradientButton(
+  double height;
+  double width;
+  GradientButton(
       {super.key,
       required this.text,
       required this.onTap,
@@ -33,7 +32,7 @@ class GradientButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 6.5.h,
-        width: 100.w,
+        width: 50.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           boxShadow: [
@@ -52,7 +51,8 @@ class GradientButton extends StatelessWidget {
         child: Center(
           child: Text(text,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: fontColor ?? Theme.of(context).colorScheme.background,
+                    color:
+                        fontColor ?? Theme.of(context).colorScheme.background,
                     fontWeight: FontWeight.w700,
                   )),
         ),

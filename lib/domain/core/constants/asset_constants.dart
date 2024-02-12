@@ -44,4 +44,11 @@ class AssetConstants {
   static const starIcon = '${vectorsFolder}star-icon.svg';
   static const filterIcon = '${vectorsFolder}filter-icon.svg';
   static const circleAvtarProfile = '${vectorsFolder}profile-circle-avtar.png';
+  static const backArrowIcon = '${vectorsFolder}arrow-back.svg';
+  static const threeDotsIcon = '${vectorsFolder}three-dots-icon.svg';
+  static const lightsIcon = '${vectorsFolder}lights.svg';
+  static const soundsIcon = '${vectorsFolder}sound.svg';
+  static const danceFloorIcon = '${vectorsFolder}dancefloor.svg';
+  static const foodIcon = '${vectorsFolder}food.svg';
+  static const drinkIcon = '${vectorsFolder}drinks.svg';
 }

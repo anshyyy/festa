@@ -7,7 +7,7 @@ class AssetConstants {
 
   static const searchSvg = '${vectorsFolder}example.svg';
   static const profileIcon = '${vectorsFolder}bprofile-icon.png';
-  // static const locationIcon = '${vectorsFolder}location-icon.svg';
+  static const locationIconPink = '${vectorsFolder}location-icon.svg';
   static const searchIcon = '${vectorsFolder}search-icon.svg';
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
   static const techno = '${vectorsFolder}Techno.png';

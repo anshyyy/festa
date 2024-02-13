@@ -80,7 +80,6 @@ class CardScreen extends StatelessWidget {
                   enableInfiniteScroll: false,
                   viewportFraction: 1,
                   onPageChanged: (index, reason) {
-                    context.read<HomeCubit>().onCarouseChanged(index: index);
                   },
                 ),
               ),

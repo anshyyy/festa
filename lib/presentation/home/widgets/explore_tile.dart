@@ -3,9 +3,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ExploreTile extends StatelessWidget {
-  final String? label;
+  final String label;
   final String? svgIcon;
-  const ExploreTile({super.key, this.label, this.svgIcon});
+  final bool iconAtEnd;
+  const ExploreTile(
+      {super.key, required this.label, this.svgIcon, this.iconAtEnd = true});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +18,12 @@ class ExploreTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            label != null
-                ? Text(
-                    label!,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                  )
-                : const SizedBox(),
+            Text(
+              label,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+            ),
             SizedBox(
               width: 0.5.h,
             ),

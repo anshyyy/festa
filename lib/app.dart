@@ -72,7 +72,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       initialRoute: Provider.of<AppStateNotifier>(context).isOffline
           ? GeneralRoutes.noNetworkAtStart
           : Provider.of<AppStateNotifier>(context).isAuthorized
-              ? UserRoutes.clubProfileRoute
+              ? UserRoutes.mainNavRoute
               : AuthRoutes.startRoute,
     );
   }
@@ -85,7 +85,7 @@ Future appInitializer(AppConfig appConfig) async {
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  bool isAuthorized = 1 == 1;
+  bool isAuthorized = 1 != 1;
   bool isOffline = false;
 
   if (isAuthorized && !isOffline) {}

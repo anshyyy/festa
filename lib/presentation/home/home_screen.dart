@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(HomeState.initial()),
+      create: (context) => HomeCubit(HomeState.initial())..init(),
       child: const HomeScreenConsumer(),
     );
   }
@@ -44,7 +44,22 @@ class HomeScreenConsumer extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(AssetConstants.locationIcon),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(AssetConstants.locationIconPink),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Text(
+                              'Indra Nagar',
+                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.bold
+                              ),
+                            )
+                          ],
+                        ),
                         Row(
                           children: [
                             SvgPicture.asset(AssetConstants.searchIcon),
@@ -80,7 +95,7 @@ class HomeScreenConsumer extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    Container(
+                    SizedBox(
                       height: 78,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -139,8 +154,8 @@ class HomeScreenConsumer extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    Container(
-                        height: 4.h,
+                    SizedBox(
+                        height: 35,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: state.exploreList.length,
@@ -148,7 +163,7 @@ class HomeScreenConsumer extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {},
                                 child: Container(
-                                  margin: EdgeInsets.only(right: 0.5.h),
+                                  margin: const EdgeInsets.only(right: 5),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .colorScheme

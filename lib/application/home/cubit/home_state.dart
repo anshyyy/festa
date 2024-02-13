@@ -57,6 +57,7 @@ class HomeState with _$HomeState {
             'label': 'Date',
           },
           {
+            'label': 'Favorite',
             'svgIcon': AssetConstants.heartOutlinedIcon,
           }
         ],

@@ -2,18 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../presentation/basic_profile/basic_profile_screen.dart';
-import '../../../../../presentation/basic_profile/birthday_selection_screen.dart';
-import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 
 import '../../../../../presentation/auth/auth_screen.dart';
 import '../../../../../presentation/auth/login_with_phone_screen.dart';
 import '../../../../../presentation/auth/start_screen.dart';
 import '../../../../../presentation/auth/verify_otp_screen.dart';
+import '../../../../../presentation/basic_profile/basic_profile_screen.dart';
+import '../../../../../presentation/basic_profile/birthday_selection_screen.dart';
+import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
+import '../../../../../presentation/booking/book_ticket_screen.dart';
+import '../../../../../presentation/booking/payment_details_screen.dart';
+import '../../../../../presentation/club_profile/club_profile_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/individual_event_card/individual_event_card_screen.dart';
+import '../../../../../presentation/ticket/tickets_screen.dart';
 import '../../../extensions/string_extension.dart';
 import 'route_name.dart';
 
@@ -36,6 +40,18 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.eventCardRoute:
       return _getPageRoute(const EventCardScreen(), settings);
 
+    case UserRoutes.ticketsRoute:
+      return _getPageRoute(const TicketScreen(), settings);
+
+      case UserRoutes.bookingRoute:
+    return _getPageRoute(const BookTicketScreen(), settings);
+    
+    case UserRoutes.paymentDetailsRoute:
+    return _getPageRoute(const PaymentDetails(), settings);
+
+
+    case UserRoutes.clubProfileRoute:
+      return _getPageRoute(const ClubProfileScreen(), settings);
     default:
       return commonNavigation(settings);
   }
@@ -74,12 +90,14 @@ Route<dynamic> commonNavigation(RouteSettings settings) {
     case AuthRoutes.verifyOTPRoute:
       final routeData = routingData.queryParameters;
       final String verificationCode = routeData['verificationCode'] ?? '';
-      final String otpCode = routeData['otpData'] ?? '';
+      final String dialCode = routeData['dialCode'] ?? '';
+      final String phoneNumber = routeData['phoneNumber'] ?? '';
 
       return _getPageRoute(
           VerifyOtpScreen(
             verificationCode: verificationCode,
-            otpCode: otpCode,
+            dialCode: dialCode,
+            phoneNumber: phoneNumber.trim(),
           ),
           settings);
 

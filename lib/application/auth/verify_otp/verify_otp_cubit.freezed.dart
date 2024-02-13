@@ -17,11 +17,22 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$VerifyOtpState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isSuccess => throw _privateConstructorUsedError;
-  bool get isFailed => throw _privateConstructorUsedError;
+  bool get isOTPVerificationSuccessful => throw _privateConstructorUsedError;
+  bool get isOTPVerificationFailed => throw _privateConstructorUsedError;
   TextEditingController get otpController => throw _privateConstructorUsedError;
   String? get verificationCode => throw _privateConstructorUsedError;
-  String? get otpCode => throw _privateConstructorUsedError;
+  String? get apiBaseUrl => throw _privateConstructorUsedError;
+  AuthRepository get authRepository => throw _privateConstructorUsedError;
+  String get dialCode => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  CountdownController get countdownController =>
+      throw _privateConstructorUsedError;
+  bool get showResendButton => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
+  bool get isVerifyEnabled => throw _privateConstructorUsedError;
+  bool get backToAuth => throw _privateConstructorUsedError;
+  bool get isOTPSentSuccessful => throw _privateConstructorUsedError;
+  bool get isOTPSentFailed => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VerifyOtpStateCopyWith<VerifyOtpState> get copyWith =>
@@ -36,11 +47,21 @@ abstract class $VerifyOtpStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
-      bool isSuccess,
-      bool isFailed,
+      bool isOTPVerificationSuccessful,
+      bool isOTPVerificationFailed,
       TextEditingController otpController,
       String? verificationCode,
-      String? otpCode});
+      String? apiBaseUrl,
+      AuthRepository authRepository,
+      String dialCode,
+      String phoneNumber,
+      CountdownController countdownController,
+      bool showResendButton,
+      String errorMessage,
+      bool isVerifyEnabled,
+      bool backToAuth,
+      bool isOTPSentSuccessful,
+      bool isOTPSentFailed});
 }
 
 /// @nodoc
@@ -57,24 +78,34 @@ class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isSuccess = null,
-    Object? isFailed = null,
+    Object? isOTPVerificationSuccessful = null,
+    Object? isOTPVerificationFailed = null,
     Object? otpController = null,
     Object? verificationCode = freezed,
-    Object? otpCode = freezed,
+    Object? apiBaseUrl = freezed,
+    Object? authRepository = null,
+    Object? dialCode = null,
+    Object? phoneNumber = null,
+    Object? countdownController = null,
+    Object? showResendButton = null,
+    Object? errorMessage = null,
+    Object? isVerifyEnabled = null,
+    Object? backToAuth = null,
+    Object? isOTPSentSuccessful = null,
+    Object? isOTPSentFailed = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSuccess: null == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
+      isOTPVerificationSuccessful: null == isOTPVerificationSuccessful
+          ? _value.isOTPVerificationSuccessful
+          : isOTPVerificationSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFailed: null == isFailed
-          ? _value.isFailed
-          : isFailed // ignore: cast_nullable_to_non_nullable
+      isOTPVerificationFailed: null == isOTPVerificationFailed
+          ? _value.isOTPVerificationFailed
+          : isOTPVerificationFailed // ignore: cast_nullable_to_non_nullable
               as bool,
       otpController: null == otpController
           ? _value.otpController
@@ -84,10 +115,50 @@ class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
           ? _value.verificationCode
           : verificationCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      otpCode: freezed == otpCode
-          ? _value.otpCode
-          : otpCode // ignore: cast_nullable_to_non_nullable
+      apiBaseUrl: freezed == apiBaseUrl
+          ? _value.apiBaseUrl
+          : apiBaseUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      authRepository: null == authRepository
+          ? _value.authRepository
+          : authRepository // ignore: cast_nullable_to_non_nullable
+              as AuthRepository,
+      dialCode: null == dialCode
+          ? _value.dialCode
+          : dialCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      countdownController: null == countdownController
+          ? _value.countdownController
+          : countdownController // ignore: cast_nullable_to_non_nullable
+              as CountdownController,
+      showResendButton: null == showResendButton
+          ? _value.showResendButton
+          : showResendButton // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      isVerifyEnabled: null == isVerifyEnabled
+          ? _value.isVerifyEnabled
+          : isVerifyEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      backToAuth: null == backToAuth
+          ? _value.backToAuth
+          : backToAuth // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOTPSentSuccessful: null == isOTPSentSuccessful
+          ? _value.isOTPSentSuccessful
+          : isOTPSentSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOTPSentFailed: null == isOTPSentFailed
+          ? _value.isOTPSentFailed
+          : isOTPSentFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -102,11 +173,21 @@ abstract class _$$VerifyOtpStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
-      bool isSuccess,
-      bool isFailed,
+      bool isOTPVerificationSuccessful,
+      bool isOTPVerificationFailed,
       TextEditingController otpController,
       String? verificationCode,
-      String? otpCode});
+      String? apiBaseUrl,
+      AuthRepository authRepository,
+      String dialCode,
+      String phoneNumber,
+      CountdownController countdownController,
+      bool showResendButton,
+      String errorMessage,
+      bool isVerifyEnabled,
+      bool backToAuth,
+      bool isOTPSentSuccessful,
+      bool isOTPSentFailed});
 }
 
 /// @nodoc
@@ -121,24 +202,34 @@ class __$$VerifyOtpStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isSuccess = null,
-    Object? isFailed = null,
+    Object? isOTPVerificationSuccessful = null,
+    Object? isOTPVerificationFailed = null,
     Object? otpController = null,
     Object? verificationCode = freezed,
-    Object? otpCode = freezed,
+    Object? apiBaseUrl = freezed,
+    Object? authRepository = null,
+    Object? dialCode = null,
+    Object? phoneNumber = null,
+    Object? countdownController = null,
+    Object? showResendButton = null,
+    Object? errorMessage = null,
+    Object? isVerifyEnabled = null,
+    Object? backToAuth = null,
+    Object? isOTPSentSuccessful = null,
+    Object? isOTPSentFailed = null,
   }) {
     return _then(_$VerifyOtpStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSuccess: null == isSuccess
-          ? _value.isSuccess
-          : isSuccess // ignore: cast_nullable_to_non_nullable
+      isOTPVerificationSuccessful: null == isOTPVerificationSuccessful
+          ? _value.isOTPVerificationSuccessful
+          : isOTPVerificationSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFailed: null == isFailed
-          ? _value.isFailed
-          : isFailed // ignore: cast_nullable_to_non_nullable
+      isOTPVerificationFailed: null == isOTPVerificationFailed
+          ? _value.isOTPVerificationFailed
+          : isOTPVerificationFailed // ignore: cast_nullable_to_non_nullable
               as bool,
       otpController: null == otpController
           ? _value.otpController
@@ -148,10 +239,50 @@ class __$$VerifyOtpStateImplCopyWithImpl<$Res>
           ? _value.verificationCode
           : verificationCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      otpCode: freezed == otpCode
-          ? _value.otpCode
-          : otpCode // ignore: cast_nullable_to_non_nullable
+      apiBaseUrl: freezed == apiBaseUrl
+          ? _value.apiBaseUrl
+          : apiBaseUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      authRepository: null == authRepository
+          ? _value.authRepository
+          : authRepository // ignore: cast_nullable_to_non_nullable
+              as AuthRepository,
+      dialCode: null == dialCode
+          ? _value.dialCode
+          : dialCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      countdownController: null == countdownController
+          ? _value.countdownController
+          : countdownController // ignore: cast_nullable_to_non_nullable
+              as CountdownController,
+      showResendButton: null == showResendButton
+          ? _value.showResendButton
+          : showResendButton // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      isVerifyEnabled: null == isVerifyEnabled
+          ? _value.isVerifyEnabled
+          : isVerifyEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      backToAuth: null == backToAuth
+          ? _value.backToAuth
+          : backToAuth // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOTPSentSuccessful: null == isOTPSentSuccessful
+          ? _value.isOTPSentSuccessful
+          : isOTPSentSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOTPSentFailed: null == isOTPSentFailed
+          ? _value.isOTPSentFailed
+          : isOTPSentFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -161,28 +292,58 @@ class __$$VerifyOtpStateImplCopyWithImpl<$Res>
 class _$VerifyOtpStateImpl implements _VerifyOtpState {
   const _$VerifyOtpStateImpl(
       {required this.isLoading,
-      required this.isSuccess,
-      required this.isFailed,
+      required this.isOTPVerificationSuccessful,
+      required this.isOTPVerificationFailed,
       required this.otpController,
       required this.verificationCode,
-      required this.otpCode});
+      required this.apiBaseUrl,
+      required this.authRepository,
+      required this.dialCode,
+      required this.phoneNumber,
+      required this.countdownController,
+      required this.showResendButton,
+      required this.errorMessage,
+      required this.isVerifyEnabled,
+      required this.backToAuth,
+      required this.isOTPSentSuccessful,
+      required this.isOTPSentFailed});
 
   @override
   final bool isLoading;
   @override
-  final bool isSuccess;
+  final bool isOTPVerificationSuccessful;
   @override
-  final bool isFailed;
+  final bool isOTPVerificationFailed;
   @override
   final TextEditingController otpController;
   @override
   final String? verificationCode;
   @override
-  final String? otpCode;
+  final String? apiBaseUrl;
+  @override
+  final AuthRepository authRepository;
+  @override
+  final String dialCode;
+  @override
+  final String phoneNumber;
+  @override
+  final CountdownController countdownController;
+  @override
+  final bool showResendButton;
+  @override
+  final String errorMessage;
+  @override
+  final bool isVerifyEnabled;
+  @override
+  final bool backToAuth;
+  @override
+  final bool isOTPSentSuccessful;
+  @override
+  final bool isOTPSentFailed;
 
   @override
   String toString() {
-    return 'VerifyOtpState(isLoading: $isLoading, isSuccess: $isSuccess, isFailed: $isFailed, otpController: $otpController, verificationCode: $verificationCode, otpCode: $otpCode)';
+    return 'VerifyOtpState(isLoading: $isLoading, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, isOTPVerificationFailed: $isOTPVerificationFailed, otpController: $otpController, verificationCode: $verificationCode, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, dialCode: $dialCode, phoneNumber: $phoneNumber, countdownController: $countdownController, showResendButton: $showResendButton, errorMessage: $errorMessage, isVerifyEnabled: $isVerifyEnabled, backToAuth: $backToAuth, isOTPSentSuccessful: $isOTPSentSuccessful, isOTPSentFailed: $isOTPSentFailed)';
   }
 
   @override
@@ -192,20 +353,60 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
             other is _$VerifyOtpStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.isSuccess, isSuccess) ||
-                other.isSuccess == isSuccess) &&
-            (identical(other.isFailed, isFailed) ||
-                other.isFailed == isFailed) &&
+            (identical(other.isOTPVerificationSuccessful,
+                    isOTPVerificationSuccessful) ||
+                other.isOTPVerificationSuccessful ==
+                    isOTPVerificationSuccessful) &&
+            (identical(
+                    other.isOTPVerificationFailed, isOTPVerificationFailed) ||
+                other.isOTPVerificationFailed == isOTPVerificationFailed) &&
             (identical(other.otpController, otpController) ||
                 other.otpController == otpController) &&
             (identical(other.verificationCode, verificationCode) ||
                 other.verificationCode == verificationCode) &&
-            (identical(other.otpCode, otpCode) || other.otpCode == otpCode));
+            (identical(other.apiBaseUrl, apiBaseUrl) ||
+                other.apiBaseUrl == apiBaseUrl) &&
+            (identical(other.authRepository, authRepository) ||
+                other.authRepository == authRepository) &&
+            (identical(other.dialCode, dialCode) ||
+                other.dialCode == dialCode) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.countdownController, countdownController) ||
+                other.countdownController == countdownController) &&
+            (identical(other.showResendButton, showResendButton) ||
+                other.showResendButton == showResendButton) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.isVerifyEnabled, isVerifyEnabled) ||
+                other.isVerifyEnabled == isVerifyEnabled) &&
+            (identical(other.backToAuth, backToAuth) ||
+                other.backToAuth == backToAuth) &&
+            (identical(other.isOTPSentSuccessful, isOTPSentSuccessful) ||
+                other.isOTPSentSuccessful == isOTPSentSuccessful) &&
+            (identical(other.isOTPSentFailed, isOTPSentFailed) ||
+                other.isOTPSentFailed == isOTPSentFailed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailed,
-      otpController, verificationCode, otpCode);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      isOTPVerificationSuccessful,
+      isOTPVerificationFailed,
+      otpController,
+      verificationCode,
+      apiBaseUrl,
+      authRepository,
+      dialCode,
+      phoneNumber,
+      countdownController,
+      showResendButton,
+      errorMessage,
+      isVerifyEnabled,
+      backToAuth,
+      isOTPSentSuccessful,
+      isOTPSentFailed);
 
   @JsonKey(ignore: true)
   @override
@@ -218,24 +419,54 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
 abstract class _VerifyOtpState implements VerifyOtpState {
   const factory _VerifyOtpState(
       {required final bool isLoading,
-      required final bool isSuccess,
-      required final bool isFailed,
+      required final bool isOTPVerificationSuccessful,
+      required final bool isOTPVerificationFailed,
       required final TextEditingController otpController,
       required final String? verificationCode,
-      required final String? otpCode}) = _$VerifyOtpStateImpl;
+      required final String? apiBaseUrl,
+      required final AuthRepository authRepository,
+      required final String dialCode,
+      required final String phoneNumber,
+      required final CountdownController countdownController,
+      required final bool showResendButton,
+      required final String errorMessage,
+      required final bool isVerifyEnabled,
+      required final bool backToAuth,
+      required final bool isOTPSentSuccessful,
+      required final bool isOTPSentFailed}) = _$VerifyOtpStateImpl;
 
   @override
   bool get isLoading;
   @override
-  bool get isSuccess;
+  bool get isOTPVerificationSuccessful;
   @override
-  bool get isFailed;
+  bool get isOTPVerificationFailed;
   @override
   TextEditingController get otpController;
   @override
   String? get verificationCode;
   @override
-  String? get otpCode;
+  String? get apiBaseUrl;
+  @override
+  AuthRepository get authRepository;
+  @override
+  String get dialCode;
+  @override
+  String get phoneNumber;
+  @override
+  CountdownController get countdownController;
+  @override
+  bool get showResendButton;
+  @override
+  String get errorMessage;
+  @override
+  bool get isVerifyEnabled;
+  @override
+  bool get backToAuth;
+  @override
+  bool get isOTPSentSuccessful;
+  @override
+  bool get isOTPSentFailed;
   @override
   @JsonKey(ignore: true)
   _$$VerifyOtpStateImplCopyWith<_$VerifyOtpStateImpl> get copyWith =>

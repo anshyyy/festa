@@ -8,6 +8,10 @@ part 'starter_cubit.freezed.dart';
 class StarterCubit extends Cubit<StarterState> {
   StarterCubit(super.initialState);
 
+  void emitFromAnywhere({required StarterState state}){
+    emit(state);
+  }
+
   void completeOnboarding() {
     emit(
       state.copyWith(

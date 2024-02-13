@@ -19,4 +19,8 @@ class AuthRoutes {
 class UserRoutes {
   static const String mainNavRoute = 'mainNav';
   static const String eventCardRoute = 'eventcardscreen';
+  static const String ticketsRoute = 'tickets';
+  static const String bookingRoute = 'booking';
+  static const String paymentDetailsRoute = 'paymentDetails';
+  static const String clubProfileRoute = 'clubProfile';
 }

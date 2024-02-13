@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:timer_count_down/timer_count_down.dart';
 
 import '../../application/auth/verify_otp/verify_otp_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../widgets/rounded_arrow_button.dart';
+import '../widgets/snackbar_alert.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
   final String verificationCode;
-  final String otpCode;
-  const VerifyOtpScreen(
-      {super.key, required this.verificationCode, required this.otpCode});
+  final String dialCode;
+  final String phoneNumber;
+  const VerifyOtpScreen({
+    super.key,
+    required this.verificationCode,
+    required this.dialCode,
+    required this.phoneNumber,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +33,10 @@ class VerifyOtpScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => VerifyOtpCubit(VerifyOtpState.initial(
+        dialCode: dialCode,
+        phoneNumber: phoneNumber,
         verificationCode: verificationCode,
-        otpCode: otpCode,
+        apiBaseUrl: appConfig.serverUrl,
       )),
       child: const VerifyOtpScreenConsumer(),
     );
@@ -36,9 +50,67 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
 
-    return BlocConsumer<VerifyOtpCubit,VerifyOtpState>(
+    return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state.backToAuth) {
+          navigator<NavigationService>().goBack();
+          context.read<VerifyOtpCubit>().emitFromAnywhere(
+                state: state.copyWith(backToAuth: false),
+              );
+        }
+        // verify otp -> result - success
+        if (state.isOTPVerificationSuccessful &&
+            !state.isOTPVerificationFailed) {
+          // nav to home
+          Provider.of<AppStateNotifier>(context, listen: false)
+              .updateAfterAuthChange(isAuthorized: true);
+
+          Future.delayed(const Duration(milliseconds: 100)).then((value) async {
+            navigator<NavigationService>().navigateTo(
+              AuthRoutes.basicInfoRoute,
+            );
+          });
+          context.read<VerifyOtpCubit>().emitFromAnywhere(
+                state: state.copyWith(isOTPVerificationSuccessful: false),
+              );
+        }
+
+        // verify otp -> result - failed
+        if (!state.isOTPVerificationSuccessful &&
+            state.isOTPVerificationFailed) {
+          CustomScaffoldMessenger.clearSnackBars(context);
+          CustomScaffoldMessenger.showSnackBar(
+            context,
+            message: state.errorMessage,
+          );
+          context.read<VerifyOtpCubit>().emitFromAnywhere(
+                state: state.copyWith(isOTPVerificationFailed: false),
+              );
+        }
+
+        // send otp -> result - success
+        if (state.isOTPSentSuccessful && !state.isOTPSentFailed) {
+          CustomScaffoldMessenger.clearSnackBars(context);
+          CustomScaffoldMessenger.showSnackBar(
+            context,
+            message: state.errorMessage,
+          );
+          context.read<VerifyOtpCubit>().emitFromAnywhere(
+                state: state.copyWith(isOTPSentSuccessful: false),
+              );
+        }
+
+        // send otp -> result - failed
+        if (!state.isOTPSentSuccessful && state.isOTPSentFailed) {
+          CustomScaffoldMessenger.clearSnackBars(context);
+          CustomScaffoldMessenger.showSnackBar(
+            context,
+            message: state.errorMessage,
+          );
+          context.read<VerifyOtpCubit>().emitFromAnywhere(
+                state: state.copyWith(isOTPSentFailed: false),
+              );
+        }
       },
       builder: (context, state) {
         return SafeArea(
@@ -54,23 +126,38 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 Text(
                   LoginScreenConstants.verifyNumberHeader,
                   style: themeData.textTheme.bodyLarge!.copyWith(
-                    fontSize: 25.sp,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w600,
                     color: themeData.colorScheme.background,
                   ),
                 ),
                 SizedBox(
                   height: 1.h,
                 ),
-                Text(
-                  LoginScreenConstants.verifyNumberDescription,
-                  style: themeData.textTheme.bodyMedium,
+                Row(
+                  children: [
+                    Text(
+                      '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
+                      style: themeData.textTheme.bodySmall!.copyWith(fontSize: 15.sp),
+                    ),
+                    SizedBox(
+                      width: 2.w,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.read<VerifyOtpCubit>().onGoBack();
+                      },
+                      child: SvgPicture.asset(
+                        AssetConstants.editIcon,
+                      ),
+                    )
+                  ],
                 ),
                 SizedBox(
                   height: 5.h,
                 ),
                 PinCodeTextField(
-                  // controller: state.otpController,
+                  controller: state.otpController,
                   appContext: context,
                   length: 6,
                   showCursor: false,
@@ -81,7 +168,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                   hintCharacter: '-',
                   keyboardType: TextInputType.number,
                   hintStyle: themeData.textTheme.bodyLarge!.copyWith(
-                    fontSize: 28.sp,
+                    fontSize: 24.sp,
                     color: themeData.colorScheme.background,
                   ),
                   textStyle: themeData.textTheme.bodyLarge!.copyWith(
@@ -90,40 +177,81 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                     color: themeData.scaffoldBackgroundColor,
                   ),
                   pinTheme: PinTheme(
-                    inactiveColor: themeData.colorScheme.primaryContainer,
-                    borderWidth: 0,
-                    inactiveBorderWidth: 0,
-                    activeBorderWidth: 0,
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(40),
-                    fieldHeight: 7.5.h,
-                    fieldWidth: 13.w,
-                    selectedFillColor: themeData.colorScheme.primaryContainer,
-                    inactiveFillColor: themeData.colorScheme.primaryContainer,
-                    activeFillColor: themeData.colorScheme.background,
-                  ),
+                      inactiveColor: themeData.colorScheme.primaryContainer,
+                      borderWidth: 0,
+                      inactiveBorderWidth: 0,
+                      activeBorderWidth: 0,
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(40),
+                      fieldHeight: 7.5.h,
+                      fieldWidth: 13.w,
+                      selectedFillColor: themeData.colorScheme.primaryContainer,
+                      inactiveFillColor: themeData.colorScheme.primaryContainer,
+                      activeFillColor: themeData.colorScheme.background,
+                      selectedBorderWidth: 0,
+                      selectedColor: themeData.colorScheme.primary),
+                  onChanged: (value) {
+                    context.read<VerifyOtpCubit>().onOtpChange();
+                  },
                 ),
                 SizedBox(
                   height: 1.5.h,
                 ),
-                Text(
-                  LoginScreenConstants.resendAfter,
-                  style: themeData.textTheme.bodyMedium,
-                ),
+                state.showResendButton
+                    ? InkWell(
+                        onTap: () {
+                          context.read<VerifyOtpCubit>().resendOtp();
+                        },
+                        child: Text(
+                          LoginScreenConstants.resendNow,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Theme.of(context)
+                                        .colorScheme
+                                        .secondaryContainer,
+                                  ),
+                        ),
+                      )
+                    : Countdown(
+                        seconds: 60,
+                        build: (_, double time) {
+                          return Text(
+                            '${LoginScreenConstants.resendAfter}: ${time.toInt()}${AppConstants.seconds}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                decoration: TextDecoration.underline,
+                                  decorationColor:
+                                      Theme.of(context).colorScheme.background,
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                ),
+                          );
+                        },
+                        interval: const Duration(seconds: 1),
+                        onFinished: () {
+                          context.read<VerifyOtpCubit>().coundownFinished();
+                        },
+                      ),
                 const Spacer(),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: RoundedArrowButton(
-                    height: 6.h,
-                    width: 6.h,
-                    contentIcon: AssetConstants.longArrowRight,
-                    isEnabled: true,
-                    onTap: () {
-                      // if (!state.isLoginEnabled) {
-                        // context.read<AuthCubit>().verifyOtp();
-                      // }
-                    },
-                  ),
+                  child: state.isLoading
+                      ? const CircularProgressIndicator()
+                      : RoundedArrowButton(
+                          height: 6.h,
+                          width: 6.h,
+                          contentIcon: AssetConstants.longArrowRight,
+                          isEnabled: state.isVerifyEnabled,
+                          onTap: () {
+                            // if (!state.isLoginEnabled) {
+                            context.read<VerifyOtpCubit>().verifyOtp();
+                            // }
+                          },
+                        ),
                 )
               ],
             ),

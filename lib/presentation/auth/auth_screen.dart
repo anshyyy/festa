@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,19 +58,21 @@ class AuthScreenConsumer extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
                   children: [
-                    AuthOptionTile(
+                    Platform.isIOS ? AuthOptionTile(
                       authServiceMessage: LoginScreenConstants.appleContinue,
                       authServiceIcon: AssetConstants.appleIcon,
                       color: Theme.of(context).scaffoldBackgroundColor,
                       onTap: () {},
-                    ),
+                    ) : SizedBox(),
                     const SizedBox(
                       height: 20,
                     ),
                     AuthOptionTile(
                       authServiceMessage: LoginScreenConstants.googleContinue,
                       authServiceIcon: AssetConstants.googleIcon,
-                      onTap: () {},
+                      onTap: () {
+                        context.read<AuthCubit>().loginWithGoogle();
+                      },
                     ),
                     const SizedBox(
                       height: 20,
@@ -84,14 +88,12 @@ class AuthScreenConsumer extends StatelessWidget {
                             isClearStack: true);
                       },
                     ),
-                    const SizedBox(
-                      height: 23,
+SizedBox(
+                      height: 2.h,
                     ),
                     Text(
                       TermsAndConditionConstants.authTermsAcceptMessage,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontSize: 13.7.sp,
-                          ),
+                      style: Theme.of(context).textTheme.bodySmall,
                       textAlign: TextAlign.center,
                     )
                   ],

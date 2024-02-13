@@ -7,7 +7,7 @@ class RoundedArrowButton extends StatelessWidget {
   final double? width;
   final Color? backgroundColor;
   final Function()? onTap;
-  final bool? isEnabled;
+  final bool isEnabled;
   final String? contentIcon;
   // final
 
@@ -17,14 +17,14 @@ class RoundedArrowButton extends StatelessWidget {
     this.width,
     this.backgroundColor,
     required this.onTap,
-    this.isEnabled,
+    this.isEnabled = true,
     this.contentIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isEnabled ? onTap : null,
       child: Container(
         height: height ?? 6.h,
         width: width ?? 6.h,

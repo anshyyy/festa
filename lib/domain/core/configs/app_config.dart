@@ -16,6 +16,11 @@ class AppStateNotifier extends ChangeNotifier {
 
     notifyListeners();
   }
+  
+  Future<void> updateAfterNetworkChange({required bool isOffline}) async {
+    this.isOffline = isOffline;
+    notifyListeners();
+  }
 }
 
 class AppConfig extends InheritedWidget {

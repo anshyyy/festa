@@ -8,31 +8,34 @@ class GradientButton extends StatelessWidget {
   final Color? gradientColor2;
   final Color? fontColor;
   final Color? showColor;
-  double height;
-  double width;
-  GradientButton(
+  final double? height;
+  final double? width;
+  final TextStyle? textStyle;
+  const GradientButton(
       {super.key,
       required this.text,
       required this.onTap,
-      required this.height,
-      required this.width,
+       this.height,
+       this.width,
       this.gradientColor1,
       this.gradientColor2,
       this.showColor,
-      this.fontColor});
+      this.fontColor,
+      this.textStyle,
+      });
 
   @override
   Widget build(BuildContext context) {
     final gradientColor1Safe =
-        (gradientColor2 ?? Theme.of(context).colorScheme.primary);
+        (gradientColor1 ?? Theme.of(context).colorScheme.primary);
 
     final gradientColor2Safe =
         (gradientColor2 ?? Theme.of(context).colorScheme.secondary);
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 6.5.h,
-        width: 50.w,
+        height: height?? 6.5.h,
+        width: width ?? 100.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
           boxShadow: [
@@ -50,9 +53,8 @@ class GradientButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(text,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color:
-                        fontColor ?? Theme.of(context).colorScheme.background,
+              style: textStyle!=null? textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: fontColor ?? Theme.of(context).colorScheme.background,
                     fontWeight: FontWeight.w700,
                   )),
         ),

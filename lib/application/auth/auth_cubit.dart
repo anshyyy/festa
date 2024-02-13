@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/core/constants/country_info.dart';
 import '../../domain/auth/auth_repository.dart';
+import '../../domain/core/constants/string_constants.dart';
 import '../../infrastructure/auth/i_auth_repository.dart';
 
 part 'auth_state.dart';
@@ -17,7 +16,21 @@ class AuthCubit extends Cubit<AuthState> {
 
   void loginWithApple() {}
 
-  void loginWithGoogle() {}
+  void loginWithGoogle() async{
+    await state.authRepository.loginWithGoogle();
+  }
+
+  void loginWithPhone() {
+    emit(state.copyWith(
+      loginWithPhone: true,
+    ));
+  }
+
+  void emitFromAnywhere({
+    required AuthState state,
+  }) {
+    emit(state);
+  }
 
   void onDialCodeChange({required String dialCode, required String locale}) {
     emit(
@@ -38,17 +51,10 @@ class AuthCubit extends Cubit<AuthState> {
 
   void requestOtp() async {
     emit(state.copyWith(isLoading: true));
-    Completer<String?> otpAutoFill = Completer<String?>();
-    String otpCode = '';
-
-    otpAutoFill.future.then((otp) => {
-          if (otp != null) {otpCode = otp}
-        });
 
     Either<String, String> response = await state.authRepository.requestOtp(
       mobileNumber: state.phoneController.text,
       dialCode: state.selectedDialCode.toString(),
-      otpAutoFill: otpAutoFill,
     );
 
     response.fold((l) {
@@ -57,16 +63,19 @@ class AuthCubit extends Cubit<AuthState> {
         isOTPSentFailed: true,
         isOTPSentSuccessful: false,
         isLoginSuccess: false,
-      ));
+        errorMessage: l,
+      ),);
     }, (r) {
       emit(state.copyWith(
         isLoading: false,
         isOTPSentFailed: false,
         isOTPSentSuccessful: true,
         isLoginSuccess: true,
+        errorMessage: LoginScreenConstants.otpSend,
         verificationCode: r,
-        otpCode: otpCode,
       ));
     });
   }
+
+
 }

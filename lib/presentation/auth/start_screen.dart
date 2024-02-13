@@ -32,8 +32,12 @@ class StartScreenConsumer extends StatelessWidget {
         if (state.isOnboardingComplete) {
           navigator<NavigationService>().navigateTo(
             AuthRoutes.authRoute,
-            isClearStack: true,
           );
+
+          context.read<StarterCubit>().emitFromAnywhere(
+                  state: state.copyWith(
+                isOnboardingComplete: false,
+              ));
         }
       },
       builder: (context, state) {
@@ -74,7 +78,6 @@ class StartScreenConsumer extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(fontSize: 13.sp),
                               ),
                               TextSpan(
                                 text: TermsAndConditionConstants.termsText,
@@ -82,7 +85,7 @@ class StartScreenConsumer extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      fontSize: 13.sp,
+                                      // fontSize: 13.sp,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Theme.of(context)
                                           .colorScheme
@@ -94,7 +97,7 @@ class StartScreenConsumer extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(fontSize: 13.7.sp),
+                                    // .copyWith(fontSize: 13.7.sp),
                               ),
                               TextSpan(
                                 text: TermsAndConditionConstants.privacyText,
@@ -102,7 +105,7 @@ class StartScreenConsumer extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      fontSize: 13.7.sp,
+                                      // fontSize: 13.7.sp,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Theme.of(context)
                                           .colorScheme
@@ -124,8 +127,6 @@ class StartScreenConsumer extends StatelessWidget {
                         ),
                         GradientButton(
                           text: AppConstants.continueText,
-                          width: 1.w,
-                          height: 9.h,
                           onTap: () {
                             context.read<StarterCubit>().completeOnboarding();
                           },

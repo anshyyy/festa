@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
     return MaterialApp(
       title: AppConfig.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
-      theme: appThemeData[AppTheme.Default],
+      theme:appThemeData[AppTheme.Default],
       builder: (context, child) {
         return Column(
           children: [
@@ -72,8 +72,8 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       initialRoute: Provider.of<AppStateNotifier>(context).isOffline
           ? GeneralRoutes.noNetworkAtStart
           : Provider.of<AppStateNotifier>(context).isAuthorized
-              ? UserRoutes.mainNavRoute
-              : UserRoutes.mainNavRoute,
+              ? AuthRoutes.startRoute
+              : AuthRoutes.startRoute,
     );
   }
 }
@@ -85,7 +85,7 @@ Future appInitializer(AppConfig appConfig) async {
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  bool isAuthorized = 1 != 1;
+  bool isAuthorized = 1 == 1;
   bool isOffline = false;
 
   if (isAuthorized && !isOffline) {}

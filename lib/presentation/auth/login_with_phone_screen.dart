@@ -8,11 +8,13 @@ import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/helpers/generic_helpers.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../widgets/country_picker.dart';
 import '../widgets/custom_textfield.dart';
 import '../widgets/rounded_arrow_button.dart';
+import '../widgets/snackbar_alert.dart';
 
 class LoginPhoneScreen extends StatelessWidget {
   const LoginPhoneScreen({super.key});
@@ -40,12 +42,39 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state.isLoginSuccess) {
+        if (state.isOTPSentFailed && !state.isOTPSentSuccessful) {
+          CustomScaffoldMessenger.clearSnackBars(context);
+          CustomScaffoldMessenger.showSnackBar(
+            context,
+            message: state.errorMessage,
+          );
+
+          context.read<AuthCubit>().emitFromAnywhere(
+                state: state.copyWith(
+                  isOTPSentFailed: false,
+                ),
+              );
+        }
+
+        if (!state.isOTPSentFailed && state.isOTPSentSuccessful) {
+          CustomScaffoldMessenger.clearSnackBars(context);
+          CustomScaffoldMessenger.showSnackBar(
+            context,
+            message: state.errorMessage,
+          );
+
           navigator<NavigationService>()
               .navigateTo(AuthRoutes.verifyOTPRoute, queryParams: {
             'verificationCode': state.verificationCode!,
-            'otpCode': state.otpCode,
+            'dialCode': state.selectedDialCode,
+            'phoneNumber': state.phoneController.text
           });
+
+          context.read<AuthCubit>().emitFromAnywhere(
+                state: state.copyWith(
+                  isOTPSentSuccessful: false,
+                ),
+              );
         }
       },
       builder: (context, state) {
@@ -63,7 +92,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                     LoginScreenConstants.mobileLoginHeader,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 24.sp,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.background,
                         ),
                   ),
@@ -72,7 +101,9 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                   ),
                   Text(
                     LoginScreenConstants.mobileLoginDescription,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 15.sp
+                    ),
                   ),
                   SizedBox(
                     height: 2.h,
@@ -123,7 +154,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        fontSize: 16.sp,
+                                        // fontSize: 16.sp,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .background,
@@ -155,13 +186,13 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                           hintText: LoginScreenConstants.phoneNumberHint,
                           hintTextStyle:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 17.sp,
+                                    // fontSize: 17.sp,
                                   ),
                           textStyle: Theme.of(context)
                               .textTheme
                               .bodyMedium!
                               .copyWith(
-                                  fontSize: 17.sp,
+                                  // fontSize: 17.sp,
                                   color:
                                       Theme.of(context).colorScheme.background),
                           errorStyle:
@@ -169,7 +200,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                                     color: Theme.of(context).colorScheme.error,
                                   ),
                           validator: (value) {
-                            if (value!.isEmpty || value.length < 6) {
+                            if (value!.isEmpty || value.length < 6 || !GenericHelpers().isValidMobile(value)) {
                               return ErrorConstants.invalidMobileNumberError;
                             }
                             return null;
@@ -198,11 +229,11 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                             ),
                             Expanded(
                               child: Text(
-                                LoginScreenConstants.mobileLoginPrompt,
+                                state.isLoginEnabled ? LoginScreenConstants.affirmationPrompt:LoginScreenConstants.mobileLoginPrompt,
                                 maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium
+                                    .bodySmall
                                     ?.copyWith(
                                         color:
                                             Theme.of(context).colorScheme.background,

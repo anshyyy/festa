@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GenericHelpers {
   bool isValidMobile(String phone) {
-    final phoneRegExp = RegExp('[0-9]+');
+    final phoneRegExp = RegExp('[0-9]+\$');
     return phoneRegExp.hasMatch(phone);
   }
 }

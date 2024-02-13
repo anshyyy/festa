@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../application/basic_profile/gender_selection/cubit/gender_selection_cubit.dart';
+import '../../application/profile/gender_selection/cubit/gender_selection_cubit.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
-import '../core/primary_button.dart';
+import '../widgets/gradient_button.dart';
 
 class GenderSelectionScreen extends StatelessWidget {
   const GenderSelectionScreen({super.key});
@@ -29,28 +29,30 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 5.h),
-            child: Column(
-              children: [
-                Text(
-                  GenderSelectionScreenConstants.addGenderText,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                      ),
-                ),
-                Text(
-                  GenderSelectionScreenConstants.addText,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        color:
-                            Theme.of(context).colorScheme.onTertiaryContainer,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                      ),
-                ),
-                Expanded(
-                  child: ListView.builder(
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 5.h),
+              child: Column(
+                children: [
+                  // const Spacer(flex: 1,),
+                  Text(
+                    GenderSelectionScreenConstants.addGenderText,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 24.sp,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                  ),
+                  SizedBox(
+                      height: 1.h,
+                    ),
+                  Text(
+                    GenderSelectionScreenConstants.addText,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  // const Spacer(flex: 1,),
+                  SizedBox(height: 5.h,),
+                  ListView.builder(
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -61,11 +63,7 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 1.h),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            border: Border.all(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                              width: 1,
-                            ),
+                            color: Theme.of(context).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
@@ -77,26 +75,15 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
                                   state.lsOFSex[index],
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondary,
-                                      ),
-                                ),
-                                SizedBox(
-                                  width: 25.h,
+                                      .bodyMedium
+                                      
                                 ),
                                 index == state.selectedSex
                                     ? SvgPicture.asset(
                                         AssetConstants.selectedRadio)
                                     : SvgPicture.asset(
                                         AssetConstants.unSelectedRadio),
-                                SizedBox(
-                                  width: 2.w,
-                                ),
+                                
                               ],
                             ),
                           ),
@@ -105,14 +92,14 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
                     },
                     itemCount: state.lsOFSex.length,
                   ),
-                ),
-                const Spacer(),
-                PrimaryButton(
-                    text: BasicProfileScreenConstants.continueText,
-                    function: () {
-                      context.read<GenderSelectionCubit>().onContinue();
-                    })
-              ],
+                  const Spacer(),
+                  GradientButton(
+                      text: BasicProfileScreenConstants.continueText,
+                      onTap: () {
+                        context.read<GenderSelectionCubit>().onContinue();
+                      })
+                ],
+              ),
             ),
           ),
         );

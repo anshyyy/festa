@@ -10,15 +10,12 @@ class AuthState with _$AuthState {
     required String selectedDialCode,
     required String selectedLocale,
     required TextEditingController phoneController,
-    required String otpCode,
     required bool isLoginEnabled,
     required String apiBaseUrl,
     required AuthRepository authRepository,
     required bool isOTPSentFailed,
     required bool isOTPSentSuccessful,
     required bool isLoginSuccess,
-    required bool isOTPVerificationFailed,
-    required bool isOTPVerificationSuccessful,
     required String errorMessage,
     required String? verificationCode,
   }) = _AuthState;
@@ -36,15 +33,13 @@ class AuthState with _$AuthState {
         selectedLocale: country.first['locale'],
         isLoginEnabled: false,
         apiBaseUrl: apiBaseUrl,
-        otpCode: '',
         authRepository: IAuthRepository(
           serverBaseUrl: apiBaseUrl,
         ),
         isOTPSentFailed: false,
         isOTPSentSuccessful: false,
         isLoginSuccess: false,
-        isOTPVerificationFailed: false,
-        isOTPVerificationSuccessful: false,
+
         errorMessage: '',
         verificationCode: null,
       );

@@ -34,13 +34,13 @@ final appThemeData = {
         fontFamily: 'Inter',
       ),
       bodyMedium: TextStyle(
-        fontSize: 16.sp,
+        fontSize: 17.sp,
         fontWeight: FontWeight.w500,
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',
       ),
       bodySmall: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 15.sp,
         fontWeight: FontWeight.w400,
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',

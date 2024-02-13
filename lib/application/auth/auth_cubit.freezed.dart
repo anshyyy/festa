@@ -24,15 +24,12 @@ mixin _$AuthState {
   String get selectedLocale => throw _privateConstructorUsedError;
   TextEditingController get phoneController =>
       throw _privateConstructorUsedError;
-  String get otpCode => throw _privateConstructorUsedError;
   bool get isLoginEnabled => throw _privateConstructorUsedError;
   String get apiBaseUrl => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   bool get isOTPSentFailed => throw _privateConstructorUsedError;
   bool get isOTPSentSuccessful => throw _privateConstructorUsedError;
   bool get isLoginSuccess => throw _privateConstructorUsedError;
-  bool get isOTPVerificationFailed => throw _privateConstructorUsedError;
-  bool get isOTPVerificationSuccessful => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
   String? get verificationCode => throw _privateConstructorUsedError;
 
@@ -54,15 +51,12 @@ abstract class $AuthStateCopyWith<$Res> {
       String selectedDialCode,
       String selectedLocale,
       TextEditingController phoneController,
-      String otpCode,
       bool isLoginEnabled,
       String apiBaseUrl,
       AuthRepository authRepository,
       bool isOTPSentFailed,
       bool isOTPSentSuccessful,
       bool isLoginSuccess,
-      bool isOTPVerificationFailed,
-      bool isOTPVerificationSuccessful,
       String errorMessage,
       String? verificationCode});
 }
@@ -87,15 +81,12 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? selectedDialCode = null,
     Object? selectedLocale = null,
     Object? phoneController = null,
-    Object? otpCode = null,
     Object? isLoginEnabled = null,
     Object? apiBaseUrl = null,
     Object? authRepository = null,
     Object? isOTPSentFailed = null,
     Object? isOTPSentSuccessful = null,
     Object? isLoginSuccess = null,
-    Object? isOTPVerificationFailed = null,
-    Object? isOTPVerificationSuccessful = null,
     Object? errorMessage = null,
     Object? verificationCode = freezed,
   }) {
@@ -128,10 +119,6 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.phoneController
           : phoneController // ignore: cast_nullable_to_non_nullable
               as TextEditingController,
-      otpCode: null == otpCode
-          ? _value.otpCode
-          : otpCode // ignore: cast_nullable_to_non_nullable
-              as String,
       isLoginEnabled: null == isLoginEnabled
           ? _value.isLoginEnabled
           : isLoginEnabled // ignore: cast_nullable_to_non_nullable
@@ -155,14 +142,6 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       isLoginSuccess: null == isLoginSuccess
           ? _value.isLoginSuccess
           : isLoginSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isOTPVerificationFailed: null == isOTPVerificationFailed
-          ? _value.isOTPVerificationFailed
-          : isOTPVerificationFailed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isOTPVerificationSuccessful: null == isOTPVerificationSuccessful
-          ? _value.isOTPVerificationSuccessful
-          : isOTPVerificationSuccessful // ignore: cast_nullable_to_non_nullable
               as bool,
       errorMessage: null == errorMessage
           ? _value.errorMessage
@@ -192,15 +171,12 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       String selectedDialCode,
       String selectedLocale,
       TextEditingController phoneController,
-      String otpCode,
       bool isLoginEnabled,
       String apiBaseUrl,
       AuthRepository authRepository,
       bool isOTPSentFailed,
       bool isOTPSentSuccessful,
       bool isLoginSuccess,
-      bool isOTPVerificationFailed,
-      bool isOTPVerificationSuccessful,
       String errorMessage,
       String? verificationCode});
 }
@@ -223,15 +199,12 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? selectedDialCode = null,
     Object? selectedLocale = null,
     Object? phoneController = null,
-    Object? otpCode = null,
     Object? isLoginEnabled = null,
     Object? apiBaseUrl = null,
     Object? authRepository = null,
     Object? isOTPSentFailed = null,
     Object? isOTPSentSuccessful = null,
     Object? isLoginSuccess = null,
-    Object? isOTPVerificationFailed = null,
-    Object? isOTPVerificationSuccessful = null,
     Object? errorMessage = null,
     Object? verificationCode = freezed,
   }) {
@@ -264,10 +237,6 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.phoneController
           : phoneController // ignore: cast_nullable_to_non_nullable
               as TextEditingController,
-      otpCode: null == otpCode
-          ? _value.otpCode
-          : otpCode // ignore: cast_nullable_to_non_nullable
-              as String,
       isLoginEnabled: null == isLoginEnabled
           ? _value.isLoginEnabled
           : isLoginEnabled // ignore: cast_nullable_to_non_nullable
@@ -292,14 +261,6 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.isLoginSuccess
           : isLoginSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
-      isOTPVerificationFailed: null == isOTPVerificationFailed
-          ? _value.isOTPVerificationFailed
-          : isOTPVerificationFailed // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isOTPVerificationSuccessful: null == isOTPVerificationSuccessful
-          ? _value.isOTPVerificationSuccessful
-          : isOTPVerificationSuccessful // ignore: cast_nullable_to_non_nullable
-              as bool,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -323,15 +284,12 @@ class _$AuthStateImpl implements _AuthState {
       required this.selectedDialCode,
       required this.selectedLocale,
       required this.phoneController,
-      required this.otpCode,
       required this.isLoginEnabled,
       required this.apiBaseUrl,
       required this.authRepository,
       required this.isOTPSentFailed,
       required this.isOTPSentSuccessful,
       required this.isLoginSuccess,
-      required this.isOTPVerificationFailed,
-      required this.isOTPVerificationSuccessful,
       required this.errorMessage,
       required this.verificationCode});
 
@@ -350,8 +308,6 @@ class _$AuthStateImpl implements _AuthState {
   @override
   final TextEditingController phoneController;
   @override
-  final String otpCode;
-  @override
   final bool isLoginEnabled;
   @override
   final String apiBaseUrl;
@@ -364,17 +320,13 @@ class _$AuthStateImpl implements _AuthState {
   @override
   final bool isLoginSuccess;
   @override
-  final bool isOTPVerificationFailed;
-  @override
-  final bool isOTPVerificationSuccessful;
-  @override
   final String errorMessage;
   @override
   final String? verificationCode;
 
   @override
   String toString() {
-    return 'AuthState(isLoading: $isLoading, loginWithApple: $loginWithApple, loginWithGoogle: $loginWithGoogle, loginWithPhone: $loginWithPhone, selectedDialCode: $selectedDialCode, selectedLocale: $selectedLocale, phoneController: $phoneController, otpCode: $otpCode, isLoginEnabled: $isLoginEnabled, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, isOTPSentFailed: $isOTPSentFailed, isOTPSentSuccessful: $isOTPSentSuccessful, isLoginSuccess: $isLoginSuccess, isOTPVerificationFailed: $isOTPVerificationFailed, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, errorMessage: $errorMessage, verificationCode: $verificationCode)';
+    return 'AuthState(isLoading: $isLoading, loginWithApple: $loginWithApple, loginWithGoogle: $loginWithGoogle, loginWithPhone: $loginWithPhone, selectedDialCode: $selectedDialCode, selectedLocale: $selectedLocale, phoneController: $phoneController, isLoginEnabled: $isLoginEnabled, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, isOTPSentFailed: $isOTPSentFailed, isOTPSentSuccessful: $isOTPSentSuccessful, isLoginSuccess: $isLoginSuccess, errorMessage: $errorMessage, verificationCode: $verificationCode)';
   }
 
   @override
@@ -396,7 +348,6 @@ class _$AuthStateImpl implements _AuthState {
                 other.selectedLocale == selectedLocale) &&
             (identical(other.phoneController, phoneController) ||
                 other.phoneController == phoneController) &&
-            (identical(other.otpCode, otpCode) || other.otpCode == otpCode) &&
             (identical(other.isLoginEnabled, isLoginEnabled) ||
                 other.isLoginEnabled == isLoginEnabled) &&
             (identical(other.apiBaseUrl, apiBaseUrl) ||
@@ -409,13 +360,6 @@ class _$AuthStateImpl implements _AuthState {
                 other.isOTPSentSuccessful == isOTPSentSuccessful) &&
             (identical(other.isLoginSuccess, isLoginSuccess) ||
                 other.isLoginSuccess == isLoginSuccess) &&
-            (identical(
-                    other.isOTPVerificationFailed, isOTPVerificationFailed) ||
-                other.isOTPVerificationFailed == isOTPVerificationFailed) &&
-            (identical(other.isOTPVerificationSuccessful,
-                    isOTPVerificationSuccessful) ||
-                other.isOTPVerificationSuccessful ==
-                    isOTPVerificationSuccessful) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.verificationCode, verificationCode) ||
@@ -432,15 +376,12 @@ class _$AuthStateImpl implements _AuthState {
       selectedDialCode,
       selectedLocale,
       phoneController,
-      otpCode,
       isLoginEnabled,
       apiBaseUrl,
       authRepository,
       isOTPSentFailed,
       isOTPSentSuccessful,
       isLoginSuccess,
-      isOTPVerificationFailed,
-      isOTPVerificationSuccessful,
       errorMessage,
       verificationCode);
 
@@ -460,15 +401,12 @@ abstract class _AuthState implements AuthState {
       required final String selectedDialCode,
       required final String selectedLocale,
       required final TextEditingController phoneController,
-      required final String otpCode,
       required final bool isLoginEnabled,
       required final String apiBaseUrl,
       required final AuthRepository authRepository,
       required final bool isOTPSentFailed,
       required final bool isOTPSentSuccessful,
       required final bool isLoginSuccess,
-      required final bool isOTPVerificationFailed,
-      required final bool isOTPVerificationSuccessful,
       required final String errorMessage,
       required final String? verificationCode}) = _$AuthStateImpl;
 
@@ -487,8 +425,6 @@ abstract class _AuthState implements AuthState {
   @override
   TextEditingController get phoneController;
   @override
-  String get otpCode;
-  @override
   bool get isLoginEnabled;
   @override
   String get apiBaseUrl;
@@ -500,10 +436,6 @@ abstract class _AuthState implements AuthState {
   bool get isOTPSentSuccessful;
   @override
   bool get isLoginSuccess;
-  @override
-  bool get isOTPVerificationFailed;
-  @override
-  bool get isOTPVerificationSuccessful;
   @override
   String get errorMessage;
   @override

@@ -48,8 +48,10 @@ class HomeScreenConsumer extends StatelessWidget {
                         Row(
                           children: [
                             SvgPicture.asset(AssetConstants.searchIcon),
-                            SizedBox(width: 5.w,),
-                        SvgPicture.asset(AssetConstants.notificationIcon),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            SvgPicture.asset(AssetConstants.notificationIcon),
                           ],
                         )
                       ],
@@ -100,7 +102,8 @@ class HomeScreenConsumer extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Padding(
-                                  padding: EdgeInsets.only(bottom: 2.w, left: 1.w, right: 1),
+                                  padding: EdgeInsets.only(
+                                      bottom: 2.w, left: 1.w, right: 1),
                                   child: Text(
                                     state.categoriesList[index],
                                     maxLines: 1,
@@ -169,28 +172,29 @@ class HomeScreenConsumer extends StatelessWidget {
                       height: 2.h,
                     ),
                     ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: 3,
                       shrinkWrap: true,
-                      itemBuilder:(context, index) {
-                      return GestureDetector(
-                      onTap: () {
-                        navigator<NavigationService>()
-                            .navigateTo(UserRoutes.eventCardRoute);
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            navigator<NavigationService>()
+                                .navigateTo(UserRoutes.eventCardRoute);
+                          },
+                          child: CardScreen(
+                            km: 2.3,
+                            dateTime: DateTime.now(),
+                            barsName: "Bobs's Bar",
+                            bandName: CartScreenConstants.addText,
+                            price: 5000,
+                            time: '10:00 AM - 12:30 AM',
+                            ratings: '5.0(100 ratings)',
+                            location:
+                                'Great Indian Music Hall, Indira Nagar, Bangalore',
+                          ),
+                        );
                       },
-                      child: CardScreen(
-                        km: 2.3,
-                        dateTime: DateTime.now(),
-                        barsName: "Bobs's Bar",
-                        bandName: CartScreenConstants.addText,
-                        price: 5000,
-                        time: '10:00 AM - 12:30 AM',
-                        ratings: '5.0(100 ratings)',
-                        location:
-                            'Great Indian Music Hall, Indira Nagar, Bangalore',
-                      ),
-                    );
-                    },)
+                    )
                   ],
                 ),
               ),
@@ -201,5 +205,3 @@ class HomeScreenConsumer extends StatelessWidget {
     );
   }
 }
-
-

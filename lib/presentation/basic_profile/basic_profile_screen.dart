@@ -144,50 +144,50 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                               SizedBox(
                                 height: 1.h,
                               ),
-                        CustomTextField(
-                          controller: state.fullNameController,
-                          inputWithLabel: true,
-                          // labelText: BasicProfileScreenConstants.enterYourName,
-                          hintText:
-                              BasicProfileScreenConstants.hintEnterYourName,
-                          width: 90.w,
-                          textCapitalization: TextCapitalization.words,
-                          // isFill: true,
-                          // fillColor:
-                          //     Theme.of(context).colorScheme.primaryContainer,
-                          // errorText: state.errorFullName.isEmpty
-                          //     ? null
-                          //     : state.errorFullName,
-                          // hintTextStyle:
-                          //     Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          //           fontSize: 17.sp,
-                          //         ),
-                          // textStyle: Theme.of(context)
-                          //     .textTheme
-                          //     .bodyMedium!
-                          //     .copyWith(
-                          //         fontSize: 17.sp,
-                          //         color:
-                          //             Theme.of(context).colorScheme.background),
+                        // CustomTextField(
+                        //   controller: state.fullNameController,
+                        //   inputWithLabel: true,
+                        //   // labelText: BasicProfileScreenConstants.enterYourName,
+                        //   hintText:
+                        //       BasicProfileScreenConstants.hintEnterYourName,
+                        //   width: 90.w,
+                        //   textCapitalization: TextCapitalization.words,
+                        //   // isFill: true,
+                        //   // fillColor:
+                        //   //     Theme.of(context).colorScheme.primaryContainer,
+                        //   // errorText: state.errorFullName.isEmpty
+                        //   //     ? null
+                        //   //     : state.errorFullName,
+                        //   // hintTextStyle:
+                        //   //     Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        //   //           fontSize: 17.sp,
+                        //   //         ),
+                        //   // textStyle: Theme.of(context)
+                        //   //     .textTheme
+                        //   //     .bodyMedium!
+                        //   //     .copyWith(
+                        //   //         fontSize: 17.sp,
+                        //   //         color:
+                        //   //             Theme.of(context).colorScheme.background),
 
-                          onChanged: (val) {
-                            if (val.isNotEmpty) {
-                              context
-                                  .read<BasicProfileCubit>()
-                                  .emitFromAnywhere(
-                                      state: state.copyWith(
-                                          isSaveDetailsEnable: true,
-                                          errorFullName: ''));
-                            } else {
-                              context
-                                  .read<BasicProfileCubit>()
-                                  .emitFromAnywhere(
-                                      state: state.copyWith(
-                                    isSaveDetailsEnable: false,
-                                  ));
-                            }
-                          },
-                        ),
+                        //   onChanged: (val) {
+                        //     if (val.isNotEmpty) {
+                        //       context
+                        //           .read<BasicProfileCubit>()
+                        //           .emitFromAnywhere(
+                        //               state: state.copyWith(
+                        //                   isSaveDetailsEnable: true,
+                        //                   errorFullName: ''));
+                        //     } else {
+                        //       context
+                        //           .read<BasicProfileCubit>()
+                        //           .emitFromAnywhere(
+                        //               state: state.copyWith(
+                        //             isSaveDetailsEnable: false,
+                        //           ));
+                        //     }
+                        //   },
+                        // ),
                       ],
                     ),
                     const Spacer(flex: 2,),

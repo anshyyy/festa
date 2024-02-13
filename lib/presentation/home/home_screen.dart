@@ -10,6 +10,7 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../common/card_screen.dart';
+import 'widgets/explore_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -44,11 +45,13 @@ class HomeScreenConsumer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SvgPicture.asset(AssetConstants.locationIcon),
-                        SizedBox(
-                          width: 30.h,
-                        ),
-                        SvgPicture.asset(AssetConstants.searchIcon),
+                        Row(
+                          children: [
+                            SvgPicture.asset(AssetConstants.searchIcon),
+                            SizedBox(width: 5.w,),
                         SvgPicture.asset(AssetConstants.notificationIcon),
+                          ],
+                        )
                       ],
                     ),
                     SizedBox(
@@ -97,9 +100,11 @@ class HomeScreenConsumer extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Padding(
-                                  padding: EdgeInsets.only(bottom: 1.h),
+                                  padding: EdgeInsets.only(bottom: 2.w, left: 1.w, right: 1),
                                   child: Text(
                                     state.categoriesList[index],
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -163,7 +168,12 @@ class HomeScreenConsumer extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    GestureDetector(
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 3,
+                      shrinkWrap: true,
+                      itemBuilder:(context, index) {
+                      return GestureDetector(
                       onTap: () {
                         navigator<NavigationService>()
                             .navigateTo(UserRoutes.eventCardRoute);
@@ -179,7 +189,8 @@ class HomeScreenConsumer extends StatelessWidget {
                         location:
                             'Great Indian Music Hall, Indira Nagar, Bangalore',
                       ),
-                    )
+                    );
+                    },)
                   ],
                 ),
               ),
@@ -191,40 +202,4 @@ class HomeScreenConsumer extends StatelessWidget {
   }
 }
 
-class ExploreTile extends StatelessWidget {
-  final String? label;
-  final String? svgIcon;
-  const ExploreTile({super.key, this.label, this.svgIcon});
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: FittedBox(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            label != null
-                ? Text(
-                    label!,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                  )
-                : const SizedBox(),
-            SizedBox(
-              width: 0.5.h,
-            ),
-            svgIcon != null
-                ? SvgPicture.asset(
-                    svgIcon!,
-                    height: 8,
-                  )
-                : const SizedBox(),
-          ],
-        ),
-      ),
-    );
-  }
-}

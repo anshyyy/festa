@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../application/home/cubit/home_cubit.dart';
+import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 // import '../../core/custom_textfield.dart';
+import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../widgets/custom_textfield.dart';
 import 'event_genre_card.dart';
 
@@ -12,111 +16,170 @@ class LocationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-        child: Container(
-          width: 100.w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Choose your Location',
-                  style:Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.background,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  ),
-                  SvgPicture.asset(AssetConstants.closeIcon)
-                ],
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Stack(
+          children: [
+            GestureDetector(
+              onTap: () {
+                context.read<HomeCubit>().toggleLocationDialog();
+              },
+              child: Container(
+                height: 100.h,
+                color: Colors.black.withOpacity(.7),
               ),
-              SizedBox(
-                height: 2.h,
-              ),
-              CustomTextField(
-                prefixIcon: SvgPicture.asset(AssetConstants.searchIcon),
-                          keyboardType: TextInputType.number,
-                          maxLines: 1,
-                          isFill: true,
-                          inputWithLabel: false,
-                          fillColor:
-                              Theme.of(context).scaffoldBackgroundColor,
-                          hintText: 'Search',
-                          hintTextStyle:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    // fontSize: 17.sp,
-                                  ),
-                          textStyle: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  // fontSize: 17.sp,
+            ),
+            Center(
+              child: AnimatedContainer(
+                duration: const Duration(seconds: 1),
+                margin: EdgeInsets.all(1.w),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    width: .3.w,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Choose your Location',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
                                   color:
-                                      Theme.of(context).colorScheme.background),
-                          errorStyle:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
-                          
-                        
-                        ),
-              // SizedBox(
-              //   height: 1.h,
-              // ),
-              Row(
-                children: [
-                  SvgPicture.asset(AssetConstants.locationIcon),
-                  SizedBox(
-                    width: 2.w,
+                                      Theme.of(context).colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<HomeCubit>()
+                                    .toggleLocationDialog();
+                              },
+                              child: SvgPicture.asset(AssetConstants.closeIcon))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      CustomTextField(
+                        // height: 7.h,
+                        prefixIcon: SvgPicture.asset(AssetConstants.searchIcon),
+                        keyboardType: TextInputType.number,
+                        maxLines: 1,
+                        isFill: true,
+                        inputWithLabel: false,
+                        fillColor: Theme.of(context).scaffoldBackgroundColor,
+                        hintText: 'Search',
+                        hintTextStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                // fontSize: 17.sp,
+                                ),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(
+                                // fontSize: 17.sp,
+                                color:
+                                    Theme.of(context).colorScheme.background),
+                        errorStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
+                      ),
+                      // SizedBox(
+                      //   height: 1.h,
+                      // ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(AssetConstants.navigationIcon),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          Text(
+                            'Detect my location',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Suggested',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                            child: ListView.builder(
+                              itemCount: state.locationSuggestions.length,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    context.read<HomeCubit>().updateLocation(
+                                        city: state.locationSuggestions[index]
+                                            ['name']);
+                                    context
+                                        .read<HomeCubit>()
+                                        .toggleLocationDialog();
+                                  },
+                                  child: EventTypeTile(
+                                      themeData: Theme.of(context),
+                                      title: state.locationSuggestions[index]
+                                          ['name'],
+                                      image: state.locationSuggestions[index]
+                                          ['image']),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  Text('Detect my location', 
-                  
-                  style:Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.background,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  ),
-                ],
+                ),
               ),
-              SizedBox(
-                height: 2.h,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Suggested', style:Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.background,
-                    fontWeight: FontWeight.w600,
-                  ),),
-                   SizedBox(
-                height: 2.h,
-              ),
-                  Container(
-                    height: 10.h,
-                    child: ListView.builder(
-                      itemCount: 7,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return EventTypeTile(
-                            themeData: Theme.of(context),
-                            title: 'title',
-                            image:
-                                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-                      },
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

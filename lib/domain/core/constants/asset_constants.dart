@@ -51,6 +51,8 @@ static const heartSelected = '${vectorsFolder}heart-selected.svg';
   static const danceFloorIcon = '${vectorsFolder}dancefloor.svg';
   static const foodIcon = '${vectorsFolder}food.svg';
   static const drinkIcon = '${vectorsFolder}drinks.svg';
+  static const navigationIcon = '${vectorsFolder}navigation-icon.svg';
+
 
   //chevron arrows
   static const arrowDown = '${vectorsFolder}arrow-down.svg';

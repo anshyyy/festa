@@ -12,10 +12,12 @@ class HomeState with _$HomeState {
     required List<Map<String, dynamic>> exploreList,
     required PageController pageController,
     required int selectedImageIndex,
-    required bool openFilterSheet,
+    required bool showLocationDialog,
     required List<Map<String, dynamic>> filterList,
     required List<String> selectedFilters,
     required List<Map<String, dynamic>> filterOptions,
+    required List<Map<String, dynamic>> locationSuggestions,
+    required String city,
   }) = _HomeState;
 
   factory HomeState.initial() => HomeState(
@@ -23,6 +25,7 @@ class HomeState with _$HomeState {
         isLoading: false,
         isFailed: false,
         isSuccessful: false,
+        city: '',
         pageController: PageController(),
         imageList: [
           AssetConstants.techno,
@@ -37,69 +40,81 @@ class HomeState with _$HomeState {
           {
             'title': 'Techno',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1586156938613-769b0353c8fc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
           {
             'title': 'Bollywood',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1580194191675-f66754a68698?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
           {
             'title': 'Ladies night',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://plus.unsplash.com/premium_photo-1665413642520-ebe79e961a4a?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
           {
             'title': 'EDM',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1578946956088-940c3b502864?q=80&w=2823&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
           {
             'title': 'Theme nights',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1609570394105-ac24231def46?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
           {
             'title': 'Punjabi',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://plus.unsplash.com/premium_photo-1684581969889-67d386781d37?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
           {
             'title': 'Telugu',
             'image':
-                'https://plus.unsplash.com/premium_photo-1661286678499-211423a9ff5e?q=80&w=2624&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           },
         ],
         exploreList: [
-          {
-            'identifier': AppConstants.filterKey,
-            'svgIcon': AssetConstants.filterIcon,
-            'label': 'Filter',
-          },
-          {
-            'identifier': AppConstants.otherKey,
-            'label': 'Today',
-          },
-          {
-            'identifier': AppConstants.otherKey,
-            'label': 'This weekend',
-          },
-          {
-            'identifier': AppConstants.otherKey,
-            'svgIcon': AssetConstants.arrowDown,
-            'label': 'Sort',
-          },
-          {
-            'identifier': AppConstants.otherKey,
-            'label': 'Date',
-          },
-          {
-            'identifier': AppConstants.otherKey,
-            'svgIcon': AssetConstants.heartOutlinedIcon,
-          }
-        ],
+  {
+    'id': 'filter',
+    'isSelected': false,
+    'identifier': AppConstants.filterKey,
+    'svgIcon': AssetConstants.filterIcon,
+    'label': 'Filter',
+  },
+  {
+    'id': 'today',
+    'isSelected': false,
+    'identifier': AppConstants.otherKey,
+    'label': 'Today',
+  },
+  {
+    'id': 'this_weekend',
+    'isSelected': false,
+    'identifier': AppConstants.otherKey,
+    'label': 'This weekend',
+  },
+  {
+    'id': 'sort',
+    'isSelected': false,
+    'identifier': AppConstants.otherKey,
+    'svgIcon': AssetConstants.arrowDown,
+    'label': 'Sort',
+  },
+  {
+    'id': 'date',
+    'isSelected': false,
+    'identifier': AppConstants.otherKey,
+    'label': 'Date',
+  },
+  {
+    'id': 'heart',
+    'isSelected': false,
+    'identifier': AppConstants.otherKey,
+    'svgIcon': AssetConstants.heartOutlinedIcon,
+  }
+],
         selectedImageIndex: 0,
-        openFilterSheet: false,
+        showLocationDialog: false,
         filterList: const [
           {
             "displayName": "Sort",
@@ -238,8 +253,25 @@ class HomeState with _$HomeState {
         selectedFilters: [
           'sort'
         ],
-        filterOptions:[
-          
-        ],
+        filterOptions:[],
+        locationSuggestions:[
+          {
+            'name':'Mumbai',
+            'image':'https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?q=80&w=2665&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          },
+          {
+            'name':'Delhi',
+            'image':'https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          },{
+            'name':'Bangalore',
+            'image':'https://images.unsplash.com/photo-1637540485660-93031d90b97b?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          },{
+            'name':'Japan',
+            'image':'https://images.unsplash.com/photo-1544808208-727498b3df07?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          },{
+            'name':'Up',
+            'image':'https://images.unsplash.com/photo-1701749740828-c068fa546d3e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          },
+        ]
       );
 }

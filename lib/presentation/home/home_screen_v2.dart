@@ -39,148 +39,150 @@ class HomeScreenConsumer extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: EdgeInsets.all(3.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Padding(
+                    padding: EdgeInsets.all(3.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return LocationDialog();
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.read<HomeCubit>().toggleLocationDialog();
                               },
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                AssetConstants.locationIconPink,
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    AssetConstants.locationIconPink,
+                                  ),
+                                  SizedBox(
+                                    width: 3.w,
+                                  ),
+                                  Text(
+                                    '${state.city}',
+                                    style: themeData.textTheme.bodySmall!.copyWith(
+                                        color: themeData.colorScheme.background,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
                               ),
-                              SizedBox(
-                                width: 3.w,
-                              ),
-                              Text(
-                                'Indira Nagar',
-                                style: themeData.textTheme.bodySmall!.copyWith(
-                                    color: themeData.colorScheme.background,
-                                    fontWeight: FontWeight.w600),
-                              )
-                            ],
+                            ),
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  AssetConstants.searchIcon,
+                                ),
+                                SizedBox(
+                                  width: 3.w,
+                                ),
+                                SvgPicture.asset(AssetConstants.notificationIcon)
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Text(
+                          '${HomeScreenConstants.hey} James, ${HomeScreenConstants.welcomeText}',
+                          style: themeData.textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Row(
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SvgPicture.asset(
-                              AssetConstants.searchIcon,
+                            Text(
+                              HomeScreenConstants.pickYourExperience,
+                              style: themeData.textTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: themeData.colorScheme.background,
+                              ),
                             ),
                             SizedBox(
-                              width: 3.w,
+                              height: 2.h,
                             ),
-                            SvgPicture.asset(AssetConstants.notificationIcon)
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: state.categoriesList.map((Map cat) {
+                                  return EventTypeTile(
+                                    themeData: themeData,
+                                    image: cat['image'],
+                                    title: cat['title'],
+                                  );
+                                }).toList(),
+                              ),
+                            ),
                           ],
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              HomeScreenConstants.explorerAll,
+                              style: themeData.textTheme.bodyMedium!.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: themeData.colorScheme.background,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: state.exploreList.map((Map item) {
+                                  return ExploreTile(
+                                    label: item['label'],
+                                    icon: item['svgIcon'],
+                                    isSelected:item['isSelected'],
+                                    onTap: () {
+                                      context.read<HomeCubit>().onChipChange(id: item['id']);
+                                      if (item['label'].toString().toLowerCase() ==
+                                          'filter') {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return const FilterModalSheet();
+                                            });
+                                      }
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return const MediaCarousel();
+                          },
                         )
                       ],
                     ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      '${HomeScreenConstants.hey} James, ${HomeScreenConstants.welcomeText}',
-                      style: themeData.textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          HomeScreenConstants.pickYourExperience,
-                          style: themeData.textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: themeData.colorScheme.background,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: state.categoriesList.map((Map cat) {
-                              return EventTypeTile(
-                                themeData: themeData,
-                                image: cat['image'],
-                                title: cat['title'],
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          HomeScreenConstants.explorerAll,
-                          style: themeData.textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: themeData.colorScheme.background,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: state.exploreList.map((Map item) {
-                              return ExploreTile(
-                                label: item['label'],
-                                icon: item['svgIcon'],
-                                identifier: item['identifier'],
-                                onTap: () {
-                                  if (item['label'].toString().toLowerCase() ==
-                                      'filter') {
-                                    showModalBottomSheet(
-                                        context: context,
-                                        builder: (context) {
-                                          return const FilterModalSheet();
-                                        });
-                                  }
-                                },
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return const MediaCarousel();
-                      },
-                    )
-                  ],
+                  ),
                 ),
-              ),
+              state.showLocationDialog ? LocationDialog():SizedBox()
+
+              ],
             ),
           ),
         );

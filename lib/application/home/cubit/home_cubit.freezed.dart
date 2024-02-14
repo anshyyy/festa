@@ -27,12 +27,15 @@ mixin _$HomeState {
       throw _privateConstructorUsedError;
   PageController get pageController => throw _privateConstructorUsedError;
   int get selectedImageIndex => throw _privateConstructorUsedError;
-  bool get openFilterSheet => throw _privateConstructorUsedError;
+  bool get showLocationDialog => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get filterList =>
       throw _privateConstructorUsedError;
   List<String> get selectedFilters => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get filterOptions =>
       throw _privateConstructorUsedError;
+  List<Map<String, dynamic>> get locationSuggestions =>
+      throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -54,10 +57,12 @@ abstract class $HomeStateCopyWith<$Res> {
       List<Map<String, dynamic>> exploreList,
       PageController pageController,
       int selectedImageIndex,
-      bool openFilterSheet,
+      bool showLocationDialog,
       List<Map<String, dynamic>> filterList,
       List<String> selectedFilters,
-      List<Map<String, dynamic>> filterOptions});
+      List<Map<String, dynamic>> filterOptions,
+      List<Map<String, dynamic>> locationSuggestions,
+      String city});
 }
 
 /// @nodoc
@@ -82,10 +87,12 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? exploreList = null,
     Object? pageController = null,
     Object? selectedImageIndex = null,
-    Object? openFilterSheet = null,
+    Object? showLocationDialog = null,
     Object? filterList = null,
     Object? selectedFilters = null,
     Object? filterOptions = null,
+    Object? locationSuggestions = null,
+    Object? city = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -124,9 +131,9 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.selectedImageIndex
           : selectedImageIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      openFilterSheet: null == openFilterSheet
-          ? _value.openFilterSheet
-          : openFilterSheet // ignore: cast_nullable_to_non_nullable
+      showLocationDialog: null == showLocationDialog
+          ? _value.showLocationDialog
+          : showLocationDialog // ignore: cast_nullable_to_non_nullable
               as bool,
       filterList: null == filterList
           ? _value.filterList
@@ -140,6 +147,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.filterOptions
           : filterOptions // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
+      locationSuggestions: null == locationSuggestions
+          ? _value.locationSuggestions
+          : locationSuggestions // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -162,10 +177,12 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<Map<String, dynamic>> exploreList,
       PageController pageController,
       int selectedImageIndex,
-      bool openFilterSheet,
+      bool showLocationDialog,
       List<Map<String, dynamic>> filterList,
       List<String> selectedFilters,
-      List<Map<String, dynamic>> filterOptions});
+      List<Map<String, dynamic>> filterOptions,
+      List<Map<String, dynamic>> locationSuggestions,
+      String city});
 }
 
 /// @nodoc
@@ -188,10 +205,12 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? exploreList = null,
     Object? pageController = null,
     Object? selectedImageIndex = null,
-    Object? openFilterSheet = null,
+    Object? showLocationDialog = null,
     Object? filterList = null,
     Object? selectedFilters = null,
     Object? filterOptions = null,
+    Object? locationSuggestions = null,
+    Object? city = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -230,9 +249,9 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.selectedImageIndex
           : selectedImageIndex // ignore: cast_nullable_to_non_nullable
               as int,
-      openFilterSheet: null == openFilterSheet
-          ? _value.openFilterSheet
-          : openFilterSheet // ignore: cast_nullable_to_non_nullable
+      showLocationDialog: null == showLocationDialog
+          ? _value.showLocationDialog
+          : showLocationDialog // ignore: cast_nullable_to_non_nullable
               as bool,
       filterList: null == filterList
           ? _value._filterList
@@ -246,6 +265,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value._filterOptions
           : filterOptions // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
+      locationSuggestions: null == locationSuggestions
+          ? _value._locationSuggestions
+          : locationSuggestions // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -263,16 +290,19 @@ class _$HomeStateImpl implements _HomeState {
       required final List<Map<String, dynamic>> exploreList,
       required this.pageController,
       required this.selectedImageIndex,
-      required this.openFilterSheet,
+      required this.showLocationDialog,
       required final List<Map<String, dynamic>> filterList,
       required final List<String> selectedFilters,
-      required final List<Map<String, dynamic>> filterOptions})
+      required final List<Map<String, dynamic>> filterOptions,
+      required final List<Map<String, dynamic>> locationSuggestions,
+      required this.city})
       : _imageList = imageList,
         _categoriesList = categoriesList,
         _exploreList = exploreList,
         _filterList = filterList,
         _selectedFilters = selectedFilters,
-        _filterOptions = filterOptions;
+        _filterOptions = filterOptions,
+        _locationSuggestions = locationSuggestions;
 
   @override
   final bool isLoading;
@@ -311,7 +341,7 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final int selectedImageIndex;
   @override
-  final bool openFilterSheet;
+  final bool showLocationDialog;
   final List<Map<String, dynamic>> _filterList;
   @override
   List<Map<String, dynamic>> get filterList {
@@ -336,9 +366,21 @@ class _$HomeStateImpl implements _HomeState {
     return EqualUnmodifiableListView(_filterOptions);
   }
 
+  final List<Map<String, dynamic>> _locationSuggestions;
+  @override
+  List<Map<String, dynamic>> get locationSuggestions {
+    if (_locationSuggestions is EqualUnmodifiableListView)
+      return _locationSuggestions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_locationSuggestions);
+  }
+
+  @override
+  final String city;
+
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, categoriesList: $categoriesList, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex, openFilterSheet: $openFilterSheet, filterList: $filterList, selectedFilters: $selectedFilters, filterOptions: $filterOptions)';
+    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, categoriesList: $categoriesList, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex, showLocationDialog: $showLocationDialog, filterList: $filterList, selectedFilters: $selectedFilters, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, city: $city)';
   }
 
   @override
@@ -363,14 +405,17 @@ class _$HomeStateImpl implements _HomeState {
                 other.pageController == pageController) &&
             (identical(other.selectedImageIndex, selectedImageIndex) ||
                 other.selectedImageIndex == selectedImageIndex) &&
-            (identical(other.openFilterSheet, openFilterSheet) ||
-                other.openFilterSheet == openFilterSheet) &&
+            (identical(other.showLocationDialog, showLocationDialog) ||
+                other.showLocationDialog == showLocationDialog) &&
             const DeepCollectionEquality()
                 .equals(other._filterList, _filterList) &&
             const DeepCollectionEquality()
                 .equals(other._selectedFilters, _selectedFilters) &&
             const DeepCollectionEquality()
-                .equals(other._filterOptions, _filterOptions));
+                .equals(other._filterOptions, _filterOptions) &&
+            const DeepCollectionEquality()
+                .equals(other._locationSuggestions, _locationSuggestions) &&
+            (identical(other.city, city) || other.city == city));
   }
 
   @override
@@ -385,10 +430,12 @@ class _$HomeStateImpl implements _HomeState {
       const DeepCollectionEquality().hash(_exploreList),
       pageController,
       selectedImageIndex,
-      openFilterSheet,
+      showLocationDialog,
       const DeepCollectionEquality().hash(_filterList),
       const DeepCollectionEquality().hash(_selectedFilters),
-      const DeepCollectionEquality().hash(_filterOptions));
+      const DeepCollectionEquality().hash(_filterOptions),
+      const DeepCollectionEquality().hash(_locationSuggestions),
+      city);
 
   @JsonKey(ignore: true)
   @override
@@ -399,20 +446,21 @@ class _$HomeStateImpl implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-          {required final bool isLoading,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          required final List<String> imageList,
-          required final List<Map<String, String>> categoriesList,
-          required final List<Map<String, dynamic>> exploreList,
-          required final PageController pageController,
-          required final int selectedImageIndex,
-          required final bool openFilterSheet,
-          required final List<Map<String, dynamic>> filterList,
-          required final List<String> selectedFilters,
-          required final List<Map<String, dynamic>> filterOptions}) =
-      _$HomeStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      required final List<String> imageList,
+      required final List<Map<String, String>> categoriesList,
+      required final List<Map<String, dynamic>> exploreList,
+      required final PageController pageController,
+      required final int selectedImageIndex,
+      required final bool showLocationDialog,
+      required final List<Map<String, dynamic>> filterList,
+      required final List<String> selectedFilters,
+      required final List<Map<String, dynamic>> filterOptions,
+      required final List<Map<String, dynamic>> locationSuggestions,
+      required final String city}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -433,13 +481,17 @@ abstract class _HomeState implements HomeState {
   @override
   int get selectedImageIndex;
   @override
-  bool get openFilterSheet;
+  bool get showLocationDialog;
   @override
   List<Map<String, dynamic>> get filterList;
   @override
   List<String> get selectedFilters;
   @override
   List<Map<String, dynamic>> get filterOptions;
+  @override
+  List<Map<String, dynamic>> get locationSuggestions;
+  @override
+  String get city;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

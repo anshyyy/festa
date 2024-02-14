@@ -93,7 +93,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ...state.filtersList.map((e) => Padding(
-                                        padding: EdgeInsets.only(bottom: 3.h),
+                                        padding: EdgeInsets.only(bottom: 2.h),
                                         child: GestureDetector(
                                           onTap: () {
                                             context.read<FilterCubit>().onFilterChanged(filterValue: e['name']);
@@ -194,48 +194,74 @@ class FilterModalSheetConsumer extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SingleChildScrollView(
-                                scrollDirection: Axis.vertical,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'FILTER BY',
-                                      style: themeData.textTheme.bodySmall!
-                                          .copyWith(
-                                        color: themeData.colorScheme.background,
-                                      ),
+                              Text(
+                                    'FILTER BY',
+                                    style: themeData.textTheme.bodySmall!
+                                        .copyWith(
+                                          fontSize: 14.sp,
+                                      color: themeData.colorScheme.background,
                                     ),
-                                    SizedBox(height: 1.h),
-                                    ...state.filterOptions.map((e) => Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 1.h, horizontal: 0.w),
-                                          child: Row(
-                                            children: [
-                                              SvgPicture.asset(AssetConstants
-                                                  .unSelectedRadio),
-                                              SizedBox(
-                                                width: 3.w,
+                                  ),
+                              SizedBox(
+                                height: 30.h,
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:[
+                                      ...state.filterOptions.map((e)
+                                      {
+                                        return GestureDetector(
+                                        onTap: (){
+                                          context.read<FilterCubit>().onOptionChange(optionId: e['id']);
+                                        },
+                                        child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 1.h, horizontal: 0.w),
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    e['isSelected']?
+                                                    AssetConstants
+                                                      .selectedRadio:
+                                                    AssetConstants
+                                                      .unSelectedRadio),
+                                                  SizedBox(
+                                                    width: 3.w,
+                                                  ),
+                                                  Expanded(
+                                                      child: Text(
+                                                    e['displayName'],
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: themeData
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      fontSize: 16.5.sp,
+                                                      color: themeData
+                                                          .colorScheme.background,
+                                                    ),
+                                                  ))
+                                                ],
                                               ),
-                                              Expanded(
-                                                  child: Text(
-                                                e['displayName'],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: themeData
-                                                    .textTheme.bodyMedium!
-                                                    .copyWith(
-                                                  fontSize: 16.5.sp,
-                                                  color: themeData
-                                                      .colorScheme.background,
-                                                ),
-                                              ))
-                                            ],
-                                          ),
-                                        ))
-                                  ],
+                                            ),
+                                      );})
+                                    ],
+                                  ),
                                 ),
-                              )
+                              ),
+
+                              // Expanded(
+                              //   child: Container(
+                              //     child: ListView.builder(
+                              //       shrinkWrap: true,
+                              //       itemCount: state.filterOptions.length,
+                              //       itemBuilder: (context, index) {
+                              //         return Text(state.filterOptions[index]['displayName']);
+                              //       },
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

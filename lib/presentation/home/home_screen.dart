@@ -10,7 +10,6 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../common/card_screen.dart';
-import 'widgets/explore_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -53,10 +52,14 @@ class HomeScreenConsumer extends StatelessWidget {
                             ),
                             Text(
                               'Indra Nagar',
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontWeight: FontWeight.bold
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
@@ -120,7 +123,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                   padding: EdgeInsets.only(
                                       bottom: 2.w, left: 1.w, right: 1),
                                   child: Text(
-                                    state.categoriesList[index],
+'',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -155,34 +158,25 @@ class HomeScreenConsumer extends StatelessWidget {
                       height: 2.h,
                     ),
                     SizedBox(
-                        height: 35,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.exploreList.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
+                      height: 5.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.exploreList.length,
+                          itemBuilder: (context, index) {
+                            final current = state.exploreList[index];
+                            return GestureDetector(
                                 onTap: () {},
                                 child: Container(
-                                  margin: const EdgeInsets.only(right: 5),
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                    border: Border.all(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Theme.of(context).colorScheme.primaryContainer
                                   ),
-                                  child: ExploreTile(
-                                    svgIcon: state.exploreList[index]
-                                        ['svgIcon'],
-                                    label: state.exploreList[index]['label'],
-                                  ),
-                                ),
-                              );
-                            })),
+                                  height: 5.h,
+                                  child: Text('siush'),
+                                ));
+                          }),
+                    ),
                     SizedBox(
                       height: 2.h,
                     ),

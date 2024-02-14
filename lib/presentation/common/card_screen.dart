@@ -74,7 +74,7 @@ class CardScreen extends StatelessWidget {
                   );
                 }).toList(),
                 options: CarouselOptions(
-                  autoPlay: true,
+                  autoPlay: false,
                   enlargeCenterPage: false,
                   aspectRatio: 343 / 375,
                   enableInfiniteScroll: false,

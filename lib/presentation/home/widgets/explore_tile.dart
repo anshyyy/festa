@@ -11,30 +11,27 @@ class ExploreTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: FittedBox(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              label,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-            ),
-            SizedBox(
-              width: 0.5.h,
-            ),
-            svgIcon != null
-                ? SvgPicture.asset(
-                    svgIcon!,
-                    height: 8,
-                  )
-                : const SizedBox(),
-          ],
-        ),
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            label,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.background,
+                ),
+          ),
+          SizedBox(
+            width: 0.5.h,
+          ),
+          svgIcon != null
+              ? SvgPicture.asset(
+                  svgIcon!,
+                  height: 8,
+                )
+              : const SizedBox(),
+        ],
       ),
     );
   }

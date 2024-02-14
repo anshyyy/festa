@@ -17,15 +17,5 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(selectedImageIndex: index));
   }
 
-  void onFilterChanged({required String filterValue}) {
-   final options = state.filterList.firstWhere(
-      (filter) => filter['name'].toString().toLowerCase() == filterValue.toLowerCase()
-    );
-    List<Map<String, dynamic>> optionValues = [];
-
-    if(options!=null){
-      optionValues  = options['values'];
-    }
-emit(state.copyWith(filterOptions: optionValues));
-  }
+  
 }

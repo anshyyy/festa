@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,9 +6,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
-
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile_v2.dart';
+import 'widgets/filter_modal_sheet.dart';
 import 'widgets/location_dialog.dart';
 import 'widgets/media_corousel.dart';
 
@@ -19,7 +18,7 @@ class HomeScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit(HomeState.initial())..onFilterChanged(filterValue: 'sort'),
+      create: (context) => HomeCubit(HomeState.initial()),
       child: const HomeScreenConsumer(),
     );
   }
@@ -51,10 +50,13 @@ class HomeScreenConsumer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-                          onTap: (){
-                            showDialog(context: context, builder:(context) {
-                              return LocationDialog();
-                            },);
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return LocationDialog();
+                              },
+                            );
                           },
                           child: Row(
                             children: [
@@ -146,16 +148,26 @@ class HomeScreenConsumer extends StatelessWidget {
                           child: Row(
                             children: state.exploreList.map((Map item) {
                               return ExploreTile(
-                              label: item['label'],
-                              icon: item['svgIcon'],
-                              identifier: item['identifier'],
+                                label: item['label'],
+                                icon: item['svgIcon'],
+                                identifier: item['identifier'],
+                                onTap: () {
+                                  if (item['label'].toString().toLowerCase() ==
+                                      'filter') {
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return const FilterModalSheet();
+                                        });
+                                  }
+                                },
                               );
                             }).toList(),
                           ),
                         ),
                       ],
                     ),
-SizedBox(
+                    SizedBox(
                       height: 2.h,
                     ),
                     ListView.builder(
@@ -166,7 +178,6 @@ SizedBox(
                         return const MediaCarousel();
                       },
                     )
-
                   ],
                 ),
               ),
@@ -177,6 +188,3 @@ SizedBox(
     );
   }
 }
-
-
-

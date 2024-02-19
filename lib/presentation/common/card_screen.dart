@@ -1,9 +1,5 @@
-import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../application/home/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:flutter_svg/svg.dart';
@@ -345,7 +341,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4),
-      child: Container(
+      child: SizedBox(
         height: 7.h,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,

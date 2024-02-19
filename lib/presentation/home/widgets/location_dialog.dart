@@ -4,10 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/home/cubit/home_cubit.dart';
-import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 // import '../../core/custom_textfield.dart';
-import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../widgets/custom_textfield.dart';
 import 'event_genre_card.dart';
 

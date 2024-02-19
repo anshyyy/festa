@@ -7,8 +7,8 @@ class TicketPainter extends CustomPainter {
   const TicketPainter({required this.gradientColor1});
 
   static const _cornerGap = 20.0;
-  static double _cutoutRadius = 2.7.h;
-  static double _cutoutDiameter = _cutoutRadius * 2;
+  static final double _cutoutRadius = 2.7.h;
+  static final double _cutoutDiameter = _cutoutRadius * 2;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -33,7 +33,7 @@ class TicketPainter extends CustomPainter {
         end: Alignment.bottomCenter,
         colors: [gradientColor1, Colors.black.withOpacity(0)],
       ).createShader(
-          Rect.fromPoints(Offset(0.0, 00.0), Offset(size.width, size.height)));
+          Rect.fromPoints(const Offset(0.0, 00.0), Offset(size.width, size.height)));
     // ..color = bgColor;
 
     final paintBorder = Paint()

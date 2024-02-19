@@ -63,7 +63,7 @@ class AuthScreenConsumer extends StatelessWidget {
                       authServiceIcon: AssetConstants.appleIcon,
                       color: Theme.of(context).scaffoldBackgroundColor,
                       onTap: () {},
-                    ) : SizedBox(),
+                    ) : const SizedBox(),
                     const SizedBox(
                       height: 20,
                     ),

@@ -12,9 +12,7 @@ class FilterCubit extends Cubit<FilterState> {
         filter['name'].toString().toLowerCase() == filterValue.toLowerCase());
     List<Map<String, dynamic>> optionValues = [];
 
-    if (options != null) {
-      optionValues = options['values'];
-    }
+    optionValues = options['values'];
     emit(state.copyWith(
         filterOptions: optionValues, currentFilter: filterValue));
   }

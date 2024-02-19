@@ -27,7 +27,7 @@ class BookingDescription extends StatelessWidget {
               AnimatedSwitcher(
                 duration: const Duration(seconds: 1),
                 child:
-                    state.showTicketDetails ? TransactionDetails() : QrViewer(),
+                    state.showTicketDetails ? const TransactionDetails() : const QrViewer(),
               ),
               Positioned(
                 bottom: 0,

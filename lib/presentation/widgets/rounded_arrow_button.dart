@@ -30,7 +30,7 @@ class RoundedArrowButton extends StatelessWidget {
         width: width ?? 6.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: isEnabled! ? Colors.white : Theme.of(context).colorScheme.onBackground,
+          color: isEnabled? Colors.white : Theme.of(context).colorScheme.onBackground,
         ),
         child: Center(
           child: contentIcon != null

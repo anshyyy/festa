@@ -204,7 +204,7 @@ class HomeScreenConsumer extends StatelessWidget {
                     ),
                   ),
                 ),
-                state.showLocationDialog ? LocationDialog() : SizedBox()
+                state.showLocationDialog ? const LocationDialog() : const SizedBox()
               ],
             ),
           ),

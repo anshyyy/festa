@@ -5,5 +5,5 @@ part 'event_card_state.dart';
 part 'event_card_cubit.freezed.dart';
 
 class EventCardCubit extends Cubit<EventCardState> {
-  EventCardCubit() : super(EventCardState.initial());
+  EventCardCubit() : super(const EventCardState.initial());
 }

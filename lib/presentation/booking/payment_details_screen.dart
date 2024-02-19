@@ -30,11 +30,11 @@ class PaymentDetailsConsumer extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              EventDetails(),
+              const EventDetails(),
               SizedBox(
                 height: 1.h,
               ),
-              PaymentDestributionDetails(),
+              const PaymentDestributionDetails(),
                SizedBox(
                 height: 1.h,
               ),

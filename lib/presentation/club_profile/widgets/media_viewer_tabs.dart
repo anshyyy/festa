@@ -33,7 +33,7 @@ class MediaViewerTabs extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return Container(
+        return SizedBox(
           height: 100.h,
           child: DefaultTabController(
             length: 3,

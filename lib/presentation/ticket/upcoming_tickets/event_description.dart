@@ -14,7 +14,7 @@ class EventDescription extends StatelessWidget{
       children: [
         ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Container(
+            child: SizedBox(
               width: 28.w,
               height: 16.3.h,
               

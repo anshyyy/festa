@@ -117,7 +117,7 @@ class TicketScreenConsumer extends StatelessWidget {
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 500),
                       child: !state.showTicketHistory
-                          ? UpcomingTicketsScreen()
+                          ? const UpcomingTicketsScreen()
                           : HistoryTicketScreen(),
                     )
                   ],

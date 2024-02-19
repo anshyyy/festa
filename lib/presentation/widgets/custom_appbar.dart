@@ -11,7 +11,7 @@ import '../../domain/core/services/navigation_services/navigation_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
-  Size get preferredSize => Size.fromHeight(15);
+  Size get preferredSize => const Size.fromHeight(15);
 
   final String? text;
   final bool isLeading;
@@ -19,12 +19,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final Widget? widget;
   const CustomAppBar({
-    Key? key,
+    super.key,
     this.text,
     this.widget,
     this.isLeading = false,
     this.isTrailing = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

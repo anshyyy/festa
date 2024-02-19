@@ -173,7 +173,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                     color: Theme.of(context).colorScheme.primaryContainer
                                   ),
                                   height: 5.h,
-                                  child: Text('siush'),
+                                  child: const Text('siush'),
                                 ));
                           }),
                     ),

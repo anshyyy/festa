@@ -12,7 +12,7 @@ class BookTicketScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => BookingCubit(),
-      child: BookTicketScreenConsumer(),
+      child: const BookTicketScreenConsumer(),
     );
   }
 }

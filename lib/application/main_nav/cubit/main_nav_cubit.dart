@@ -5,5 +5,5 @@ part 'main_nav_state.dart';
 part 'main_nav_cubit.freezed.dart';
 
 class MainNavCubit extends Cubit<MainNavState> {
-  MainNavCubit() : super(MainNavState.initial());
+  MainNavCubit() : super(const MainNavState.initial());
 }

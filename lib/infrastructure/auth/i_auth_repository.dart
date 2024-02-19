@@ -4,8 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -89,9 +87,7 @@ class IAuthRepository extends AuthRepository {
               );
 
       String uid = user!.uid;
-      if (uid != null) {
-        return right(uid);
-      }
+      return right(uid);
       return left(uid);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'invalid-verification-code') {
@@ -105,6 +101,7 @@ class IAuthRepository extends AuthRepository {
     }
   }
 
+  @override
   Future<Either<String, File>> selectImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -130,6 +127,6 @@ class IAuthRepository extends AuthRepository {
       );
 
       final user = await _firebaseAuth.signInWithCredential(credential);
-    } on Exception catch (e) {}
+    } on Exception {}
   }
 }

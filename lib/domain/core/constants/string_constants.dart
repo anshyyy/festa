@@ -18,6 +18,7 @@ class AppConstants {
   static String seconds = 's';
   static String filterKey = 'filter';
   static String otherKey = 'other';
+  static String rupees = '₹';
 }
 
 class BasicProfileScreenConstants {
@@ -130,6 +131,31 @@ class CartScreenConstants {
 }
 
 class EventCardScreenConstants {
+  static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
+  static String viewOnMaps = 'View on maps';
+  static String bookTheTickets = 'Book the tickets';
+  static String description = 'Description';
+  static String descriptionText =
+      'Hac amet amet nisl hendrerit metus vivamus a. Rhoncus nulla consequat est et. Dignissim fringilla in posuere lacus suspendisse diam diam pretium scelerisque. sdf . urwthfgn eugerh geurgh gerughr uerhg ergguo hreguhh.';
+  static String lsd = 'LSD (Lights, Sound and Dancefloor)';
+  static String lightText = 'Filled with pink, red, blue and yellow lights ';
+  static String musicText = 'Mellow and its never loud to talk';
+  static String danceFloorText = 'Strength 200 people at a time';
+  static String ambience = 'Ambience';
+  static String ambienceText =
+      'Pool, Plants and Sweet Fragrance, Seating alongside pool (Needs reservation), Couple seating available';
+  static String foodAndBeverages = 'Food and Beverages';
+  static String spicy = 'Spicy Chicken Wings, Panner Tikka, Fish fry';
+  static String drinks =
+      'Gin Cocktail, Sex on the Beach, Whiskey shots with Ice-Cream';
+  static String number = '1.';
+  static String fAQs = 'FAQs';
+  static String fAQsText =
+      'Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut. Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut.';
+}
+
+
+class EventDetailsScreenConstants {
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
   static String viewOnMaps = 'View on maps';
   static String bookTheTickets = 'Book the tickets';

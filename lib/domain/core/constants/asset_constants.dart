@@ -27,7 +27,7 @@ class AssetConstants {
   static const heartFilledIcon = '${vectorsFolder}heart-filled-icon.svg';
   static const selectedRadio = '${vectorsFolder}checked-radio.svg';
   static const unSelectedRadio = '${vectorsFolder}unchecked-radio.svg';
-static const heartSelected = '${vectorsFolder}heart-selected.svg';
+  static const heartSelected = '${vectorsFolder}heart-selected.svg';
   static const updateRocket = '${gifFolder}update-rocket.gif';
 
   static const festaIconPng = '${vectorsFolder}festa-icon.png';
@@ -39,7 +39,6 @@ static const heartSelected = '${vectorsFolder}heart-selected.svg';
   static const securityIcon = '${vectorsFolder}security-icon.svg';
   static const longArrowRight = '${vectorsFolder}long-arrow-right.svg';
   static const closeIcon = '${vectorsFolder}close-icon.svg';
-  // static const arrowDown = '${vectorsFolder}arrow-down.svg';
   static const clockIcon = '${vectorsFolder}clock-icon.svg';
   static const starIcon = '${vectorsFolder}star-icon.svg';
   static const filterIcon = '${vectorsFolder}filter-icon.svg';
@@ -70,4 +69,6 @@ static const heartSelected = '${vectorsFolder}heart-selected.svg';
   static const locationIcon = '${vectorsFolder}location-filled.svg';
   static const durationIcon = '${vectorsFolder}duration.svg';
   static const startIcon = '${vectorsFolder}star.svg';
+
+  static const threeDots = '${vectorsFolder}three-dots.dart';
 }

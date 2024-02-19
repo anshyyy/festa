@@ -15,6 +15,7 @@ import '../../../../../presentation/booking/payment_details_screen.dart';
 import '../../../../../presentation/club_profile/club_profile_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
+import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/home/home_screen_v2.dart';
 import '../../../../../presentation/individual_event_card/individual_event_card_screen.dart';
@@ -38,9 +39,26 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.mainNavRoute:
       return _getPageRoute(const HomeScreen(), settings);
 
-
-       case UserRoutes.homeScreenRoute:
+    case UserRoutes.homeScreenRoute:
       return _getPageRoute(const HomeScreen2(), settings);
+
+    case UserRoutes.eventDetailsRoutes:
+      return _getPageRoute(
+          const EventDetailsScreen(
+              eventTitle: 'THE GREYBOT ALL STARS',
+              date: 'Dec 25, 2023 08:00PM',
+              distance: 2.3,
+              hostDetails: 'Bobs`s Bar',
+              location: 'Great Indian Music Hall, Indira Nagar, Banglore',
+              price: 5000.00,
+              eventTime: '10:00 AM - 12:30 AM',
+              ratings: '5.0 (100 ratings)',
+              posters: [
+                'https://images.unsplash.com/photo-1472653431158-6364773b2a56?q=80&w=2740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+              ]),
+          settings);
 
     case UserRoutes.eventCardRoute:
       return _getPageRoute(const EventCardScreen(), settings);
@@ -48,12 +66,11 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.ticketsRoute:
       return _getPageRoute(const TicketScreen(), settings);
 
-      case UserRoutes.bookingRoute:
-    return _getPageRoute(const BookTicketScreen(), settings);
-    
-    case UserRoutes.paymentDetailsRoute:
-    return _getPageRoute(const PaymentDetails(), settings);
+    case UserRoutes.bookingRoute:
+      return _getPageRoute(const BookTicketScreen(), settings);
 
+    case UserRoutes.paymentDetailsRoute:
+      return _getPageRoute(const PaymentDetails(), settings);
 
     case UserRoutes.clubProfileRoute:
       return _getPageRoute(const ClubProfileScreen(), settings);

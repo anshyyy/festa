@@ -18,9 +18,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onChipChange({required String id}) {
-    final selectedChip = state.exploreList.where((element) =>
-        element['id'].toString().toLowerCase() == id.toString().toLowerCase());
-
     List<Map<String, dynamic>> temp = state.exploreList.map((e) {
       if (e['id'].toString().toLowerCase() == id.toString().toLowerCase()) {
         e['isSelected'] = true;

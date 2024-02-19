@@ -10,7 +10,7 @@ import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile_v2.dart';
 import 'widgets/filter_modal_sheet.dart';
 import 'widgets/location_dialog.dart';
-import 'widgets/media_corousel.dart';
+import '../common/event_card.dart';
 
 class HomeScreen2 extends StatelessWidget {
   const HomeScreen2({super.key});
@@ -53,7 +53,9 @@ class HomeScreenConsumer extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                context.read<HomeCubit>().toggleLocationDialog();
+                                context
+                                    .read<HomeCubit>()
+                                    .toggleLocationDialog();
                               },
                               child: Row(
                                 children: [
@@ -64,10 +66,12 @@ class HomeScreenConsumer extends StatelessWidget {
                                     width: 3.w,
                                   ),
                                   Text(
-                                    '${state.city}',
-                                    style: themeData.textTheme.bodySmall!.copyWith(
-                                        color: themeData.colorScheme.background,
-                                        fontWeight: FontWeight.w600),
+                                    state.city,
+                                    style: themeData.textTheme.bodySmall!
+                                        .copyWith(
+                                            color: themeData
+                                                .colorScheme.background,
+                                            fontWeight: FontWeight.w600),
                                   )
                                 ],
                               ),
@@ -80,7 +84,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                 SizedBox(
                                   width: 3.w,
                                 ),
-                                SvgPicture.asset(AssetConstants.notificationIcon)
+                                SvgPicture.asset(
+                                    AssetConstants.notificationIcon)
                               ],
                             )
                           ],
@@ -147,10 +152,14 @@ class HomeScreenConsumer extends StatelessWidget {
                                   return ExploreTile(
                                     label: item['label'],
                                     icon: item['svgIcon'],
-                                    isSelected:item['isSelected'],
+                                    isSelected: item['isSelected'],
                                     onTap: () {
-                                      context.read<HomeCubit>().onChipChange(id: item['id']);
-                                      if (item['label'].toString().toLowerCase() ==
+                                      context
+                                          .read<HomeCubit>()
+                                          .onChipChange(id: item['id']);
+                                      if (item['label']
+                                              .toString()
+                                              .toLowerCase() ==
                                           'filter') {
                                         showModalBottomSheet(
                                             context: context,
@@ -173,15 +182,29 @@ class HomeScreenConsumer extends StatelessWidget {
                           itemCount: 3,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return const MediaCarousel();
+                            return const EventCard(
+                              eventTitle: 'THE GREYBOT ALL STARS',
+                              date:'Dec 25, 2023 08:00PM',
+                              distance: 2.3,
+                              hostDetails: 'Bobs`s Bar',
+                              location:
+                                  'Great Indian Music Hall, Indira Nagar, Banglore',
+                              price: 5000.00,
+                              eventTime: '10:00 AM - 12:30 AM',
+                              ratings: '5.0 (100 ratings)',
+                              posters: [
+                                'https://images.unsplash.com/photo-1472653431158-6364773b2a56?q=80&w=2740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                                'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                                'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                              ],
+                            );
                           },
                         )
                       ],
                     ),
                   ),
                 ),
-              state.showLocationDialog ? LocationDialog():SizedBox()
-
+                state.showLocationDialog ? LocationDialog() : SizedBox()
               ],
             ),
           ),

@@ -16,8 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$EventDetailsState {
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
+  bool get isFailure => throw _privateConstructorUsedError;
   String get apiBaseUrl => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
+  EventDto? get event => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventDetailsStateCopyWith<EventDetailsState> get copyWith =>
@@ -30,7 +34,15 @@ abstract class $EventDetailsStateCopyWith<$Res> {
           EventDetailsState value, $Res Function(EventDetailsState) then) =
       _$EventDetailsStateCopyWithImpl<$Res, EventDetailsState>;
   @useResult
-  $Res call({String apiBaseUrl, EventRepository eventRepository});
+  $Res call(
+      {bool isLoading,
+      bool isSuccess,
+      bool isFailure,
+      String apiBaseUrl,
+      EventRepository eventRepository,
+      EventDto? event});
+
+  $EventDtoCopyWith<$Res>? get event;
 }
 
 /// @nodoc
@@ -46,10 +58,26 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
     Object? apiBaseUrl = null,
     Object? eventRepository = null,
+    Object? event = freezed,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
       apiBaseUrl: null == apiBaseUrl
           ? _value.apiBaseUrl
           : apiBaseUrl // ignore: cast_nullable_to_non_nullable
@@ -58,7 +86,23 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
               as EventRepository,
+      event: freezed == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as EventDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $EventDtoCopyWith<$Res>? get event {
+    if (_value.event == null) {
+      return null;
+    }
+
+    return $EventDtoCopyWith<$Res>(_value.event!, (value) {
+      return _then(_value.copyWith(event: value) as $Val);
+    });
   }
 }
 
@@ -70,7 +114,16 @@ abstract class _$$EventDetailsStateImplCopyWith<$Res>
       __$$EventDetailsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String apiBaseUrl, EventRepository eventRepository});
+  $Res call(
+      {bool isLoading,
+      bool isSuccess,
+      bool isFailure,
+      String apiBaseUrl,
+      EventRepository eventRepository,
+      EventDto? event});
+
+  @override
+  $EventDtoCopyWith<$Res>? get event;
 }
 
 /// @nodoc
@@ -84,10 +137,26 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
     Object? apiBaseUrl = null,
     Object? eventRepository = null,
+    Object? event = freezed,
   }) {
     return _then(_$EventDetailsStateImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
       apiBaseUrl: null == apiBaseUrl
           ? _value.apiBaseUrl
           : apiBaseUrl // ignore: cast_nullable_to_non_nullable
@@ -96,6 +165,10 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
               as EventRepository,
+      event: freezed == event
+          ? _value.event
+          : event // ignore: cast_nullable_to_non_nullable
+              as EventDto?,
     ));
   }
 }
@@ -104,16 +177,29 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
 
 class _$EventDetailsStateImpl implements _EventDetailsState {
   const _$EventDetailsStateImpl(
-      {required this.apiBaseUrl, required this.eventRepository});
+      {required this.isLoading,
+      required this.isSuccess,
+      required this.isFailure,
+      required this.apiBaseUrl,
+      required this.eventRepository,
+      required this.event});
 
+  @override
+  final bool isLoading;
+  @override
+  final bool isSuccess;
+  @override
+  final bool isFailure;
   @override
   final String apiBaseUrl;
   @override
   final EventRepository eventRepository;
+  @override
+  final EventDto? event;
 
   @override
   String toString() {
-    return 'EventDetailsState(apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository)';
+    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event)';
   }
 
   @override
@@ -121,14 +207,22 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EventDetailsStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess) &&
+            (identical(other.isFailure, isFailure) ||
+                other.isFailure == isFailure) &&
             (identical(other.apiBaseUrl, apiBaseUrl) ||
                 other.apiBaseUrl == apiBaseUrl) &&
             (identical(other.eventRepository, eventRepository) ||
-                other.eventRepository == eventRepository));
+                other.eventRepository == eventRepository) &&
+            (identical(other.event, event) || other.event == event));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, apiBaseUrl, eventRepository);
+  int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
+      apiBaseUrl, eventRepository, event);
 
   @JsonKey(ignore: true)
   @override
@@ -140,14 +234,25 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
 
 abstract class _EventDetailsState implements EventDetailsState {
   const factory _EventDetailsState(
-          {required final String apiBaseUrl,
-          required final EventRepository eventRepository}) =
-      _$EventDetailsStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccess,
+      required final bool isFailure,
+      required final String apiBaseUrl,
+      required final EventRepository eventRepository,
+      required final EventDto? event}) = _$EventDetailsStateImpl;
 
+  @override
+  bool get isLoading;
+  @override
+  bool get isSuccess;
+  @override
+  bool get isFailure;
   @override
   String get apiBaseUrl;
   @override
   EventRepository get eventRepository;
+  @override
+  EventDto? get event;
   @override
   @JsonKey(ignore: true)
   _$$EventDetailsStateImplCopyWith<_$EventDetailsStateImpl> get copyWith =>

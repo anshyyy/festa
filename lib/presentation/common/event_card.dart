@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import 'show_profile_tile.dart';
 
@@ -22,49 +25,57 @@ class EventCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              CarouselSlider.builder(
-                  itemCount: event.assets.length +
-                      (event.coverImage.isNotEmpty ? 1 : 0),
-                  itemBuilder: (context, imageIndex, realIndex) {
-                    final index =
-                        imageIndex - (event.coverImage.isNotEmpty ? 1 : 0);
-                    return Container(
-                      foregroundDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: const LinearGradient(
-                          colors: [
-                            Colors.black,
-                            Colors.transparent,
-                            Colors.transparent,
-                            Colors.black
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: [0, 0.2, 0.8, 1],
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            imageIndex == 0 && event.coverImage.isNotEmpty
-                                ? event.coverImage
-                                : event.assets[index].url,
+              GestureDetector(
+                onTap: () {
+                  navigator<NavigationService>()
+                      .navigateTo(UserRoutes.eventDetailsRoute, queryParams: {
+                    'id': event.id.toString(),
+                  });
+                },
+                child: CarouselSlider.builder(
+                    itemCount: event.assets.length +
+                        (event.coverImage.isNotEmpty ? 1 : 0),
+                    itemBuilder: (context, imageIndex, realIndex) {
+                      final index =
+                          imageIndex - (event.coverImage.isNotEmpty ? 1 : 0);
+                      return Container(
+                        foregroundDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Colors.black,
+                              Colors.transparent,
+                              Colors.transparent,
+                              Colors.black
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: [0, 0.2, 0.8, 1],
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                    autoPlay: false,
-                    height: 100.w,
-                    enlargeCenterPage: true,
-                    autoPlayCurve: Curves.easeInOutBack,
-                    viewportFraction: 1,
-                    enableInfiniteScroll: false,
-                    onPageChanged: (index, reason) {},
-                  )),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              imageIndex == 0 && event.coverImage.isNotEmpty
+                                  ? event.coverImage
+                                  : event.assets[index].url,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      autoPlay: false,
+                      height: 100.w,
+                      enlargeCenterPage: true,
+                      autoPlayCurve: Curves.easeInOutBack,
+                      viewportFraction: 1,
+                      enableInfiniteScroll: false,
+                      onPageChanged: (index, reason) {},
+                    )),
+              ),
               SizedBox(
                 height: 1.h,
               ),

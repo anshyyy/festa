@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 
@@ -11,4 +13,6 @@ abstract class EventRepository {
       int? range,
       String? sort,
       String? filter});
+
+  Future<Either<dynamic, EventDto>> getEventDetails({required int eventId});
 }

@@ -34,13 +34,15 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case AuthRoutes.genderRoute:
       return _getPageRoute(const GenderSelectionScreen(), settings);
-    
+
     case UserRoutes.homeScreenRoute:
       return _getPageRoute(const HomeScreen(), settings);
 
     case UserRoutes.eventDetailsRoute:
       return _getPageRoute(
-          const EventDetailsScreen(id: 1,),
+          EventDetailsScreen(
+            id: routingData.queryParameters['id'] ?? '',
+          ),
           settings);
 
     case UserRoutes.eventCardRoute:

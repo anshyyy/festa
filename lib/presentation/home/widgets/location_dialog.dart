@@ -6,8 +6,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../application/home/cubit/home_cubit.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 // import '../../core/custom_textfield.dart';
+import '../../../domain/core/constants/other_constants.dart';
 import '../../widgets/custom_textfield.dart';
 import 'event_genre_card.dart';
+import 'location_tile.dart';
 
 class LocationDialog extends StatelessWidget {
   const LocationDialog({super.key});
@@ -143,30 +145,20 @@ class LocationDialog extends StatelessWidget {
                             height: 2.h,
                           ),
                           SizedBox(
-                            height: 10.h,
-                            child: ListView.builder(
-                              itemCount: state.locationSuggestions.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    context.read<HomeCubit>().updateLocation(
-                                        city: state.locationSuggestions[index]
-                                            ['name']);
-                                    context
-                                        .read<HomeCubit>()
-                                        .toggleLocationDialog();
-                                  },
-                                  child: EventTypeTile(
-                                      title: state.locationSuggestions[index]
-                                          ['name'],
-                                      image: state.locationSuggestions[index]
-                                          ['image']),
-                                );
-                              },
-                            ),
-                          )
+                              height: 10.h,
+                              child: Row(
+                                children: [
+                                  const LocationTile(
+                                    location: OtherConstants.defaultLocation,
+                                  ),
+                                  SizedBox(
+                                    width: 3.5.w,
+                                  ),
+                                  const LocationTile(
+                                    location: OtherConstants.mumbai,
+                                  ),
+                                ],
+                              ))
                         ],
                       )
                     ],

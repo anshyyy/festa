@@ -61,8 +61,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(showLocationDialog: !state.showLocationDialog));
   }
 
-  void updateLocation({required String city}) {
-    // emit(state.copyWith(city: city));
+  void updateLocation({required LocationDto location}) {
+    emit(state.copyWith(location: location, showLocationDialog: !state.showLocationDialog));
   }
 
   void emitFromEveryWhere({required HomeState currentState}) {

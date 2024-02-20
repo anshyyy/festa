@@ -32,6 +32,8 @@ mixin _$LocationDto {
   String get state => throw _privateConstructorUsedError;
   @JsonKey(name: 'country', defaultValue: '')
   String get country => throw _privateConstructorUsedError;
+  @JsonKey(name: 'icon', defaultValue: '')
+  String get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,8 @@ abstract class $LocationDtoCopyWith<$Res> {
       @JsonKey(name: 'area', defaultValue: '') String area,
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'state', defaultValue: '') String state,
-      @JsonKey(name: 'country', defaultValue: '') String country});
+      @JsonKey(name: 'country', defaultValue: '') String country,
+      @JsonKey(name: 'icon', defaultValue: '') String icon});
 }
 
 /// @nodoc
@@ -73,6 +76,7 @@ class _$LocationDtoCopyWithImpl<$Res, $Val extends LocationDto>
     Object? city = null,
     Object? state = null,
     Object? country = null,
+    Object? icon = null,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -99,6 +103,10 @@ class _$LocationDtoCopyWithImpl<$Res, $Val extends LocationDto>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
+      icon: null == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -117,7 +125,8 @@ abstract class _$$LocationDtoImplCopyWith<$Res>
       @JsonKey(name: 'area', defaultValue: '') String area,
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'state', defaultValue: '') String state,
-      @JsonKey(name: 'country', defaultValue: '') String country});
+      @JsonKey(name: 'country', defaultValue: '') String country,
+      @JsonKey(name: 'icon', defaultValue: '') String icon});
 }
 
 /// @nodoc
@@ -137,6 +146,7 @@ class __$$LocationDtoImplCopyWithImpl<$Res>
     Object? city = null,
     Object? state = null,
     Object? country = null,
+    Object? icon = null,
   }) {
     return _then(_$LocationDtoImpl(
       latitude: null == latitude
@@ -163,6 +173,10 @@ class __$$LocationDtoImplCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
+      icon: null == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -176,7 +190,8 @@ class _$LocationDtoImpl implements _LocationDto {
       @JsonKey(name: 'area', defaultValue: '') required this.area,
       @JsonKey(name: 'city', defaultValue: '') required this.city,
       @JsonKey(name: 'state', defaultValue: '') required this.state,
-      @JsonKey(name: 'country', defaultValue: '') required this.country});
+      @JsonKey(name: 'country', defaultValue: '') required this.country,
+      @JsonKey(name: 'icon', defaultValue: '') required this.icon});
 
   factory _$LocationDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationDtoImplFromJson(json);
@@ -199,10 +214,13 @@ class _$LocationDtoImpl implements _LocationDto {
   @override
   @JsonKey(name: 'country', defaultValue: '')
   final String country;
+  @override
+  @JsonKey(name: 'icon', defaultValue: '')
+  final String icon;
 
   @override
   String toString() {
-    return 'LocationDto(latitude: $latitude, longitude: $longitude, area: $area, city: $city, state: $state, country: $country)';
+    return 'LocationDto(latitude: $latitude, longitude: $longitude, area: $area, city: $city, state: $state, country: $country, icon: $icon)';
   }
 
   @override
@@ -217,13 +235,14 @@ class _$LocationDtoImpl implements _LocationDto {
             (identical(other.area, area) || other.area == area) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.state, state) || other.state == state) &&
-            (identical(other.country, country) || other.country == country));
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.icon, icon) || other.icon == icon));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, latitude, longitude, area, city, state, country);
+  int get hashCode => Object.hash(
+      runtimeType, latitude, longitude, area, city, state, country, icon);
 
   @JsonKey(ignore: true)
   @override
@@ -248,8 +267,9 @@ abstract class _LocationDto implements LocationDto {
       @JsonKey(name: 'area', defaultValue: '') required final String area,
       @JsonKey(name: 'city', defaultValue: '') required final String city,
       @JsonKey(name: 'state', defaultValue: '') required final String state,
-      @JsonKey(name: 'country', defaultValue: '')
-      required final String country}) = _$LocationDtoImpl;
+      @JsonKey(name: 'country', defaultValue: '') required final String country,
+      @JsonKey(name: 'icon', defaultValue: '')
+      required final String icon}) = _$LocationDtoImpl;
 
   factory _LocationDto.fromJson(Map<String, dynamic> json) =
       _$LocationDtoImpl.fromJson;
@@ -272,6 +292,9 @@ abstract class _LocationDto implements LocationDto {
   @override
   @JsonKey(name: 'country', defaultValue: '')
   String get country;
+  @override
+  @JsonKey(name: 'icon', defaultValue: '')
+  String get icon;
   @override
   @JsonKey(ignore: true)
   _$$LocationDtoImplCopyWith<_$LocationDtoImpl> get copyWith =>

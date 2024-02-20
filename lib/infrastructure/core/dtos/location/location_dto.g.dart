@@ -14,6 +14,7 @@ _$LocationDtoImpl _$$LocationDtoImplFromJson(Map<String, dynamic> json) =>
       city: json['city'] as String? ?? '',
       state: json['state'] as String? ?? '',
       country: json['country'] as String? ?? '',
+      icon: json['icon'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$LocationDtoImplToJson(_$LocationDtoImpl instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$LocationDtoImplToJson(_$LocationDtoImpl instance) =>
       'city': instance.city,
       'state': instance.state,
       'country': instance.country,
+      'icon': instance.icon,
     };

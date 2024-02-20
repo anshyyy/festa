@@ -8,6 +8,8 @@ class AssetConstants {
   static const searchSvg = '${vectorsFolder}example.svg';
   static const profileIcon = '${vectorsFolder}bprofile-icon.png';
   static const locationIconPink = '${vectorsFolder}location-icon.svg';
+    static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
+
   static const searchIcon = '${vectorsFolder}search-icon.svg';
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
   static const homeBobsBarImg = '${vectorsFolder}bobsbarimg.png';
@@ -69,5 +71,7 @@ class AssetConstants {
   // location constants
   static const bangloreIcon = '${vectorsFolder}banglore-icon.svg';
   static const mumbaiIcon = '${vectorsFolder}mumbai-icon.svg';
+  static const delhiIcon = '${vectorsFolder}delhi-icon.svg';
+  static const hyderabadIcon = '${vectorsFolder}hyderabad-icon.svg';
 
 }

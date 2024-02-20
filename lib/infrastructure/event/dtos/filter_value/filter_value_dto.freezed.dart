@@ -32,6 +32,8 @@ mixin _$FilterValueDto {
   bool get isApplied => throw _privateConstructorUsedError;
   @JsonKey(name: 'value')
   dynamic get value => throw _privateConstructorUsedError;
+  @JsonKey(name: 'categoryId')
+  int? get categoryId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +53,8 @@ abstract class $FilterValueDtoCopyWith<$Res> {
       @JsonKey(name: 'rule', defaultValue: '') String rule,
       @JsonKey(name: 'icon', defaultValue: '') String icon,
       @JsonKey(defaultValue: false) bool isApplied,
-      @JsonKey(name: 'value') dynamic value});
+      @JsonKey(name: 'value') dynamic value,
+      @JsonKey(name: 'categoryId') int? categoryId});
 }
 
 /// @nodoc
@@ -73,6 +76,7 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
     Object? icon = null,
     Object? isApplied = null,
     Object? value = freezed,
+    Object? categoryId = freezed,
   }) {
     return _then(_value.copyWith(
       displayName: null == displayName
@@ -99,6 +103,10 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -117,7 +125,8 @@ abstract class _$$FilterValueDtoImplCopyWith<$Res>
       @JsonKey(name: 'rule', defaultValue: '') String rule,
       @JsonKey(name: 'icon', defaultValue: '') String icon,
       @JsonKey(defaultValue: false) bool isApplied,
-      @JsonKey(name: 'value') dynamic value});
+      @JsonKey(name: 'value') dynamic value,
+      @JsonKey(name: 'categoryId') int? categoryId});
 }
 
 /// @nodoc
@@ -137,6 +146,7 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
     Object? icon = null,
     Object? isApplied = null,
     Object? value = freezed,
+    Object? categoryId = freezed,
   }) {
     return _then(_$FilterValueDtoImpl(
       displayName: null == displayName
@@ -163,6 +173,10 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -177,7 +191,8 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
       @JsonKey(name: 'rule', defaultValue: '') required this.rule,
       @JsonKey(name: 'icon', defaultValue: '') required this.icon,
       @JsonKey(defaultValue: false) required this.isApplied,
-      @JsonKey(name: 'value') this.value});
+      @JsonKey(name: 'value') this.value,
+      @JsonKey(name: 'categoryId') this.categoryId});
 
   factory _$FilterValueDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$FilterValueDtoImplFromJson(json);
@@ -200,10 +215,13 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
   @override
   @JsonKey(name: 'value')
   final dynamic value;
+  @override
+  @JsonKey(name: 'categoryId')
+  final int? categoryId;
 
   @override
   String toString() {
-    return 'FilterValueDto(displayName: $displayName, name: $name, rule: $rule, icon: $icon, isApplied: $isApplied, value: $value)';
+    return 'FilterValueDto(displayName: $displayName, name: $name, rule: $rule, icon: $icon, isApplied: $isApplied, value: $value, categoryId: $categoryId)';
   }
 
   @override
@@ -218,13 +236,15 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.isApplied, isApplied) ||
                 other.isApplied == isApplied) &&
-            const DeepCollectionEquality().equals(other.value, value));
+            const DeepCollectionEquality().equals(other.value, value) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, displayName, name, rule, icon,
-      isApplied, const DeepCollectionEquality().hash(value));
+      isApplied, const DeepCollectionEquality().hash(value), categoryId);
 
   @JsonKey(ignore: true)
   @override
@@ -243,13 +263,15 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
 
 abstract class _FilterValueDto implements FilterValueDto {
   const factory _FilterValueDto(
-      {@JsonKey(name: 'displayName', defaultValue: '')
-      required final String displayName,
-      @JsonKey(name: 'name', defaultValue: '') required final String name,
-      @JsonKey(name: 'rule', defaultValue: '') required final String rule,
-      @JsonKey(name: 'icon', defaultValue: '') required final String icon,
-      @JsonKey(defaultValue: false) required final bool isApplied,
-      @JsonKey(name: 'value') final dynamic value}) = _$FilterValueDtoImpl;
+          {@JsonKey(name: 'displayName', defaultValue: '')
+          required final String displayName,
+          @JsonKey(name: 'name', defaultValue: '') required final String name,
+          @JsonKey(name: 'rule', defaultValue: '') required final String rule,
+          @JsonKey(name: 'icon', defaultValue: '') required final String icon,
+          @JsonKey(defaultValue: false) required final bool isApplied,
+          @JsonKey(name: 'value') final dynamic value,
+          @JsonKey(name: 'categoryId') final int? categoryId}) =
+      _$FilterValueDtoImpl;
 
   factory _FilterValueDto.fromJson(Map<String, dynamic> json) =
       _$FilterValueDtoImpl.fromJson;
@@ -272,6 +294,9 @@ abstract class _FilterValueDto implements FilterValueDto {
   @override
   @JsonKey(name: 'value')
   dynamic get value;
+  @override
+  @JsonKey(name: 'categoryId')
+  int? get categoryId;
   @override
   @JsonKey(ignore: true)
   _$$FilterValueDtoImplCopyWith<_$FilterValueDtoImpl> get copyWith =>

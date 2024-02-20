@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
@@ -10,6 +9,7 @@ import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
+import '../core/primary_button.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile_v2.dart';
 import 'widgets/filter_modal_sheet.dart';
@@ -53,6 +53,7 @@ class HomeScreenConsumer extends StatelessWidget {
                     children: [
                       SingleChildScrollView(
                         scrollDirection: Axis.vertical,
+                        controller: state.scrollController,
                         child: Padding(
                           padding: EdgeInsets.all(3.w),
                           child: Column(
@@ -102,25 +103,195 @@ class HomeScreenConsumer extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Text(
-                                '${HomeScreenConstants.hey} James, ${HomeScreenConstants.welcomeText}',
-                                style: themeData.textTheme.bodySmall!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              if (state.categoryFilter != null)
+                              if (!state.hasMoreEvents && state.events.isEmpty)
+                                Container(
+                                  height: 80.h,
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                            AssetConstants.notFoundFilter),
+                                        Text(
+                                          HomeScreenConstants.noEventsFound,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                        SizedBox(
+                                          height: 2.h,
+                                        ),
+                                        PrimaryButton(
+                                          text: HomeScreenConstants.editFilters,
+                                          function: () {
+                                            final builderContext = context;
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return FilterModalSheet(
+                                                        filters: List.from(state
+                                                            .filters
+                                                            .map((e) => e.copyWith(
+                                                                values: List.from(
+                                                                    e.values)))
+                                                            .toList()),
+                                                      );
+                                                    }).then((value) {
+                                                  if (value != null) {
+                                                    if (value
+                                                        is List<FilterDto>) {
+                                                      builderContext
+                                                          .read<HomeCubit>()
+                                                          .updateFilterApplied(
+                                                              filters: value);
+                                                    }
+                                                  }
+                                                });
+                                          },
+                                          width: 10.w,
+                                          height: 35,
+                                          borderColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondaryContainer,
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                          textColor: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                        )
+                                      ]),
+                                )
+                              else ...[
                                 SizedBox(
                                   height: 2.h,
                                 ),
-                              if (state.categoryFilter != null)
+                                Text(
+                                  '${HomeScreenConstants.hey} James, ${HomeScreenConstants.welcomeText}',
+                                  style:
+                                      themeData.textTheme.bodySmall!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                if (state.categoryFilter != null)
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                if (state.categoryFilter != null)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        HomeScreenConstants.pickYourExperience,
+                                        style: themeData.textTheme.bodyMedium!
+                                            .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color:
+                                              themeData.colorScheme.background,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      SizedBox(
+                                        width: 100.w,
+                                        height: 22.w,
+                                        child: ListView.separated(
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            final categoryValue = state
+                                                .categoryFilter!.values[index];
+                                            return GestureDetector(
+                                              onTap: () {
+                                                if (state.categoryFilter!
+                                                    .values[index].isApplied) {
+                                                  state.categoryFilter!
+                                                          .values[index] =
+                                                      state.categoryFilter!
+                                                          .values[index]
+                                                          .copyWith(
+                                                              isApplied: false);
+                                                  final indexTemp = state
+                                                      .filters
+                                                      .indexWhere((element) {
+                                                    return element.name ==
+                                                        'music';
+                                                  });
+                                                  state.filters[indexTemp] =
+                                                      state.filters[indexTemp]
+                                                          .copyWith(
+                                                              isApplied: false);
+                                                  context
+                                                      .read<HomeCubit>()
+                                                      .updateFilterApplied(
+                                                          filters: List.from(
+                                                        state.filters,
+                                                      ));
+                                                  return;
+                                                }
+                                                for (int i = 0;
+                                                    i <
+                                                        state.categoryFilter!
+                                                            .values.length;
+                                                    i++) {
+                                                  state.categoryFilter!
+                                                          .values[i] =
+                                                      state.categoryFilter!
+                                                          .values[i]
+                                                          .copyWith(
+                                                              isApplied: false);
+                                                }
+                                                state.categoryFilter!
+                                                        .values[index] =
+                                                    state.categoryFilter!
+                                                        .values[index]
+                                                        .copyWith(
+                                                            isApplied: true);
+                                                final indexTemp = state.filters
+                                                    .indexWhere((element) {
+                                                  return element.name ==
+                                                      'music';
+                                                });
+                                                state.filters[indexTemp] = state
+                                                    .filters[indexTemp]
+                                                    .copyWith(isApplied: true);
+                                                context
+                                                    .read<HomeCubit>()
+                                                    .updateFilterApplied(
+                                                        filters: List.from(
+                                                      state.filters,
+                                                    ));
+                                              },
+                                              child: EventTypeTile(
+                                                isSelected:
+                                                    categoryValue.isApplied,
+                                                image: categoryValue.icon,
+                                                title:
+                                                    categoryValue.displayName,
+                                              ),
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(
+                                              width: 3.w,
+                                            );
+                                          },
+                                          itemCount: state
+                                              .categoryFilter!.values.length,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      HomeScreenConstants.pickYourExperience,
+                                      HomeScreenConstants.explorerAll,
                                       style: themeData.textTheme.bodyMedium!
                                           .copyWith(
                                         fontWeight: FontWeight.w600,
@@ -130,118 +301,75 @@ class HomeScreenConsumer extends StatelessWidget {
                                     SizedBox(
                                       height: 2.h,
                                     ),
-                                    SizedBox(
-                                      width: 100.w,
-                                      height: 22.w,
-                                      child: ListView.separated(
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) {
-                                          final categoryValue = state
-                                              .categoryFilter!.values[index];
-                                          return EventTypeTile(
-                                            isSelected: categoryValue.isApplied,
-                                            image: categoryValue.icon,
-                                            title: categoryValue.displayName,
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children:
+                                            state.exploreList.map((Map item) {
+                                          return ExploreTile(
+                                            label: item['label'],
+                                            icon: item['svgIcon'],
+                                            isSelected: item['isSelected'],
+                                            onTap: () {
+                                              if (item['label']
+                                                      .toString()
+                                                      .toLowerCase() ==
+                                                  'filter') {
+                                                final builderContext = context;
+                                                showModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return FilterModalSheet(
+                                                        filters: List.from(state
+                                                            .filters
+                                                            .map((e) => e.copyWith(
+                                                                values: List.from(
+                                                                    e.values)))
+                                                            .toList()),
+                                                      );
+                                                    }).then((value) {
+                                                  if (value != null) {
+                                                    if (value
+                                                        is List<FilterDto>) {
+                                                      builderContext
+                                                          .read<HomeCubit>()
+                                                          .updateFilterApplied(
+                                                              filters: value);
+                                                    }
+                                                  }
+                                                });
+                                              } else if (item['label']
+                                                      .toString()
+                                                      .toLowerCase() ==
+                                                  'sort') {}
+                                            },
                                           );
-                                        },
-                                        separatorBuilder: (context, index) {
-                                          return SizedBox(
-                                            width: 3.w,
-                                          );
-                                        },
-                                        itemCount:
-                                            state.categoryFilter!.values.length,
+                                        }).toList(),
                                       ),
                                     ),
                                   ],
                                 ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    HomeScreenConstants.explorerAll,
-                                    style: themeData.textTheme.bodyMedium!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: themeData.colorScheme.background,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children:
-                                          state.exploreList.map((Map item) {
-                                        return ExploreTile(
-                                          label: item['label'],
-                                          icon: item['svgIcon'],
-                                          isSelected: item['isSelected'],
-                                          onTap: () {
-                                            if (item['label']
-                                                    .toString()
-                                                    .toLowerCase() ==
-                                                'filter') {
-                                              final builderContext = context;
-                                              showModalBottomSheet(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return FilterModalSheet(
-                                                      filters: List.from(state
-                                                          .filters
-                                                          .map((e) => e.copyWith(
-                                                              values: List.from(
-                                                                  e.values)))
-                                                          .toList()),
-                                                    );
-                                                  }).then((value) {
-                                                if (value != null) {
-                                                  if (value
-                                                      is List<FilterDto>) {
-                                                    builderContext
-                                                        .read<HomeCubit>()
-                                                        .updateFilterApplied(
-                                                            filters: value);
-                                                  }
-                                                }
-                                              });
-                                            } else if (item['label']
-                                                    .toString()
-                                                    .toLowerCase() ==
-                                                'sort') {}
-                                          },
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: (state.hasMoreEvents ? 2 : 0) +
-                                    state.events.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  if (state.hasMoreEvents &&
-                                      state.events.length <= index) {
-                                    return Shimmer.fromColors(
-                                      baseColor: Colors.grey.shade300,
-                                      highlightColor: Colors.grey.shade100,
-                                      child: const EventCardShimmer(),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: (state.hasMoreEvents ? 1 : 0) +
+                                      state.events.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    if (state.hasMoreEvents &&
+                                        state.events.length <= index) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    return EventCard(
+                                      event: state.events[index],
                                     );
-                                  }
-                                  return EventCard(
-                                    event: state.events[index],
-                                  );
-                                },
-                              )
+                                  },
+                                )
+                              ]
                             ],
                           ),
                         ),

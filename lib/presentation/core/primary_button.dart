@@ -90,7 +90,7 @@ class PrimaryButton extends StatelessWidget {
   ButtonStyle buttonStyle(BuildContext context) {
     return ElevatedButton.styleFrom(
       minimumSize: Size(width ?? 100.w, height ?? 14.w),
-      backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+      backgroundColor: backgroundColor?? Theme.of(context).colorScheme.primary.withOpacity(0.5),
       disabledBackgroundColor:
           Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.5),
       side: BorderSide(

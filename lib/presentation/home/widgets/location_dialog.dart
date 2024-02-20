@@ -8,7 +8,6 @@ import '../../../domain/core/constants/asset_constants.dart';
 // import '../../core/custom_textfield.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../widgets/custom_textfield.dart';
-import 'event_genre_card.dart';
 import 'location_tile.dart';
 
 class LocationDialog extends StatelessWidget {
@@ -17,9 +16,7 @@ class LocationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Stack(
           children: [
@@ -37,7 +34,7 @@ class LocationDialog extends StatelessWidget {
                 duration: const Duration(seconds: 1),
                 margin: EdgeInsets.all(1.w),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     width: .3.w,
@@ -142,22 +139,37 @@ class LocationDialog extends StatelessWidget {
                                 ),
                           ),
                           SizedBox(
-                            height: 2.h,
+                            height: 1.h,
                           ),
                           SizedBox(
                               height: 10.h,
-                              child: Row(
-                                children: [
-                                  const LocationTile(
-                                    location: OtherConstants.defaultLocation,
-                                  ),
-                                  SizedBox(
-                                    width: 3.5.w,
-                                  ),
-                                  const LocationTile(
-                                    location: OtherConstants.mumbai,
-                                  ),
-                                ],
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    const LocationTile(
+                                      location: OtherConstants.defaultLocation,
+                                    ),
+                                    SizedBox(
+                                      width: 3.5.w,
+                                    ),
+                                    const LocationTile(
+                                      location: OtherConstants.mumbai,
+                                    ),
+                                    SizedBox(
+                                      width: 3.5.w,
+                                    ),
+                                    const LocationTile(
+                                      location: OtherConstants.delhi,
+                                    ),
+                                    SizedBox(
+                                      width: 3.5.w,
+                                    ),
+                                    const LocationTile(
+                                      location: OtherConstants.hyderabad,
+                                    ),
+                                  ],
+                                ),
                               ))
                         ],
                       )

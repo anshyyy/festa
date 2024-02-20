@@ -24,4 +24,23 @@ class OtherConstants {
       country: 'India',
       icon: AssetConstants.mumbaiIcon,
       );
+        static const LocationDto delhi = LocationDto(
+      latitude: 28.6818,
+      longitude: 77.2290,
+      area: 'Central Delhi',
+      city: 'Delhi',
+      state: 'Delhi',
+      country: 'India',
+      icon: AssetConstants.delhiIcon,
+      );
+        static const LocationDto hyderabad = LocationDto(
+      latitude: 28.6818,
+      longitude: 77.2290,
+      area: 'Central Hyderabad',
+      city: 'Hyderabad',
+      state: 'Hyderabad',
+      country: 'India',
+      icon: AssetConstants.hyderabadIcon,
+      );
+
 }

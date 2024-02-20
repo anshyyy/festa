@@ -14,6 +14,7 @@ _$FilterValueDtoImpl _$$FilterValueDtoImplFromJson(Map<String, dynamic> json) =>
       icon: json['icon'] as String? ?? '',
       isApplied: json['isApplied'] as bool? ?? false,
       value: json['value'],
+      categoryId: json['categoryId'] as int?,
     );
 
 Map<String, dynamic> _$$FilterValueDtoImplToJson(
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$FilterValueDtoImplToJson(
       'icon': instance.icon,
       'isApplied': instance.isApplied,
       'value': instance.value,
+      'categoryId': instance.categoryId,
     };

@@ -10,5 +10,5 @@ abstract class EventRepository {
       required double long,
       int? range,
       String? sort,
-      String? filter});
+      String? otherFilters});
 }

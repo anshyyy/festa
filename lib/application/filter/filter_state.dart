@@ -1,8 +1,6 @@
 part of 'filter_cubit.dart';
 
-@Freezed(
-  makeCollectionsUnmodifiable: false
-)
+@Freezed(makeCollectionsUnmodifiable: false)
 class FilterState with _$FilterState {
   const factory FilterState({
     required bool isLoading,

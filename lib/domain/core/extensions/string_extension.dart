@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../services/navigation_services/routers/routing_dto.dart';
@@ -56,6 +57,12 @@ extension StringExtension on String {
     }
     return location.city;
   }
+
+  static String formatDateTimeLong(DateTime dateTime) {
+  DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
+  return formatter.format(dateTime);
+}
+
 }
 
 class CapitalizeText extends TextInputFormatter {

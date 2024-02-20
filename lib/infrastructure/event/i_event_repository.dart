@@ -38,7 +38,7 @@ class IEventRepository extends EventRepository {
       required double long,
       int? range,
       String? sort,
-      String? filter}) async {
+      String? otherFilters}) async {
     try {
       final url = '$serverUrl${EventApiConstants.EVENTS}';
       final Map<String, String> param = {
@@ -47,6 +47,16 @@ class IEventRepository extends EventRepository {
         'lat': lat.toString(),
         'long': long.toString(),
       };
+      if (sort != null) {
+        param['sort'] = sort;
+      }
+      if (range != null) {
+        param['range'] = range.toString();
+      }
+      if (otherFilters != null) {
+        param['filter'] = otherFilters;
+      }
+      print(otherFilters);
       final response =
           await RESTService.performGETRequest(httpUrl: url, param: param);
       if (response.statusCode != 200) {
@@ -54,7 +64,7 @@ class IEventRepository extends EventRepository {
       }
       final body = response.body;
       final eventsRaw = jsonDecode(body) as List;
-      final events= eventsRaw.map((e) => EventDto.fromJson(e)).toList();
+      final events = eventsRaw.map((e) => EventDto.fromJson(e)).toList();
       return events;
     } catch (error) {
       return [];

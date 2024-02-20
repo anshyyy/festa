@@ -126,6 +126,8 @@ class HomeScreenConstants {
   static String welcomeText = 'Let’s Party';
   static String pickYourExperience = 'Pick your experience';
   static String explorerAll = 'Explore all';
+ static String noEventsFound = 'No events found in your selected filters';
+  static String editFilters ='Edit filters';
 }
 
 class CartScreenConstants {

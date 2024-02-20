@@ -162,7 +162,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                           FontWeight
                                                                               .w600,
                                                                       fontSize:
-                                                                          16.5.sp))
+                                                                          15.sp))
                                                           : Text(
                                                               e.displayName,
                                                               maxLines: 2,

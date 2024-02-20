@@ -24,6 +24,6 @@ class UserRoutes {
   static const String paymentDetailsRoute = 'paymentDetails';
   static const String clubProfileRoute = 'clubProfile';
   static const String homeScreenRoute = 'homeScreen';
-  static const String eventDetailsRoutes = 'eventDetails';
+  static const String eventDetailsRoute = 'eventDetails';
 
 }

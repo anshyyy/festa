@@ -14,6 +14,7 @@ part 'home_state.dart';
 part 'home_cubit.freezed.dart';
 
 class HomeCubit extends Cubit<HomeState> {
+  final int limit = 2;
   HomeCubit(super.initialState);
 
   void init() async {
@@ -25,6 +26,17 @@ class HomeCubit extends Cubit<HomeState> {
         return element.name == 'music';
       }),
     ));
+    getEvents();
+  }
+
+  Future getEvents() async {
+    final events = await state.eventRepository.getEvents(
+        lat: state.location.latitude,
+        long: state.location.longitude,
+        limit: limit,
+        page: state.page
+        );
+    print(events);
   }
 
   void onCarouselChange({required int index}) {

@@ -4,6 +4,7 @@ import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
 import '../../domain/event/event_repository.dart';
+import 'dtos/event/event_dto.dart';
 import 'dtos/filter/filter_dto.dart';
 
 class IEventRepository extends EventRepository {
@@ -29,5 +30,34 @@ class IEventRepository extends EventRepository {
     }
   }
 
-  
+  @override
+  Future<List<EventDto>> getEvents(
+      {required int page,
+      required int limit,
+      required double lat,
+      required double long,
+      int? range,
+      String? sort,
+      String? filter}) async {
+    try {
+      final url = '$serverUrl${EventApiConstants.EVENTS}';
+      final Map<String, String> param = {
+        'page': page.toString(),
+        'limit': limit.toString(),
+        'lat': lat.toString(),
+        'long': long.toString(),
+      };
+      final response =
+          await RESTService.performGETRequest(httpUrl: url, param: param);
+      print(response.request);
+      if (response.statusCode != 200) {
+        return [];
+      }
+      final body = response.body;
+      print(body);
+      return [];
+    } catch (error) {
+      return [];
+    }
+  }
 }

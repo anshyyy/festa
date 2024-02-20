@@ -24,7 +24,7 @@ class EventCardScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        text: EventCardScreenConstants.appBarTitle,
+        text: EventScreenConstants.appBarTitle,
         isLeading: true,
       ),
       body: Column(
@@ -56,7 +56,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                         child: TextButton(
                           onPressed: () {},
                           child: Text(
-                            EventCardScreenConstants.viewOnMaps,
+                            EventScreenConstants.viewOnMaps,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -80,7 +80,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                           childrenPadding:
                               EdgeInsets.only(bottom: 4.h, left: 2.h),
                           title: Text(
-                            EventCardScreenConstants.description,
+                            EventScreenConstants.description,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -91,7 +91,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                           ),
                           children: [
                             Text(
-                              EventCardScreenConstants.descriptionText,
+                              EventScreenConstants.descriptionText,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -119,7 +119,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                           childrenPadding:
                               EdgeInsets.only(bottom: 4.h, left: 2.h),
                           title: Text(
-                            EventCardScreenConstants.lsd,
+                            EventScreenConstants.lsd,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -138,7 +138,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.lightText,
+                                      EventScreenConstants.lightText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -160,7 +160,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.musicText,
+                                      EventScreenConstants.musicText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -183,7 +183,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.danceFloorText,
+                                      EventScreenConstants.danceFloorText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -215,7 +215,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                           childrenPadding:
                               EdgeInsets.only(bottom: 4.h, left: 2.h),
                           title: Text(
-                            EventCardScreenConstants.ambience,
+                            EventScreenConstants.ambience,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -235,7 +235,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        EventCardScreenConstants.ambienceText,
+                                        EventScreenConstants.ambienceText,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -258,7 +258,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.musicText,
+                                      EventScreenConstants.musicText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -281,7 +281,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.danceFloorText,
+                                      EventScreenConstants.danceFloorText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -313,7 +313,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                           childrenPadding:
                               EdgeInsets.only(bottom: 4.h, left: 2.h),
                           title: Text(
-                            EventCardScreenConstants.foodAndBeverages,
+                            EventScreenConstants.foodAndBeverages,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -332,7 +332,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.spicy,
+                                      EventScreenConstants.spicy,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -355,7 +355,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        EventCardScreenConstants.drinks,
+                                        EventScreenConstants.drinks,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -379,7 +379,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.danceFloorText,
+                                      EventScreenConstants.danceFloorText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -411,7 +411,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                           childrenPadding:
                               EdgeInsets.only(bottom: 4.h, left: 2.h),
                           title: Text(
-                            EventCardScreenConstants.fAQs,
+                            EventScreenConstants.fAQs,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -429,7 +429,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       padding: EdgeInsets.only(
                                           left: 1.h, bottom: 5.h),
                                       child: Text(
-                                        EventCardScreenConstants.number,
+                                        EventScreenConstants.number,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -447,7 +447,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 1.h),
                                         child: Text(
-                                          EventCardScreenConstants.fAQsText,
+                                          EventScreenConstants.fAQsText,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -472,7 +472,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        EventCardScreenConstants.drinks,
+                                        EventScreenConstants.drinks,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -496,7 +496,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                                       width: 2.w,
                                     ),
                                     Text(
-                                      EventCardScreenConstants.danceFloorText,
+                                      EventScreenConstants.danceFloorText,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodySmall!
@@ -581,7 +581,7 @@ class EventCardScreenConsumer extends StatelessWidget {
                     width: 4.w,
                   ),
                   GradientButton(
-                      text: EventCardScreenConstants.bookTheTickets,
+                      text: EventScreenConstants.bookTheTickets,
                       onTap: () {},
                       height: 10.h,
                       width: 20.w)

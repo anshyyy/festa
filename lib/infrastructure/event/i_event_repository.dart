@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
+
 import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
@@ -68,6 +70,25 @@ class IEventRepository extends EventRepository {
       return events;
     } catch (error) {
       return [];
+    }
+  }
+
+  @override
+  Future<Either<dynamic, EventDto>> getEventDetails({
+    required int eventId,
+  }) async {
+    try {
+      final url = '$serverUrl${EventApiConstants.EVENTS}/$eventId';
+    final response = await RESTService.performGETRequest(httpUrl: url);
+    if (response.statusCode != 200) {
+      return left(null);
+    }
+    final body = response.body;
+    final eventRaw = jsonDecode(body);
+
+    return right(EventDto.fromJson(eventRaw));
+    } catch (e) {
+      return left(null);
     }
   }
 }

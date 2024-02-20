@@ -134,7 +134,7 @@ class CartScreenConstants {
   static String addText = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
 }
 
-class EventCardScreenConstants {
+class EventScreenConstants {
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
   static String viewOnMaps = 'View on maps';
   static String bookTheTickets = 'Book the tickets';

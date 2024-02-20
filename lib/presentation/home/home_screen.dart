@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
@@ -224,24 +225,20 @@ class HomeScreenConsumer extends StatelessWidget {
                               ),
                               ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 3,
+                                itemCount: (state.hasMoreEvents ? 2 : 0) +
+                                    state.events.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  return const EventCard(
-                                    eventTitle: 'THE GREYBOT ALL STARS',
-                                    date: 'Dec 25, 2023 08:00PM',
-                                    distance: 2.3,
-                                    hostDetails: 'Bobs`s Bar',
-                                    location:
-                                        'Great Indian Music Hall, Indira Nagar, Banglore',
-                                    price: 5000.00,
-                                    eventTime: '10:00 AM - 12:30 AM',
-                                    ratings: '5.0 (100 ratings)',
-                                    posters: [
-                                      'https://images.unsplash.com/photo-1472653431158-6364773b2a56?q=80&w=2740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                                      'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                                      'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                                    ],
+                                  if (state.hasMoreEvents &&
+                                      state.events.length <= index) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Colors.grey.shade300,
+                                      highlightColor: Colors.grey.shade100,
+                                      child: const EventCardShimmer(),
+                                    );
+                                  }
+                                  return EventCard(
+                                    event: state.events[index],
                                   );
                                 },
                               )

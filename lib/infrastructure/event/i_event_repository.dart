@@ -49,13 +49,13 @@ class IEventRepository extends EventRepository {
       };
       final response =
           await RESTService.performGETRequest(httpUrl: url, param: param);
-      print(response.request);
       if (response.statusCode != 200) {
         return [];
       }
       final body = response.body;
-      print(body);
-      return [];
+      final eventsRaw = jsonDecode(body) as List;
+      final events= eventsRaw.map((e) => EventDto.fromJson(e)).toList();
+      return events;
     } catch (error) {
       return [];
     }

@@ -17,11 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomeState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get hasMoreEvents => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
-  List<FilterDto> get filters => throw _privateConstructorUsedError;
   FilterDto? get categoryFilter => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
+  List<EventDto> get events => throw _privateConstructorUsedError;
+  List<FilterDto> get filters => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get exploreList =>
       throw _privateConstructorUsedError;
   PageController get pageController => throw _privateConstructorUsedError;
@@ -36,7 +39,6 @@ mixin _$HomeState {
       throw _privateConstructorUsedError;
   LocationDto get location => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
-  int get page => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -50,11 +52,14 @@ abstract class $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
+      bool hasMoreEvents,
       bool isSuccessful,
       bool isFailed,
       bool noUse,
-      List<FilterDto> filters,
       FilterDto? categoryFilter,
+      int page,
+      List<EventDto> events,
+      List<FilterDto> filters,
       List<Map<String, dynamic>> exploreList,
       PageController pageController,
       int selectedImageIndex,
@@ -64,8 +69,7 @@ abstract class $HomeStateCopyWith<$Res> {
       List<Map<String, dynamic>> filterOptions,
       List<Map<String, dynamic>> locationSuggestions,
       LocationDto location,
-      EventRepository eventRepository,
-      int page});
+      EventRepository eventRepository});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -85,11 +89,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? hasMoreEvents = null,
     Object? isSuccessful = null,
     Object? isFailed = null,
     Object? noUse = null,
-    Object? filters = null,
     Object? categoryFilter = freezed,
+    Object? page = null,
+    Object? events = null,
+    Object? filters = null,
     Object? exploreList = null,
     Object? pageController = null,
     Object? selectedImageIndex = null,
@@ -100,12 +107,15 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? locationSuggestions = null,
     Object? location = null,
     Object? eventRepository = null,
-    Object? page = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasMoreEvents: null == hasMoreEvents
+          ? _value.hasMoreEvents
+          : hasMoreEvents // ignore: cast_nullable_to_non_nullable
               as bool,
       isSuccessful: null == isSuccessful
           ? _value.isSuccessful
@@ -119,14 +129,22 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
-      filters: null == filters
-          ? _value.filters
-          : filters // ignore: cast_nullable_to_non_nullable
-              as List<FilterDto>,
       categoryFilter: freezed == categoryFilter
           ? _value.categoryFilter
           : categoryFilter // ignore: cast_nullable_to_non_nullable
               as FilterDto?,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      events: null == events
+          ? _value.events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<EventDto>,
+      filters: null == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as List<FilterDto>,
       exploreList: null == exploreList
           ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
@@ -167,10 +185,6 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
               as EventRepository,
-      page: null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 
@@ -205,11 +219,14 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
+      bool hasMoreEvents,
       bool isSuccessful,
       bool isFailed,
       bool noUse,
-      List<FilterDto> filters,
       FilterDto? categoryFilter,
+      int page,
+      List<EventDto> events,
+      List<FilterDto> filters,
       List<Map<String, dynamic>> exploreList,
       PageController pageController,
       int selectedImageIndex,
@@ -219,8 +236,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<Map<String, dynamic>> filterOptions,
       List<Map<String, dynamic>> locationSuggestions,
       LocationDto location,
-      EventRepository eventRepository,
-      int page});
+      EventRepository eventRepository});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -240,11 +256,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? hasMoreEvents = null,
     Object? isSuccessful = null,
     Object? isFailed = null,
     Object? noUse = null,
-    Object? filters = null,
     Object? categoryFilter = freezed,
+    Object? page = null,
+    Object? events = null,
+    Object? filters = null,
     Object? exploreList = null,
     Object? pageController = null,
     Object? selectedImageIndex = null,
@@ -255,12 +274,15 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? locationSuggestions = null,
     Object? location = null,
     Object? eventRepository = null,
-    Object? page = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasMoreEvents: null == hasMoreEvents
+          ? _value.hasMoreEvents
+          : hasMoreEvents // ignore: cast_nullable_to_non_nullable
               as bool,
       isSuccessful: null == isSuccessful
           ? _value.isSuccessful
@@ -274,14 +296,22 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
-      filters: null == filters
-          ? _value.filters
-          : filters // ignore: cast_nullable_to_non_nullable
-              as List<FilterDto>,
       categoryFilter: freezed == categoryFilter
           ? _value.categoryFilter
           : categoryFilter // ignore: cast_nullable_to_non_nullable
               as FilterDto?,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      events: null == events
+          ? _value.events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<EventDto>,
+      filters: null == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as List<FilterDto>,
       exploreList: null == exploreList
           ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
@@ -322,10 +352,6 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
               as EventRepository,
-      page: null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -335,11 +361,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
       {required this.isLoading,
+      required this.hasMoreEvents,
       required this.isSuccessful,
       required this.isFailed,
       required this.noUse,
-      required this.filters,
       this.categoryFilter,
+      required this.page,
+      required this.events,
+      required this.filters,
       required this.exploreList,
       required this.pageController,
       required this.selectedImageIndex,
@@ -349,11 +378,12 @@ class _$HomeStateImpl implements _HomeState {
       required this.filterOptions,
       required this.locationSuggestions,
       required this.location,
-      required this.eventRepository,
-      required this.page});
+      required this.eventRepository});
 
   @override
   final bool isLoading;
+  @override
+  final bool hasMoreEvents;
   @override
   final bool isSuccessful;
   @override
@@ -361,9 +391,13 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final bool noUse;
   @override
-  final List<FilterDto> filters;
-  @override
   final FilterDto? categoryFilter;
+  @override
+  final int page;
+  @override
+  final List<EventDto> events;
+  @override
+  final List<FilterDto> filters;
   @override
   final List<Map<String, dynamic>> exploreList;
   @override
@@ -384,12 +418,10 @@ class _$HomeStateImpl implements _HomeState {
   final LocationDto location;
   @override
   final EventRepository eventRepository;
-  @override
-  final int page;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, filters: $filters, categoryFilter: $categoryFilter, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex, showLocationDialog: $showLocationDialog, filterList: $filterList, selectedFilters: $selectedFilters, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, page: $page)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex, showLocationDialog: $showLocationDialog, filterList: $filterList, selectedFilters: $selectedFilters, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository)';
   }
 
   @override
@@ -399,14 +431,18 @@ class _$HomeStateImpl implements _HomeState {
             other is _$HomeStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.hasMoreEvents, hasMoreEvents) ||
+                other.hasMoreEvents == hasMoreEvents) &&
             (identical(other.isSuccessful, isSuccessful) ||
                 other.isSuccessful == isSuccessful) &&
             (identical(other.isFailed, isFailed) ||
                 other.isFailed == isFailed) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
-            const DeepCollectionEquality().equals(other.filters, filters) &&
             (identical(other.categoryFilter, categoryFilter) ||
                 other.categoryFilter == categoryFilter) &&
+            (identical(other.page, page) || other.page == page) &&
+            const DeepCollectionEquality().equals(other.events, events) &&
+            const DeepCollectionEquality().equals(other.filters, filters) &&
             const DeepCollectionEquality()
                 .equals(other.exploreList, exploreList) &&
             (identical(other.pageController, pageController) ||
@@ -426,30 +462,32 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.eventRepository, eventRepository) ||
-                other.eventRepository == eventRepository) &&
-            (identical(other.page, page) || other.page == page));
+                other.eventRepository == eventRepository));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      isSuccessful,
-      isFailed,
-      noUse,
-      const DeepCollectionEquality().hash(filters),
-      categoryFilter,
-      const DeepCollectionEquality().hash(exploreList),
-      pageController,
-      selectedImageIndex,
-      showLocationDialog,
-      const DeepCollectionEquality().hash(filterList),
-      const DeepCollectionEquality().hash(selectedFilters),
-      const DeepCollectionEquality().hash(filterOptions),
-      const DeepCollectionEquality().hash(locationSuggestions),
-      location,
-      eventRepository,
-      page);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isLoading,
+        hasMoreEvents,
+        isSuccessful,
+        isFailed,
+        noUse,
+        categoryFilter,
+        page,
+        const DeepCollectionEquality().hash(events),
+        const DeepCollectionEquality().hash(filters),
+        const DeepCollectionEquality().hash(exploreList),
+        pageController,
+        selectedImageIndex,
+        showLocationDialog,
+        const DeepCollectionEquality().hash(filterList),
+        const DeepCollectionEquality().hash(selectedFilters),
+        const DeepCollectionEquality().hash(filterOptions),
+        const DeepCollectionEquality().hash(locationSuggestions),
+        location,
+        eventRepository
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -461,11 +499,14 @@ class _$HomeStateImpl implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {required final bool isLoading,
+      required final bool hasMoreEvents,
       required final bool isSuccessful,
       required final bool isFailed,
       required final bool noUse,
-      required final List<FilterDto> filters,
       final FilterDto? categoryFilter,
+      required final int page,
+      required final List<EventDto> events,
+      required final List<FilterDto> filters,
       required final List<Map<String, dynamic>> exploreList,
       required final PageController pageController,
       required final int selectedImageIndex,
@@ -475,11 +516,12 @@ abstract class _HomeState implements HomeState {
       required final List<Map<String, dynamic>> filterOptions,
       required final List<Map<String, dynamic>> locationSuggestions,
       required final LocationDto location,
-      required final EventRepository eventRepository,
-      required final int page}) = _$HomeStateImpl;
+      required final EventRepository eventRepository}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
+  @override
+  bool get hasMoreEvents;
   @override
   bool get isSuccessful;
   @override
@@ -487,9 +529,13 @@ abstract class _HomeState implements HomeState {
   @override
   bool get noUse;
   @override
-  List<FilterDto> get filters;
-  @override
   FilterDto? get categoryFilter;
+  @override
+  int get page;
+  @override
+  List<EventDto> get events;
+  @override
+  List<FilterDto> get filters;
   @override
   List<Map<String, dynamic>> get exploreList;
   @override
@@ -510,8 +556,6 @@ abstract class _HomeState implements HomeState {
   LocationDto get location;
   @override
   EventRepository get eventRepository;
-  @override
-  int get page;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

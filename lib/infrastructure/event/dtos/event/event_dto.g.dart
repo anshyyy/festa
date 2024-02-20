@@ -9,13 +9,17 @@ part of 'event_dto.dart';
 _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
     _$EventDtoImpl(
       id: json['id'] as int? ?? 0,
-      fullName: json['fullName'] as String? ?? '',
-      coverImageUrl: json['coverImageUrl'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      coverImage: json['coverImage'] as String? ?? '',
       description: json['description'] as String? ?? '',
+      vicinity: json['vicinity'] as String? ?? '',
+      distance: (json['distance'] as num?)?.toDouble() ?? 0,
       startDate: json['startDate'] as String? ?? '',
       endDate: json['endDate'] as String?,
       priceRangeStart: (json['priceRangeStart'] as num?)?.toDouble() ?? 0.0,
       priceRangeEnd: (json['priceRangeEnd'] as num?)?.toDouble(),
+      priceStart: (json['priceStart'] as num?)?.toDouble() ?? 0.0,
+      priceEnd: (json['priceEnd'] as num?)?.toDouble(),
       lsd: (json['lsd'] as List<dynamic>?)
               ?.map((e) => BulletDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -57,13 +61,17 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'fullName': instance.fullName,
-      'coverImageUrl': instance.coverImageUrl,
+      'name': instance.name,
+      'coverImage': instance.coverImage,
       'description': instance.description,
+      'vicinity': instance.vicinity,
+      'distance': instance.distance,
       'startDate': instance.startDate,
       'endDate': instance.endDate,
       'priceRangeStart': instance.priceRangeStart,
       'priceRangeEnd': instance.priceRangeEnd,
+      'priceStart': instance.priceStart,
+      'priceEnd': instance.priceEnd,
       'lsd': instance.lsd,
       'ambience': instance.ambience,
       'foodAndBeverages': instance.foodAndBeverages,

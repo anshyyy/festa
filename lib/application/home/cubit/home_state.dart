@@ -4,11 +4,14 @@ part of 'home_cubit.dart';
 class HomeState with _$HomeState {
   const factory HomeState({
     required bool isLoading,
+    required bool hasMoreEvents,
     required bool isSuccessful,
     required bool isFailed,
     required bool noUse,
-    required List<FilterDto> filters,
     FilterDto? categoryFilter,
+    required int page,
+    required List<EventDto> events,
+    required List<FilterDto> filters,
     required List<Map<String, dynamic>> exploreList,
     required PageController pageController,
     required int selectedImageIndex,
@@ -19,13 +22,14 @@ class HomeState with _$HomeState {
     required List<Map<String, dynamic>> locationSuggestions,
     required LocationDto location,
     required EventRepository eventRepository,
-    required int page,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
       page: 1,
       noUse: false,
+      hasMoreEvents: true,
       filters: [],
+      events: [],
       eventRepository: IEventRepository(
         serverUrl: serverUrl,
       ),

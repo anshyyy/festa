@@ -22,12 +22,16 @@ EventDto _$EventDtoFromJson(Map<String, dynamic> json) {
 mixin _$EventDto {
   @JsonKey(name: 'id', defaultValue: 0)
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'fullName', defaultValue: '')
-  String get fullName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'coverImageUrl', defaultValue: '')
-  String get coverImageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'name', defaultValue: '')
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coverImage', defaultValue: '')
+  String get coverImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'description', defaultValue: '')
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vicinity', defaultValue: '')
+  String get vicinity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'distance', defaultValue: 0)
+  double get distance => throw _privateConstructorUsedError;
   @JsonKey(name: 'startDate', defaultValue: '')
   String get startDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'endDate')
@@ -36,6 +40,10 @@ mixin _$EventDto {
   double get priceRangeStart => throw _privateConstructorUsedError;
   @JsonKey(name: 'priceRangeEnd')
   double? get priceRangeEnd => throw _privateConstructorUsedError;
+  @JsonKey(name: 'priceStart', defaultValue: 0.0)
+  double get priceStart => throw _privateConstructorUsedError;
+  @JsonKey(name: 'priceEnd')
+  double? get priceEnd => throw _privateConstructorUsedError;
   @JsonKey(name: 'lsd', defaultValue: [])
   List<BulletDto> get lsd => throw _privateConstructorUsedError;
   @JsonKey(name: 'ambience', defaultValue: [])
@@ -76,14 +84,18 @@ abstract class $EventDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
-      @JsonKey(name: 'fullName', defaultValue: '') String fullName,
-      @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
+      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'coverImage', defaultValue: '') String coverImage,
       @JsonKey(name: 'description', defaultValue: '') String description,
+      @JsonKey(name: 'vicinity', defaultValue: '') String vicinity,
+      @JsonKey(name: 'distance', defaultValue: 0) double distance,
       @JsonKey(name: 'startDate', defaultValue: '') String startDate,
       @JsonKey(name: 'endDate') String? endDate,
       @JsonKey(name: 'priceRangeStart', defaultValue: 0.0)
       double priceRangeStart,
       @JsonKey(name: 'priceRangeEnd') double? priceRangeEnd,
+      @JsonKey(name: 'priceStart', defaultValue: 0.0) double priceStart,
+      @JsonKey(name: 'priceEnd') double? priceEnd,
       @JsonKey(name: 'lsd', defaultValue: []) List<BulletDto> lsd,
       @JsonKey(name: 'ambience', defaultValue: []) List<BulletDto> ambience,
       @JsonKey(name: 'foodAndBeverages', defaultValue: [])
@@ -117,13 +129,17 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
   @override
   $Res call({
     Object? id = null,
-    Object? fullName = null,
-    Object? coverImageUrl = null,
+    Object? name = null,
+    Object? coverImage = null,
     Object? description = null,
+    Object? vicinity = null,
+    Object? distance = null,
     Object? startDate = null,
     Object? endDate = freezed,
     Object? priceRangeStart = null,
     Object? priceRangeEnd = freezed,
+    Object? priceStart = null,
+    Object? priceEnd = freezed,
     Object? lsd = null,
     Object? ambience = null,
     Object? foodAndBeverages = null,
@@ -143,18 +159,26 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      fullName: null == fullName
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      coverImageUrl: null == coverImageUrl
-          ? _value.coverImageUrl
-          : coverImageUrl // ignore: cast_nullable_to_non_nullable
+      coverImage: null == coverImage
+          ? _value.coverImage
+          : coverImage // ignore: cast_nullable_to_non_nullable
               as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      vicinity: null == vicinity
+          ? _value.vicinity
+          : vicinity // ignore: cast_nullable_to_non_nullable
+              as String,
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -170,6 +194,14 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
       priceRangeEnd: freezed == priceRangeEnd
           ? _value.priceRangeEnd
           : priceRangeEnd // ignore: cast_nullable_to_non_nullable
+              as double?,
+      priceStart: null == priceStart
+          ? _value.priceStart
+          : priceStart // ignore: cast_nullable_to_non_nullable
+              as double,
+      priceEnd: freezed == priceEnd
+          ? _value.priceEnd
+          : priceEnd // ignore: cast_nullable_to_non_nullable
               as double?,
       lsd: null == lsd
           ? _value.lsd
@@ -249,14 +281,18 @@ abstract class _$$EventDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
-      @JsonKey(name: 'fullName', defaultValue: '') String fullName,
-      @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
+      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'coverImage', defaultValue: '') String coverImage,
       @JsonKey(name: 'description', defaultValue: '') String description,
+      @JsonKey(name: 'vicinity', defaultValue: '') String vicinity,
+      @JsonKey(name: 'distance', defaultValue: 0) double distance,
       @JsonKey(name: 'startDate', defaultValue: '') String startDate,
       @JsonKey(name: 'endDate') String? endDate,
       @JsonKey(name: 'priceRangeStart', defaultValue: 0.0)
       double priceRangeStart,
       @JsonKey(name: 'priceRangeEnd') double? priceRangeEnd,
+      @JsonKey(name: 'priceStart', defaultValue: 0.0) double priceStart,
+      @JsonKey(name: 'priceEnd') double? priceEnd,
       @JsonKey(name: 'lsd', defaultValue: []) List<BulletDto> lsd,
       @JsonKey(name: 'ambience', defaultValue: []) List<BulletDto> ambience,
       @JsonKey(name: 'foodAndBeverages', defaultValue: [])
@@ -289,13 +325,17 @@ class __$$EventDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? fullName = null,
-    Object? coverImageUrl = null,
+    Object? name = null,
+    Object? coverImage = null,
     Object? description = null,
+    Object? vicinity = null,
+    Object? distance = null,
     Object? startDate = null,
     Object? endDate = freezed,
     Object? priceRangeStart = null,
     Object? priceRangeEnd = freezed,
+    Object? priceStart = null,
+    Object? priceEnd = freezed,
     Object? lsd = null,
     Object? ambience = null,
     Object? foodAndBeverages = null,
@@ -315,18 +355,26 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      fullName: null == fullName
-          ? _value.fullName
-          : fullName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      coverImageUrl: null == coverImageUrl
-          ? _value.coverImageUrl
-          : coverImageUrl // ignore: cast_nullable_to_non_nullable
+      coverImage: null == coverImage
+          ? _value.coverImage
+          : coverImage // ignore: cast_nullable_to_non_nullable
               as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      vicinity: null == vicinity
+          ? _value.vicinity
+          : vicinity // ignore: cast_nullable_to_non_nullable
+              as String,
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -342,6 +390,14 @@ class __$$EventDtoImplCopyWithImpl<$Res>
       priceRangeEnd: freezed == priceRangeEnd
           ? _value.priceRangeEnd
           : priceRangeEnd // ignore: cast_nullable_to_non_nullable
+              as double?,
+      priceStart: null == priceStart
+          ? _value.priceStart
+          : priceStart // ignore: cast_nullable_to_non_nullable
+              as double,
+      priceEnd: freezed == priceEnd
+          ? _value.priceEnd
+          : priceEnd // ignore: cast_nullable_to_non_nullable
               as double?,
       lsd: null == lsd
           ? _value.lsd
@@ -404,15 +460,18 @@ class __$$EventDtoImplCopyWithImpl<$Res>
 class _$EventDtoImpl implements _EventDto {
   const _$EventDtoImpl(
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
-      @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
-      @JsonKey(name: 'coverImageUrl', defaultValue: '')
-      required this.coverImageUrl,
+      @JsonKey(name: 'name', defaultValue: '') required this.name,
+      @JsonKey(name: 'coverImage', defaultValue: '') required this.coverImage,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
+      @JsonKey(name: 'vicinity', defaultValue: '') required this.vicinity,
+      @JsonKey(name: 'distance', defaultValue: 0) required this.distance,
       @JsonKey(name: 'startDate', defaultValue: '') required this.startDate,
       @JsonKey(name: 'endDate') this.endDate,
       @JsonKey(name: 'priceRangeStart', defaultValue: 0.0)
       required this.priceRangeStart,
       @JsonKey(name: 'priceRangeEnd') this.priceRangeEnd,
+      @JsonKey(name: 'priceStart', defaultValue: 0.0) required this.priceStart,
+      @JsonKey(name: 'priceEnd') this.priceEnd,
       @JsonKey(name: 'lsd', defaultValue: []) required this.lsd,
       @JsonKey(name: 'ambience', defaultValue: []) required this.ambience,
       @JsonKey(name: 'foodAndBeverages', defaultValue: [])
@@ -438,14 +497,20 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(name: 'id', defaultValue: 0)
   final int id;
   @override
-  @JsonKey(name: 'fullName', defaultValue: '')
-  final String fullName;
+  @JsonKey(name: 'name', defaultValue: '')
+  final String name;
   @override
-  @JsonKey(name: 'coverImageUrl', defaultValue: '')
-  final String coverImageUrl;
+  @JsonKey(name: 'coverImage', defaultValue: '')
+  final String coverImage;
   @override
   @JsonKey(name: 'description', defaultValue: '')
   final String description;
+  @override
+  @JsonKey(name: 'vicinity', defaultValue: '')
+  final String vicinity;
+  @override
+  @JsonKey(name: 'distance', defaultValue: 0)
+  final double distance;
   @override
   @JsonKey(name: 'startDate', defaultValue: '')
   final String startDate;
@@ -458,6 +523,12 @@ class _$EventDtoImpl implements _EventDto {
   @override
   @JsonKey(name: 'priceRangeEnd')
   final double? priceRangeEnd;
+  @override
+  @JsonKey(name: 'priceStart', defaultValue: 0.0)
+  final double priceStart;
+  @override
+  @JsonKey(name: 'priceEnd')
+  final double? priceEnd;
   @override
   @JsonKey(name: 'lsd', defaultValue: [])
   final List<BulletDto> lsd;
@@ -500,7 +571,7 @@ class _$EventDtoImpl implements _EventDto {
 
   @override
   String toString() {
-    return 'EventDto(id: $id, fullName: $fullName, coverImageUrl: $coverImageUrl, description: $description, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, isApplied: $isApplied)';
+    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, priceStart: $priceStart, priceEnd: $priceEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, isApplied: $isApplied)';
   }
 
   @override
@@ -509,12 +580,15 @@ class _$EventDtoImpl implements _EventDto {
         (other.runtimeType == runtimeType &&
             other is _$EventDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.fullName, fullName) ||
-                other.fullName == fullName) &&
-            (identical(other.coverImageUrl, coverImageUrl) ||
-                other.coverImageUrl == coverImageUrl) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.coverImage, coverImage) ||
+                other.coverImage == coverImage) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.vicinity, vicinity) ||
+                other.vicinity == vicinity) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
@@ -522,6 +596,10 @@ class _$EventDtoImpl implements _EventDto {
                 other.priceRangeStart == priceRangeStart) &&
             (identical(other.priceRangeEnd, priceRangeEnd) ||
                 other.priceRangeEnd == priceRangeEnd) &&
+            (identical(other.priceStart, priceStart) ||
+                other.priceStart == priceStart) &&
+            (identical(other.priceEnd, priceEnd) ||
+                other.priceEnd == priceEnd) &&
             const DeepCollectionEquality().equals(other.lsd, lsd) &&
             const DeepCollectionEquality().equals(other.ambience, ambience) &&
             const DeepCollectionEquality()
@@ -548,13 +626,17 @@ class _$EventDtoImpl implements _EventDto {
   int get hashCode => Object.hashAll([
         runtimeType,
         id,
-        fullName,
-        coverImageUrl,
+        name,
+        coverImage,
         description,
+        vicinity,
+        distance,
         startDate,
         endDate,
         priceRangeStart,
         priceRangeEnd,
+        priceStart,
+        priceEnd,
         const DeepCollectionEquality().hash(lsd),
         const DeepCollectionEquality().hash(ambience),
         const DeepCollectionEquality().hash(foodAndBeverages),
@@ -587,18 +669,24 @@ class _$EventDtoImpl implements _EventDto {
 abstract class _EventDto implements EventDto {
   const factory _EventDto(
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
-      @JsonKey(name: 'fullName', defaultValue: '')
-      required final String fullName,
-      @JsonKey(name: 'coverImageUrl', defaultValue: '')
-      required final String coverImageUrl,
+      @JsonKey(name: 'name', defaultValue: '') required final String name,
+      @JsonKey(name: 'coverImage', defaultValue: '')
+      required final String coverImage,
       @JsonKey(name: 'description', defaultValue: '')
       required final String description,
+      @JsonKey(name: 'vicinity', defaultValue: '')
+      required final String vicinity,
+      @JsonKey(name: 'distance', defaultValue: 0)
+      required final double distance,
       @JsonKey(name: 'startDate', defaultValue: '')
       required final String startDate,
       @JsonKey(name: 'endDate') final String? endDate,
       @JsonKey(name: 'priceRangeStart', defaultValue: 0.0)
       required final double priceRangeStart,
       @JsonKey(name: 'priceRangeEnd') final double? priceRangeEnd,
+      @JsonKey(name: 'priceStart', defaultValue: 0.0)
+      required final double priceStart,
+      @JsonKey(name: 'priceEnd') final double? priceEnd,
       @JsonKey(name: 'lsd', defaultValue: [])
       required final List<BulletDto> lsd,
       @JsonKey(name: 'ambience', defaultValue: [])
@@ -630,14 +718,20 @@ abstract class _EventDto implements EventDto {
   @JsonKey(name: 'id', defaultValue: 0)
   int get id;
   @override
-  @JsonKey(name: 'fullName', defaultValue: '')
-  String get fullName;
+  @JsonKey(name: 'name', defaultValue: '')
+  String get name;
   @override
-  @JsonKey(name: 'coverImageUrl', defaultValue: '')
-  String get coverImageUrl;
+  @JsonKey(name: 'coverImage', defaultValue: '')
+  String get coverImage;
   @override
   @JsonKey(name: 'description', defaultValue: '')
   String get description;
+  @override
+  @JsonKey(name: 'vicinity', defaultValue: '')
+  String get vicinity;
+  @override
+  @JsonKey(name: 'distance', defaultValue: 0)
+  double get distance;
   @override
   @JsonKey(name: 'startDate', defaultValue: '')
   String get startDate;
@@ -650,6 +744,12 @@ abstract class _EventDto implements EventDto {
   @override
   @JsonKey(name: 'priceRangeEnd')
   double? get priceRangeEnd;
+  @override
+  @JsonKey(name: 'priceStart', defaultValue: 0.0)
+  double get priceStart;
+  @override
+  @JsonKey(name: 'priceEnd')
+  double? get priceEnd;
   @override
   @JsonKey(name: 'lsd', defaultValue: [])
   List<BulletDto> get lsd;

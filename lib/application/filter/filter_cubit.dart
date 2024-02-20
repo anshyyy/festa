@@ -1,39 +1,41 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../infrastructure/event/dtos/filter/filter_dto.dart';
+import '../../infrastructure/event/dtos/filter_value/filter_value_dto.dart';
+
 part 'filter_state.dart';
 part 'filter_cubit.freezed.dart';
 
 class FilterCubit extends Cubit<FilterState> {
-  FilterCubit() : super(FilterState.initial());
+  FilterCubit(super.initialState);
 
   void onFilterChanged({required String filterValue}) {
-    final options = state.filtersList.firstWhere((filter) =>
-        filter['name'].toString().toLowerCase() == filterValue.toLowerCase());
-    List<Map<String, dynamic>> optionValues = [];
-
-    optionValues = options['values'];
+    final filter = state.filters
+        .firstWhere((filter) => filter.name == filterValue.toLowerCase());
     emit(state.copyWith(
-        filterOptions: optionValues, currentFilter: filterValue));
+        isLoading: false,
+        filterValues: filter.values,
+        currentActive: filterValue));
   }
 
   void onOptionChange({required String optionId}) {
-    List<Map<String,dynamic>> all = List<Map<String,dynamic>>.from(state.filterOptions);
-    List<Map<String, dynamic>> updated = all.map((e) {
-      e=Map<String, dynamic>.from(e);
-      if(e['id']==optionId){
-        e['isSelected']= true;
-      }else{
-        e['isSelected']= false;
+    final indexOfOption = state.filterValues
+        .indexWhere((filterValue) => filterValue.displayName == optionId);
+    for (int i = 0; i < state.filterValues.length; i++) {
+      if (indexOfOption == i) {
+        state.filterValues[i] = state.filterValues[i].copyWith(isApplied: true);
+        continue;
       }
-      return e;
-    }).toList();
+      state.filterValues[i] = state.filterValues[i].copyWith(isApplied: false);
+    }
+    final index = state.filters.indexWhere(
+        (filter) => filter.name == state.currentActive.toLowerCase());
+    state.filters[index] = state.filters[index].copyWith(isApplied: true);
+    emit(state.copyWith(noUse: !state.noUse));
+  }
 
-    List<Map<String,dynamic>> allFilters = List.from(state.filtersList);
-    final index = allFilters.indexWhere((element) => element['name']==state.currentFilter);
-    allFilters[index] = Map<String, dynamic>.from(allFilters[index]);
-    allFilters[index]['values'] = updated;
-
-    emit(state.copyWith(filtersList: allFilters, noUse: !state.noUse,filterOptions: updated));
+  void emitFromEveryWhere({required FilterState currentState}) {
+    emit(currentState);
   }
 }

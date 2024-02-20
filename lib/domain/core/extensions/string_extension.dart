@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 
+import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../services/navigation_services/routers/routing_dto.dart';
 
 extension StringExtension on String {
@@ -47,6 +48,13 @@ extension StringExtension on String {
       default:
         return toLowerCase();
     }
+  }
+
+  static String displayAddress(LocationDto location) {
+    if (location.area.isNotEmpty) {
+      return location.area;
+    }
+    return location.city;
   }
 }
 

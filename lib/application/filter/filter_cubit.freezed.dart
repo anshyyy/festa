@@ -16,12 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FilterState {
-  List<Map<String, dynamic>> get filtersList =>
-      throw _privateConstructorUsedError;
-  String get currentFilter => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>> get filterOptions =>
-      throw _privateConstructorUsedError;
-  String get selectedOption => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  String get currentActive => throw _privateConstructorUsedError;
+  List<FilterDto> get filters => throw _privateConstructorUsedError;
+  List<FilterValueDto> get filterValues => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -36,10 +34,10 @@ abstract class $FilterStateCopyWith<$Res> {
       _$FilterStateCopyWithImpl<$Res, FilterState>;
   @useResult
   $Res call(
-      {List<Map<String, dynamic>> filtersList,
-      String currentFilter,
-      List<Map<String, dynamic>> filterOptions,
-      String selectedOption,
+      {bool isLoading,
+      String currentActive,
+      List<FilterDto> filters,
+      List<FilterValueDto> filterValues,
       bool noUse});
 }
 
@@ -56,29 +54,29 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? filtersList = null,
-    Object? currentFilter = null,
-    Object? filterOptions = null,
-    Object? selectedOption = null,
+    Object? isLoading = null,
+    Object? currentActive = null,
+    Object? filters = null,
+    Object? filterValues = null,
     Object? noUse = null,
   }) {
     return _then(_value.copyWith(
-      filtersList: null == filtersList
-          ? _value.filtersList
-          : filtersList // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
-      currentFilter: null == currentFilter
-          ? _value.currentFilter
-          : currentFilter // ignore: cast_nullable_to_non_nullable
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentActive: null == currentActive
+          ? _value.currentActive
+          : currentActive // ignore: cast_nullable_to_non_nullable
               as String,
-      filterOptions: null == filterOptions
-          ? _value.filterOptions
-          : filterOptions // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
-      selectedOption: null == selectedOption
-          ? _value.selectedOption
-          : selectedOption // ignore: cast_nullable_to_non_nullable
-              as String,
+      filters: null == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as List<FilterDto>,
+      filterValues: null == filterValues
+          ? _value.filterValues
+          : filterValues // ignore: cast_nullable_to_non_nullable
+              as List<FilterValueDto>,
       noUse: null == noUse
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
@@ -96,10 +94,10 @@ abstract class _$$FilterStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<Map<String, dynamic>> filtersList,
-      String currentFilter,
-      List<Map<String, dynamic>> filterOptions,
-      String selectedOption,
+      {bool isLoading,
+      String currentActive,
+      List<FilterDto> filters,
+      List<FilterValueDto> filterValues,
       bool noUse});
 }
 
@@ -114,29 +112,29 @@ class __$$FilterStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? filtersList = null,
-    Object? currentFilter = null,
-    Object? filterOptions = null,
-    Object? selectedOption = null,
+    Object? isLoading = null,
+    Object? currentActive = null,
+    Object? filters = null,
+    Object? filterValues = null,
     Object? noUse = null,
   }) {
     return _then(_$FilterStateImpl(
-      filtersList: null == filtersList
-          ? _value._filtersList
-          : filtersList // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
-      currentFilter: null == currentFilter
-          ? _value.currentFilter
-          : currentFilter // ignore: cast_nullable_to_non_nullable
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      currentActive: null == currentActive
+          ? _value.currentActive
+          : currentActive // ignore: cast_nullable_to_non_nullable
               as String,
-      filterOptions: null == filterOptions
-          ? _value._filterOptions
-          : filterOptions // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
-      selectedOption: null == selectedOption
-          ? _value.selectedOption
-          : selectedOption // ignore: cast_nullable_to_non_nullable
-              as String,
+      filters: null == filters
+          ? _value.filters
+          : filters // ignore: cast_nullable_to_non_nullable
+              as List<FilterDto>,
+      filterValues: null == filterValues
+          ? _value.filterValues
+          : filterValues // ignore: cast_nullable_to_non_nullable
+              as List<FilterValueDto>,
       noUse: null == noUse
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
@@ -149,40 +147,26 @@ class __$$FilterStateImplCopyWithImpl<$Res>
 
 class _$FilterStateImpl implements _FilterState {
   const _$FilterStateImpl(
-      {required final List<Map<String, dynamic>> filtersList,
-      required this.currentFilter,
-      required final List<Map<String, dynamic>> filterOptions,
-      required this.selectedOption,
-      required this.noUse})
-      : _filtersList = filtersList,
-        _filterOptions = filterOptions;
-
-  final List<Map<String, dynamic>> _filtersList;
-  @override
-  List<Map<String, dynamic>> get filtersList {
-    if (_filtersList is EqualUnmodifiableListView) return _filtersList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filtersList);
-  }
+      {required this.isLoading,
+      required this.currentActive,
+      required this.filters,
+      required this.filterValues,
+      required this.noUse});
 
   @override
-  final String currentFilter;
-  final List<Map<String, dynamic>> _filterOptions;
+  final bool isLoading;
   @override
-  List<Map<String, dynamic>> get filterOptions {
-    if (_filterOptions is EqualUnmodifiableListView) return _filterOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filterOptions);
-  }
-
+  final String currentActive;
   @override
-  final String selectedOption;
+  final List<FilterDto> filters;
+  @override
+  final List<FilterValueDto> filterValues;
   @override
   final bool noUse;
 
   @override
   String toString() {
-    return 'FilterState(filtersList: $filtersList, currentFilter: $currentFilter, filterOptions: $filterOptions, selectedOption: $selectedOption, noUse: $noUse)';
+    return 'FilterState(isLoading: $isLoading, currentActive: $currentActive, filters: $filters, filterValues: $filterValues, noUse: $noUse)';
   }
 
   @override
@@ -190,24 +174,23 @@ class _$FilterStateImpl implements _FilterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FilterStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.currentActive, currentActive) ||
+                other.currentActive == currentActive) &&
+            const DeepCollectionEquality().equals(other.filters, filters) &&
             const DeepCollectionEquality()
-                .equals(other._filtersList, _filtersList) &&
-            (identical(other.currentFilter, currentFilter) ||
-                other.currentFilter == currentFilter) &&
-            const DeepCollectionEquality()
-                .equals(other._filterOptions, _filterOptions) &&
-            (identical(other.selectedOption, selectedOption) ||
-                other.selectedOption == selectedOption) &&
+                .equals(other.filterValues, filterValues) &&
             (identical(other.noUse, noUse) || other.noUse == noUse));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_filtersList),
-      currentFilter,
-      const DeepCollectionEquality().hash(_filterOptions),
-      selectedOption,
+      isLoading,
+      currentActive,
+      const DeepCollectionEquality().hash(filters),
+      const DeepCollectionEquality().hash(filterValues),
       noUse);
 
   @JsonKey(ignore: true)
@@ -219,20 +202,20 @@ class _$FilterStateImpl implements _FilterState {
 
 abstract class _FilterState implements FilterState {
   const factory _FilterState(
-      {required final List<Map<String, dynamic>> filtersList,
-      required final String currentFilter,
-      required final List<Map<String, dynamic>> filterOptions,
-      required final String selectedOption,
+      {required final bool isLoading,
+      required final String currentActive,
+      required final List<FilterDto> filters,
+      required final List<FilterValueDto> filterValues,
       required final bool noUse}) = _$FilterStateImpl;
 
   @override
-  List<Map<String, dynamic>> get filtersList;
+  bool get isLoading;
   @override
-  String get currentFilter;
+  String get currentActive;
   @override
-  List<Map<String, dynamic>> get filterOptions;
+  List<FilterDto> get filters;
   @override
-  String get selectedOption;
+  List<FilterValueDto> get filterValues;
   @override
   bool get noUse;
   @override

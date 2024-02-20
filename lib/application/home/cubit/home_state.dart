@@ -1,6 +1,8 @@
 part of 'home_cubit.dart';
 
-@freezed
+@Freezed(
+  makeCollectionsUnmodifiable: false
+)
 class HomeState with _$HomeState {
   const factory HomeState({
     required bool isLoading,
@@ -9,7 +11,6 @@ class HomeState with _$HomeState {
     required bool noUse,
     required List<FilterDto> filters,
     FilterDto? categoryFilter,
-    required List<Map<String, String>> categoriesList,
     required List<Map<String, dynamic>> exploreList,
     required PageController pageController,
     required int selectedImageIndex,
@@ -18,59 +19,21 @@ class HomeState with _$HomeState {
     required List<String> selectedFilters,
     required List<Map<String, dynamic>> filterOptions,
     required List<Map<String, dynamic>> locationSuggestions,
-    required String city,
+    required LocationDto location,
     required EventRepository eventRepository,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
       noUse: false,
-      filters:[],
+      filters: [],
       eventRepository: IEventRepository(
         serverUrl: serverUrl,
       ),
       isLoading: true,
       isFailed: false,
       isSuccessful: false,
-      city: '',
+      location: OtherConstants.defaultLocation,
       pageController: PageController(),
-     
-      categoriesList: [
-        {
-          'title': 'Techno',
-          'image':
-              'https://images.unsplash.com/photo-1586156938613-769b0353c8fc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-        {
-          'title': 'Bollywood',
-          'image':
-              'https://images.unsplash.com/photo-1580194191675-f66754a68698?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-        {
-          'title': 'Ladies night',
-          'image':
-              'https://plus.unsplash.com/premium_photo-1665413642520-ebe79e961a4a?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-        {
-          'title': 'EDM',
-          'image':
-              'https://images.unsplash.com/photo-1578946956088-940c3b502864?q=80&w=2823&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-        {
-          'title': 'Theme nights',
-          'image':
-              'https://images.unsplash.com/photo-1609570394105-ac24231def46?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-        {
-          'title': 'Punjabi',
-          'image':
-              'https://plus.unsplash.com/premium_photo-1684581969889-67d386781d37?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-        {
-          'title': 'Telugu',
-          'image':
-              'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-        },
-      ],
       exploreList: [
         {
           'id': 'filter',
@@ -80,36 +43,12 @@ class HomeState with _$HomeState {
           'label': 'Filter',
         },
         {
-          'id': 'today',
-          'isSelected': false,
-          'identifier': AppConstants.otherKey,
-          'label': 'Today',
-        },
-        {
-          'id': 'this_weekend',
-          'isSelected': false,
-          'identifier': AppConstants.otherKey,
-          'label': 'This weekend',
-        },
-        {
           'id': 'sort',
           'isSelected': false,
           'identifier': AppConstants.otherKey,
           'svgIcon': AssetConstants.arrowDown,
           'label': 'Sort',
         },
-        {
-          'id': 'date',
-          'isSelected': false,
-          'identifier': AppConstants.otherKey,
-          'label': 'Date',
-        },
-        {
-          'id': 'heart',
-          'isSelected': false,
-          'identifier': AppConstants.otherKey,
-          'svgIcon': AssetConstants.heartOutlinedIcon,
-        }
       ],
       selectedImageIndex: 0,
       showLocationDialog: false,

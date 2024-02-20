@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/event/event_repository.dart';
+import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../../../infrastructure/event/i_event_repository.dart';
 
@@ -47,6 +49,27 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void updateLocation({required String city}) {
-    emit(state.copyWith(city: city));
+    // emit(state.copyWith(city: city));
+  }
+
+  void emitFromEveryWhere({required HomeState currentState}) {
+    emit(currentState);
+  }
+
+  void updateFilterApplied({required List<FilterDto> filters}) {
+    final sortApplied =
+        filters.firstWhere((element) => element.name == 'sort').isApplied;
+    final categoryFilter =
+        filters.firstWhere((element) => element.name == 'music');
+    for (int i = 0; i < state.exploreList.length; i++) {
+      if (state.exploreList[i]['id'] == 'sort') {
+        state.exploreList[i] = {
+          ...state.exploreList[i],
+          'isSelected': sortApplied
+        };
+      }
+    }
+    emit(state.copyWith(
+        noUse: !state.noUse, filters: filters, categoryFilter: categoryFilter));
   }
 }

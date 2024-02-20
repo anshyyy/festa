@@ -7,6 +7,8 @@ import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/extensions/string_extension.dart';
+import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile_v2.dart';
 import 'widgets/filter_modal_sheet.dart';
@@ -38,9 +40,7 @@ class HomeScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: state.isLoading
@@ -76,7 +76,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                           width: 3.w,
                                         ),
                                         Text(
-                                          state.city,
+                                          StringExtension.displayAddress(
+                                              state.location),
                                           style: themeData.textTheme.bodySmall!
                                               .copyWith(
                                                   color: themeData
@@ -184,14 +185,33 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     .toString()
                                                     .toLowerCase() ==
                                                 'filter') {
+                                              final builderContext = context;
                                               showModalBottomSheet(
                                                   context: context,
                                                   builder: (context) {
                                                     return FilterModalSheet(
-                                                      filters: state.filters,
+                                                      filters: List.from(state
+                                                          .filters
+                                                          .map((e) => e.copyWith(
+                                                              values: List.from(
+                                                                  e.values)))
+                                                          .toList()),
                                                     );
-                                                  });
-                                            }
+                                                  }).then((value) {
+                                                if (value != null) {
+                                                  if (value
+                                                      is List<FilterDto>) {
+                                                    builderContext
+                                                        .read<HomeCubit>()
+                                                        .updateFilterApplied(
+                                                            filters: value);
+                                                  }
+                                                }
+                                              });
+                                            } else if (item['label']
+                                                    .toString()
+                                                    .toLowerCase() ==
+                                                'sort') {}
                                           },
                                         );
                                       }).toList(),

@@ -22,8 +22,6 @@ mixin _$HomeState {
   bool get noUse => throw _privateConstructorUsedError;
   List<FilterDto> get filters => throw _privateConstructorUsedError;
   FilterDto? get categoryFilter => throw _privateConstructorUsedError;
-  List<Map<String, String>> get categoriesList =>
-      throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get exploreList =>
       throw _privateConstructorUsedError;
   PageController get pageController => throw _privateConstructorUsedError;
@@ -36,7 +34,7 @@ mixin _$HomeState {
       throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get locationSuggestions =>
       throw _privateConstructorUsedError;
-  String get city => throw _privateConstructorUsedError;
+  LocationDto get location => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -56,7 +54,6 @@ abstract class $HomeStateCopyWith<$Res> {
       bool noUse,
       List<FilterDto> filters,
       FilterDto? categoryFilter,
-      List<Map<String, String>> categoriesList,
       List<Map<String, dynamic>> exploreList,
       PageController pageController,
       int selectedImageIndex,
@@ -65,10 +62,11 @@ abstract class $HomeStateCopyWith<$Res> {
       List<String> selectedFilters,
       List<Map<String, dynamic>> filterOptions,
       List<Map<String, dynamic>> locationSuggestions,
-      String city,
+      LocationDto location,
       EventRepository eventRepository});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
+  $LocationDtoCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -90,7 +88,6 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? noUse = null,
     Object? filters = null,
     Object? categoryFilter = freezed,
-    Object? categoriesList = null,
     Object? exploreList = null,
     Object? pageController = null,
     Object? selectedImageIndex = null,
@@ -99,7 +96,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? selectedFilters = null,
     Object? filterOptions = null,
     Object? locationSuggestions = null,
-    Object? city = null,
+    Object? location = null,
     Object? eventRepository = null,
   }) {
     return _then(_value.copyWith(
@@ -127,10 +124,6 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.categoryFilter
           : categoryFilter // ignore: cast_nullable_to_non_nullable
               as FilterDto?,
-      categoriesList: null == categoriesList
-          ? _value.categoriesList
-          : categoriesList // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, String>>,
       exploreList: null == exploreList
           ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
@@ -163,10 +156,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.locationSuggestions
           : locationSuggestions // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
-      city: null == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationDto,
       eventRepository: null == eventRepository
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
@@ -183,6 +176,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
 
     return $FilterDtoCopyWith<$Res>(_value.categoryFilter!, (value) {
       return _then(_value.copyWith(categoryFilter: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationDtoCopyWith<$Res> get location {
+    return $LocationDtoCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
     });
   }
 }
@@ -202,7 +203,6 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool noUse,
       List<FilterDto> filters,
       FilterDto? categoryFilter,
-      List<Map<String, String>> categoriesList,
       List<Map<String, dynamic>> exploreList,
       PageController pageController,
       int selectedImageIndex,
@@ -211,11 +211,13 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<String> selectedFilters,
       List<Map<String, dynamic>> filterOptions,
       List<Map<String, dynamic>> locationSuggestions,
-      String city,
+      LocationDto location,
       EventRepository eventRepository});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
+  @override
+  $LocationDtoCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -235,7 +237,6 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? noUse = null,
     Object? filters = null,
     Object? categoryFilter = freezed,
-    Object? categoriesList = null,
     Object? exploreList = null,
     Object? pageController = null,
     Object? selectedImageIndex = null,
@@ -244,7 +245,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? selectedFilters = null,
     Object? filterOptions = null,
     Object? locationSuggestions = null,
-    Object? city = null,
+    Object? location = null,
     Object? eventRepository = null,
   }) {
     return _then(_$HomeStateImpl(
@@ -265,19 +266,15 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
       filters: null == filters
-          ? _value._filters
+          ? _value.filters
           : filters // ignore: cast_nullable_to_non_nullable
               as List<FilterDto>,
       categoryFilter: freezed == categoryFilter
           ? _value.categoryFilter
           : categoryFilter // ignore: cast_nullable_to_non_nullable
               as FilterDto?,
-      categoriesList: null == categoriesList
-          ? _value._categoriesList
-          : categoriesList // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, String>>,
       exploreList: null == exploreList
-          ? _value._exploreList
+          ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
       pageController: null == pageController
@@ -293,25 +290,25 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           : showLocationDialog // ignore: cast_nullable_to_non_nullable
               as bool,
       filterList: null == filterList
-          ? _value._filterList
+          ? _value.filterList
           : filterList // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
       selectedFilters: null == selectedFilters
-          ? _value._selectedFilters
+          ? _value.selectedFilters
           : selectedFilters // ignore: cast_nullable_to_non_nullable
               as List<String>,
       filterOptions: null == filterOptions
-          ? _value._filterOptions
+          ? _value.filterOptions
           : filterOptions // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
       locationSuggestions: null == locationSuggestions
-          ? _value._locationSuggestions
+          ? _value.locationSuggestions
           : locationSuggestions // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
-      city: null == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as LocationDto,
       eventRepository: null == eventRepository
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
@@ -328,26 +325,18 @@ class _$HomeStateImpl implements _HomeState {
       required this.isSuccessful,
       required this.isFailed,
       required this.noUse,
-      required final List<FilterDto> filters,
+      required this.filters,
       this.categoryFilter,
-      required final List<Map<String, String>> categoriesList,
-      required final List<Map<String, dynamic>> exploreList,
+      required this.exploreList,
       required this.pageController,
       required this.selectedImageIndex,
       required this.showLocationDialog,
-      required final List<Map<String, dynamic>> filterList,
-      required final List<String> selectedFilters,
-      required final List<Map<String, dynamic>> filterOptions,
-      required final List<Map<String, dynamic>> locationSuggestions,
-      required this.city,
-      required this.eventRepository})
-      : _filters = filters,
-        _categoriesList = categoriesList,
-        _exploreList = exploreList,
-        _filterList = filterList,
-        _selectedFilters = selectedFilters,
-        _filterOptions = filterOptions,
-        _locationSuggestions = locationSuggestions;
+      required this.filterList,
+      required this.selectedFilters,
+      required this.filterOptions,
+      required this.locationSuggestions,
+      required this.location,
+      required this.eventRepository});
 
   @override
   final bool isLoading;
@@ -357,79 +346,34 @@ class _$HomeStateImpl implements _HomeState {
   final bool isFailed;
   @override
   final bool noUse;
-  final List<FilterDto> _filters;
   @override
-  List<FilterDto> get filters {
-    if (_filters is EqualUnmodifiableListView) return _filters;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filters);
-  }
-
+  final List<FilterDto> filters;
   @override
   final FilterDto? categoryFilter;
-  final List<Map<String, String>> _categoriesList;
   @override
-  List<Map<String, String>> get categoriesList {
-    if (_categoriesList is EqualUnmodifiableListView) return _categoriesList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categoriesList);
-  }
-
-  final List<Map<String, dynamic>> _exploreList;
-  @override
-  List<Map<String, dynamic>> get exploreList {
-    if (_exploreList is EqualUnmodifiableListView) return _exploreList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_exploreList);
-  }
-
+  final List<Map<String, dynamic>> exploreList;
   @override
   final PageController pageController;
   @override
   final int selectedImageIndex;
   @override
   final bool showLocationDialog;
-  final List<Map<String, dynamic>> _filterList;
   @override
-  List<Map<String, dynamic>> get filterList {
-    if (_filterList is EqualUnmodifiableListView) return _filterList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filterList);
-  }
-
-  final List<String> _selectedFilters;
+  final List<Map<String, dynamic>> filterList;
   @override
-  List<String> get selectedFilters {
-    if (_selectedFilters is EqualUnmodifiableListView) return _selectedFilters;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_selectedFilters);
-  }
-
-  final List<Map<String, dynamic>> _filterOptions;
+  final List<String> selectedFilters;
   @override
-  List<Map<String, dynamic>> get filterOptions {
-    if (_filterOptions is EqualUnmodifiableListView) return _filterOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_filterOptions);
-  }
-
-  final List<Map<String, dynamic>> _locationSuggestions;
+  final List<Map<String, dynamic>> filterOptions;
   @override
-  List<Map<String, dynamic>> get locationSuggestions {
-    if (_locationSuggestions is EqualUnmodifiableListView)
-      return _locationSuggestions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_locationSuggestions);
-  }
-
+  final List<Map<String, dynamic>> locationSuggestions;
   @override
-  final String city;
+  final LocationDto location;
   @override
   final EventRepository eventRepository;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, filters: $filters, categoryFilter: $categoryFilter, categoriesList: $categoriesList, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex, showLocationDialog: $showLocationDialog, filterList: $filterList, selectedFilters: $selectedFilters, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, city: $city, eventRepository: $eventRepository)';
+    return 'HomeState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, filters: $filters, categoryFilter: $categoryFilter, exploreList: $exploreList, pageController: $pageController, selectedImageIndex: $selectedImageIndex, showLocationDialog: $showLocationDialog, filterList: $filterList, selectedFilters: $selectedFilters, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository)';
   }
 
   @override
@@ -444,13 +388,11 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.isFailed, isFailed) ||
                 other.isFailed == isFailed) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
-            const DeepCollectionEquality().equals(other._filters, _filters) &&
+            const DeepCollectionEquality().equals(other.filters, filters) &&
             (identical(other.categoryFilter, categoryFilter) ||
                 other.categoryFilter == categoryFilter) &&
             const DeepCollectionEquality()
-                .equals(other._categoriesList, _categoriesList) &&
-            const DeepCollectionEquality()
-                .equals(other._exploreList, _exploreList) &&
+                .equals(other.exploreList, exploreList) &&
             (identical(other.pageController, pageController) ||
                 other.pageController == pageController) &&
             (identical(other.selectedImageIndex, selectedImageIndex) ||
@@ -458,14 +400,15 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.showLocationDialog, showLocationDialog) ||
                 other.showLocationDialog == showLocationDialog) &&
             const DeepCollectionEquality()
-                .equals(other._filterList, _filterList) &&
+                .equals(other.filterList, filterList) &&
             const DeepCollectionEquality()
-                .equals(other._selectedFilters, _selectedFilters) &&
+                .equals(other.selectedFilters, selectedFilters) &&
             const DeepCollectionEquality()
-                .equals(other._filterOptions, _filterOptions) &&
+                .equals(other.filterOptions, filterOptions) &&
             const DeepCollectionEquality()
-                .equals(other._locationSuggestions, _locationSuggestions) &&
-            (identical(other.city, city) || other.city == city) &&
+                .equals(other.locationSuggestions, locationSuggestions) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository));
   }
@@ -477,18 +420,17 @@ class _$HomeStateImpl implements _HomeState {
       isSuccessful,
       isFailed,
       noUse,
-      const DeepCollectionEquality().hash(_filters),
+      const DeepCollectionEquality().hash(filters),
       categoryFilter,
-      const DeepCollectionEquality().hash(_categoriesList),
-      const DeepCollectionEquality().hash(_exploreList),
+      const DeepCollectionEquality().hash(exploreList),
       pageController,
       selectedImageIndex,
       showLocationDialog,
-      const DeepCollectionEquality().hash(_filterList),
-      const DeepCollectionEquality().hash(_selectedFilters),
-      const DeepCollectionEquality().hash(_filterOptions),
-      const DeepCollectionEquality().hash(_locationSuggestions),
-      city,
+      const DeepCollectionEquality().hash(filterList),
+      const DeepCollectionEquality().hash(selectedFilters),
+      const DeepCollectionEquality().hash(filterOptions),
+      const DeepCollectionEquality().hash(locationSuggestions),
+      location,
       eventRepository);
 
   @JsonKey(ignore: true)
@@ -506,7 +448,6 @@ abstract class _HomeState implements HomeState {
       required final bool noUse,
       required final List<FilterDto> filters,
       final FilterDto? categoryFilter,
-      required final List<Map<String, String>> categoriesList,
       required final List<Map<String, dynamic>> exploreList,
       required final PageController pageController,
       required final int selectedImageIndex,
@@ -515,7 +456,7 @@ abstract class _HomeState implements HomeState {
       required final List<String> selectedFilters,
       required final List<Map<String, dynamic>> filterOptions,
       required final List<Map<String, dynamic>> locationSuggestions,
-      required final String city,
+      required final LocationDto location,
       required final EventRepository eventRepository}) = _$HomeStateImpl;
 
   @override
@@ -530,8 +471,6 @@ abstract class _HomeState implements HomeState {
   List<FilterDto> get filters;
   @override
   FilterDto? get categoryFilter;
-  @override
-  List<Map<String, String>> get categoriesList;
   @override
   List<Map<String, dynamic>> get exploreList;
   @override
@@ -549,7 +488,7 @@ abstract class _HomeState implements HomeState {
   @override
   List<Map<String, dynamic>> get locationSuggestions;
   @override
-  String get city;
+  LocationDto get location;
   @override
   EventRepository get eventRepository;
   @override

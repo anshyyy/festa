@@ -131,7 +131,7 @@ class __$$FilterDtoImplCopyWithImpl<$Res>
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
       values: null == values
-          ? _value._values
+          ? _value.values
           : values // ignore: cast_nullable_to_non_nullable
               as List<FilterValueDto>,
     ));
@@ -146,8 +146,7 @@ class _$FilterDtoImpl implements _FilterDto {
       required this.displayName,
       @JsonKey(name: 'name', defaultValue: '') required this.name,
       @JsonKey(defaultValue: false) required this.isApplied,
-      @JsonKey(defaultValue: []) required final List<FilterValueDto> values})
-      : _values = values;
+      @JsonKey(defaultValue: []) required this.values});
 
   factory _$FilterDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$FilterDtoImplFromJson(json);
@@ -161,14 +160,9 @@ class _$FilterDtoImpl implements _FilterDto {
   @override
   @JsonKey(defaultValue: false)
   final bool isApplied;
-  final List<FilterValueDto> _values;
   @override
   @JsonKey(defaultValue: [])
-  List<FilterValueDto> get values {
-    if (_values is EqualUnmodifiableListView) return _values;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_values);
-  }
+  final List<FilterValueDto> values;
 
   @override
   String toString() {
@@ -185,13 +179,13 @@ class _$FilterDtoImpl implements _FilterDto {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.isApplied, isApplied) ||
                 other.isApplied == isApplied) &&
-            const DeepCollectionEquality().equals(other._values, _values));
+            const DeepCollectionEquality().equals(other.values, values));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, displayName, name, isApplied,
-      const DeepCollectionEquality().hash(_values));
+      const DeepCollectionEquality().hash(values));
 
   @JsonKey(ignore: true)
   @override

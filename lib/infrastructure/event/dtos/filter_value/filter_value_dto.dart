@@ -4,7 +4,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'filter_value_dto.freezed.dart';
 part 'filter_value_dto.g.dart';
 
-@freezed
+@Freezed(
+  makeCollectionsUnmodifiable: false
+)
 class FilterValueDto with _$FilterValueDto {
   const factory FilterValueDto({
     @JsonKey(name: 'displayName', defaultValue: '') required String displayName,

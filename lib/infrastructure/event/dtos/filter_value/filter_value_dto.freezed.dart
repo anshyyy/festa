@@ -26,6 +26,10 @@ mixin _$FilterValueDto {
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'rule', defaultValue: '')
   String get rule => throw _privateConstructorUsedError;
+  @JsonKey(name: 'icon', defaultValue: '')
+  String get icon => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: false)
+  bool get isApplied => throw _privateConstructorUsedError;
   @JsonKey(name: 'value')
   dynamic get value => throw _privateConstructorUsedError;
 
@@ -45,6 +49,8 @@ abstract class $FilterValueDtoCopyWith<$Res> {
       {@JsonKey(name: 'displayName', defaultValue: '') String displayName,
       @JsonKey(name: 'name', defaultValue: '') String name,
       @JsonKey(name: 'rule', defaultValue: '') String rule,
+      @JsonKey(name: 'icon', defaultValue: '') String icon,
+      @JsonKey(defaultValue: false) bool isApplied,
       @JsonKey(name: 'value') dynamic value});
 }
 
@@ -64,6 +70,8 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
     Object? displayName = null,
     Object? name = null,
     Object? rule = null,
+    Object? icon = null,
+    Object? isApplied = null,
     Object? value = freezed,
   }) {
     return _then(_value.copyWith(
@@ -79,6 +87,14 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
           ? _value.rule
           : rule // ignore: cast_nullable_to_non_nullable
               as String,
+      icon: null == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
+      isApplied: null == isApplied
+          ? _value.isApplied
+          : isApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -99,6 +115,8 @@ abstract class _$$FilterValueDtoImplCopyWith<$Res>
       {@JsonKey(name: 'displayName', defaultValue: '') String displayName,
       @JsonKey(name: 'name', defaultValue: '') String name,
       @JsonKey(name: 'rule', defaultValue: '') String rule,
+      @JsonKey(name: 'icon', defaultValue: '') String icon,
+      @JsonKey(defaultValue: false) bool isApplied,
       @JsonKey(name: 'value') dynamic value});
 }
 
@@ -116,6 +134,8 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
     Object? displayName = null,
     Object? name = null,
     Object? rule = null,
+    Object? icon = null,
+    Object? isApplied = null,
     Object? value = freezed,
   }) {
     return _then(_$FilterValueDtoImpl(
@@ -131,6 +151,14 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
           ? _value.rule
           : rule // ignore: cast_nullable_to_non_nullable
               as String,
+      icon: null == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String,
+      isApplied: null == isApplied
+          ? _value.isApplied
+          : isApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -147,6 +175,8 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
       required this.displayName,
       @JsonKey(name: 'name', defaultValue: '') required this.name,
       @JsonKey(name: 'rule', defaultValue: '') required this.rule,
+      @JsonKey(name: 'icon', defaultValue: '') required this.icon,
+      @JsonKey(defaultValue: false) required this.isApplied,
       @JsonKey(name: 'value') this.value});
 
   factory _$FilterValueDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -162,12 +192,18 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
   @JsonKey(name: 'rule', defaultValue: '')
   final String rule;
   @override
+  @JsonKey(name: 'icon', defaultValue: '')
+  final String icon;
+  @override
+  @JsonKey(defaultValue: false)
+  final bool isApplied;
+  @override
   @JsonKey(name: 'value')
   final dynamic value;
 
   @override
   String toString() {
-    return 'FilterValueDto(displayName: $displayName, name: $name, rule: $rule, value: $value)';
+    return 'FilterValueDto(displayName: $displayName, name: $name, rule: $rule, icon: $icon, isApplied: $isApplied, value: $value)';
   }
 
   @override
@@ -179,13 +215,16 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
                 other.displayName == displayName) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.rule, rule) || other.rule == rule) &&
+            (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.isApplied, isApplied) ||
+                other.isApplied == isApplied) &&
             const DeepCollectionEquality().equals(other.value, value));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, displayName, name, rule,
-      const DeepCollectionEquality().hash(value));
+  int get hashCode => Object.hash(runtimeType, displayName, name, rule, icon,
+      isApplied, const DeepCollectionEquality().hash(value));
 
   @JsonKey(ignore: true)
   @override
@@ -208,6 +247,8 @@ abstract class _FilterValueDto implements FilterValueDto {
       required final String displayName,
       @JsonKey(name: 'name', defaultValue: '') required final String name,
       @JsonKey(name: 'rule', defaultValue: '') required final String rule,
+      @JsonKey(name: 'icon', defaultValue: '') required final String icon,
+      @JsonKey(defaultValue: false) required final bool isApplied,
       @JsonKey(name: 'value') final dynamic value}) = _$FilterValueDtoImpl;
 
   factory _FilterValueDto.fromJson(Map<String, dynamic> json) =
@@ -222,6 +263,12 @@ abstract class _FilterValueDto implements FilterValueDto {
   @override
   @JsonKey(name: 'rule', defaultValue: '')
   String get rule;
+  @override
+  @JsonKey(name: 'icon', defaultValue: '')
+  String get icon;
+  @override
+  @JsonKey(defaultValue: false)
+  bool get isApplied;
   @override
   @JsonKey(name: 'value')
   dynamic get value;

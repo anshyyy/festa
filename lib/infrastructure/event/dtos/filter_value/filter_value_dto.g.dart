@@ -11,6 +11,8 @@ _$FilterValueDtoImpl _$$FilterValueDtoImplFromJson(Map<String, dynamic> json) =>
       displayName: json['displayName'] as String? ?? '',
       name: json['name'] as String? ?? '',
       rule: json['rule'] as String? ?? '',
+      icon: json['icon'] as String? ?? '',
+      isApplied: json['isApplied'] as bool? ?? false,
       value: json['value'],
     );
 
@@ -20,5 +22,7 @@ Map<String, dynamic> _$$FilterValueDtoImplToJson(
       'displayName': instance.displayName,
       'name': instance.name,
       'rule': instance.rule,
+      'icon': instance.icon,
+      'isApplied': instance.isApplied,
       'value': instance.value,
     };

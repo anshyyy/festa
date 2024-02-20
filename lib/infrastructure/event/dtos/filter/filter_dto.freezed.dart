@@ -24,6 +24,10 @@ mixin _$FilterDto {
   String get displayName => throw _privateConstructorUsedError;
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: false)
+  bool get isApplied => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: [])
+  List<FilterValueDto> get values => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +42,9 @@ abstract class $FilterDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'displayName', defaultValue: '') String displayName,
-      @JsonKey(name: 'name', defaultValue: '') String name});
+      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(defaultValue: []) List<FilterValueDto> values});
 }
 
 /// @nodoc
@@ -56,6 +62,8 @@ class _$FilterDtoCopyWithImpl<$Res, $Val extends FilterDto>
   $Res call({
     Object? displayName = null,
     Object? name = null,
+    Object? isApplied = null,
+    Object? values = null,
   }) {
     return _then(_value.copyWith(
       displayName: null == displayName
@@ -66,6 +74,14 @@ class _$FilterDtoCopyWithImpl<$Res, $Val extends FilterDto>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      isApplied: null == isApplied
+          ? _value.isApplied
+          : isApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      values: null == values
+          ? _value.values
+          : values // ignore: cast_nullable_to_non_nullable
+              as List<FilterValueDto>,
     ) as $Val);
   }
 }
@@ -80,7 +96,9 @@ abstract class _$$FilterDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'displayName', defaultValue: '') String displayName,
-      @JsonKey(name: 'name', defaultValue: '') String name});
+      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(defaultValue: []) List<FilterValueDto> values});
 }
 
 /// @nodoc
@@ -96,6 +114,8 @@ class __$$FilterDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? displayName = null,
     Object? name = null,
+    Object? isApplied = null,
+    Object? values = null,
   }) {
     return _then(_$FilterDtoImpl(
       displayName: null == displayName
@@ -106,6 +126,14 @@ class __$$FilterDtoImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      isApplied: null == isApplied
+          ? _value.isApplied
+          : isApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      values: null == values
+          ? _value._values
+          : values // ignore: cast_nullable_to_non_nullable
+              as List<FilterValueDto>,
     ));
   }
 }
@@ -116,7 +144,10 @@ class _$FilterDtoImpl implements _FilterDto {
   const _$FilterDtoImpl(
       {@JsonKey(name: 'displayName', defaultValue: '')
       required this.displayName,
-      @JsonKey(name: 'name', defaultValue: '') required this.name});
+      @JsonKey(name: 'name', defaultValue: '') required this.name,
+      @JsonKey(defaultValue: false) required this.isApplied,
+      @JsonKey(defaultValue: []) required final List<FilterValueDto> values})
+      : _values = values;
 
   factory _$FilterDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$FilterDtoImplFromJson(json);
@@ -127,10 +158,21 @@ class _$FilterDtoImpl implements _FilterDto {
   @override
   @JsonKey(name: 'name', defaultValue: '')
   final String name;
+  @override
+  @JsonKey(defaultValue: false)
+  final bool isApplied;
+  final List<FilterValueDto> _values;
+  @override
+  @JsonKey(defaultValue: [])
+  List<FilterValueDto> get values {
+    if (_values is EqualUnmodifiableListView) return _values;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_values);
+  }
 
   @override
   String toString() {
-    return 'FilterDto(displayName: $displayName, name: $name)';
+    return 'FilterDto(displayName: $displayName, name: $name, isApplied: $isApplied, values: $values)';
   }
 
   @override
@@ -140,12 +182,16 @@ class _$FilterDtoImpl implements _FilterDto {
             other is _$FilterDtoImpl &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.isApplied, isApplied) ||
+                other.isApplied == isApplied) &&
+            const DeepCollectionEquality().equals(other._values, _values));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, displayName, name);
+  int get hashCode => Object.hash(runtimeType, displayName, name, isApplied,
+      const DeepCollectionEquality().hash(_values));
 
   @JsonKey(ignore: true)
   @override
@@ -165,8 +211,10 @@ abstract class _FilterDto implements FilterDto {
   const factory _FilterDto(
       {@JsonKey(name: 'displayName', defaultValue: '')
       required final String displayName,
-      @JsonKey(name: 'name', defaultValue: '')
-      required final String name}) = _$FilterDtoImpl;
+      @JsonKey(name: 'name', defaultValue: '') required final String name,
+      @JsonKey(defaultValue: false) required final bool isApplied,
+      @JsonKey(defaultValue: [])
+      required final List<FilterValueDto> values}) = _$FilterDtoImpl;
 
   factory _FilterDto.fromJson(Map<String, dynamic> json) =
       _$FilterDtoImpl.fromJson;
@@ -177,6 +225,12 @@ abstract class _FilterDto implements FilterDto {
   @override
   @JsonKey(name: 'name', defaultValue: '')
   String get name;
+  @override
+  @JsonKey(defaultValue: false)
+  bool get isApplied;
+  @override
+  @JsonKey(defaultValue: [])
+  List<FilterValueDto> get values;
   @override
   @JsonKey(ignore: true)
   _$$FilterDtoImplCopyWith<_$FilterDtoImpl> get copyWith =>

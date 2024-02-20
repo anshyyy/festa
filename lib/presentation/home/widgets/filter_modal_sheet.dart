@@ -7,12 +7,15 @@ import '../../../application/filter/filter_cubit.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../../widgets/gradient_button.dart';
 import '../../widgets/gradient_text.dart';
 
 class FilterModalSheet extends StatelessWidget {
+  final List<FilterDto> filters;
   const FilterModalSheet({
     super.key,
+    required this.filters,
   });
 
   @override

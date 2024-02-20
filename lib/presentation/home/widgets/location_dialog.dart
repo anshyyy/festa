@@ -159,7 +159,6 @@ class LocationDialog extends StatelessWidget {
                                         .toggleLocationDialog();
                                   },
                                   child: EventTypeTile(
-                                      themeData: Theme.of(context),
                                       title: state.locationSuggestions[index]
                                           ['name'],
                                       image: state.locationSuggestions[index]

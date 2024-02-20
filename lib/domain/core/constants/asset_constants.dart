@@ -10,13 +10,6 @@ class AssetConstants {
   static const locationIconPink = '${vectorsFolder}location-icon.svg';
   static const searchIcon = '${vectorsFolder}search-icon.svg';
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
-  static const techno = '${vectorsFolder}Techno.png';
-  static const bollywood = '${vectorsFolder}Bollywood.png';
-  static const ladiesNight = '${vectorsFolder}Ladies night.png';
-  static const edm = '${vectorsFolder}EDM.png';
-  static const themeNights = '${vectorsFolder}Theme nights.png';
-  static const punjabi = '${vectorsFolder}Punjabi.png';
-  static const telugu = '${vectorsFolder}Telugu.png';
   static const homeBobsBarImg = '${vectorsFolder}bobsbarimg.png';
   static const homeFilledLocation = '${vectorsFolder}home-filled-location.svg';
   // static const shareIcon = '${vectorsFolder}direction-icon.svg';

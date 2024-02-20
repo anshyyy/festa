@@ -58,7 +58,8 @@ class LoginScreenConstants {
       'We never share this with anyone and it won\'t be on your profile.';
   static String phoneConfirmation =
       'I affirm that the provided mobile number belongs to me.';
-  static String affirmationPrompt = 'I affirm that the provided mobile number belongs to me.'; 
+  static String affirmationPrompt =
+      'I affirm that the provided mobile number belongs to me.';
 
   static String verifyNumberHeader = 'Verify your number';
   static String verifyNumberDescription = 'Enter the OTP sent to';
@@ -74,6 +75,8 @@ class LoginScreenConstants {
 }
 
 class ErrorConstants {
+  static const String unknownNetworkError = 'Received non 200 status code';
+
   static const String requiredError = 'Required';
   static String unexpectedForMobileNumberError =
       'OTP Request Failed, Please try again';
@@ -112,11 +115,10 @@ class TicketScreenConstants {
 
 class BookingScreenConstants {}
 
-class PaymentScreenConstants{
+class PaymentScreenConstants {
   static String offersAndBenfit = 'Offers and benefits';
   static String applyCoupon = 'Apply Coupon/Offers';
 }
-
 
 class HomeScreenConstants {
   static String name = 'Hey James, Let’s party!';
@@ -153,7 +155,6 @@ class EventCardScreenConstants {
   static String fAQsText =
       'Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut. Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut.';
 }
-
 
 class EventDetailsScreenConstants {
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';

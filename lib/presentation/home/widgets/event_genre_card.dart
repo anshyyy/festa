@@ -3,49 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class EventTypeTile extends StatelessWidget {
-  final ThemeData themeData;
+  final bool isSelected;
   final String title;
   final String image;
 
   const EventTypeTile({
     super.key,
-    required this.themeData,
     required this.title,
     required this.image,
+    this.isSelected = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(right: 3.w),
-        child: CachedNetworkImage(
-          imageUrl: image,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 10.h,
-            width: 10.h,
-            padding: EdgeInsets.only(bottom: 2.w, left: 2.w, right: 2.w),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    color: themeData.colorScheme.background, width: .1.w),
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: imageProvider,
-                )),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: themeData.textTheme.bodySmall!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: themeData.colorScheme.background,
-                  
-                ),
-              ),
-            ),
+    return CachedNetworkImage(
+      imageUrl: image,
+      imageBuilder: (context, imageProvider) => Container(
+        height: 22.w,
+        width: 22.w,
+        padding: EdgeInsets.only(bottom: 2.w, left: 1.w, right: 1.w),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: isSelected
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).colorScheme.background,
+                width:isSelected? .5.w: 0),
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: imageProvider,
+            )),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.background,
+                fontSize: 13.sp),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

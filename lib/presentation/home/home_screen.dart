@@ -311,11 +311,12 @@ class HomeScreenConsumer extends StatelessWidget {
                                             icon: item['svgIcon'],
                                             isSelected: item['isSelected'],
                                             onTap: () {
+                                                                                              final builderContext = context;
+
                                               if (item['label']
                                                       .toString()
                                                       .toLowerCase() ==
                                                   'filter') {
-                                                final builderContext = context;
                                                 showModalBottomSheet(
                                                     context: context,
                                                     builder: (context) {
@@ -341,7 +342,30 @@ class HomeScreenConsumer extends StatelessWidget {
                                               } else if (item['label']
                                                       .toString()
                                                       .toLowerCase() ==
-                                                  'sort') {}
+                                                  'sort') {
+                                                    showModalBottomSheet(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return FilterModalSheet(
+                                                        filters: List.from(state
+                                                            .filters
+                                                            .map((e) => e.copyWith(
+                                                                values: List.from(
+                                                                    e.values)))
+                                                            .toList()),
+                                                      );
+                                                    }).then((value) {
+                                                  if (value != null) {
+                                                    if (value
+                                                        is List<FilterDto>) {
+                                                      builderContext
+                                                          .read<HomeCubit>()
+                                                          .updateFilterApplied(
+                                                              filters: value);
+                                                    }
+                                                  }
+                                                });
+                                                  }
                                             },
                                           );
                                         }).toList(),

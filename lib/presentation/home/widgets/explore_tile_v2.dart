@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
 class ExploreTile extends StatelessWidget {
   const ExploreTile({
     super.key,
     required this.isSelected,
     this.label,
-    this.icon, this.onTap,
+    this.icon,
+    this.onTap,
   });
 
   final String? label;
@@ -20,16 +20,16 @@ class ExploreTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return GestureDetector(
-    onTap:onTap,
-    child: Container(
+    final child = Container(
       padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
       margin: EdgeInsets.only(right: 2.w),
       decoration: BoxDecoration(
-        border: isSelected? Border.all(
-          width: .2.w,
-          color: Theme.of(context).colorScheme.background,
-        ):null,
+        border: isSelected
+            ? Border.all(
+                width: .2.w,
+                color: Theme.of(context).colorScheme.background,
+              )
+            : null,
         borderRadius: BorderRadius.circular(50.w),
         color: themeData.colorScheme.primaryContainer,
       ),
@@ -53,10 +53,10 @@ class ExploreTile extends StatelessWidget {
               : Container()
         ],
       ),
-    ),
-        );
+    );
+    return GestureDetector(
+      onTap: onTap,
+      child: child,
+    );
   }
 }
-
-
-

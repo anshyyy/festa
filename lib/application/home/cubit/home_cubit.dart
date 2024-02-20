@@ -32,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
     state.scrollController.addListener(() {
       final double maxScroll = state.scrollController.position.maxScrollExtent;
       final double currentScroll = state.scrollController.position.pixels;
-      const double delta = -50.0; // or something else..
+      const double delta = 50;
       if (maxScroll - currentScroll <= delta) {
         if (state.hasMoreEvents) {
           if (!isFetching) {

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -15,6 +13,7 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
 
   void fetchEventDetails({required int id}) async {
     emit(state.copyWith(isLoading: true));
+    await Future.delayed(const Duration(milliseconds: 300));
     Either<dynamic, EventDto> res =
         await state.eventRepository.getEventDetails(eventId: id);
     res.fold(
@@ -27,20 +26,24 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
         isLoading: false,
         isSuccess: true,
         isFailure: false,
-        event: r,)),
+        event: r,
+      )),
     );
   }
 
-  void toggle_lsd(){
+  void toggle_lsd() {
     emit(state.copyWith(lsdExpanded: !state.lsdExpanded));
   }
-  void toggle_amb(){
+
+  void toggle_amb() {
     emit(state.copyWith(ambExpanded: !state.ambExpanded));
   }
-  void toggle_fnb(){
+
+  void toggle_fnb() {
     emit(state.copyWith(fnbExpanded: !state.fnbExpanded));
   }
-  void toggle_faq(){
+
+  void toggle_faq() {
     emit(state.copyWith(faqExpanded: !state.faqExpanded));
   }
 }

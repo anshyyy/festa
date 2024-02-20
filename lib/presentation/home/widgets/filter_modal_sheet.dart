@@ -160,9 +160,9 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                   .copyWith(
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .w600,
+                                                                              .w800,
                                                                       fontSize:
-                                                                          15.sp))
+                                                                          16.sp))
                                                           : Text(
                                                               e.displayName,
                                                               maxLines: 2,
@@ -180,7 +180,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                           FontWeight
                                                                               .w600,
                                                                       fontSize:
-                                                                          15.sp),
+                                                                          16.sp),
                                                             ),
                                                     )
                                                   ],
@@ -263,6 +263,10 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                             .textTheme
                                                             .bodyMedium!
                                                             .copyWith(
+                                                          fontWeight: e
+                                                                  .isApplied
+                                                              ? FontWeight.w700
+                                                              : FontWeight.w400,
                                                           fontSize: 15.sp,
                                                           color: themeData
                                                               .colorScheme
@@ -307,12 +311,14 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             onPressed: () {
                               navigator<NavigationService>().goBack(
                                 responseObject: List.from(state.filters.map(
-                                    (e) => e.copyWith(
-                                        isApplied: false,
-                                        values: e.values
-                                            .map((e) =>
-                                                e.copyWith(isApplied: false))
-                                            .toList()))).map((e) => e as FilterDto).toList(),
+                                        (e) => e.copyWith(
+                                            isApplied: false,
+                                            values: e.values
+                                                .map((e) => e.copyWith(
+                                                    isApplied: false))
+                                                .toList())))
+                                    .map((e) => e as FilterDto)
+                                    .toList(),
                               );
                             },
                             child: Text(

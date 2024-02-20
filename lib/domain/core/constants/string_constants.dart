@@ -123,7 +123,7 @@ class PaymentScreenConstants {
 class HomeScreenConstants {
   static String name = 'Hey James, Let’s party!';
   static String hey = 'Hey';
-  static String welcomeText = 'Let’s Party';
+  static String welcomeText = 'Let’s Party!';
   static String pickYourExperience = 'Pick your experience';
   static String explorerAll = 'Explore all';
  static String noEventsFound = 'No events found in your selected filters';

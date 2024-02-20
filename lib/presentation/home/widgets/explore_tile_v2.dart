@@ -39,7 +39,7 @@ class ExploreTile extends StatelessWidget {
             label ?? '',
             style: themeData.textTheme.bodySmall!.copyWith(
               color: themeData.colorScheme.background,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w400,
             ),
           ),
           SizedBox(

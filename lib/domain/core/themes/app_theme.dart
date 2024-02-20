@@ -19,6 +19,8 @@ final appThemeData = {
         onSecondary: const Color(0XFF696969),
         onSecondaryContainer: const Color(0XFF323232),
         onSurface: const Color(0XFF000000),
+        onPrimary: const Color(0xffCBCBCB),
+        onBackground:const Color(0xffFCFCFC),
         surface: const Color(0XFF171717)),
     appBarTheme: const AppBarTheme(
       color: Colors.white,

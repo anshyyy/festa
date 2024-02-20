@@ -22,7 +22,7 @@ EventDto _$EventDtoFromJson(Map<String, dynamic> json) {
 mixin _$EventDto {
   @JsonKey(name: 'id', defaultValue: 0)
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'name', defaultValue: '')
+  @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE')
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
   String get coverImage => throw _privateConstructorUsedError;
@@ -68,6 +68,8 @@ mixin _$EventDto {
   PubDto? get pub => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get isApplied => throw _privateConstructorUsedError;
+  @JsonKey(name: 'categories', defaultValue: [])
+  List<CategoryDto> get categories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -82,7 +84,7 @@ abstract class $EventDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
-      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE') String name,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImage,
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'vicinity', defaultValue: '') String vicinity,
@@ -107,7 +109,9 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'artists', defaultValue: []) List<ArtistDto> artists,
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
-      @JsonKey(defaultValue: false) bool isApplied});
+      @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(name: 'categories', defaultValue: [])
+      List<CategoryDto> categories});
 
   $AddressDtoCopyWith<$Res>? get address;
   $PubDtoCopyWith<$Res>? get pub;
@@ -150,6 +154,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
+    Object? categories = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -248,6 +253,10 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
+      categories: null == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryDto>,
     ) as $Val);
   }
 
@@ -286,7 +295,7 @@ abstract class _$$EventDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
-      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE') String name,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImage,
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'vicinity', defaultValue: '') String vicinity,
@@ -311,7 +320,9 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'artists', defaultValue: []) List<ArtistDto> artists,
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
-      @JsonKey(defaultValue: false) bool isApplied});
+      @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(name: 'categories', defaultValue: [])
+      List<CategoryDto> categories});
 
   @override
   $AddressDtoCopyWith<$Res>? get address;
@@ -354,6 +365,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
+    Object? categories = null,
   }) {
     return _then(_$EventDtoImpl(
       id: null == id
@@ -452,6 +464,10 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
+      categories: null == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryDto>,
     ));
   }
 }
@@ -461,7 +477,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
 class _$EventDtoImpl implements _EventDto {
   const _$EventDtoImpl(
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
-      @JsonKey(name: 'name', defaultValue: '') required this.name,
+      @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE') required this.name,
       @JsonKey(name: 'coverImageUrl', defaultValue: '')
       required this.coverImage,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
@@ -489,7 +505,8 @@ class _$EventDtoImpl implements _EventDto {
       @JsonKey(name: 'artists', defaultValue: []) required this.artists,
       @JsonKey(name: 'address') this.address,
       @JsonKey(name: 'pub') this.pub,
-      @JsonKey(defaultValue: false) required this.isApplied});
+      @JsonKey(defaultValue: false) required this.isApplied,
+      @JsonKey(name: 'categories', defaultValue: []) required this.categories});
 
   factory _$EventDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventDtoImplFromJson(json);
@@ -498,7 +515,7 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(name: 'id', defaultValue: 0)
   final int id;
   @override
-  @JsonKey(name: 'name', defaultValue: '')
+  @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE')
   final String name;
   @override
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
@@ -566,10 +583,13 @@ class _$EventDtoImpl implements _EventDto {
   @override
   @JsonKey(defaultValue: false)
   final bool isApplied;
+  @override
+  @JsonKey(name: 'categories', defaultValue: [])
+  final List<CategoryDto> categories;
 
   @override
   String toString() {
-    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied)';
+    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied, categories: $categories)';
   }
 
   @override
@@ -613,7 +633,9 @@ class _$EventDtoImpl implements _EventDto {
             (identical(other.address, address) || other.address == address) &&
             (identical(other.pub, pub) || other.pub == pub) &&
             (identical(other.isApplied, isApplied) ||
-                other.isApplied == isApplied));
+                other.isApplied == isApplied) &&
+            const DeepCollectionEquality()
+                .equals(other.categories, categories));
   }
 
   @JsonKey(ignore: true)
@@ -643,7 +665,8 @@ class _$EventDtoImpl implements _EventDto {
         const DeepCollectionEquality().hash(artists),
         address,
         pub,
-        isApplied
+        isApplied,
+        const DeepCollectionEquality().hash(categories)
       ]);
 
   @JsonKey(ignore: true)
@@ -663,7 +686,8 @@ class _$EventDtoImpl implements _EventDto {
 abstract class _EventDto implements EventDto {
   const factory _EventDto(
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
-      @JsonKey(name: 'name', defaultValue: '') required final String name,
+      @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE')
+      required final String name,
       @JsonKey(name: 'coverImageUrl', defaultValue: '')
       required final String coverImage,
       @JsonKey(name: 'description', defaultValue: '')
@@ -700,8 +724,9 @@ abstract class _EventDto implements EventDto {
       required final List<ArtistDto> artists,
       @JsonKey(name: 'address') final AddressDto? address,
       @JsonKey(name: 'pub') final PubDto? pub,
-      @JsonKey(defaultValue: false)
-      required final bool isApplied}) = _$EventDtoImpl;
+      @JsonKey(defaultValue: false) required final bool isApplied,
+      @JsonKey(name: 'categories', defaultValue: [])
+      required final List<CategoryDto> categories}) = _$EventDtoImpl;
 
   factory _EventDto.fromJson(Map<String, dynamic> json) =
       _$EventDtoImpl.fromJson;
@@ -710,7 +735,7 @@ abstract class _EventDto implements EventDto {
   @JsonKey(name: 'id', defaultValue: 0)
   int get id;
   @override
-  @JsonKey(name: 'name', defaultValue: '')
+  @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE')
   String get name;
   @override
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
@@ -778,6 +803,9 @@ abstract class _EventDto implements EventDto {
   @override
   @JsonKey(defaultValue: false)
   bool get isApplied;
+  @override
+  @JsonKey(name: 'categories', defaultValue: [])
+  List<CategoryDto> get categories;
   @override
   @JsonKey(ignore: true)
   _$$EventDtoImplCopyWith<_$EventDtoImpl> get copyWith =>

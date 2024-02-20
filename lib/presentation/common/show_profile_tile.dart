@@ -21,15 +21,13 @@ class ShortProfileTile extends StatelessWidget {
       margin: EdgeInsets.only(right: 3.w),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          border:
-              Border.all(width: .1.w, color: themeData.colorScheme.background)),
+          border: Border.all(width: 1, color: const Color(0xff323232))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CircleAvatar(
             radius: 4.w,
-            backgroundImage:  CachedNetworkImageProvider(
-                artist.profileImage),
+            backgroundImage: CachedNetworkImageProvider(artist.profileImage),
           ),
           SizedBox(
             width: 2.w,
@@ -78,7 +76,6 @@ class ShortProfileTileShimmer extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 4.w,
-           
           ),
           SizedBox(
             width: 2.w,

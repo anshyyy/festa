@@ -62,6 +62,10 @@ extension StringExtension on String {
   DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
   return formatter.format(dateTime);
 }
+  static String formatDateTimeMedium(DateTime dateTime) {
+  DateFormat formatter = DateFormat('MMM dd, hh:mma');
+  return formatter.format(dateTime);
+}
 
 }
 

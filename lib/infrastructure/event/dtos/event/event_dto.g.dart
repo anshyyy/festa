@@ -9,7 +9,7 @@ part of 'event_dto.dart';
 _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
     _$EventDtoImpl(
       id: json['id'] as int? ?? 0,
-      name: json['name'] as String? ?? '',
+      name: json['fullName'] as String? ?? 'BE ISSUE',
       coverImage: json['coverImageUrl'] as String? ?? '',
       description: json['description'] as String? ?? '',
       vicinity: json['vicinity'] as String? ?? '',
@@ -57,12 +57,16 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
           ? null
           : PubDto.fromJson(json['pub'] as Map<String, dynamic>),
       isApplied: json['isApplied'] as bool? ?? false,
+      categories: (json['categories'] as List<dynamic>?)
+              ?.map((e) => CategoryDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'fullName': instance.name,
       'coverImageUrl': instance.coverImage,
       'description': instance.description,
       'vicinity': instance.vicinity,
@@ -85,4 +89,5 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'address': instance.address,
       'pub': instance.pub,
       'isApplied': instance.isApplied,
+      'categories': instance.categories,
     };

@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/extensions/number_extension.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import 'show_profile_tile.dart';
@@ -131,7 +132,9 @@ class _EventCardState extends State<EventCard> {
                       child: Text(
                         widget.event.address!.vicinity,
                         overflow: TextOverflow.ellipsis,
-                        style: themeData.textTheme.bodySmall,
+                        style: themeData.textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).colorScheme.background),
                       ),
                     )
                   ],
@@ -151,10 +154,11 @@ class _EventCardState extends State<EventCard> {
                     width: 2.w,
                   ),
                   Text(
-                    '${AppConstants.rupees}${widget.event.priceRangeStart.toStringAsFixed(0)}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toStringAsFixed(0)}' : ''}',
+                    '${widget.event.priceRangeStart.toIndianRupeeString()}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
                     style: themeData.textTheme.bodySmall!.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.background,
+                        ),
                   )
                 ],
               ),
@@ -177,7 +181,9 @@ class _EventCardState extends State<EventCard> {
                         StringExtension.formatDateTimeLong(
                             DateTime.parse(widget.event.startDate)),
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.background),
+                            color: Theme.of(context).colorScheme.background,
+                            
+                            ),
                       ),
                     ],
                   ),
@@ -250,6 +256,7 @@ class _EventCardState extends State<EventCard> {
                                       overflow: TextOverflow.ellipsis,
                                       style: themeData.textTheme.bodySmall!
                                           .copyWith(
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 14.sp,
                                         color: themeData.colorScheme.background,
                                       ),

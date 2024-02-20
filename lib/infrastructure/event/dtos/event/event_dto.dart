@@ -7,6 +7,7 @@ import '../../../core/dtos/asset/asset_dto.dart';
 import '../../../core/dtos/bullet/bullet_dto.dart';
 import '../../../core/dtos/faq/faq_dto.dart';
 import '../artist/artist_dto.dart';
+import '../category/category_dto.dart';
 import '../pub/pub_dto.dart';
 
 part 'event_dto.freezed.dart';
@@ -16,7 +17,7 @@ part 'event_dto.g.dart';
 class EventDto with _$EventDto {
   const factory EventDto({
     @JsonKey(name: 'id', defaultValue: 0) required int id,
-    @JsonKey(name: 'name', defaultValue: '') required String name,
+    @JsonKey(name: 'fullName', defaultValue: 'BE ISSUE') required String name,
     @JsonKey(name: 'coverImageUrl', defaultValue: '')
     required String coverImage,
     @JsonKey(name: 'description', defaultValue: '') required String description,
@@ -49,6 +50,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'address') AddressDto? address,
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
+    @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
   }) = _EventDto;
 
   factory EventDto.fromJson(Map<String, dynamic> json) =>

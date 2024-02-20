@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+// background: linear-gradient(180deg, #FF1759 0%, #BF0036 100%);
 class GradientText extends StatelessWidget {
   final String text;
   final List<Color> colors;
@@ -19,7 +19,7 @@ class GradientText extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ).createShader(
-              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+              Rect.fromLTWH(0, 60, bounds.width, bounds.height),
             ),
             child: Text(text, style: textStyle,),
             );

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import 'asset_constants.dart';
 
@@ -6,41 +8,44 @@ class OtherConstants {
   static const String termsOfService = 'https://dadlabs.in/terms-of-use';
   static const String privacyPolicy = 'https://dadlabs.in/privacy-policy';
   static const LocationDto defaultLocation = LocationDto(
-      latitude: 12.9784,
-      longitude: 77.6408,
-      area: 'Indira Nagar',
-      city: 'Bangalore',
-      state: 'Karnataka',
-      country: 'India',
-      icon: AssetConstants.bangloreIcon,
-      );
-      
-  static const LocationDto mumbai = LocationDto(
-      latitude: 19.0524,
-      longitude: 72.8216,
-      area: 'Bandra Bandstand',
-      city: 'Mumbai',
-      state: 'Maharashtra',
-      country: 'India',
-      icon: AssetConstants.mumbaiIcon,
-      );
-        static const LocationDto delhi = LocationDto(
-      latitude: 28.6818,
-      longitude: 77.2290,
-      area: 'Central Delhi',
-      city: 'Delhi',
-      state: 'Delhi',
-      country: 'India',
-      icon: AssetConstants.delhiIcon,
-      );
-        static const LocationDto hyderabad = LocationDto(
-      latitude: 28.6818,
-      longitude: 77.2290,
-      area: 'Central Hyderabad',
-      city: 'Hyderabad',
-      state: 'Hyderabad',
-      country: 'India',
-      icon: AssetConstants.hyderabadIcon,
-      );
+    latitude: 12.9784,
+    longitude: 77.6408,
+    area: 'Indira Nagar',
+    city: 'Bangalore',
+    state: 'Karnataka',
+    country: 'India',
+    icon: AssetConstants.bangloreIcon,
+  );
 
+  static const LocationDto mumbai = LocationDto(
+    latitude: 19.0524,
+    longitude: 72.8216,
+    area: 'Bandra Bandstand',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    country: 'India',
+    icon: AssetConstants.mumbaiIcon,
+  );
+  static const LocationDto delhi = LocationDto(
+    latitude: 28.6818,
+    longitude: 77.2290,
+    area: 'Central Delhi',
+    city: 'Delhi',
+    state: 'Delhi',
+    country: 'India',
+    icon: AssetConstants.delhiIcon,
+  );
+  static const LocationDto hyderabad = LocationDto(
+    latitude: 28.6818,
+    longitude: 77.2290,
+    area: 'Central Hyderabad',
+    city: 'Hyderabad',
+    state: 'Hyderabad',
+    country: 'India',
+    icon: AssetConstants.hyderabadIcon,
+  );
+
+  final Shader linearGradient = const LinearGradient(
+    colors: <Color>[Color(0xffFF1759), Color(0xffBF0036)],
+  ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 }

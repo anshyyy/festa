@@ -63,5 +63,11 @@ class AssetConstants {
   static const durationIcon = '${vectorsFolder}duration.svg';
   static const startIcon = '${vectorsFolder}star.svg';
 
-  static const threeDots = '${vectorsFolder}three-dots.dart';
+  static const threeDots = '${vectorsFolder}three-dots.svg';
+
+
+  // location constants
+  static const bangloreIcon = '${vectorsFolder}banglore-icon.svg';
+  static const mumbaiIcon = '${vectorsFolder}mumbai-icon.svg';
+
 }

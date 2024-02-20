@@ -8,11 +8,11 @@ part 'artist_dto.g.dart';
 @Freezed(makeCollectionsUnmodifiable: false)
 class ArtistDto with _$ArtistDto {
   const factory ArtistDto({
-    @JsonKey(name: 'artist_id', defaultValue: 0) required int id,
-    @JsonKey(name: 'full_name', defaultValue: '') required String fullName,
+    @JsonKey(name: 'id', defaultValue: 0) required int id,
+    @JsonKey(name: 'fullName', defaultValue: '') required String fullName,
     @JsonKey(name: 'username', defaultValue: '') required String username,
     @JsonKey(name: 'description', defaultValue: '') required String description,
-    @JsonKey(name: 'profile_image', defaultValue: '')
+    @JsonKey(name: 'profileImage', defaultValue: '')
     required String profileImage,
   }) = _ArtistDto;
 

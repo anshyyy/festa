@@ -7,6 +7,7 @@ import '../../../core/dtos/asset/asset_dto.dart';
 import '../../../core/dtos/bullet/bullet_dto.dart';
 import '../../../core/dtos/faq/faq_dto.dart';
 import '../artist/artist_dto.dart';
+import '../pub/pub_dto.dart';
 
 part 'event_dto.freezed.dart';
 part 'event_dto.g.dart';
@@ -16,7 +17,8 @@ class EventDto with _$EventDto {
   const factory EventDto({
     @JsonKey(name: 'id', defaultValue: 0) required int id,
     @JsonKey(name: 'name', defaultValue: '') required String name,
-    @JsonKey(name: 'coverImage', defaultValue: '') required String coverImage,
+    @JsonKey(name: 'coverImageUrl', defaultValue: '')
+    required String coverImage,
     @JsonKey(name: 'description', defaultValue: '') required String description,
     @JsonKey(name: 'vicinity', defaultValue: '') required String vicinity,
     @JsonKey(name: 'distance', defaultValue: 0) required double distance,
@@ -28,8 +30,6 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'priceRangeStart', defaultValue: 0.0)
     required double priceRangeStart,
     @JsonKey(name: 'priceRangeEnd') double? priceRangeEnd,
-    @JsonKey(name: 'priceStart', defaultValue: 0.0) required double priceStart,
-    @JsonKey(name: 'priceEnd') double? priceEnd,
     @JsonKey(name: 'lsd', defaultValue: []) required List<BulletDto> lsd,
     @JsonKey(name: 'ambience', defaultValue: [])
     required List<BulletDto> ambience,
@@ -47,6 +47,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'artists', defaultValue: [])
     required List<ArtistDto> artists,
     @JsonKey(name: 'address') AddressDto? address,
+    @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
   }) = _EventDto;
 

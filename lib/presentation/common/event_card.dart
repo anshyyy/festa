@@ -99,11 +99,11 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
               ),
-              if (event.vicinity.isNotEmpty)
+              if (event.address != null)
                 SizedBox(
                   height: 1.h,
                 ),
-              if (event.vicinity.isNotEmpty)
+              if (event.address != null)
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -114,7 +114,7 @@ class EventCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: Text(
-                        event.vicinity,
+                        event.address!.vicinity,
                         overflow: TextOverflow.ellipsis,
                         style: themeData.textTheme.bodySmall,
                       ),
@@ -136,7 +136,7 @@ class EventCard extends StatelessWidget {
                     width: 2.w,
                   ),
                   Text(
-                    '${AppConstants.rupees}${event.priceStart != 0 ? '${event.priceStart.toStringAsFixed(0)}${event.priceEnd != null ? ' - ${event.priceEnd!.toStringAsFixed(0)}' : ''}' : event.priceRangeStart.toStringAsFixed(0)}${event.priceRangeEnd != null ? ' - ${event.priceRangeEnd!.toStringAsFixed(0)}' : ''}',
+                    '${AppConstants.rupees}${event.priceRangeStart.toStringAsFixed(0)}${event.priceRangeEnd != null ? ' - ${event.priceRangeEnd!.toStringAsFixed(0)}' : ''}',
                     style: themeData.textTheme.bodySmall!.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -165,22 +165,27 @@ class EventCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Row(
-                  //   children: [
-                  //     SvgPicture.asset(
-                  //       AssetConstants.startIcon,
-                  //       color: Colors.yellow[800],
-                  //     ),
-                  //     SizedBox(
-                  //       width: 1.w,
-                  //     ),
-                  //     Text(
-                  //       event.ra,
-                  //       style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  //           color: Theme.of(context).colorScheme.background),
-                  //     ),
-                  //   ],
-                  // )
+                  if (event.pub != null)
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          AssetConstants.startIcon,
+                          color: Colors.yellow[800],
+                        ),
+                        SizedBox(
+                          width: 1.w,
+                        ),
+                        Text(
+                          event.pub!.averageRating.toStringAsFixed(1),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background),
+                        ),
+                      ],
+                    )
                 ],
               )
             ],
@@ -190,67 +195,72 @@ class EventCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.3.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 4.5.w,
-                            backgroundImage: const CachedNetworkImageProvider(
-                                'https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?q=80&w=2866&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-                          ),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Host name',
-                                style: themeData.textTheme.bodyMedium!.copyWith(
-                                    color: themeData.colorScheme.background,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16.5.sp),
-                              ),
-                              Text(
-                                'Indira Nagar',
-                                style: themeData.textTheme.bodySmall!
-                                    .copyWith(fontSize: 14.sp),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 1.5.w, vertical: .2.h),
-                        decoration: BoxDecoration(
-                            color: themeData.colorScheme.primaryContainer,
-                            borderRadius: BorderRadius.circular(50.w)),
-                        child: Row(
+                if (event.pub != null)
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.3.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            SvgPicture.asset(AssetConstants.locationIcon),
-                            SizedBox(
-                              width: 1.w,
+                            CircleAvatar(
+                              radius: 4.5.w,
+                              backgroundImage: CachedNetworkImageProvider(
+                                  event.pub!.coverImageUrl),
                             ),
-                            Text(
-                              '${event.distance > 1000 ? (event.distance / 1000).toStringAsFixed(1) : event.distance.toStringAsFixed(0)}km',
-                              style: themeData.textTheme.bodySmall!.copyWith(
-                                color: themeData.colorScheme.background,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
-                              ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  event.pub!.fullName,
+                                  style: themeData.textTheme.bodyMedium!
+                                      .copyWith(
+                                          color:
+                                              themeData.colorScheme.background,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.5.sp),
+                                ),
+                                Text(
+                                  event.pub!.userName,
+                                  style: themeData.textTheme.bodySmall!
+                                      .copyWith(fontSize: 14.sp),
+                                ),
+                              ],
                             )
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 1.5.w, vertical: .2.h),
+                          decoration: BoxDecoration(
+                              color: themeData.colorScheme.primaryContainer,
+                              borderRadius: BorderRadius.circular(50.w)),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(AssetConstants.locationIcon),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              Text(
+                                '${event.distance > 1000 ? (event.distance / 1000).toStringAsFixed(1) : event.distance.toStringAsFixed(0)}km',
+                                style: themeData.textTheme.bodySmall!.copyWith(
+                                  color: themeData.colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  const SizedBox(),
                 Column(
                   children: [
                     Padding(
@@ -259,21 +269,24 @@ class EventCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 1.7.w, vertical: .3.h),
-                            decoration: BoxDecoration(
-                                color: themeData.colorScheme.primaryContainer,
-                                borderRadius: BorderRadius.circular(50.w)),
-                            child: Text(
-                              event.startDate,
-                              style: themeData.textTheme.bodySmall!.copyWith(
-                                color: themeData.colorScheme.background,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp,
+                          if (event.startDate.isNotEmpty)
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 1.7.w, vertical: .3.h),
+                              decoration: BoxDecoration(
+                                  color: themeData.colorScheme.primaryContainer,
+                                  borderRadius: BorderRadius.circular(50.w)),
+                              child: Text(
+                                event.startDate,
+                                style: themeData.textTheme.bodySmall!.copyWith(
+                                  color: themeData.colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+                                ),
                               ),
-                            ),
-                          ),
+                            )
+                          else
+                            const SizedBox(),
                           SvgPicture.asset(
                             AssetConstants.heartOutlinedIcon,
                             width: 5.w,

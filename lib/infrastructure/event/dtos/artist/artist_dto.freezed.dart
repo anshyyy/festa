@@ -20,15 +20,15 @@ ArtistDto _$ArtistDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ArtistDto {
-  @JsonKey(name: 'artist_id', defaultValue: 0)
+  @JsonKey(name: 'id', defaultValue: 0)
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'full_name', defaultValue: '')
+  @JsonKey(name: 'fullName', defaultValue: '')
   String get fullName => throw _privateConstructorUsedError;
   @JsonKey(name: 'username', defaultValue: '')
   String get username => throw _privateConstructorUsedError;
   @JsonKey(name: 'description', defaultValue: '')
   String get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'profile_image', defaultValue: '')
+  @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,11 +43,11 @@ abstract class $ArtistDtoCopyWith<$Res> {
       _$ArtistDtoCopyWithImpl<$Res, ArtistDto>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'artist_id', defaultValue: 0) int id,
-      @JsonKey(name: 'full_name', defaultValue: '') String fullName,
+      {@JsonKey(name: 'id', defaultValue: 0) int id,
+      @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'username', defaultValue: '') String username,
       @JsonKey(name: 'description', defaultValue: '') String description,
-      @JsonKey(name: 'profile_image', defaultValue: '') String profileImage});
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage});
 }
 
 /// @nodoc
@@ -103,11 +103,11 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'artist_id', defaultValue: 0) int id,
-      @JsonKey(name: 'full_name', defaultValue: '') String fullName,
+      {@JsonKey(name: 'id', defaultValue: 0) int id,
+      @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'username', defaultValue: '') String username,
       @JsonKey(name: 'description', defaultValue: '') String description,
-      @JsonKey(name: 'profile_image', defaultValue: '') String profileImage});
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage});
 }
 
 /// @nodoc
@@ -156,21 +156,21 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ArtistDtoImpl implements _ArtistDto {
   const _$ArtistDtoImpl(
-      {@JsonKey(name: 'artist_id', defaultValue: 0) required this.id,
-      @JsonKey(name: 'full_name', defaultValue: '') required this.fullName,
+      {@JsonKey(name: 'id', defaultValue: 0) required this.id,
+      @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
       @JsonKey(name: 'username', defaultValue: '') required this.username,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
-      @JsonKey(name: 'profile_image', defaultValue: '')
+      @JsonKey(name: 'profileImage', defaultValue: '')
       required this.profileImage});
 
   factory _$ArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArtistDtoImplFromJson(json);
 
   @override
-  @JsonKey(name: 'artist_id', defaultValue: 0)
+  @JsonKey(name: 'id', defaultValue: 0)
   final int id;
   @override
-  @JsonKey(name: 'full_name', defaultValue: '')
+  @JsonKey(name: 'fullName', defaultValue: '')
   final String fullName;
   @override
   @JsonKey(name: 'username', defaultValue: '')
@@ -179,7 +179,7 @@ class _$ArtistDtoImpl implements _ArtistDto {
   @JsonKey(name: 'description', defaultValue: '')
   final String description;
   @override
-  @JsonKey(name: 'profile_image', defaultValue: '')
+  @JsonKey(name: 'profileImage', defaultValue: '')
   final String profileImage;
 
   @override
@@ -224,24 +224,24 @@ class _$ArtistDtoImpl implements _ArtistDto {
 
 abstract class _ArtistDto implements ArtistDto {
   const factory _ArtistDto(
-      {@JsonKey(name: 'artist_id', defaultValue: 0) required final int id,
-      @JsonKey(name: 'full_name', defaultValue: '')
+      {@JsonKey(name: 'id', defaultValue: 0) required final int id,
+      @JsonKey(name: 'fullName', defaultValue: '')
       required final String fullName,
       @JsonKey(name: 'username', defaultValue: '')
       required final String username,
       @JsonKey(name: 'description', defaultValue: '')
       required final String description,
-      @JsonKey(name: 'profile_image', defaultValue: '')
+      @JsonKey(name: 'profileImage', defaultValue: '')
       required final String profileImage}) = _$ArtistDtoImpl;
 
   factory _ArtistDto.fromJson(Map<String, dynamic> json) =
       _$ArtistDtoImpl.fromJson;
 
   @override
-  @JsonKey(name: 'artist_id', defaultValue: 0)
+  @JsonKey(name: 'id', defaultValue: 0)
   int get id;
   @override
-  @JsonKey(name: 'full_name', defaultValue: '')
+  @JsonKey(name: 'fullName', defaultValue: '')
   String get fullName;
   @override
   @JsonKey(name: 'username', defaultValue: '')
@@ -250,7 +250,7 @@ abstract class _ArtistDto implements ArtistDto {
   @JsonKey(name: 'description', defaultValue: '')
   String get description;
   @override
-  @JsonKey(name: 'profile_image', defaultValue: '')
+  @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage;
   @override
   @JsonKey(ignore: true)

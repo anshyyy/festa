@@ -10,7 +10,7 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
     _$EventDtoImpl(
       id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImageUrl'] as String? ?? '',
       description: json['description'] as String? ?? '',
       vicinity: json['vicinity'] as String? ?? '',
       distance: (json['distance'] as num?)?.toDouble() ?? 0,
@@ -18,8 +18,6 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
       endDate: json['endDate'] as String?,
       priceRangeStart: (json['priceRangeStart'] as num?)?.toDouble() ?? 0.0,
       priceRangeEnd: (json['priceRangeEnd'] as num?)?.toDouble(),
-      priceStart: (json['priceStart'] as num?)?.toDouble() ?? 0.0,
-      priceEnd: (json['priceEnd'] as num?)?.toDouble(),
       lsd: (json['lsd'] as List<dynamic>?)
               ?.map((e) => BulletDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -55,6 +53,9 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
       address: json['address'] == null
           ? null
           : AddressDto.fromJson(json['address'] as Map<String, dynamic>),
+      pub: json['pub'] == null
+          ? null
+          : PubDto.fromJson(json['pub'] as Map<String, dynamic>),
       isApplied: json['isApplied'] as bool? ?? false,
     );
 
@@ -62,7 +63,7 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'coverImage': instance.coverImage,
+      'coverImageUrl': instance.coverImage,
       'description': instance.description,
       'vicinity': instance.vicinity,
       'distance': instance.distance,
@@ -70,8 +71,6 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'endDate': instance.endDate,
       'priceRangeStart': instance.priceRangeStart,
       'priceRangeEnd': instance.priceRangeEnd,
-      'priceStart': instance.priceStart,
-      'priceEnd': instance.priceEnd,
       'lsd': instance.lsd,
       'ambience': instance.ambience,
       'foodAndBeverages': instance.foodAndBeverages,
@@ -84,5 +83,6 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'assets': instance.assets,
       'artists': instance.artists,
       'address': instance.address,
+      'pub': instance.pub,
       'isApplied': instance.isApplied,
     };

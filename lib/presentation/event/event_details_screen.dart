@@ -9,6 +9,8 @@ import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../common/event_card.dart';
+import '../widgets/gradient_button.dart';
 import '../widgets/gradient_text.dart';
 
 class EventDetailsScreen extends StatelessWidget {
@@ -45,9 +47,48 @@ class EventDetailsScreenConsumer extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
+        final event = state.event;
         return state.isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Scaffold(
+              bottomNavigationBar: Container(
+                height: 17.h,
+                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(event!.startDate.toString(),
+                          style:Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background,
+                        )
+                          ),
+                          Row(
+                            children: [
+                              Text('${AppConstants.rupees}${event.priceRangeStart.toString()}',
+                              style:Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background,
+                        )),
+                              Text(event.priceRangeEnd.toString()),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(child: GradientButton(text: EventDetailsScreenConstants.bookTheTickets, onTap: (){}, textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Theme.of(context).colorScheme.background,
+                          fontWeight: FontWeight.w600,
+                        ),))
+                  ],
+                ),
+              ),
                 appBar: AppBar(
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   leading: GestureDetector(
@@ -55,7 +96,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       child: Center(
                           child: SvgPicture.asset(AssetConstants.arrowLeft))),
                   title: Text(
-                    state.event?.name ?? '',
+                    event?.name ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -76,17 +117,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // EventCard(
-                        //   eventTitle: eventTitle,
-                        //   distance: distance,
-                        //   hostDetails: hostDetails,
-                        //   location: location,
-                        //   price: price,
-                        //   eventTime: eventTime,
-                        //   ratings: ratings,
-                        //   date: date,
-                        //   posters: posters,
-                        // ),
+                        EventCard(event: event!),
                         GradientText(
                           text: EventDetailsScreenConstants.viewOnMaps,
                           colors: [
@@ -97,6 +128,307 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            title: Text(
+                              EventScreenConstants.description,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                      horizontal: 3.5.w, vertical: 1.h),
+                                child: Text(event.description,
+                                
+                                style:Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,),),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        // LSD
+                        Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            title: Text(
+                              EventScreenConstants.lsd,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            children: [
+                              ...event.lsd.map((e) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 3.5.w, vertical: 1.h),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SvgPicture.asset(
+                                        AssetConstants.extras[e.type]!,
+                                        height: 3.h,
+                                      ),
+                                      SizedBox(
+                                        width: 2.w,
+                                      ),
+                                      Expanded(
+                                          child: Text(
+                                        e.text,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                            ),
+                                      )),
+                                    ],
+                                  ),
+                                );
+                              })
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+
+                        // Ambience
+                        Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            title: Text(
+                              EventScreenConstants.ambience,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            children: [
+                              ...event.ambience.map((e) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 3.5.w, vertical: 1.h),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text(
+                                        e.text,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                            ),
+                                      )),
+                                    ],
+                                  ),
+                                );
+                              })
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+
+                        // Food
+                        Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            title: Text(
+                              EventScreenConstants.foodAndBeverages,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            children: [
+                              ...event.foodAndBeverages.map((e) {
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 3.5.w, vertical: 1.h),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AssetConstants.extras[e.type]!,
+                                        height: 3.h,
+                                      ),
+                                      SizedBox(
+                                        width: 2.w,
+                                      ),
+                                      Expanded(
+                                          child: Text(
+                                        e.text,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                            ),
+                                      )),
+                                    ],
+                                  ),
+                                );
+                              })
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+
+                        // Food
+                        Theme(
+                          data: Theme.of(context)
+                              .copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            title: Text(
+                              EventScreenConstants.fAQs,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: event.faqs.length,
+                                itemBuilder: (context, index) {
+                                  final e = event.faqs[index];
+                                  return Padding(
+                                  padding:EdgeInsets.symmetric(
+                                      horizontal: 3.5.w, vertical: 1.h),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('${(index+1).toString()}. ',
+                                      style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                        fontWeight: FontWeight.w600,
+                                                  ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              e.question,
+                                              maxLines: 10,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                        fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    e.answer,
+                                                    maxLines: 10,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                          color: Theme.of(context)
+                                                              .colorScheme
+                                                              .background,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

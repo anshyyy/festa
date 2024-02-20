@@ -45,7 +45,6 @@ class AssetConstants {
   static const drinkIcon = '${vectorsFolder}drinks.svg';
   static const navigationIcon = '${vectorsFolder}navigation-icon.svg';
 
-
   //chevron arrows
   static const arrowDown = '${vectorsFolder}arrow-down.svg';
   static const arrowRight = '${vectorsFolder}arrow-right.svg';
@@ -65,9 +64,21 @@ class AssetConstants {
 
   static const threeDots = '${vectorsFolder}three-dots.svg';
 
-
   // location constants
   static const bangloreIcon = '${vectorsFolder}banglore-icon.svg';
   static const mumbaiIcon = '${vectorsFolder}mumbai-icon.svg';
 
+// eventIconConstants
+  static const Map<String, String> extras = 
+    {
+      'light': lightsIcon,
+    
+      'sound': soundsIcon,
+    
+      'dance': danceFloorIcon,
+    
+      'food': foodIcon,
+    
+      'beverage': drinkIcon,
+    };
 }

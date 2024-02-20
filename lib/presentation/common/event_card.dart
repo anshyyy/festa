@@ -25,57 +25,49 @@ class EventCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              GestureDetector(
-                onTap: () {
-                  navigator<NavigationService>()
-                      .navigateTo(UserRoutes.eventDetailsRoute, queryParams: {
-                    'id': event.id.toString(),
-                  });
-                },
-                child: CarouselSlider.builder(
-                    itemCount: event.assets.length +
-                        (event.coverImage.isNotEmpty ? 1 : 0),
-                    itemBuilder: (context, imageIndex, realIndex) {
-                      final index =
-                          imageIndex - (event.coverImage.isNotEmpty ? 1 : 0);
-                      return Container(
-                        foregroundDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Colors.black,
-                              Colors.transparent,
-                              Colors.transparent,
-                              Colors.black
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: [0, 0.2, 0.8, 1],
+              CarouselSlider.builder(
+                  itemCount: event.assets.length +
+                      (event.coverImage.isNotEmpty ? 1 : 0),
+                  itemBuilder: (context, imageIndex, realIndex) {
+                    final index =
+                        imageIndex - (event.coverImage.isNotEmpty ? 1 : 0);
+                    return Container(
+                      foregroundDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: const LinearGradient(
+                          colors: [
+                            Colors.black,
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.black
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: [0, 0.2, 0.8, 1],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            imageIndex == 0 && event.coverImage.isNotEmpty
+                                ? event.coverImage
+                                : event.assets[index].url,
                           ),
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              imageIndex == 0 && event.coverImage.isNotEmpty
-                                  ? event.coverImage
-                                  : event.assets[index].url,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    options: CarouselOptions(
-                      autoPlay: false,
-                      height: 100.w,
-                      enlargeCenterPage: true,
-                      autoPlayCurve: Curves.easeInOutBack,
-                      viewportFraction: 1,
-                      enableInfiniteScroll: false,
-                      onPageChanged: (index, reason) {},
-                    )),
-              ),
+                      ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    autoPlay: false,
+                    height: 100.w,
+                    enlargeCenterPage: true,
+                    autoPlayCurve: Curves.easeInOutBack,
+                    viewportFraction: 1,
+                    enableInfiniteScroll: false,
+                    onPageChanged: (index, reason) {},
+                  )),
               SizedBox(
                 height: 1.h,
               ),

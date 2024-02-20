@@ -6,9 +6,12 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/string_extension.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile_v2.dart';
@@ -237,8 +240,18 @@ class HomeScreenConsumer extends StatelessWidget {
                                       child: const EventCardShimmer(),
                                     );
                                   }
-                                  return EventCard(
-                                    event: state.events[index],
+                                  return GestureDetector(
+                                    onTap: () {
+                                      navigator<NavigationService>().navigateTo(
+                                          UserRoutes.eventDetailsRoute,
+                                          queryParams: {
+                                            'id': state.events[index].id
+                                                .toString(),
+                                          });
+                                    },
+                                    child: EventCard(
+                                      event: state.events[index],
+                                    ),
                                   );
                                 },
                               )

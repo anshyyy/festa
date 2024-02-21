@@ -36,6 +36,10 @@ mixin _$HomeState {
   LocationDto get location => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   ScrollController get scrollController => throw _privateConstructorUsedError;
+  bool get sortDropdownOpen => throw _privateConstructorUsedError;
+  GlobalKey<State<StatefulWidget>> get sortKey =>
+      throw _privateConstructorUsedError;
+  Offset get chipPosition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -64,7 +68,10 @@ abstract class $HomeStateCopyWith<$Res> {
       List<Map<String, dynamic>> locationSuggestions,
       LocationDto location,
       EventRepository eventRepository,
-      ScrollController scrollController});
+      ScrollController scrollController,
+      bool sortDropdownOpen,
+      GlobalKey<State<StatefulWidget>> sortKey,
+      Offset chipPosition});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -100,6 +107,9 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? location = null,
     Object? eventRepository = null,
     Object? scrollController = null,
+    Object? sortDropdownOpen = null,
+    Object? sortKey = null,
+    Object? chipPosition = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -170,6 +180,18 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.scrollController
           : scrollController // ignore: cast_nullable_to_non_nullable
               as ScrollController,
+      sortDropdownOpen: null == sortDropdownOpen
+          ? _value.sortDropdownOpen
+          : sortDropdownOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortKey: null == sortKey
+          ? _value.sortKey
+          : sortKey // ignore: cast_nullable_to_non_nullable
+              as GlobalKey<State<StatefulWidget>>,
+      chipPosition: null == chipPosition
+          ? _value.chipPosition
+          : chipPosition // ignore: cast_nullable_to_non_nullable
+              as Offset,
     ) as $Val);
   }
 
@@ -219,7 +241,10 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<Map<String, dynamic>> locationSuggestions,
       LocationDto location,
       EventRepository eventRepository,
-      ScrollController scrollController});
+      ScrollController scrollController,
+      bool sortDropdownOpen,
+      GlobalKey<State<StatefulWidget>> sortKey,
+      Offset chipPosition});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -255,6 +280,9 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? location = null,
     Object? eventRepository = null,
     Object? scrollController = null,
+    Object? sortDropdownOpen = null,
+    Object? sortKey = null,
+    Object? chipPosition = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -325,6 +353,18 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.scrollController
           : scrollController // ignore: cast_nullable_to_non_nullable
               as ScrollController,
+      sortDropdownOpen: null == sortDropdownOpen
+          ? _value.sortDropdownOpen
+          : sortDropdownOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortKey: null == sortKey
+          ? _value.sortKey
+          : sortKey // ignore: cast_nullable_to_non_nullable
+              as GlobalKey<State<StatefulWidget>>,
+      chipPosition: null == chipPosition
+          ? _value.chipPosition
+          : chipPosition // ignore: cast_nullable_to_non_nullable
+              as Offset,
     ));
   }
 }
@@ -349,7 +389,10 @@ class _$HomeStateImpl implements _HomeState {
       required this.locationSuggestions,
       required this.location,
       required this.eventRepository,
-      required this.scrollController});
+      required this.scrollController,
+      required this.sortDropdownOpen,
+      required this.sortKey,
+      required this.chipPosition});
 
   @override
   final bool isLoading;
@@ -385,10 +428,16 @@ class _$HomeStateImpl implements _HomeState {
   final EventRepository eventRepository;
   @override
   final ScrollController scrollController;
+  @override
+  final bool sortDropdownOpen;
+  @override
+  final GlobalKey<State<StatefulWidget>> sortKey;
+  @override
+  final Offset chipPosition;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition)';
   }
 
   @override
@@ -425,29 +474,38 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository) &&
             (identical(other.scrollController, scrollController) ||
-                other.scrollController == scrollController));
+                other.scrollController == scrollController) &&
+            (identical(other.sortDropdownOpen, sortDropdownOpen) ||
+                other.sortDropdownOpen == sortDropdownOpen) &&
+            (identical(other.sortKey, sortKey) || other.sortKey == sortKey) &&
+            (identical(other.chipPosition, chipPosition) ||
+                other.chipPosition == chipPosition));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      hasMoreEvents,
-      isSuccessful,
-      isFailed,
-      noUse,
-      categoryFilter,
-      page,
-      const DeepCollectionEquality().hash(events),
-      const DeepCollectionEquality().hash(filters),
-      const DeepCollectionEquality().hash(exploreList),
-      pageController,
-      showLocationDialog,
-      const DeepCollectionEquality().hash(filterOptions),
-      const DeepCollectionEquality().hash(locationSuggestions),
-      location,
-      eventRepository,
-      scrollController);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isLoading,
+        hasMoreEvents,
+        isSuccessful,
+        isFailed,
+        noUse,
+        categoryFilter,
+        page,
+        const DeepCollectionEquality().hash(events),
+        const DeepCollectionEquality().hash(filters),
+        const DeepCollectionEquality().hash(exploreList),
+        pageController,
+        showLocationDialog,
+        const DeepCollectionEquality().hash(filterOptions),
+        const DeepCollectionEquality().hash(locationSuggestions),
+        location,
+        eventRepository,
+        scrollController,
+        sortDropdownOpen,
+        sortKey,
+        chipPosition
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -474,7 +532,10 @@ abstract class _HomeState implements HomeState {
       required final List<Map<String, dynamic>> locationSuggestions,
       required final LocationDto location,
       required final EventRepository eventRepository,
-      required final ScrollController scrollController}) = _$HomeStateImpl;
+      required final ScrollController scrollController,
+      required final bool sortDropdownOpen,
+      required final GlobalKey<State<StatefulWidget>> sortKey,
+      required final Offset chipPosition}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -510,6 +571,12 @@ abstract class _HomeState implements HomeState {
   EventRepository get eventRepository;
   @override
   ScrollController get scrollController;
+  @override
+  bool get sortDropdownOpen;
+  @override
+  GlobalKey<State<StatefulWidget>> get sortKey;
+  @override
+  Offset get chipPosition;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

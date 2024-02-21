@@ -20,6 +20,9 @@ class HomeState with _$HomeState {
     required LocationDto location,
     required EventRepository eventRepository,
     required ScrollController scrollController,
+    required bool sortDropdownOpen,
+    required GlobalKey sortKey,
+    required Offset chipPosition,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
@@ -82,5 +85,9 @@ class HomeState with _$HomeState {
           'image':
               'https://images.unsplash.com/photo-1701749740828-c068fa546d3e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         },
-      ]);
+      ],
+      sortDropdownOpen: false,
+      sortKey: GlobalKey(),
+      chipPosition: Offset.zero,
+      );
 }

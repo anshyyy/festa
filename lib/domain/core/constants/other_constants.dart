@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
+import '../../../infrastructure/core/dtos/menu/menu_dto.dart';
 import 'asset_constants.dart';
 
 class OtherConstants {
@@ -48,4 +49,19 @@ class OtherConstants {
   final Shader linearGradient = const LinearGradient(
     colors: <Color>[Color(0xffFF1759), Color(0xffBF0036)],
   ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+  
+  static const MenuDto home = MenuDto(
+    id: 1,
+    icon: AssetConstants.homeFilled,
+  );
+
+  static const MenuDto community = MenuDto(
+    id: 2,
+    icon: AssetConstants.communityIcon,
+  );
+
+  static const MenuDto tickets = MenuDto(
+    id: 3,
+    icon: AssetConstants.ticketsIcon,
+  );
 }

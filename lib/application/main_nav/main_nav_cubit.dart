@@ -5,5 +5,9 @@ part 'main_nav_state.dart';
 part 'main_nav_cubit.freezed.dart';
 
 class MainNavCubit extends Cubit<MainNavState> {
-  MainNavCubit() : super(const MainNavState.initial());
+  MainNavCubit(super.initialState);
+
+  void onIndexChange({required int index}){
+    emit(state.copyWith(currentIndex: index));
+  }
 }

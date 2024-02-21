@@ -40,6 +40,7 @@ mixin _$HomeState {
   GlobalKey<State<StatefulWidget>> get sortKey =>
       throw _privateConstructorUsedError;
   Offset get chipPosition => throw _privateConstructorUsedError;
+  OverlayEntry? get overlayEntry => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -71,7 +72,8 @@ abstract class $HomeStateCopyWith<$Res> {
       ScrollController scrollController,
       bool sortDropdownOpen,
       GlobalKey<State<StatefulWidget>> sortKey,
-      Offset chipPosition});
+      Offset chipPosition,
+      OverlayEntry? overlayEntry});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -110,6 +112,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? sortDropdownOpen = null,
     Object? sortKey = null,
     Object? chipPosition = null,
+    Object? overlayEntry = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -192,6 +195,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.chipPosition
           : chipPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
+      overlayEntry: freezed == overlayEntry
+          ? _value.overlayEntry
+          : overlayEntry // ignore: cast_nullable_to_non_nullable
+              as OverlayEntry?,
     ) as $Val);
   }
 
@@ -244,7 +251,8 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       ScrollController scrollController,
       bool sortDropdownOpen,
       GlobalKey<State<StatefulWidget>> sortKey,
-      Offset chipPosition});
+      Offset chipPosition,
+      OverlayEntry? overlayEntry});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -283,6 +291,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? sortDropdownOpen = null,
     Object? sortKey = null,
     Object? chipPosition = null,
+    Object? overlayEntry = freezed,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -365,6 +374,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.chipPosition
           : chipPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
+      overlayEntry: freezed == overlayEntry
+          ? _value.overlayEntry
+          : overlayEntry // ignore: cast_nullable_to_non_nullable
+              as OverlayEntry?,
     ));
   }
 }
@@ -392,7 +405,8 @@ class _$HomeStateImpl implements _HomeState {
       required this.scrollController,
       required this.sortDropdownOpen,
       required this.sortKey,
-      required this.chipPosition});
+      required this.chipPosition,
+      this.overlayEntry});
 
   @override
   final bool isLoading;
@@ -434,10 +448,12 @@ class _$HomeStateImpl implements _HomeState {
   final GlobalKey<State<StatefulWidget>> sortKey;
   @override
   final Offset chipPosition;
+  @override
+  final OverlayEntry? overlayEntry;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry)';
   }
 
   @override
@@ -479,7 +495,9 @@ class _$HomeStateImpl implements _HomeState {
                 other.sortDropdownOpen == sortDropdownOpen) &&
             (identical(other.sortKey, sortKey) || other.sortKey == sortKey) &&
             (identical(other.chipPosition, chipPosition) ||
-                other.chipPosition == chipPosition));
+                other.chipPosition == chipPosition) &&
+            (identical(other.overlayEntry, overlayEntry) ||
+                other.overlayEntry == overlayEntry));
   }
 
   @override
@@ -504,7 +522,8 @@ class _$HomeStateImpl implements _HomeState {
         scrollController,
         sortDropdownOpen,
         sortKey,
-        chipPosition
+        chipPosition,
+        overlayEntry
       ]);
 
   @JsonKey(ignore: true)
@@ -535,7 +554,8 @@ abstract class _HomeState implements HomeState {
       required final ScrollController scrollController,
       required final bool sortDropdownOpen,
       required final GlobalKey<State<StatefulWidget>> sortKey,
-      required final Offset chipPosition}) = _$HomeStateImpl;
+      required final Offset chipPosition,
+      final OverlayEntry? overlayEntry}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -577,6 +597,8 @@ abstract class _HomeState implements HomeState {
   GlobalKey<State<StatefulWidget>> get sortKey;
   @override
   Offset get chipPosition;
+  @override
+  OverlayEntry? get overlayEntry;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

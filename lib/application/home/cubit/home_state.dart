@@ -23,6 +23,7 @@ class HomeState with _$HomeState {
     required bool sortDropdownOpen,
     required GlobalKey sortKey,
     required Offset chipPosition,
+    OverlayEntry? overlayEntry
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(

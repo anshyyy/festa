@@ -11,6 +11,7 @@ import '../../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../../../infrastructure/event/dtos/filter_value/filter_value_dto.dart';
 import '../../../infrastructure/event/i_event_repository.dart';
+import '../../../presentation/home/widgets/dropdown_panel.dart';
 
 part 'home_state.dart';
 part 'home_cubit.freezed.dart';
@@ -174,10 +175,56 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(sortDropdownOpen: flag));
   }
 
-  void getChipPosition({required GlobalKey key}) {
+  void getChipPosition(
+      {required GlobalKey key, required OverlayState overlayState}) {
     RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
     Offset position = renderBox.localToGlobal(Offset.zero);
-    emit(state.copyWith(chipPosition: position, noUse: !state.noUse));
+    showOverlay(position.dx, position.dy, overlayState);
   }
 
+  void showOverlay(double dx, double dy, OverlayState overlayState) {
+    final overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+            top: dy,
+            left: dx,
+            child: DropView(
+              onBack: (String name, String? value) {
+                final index = state.filters
+                    .indexWhere((element) => element.name == 'sort');
+                final valueIndex = state.filters[index].values.indexWhere(
+                    (element) =>
+                        element.name == name && element.value == value);
+                for (int i = 0; i < state.filters[index].values.length; i++) {
+                  state.filters[index].values[i] =
+                      state.filters[index].values[i].copyWith(
+                    isApplied: false,
+                  );
+                }
+                state.filters[index].values[valueIndex] = state
+                    .filters[index].values[valueIndex]
+                    .copyWith(isApplied: true);
+                state.filters[index] =
+                    state.filters[index].copyWith(isApplied: true);
+                removeOverlay();
+               updateFilterApplied(filters: state.filters);
+              },
+              filters: state.filters
+                  .firstWhere((element) => element.name == 'sort')
+                  .values,
+            ));
+      },
+    );
+    overlayState.insert(overlayEntry);
+    toggleSort(flag: true);
+    emit(state.copyWith(overlayEntry: overlayEntry));
+  }
+
+  void removeOverlay() {
+    if (state.overlayEntry != null && state.overlayEntry!.mounted) {
+      toggleSort(flag: false);
+      state.overlayEntry!.remove();
+      emit(state.copyWith(overlayEntry:null));
+    }
+  }
 }

@@ -36,6 +36,7 @@ mixin _$HomeState {
   LocationDto get location => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   ScrollController get scrollController => throw _privateConstructorUsedError;
+  bool get sortDropdownOpen => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -64,7 +65,8 @@ abstract class $HomeStateCopyWith<$Res> {
       List<Map<String, dynamic>> locationSuggestions,
       LocationDto location,
       EventRepository eventRepository,
-      ScrollController scrollController});
+      ScrollController scrollController,
+      bool sortDropdownOpen});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -100,6 +102,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? location = null,
     Object? eventRepository = null,
     Object? scrollController = null,
+    Object? sortDropdownOpen = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -170,6 +173,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.scrollController
           : scrollController // ignore: cast_nullable_to_non_nullable
               as ScrollController,
+      sortDropdownOpen: null == sortDropdownOpen
+          ? _value.sortDropdownOpen
+          : sortDropdownOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -219,7 +226,8 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<Map<String, dynamic>> locationSuggestions,
       LocationDto location,
       EventRepository eventRepository,
-      ScrollController scrollController});
+      ScrollController scrollController,
+      bool sortDropdownOpen});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -255,6 +263,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? location = null,
     Object? eventRepository = null,
     Object? scrollController = null,
+    Object? sortDropdownOpen = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -325,6 +334,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.scrollController
           : scrollController // ignore: cast_nullable_to_non_nullable
               as ScrollController,
+      sortDropdownOpen: null == sortDropdownOpen
+          ? _value.sortDropdownOpen
+          : sortDropdownOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -349,7 +362,8 @@ class _$HomeStateImpl implements _HomeState {
       required this.locationSuggestions,
       required this.location,
       required this.eventRepository,
-      required this.scrollController});
+      required this.scrollController,
+      required this.sortDropdownOpen});
 
   @override
   final bool isLoading;
@@ -385,10 +399,12 @@ class _$HomeStateImpl implements _HomeState {
   final EventRepository eventRepository;
   @override
   final ScrollController scrollController;
+  @override
+  final bool sortDropdownOpen;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen)';
   }
 
   @override
@@ -425,7 +441,9 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository) &&
             (identical(other.scrollController, scrollController) ||
-                other.scrollController == scrollController));
+                other.scrollController == scrollController) &&
+            (identical(other.sortDropdownOpen, sortDropdownOpen) ||
+                other.sortDropdownOpen == sortDropdownOpen));
   }
 
   @override
@@ -447,7 +465,8 @@ class _$HomeStateImpl implements _HomeState {
       const DeepCollectionEquality().hash(locationSuggestions),
       location,
       eventRepository,
-      scrollController);
+      scrollController,
+      sortDropdownOpen);
 
   @JsonKey(ignore: true)
   @override
@@ -474,7 +493,8 @@ abstract class _HomeState implements HomeState {
       required final List<Map<String, dynamic>> locationSuggestions,
       required final LocationDto location,
       required final EventRepository eventRepository,
-      required final ScrollController scrollController}) = _$HomeStateImpl;
+      required final ScrollController scrollController,
+      required final bool sortDropdownOpen}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -510,6 +530,8 @@ abstract class _HomeState implements HomeState {
   EventRepository get eventRepository;
   @override
   ScrollController get scrollController;
+  @override
+  bool get sortDropdownOpen;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

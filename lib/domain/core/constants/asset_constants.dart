@@ -8,7 +8,7 @@ class AssetConstants {
   static const searchSvg = '${vectorsFolder}example.svg';
   static const profileIcon = '${vectorsFolder}bprofile-icon.png';
   static const locationIconPink = '${vectorsFolder}location-icon.svg';
-    static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
+  static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
 
   static const searchIcon = '${vectorsFolder}search-icon.svg';
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
@@ -72,17 +72,17 @@ class AssetConstants {
   static const delhiIcon = '${vectorsFolder}delhi-icon.svg';
   static const hyderabadIcon = '${vectorsFolder}hyderabad-icon.svg';
 
+  // menu
+  static const homeFilled = '${vectorsFolder}home-filled.svg';
+  static const communityIcon = '${vectorsFolder}community-icon.svg';
+  static const ticketsIcon = '${vectorsFolder}tickets-icon.svg';
+
 // eventIconConstants
-  static const Map<String, String> extras = 
-    {
-      'light': lightsIcon,
-    
-      'sound': soundsIcon,
-    
-      'dance': danceFloorIcon,
-    
-      'food': foodIcon,
-    
-      'beverage': drinkIcon,
-    };
+  static const Map<String, String> extras = {
+    'light': lightsIcon,
+    'sound': soundsIcon,
+    'dance': danceFloorIcon,
+    'food': foodIcon,
+    'beverage': drinkIcon,
+  };
 }

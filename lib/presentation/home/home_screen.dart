@@ -129,28 +129,27 @@ class HomeScreenConsumer extends StatelessWidget {
                                           text: HomeScreenConstants.editFilters,
                                           function: () {
                                             final builderContext = context;
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return FilterModalSheet(
-                                                        filters: List.from(state
-                                                            .filters
-                                                            .map((e) => e.copyWith(
-                                                                values: List.from(
-                                                                    e.values)))
-                                                            .toList()),
-                                                      );
-                                                    }).then((value) {
-                                                  if (value != null) {
-                                                    if (value
-                                                        is List<FilterDto>) {
-                                                      builderContext
-                                                          .read<HomeCubit>()
-                                                          .updateFilterApplied(
-                                                              filters: value);
-                                                    }
-                                                  }
-                                                });
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) {
+                                                  return FilterModalSheet(
+                                                    filters: List.from(state
+                                                        .filters
+                                                        .map((e) => e.copyWith(
+                                                            values: List.from(
+                                                                e.values)))
+                                                        .toList()),
+                                                  );
+                                                }).then((value) {
+                                              if (value != null) {
+                                                if (value is List<FilterDto>) {
+                                                  builderContext
+                                                      .read<HomeCubit>()
+                                                      .updateFilterApplied(
+                                                          filters: value);
+                                                }
+                                              }
+                                            });
                                           },
                                           width: 10.w,
                                           height: 35,
@@ -314,8 +313,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                             icon: item['svgIcon'],
                                             isSelected: item['isSelected'],
                                             onTap: () {
-                                                                                              final builderContext = context;
-
+                                              final builderContext = context;
                                               if (item['label']
                                                       .toString()
                                                       .toLowerCase() ==
@@ -346,29 +344,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       .toString()
                                                       .toLowerCase() ==
                                                   'sort') {
-                                                    showModalBottomSheet(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return FilterModalSheet(
-                                                        filters: List.from(state
-                                                            .filters
-                                                            .map((e) => e.copyWith(
-                                                                values: List.from(
-                                                                    e.values)))
-                                                            .toList()),
-                                                      );
-                                                    }).then((value) {
-                                                  if (value != null) {
-                                                    if (value
-                                                        is List<FilterDto>) {
-                                                      builderContext
-                                                          .read<HomeCubit>()
-                                                          .updateFilterApplied(
-                                                              filters: value);
-                                                    }
-                                                  }
-                                                });
-                                                  }
+                                                
+                                              }
                                             },
                                           );
                                         }).toList(),
@@ -392,13 +369,14 @@ class HomeScreenConsumer extends StatelessWidget {
                                       );
                                     }
                                     return GestureDetector(
-                                      onTap: (){
-                                           navigator<NavigationService>().navigateTo(
-                                          UserRoutes.eventDetailsRoute,
-                                          queryParams: {
-                                            'id': state.events[index].id
-                                                .toString(),
-                                          });
+                                      onTap: () {
+                                        navigator<NavigationService>()
+                                            .navigateTo(
+                                                UserRoutes.eventDetailsRoute,
+                                                queryParams: {
+                                              'id': state.events[index].id
+                                                  .toString(),
+                                            });
                                       },
                                       child: EventCard(
                                         event: state.events[index],

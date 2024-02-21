@@ -169,4 +169,8 @@ class HomeCubit extends Cubit<HomeState> {
   void emitFromEveryWhere({required HomeState currentState}) {
     emit(currentState);
   }
+
+  void toggleSort(){
+    
+  }
 }

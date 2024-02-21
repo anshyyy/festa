@@ -102,7 +102,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                   Text(
                     LoginScreenConstants.mobileLoginDescription,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 15.sp
+                      fontSize: 14.5.sp
                     ),
                   ),
                   SizedBox(

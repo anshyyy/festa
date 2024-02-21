@@ -13,6 +13,7 @@ import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../infrastructure/core/enum/profile_state.enum.dart';
 import '../widgets/rounded_arrow_button.dart';
 import '../widgets/snackbar_alert.dart';
 
@@ -62,12 +63,36 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
         if (state.isOTPVerificationSuccessful &&
             !state.isOTPVerificationFailed) {
           // nav to home
+          final user = state.user!;
           Provider.of<AppStateNotifier>(context, listen: false)
-              .updateAfterAuthChange(isAuthorized: true);
+              .updateAfterAuthChange(
+            isAuthorized: true,
+            user: state.user,
+          );
+          final profileState = user.fullName.isNotEmpty &&
+                  user.dob.isNotEmpty &&
+                  user.gender.isNotEmpty
+              ? ProfileStateEnum.completed
+              : user.fullName.isNotEmpty && user.dob.isNotEmpty
+                  ? ProfileStateEnum.birthday
+                  : user.fullName.isNotEmpty
+                      ? ProfileStateEnum.basic
+                      : ProfileStateEnum.started;
+          final route=profileState ==
+                      ProfileStateEnum.completed
+                  ? UserRoutes.homeScreenRoute
+                  : profileState ==
+                          ProfileStateEnum.birthday
+                      ? AuthRoutes.genderRoute
+                      : profileState ==
+                              ProfileStateEnum.basic
+                          ? AuthRoutes.birthdayRoute
+                          : AuthRoutes.basicInfoRoute;
 
           Future.delayed(const Duration(milliseconds: 100)).then((value) async {
             navigator<NavigationService>().navigateTo(
-              AuthRoutes.basicInfoRoute,
+              route,
+              isClearStack: true
             );
           });
           context.read<VerifyOtpCubit>().emitFromAnywhere(
@@ -138,7 +163,8 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                   children: [
                     Text(
                       '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
-                      style: themeData.textTheme.bodySmall!.copyWith(fontSize: 15.sp),
+                      style: themeData.textTheme.bodySmall!
+                          .copyWith(fontSize: 14.5.sp),
                     ),
                     SizedBox(
                       width: 2.w,
@@ -204,14 +230,16 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                         },
                         child: Text(
                           LoginScreenConstants.resendNow,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: Theme.of(context)
-                                        .colorScheme
-                                        .secondaryContainer,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.background,
+                                decoration: TextDecoration.underline,
+                                decorationColor:
+                                    Theme.of(context).colorScheme.background,
+                              ),
                         ),
                       )
                     : Countdown(
@@ -223,7 +251,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
-                                decoration: TextDecoration.underline,
+                                  decoration: TextDecoration.underline,
                                   decorationColor:
                                       Theme.of(context).colorScheme.background,
                                   color:

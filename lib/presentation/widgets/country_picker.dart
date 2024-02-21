@@ -38,7 +38,7 @@ class CountryPickerConsumer extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(8),
               ),
-              color: Theme.of(context).scaffoldBackgroundColor.withOpacity(.8)),
+              color: Theme.of(context).colorScheme.surface),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

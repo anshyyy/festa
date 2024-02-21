@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'basic_profile_cubit.dart';
+part of 'birthday_selection_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,31 +15,27 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$BasicProfileState {
+mixin _$BirthdaySelectionState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   bool get isSaveDetailsEnable => throw _privateConstructorUsedError;
+  DateTime get selectedDate => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
-  String get errorProfileImageFile => throw _privateConstructorUsedError;
-  File? get profileImageFile => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
-  TextEditingController get fullNameController =>
-      throw _privateConstructorUsedError;
-  String get errorFullName => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $BasicProfileStateCopyWith<BasicProfileState> get copyWith =>
+  $BirthdaySelectionStateCopyWith<BirthdaySelectionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BasicProfileStateCopyWith<$Res> {
-  factory $BasicProfileStateCopyWith(
-          BasicProfileState value, $Res Function(BasicProfileState) then) =
-      _$BasicProfileStateCopyWithImpl<$Res, BasicProfileState>;
+abstract class $BirthdaySelectionStateCopyWith<$Res> {
+  factory $BirthdaySelectionStateCopyWith(BirthdaySelectionState value,
+          $Res Function(BirthdaySelectionState) then) =
+      _$BirthdaySelectionStateCopyWithImpl<$Res, BirthdaySelectionState>;
   @useResult
   $Res call(
       {bool isLoading,
@@ -47,19 +43,17 @@ abstract class $BasicProfileStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       bool isSaveDetailsEnable,
+      DateTime selectedDate,
       String errorMessage,
-      String errorProfileImageFile,
-      File? profileImageFile,
       AppStateNotifier appStateNotifier,
-      AuthRepository authRepository,
-      TextEditingController fullNameController,
-      String errorFullName});
+      AuthRepository authRepository});
 }
 
 /// @nodoc
-class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
-    implements $BasicProfileStateCopyWith<$Res> {
-  _$BasicProfileStateCopyWithImpl(this._value, this._then);
+class _$BirthdaySelectionStateCopyWithImpl<$Res,
+        $Val extends BirthdaySelectionState>
+    implements $BirthdaySelectionStateCopyWith<$Res> {
+  _$BirthdaySelectionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -74,13 +68,10 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
     Object? isFailed = null,
     Object? noUse = null,
     Object? isSaveDetailsEnable = null,
+    Object? selectedDate = null,
     Object? errorMessage = null,
-    Object? errorProfileImageFile = null,
-    Object? profileImageFile = freezed,
     Object? appStateNotifier = null,
     Object? authRepository = null,
-    Object? fullNameController = null,
-    Object? errorFullName = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -103,18 +94,14 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
           ? _value.isSaveDetailsEnable
           : isSaveDetailsEnable // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedDate: null == selectedDate
+          ? _value.selectedDate
+          : selectedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      errorProfileImageFile: null == errorProfileImageFile
-          ? _value.errorProfileImageFile
-          : errorProfileImageFile // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImageFile: freezed == profileImageFile
-          ? _value.profileImageFile
-          : profileImageFile // ignore: cast_nullable_to_non_nullable
-              as File?,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
@@ -123,24 +110,17 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
-      fullNameController: null == fullNameController
-          ? _value.fullNameController
-          : fullNameController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
-      errorFullName: null == errorFullName
-          ? _value.errorFullName
-          : errorFullName // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$BasicProfileStateImplCopyWith<$Res>
-    implements $BasicProfileStateCopyWith<$Res> {
-  factory _$$BasicProfileStateImplCopyWith(_$BasicProfileStateImpl value,
-          $Res Function(_$BasicProfileStateImpl) then) =
-      __$$BasicProfileStateImplCopyWithImpl<$Res>;
+abstract class _$$BirthdaySelectionStateImplCopyWith<$Res>
+    implements $BirthdaySelectionStateCopyWith<$Res> {
+  factory _$$BirthdaySelectionStateImplCopyWith(
+          _$BirthdaySelectionStateImpl value,
+          $Res Function(_$BirthdaySelectionStateImpl) then) =
+      __$$BirthdaySelectionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -149,21 +129,20 @@ abstract class _$$BasicProfileStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       bool isSaveDetailsEnable,
+      DateTime selectedDate,
       String errorMessage,
-      String errorProfileImageFile,
-      File? profileImageFile,
       AppStateNotifier appStateNotifier,
-      AuthRepository authRepository,
-      TextEditingController fullNameController,
-      String errorFullName});
+      AuthRepository authRepository});
 }
 
 /// @nodoc
-class __$$BasicProfileStateImplCopyWithImpl<$Res>
-    extends _$BasicProfileStateCopyWithImpl<$Res, _$BasicProfileStateImpl>
-    implements _$$BasicProfileStateImplCopyWith<$Res> {
-  __$$BasicProfileStateImplCopyWithImpl(_$BasicProfileStateImpl _value,
-      $Res Function(_$BasicProfileStateImpl) _then)
+class __$$BirthdaySelectionStateImplCopyWithImpl<$Res>
+    extends _$BirthdaySelectionStateCopyWithImpl<$Res,
+        _$BirthdaySelectionStateImpl>
+    implements _$$BirthdaySelectionStateImplCopyWith<$Res> {
+  __$$BirthdaySelectionStateImplCopyWithImpl(
+      _$BirthdaySelectionStateImpl _value,
+      $Res Function(_$BirthdaySelectionStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -174,15 +153,12 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? noUse = null,
     Object? isSaveDetailsEnable = null,
+    Object? selectedDate = null,
     Object? errorMessage = null,
-    Object? errorProfileImageFile = null,
-    Object? profileImageFile = freezed,
     Object? appStateNotifier = null,
     Object? authRepository = null,
-    Object? fullNameController = null,
-    Object? errorFullName = null,
   }) {
-    return _then(_$BasicProfileStateImpl(
+    return _then(_$BirthdaySelectionStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -203,18 +179,14 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
           ? _value.isSaveDetailsEnable
           : isSaveDetailsEnable // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedDate: null == selectedDate
+          ? _value.selectedDate
+          : selectedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      errorProfileImageFile: null == errorProfileImageFile
-          ? _value.errorProfileImageFile
-          : errorProfileImageFile // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImageFile: freezed == profileImageFile
-          ? _value.profileImageFile
-          : profileImageFile // ignore: cast_nullable_to_non_nullable
-              as File?,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
@@ -223,34 +195,23 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
-      fullNameController: null == fullNameController
-          ? _value.fullNameController
-          : fullNameController // ignore: cast_nullable_to_non_nullable
-              as TextEditingController,
-      errorFullName: null == errorFullName
-          ? _value.errorFullName
-          : errorFullName // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$BasicProfileStateImpl implements _BasicProfileState {
-  const _$BasicProfileStateImpl(
+class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
+  const _$BirthdaySelectionStateImpl(
       {required this.isLoading,
       required this.isSuccessful,
       required this.isFailed,
       required this.noUse,
       required this.isSaveDetailsEnable,
+      required this.selectedDate,
       required this.errorMessage,
-      required this.errorProfileImageFile,
-      required this.profileImageFile,
       required this.appStateNotifier,
-      required this.authRepository,
-      required this.fullNameController,
-      required this.errorFullName});
+      required this.authRepository});
 
   @override
   final bool isLoading;
@@ -263,30 +224,24 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
   @override
   final bool isSaveDetailsEnable;
   @override
+  final DateTime selectedDate;
+  @override
   final String errorMessage;
-  @override
-  final String errorProfileImageFile;
-  @override
-  final File? profileImageFile;
   @override
   final AppStateNotifier appStateNotifier;
   @override
   final AuthRepository authRepository;
-  @override
-  final TextEditingController fullNameController;
-  @override
-  final String errorFullName;
 
   @override
   String toString() {
-    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, errorProfileImageFile: $errorProfileImageFile, profileImageFile: $profileImageFile, appStateNotifier: $appStateNotifier, authRepository: $authRepository, fullNameController: $fullNameController, errorFullName: $errorFullName)';
+    return 'BirthdaySelectionState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, selectedDate: $selectedDate, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BasicProfileStateImpl &&
+            other is _$BirthdaySelectionStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isSuccessful, isSuccessful) ||
@@ -296,20 +251,14 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.isSaveDetailsEnable, isSaveDetailsEnable) ||
                 other.isSaveDetailsEnable == isSaveDetailsEnable) &&
+            (identical(other.selectedDate, selectedDate) ||
+                other.selectedDate == selectedDate) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            (identical(other.errorProfileImageFile, errorProfileImageFile) ||
-                other.errorProfileImageFile == errorProfileImageFile) &&
-            (identical(other.profileImageFile, profileImageFile) ||
-                other.profileImageFile == profileImageFile) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
             (identical(other.authRepository, authRepository) ||
-                other.authRepository == authRepository) &&
-            (identical(other.fullNameController, fullNameController) ||
-                other.fullNameController == fullNameController) &&
-            (identical(other.errorFullName, errorFullName) ||
-                other.errorFullName == errorFullName));
+                other.authRepository == authRepository));
   }
 
   @override
@@ -320,36 +269,31 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       isFailed,
       noUse,
       isSaveDetailsEnable,
+      selectedDate,
       errorMessage,
-      errorProfileImageFile,
-      profileImageFile,
       appStateNotifier,
-      authRepository,
-      fullNameController,
-      errorFullName);
+      authRepository);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BasicProfileStateImplCopyWith<_$BasicProfileStateImpl> get copyWith =>
-      __$$BasicProfileStateImplCopyWithImpl<_$BasicProfileStateImpl>(
-          this, _$identity);
+  _$$BirthdaySelectionStateImplCopyWith<_$BirthdaySelectionStateImpl>
+      get copyWith => __$$BirthdaySelectionStateImplCopyWithImpl<
+          _$BirthdaySelectionStateImpl>(this, _$identity);
 }
 
-abstract class _BasicProfileState implements BasicProfileState {
-  const factory _BasicProfileState(
-      {required final bool isLoading,
-      required final bool isSuccessful,
-      required final bool isFailed,
-      required final bool noUse,
-      required final bool isSaveDetailsEnable,
-      required final String errorMessage,
-      required final String errorProfileImageFile,
-      required final File? profileImageFile,
-      required final AppStateNotifier appStateNotifier,
-      required final AuthRepository authRepository,
-      required final TextEditingController fullNameController,
-      required final String errorFullName}) = _$BasicProfileStateImpl;
+abstract class _BirthdaySelectionState implements BirthdaySelectionState {
+  const factory _BirthdaySelectionState(
+          {required final bool isLoading,
+          required final bool isSuccessful,
+          required final bool isFailed,
+          required final bool noUse,
+          required final bool isSaveDetailsEnable,
+          required final DateTime selectedDate,
+          required final String errorMessage,
+          required final AppStateNotifier appStateNotifier,
+          required final AuthRepository authRepository}) =
+      _$BirthdaySelectionStateImpl;
 
   @override
   bool get isLoading;
@@ -362,21 +306,15 @@ abstract class _BasicProfileState implements BasicProfileState {
   @override
   bool get isSaveDetailsEnable;
   @override
+  DateTime get selectedDate;
+  @override
   String get errorMessage;
-  @override
-  String get errorProfileImageFile;
-  @override
-  File? get profileImageFile;
   @override
   AppStateNotifier get appStateNotifier;
   @override
   AuthRepository get authRepository;
   @override
-  TextEditingController get fullNameController;
-  @override
-  String get errorFullName;
-  @override
   @JsonKey(ignore: true)
-  _$$BasicProfileStateImplCopyWith<_$BasicProfileStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$BirthdaySelectionStateImplCopyWith<_$BirthdaySelectionStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

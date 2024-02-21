@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+
+import '../../infrastructure/auth/dtos/user_dto.dart';
 
 abstract class AuthRepository {
   // Future<User?> authenticateUser();
@@ -10,12 +11,15 @@ abstract class AuthRepository {
     required String dialCode,
   });
 
-  Future<Either<String, String>> verifyOtp ({
+  Future<Either<String, UserDto>> verifyOtp({
     required String verificationCode,
     required String code,
   });
 
-  Future<Either<String, File>> selectImage();
-
   Future loginWithGoogle();
+  Future<UserDto?> authentication();
+
+  Future<Either<String, UserDto>> patchProfile({
+    required Map<String, dynamic> input,
+  });
 }

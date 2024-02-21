@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'domain/auth/auth_repository.dart';
 import 'domain/core/configs/app_config.dart';
 import 'domain/core/configs/injection.dart';
 import 'domain/core/services/app_update_service/app_update_service.dart';
@@ -15,6 +17,9 @@ import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
 import 'domain/core/themes/app_theme.dart';
+import 'infrastructure/auth/i_auth_repository.dart';
+import 'infrastructure/core/dtos/location/location_dto.dart';
+import 'infrastructure/core/enum/profile_state.enum.dart';
 import 'presentation/common/app_update.dart';
 
 class MainApp extends StatelessWidget with WidgetsBindingObserver {
@@ -35,7 +40,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
     return MaterialApp(
       title: AppConfig.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
-      theme:appThemeData[AppTheme.Default],
+      theme: appThemeData[AppTheme.Default],
       builder: (context, child) {
         return Column(
           children: [
@@ -68,11 +73,20 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       navigatorKey: navigator<NavigationService>().navigatorKey,
       onGenerateRoute: Provider.of<AppStateNotifier>(context).isAuthorized
           ? authorizedNavigation
-          : authorizedNavigation,
+          : commonNavigation,
       initialRoute: Provider.of<AppStateNotifier>(context).isOffline
           ? GeneralRoutes.noNetworkAtStart
           : Provider.of<AppStateNotifier>(context).isAuthorized
-              ? UserRoutes.homeScreenRoute
+              ? Provider.of<AppStateNotifier>(context).profileState ==
+                      ProfileStateEnum.completed
+                  ? UserRoutes.homeScreenRoute
+                  : Provider.of<AppStateNotifier>(context).profileState ==
+                          ProfileStateEnum.birthday
+                      ? AuthRoutes.genderRoute
+                      : Provider.of<AppStateNotifier>(context).profileState ==
+                              ProfileStateEnum.basic
+                          ? AuthRoutes.birthdayRoute
+                          : AuthRoutes.basicInfoRoute
               : AuthRoutes.startRoute,
     );
   }
@@ -85,14 +99,53 @@ Future appInitializer(AppConfig appConfig) async {
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  bool isAuthorized = 1 == 1;
+  AuthRepository authRepository =
+      IAuthRepository(serverUrl: appConfig.serverUrl);
+  final user = await authRepository.authentication();
+  bool isAuthorized = user != null;
+
   bool isOffline = false;
 
-  if (isAuthorized && !isOffline) {}
+  ProfileStateEnum? profileState;
+
+  if (isAuthorized && !isOffline) {
+    profileState = user.fullName.isNotEmpty &&
+            user.dob.isNotEmpty &&
+            user.gender.isNotEmpty
+        ? ProfileStateEnum.completed
+        : user.fullName.isNotEmpty && user.dob.isNotEmpty
+            ? ProfileStateEnum.birthday
+            : user.fullName.isNotEmpty
+                ? ProfileStateEnum.basic
+                : ProfileStateEnum.started;
+  }
+
+  LocationDto? location;
+  try {
+    final permission = await Geolocator.checkPermission();
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) {
+      throw Error();
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    location = LocationDto(
+        latitude: position.latitude,
+        longitude: position.longitude,
+        area: 'Bengaluru',
+        city: 'Bengaluru',
+        state: 'Karnataka',
+        country: 'India',
+        icon: '');
+  } catch (error) {
+    debugPrint(error.toString());
+  }
 
   AppStateNotifier appStateNotifier = AppStateNotifier(
     isAuthorized: isAuthorized,
     isOffline: isOffline,
+    profileState: profileState,
+    user: user,
   );
 
   final AppConfig configuredApp = AppConfig(

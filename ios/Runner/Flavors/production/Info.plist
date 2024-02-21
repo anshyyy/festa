@@ -56,5 +56,12 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Festa app needs access to location when open.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>YourPurposeKey</key>
+		<string>The Festa App requires temporary access to the device&apos;s precise location.</string>
+	</dict>
 </dict>
 </plist>

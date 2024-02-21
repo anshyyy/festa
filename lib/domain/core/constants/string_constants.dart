@@ -83,6 +83,7 @@ class ErrorConstants {
   static String wrongOTP = 'Invalid OTP, please entered valid OTP!';
   static String failedToLogin = 'Failed to verify phone number!';
   static String invalidMobileNumberError = 'Invalid Phone Number';
+    static String invalidFullNameError = 'Invalid Full Name';
   static String sessionExpired =
       'OTP verification code has expired please click on resend';
   static String invalidOtpError = 'Invalid OTP';

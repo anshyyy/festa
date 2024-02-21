@@ -19,6 +19,7 @@ class VerifyOtpState with _$VerifyOtpState {
     required bool backToAuth,
     required bool isOTPSentSuccessful,
     required bool isOTPSentFailed,
+    UserDto? user,
   }) = _VerifyOtpState;
 
   factory VerifyOtpState.initial({
@@ -37,7 +38,7 @@ class VerifyOtpState with _$VerifyOtpState {
         verificationCode: verificationCode,
         apiBaseUrl: apiBaseUrl,
         authRepository: IAuthRepository(
-          serverBaseUrl: apiBaseUrl,
+          serverUrl: apiBaseUrl,
         ),
         dialCode: dialCode,
         phoneNumber: phoneNumber,

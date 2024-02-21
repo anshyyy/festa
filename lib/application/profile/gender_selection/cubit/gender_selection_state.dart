@@ -8,17 +8,28 @@ class GenderSelectionState with _$GenderSelectionState {
     required bool isLoading,
     required bool isSaveEnable,
     required List<String> lsOFSex,
-    required String sex,
-    required int selectedSex,
+    required List<String> lsOFSexValue,
+    required bool isSaveDetailsEnable,
+    required String errorMessage,
+    required AppStateNotifier appStateNotifier,
+    required AuthRepository authRepository,
+        int? selectedSex,
+
   }) = _GenderSelectionState;
 
-  factory GenderSelectionState.initial() => const GenderSelectionState(
-        isFailed: false,
-        isSuccessful: false,
-        isLoading: false,
-        isSaveEnable: false,
-        lsOFSex: ['Woman', 'Man', 'Nonbinary '],
-        selectedSex: 0,
-        sex: '',
-      );
+  factory GenderSelectionState.initial({
+    required final AppStateNotifier appStateNotifier,
+    required String serverUrl,
+  }) =>
+     GenderSelectionState(
+          isFailed: false,
+          isSuccessful: false,
+          isLoading: false,
+          isSaveDetailsEnable: false,
+          isSaveEnable: false,
+          lsOFSex: ['Woman', 'Man', 'Nonbinary'],
+          lsOFSexValue: ['female', 'male', 'other'],
+          authRepository: IAuthRepository(serverUrl: serverUrl),
+          appStateNotifier: appStateNotifier,
+          errorMessage: '');
 }

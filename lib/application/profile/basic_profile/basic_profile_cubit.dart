@@ -1,13 +1,12 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/configs/app_config.dart';
-import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/core_repository.dart';
 import '../../../infrastructure/auth/i_auth_repository.dart';
+import '../../../infrastructure/core/i_core_repository.dart';
 
 part 'basic_profile_state.dart';
 part 'basic_profile_cubit.freezed.dart';
@@ -21,40 +20,47 @@ class BasicProfileCubit extends Cubit<BasicProfileState> {
 
   //selectProfileImage
   Future<void> onSelectProfileImage() async {
-    final res = await state.authRepository.selectImage();
+    final file = await state.coreRepository.selectImage();
 
-    emit(res.fold((l) => state.copyWith(), (r) {
+    // Error needs here
+    if (file == null) return;
+    emit(state.copyWith(
+      isLoading: true,
+    ));
+    final res = await state.coreRepository.uploadFileToUserLocation(file: file);
+    emit(res.fold(
+        (l) => state.copyWith(
+              isLoading: false,
+            ), (r) {
       return state.copyWith(
-        errorMessage: '',
-        isFailed: false,
-        profileImageFile: r,
-        errorProfileImageFile: '',
+        profileImage: r,
+        isLoading: false,
       );
     }));
   }
 
   Future<void> onContinue() async {
     String fullName = state.fullNameController.text;
+    String profileImage = state.profileImage ?? '';
+    emit(state.copyWith(
+      isLoading: true,
+    ));
+    final response = await state.authRepository.patchProfile(input: {
+      'fullName': fullName,
+      'profileImage': profileImage,
+    });
 
-    if (fullName.isEmpty || state.errorFullName.isNotEmpty) {
-      emit(state.copyWith(
-        errorFullName: state.errorFullName.isEmpty
-            ? ErrorConstants.requiredError
-            : state.errorFullName,
-        isFailed: true,
-        isLoading: false,
-        isSuccessful: false,
-      ));
-    } else {
-      emit(state.copyWith(
-        isLoading: true,
-      ));
-      await Future.delayed(const Duration(seconds: 5));
-      emit(state.copyWith(
-        isFailed: false,
-        isLoading: false,
+    emit(response.fold(
+        (l) => state.copyWith(
+              errorMessage: l,
+              isFailed: true,
+              isLoading: false,
+            ), (r) {
+      state.appStateNotifier.user = r;
+      return state.copyWith(
         isSuccessful: true,
-      ));
-    }
+        isLoading: false,
+      );
+    }));
   }
 }

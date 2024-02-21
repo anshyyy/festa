@@ -1,14 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
 
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../domain/auth/auth_repository.dart';
+import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/services/network_service/rest_service.dart';
+import 'dtos/user_dto.dart';
 
 class IAuthRepository extends AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -16,9 +18,9 @@ class IAuthRepository extends AuthRepository {
   FirebaseAuthException? _verifyPhoneException;
   String? _verificationCode;
 
-  final String serverBaseUrl;
+  final String serverUrl;
 
-  IAuthRepository({required this.serverBaseUrl});
+  IAuthRepository({required this.serverUrl});
 
   @override
   Future<Either<String, String>> requestOtp({
@@ -71,7 +73,7 @@ class IAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<Either<String, String>> verifyOtp({
+  Future<Either<String, UserDto>> verifyOtp({
     required String verificationCode,
     required String code,
   }) async {
@@ -81,14 +83,12 @@ class IAuthRepository extends AuthRepository {
         smsCode: code,
       );
 
-      final user =
-          await FirebaseAuth.instance.signInWithCredential(authCredential).then(
-                (value) => value.user,
-              );
+      await FirebaseAuth.instance.signInWithCredential(authCredential).then(
+            (value) => value.user,
+          );
 
-      String uid = user!.uid;
-      return right(uid);
-      return left(uid);
+      UserDto userInfo = (await authentication())!;
+      return right(userInfo);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'invalid-verification-code') {
         return left(ErrorConstants.wrongOTP);
@@ -99,18 +99,6 @@ class IAuthRepository extends AuthRepository {
     } catch (error) {
       return left(ErrorConstants.failedToLogin);
     }
-  }
-
-  @override
-  Future<Either<String, File>> selectImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (image == null) return left('No File Selected');
-
-    final path = image.path;
-    final file = File(path);
-
-    return right(file);
   }
 
   @override
@@ -126,7 +114,43 @@ class IAuthRepository extends AuthRepository {
         idToken: googleAuth?.idToken,
       );
 
-      final user = await _firebaseAuth.signInWithCredential(credential);
+      await _firebaseAuth.signInWithCredential(credential);
     } on Exception {}
+  }
+
+  @override
+  Future<UserDto?> authentication() async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, isAuth: true, token: token!);
+      if (response.statusCode != 200) {
+        throw ErrorConstants.unknownNetworkError;
+      }
+      final data = jsonDecode(response.body);
+      return UserDto.fromJson(data['userDetails']);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  @override
+  Future<Either<String, UserDto>> patchProfile({
+    required Map<String, dynamic> input,
+  }) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      final url = '$serverUrl${EventApiConstants.USERS}';
+      final response = await RESTService.performPATCHRequest(
+          httpUrl: url, isAuth: true, token: token!, body: jsonEncode(input));
+      if (response.statusCode != 200) {
+        throw ErrorConstants.unknownNetworkError;
+      }
+      final data = jsonDecode(response.body);
+      return right(UserDto.fromJson(data));
+    } catch (error) {
+      return left(ErrorConstants.networkUnavailable);
+    }
   }
 }

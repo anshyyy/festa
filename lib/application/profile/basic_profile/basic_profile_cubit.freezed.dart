@@ -21,10 +21,11 @@ mixin _$BasicProfileState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   bool get isSaveDetailsEnable => throw _privateConstructorUsedError;
+  bool get startValidation => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
-  String get errorProfileImageFile => throw _privateConstructorUsedError;
-  File? get profileImageFile => throw _privateConstructorUsedError;
+  String? get profileImage => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
+  CoreRepository get coreRepository => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   TextEditingController get fullNameController =>
       throw _privateConstructorUsedError;
@@ -47,10 +48,11 @@ abstract class $BasicProfileStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       bool isSaveDetailsEnable,
+      bool startValidation,
       String errorMessage,
-      String errorProfileImageFile,
-      File? profileImageFile,
+      String? profileImage,
       AppStateNotifier appStateNotifier,
+      CoreRepository coreRepository,
       AuthRepository authRepository,
       TextEditingController fullNameController,
       String errorFullName});
@@ -74,10 +76,11 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
     Object? isFailed = null,
     Object? noUse = null,
     Object? isSaveDetailsEnable = null,
+    Object? startValidation = null,
     Object? errorMessage = null,
-    Object? errorProfileImageFile = null,
-    Object? profileImageFile = freezed,
+    Object? profileImage = freezed,
     Object? appStateNotifier = null,
+    Object? coreRepository = null,
     Object? authRepository = null,
     Object? fullNameController = null,
     Object? errorFullName = null,
@@ -103,22 +106,26 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
           ? _value.isSaveDetailsEnable
           : isSaveDetailsEnable // ignore: cast_nullable_to_non_nullable
               as bool,
+      startValidation: null == startValidation
+          ? _value.startValidation
+          : startValidation // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      errorProfileImageFile: null == errorProfileImageFile
-          ? _value.errorProfileImageFile
-          : errorProfileImageFile // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImageFile: freezed == profileImageFile
-          ? _value.profileImageFile
-          : profileImageFile // ignore: cast_nullable_to_non_nullable
-              as File?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
+      coreRepository: null == coreRepository
+          ? _value.coreRepository
+          : coreRepository // ignore: cast_nullable_to_non_nullable
+              as CoreRepository,
       authRepository: null == authRepository
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
@@ -149,10 +156,11 @@ abstract class _$$BasicProfileStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       bool isSaveDetailsEnable,
+      bool startValidation,
       String errorMessage,
-      String errorProfileImageFile,
-      File? profileImageFile,
+      String? profileImage,
       AppStateNotifier appStateNotifier,
+      CoreRepository coreRepository,
       AuthRepository authRepository,
       TextEditingController fullNameController,
       String errorFullName});
@@ -174,10 +182,11 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? noUse = null,
     Object? isSaveDetailsEnable = null,
+    Object? startValidation = null,
     Object? errorMessage = null,
-    Object? errorProfileImageFile = null,
-    Object? profileImageFile = freezed,
+    Object? profileImage = freezed,
     Object? appStateNotifier = null,
+    Object? coreRepository = null,
     Object? authRepository = null,
     Object? fullNameController = null,
     Object? errorFullName = null,
@@ -203,22 +212,26 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
           ? _value.isSaveDetailsEnable
           : isSaveDetailsEnable // ignore: cast_nullable_to_non_nullable
               as bool,
+      startValidation: null == startValidation
+          ? _value.startValidation
+          : startValidation // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      errorProfileImageFile: null == errorProfileImageFile
-          ? _value.errorProfileImageFile
-          : errorProfileImageFile // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImageFile: freezed == profileImageFile
-          ? _value.profileImageFile
-          : profileImageFile // ignore: cast_nullable_to_non_nullable
-              as File?,
+      profileImage: freezed == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
+              as String?,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
+      coreRepository: null == coreRepository
+          ? _value.coreRepository
+          : coreRepository // ignore: cast_nullable_to_non_nullable
+              as CoreRepository,
       authRepository: null == authRepository
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
@@ -244,10 +257,11 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       required this.isFailed,
       required this.noUse,
       required this.isSaveDetailsEnable,
+      required this.startValidation,
       required this.errorMessage,
-      required this.errorProfileImageFile,
-      required this.profileImageFile,
+      this.profileImage,
       required this.appStateNotifier,
+      required this.coreRepository,
       required this.authRepository,
       required this.fullNameController,
       required this.errorFullName});
@@ -263,13 +277,15 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
   @override
   final bool isSaveDetailsEnable;
   @override
+  final bool startValidation;
+  @override
   final String errorMessage;
   @override
-  final String errorProfileImageFile;
-  @override
-  final File? profileImageFile;
+  final String? profileImage;
   @override
   final AppStateNotifier appStateNotifier;
+  @override
+  final CoreRepository coreRepository;
   @override
   final AuthRepository authRepository;
   @override
@@ -279,7 +295,7 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
 
   @override
   String toString() {
-    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, errorProfileImageFile: $errorProfileImageFile, profileImageFile: $profileImageFile, appStateNotifier: $appStateNotifier, authRepository: $authRepository, fullNameController: $fullNameController, errorFullName: $errorFullName)';
+    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, startValidation: $startValidation, errorMessage: $errorMessage, profileImage: $profileImage, appStateNotifier: $appStateNotifier, coreRepository: $coreRepository, authRepository: $authRepository, fullNameController: $fullNameController, errorFullName: $errorFullName)';
   }
 
   @override
@@ -296,14 +312,16 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.isSaveDetailsEnable, isSaveDetailsEnable) ||
                 other.isSaveDetailsEnable == isSaveDetailsEnable) &&
+            (identical(other.startValidation, startValidation) ||
+                other.startValidation == startValidation) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            (identical(other.errorProfileImageFile, errorProfileImageFile) ||
-                other.errorProfileImageFile == errorProfileImageFile) &&
-            (identical(other.profileImageFile, profileImageFile) ||
-                other.profileImageFile == profileImageFile) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
+            (identical(other.coreRepository, coreRepository) ||
+                other.coreRepository == coreRepository) &&
             (identical(other.authRepository, authRepository) ||
                 other.authRepository == authRepository) &&
             (identical(other.fullNameController, fullNameController) ||
@@ -320,10 +338,11 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       isFailed,
       noUse,
       isSaveDetailsEnable,
+      startValidation,
       errorMessage,
-      errorProfileImageFile,
-      profileImageFile,
+      profileImage,
       appStateNotifier,
+      coreRepository,
       authRepository,
       fullNameController,
       errorFullName);
@@ -343,10 +362,11 @@ abstract class _BasicProfileState implements BasicProfileState {
       required final bool isFailed,
       required final bool noUse,
       required final bool isSaveDetailsEnable,
+      required final bool startValidation,
       required final String errorMessage,
-      required final String errorProfileImageFile,
-      required final File? profileImageFile,
+      final String? profileImage,
       required final AppStateNotifier appStateNotifier,
+      required final CoreRepository coreRepository,
       required final AuthRepository authRepository,
       required final TextEditingController fullNameController,
       required final String errorFullName}) = _$BasicProfileStateImpl;
@@ -362,13 +382,15 @@ abstract class _BasicProfileState implements BasicProfileState {
   @override
   bool get isSaveDetailsEnable;
   @override
+  bool get startValidation;
+  @override
   String get errorMessage;
   @override
-  String get errorProfileImageFile;
-  @override
-  File? get profileImageFile;
+  String? get profileImage;
   @override
   AppStateNotifier get appStateNotifier;
+  @override
+  CoreRepository get coreRepository;
   @override
   AuthRepository get authRepository;
   @override

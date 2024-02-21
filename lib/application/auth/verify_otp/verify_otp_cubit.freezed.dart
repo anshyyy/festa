@@ -33,6 +33,7 @@ mixin _$VerifyOtpState {
   bool get backToAuth => throw _privateConstructorUsedError;
   bool get isOTPSentSuccessful => throw _privateConstructorUsedError;
   bool get isOTPSentFailed => throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $VerifyOtpStateCopyWith<VerifyOtpState> get copyWith =>
@@ -61,7 +62,10 @@ abstract class $VerifyOtpStateCopyWith<$Res> {
       bool isVerifyEnabled,
       bool backToAuth,
       bool isOTPSentSuccessful,
-      bool isOTPSentFailed});
+      bool isOTPSentFailed,
+      UserDto? user});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -93,6 +97,7 @@ class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
     Object? backToAuth = null,
     Object? isOTPSentSuccessful = null,
     Object? isOTPSentFailed = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -159,7 +164,23 @@ class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
           ? _value.isOTPSentFailed
           : isOTPSentFailed // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -187,7 +208,11 @@ abstract class _$$VerifyOtpStateImplCopyWith<$Res>
       bool isVerifyEnabled,
       bool backToAuth,
       bool isOTPSentSuccessful,
-      bool isOTPSentFailed});
+      bool isOTPSentFailed,
+      UserDto? user});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -217,6 +242,7 @@ class __$$VerifyOtpStateImplCopyWithImpl<$Res>
     Object? backToAuth = null,
     Object? isOTPSentSuccessful = null,
     Object? isOTPSentFailed = null,
+    Object? user = freezed,
   }) {
     return _then(_$VerifyOtpStateImpl(
       isLoading: null == isLoading
@@ -283,6 +309,10 @@ class __$$VerifyOtpStateImplCopyWithImpl<$Res>
           ? _value.isOTPSentFailed
           : isOTPSentFailed // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ));
   }
 }
@@ -306,7 +336,8 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
       required this.isVerifyEnabled,
       required this.backToAuth,
       required this.isOTPSentSuccessful,
-      required this.isOTPSentFailed});
+      required this.isOTPSentFailed,
+      this.user});
 
   @override
   final bool isLoading;
@@ -340,10 +371,12 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
   final bool isOTPSentSuccessful;
   @override
   final bool isOTPSentFailed;
+  @override
+  final UserDto? user;
 
   @override
   String toString() {
-    return 'VerifyOtpState(isLoading: $isLoading, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, isOTPVerificationFailed: $isOTPVerificationFailed, otpController: $otpController, verificationCode: $verificationCode, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, dialCode: $dialCode, phoneNumber: $phoneNumber, countdownController: $countdownController, showResendButton: $showResendButton, errorMessage: $errorMessage, isVerifyEnabled: $isVerifyEnabled, backToAuth: $backToAuth, isOTPSentSuccessful: $isOTPSentSuccessful, isOTPSentFailed: $isOTPSentFailed)';
+    return 'VerifyOtpState(isLoading: $isLoading, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, isOTPVerificationFailed: $isOTPVerificationFailed, otpController: $otpController, verificationCode: $verificationCode, apiBaseUrl: $apiBaseUrl, authRepository: $authRepository, dialCode: $dialCode, phoneNumber: $phoneNumber, countdownController: $countdownController, showResendButton: $showResendButton, errorMessage: $errorMessage, isVerifyEnabled: $isVerifyEnabled, backToAuth: $backToAuth, isOTPSentSuccessful: $isOTPSentSuccessful, isOTPSentFailed: $isOTPSentFailed, user: $user)';
   }
 
   @override
@@ -385,7 +418,8 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
             (identical(other.isOTPSentSuccessful, isOTPSentSuccessful) ||
                 other.isOTPSentSuccessful == isOTPSentSuccessful) &&
             (identical(other.isOTPSentFailed, isOTPSentFailed) ||
-                other.isOTPSentFailed == isOTPSentFailed));
+                other.isOTPSentFailed == isOTPSentFailed) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
@@ -406,7 +440,8 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
       isVerifyEnabled,
       backToAuth,
       isOTPSentSuccessful,
-      isOTPSentFailed);
+      isOTPSentFailed,
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -433,7 +468,8 @@ abstract class _VerifyOtpState implements VerifyOtpState {
       required final bool isVerifyEnabled,
       required final bool backToAuth,
       required final bool isOTPSentSuccessful,
-      required final bool isOTPSentFailed}) = _$VerifyOtpStateImpl;
+      required final bool isOTPSentFailed,
+      final UserDto? user}) = _$VerifyOtpStateImpl;
 
   @override
   bool get isLoading;
@@ -467,6 +503,8 @@ abstract class _VerifyOtpState implements VerifyOtpState {
   bool get isOTPSentSuccessful;
   @override
   bool get isOTPSentFailed;
+  @override
+  UserDto? get user;
   @override
   @JsonKey(ignore: true)
   _$$VerifyOtpStateImplCopyWith<_$VerifyOtpStateImpl> get copyWith =>

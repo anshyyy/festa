@@ -34,7 +34,7 @@ class AuthState with _$AuthState {
         isLoginEnabled: false,
         apiBaseUrl: apiBaseUrl,
         authRepository: IAuthRepository(
-          serverBaseUrl: apiBaseUrl,
+          serverUrl: apiBaseUrl,
         ),
         isOTPSentFailed: false,
         isOTPSentSuccessful: false,

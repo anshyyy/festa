@@ -76,7 +76,7 @@ class LocationDialog extends StatelessWidget {
                       CustomTextField(
                         // height: 7.h,
                         prefixIcon: SvgPicture.asset(AssetConstants.searchIcon),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         maxLines: 1,
                         isFill: true,
                         inputWithLabel: false,

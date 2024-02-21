@@ -8,6 +8,7 @@ import 'package:timer_count_down/timer_controller.dart';
 
 import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/auth/i_auth_repository.dart';
 
 part 'verify_otp_state.dart';
@@ -69,7 +70,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   void verifyOtp() async {
     emit(state.copyWith(isLoading: true));
 
-    Either<String, String> response = await state.authRepository.verifyOtp(
+    Either<String, UserDto> response = await state.authRepository.verifyOtp(
       verificationCode: state.verificationCode!,
       code: state.otpController.text,
     );
@@ -81,12 +82,15 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
         isOTPVerificationFailed: true,
         errorMessage: l,
       )),
-      (r) => emit(state.copyWith(
-        isLoading: false,
-        isOTPVerificationSuccessful: true,
-        isOTPVerificationFailed: false,
-        errorMessage: LoginScreenConstants.success,
-      )),
+      (r) {
+        return emit(state.copyWith(
+          isLoading: false,
+          user: r,
+          isOTPVerificationSuccessful: true,
+          isOTPVerificationFailed: false,
+          errorMessage: LoginScreenConstants.success,
+        ));
+      },
     );
   }
 

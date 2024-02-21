@@ -30,8 +30,12 @@ class StartScreenConsumer extends StatelessWidget {
     return BlocConsumer<StarterCubit, StarterState>(
       listener: (context, state) {
         if (state.isOnboardingComplete) {
-          navigator<NavigationService>().navigateTo(
-            AuthRoutes.authRoute,
+          // navigator<NavigationService>().navigateTo(
+          //   AuthRoutes.authRoute,
+          // );
+
+           navigator<NavigationService>().navigateTo(
+            AuthRoutes.loginWithPhoneRoute,
           );
 
           context.read<StarterCubit>().emitFromAnywhere(

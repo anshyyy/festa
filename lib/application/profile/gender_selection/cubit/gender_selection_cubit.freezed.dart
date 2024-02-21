@@ -21,8 +21,12 @@ mixin _$GenderSelectionState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSaveEnable => throw _privateConstructorUsedError;
   List<String> get lsOFSex => throw _privateConstructorUsedError;
-  String get sex => throw _privateConstructorUsedError;
-  int get selectedSex => throw _privateConstructorUsedError;
+  List<String> get lsOFSexValue => throw _privateConstructorUsedError;
+  bool get isSaveDetailsEnable => throw _privateConstructorUsedError;
+  String get errorMessage => throw _privateConstructorUsedError;
+  AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
+  AuthRepository get authRepository => throw _privateConstructorUsedError;
+  int? get selectedSex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GenderSelectionStateCopyWith<GenderSelectionState> get copyWith =>
@@ -41,8 +45,12 @@ abstract class $GenderSelectionStateCopyWith<$Res> {
       bool isLoading,
       bool isSaveEnable,
       List<String> lsOFSex,
-      String sex,
-      int selectedSex});
+      List<String> lsOFSexValue,
+      bool isSaveDetailsEnable,
+      String errorMessage,
+      AppStateNotifier appStateNotifier,
+      AuthRepository authRepository,
+      int? selectedSex});
 }
 
 /// @nodoc
@@ -64,8 +72,12 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
     Object? isLoading = null,
     Object? isSaveEnable = null,
     Object? lsOFSex = null,
-    Object? sex = null,
-    Object? selectedSex = null,
+    Object? lsOFSexValue = null,
+    Object? isSaveDetailsEnable = null,
+    Object? errorMessage = null,
+    Object? appStateNotifier = null,
+    Object? authRepository = null,
+    Object? selectedSex = freezed,
   }) {
     return _then(_value.copyWith(
       isFailed: null == isFailed
@@ -88,14 +100,30 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
           ? _value.lsOFSex
           : lsOFSex // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      sex: null == sex
-          ? _value.sex
-          : sex // ignore: cast_nullable_to_non_nullable
+      lsOFSexValue: null == lsOFSexValue
+          ? _value.lsOFSexValue
+          : lsOFSexValue // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isSaveDetailsEnable: null == isSaveDetailsEnable
+          ? _value.isSaveDetailsEnable
+          : isSaveDetailsEnable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      selectedSex: null == selectedSex
+      appStateNotifier: null == appStateNotifier
+          ? _value.appStateNotifier
+          : appStateNotifier // ignore: cast_nullable_to_non_nullable
+              as AppStateNotifier,
+      authRepository: null == authRepository
+          ? _value.authRepository
+          : authRepository // ignore: cast_nullable_to_non_nullable
+              as AuthRepository,
+      selectedSex: freezed == selectedSex
           ? _value.selectedSex
           : selectedSex // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ) as $Val);
   }
 }
@@ -114,8 +142,12 @@ abstract class _$$GenderSelectionStateImplCopyWith<$Res>
       bool isLoading,
       bool isSaveEnable,
       List<String> lsOFSex,
-      String sex,
-      int selectedSex});
+      List<String> lsOFSexValue,
+      bool isSaveDetailsEnable,
+      String errorMessage,
+      AppStateNotifier appStateNotifier,
+      AuthRepository authRepository,
+      int? selectedSex});
 }
 
 /// @nodoc
@@ -134,8 +166,12 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSaveEnable = null,
     Object? lsOFSex = null,
-    Object? sex = null,
-    Object? selectedSex = null,
+    Object? lsOFSexValue = null,
+    Object? isSaveDetailsEnable = null,
+    Object? errorMessage = null,
+    Object? appStateNotifier = null,
+    Object? authRepository = null,
+    Object? selectedSex = freezed,
   }) {
     return _then(_$GenderSelectionStateImpl(
       isFailed: null == isFailed
@@ -158,14 +194,30 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
           ? _value._lsOFSex
           : lsOFSex // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      sex: null == sex
-          ? _value.sex
-          : sex // ignore: cast_nullable_to_non_nullable
+      lsOFSexValue: null == lsOFSexValue
+          ? _value._lsOFSexValue
+          : lsOFSexValue // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      isSaveDetailsEnable: null == isSaveDetailsEnable
+          ? _value.isSaveDetailsEnable
+          : isSaveDetailsEnable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      selectedSex: null == selectedSex
+      appStateNotifier: null == appStateNotifier
+          ? _value.appStateNotifier
+          : appStateNotifier // ignore: cast_nullable_to_non_nullable
+              as AppStateNotifier,
+      authRepository: null == authRepository
+          ? _value.authRepository
+          : authRepository // ignore: cast_nullable_to_non_nullable
+              as AuthRepository,
+      selectedSex: freezed == selectedSex
           ? _value.selectedSex
           : selectedSex // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -179,9 +231,14 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       required this.isLoading,
       required this.isSaveEnable,
       required final List<String> lsOFSex,
-      required this.sex,
-      required this.selectedSex})
-      : _lsOFSex = lsOFSex;
+      required final List<String> lsOFSexValue,
+      required this.isSaveDetailsEnable,
+      required this.errorMessage,
+      required this.appStateNotifier,
+      required this.authRepository,
+      this.selectedSex})
+      : _lsOFSex = lsOFSex,
+        _lsOFSexValue = lsOFSexValue;
 
   @override
   final bool isFailed;
@@ -199,14 +256,28 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
     return EqualUnmodifiableListView(_lsOFSex);
   }
 
+  final List<String> _lsOFSexValue;
   @override
-  final String sex;
+  List<String> get lsOFSexValue {
+    if (_lsOFSexValue is EqualUnmodifiableListView) return _lsOFSexValue;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lsOFSexValue);
+  }
+
   @override
-  final int selectedSex;
+  final bool isSaveDetailsEnable;
+  @override
+  final String errorMessage;
+  @override
+  final AppStateNotifier appStateNotifier;
+  @override
+  final AuthRepository authRepository;
+  @override
+  final int? selectedSex;
 
   @override
   String toString() {
-    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, sex: $sex, selectedSex: $selectedSex)';
+    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, selectedSex: $selectedSex)';
   }
 
   @override
@@ -223,7 +294,16 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
             (identical(other.isSaveEnable, isSaveEnable) ||
                 other.isSaveEnable == isSaveEnable) &&
             const DeepCollectionEquality().equals(other._lsOFSex, _lsOFSex) &&
-            (identical(other.sex, sex) || other.sex == sex) &&
+            const DeepCollectionEquality()
+                .equals(other._lsOFSexValue, _lsOFSexValue) &&
+            (identical(other.isSaveDetailsEnable, isSaveDetailsEnable) ||
+                other.isSaveDetailsEnable == isSaveDetailsEnable) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
+            (identical(other.appStateNotifier, appStateNotifier) ||
+                other.appStateNotifier == appStateNotifier) &&
+            (identical(other.authRepository, authRepository) ||
+                other.authRepository == authRepository) &&
             (identical(other.selectedSex, selectedSex) ||
                 other.selectedSex == selectedSex));
   }
@@ -236,7 +316,11 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       isLoading,
       isSaveEnable,
       const DeepCollectionEquality().hash(_lsOFSex),
-      sex,
+      const DeepCollectionEquality().hash(_lsOFSexValue),
+      isSaveDetailsEnable,
+      errorMessage,
+      appStateNotifier,
+      authRepository,
       selectedSex);
 
   @JsonKey(ignore: true)
@@ -255,8 +339,12 @@ abstract class _GenderSelectionState implements GenderSelectionState {
       required final bool isLoading,
       required final bool isSaveEnable,
       required final List<String> lsOFSex,
-      required final String sex,
-      required final int selectedSex}) = _$GenderSelectionStateImpl;
+      required final List<String> lsOFSexValue,
+      required final bool isSaveDetailsEnable,
+      required final String errorMessage,
+      required final AppStateNotifier appStateNotifier,
+      required final AuthRepository authRepository,
+      final int? selectedSex}) = _$GenderSelectionStateImpl;
 
   @override
   bool get isFailed;
@@ -269,9 +357,17 @@ abstract class _GenderSelectionState implements GenderSelectionState {
   @override
   List<String> get lsOFSex;
   @override
-  String get sex;
+  List<String> get lsOFSexValue;
   @override
-  int get selectedSex;
+  bool get isSaveDetailsEnable;
+  @override
+  String get errorMessage;
+  @override
+  AppStateNotifier get appStateNotifier;
+  @override
+  AuthRepository get authRepository;
+  @override
+  int? get selectedSex;
   @override
   @JsonKey(ignore: true)
   _$$GenderSelectionStateImplCopyWith<_$GenderSelectionStateImpl>

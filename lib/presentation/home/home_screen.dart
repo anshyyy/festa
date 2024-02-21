@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -94,8 +95,16 @@ class HomeScreenConsumer extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      SvgPicture.asset(
-                                        AssetConstants.searchIcon,
+                                      GestureDetector(
+                                        onTap: () async {
+                                          await FirebaseAuth.instance.signOut();
+                                          navigator<NavigationService>()
+                                              .navigateTo(AuthRoutes.startRoute,
+                                                  isClearStack: true);
+                                        },
+                                        child: SvgPicture.asset(
+                                          AssetConstants.searchIcon,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 3.w,
@@ -129,28 +138,27 @@ class HomeScreenConsumer extends StatelessWidget {
                                           text: HomeScreenConstants.editFilters,
                                           function: () {
                                             final builderContext = context;
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return FilterModalSheet(
-                                                        filters: List.from(state
-                                                            .filters
-                                                            .map((e) => e.copyWith(
-                                                                values: List.from(
-                                                                    e.values)))
-                                                            .toList()),
-                                                      );
-                                                    }).then((value) {
-                                                  if (value != null) {
-                                                    if (value
-                                                        is List<FilterDto>) {
-                                                      builderContext
-                                                          .read<HomeCubit>()
-                                                          .updateFilterApplied(
-                                                              filters: value);
-                                                    }
-                                                  }
-                                                });
+                                            showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) {
+                                                  return FilterModalSheet(
+                                                    filters: List.from(state
+                                                        .filters
+                                                        .map((e) => e.copyWith(
+                                                            values: List.from(
+                                                                e.values)))
+                                                        .toList()),
+                                                  );
+                                                }).then((value) {
+                                              if (value != null) {
+                                                if (value is List<FilterDto>) {
+                                                  builderContext
+                                                      .read<HomeCubit>()
+                                                      .updateFilterApplied(
+                                                          filters: value);
+                                                }
+                                              }
+                                            });
                                           },
                                           width: 10.w,
                                           height: 35,
@@ -314,7 +322,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                             icon: item['svgIcon'],
                                             isSelected: item['isSelected'],
                                             onTap: () {
-                                                                                              final builderContext = context;
+                                              final builderContext = context;
 
                                               if (item['label']
                                                       .toString()
@@ -346,7 +354,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       .toString()
                                                       .toLowerCase() ==
                                                   'sort') {
-                                                    showModalBottomSheet(
+                                                showModalBottomSheet(
                                                     context: context,
                                                     builder: (context) {
                                                       return FilterModalSheet(
@@ -368,7 +376,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     }
                                                   }
                                                 });
-                                                  }
+                                              }
                                             },
                                           );
                                         }).toList(),
@@ -392,13 +400,14 @@ class HomeScreenConsumer extends StatelessWidget {
                                       );
                                     }
                                     return GestureDetector(
-                                      onTap: (){
-                                           navigator<NavigationService>().navigateTo(
-                                          UserRoutes.eventDetailsRoute,
-                                          queryParams: {
-                                            'id': state.events[index].id
-                                                .toString(),
-                                          });
+                                      onTap: () {
+                                        navigator<NavigationService>()
+                                            .navigateTo(
+                                                UserRoutes.eventDetailsRoute,
+                                                queryParams: {
+                                              'id': state.events[index].id
+                                                  .toString(),
+                                            });
                                       },
                                       child: EventCard(
                                         event: state.events[index],

@@ -88,7 +88,7 @@ class HomeCubit extends Cubit<HomeState> {
               '$otherFilters${otherFilters != "[" ? ',' : ''}{"property":"${filterValue.name}","rule":"${filterValue.rule}","value":${filterValue.value}}';
         }
       }
-              otherFilters = '$otherFilters]';
+      otherFilters = '$otherFilters]';
     }
 
     final events = await state.eventRepository.getEvents(
@@ -170,7 +170,14 @@ class HomeCubit extends Cubit<HomeState> {
     emit(currentState);
   }
 
-  void toggleSort(){
-    
+  void toggleSort({required bool flag}) {
+    emit(state.copyWith(sortDropdownOpen: flag));
   }
+
+  void getChipPosition({required GlobalKey key}) {
+    RenderBox renderBox = key.currentContext!.findRenderObject() as RenderBox;
+    Offset position = renderBox.localToGlobal(Offset.zero);
+    emit(state.copyWith(chipPosition: position, noUse: !state.noUse));
+  }
+
 }

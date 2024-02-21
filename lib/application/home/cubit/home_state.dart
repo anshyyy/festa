@@ -21,6 +21,8 @@ class HomeState with _$HomeState {
     required EventRepository eventRepository,
     required ScrollController scrollController,
     required bool sortDropdownOpen,
+    required GlobalKey sortKey,
+    required Offset chipPosition,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
@@ -85,5 +87,7 @@ class HomeState with _$HomeState {
         },
       ],
       sortDropdownOpen: false,
+      sortKey: GlobalKey(),
+      chipPosition: Offset.zero,
       );
 }

@@ -100,4 +100,7 @@ class AssetConstants {
     'food': foodIcon,
     'beverage': drinkIcon,
   };
+
+  static const scaffoldBcg = '${imageFolder}screen-bcg.png';
+  static const personalizeBcg = '${imageFolder}personalize-bg.png';
 }

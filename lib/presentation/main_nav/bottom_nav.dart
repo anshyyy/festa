@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/main_nav/main_nav_cubit.dart';
+import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
@@ -16,6 +18,7 @@ class CustomBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStateNotifier appStateNotifier = Provider.of(context);
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -23,7 +26,7 @@ class CustomBottomNav extends StatelessWidget {
       builder: (context, state) {
         return Container(
           height: 11.h,
-          color: Theme.of(context).colorScheme.surface,
+          color: Colors.transparent,
           child: SafeArea(
             child: Container(
               decoration: BoxDecoration(
@@ -75,9 +78,9 @@ class CustomBottomNav extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      context.read<MainNavCubit>().onIndexChange(index: 1);
-                    },
+                    // onTap: () {
+                    //   context.read<MainNavCubit>().onIndexChange(index: 1);
+                    // },
                     child: SizedBox(
                       width: 8.w,
                       height: 100.h,
@@ -111,9 +114,9 @@ class CustomBottomNav extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      context.read<MainNavCubit>().onIndexChange(index: 2);
-                    },
+                    // onTap: () {
+                    //   context.read<MainNavCubit>().onIndexChange(index: 2);
+                    // },
                     child: SizedBox(
                       width: 8.w,
                       height: 100.h,
@@ -152,6 +155,7 @@ class CustomBottomNav extends StatelessWidget {
                     },
                     child: CircleAvatar(
                       radius: 3.w,
+                      foregroundImage: NetworkImage(appStateNotifier.user!.profileImage),
                     ),
                   )
                 ],

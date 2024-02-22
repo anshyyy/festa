@@ -20,6 +20,7 @@ class AppConstants {
   static String otherKey = 'other';
   static String rupees = '₹';
   static String search = 'search';
+  static int otpTimer = 30;
 }
 
 class BasicProfileScreenConstants {

@@ -1,57 +1,36 @@
-// ignore_for_file: unused_import
 
-import '../../../domain/core/configs/injection.dart';
-
-import '../../../domain/core/configs/app_config.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../domain/core/constants/asset_constants.dart';
-import '../../domain/core/services/navigation_services/navigation_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  @override
-  Size get preferredSize => const Size.fromHeight(15);
-
-  final String? text;
-  final bool isLeading;
-  final bool isTrailing;
-
-  final Widget? widget;
+  final String title;
+  final Widget leading;
+  final List<Widget> actions;
   const CustomAppBar({
     super.key,
-    this.text,
-    this.widget,
-    this.isLeading = false,
-    this.isTrailing = false,
+    required this.title,
+    required this.leading,
+    required this.actions,
   });
+
+  @override
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: isLeading
-          ? InkWell(
-              onTap: () {
-                navigator<NavigationService>().goBack();
-              },
-              child: SvgPicture.asset(
-                AssetConstants.backArrowIcon,
-                height: 8,
-                width: 13,
-              ),
-            )
-          : null,
-      automaticallyImplyLeading: false,
-      titleSpacing: isLeading ? 0 : 15,
-      elevation: 0,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      title: widget ??
-          Text(
-            text ?? '',
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                ),
-          ),
+      leading: leading,
+      title: Text(
+        title,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.background,
+            ),
+      ),
+      centerTitle: true,
+      actions: actions,
     );
   }
 }

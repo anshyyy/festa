@@ -120,6 +120,7 @@ flutter:
   assets:
     - assets/gif/
     - assets/vectors/
+    - assets/images/
 
   fonts:
     - family: Inter

@@ -13,6 +13,7 @@ import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../widgets/custom_appbar.dart';
 import '../widgets/custom_textfield.dart';
 
 class ProfileAndSettingsScreen extends StatelessWidget {
@@ -43,28 +44,21 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            leading: GestureDetector(
-              onTap: (){
-                navigator<NavigationService>().goBack();
-              },
-              child: Center(child: SvgPicture.asset(AssetConstants.arrowLeft))),
-            title: Text(UserProfileScreenConstants.profileAndSettings,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.background,
-              fontWeight: FontWeight.w600,
-            ),
-            ),
-            centerTitle: true,
-            
-          ),
+          appBar: CustomAppBar(
+              title: UserProfileScreenConstants.profileAndSettings,
+              leading: GestureDetector(
+                  onTap: () {
+                    navigator<NavigationService>().goBack();
+                  },
+                  child: Center(
+                      child: SvgPicture.asset(AssetConstants.arrowLeft))),
+              actions: []),
           body: SafeArea(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                   SizedBox(
+                  SizedBox(
                     height: 1.h,
                   ),
                   Padding(
@@ -99,7 +93,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                           Theme.of(context).textTheme.bodyMedium!.copyWith(
                                 color: Theme.of(context).colorScheme.error,
                               ),
-            
+
                       // onChanged: (value) => context
                       //     .read<AuthCubit>()
                       //     .onPhoneChange(text: value),
@@ -153,9 +147,10 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       ),
                                 ),
                                 GestureDetector(
-                                  onTap: (){
-                                    navigator<NavigationService>().navigateTo(UserRoutes.editProfileRoute);
-                                  },
+                                  // onTap: () {
+                                  //   navigator<NavigationService>().navigateTo(
+                                  //       UserRoutes.editProfileRoute);
+                                  // },
                                   child: Row(
                                     children: [
                                       Text(
@@ -165,7 +160,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                             .bodyMedium!
                                             .copyWith(fontSize: 16.sp),
                                       ),
-                                      SvgPicture.asset(AssetConstants.arrowRight)
+                                      SvgPicture.asset(
+                                          AssetConstants.arrowRight)
                                     ],
                                   ),
                                 )
@@ -200,19 +196,22 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 3.w),
                     child: GestureDetector(
-                      onTap: (){
-                        navigator<NavigationService>().navigateTo(UserRoutes.personalizeExperienceRoute);
-                      },
+                      // onTap: () {
+                      //   navigator<NavigationService>()
+                      //       .navigateTo(UserRoutes.personalizeExperienceRoute);
+                      // },
                       child: Container(
                         width: 100.w,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.w),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 5.w),
                         decoration: BoxDecoration(
-                            image: const DecorationImage(
-                                image: NetworkImage(
-                                    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                            image:  DecorationImage(
+                                // image: NetworkImage(
+                                //     'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
                                 fit: BoxFit.cover,
-                                opacity: .5),
+                                opacity: .9,
+                                image: Image.asset(AssetConstants.personalizeBcg,).image
+                                ),
                             borderRadius: BorderRadius.circular(25),
                             border: Border.all(
                                 width: .2.w,
@@ -227,7 +226,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    UserProfileScreenConstants.personalizeYourExperience,
+                                    UserProfileScreenConstants
+                                        .personalizeYourExperience,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
@@ -262,22 +262,22 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.accountSettings,
                         label: UserProfileScreenConstants.accountSettings,
                         suffixIcon: AssetConstants.arrowRight,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.notificationSettings,
                         label: UserProfileScreenConstants.notifications,
                         suffixIcon: AssetConstants.arrowRight,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.activitiesSettings,
                         label: UserProfileScreenConstants.yourActivities,
                         suffixIcon: AssetConstants.arrowRight,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.privacySettings,
                         label: UserProfileScreenConstants.privacy,
                         suffixIcon: AssetConstants.arrowRight,
@@ -285,17 +285,17 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                       SizedBox(
                         height: 2.h,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.blockedSettings,
                         label: UserProfileScreenConstants.blockedUsers,
                         suffixIcon: AssetConstants.arrowRight,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.heartSettings,
                         label: UserProfileScreenConstants.tellAFriend,
                         suffixIcon: AssetConstants.arrowRight,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.helpSettings,
                         label: UserProfileScreenConstants.help,
                         suffixIcon: AssetConstants.arrowRight,
@@ -303,12 +303,12 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                       SizedBox(
                         height: 2.h,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.feedbackSettings,
                         label: UserProfileScreenConstants.feedback,
                         suffixIcon: AssetConstants.arrowRight,
                       ),
-                       SettingTile(
+                      SettingTile(
                         prefixIcon: AssetConstants.starSettings,
                         label: UserProfileScreenConstants.rateInPlayStore,
                         suffixIcon: AssetConstants.upRightArrows,
@@ -317,18 +317,25 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                         height: 2.h,
                       ),
                       Padding(
-                         padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: Row(
                           children: [
-                            SvgPicture.asset(AssetConstants.logout, height: 3.h,),
-                            SizedBox(width: 2.w,),
+                            SvgPicture.asset(
+                              AssetConstants.logout,
+                              height: 3.h,
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
                             Text(UserProfileScreenConstants.logout)
                           ],
                         ),
                       )
                     ],
                   ),
-                  SizedBox(height: 2.h,),
+                  SizedBox(
+                    height: 2.h,
+                  ),
                 ],
               ),
             ),

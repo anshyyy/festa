@@ -10,6 +10,7 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../widgets/custom_appbar.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
@@ -39,23 +40,12 @@ class EditProfileScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            leading: GestureDetector(
+          appBar:CustomAppBar(title: EditProfileScreenConstants.editProfile, leading: GestureDetector(
                 onTap: () {
                   navigator<NavigationService>().goBack();
                 },
                 child:
-                    Center(child: SvgPicture.asset(AssetConstants.arrowLeft))),
-            title: Text(
-              EditProfileScreenConstants.editProfile,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.background,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-            centerTitle: true,
-          ),
+                    Center(child: SvgPicture.asset(AssetConstants.arrowLeft))), actions: []),
           body: SafeArea(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

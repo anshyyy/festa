@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/main_nav/main_nav_cubit.dart';
-import '../../domain/core/constants/asset_constants.dart';
 import '../home/home_screen.dart';
-import '../user/profile_and_settings.dart';
 import 'bottom_nav.dart';
 
 class MainNavigator extends StatelessWidget {
@@ -37,7 +33,7 @@ class MainNavigatorConsumer extends StatelessWidget {
           bottomNavigationBar: const CustomBottomNav(),
           body: state.currentIndex == 0
               ? const HomeScreen()
-              : const Center(child: CircularProgressIndicator()),
+              : null,
         );
       },
     );

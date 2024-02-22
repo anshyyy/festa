@@ -41,7 +41,7 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state.isSuccessful) {
           navigator<NavigationService>()
-              .navigateTo(UserRoutes.homeScreenRoute, isClearStack: true);
+              .navigateTo(UserRoutes.mainNavRoute, isClearStack: true);
         } else if (state.isFailed) {
           CustomScaffoldMessenger.clearSnackBars(context);
           CustomScaffoldMessenger.showSnackBar(
@@ -58,82 +58,92 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
           inAsyncCall: state.isLoading,
           color: Colors.black.withOpacity(1),
           child: Scaffold(
-            body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Text(
-                      GenderSelectionScreenConstants.addGenderText,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 24.sp,
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      GenderSelectionScreenConstants.addText,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    // const Spacer(flex: 1,),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            context
-                                .read<GenderSelectionCubit>()
-                                .onSexSelect(index);
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(vertical: 1.h),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              borderRadius: BorderRadius.circular(8),
+            body: Stack(
+              
+              children: [
+                SizedBox(
+                              height: 50.h,
+                              width: 100.w,
+                              child: Image.asset(AssetConstants.scaffoldBcg, fit: BoxFit.cover,),
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.all(2.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(state.lsOFSex[index],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
-                                  index == state.selectedSex
-                                      ? SvgPicture.asset(
-                                          AssetConstants.selectedRadio)
-                                      : SvgPicture.asset(
-                                          AssetConstants.unSelectedRadio),
-                                ],
+                SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Text(
+                          GenderSelectionScreenConstants.addGenderText,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                fontSize: 24.sp,
+                                color: Theme.of(context).colorScheme.background,
                               ),
-                            ),
-                          ),
-                        );
-                      },
-                      itemCount: state.lsOFSex.length,
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Text(
+                          GenderSelectionScreenConstants.addText,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        // const Spacer(flex: 1,),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<GenderSelectionCubit>()
+                                    .onSexSelect(index);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(vertical: 1.h),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(2.h),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(state.lsOFSex[index],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium),
+                                      index == state.selectedSex
+                                          ? SvgPicture.asset(
+                                              AssetConstants.selectedRadio)
+                                          : SvgPicture.asset(
+                                              AssetConstants.unSelectedRadio),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          itemCount: state.lsOFSex.length,
+                        ),
+                        const Spacer(),
+                        GradientButton(
+                            isEnabled: state.isSaveDetailsEnable,
+                            text: BasicProfileScreenConstants.continueText,
+                            onTap: () {
+                              context.read<GenderSelectionCubit>().onContinue();
+                            })
+                      ],
                     ),
-                    const Spacer(),
-                    GradientButton(
-                        isEnabled: state.isSaveDetailsEnable,
-                        text: BasicProfileScreenConstants.continueText,
-                        onTap: () {
-                          context.read<GenderSelectionCubit>().onContinue();
-                        })
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         );

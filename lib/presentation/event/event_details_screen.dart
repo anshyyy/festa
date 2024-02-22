@@ -12,6 +12,7 @@ import '../../domain/core/extensions/number_extension.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../common/event_card.dart';
+import '../widgets/custom_appbar.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/gradient_text.dart';
 
@@ -121,28 +122,18 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     ],
                   ),
                 ),
-                appBar: AppBar(
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  leading: GestureDetector(
-                      onTap: () => navigator<NavigationService>().goBack(),
-                      child: Center(
-                          child: SvgPicture.asset(AssetConstants.arrowLeft))),
-                  title: Text(
-                    event.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                  ),
-                  actions: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 2.w),
-                      child: SvgPicture.asset(AssetConstants.threeDotsIcon),
-                    )
-                  ],
-                ),
+                appBar: CustomAppBar(
+                    title: event.name,
+                    leading: GestureDetector(
+                        onTap: () => navigator<NavigationService>().goBack(),
+                        child: Center(
+                            child: SvgPicture.asset(AssetConstants.arrowLeft))),
+                    actions: [
+                      Padding(
+                        padding: EdgeInsets.only(right: 2.w),
+                        child: SvgPicture.asset(AssetConstants.threeDotsIcon),
+                      )
+                    ]),
                 body: Padding(
                   padding: EdgeInsets.all(2.w),
                   child: SingleChildScrollView(

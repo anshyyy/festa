@@ -17,7 +17,6 @@ import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/home/home_screen.dart';
-import '../../../../../presentation/individual_event_card/individual_event_card_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
 import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
@@ -58,8 +57,8 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           ),
           settings);
 
-    case UserRoutes.eventCardRoute:
-      return _getPageRoute(const EventCardScreen(), settings);
+    // case UserRoutes.eventCardRoute:
+    //   return _getPageRoute(const EventCardScreen(), settings);
 
     case UserRoutes.ticketsRoute:
       return _getPageRoute(const TicketScreen(), settings);

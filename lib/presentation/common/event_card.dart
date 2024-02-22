@@ -95,10 +95,10 @@ class _EventCardState extends State<EventCard> {
                       ),
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(right: 5.w),
-                  //   child: SvgPicture.asset(AssetConstants.shareIcon),
-                  // ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 5.w),
+                    child: SvgPicture.asset(AssetConstants.shareIcon),
+                  ),
                 ],
               ),
               SizedBox(height: 1.h),

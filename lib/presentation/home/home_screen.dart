@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
@@ -43,6 +44,7 @@ class HomeScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
@@ -184,7 +186,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                       height: 2.h,
                                     ),
                                     Text(
-                                      '${HomeScreenConstants.hey} James, ${HomeScreenConstants.welcomeText}',
+                                      '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
                                       style: themeData.textTheme.bodySmall!
                                           .copyWith(
                                         fontWeight: FontWeight.w600,

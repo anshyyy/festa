@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +27,7 @@ class CustomBottomNav extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          height: 11.h,
+          height: Platform.isAndroid? 11.h : 14.h,
           color: Colors.transparent,
           child: SafeArea(
             child: Container(
@@ -36,7 +38,7 @@ class CustomBottomNav extends StatelessWidget {
                       .onSecondaryContainer
                       .withOpacity(.5)),
               margin:
-                  EdgeInsets.only(left: 8.w, top: 2.h, right: 8.w, bottom: 0),
+                  EdgeInsets.only(left: 8.w, top: 2.h, right: 8.w, bottom: 3.h),
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,7 +156,7 @@ class CustomBottomNav extends StatelessWidget {
                       navigator<NavigationService>().navigateTo(UserRoutes.userProfileRoute);
                     },
                     child: CircleAvatar(
-                      radius: 3.w,
+                      radius: 4.w,
                       foregroundImage: NetworkImage(appStateNotifier.user!.profileImage),
                     ),
                   )

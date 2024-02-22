@@ -55,6 +55,8 @@ class AssetConstants {
   static const editIcon = '${vectorsFolder}edit-icon.svg';
   static const shareIcon = '${vectorsFolder}share-icon.svg';
 
+  static const upRightArrows = '${vectorsFolder}arrow-up-right.svg';
+
   // ticket add or remove
   static const addTicketIcon = '${vectorsFolder}add-item.svg';
   static const removeTicketIcon = '${vectorsFolder}remove-item.svg';
@@ -76,6 +78,19 @@ class AssetConstants {
   static const homeFilled = '${vectorsFolder}home-filled.svg';
   static const communityIcon = '${vectorsFolder}community-icon.svg';
   static const ticketsIcon = '${vectorsFolder}tickets-icon.svg';
+
+  // settings
+  static const accountSettings = '${vectorsFolder}account-settings.svg';
+  static const notificationSettings = '${vectorsFolder}notification-settings.svg';
+  static const activitiesSettings = '${vectorsFolder}activities-settings.svg';
+  static const privacySettings = '${vectorsFolder}privacy-settings.svg';
+  static const blockedSettings = '${vectorsFolder}block-settings.svg';
+  static const feedbackSettings = '${vectorsFolder}feedback-settings.svg';
+  static const starSettings = '${vectorsFolder}star-settings.svg';
+  static const heartSettings = '${vectorsFolder}heart-settings.svg';
+  static const helpSettings = '${vectorsFolder}help-settings.svg';
+  static const logout = '${vectorsFolder}logout-settings.svg';
+
 
 // eventIconConstants
   static const Map<String, String> extras = {

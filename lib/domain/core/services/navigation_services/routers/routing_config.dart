@@ -20,6 +20,9 @@ import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/individual_event_card/individual_event_card_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
+import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
+import '../../../../../presentation/user/personalise_your_experience/personalise_experience_screen.dart';
+import '../../../../../presentation/user/profile_and_settings.dart';
 import '../../../extensions/string_extension.dart';
 import 'route_name.dart';
 
@@ -38,6 +41,15 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.homeScreenRoute:
       return _getPageRoute(const HomeScreen(), settings);
+
+    case UserRoutes.userProfileRoute:
+      return _getPageRoute(const ProfileAndSettingsScreen(), settings);
+
+    case UserRoutes.personalizeExperienceRoute:
+      return _getPageRoute(const PersonalizeYourExperienceScreen(), settings);
+
+    case UserRoutes.editProfileRoute:
+      return _getPageRoute(const EditProfileScreen(), settings);
 
     case UserRoutes.eventDetailsRoute:
       return _getPageRoute(
@@ -61,8 +73,8 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.clubProfileRoute:
       return _getPageRoute(const ClubProfileScreen(), settings);
 
-     case UserRoutes.mainNavRoute:
-      return _getPageRoute(const MainNavigator(), settings); 
+    case UserRoutes.mainNavRoute:
+      return _getPageRoute(const MainNavigator(), settings);
     default:
       return commonNavigation(settings);
   }

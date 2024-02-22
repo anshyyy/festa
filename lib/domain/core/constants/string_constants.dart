@@ -19,6 +19,7 @@ class AppConstants {
   static String filterKey = 'filter';
   static String otherKey = 'other';
   static String rupees = '₹';
+  static String search = 'search';
 }
 
 class BasicProfileScreenConstants {
@@ -181,4 +182,31 @@ class EventDetailsScreenConstants {
   static String fAQs = 'FAQs';
   static String fAQsText =
       'Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut. Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut.';
+}
+
+class UserProfileScreenConstants{
+static String personalizeYourExperience = 'Personalise your experience';
+
+static String profileAndSettings='Profile and settings';
+static String accountSettings = 'Account Settings';
+static String  notifications = 'Notifications';
+static String yourActivities = 'Your Activities';
+static String privacy = 'Privacy';
+static String blockedUsers = 'Blocked Users';
+static String  tellAFriend = 'Tell a friend';
+static String  help = 'Help';
+static String feedback= 'Feedback';
+static String rateInPlayStore = 'Rate in Play Store';
+static String logout = 'Log out';
+}
+
+class PersonalizeExperienceScreenConstants {
+static String profilePrompt = 'Let’s take your profile from good to great 😍 The details matter!';
+static String changePersonlize = 'You are free to change the personalisation anytime.';
+}
+
+class EditProfileScreenConstants{
+  static String editProfile = 'Edit Profile';
+  static String profile = 'Profile';
+  static String bio = 'Bio';
 }

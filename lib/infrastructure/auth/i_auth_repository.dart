@@ -122,6 +122,7 @@ class IAuthRepository extends AuthRepository {
   Future<UserDto?> authentication() async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      print(token);
       final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
       final response = await RESTService.performGETRequest(
           httpUrl: url, isAuth: true, token: token!);

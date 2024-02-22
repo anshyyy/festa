@@ -80,7 +80,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                       : ProfileStateEnum.started;
           final route=profileState ==
                       ProfileStateEnum.completed
-                  ? UserRoutes.homeScreenRoute
+                  ? UserRoutes.mainNavRoute
                   : profileState ==
                           ProfileStateEnum.birthday
                       ? AuthRoutes.genderRoute

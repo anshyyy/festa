@@ -63,7 +63,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
           Future.delayed(const Duration(milliseconds: 100));
 
           navigator<NavigationService>()
-              .navigateTo(AuthRoutes.authRoute, isClearStack: true);
+              .navigateTo(AuthRoutes.loginWithPhoneRoute, isClearStack: true);
         } else if (state.isFailure && state.responseMsg.isNotEmpty) {
           CustomScaffoldMessenger.clearSnackBars(context);
           CustomScaffoldMessenger.showSnackBar(
@@ -87,7 +87,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
           Provider.of<AppStateNotifier>(context).updateAfterAuthChange(
             isAuthorized: false,
           );
-          navigator<NavigationService>().navigateTo(AuthRoutes.authRoute);
+          navigator<NavigationService>().navigateTo(AuthRoutes.loginWithPhoneRoute);
         }
       },
       builder: (context, state) {

@@ -54,76 +54,77 @@ class EventDetailsScreenConsumer extends StatelessWidget {
         return state.isLoading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
-                bottomNavigationBar: Container(
-                  height: 100,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                StringExtension.formatDateTimeMedium(
-                                    DateTime.parse(event!.startDate)),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background,
-                                        fontSize: 15.sp)),
-                            Row(
-                              children: [
-                                Text(
-                                    '${event.priceRangeStart.toIndianRupeeString()} ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                            fontSize: 15.sp)),
-                                if (event.priceRangeEnd != null)
-                                  Text(
-                                      event.priceRangeEnd!
-                                          .toIndianRupeeString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15.sp)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                          child: GradientButton(
-                        text: EventDetailsScreenConstants.bookTheTickets,
-                        onTap: () {},
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(
-                              color: Theme.of(context).colorScheme.background,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ))
-                    ],
-                  ),
-                ),
+                // bottomNavigationBar: Container(
+                //   height: 100,
+                //   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                //   color: Theme.of(context).colorScheme.primaryContainer,
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Expanded(
+                //         child: Column(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text(
+                //                 StringExtension.formatDateTimeMedium(
+                //                     DateTime.parse(event!.startDate)),
+                //                 style: Theme.of(context)
+                //                     .textTheme
+                //                     .bodyMedium!
+                //                     .copyWith(
+                //                         fontWeight: FontWeight.w600,
+                //                         color: Theme.of(context)
+                //                             .colorScheme
+                //                             .background,
+                //                         fontSize: 15.sp)),
+                //             Row(
+                //               children: [
+                //                 Text(
+                //                     '${event.priceRangeStart.toIndianRupeeString()} ',
+                //                     style: Theme.of(context)
+                //                         .textTheme
+                //                         .bodyMedium!
+                //                         .copyWith(
+                //                             fontWeight: FontWeight.w600,
+                //                             color: Theme.of(context)
+                //                                 .colorScheme
+                //                                 .background,
+                //                             fontSize: 15.sp)),
+                //                 if (event.priceRangeEnd != null)
+                //                   Text(
+                //                       event.priceRangeEnd!
+                //                           .toIndianRupeeString(),
+                //                       style: Theme.of(context)
+                //                           .textTheme
+                //                           .bodyMedium!
+                //                           .copyWith(
+                //                               fontWeight: FontWeight.w600,
+                //                               fontSize: 15.sp)),
+                //               ],
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       Expanded(
+                //           child: GradientButton(
+                //         text: EventDetailsScreenConstants.bookTheTickets,
+                //         onTap: () {},
+                //         textStyle: Theme.of(context)
+                //             .textTheme
+                //             .bodySmall!
+                //             .copyWith(
+                //               color: Theme.of(context).colorScheme.background,
+                //               fontWeight: FontWeight.w600,
+                //             ),
+                //       ))
+                //     ],
+                //   ),
+                // ),
+                
                 appBar: CustomAppBar(
-                    title: event.name,
+                    title: event!.name,
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
@@ -141,19 +142,20 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         EventCard(event: event),
-                        GradientText(
-                          text: EventDetailsScreenConstants.viewOnMaps,
-                          colors: [
-                            Theme.of(context).colorScheme.primary,
-                            Theme.of(context).colorScheme.secondary
-                          ],
-                          textStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                        ),
-                        const SizedBox(
-                          height: 10,
+                        // GradientText(
+                        //   text: EventDetailsScreenConstants.viewOnMaps,
+                        //   colors: [
+                        //     Theme.of(context).colorScheme.primary,
+                        //     Theme.of(context).colorScheme.secondary
+                        //   ],
+                        //   textStyle:
+                        //       Theme.of(context).textTheme.bodySmall!.copyWith(
+                        //             fontWeight: FontWeight.w800,
+                        //           ),
+                        // ),
+                        
+                         SizedBox(
+                          height: 0.h,
                         ),
                         Theme(
                           data: Theme.of(context)
@@ -488,8 +490,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                             ],
                           ),
                         ),
+                        SizedBox(height: 5.h,)
                       ],
                     ),
+                    
                   ),
                 ),
               );

@@ -41,7 +41,7 @@ class CustomBottomNav extends StatelessWidget {
                   EdgeInsets.only(left: 8.w, top: 2.h, right: 8.w, bottom: 3.h),
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -79,78 +79,79 @@ class CustomBottomNav extends StatelessWidget {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   context.read<MainNavCubit>().onIndexChange(index: 1);
-                    // },
-                    child: SizedBox(
-                      width: 8.w,
-                      height: 100.h,
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: SvgPicture.asset(
-                              AssetConstants.communityIcon,
-                              color: state.currentIndex == 1
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.onSecondary,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              width: 8.w,
-                              height: .3.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(10),
-                                  ),
-                                  color: state.currentIndex == 1
-                                      ? Theme.of(context).primaryColor
-                                      : Colors.transparent),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   context.read<MainNavCubit>().onIndexChange(index: 2);
-                    // },
-                    child: SizedBox(
-                      width: 8.w,
-                      height: 100.h,
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: SvgPicture.asset(
-                              AssetConstants.ticketsIcon,
-                              color: state.currentIndex == 2
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.onSecondary,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              width: 8.w,
-                              height: .3.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(10),
-                                  ),
-                                  color: state.currentIndex == 2
-                                      ? Theme.of(context).primaryColor
-                                      : Colors.transparent),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   // onTap: () {
+                  //   //   context.read<MainNavCubit>().onIndexChange(index: 1);
+                  //   // },
+                  //   child: SizedBox(
+                  //     width: 8.w,
+                  //     height: 100.h,
+                  //     child: Stack(
+                  //       children: [
+                  //         Center(
+                  //           child: SvgPicture.asset(
+                  //             AssetConstants.communityIcon,
+                  //             color: state.currentIndex == 1
+                  //                 ? Theme.of(context).primaryColor
+                  //                 : Theme.of(context).colorScheme.onSecondary,
+                  //           ),
+                  //         ),
+                  //         Positioned(
+                  //           bottom: 0,
+                  //           child: AnimatedContainer(
+                  //             duration: const Duration(milliseconds: 200),
+                  //             width: 8.w,
+                  //             height: .3.h,
+                  //             decoration: BoxDecoration(
+                  //                 borderRadius: const BorderRadius.vertical(
+                  //                   top: Radius.circular(10),
+                  //                 ),
+                  //                 color: state.currentIndex == 1
+                  //                     ? Theme.of(context).primaryColor
+                  //                     : Colors.transparent),
+                  //           ),
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   // onTap: () {
+                  //   //   context.read<MainNavCubit>().onIndexChange(index: 2);
+                  //   // },
+                  //   child: SizedBox(
+                  //     width: 8.w,
+                  //     height: 100.h,
+                  //     child: Stack(
+                  //       children: [
+                  //         Center(
+                  //           child: SvgPicture.asset(
+                  //             AssetConstants.ticketsIcon,
+                  //             color: state.currentIndex == 2
+                  //                 ? Theme.of(context).primaryColor
+                  //                 : Theme.of(context).colorScheme.onSecondary,
+                  //           ),
+                  //         ),
+                  //         Positioned(
+                  //           bottom: 0,
+                  //           child: AnimatedContainer(
+                  //             duration: const Duration(milliseconds: 200),
+                  //             width: 8.w,
+                  //             height: .3.h,
+                  //             decoration: BoxDecoration(
+                  //                 borderRadius: const BorderRadius.vertical(
+                  //                   top: Radius.circular(10),
+                  //                 ),
+                  //                 color: state.currentIndex == 2
+                  //                     ? Theme.of(context).primaryColor
+                  //                     : Colors.transparent),
+                  //           ),
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  
                   GestureDetector(
                     onTap: () {
                       navigator<NavigationService>().navigateTo(UserRoutes.userProfileRoute);

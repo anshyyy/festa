@@ -16,7 +16,6 @@ abstract class AuthRepository {
     required String code,
   });
 
-  void logout();
 
   Future loginWithGoogle();
   Future<UserDto?> authentication();

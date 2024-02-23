@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:154103086037:android:2eceae422840bb6cfa5b5c",
         "android_client_info": {
-          "package_name": "com.festa.app.dev"
+          "package_name": "com.festa.app"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "154103086037-3f2d5d2iuiqrkgge96issmt44h2k0660.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.festa.app.dev",
+            "package_name": "com.festa.app",
             "certificate_hash": "95266e24071e55e3d313f689c2f72b0fa45dee09"
           }
         },
@@ -42,7 +42,7 @@
               "client_id": "154103086037-5mtc26egmo27sai0op1b3jobcp0g95ji.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.festa.app.dev"
+                "bundle_id": "com.festa.app"
               }
             }
           ]

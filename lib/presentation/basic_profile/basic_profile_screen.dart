@@ -55,16 +55,18 @@ class BasicProfileScreenConsumer extends StatelessWidget {
     }, builder: (context, state) {
       return ModalProgressHUD(
         inAsyncCall: state.isLoading,
-                color: Colors.black.withOpacity(1),
-
+        color: Colors.black.withOpacity(1),
         child: Scaffold(
           body: Stack(
             children: [
               SizedBox(
-                              height: 50.h,
-                              width: 100.w,
-                              child: Image.asset(AssetConstants.scaffoldBcg, fit: BoxFit.cover,),
-                            ),
+                height: 50.h,
+                width: 100.w,
+                child: Image.asset(
+                  AssetConstants.scaffoldBcg,
+                  fit: BoxFit.cover,
+                ),
+              ),
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
@@ -105,7 +107,9 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                             height: 50.w,
                             width: 50.w,
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primaryContainer,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: state.profileImage != null
@@ -125,7 +129,8 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                             ),
                             child: state.profileImage == null
                                 ? Center(
-                                    child: SvgPicture.asset(AssetConstants.editIcon,
+                                    child: SvgPicture.asset(
+                                        AssetConstants.editIcon,
                                         height: 4.h,
                                         color: Theme.of(context)
                                             .colorScheme
@@ -166,10 +171,15 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                         children: [
                           Text(
                             BasicProfileScreenConstants.enterYourName,
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 17.sp,
-                                color: Theme.of(context).colorScheme.background),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 17.sp,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background),
                           ),
                           SizedBox(
                             height: 1.h,
@@ -182,31 +192,39 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                               maxLines: 1,
                               isFill: true,
                               inputWithLabel: false,
-                              fillColor:
-                                  Theme.of(context).colorScheme.primaryContainer,
+                              fillColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               hintText: 'Type here',
-                              hintTextStyle:
-                                  Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              hintTextStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
                                       // fontSize: 17.sp,
                                       ),
                               textStyle: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.background),
-                              errorStyle:
-                                  Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                        color: Theme.of(context).colorScheme.error,
-                                      ),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background),
+                              errorStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: Theme.of(context).colorScheme.error,
+                                  ),
                               validator: (value) {
-                                if (value!.length < 3 && state.startValidation) {
+                                if (value!.length < 3 &&
+                                    state.startValidation) {
                                   return ErrorConstants.invalidFullNameError;
                                 }
                                 return null;
                               },
                               onChanged: (p0) {
-                                if (p0.length < 3 && state.isSaveDetailsEnable) {
+                                if (p0.length < 3 &&
+                                    state.isSaveDetailsEnable) {
                                   context
                                       .read<BasicProfileCubit>()
                                       .emitFromAnywhere(

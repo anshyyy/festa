@@ -26,9 +26,9 @@ class EventTypeTile extends StatelessWidget {
             border: Border.all(
                 color: isSelected
                     ? Theme.of(context).primaryColor
-                    : Theme.of(context).colorScheme.background,
-                width:isSelected? .5.w: 0),
-            borderRadius: BorderRadius.circular(10),
+                    : Theme.of(context).colorScheme.background.withOpacity(.2),
+                width:isSelected? .5.w: .5.w),
+            borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
               fit: BoxFit.cover,
               image: imageProvider,
@@ -40,9 +40,10 @@ class EventTypeTile extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
                 color: Theme.of(context).colorScheme.background,
-                fontSize: 13.sp),
+                fontSize: 13.5.sp,
+                ),
           ),
         ),
       ),

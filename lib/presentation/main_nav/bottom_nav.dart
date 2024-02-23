@@ -28,14 +28,14 @@ class CustomBottomNav extends StatelessWidget {
       builder: (context, state) {
         return Container(
           height: Platform.isAndroid? 11.h : 14.h,
-          color: Colors.transparent,
+          color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.4),
           child: SafeArea(
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50.h),
                   color: Theme.of(context)
                       .colorScheme
-                      .onSecondaryContainer
+                      .primaryContainer
                       .withOpacity(.5)),
               margin:
                   EdgeInsets.only(left: 8.w, top: 2.h, right: 8.w, bottom: 3.h),
@@ -93,7 +93,7 @@ class CustomBottomNav extends StatelessWidget {
                               AssetConstants.communityIcon,
                               color: state.currentIndex == 1
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.background,
+                                  : Theme.of(context).colorScheme.onSecondary,
                             ),
                           ),
                           Positioned(
@@ -129,7 +129,7 @@ class CustomBottomNav extends StatelessWidget {
                               AssetConstants.ticketsIcon,
                               color: state.currentIndex == 2
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.background,
+                                  : Theme.of(context).colorScheme.onSecondary,
                             ),
                           ),
                           Positioned(
@@ -156,7 +156,7 @@ class CustomBottomNav extends StatelessWidget {
                       navigator<NavigationService>().navigateTo(UserRoutes.userProfileRoute);
                     },
                     child: CircleAvatar(
-                      radius: 4.w,
+                      radius: 3.w,
                       foregroundImage: NetworkImage(appStateNotifier.user!.profileImage),
                     ),
                   )

@@ -99,6 +99,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       color: themeData
                                                           .colorScheme
                                                           .background,
+                                                          fontSize: 14.sp,
                                                       fontWeight:
                                                           FontWeight.w600),
                                             )
@@ -190,6 +191,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                       style: themeData.textTheme.bodySmall!
                                           .copyWith(
                                         fontWeight: FontWeight.w600,
+                                        color: Theme.of(context).colorScheme.onSecondary,
+                                        letterSpacing:0,
                                       ),
                                     ),
                                     if (state.categoryFilter != null)

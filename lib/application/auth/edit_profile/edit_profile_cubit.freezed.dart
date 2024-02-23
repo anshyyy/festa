@@ -31,6 +31,8 @@ abstract class $EditProfileStateCopyWith<$Res> {
       _$EditProfileStateCopyWithImpl<$Res, EditProfileState>;
   @useResult
   $Res call({AppStateNotifier appStateNotifier, UserDto? user});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -46,11 +48,11 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? appStateNotifier = freezed,
+    Object? appStateNotifier = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
-      appStateNotifier: freezed == appStateNotifier
+      appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
@@ -59,6 +61,18 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           : user // ignore: cast_nullable_to_non_nullable
               as UserDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -71,6 +85,9 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({AppStateNotifier appStateNotifier, UserDto? user});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -84,11 +101,11 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? appStateNotifier = freezed,
+    Object? appStateNotifier = null,
     Object? user = freezed,
   }) {
     return _then(_$EditProfileStateImpl(
-      appStateNotifier: freezed == appStateNotifier
+      appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
@@ -120,16 +137,13 @@ class _$EditProfileStateImpl implements _EditProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EditProfileStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other.appStateNotifier, appStateNotifier) &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.appStateNotifier, appStateNotifier) ||
+                other.appStateNotifier == appStateNotifier) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(appStateNotifier),
-      const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, appStateNotifier, user);
 
   @JsonKey(ignore: true)
   @override

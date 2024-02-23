@@ -85,7 +85,7 @@ class ErrorConstants {
   static String wrongOTP = 'Invalid OTP, please entered valid OTP!';
   static String failedToLogin = 'Failed to verify phone number!';
   static String invalidMobileNumberError = 'Invalid Phone Number';
-    static String invalidFullNameError = 'Invalid Full Name';
+  static String invalidFullNameError = 'Invalid Full Name';
   static String sessionExpired =
       'OTP verification code has expired please click on resend';
   static String invalidOtpError = 'Invalid OTP';
@@ -129,8 +129,8 @@ class HomeScreenConstants {
   static String welcomeText = 'Let’s Party!';
   static String pickYourExperience = 'Pick your experience';
   static String explorerAll = 'Explore all';
- static String noEventsFound = 'No events found in your selected filters';
-  static String editFilters ='Edit filters';
+  static String noEventsFound = 'No events found in your selected filters';
+  static String editFilters = 'Edit filters';
 }
 
 class CartScreenConstants {
@@ -185,28 +185,37 @@ class EventDetailsScreenConstants {
       'Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut. Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut.';
 }
 
-class UserProfileScreenConstants{
-static String personalizeYourExperience = 'Personalise your experience';
+class UserProfileScreenConstants {
+  static String personalizeYourExperience = 'Personalise your experience';
 
-static String profileAndSettings='Profile and settings';
-static String accountSettings = 'Account Settings';
-static String  notifications = 'Notifications';
-static String yourActivities = 'Your Activities';
-static String privacy = 'Privacy';
-static String blockedUsers = 'Blocked Users';
-static String  tellAFriend = 'Tell a friend';
-static String  help = 'Help';
-static String feedback= 'Feedback';
-static String rateInPlayStore = 'Rate in Play Store';
-static String logout = 'Log out';
+  static String profileAndSettings = 'Profile and settings';
+  static String accountSettings = 'Account Settings';
+  static String notifications = 'Notifications';
+  static String yourActivities = 'Your Activities';
+  static String privacy = 'Privacy';
+  static String blockedUsers = 'Blocked Users';
+  static String tellAFriend = 'Tell a friend';
+  static String help = 'Help';
+  static String feedback = 'Feedback';
+  static String rateInPlayStore = 'Rate in Play Store';
+  static String logout = 'Log out';
+  static String deleteAccount = 'Delete Account';
+  static String yes = 'Yes';
+  static String no = 'No';
+  static String deleteACWarning = 'Are you sure want to delete this account?';
+  static String accountDeleted = 'Account deleted successfully!';
+  static String accountDeletionFailed = 'Failed to delete account!';
+  static String logoutSuccess = 'Logout successfully!';
 }
 
 class PersonalizeExperienceScreenConstants {
-static String profilePrompt = 'Let’s take your profile from good to great 😍 The details matter!';
-static String changePersonlize = 'You are free to change the personalisation anytime.';
+  static String profilePrompt =
+      'Let’s take your profile from good to great 😍 The details matter!';
+  static String changePersonlize =
+      'You are free to change the personalisation anytime.';
 }
 
-class EditProfileScreenConstants{
+class EditProfileScreenConstants {
   static String editProfile = 'Edit Profile';
   static String profile = 'Profile';
   static String bio = 'Bio';

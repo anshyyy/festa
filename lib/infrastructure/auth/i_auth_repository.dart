@@ -154,4 +154,33 @@ class IAuthRepository extends AuthRepository {
       return left(ErrorConstants.networkUnavailable);
     }
   }
+
+  @override
+  Future<bool> deleteProfile({required int id}) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      final url = '$serverUrl${EventApiConstants.USERS}/$id';
+      final response = await RESTService.performDELETERequest(
+        httpUrl: url,
+        isAuth: true,
+        token: token!,
+      );
+      if (response.statusCode != 200) {
+        throw ErrorConstants.unknownNetworkError;
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> logout({bool skipFCMToken = false}) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

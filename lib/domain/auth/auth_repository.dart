@@ -22,4 +22,8 @@ abstract class AuthRepository {
   Future<Either<String, UserDto>> patchProfile({
     required Map<String, dynamic> input,
   });
+
+  Future<bool> deleteProfile({required int id});
+
+  Future<bool> logout({bool skipFCMToken});
 }

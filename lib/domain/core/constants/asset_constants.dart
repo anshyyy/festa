@@ -81,7 +81,8 @@ class AssetConstants {
 
   // settings
   static const accountSettings = '${vectorsFolder}account-settings.svg';
-  static const notificationSettings = '${vectorsFolder}notification-settings.svg';
+  static const notificationSettings =
+      '${vectorsFolder}notification-settings.svg';
   static const activitiesSettings = '${vectorsFolder}activities-settings.svg';
   static const privacySettings = '${vectorsFolder}privacy-settings.svg';
   static const blockedSettings = '${vectorsFolder}block-settings.svg';
@@ -90,7 +91,7 @@ class AssetConstants {
   static const heartSettings = '${vectorsFolder}heart-settings.svg';
   static const helpSettings = '${vectorsFolder}help-settings.svg';
   static const logout = '${vectorsFolder}logout-settings.svg';
-
+  static const trash = '${vectorsFolder}trash.svg';
 
 // eventIconConstants
   static const Map<String, String> extras = {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/filter/filter_cubit.dart';
@@ -21,8 +22,11 @@ class FilterModalSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => FilterCubit(FilterState.initial(filters: filters))
-        ..onFilterChanged(filterValue: 'sort'),
+      create: (context) => FilterCubit(
+        FilterState.initial(
+          filters: filters,
+        ),
+      )..onFilterChanged(filterValue: 'sort'),
       child: const FilterModalSheetConsumer(),
     );
   }
@@ -70,7 +74,9 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                navigator<NavigationService>().goBack();
+                               state.isClearFilters ? navigator<NavigationService>().goBack(
+                                    responseObject: state.filters,
+                                  ):navigator<NavigationService>().goBack();
                               },
                               child: SvgPicture.asset(
                                 AssetConstants.closeIcon,
@@ -309,17 +315,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                           Expanded(
                               child: MaterialButton(
                             onPressed: () {
-                              navigator<NavigationService>().goBack(
-                                responseObject: List.from(state.filters.map(
-                                        (e) => e.copyWith(
-                                            isApplied: false,
-                                            values: e.values
-                                                .map((e) => e.copyWith(
-                                                    isApplied: false))
-                                                .toList())))
-                                    .map((e) => e as FilterDto)
-                                    .toList(),
-                              );
+                              context.read<FilterCubit>().clearFilters();
+                              Fluttertoast.showToast(msg: 'All the filters are cleared');
                             },
                             child: Text(
                               'Clear All',

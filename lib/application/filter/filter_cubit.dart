@@ -38,4 +38,16 @@ class FilterCubit extends Cubit<FilterState> {
   void emitFromEveryWhere({required FilterState currentState}) {
     emit(currentState);
   }
+
+  
+  void clearFilters() {
+    emit(state.copyWith(isClearFilters: true));
+    List<FilterDto> filters = List.from(state.filters.map((e) => e.copyWith(
+        isApplied: false,
+        values: e.values
+            .map((e) => e.copyWith(isApplied: false))
+            .toList()))).map((e) => e as FilterDto).toList();
+    emit(state.copyWith(filters: filters, noUse: !state.noUse));
+    onFilterChanged(filterValue: 'sort');
+  }
 }

@@ -29,7 +29,7 @@ class ExploreTile extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
           margin: EdgeInsets.only(right: 2.w),
           width: label.toString().toLowerCase() == 'sort'
               ? state.sortDropdownOpen
@@ -52,15 +52,16 @@ class ExploreTile extends StatelessWidget {
                 label ?? '',
                 style: themeData.textTheme.bodySmall!.copyWith(
                   color: themeData.colorScheme.background,
+                  fontSize: 14.5.sp,
                 ),
               ),
               SizedBox(
-                width: 2.w,
+                width: 1.w,
               ),
               icon != null
                   ? SvgPicture.asset(
                       icon!,
-                      height: 1.5.h,
+                      height: 2.1.h,
                     )
                   : Container()
             ],

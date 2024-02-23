@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../domain/core/constants/asset_constants.dart';
-import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/number_extension.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
@@ -39,16 +38,16 @@ class _EventCardState extends State<EventCard> {
                     return Container(
                       foregroundDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           colors: [
-                            Colors.black,
+                            Colors.black.withOpacity(.8),
                             Colors.transparent,
                             Colors.transparent,
-                            Colors.black
+                            Colors.black.withOpacity(.8)
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          stops: [0, 0.2, 0.8, 1],
+                          stops: const [0, 0.4, 0.6, 1],
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -156,9 +155,9 @@ class _EventCardState extends State<EventCard> {
                   Text(
                     '${widget.event.priceRangeStart.toIndianRupeeString()}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
                     style: themeData.textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.background,
-                        ),
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.background,
+                    ),
                   )
                 ],
               ),
@@ -181,8 +180,7 @@ class _EventCardState extends State<EventCard> {
                         StringExtension.formatDateTimeLong(
                             DateTime.parse(widget.event.startDate)),
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.background,
-                            
+                              color: Theme.of(context).colorScheme.background,
                             ),
                       ),
                     ],
@@ -269,13 +267,16 @@ class _EventCardState extends State<EventCard> {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 1.5.w, vertical: .2.h),
+                              horizontal: 2.w, vertical: .35.h),
                           decoration: BoxDecoration(
                               color: themeData.colorScheme.primaryContainer,
                               borderRadius: BorderRadius.circular(50.w)),
                           child: Row(
                             children: [
-                              SvgPicture.asset(AssetConstants.locationIcon),
+                              SvgPicture.asset(
+                                AssetConstants.locationIcon,
+                                height: 2.h,
+                              ),
                               SizedBox(
                                 width: 1.w,
                               ),

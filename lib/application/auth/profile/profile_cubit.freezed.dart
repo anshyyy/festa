@@ -19,6 +19,10 @@ mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
+  bool get isAccountDelete => throw _privateConstructorUsedError;
+  bool get isLogout => throw _privateConstructorUsedError;
+  String get responseMsg => throw _privateConstructorUsedError;
+  AuthRepository get authRepository => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
@@ -37,6 +41,10 @@ abstract class $ProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool isAccountDelete,
+      bool isLogout,
+      String responseMsg,
+      AuthRepository authRepository,
       AppStateNotifier appStateNotifier,
       UserDto? user});
 
@@ -59,6 +67,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? isAccountDelete = null,
+    Object? isLogout = null,
+    Object? responseMsg = null,
+    Object? authRepository = null,
     Object? appStateNotifier = null,
     Object? user = freezed,
   }) {
@@ -75,6 +87,22 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAccountDelete: null == isAccountDelete
+          ? _value.isAccountDelete
+          : isAccountDelete // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLogout: null == isLogout
+          ? _value.isLogout
+          : isLogout // ignore: cast_nullable_to_non_nullable
+              as bool,
+      responseMsg: null == responseMsg
+          ? _value.responseMsg
+          : responseMsg // ignore: cast_nullable_to_non_nullable
+              as String,
+      authRepository: null == authRepository
+          ? _value.authRepository
+          : authRepository // ignore: cast_nullable_to_non_nullable
+              as AuthRepository,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
@@ -111,6 +139,10 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool isAccountDelete,
+      bool isLogout,
+      String responseMsg,
+      AuthRepository authRepository,
       AppStateNotifier appStateNotifier,
       UserDto? user});
 
@@ -132,6 +164,10 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? isAccountDelete = null,
+    Object? isLogout = null,
+    Object? responseMsg = null,
+    Object? authRepository = null,
     Object? appStateNotifier = null,
     Object? user = freezed,
   }) {
@@ -148,6 +184,22 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
+      isAccountDelete: null == isAccountDelete
+          ? _value.isAccountDelete
+          : isAccountDelete // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLogout: null == isLogout
+          ? _value.isLogout
+          : isLogout // ignore: cast_nullable_to_non_nullable
+              as bool,
+      responseMsg: null == responseMsg
+          ? _value.responseMsg
+          : responseMsg // ignore: cast_nullable_to_non_nullable
+              as String,
+      authRepository: null == authRepository
+          ? _value.authRepository
+          : authRepository // ignore: cast_nullable_to_non_nullable
+              as AuthRepository,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
@@ -167,6 +219,10 @@ class _$ProfileStateImpl implements _ProfileState {
       {required this.isLoading,
       required this.isSuccess,
       required this.isFailure,
+      required this.isAccountDelete,
+      required this.isLogout,
+      required this.responseMsg,
+      required this.authRepository,
       required this.appStateNotifier,
       this.user});
 
@@ -177,13 +233,21 @@ class _$ProfileStateImpl implements _ProfileState {
   @override
   final bool isFailure;
   @override
+  final bool isAccountDelete;
+  @override
+  final bool isLogout;
+  @override
+  final String responseMsg;
+  @override
+  final AuthRepository authRepository;
+  @override
   final AppStateNotifier appStateNotifier;
   @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, appStateNotifier: $appStateNotifier, user: $user)';
+    return 'ProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isAccountDelete: $isAccountDelete, isLogout: $isLogout, responseMsg: $responseMsg, authRepository: $authRepository, appStateNotifier: $appStateNotifier, user: $user)';
   }
 
   @override
@@ -197,6 +261,14 @@ class _$ProfileStateImpl implements _ProfileState {
                 other.isSuccess == isSuccess) &&
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
+            (identical(other.isAccountDelete, isAccountDelete) ||
+                other.isAccountDelete == isAccountDelete) &&
+            (identical(other.isLogout, isLogout) ||
+                other.isLogout == isLogout) &&
+            (identical(other.responseMsg, responseMsg) ||
+                other.responseMsg == responseMsg) &&
+            (identical(other.authRepository, authRepository) ||
+                other.authRepository == authRepository) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
             (identical(other.user, user) || other.user == user));
@@ -204,7 +276,16 @@ class _$ProfileStateImpl implements _ProfileState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isLoading, isSuccess, isFailure, appStateNotifier, user);
+      runtimeType,
+      isLoading,
+      isSuccess,
+      isFailure,
+      isAccountDelete,
+      isLogout,
+      responseMsg,
+      authRepository,
+      appStateNotifier,
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -218,6 +299,10 @@ abstract class _ProfileState implements ProfileState {
       {required final bool isLoading,
       required final bool isSuccess,
       required final bool isFailure,
+      required final bool isAccountDelete,
+      required final bool isLogout,
+      required final String responseMsg,
+      required final AuthRepository authRepository,
       required final AppStateNotifier appStateNotifier,
       final UserDto? user}) = _$ProfileStateImpl;
 
@@ -227,6 +312,14 @@ abstract class _ProfileState implements ProfileState {
   bool get isSuccess;
   @override
   bool get isFailure;
+  @override
+  bool get isAccountDelete;
+  @override
+  bool get isLogout;
+  @override
+  String get responseMsg;
+  @override
+  AuthRepository get authRepository;
   @override
   AppStateNotifier get appStateNotifier;
   @override

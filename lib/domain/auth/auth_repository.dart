@@ -16,10 +16,15 @@ abstract class AuthRepository {
     required String code,
   });
 
+
   Future loginWithGoogle();
   Future<UserDto?> authentication();
 
   Future<Either<String, UserDto>> patchProfile({
     required Map<String, dynamic> input,
   });
+
+  Future<bool> deleteProfile({required int id});
+
+  Future<bool> logout({bool skipFCMToken});
 }

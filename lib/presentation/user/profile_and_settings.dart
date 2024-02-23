@@ -84,10 +84,12 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
             context,
             message: state.responseMsg,
           );
-          Provider.of<AppStateNotifier>(context).updateAfterAuthChange(
+          Provider.of<AppStateNotifier>(context, listen: false)
+              .updateAfterAuthChange(
             isAuthorized: false,
           );
-          navigator<NavigationService>().navigateTo(AuthRoutes.loginWithPhoneRoute);
+          navigator<NavigationService>()
+              .navigateTo(AuthRoutes.loginWithPhoneRoute);
         }
       },
       builder: (context, state) {
@@ -320,7 +322,6 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                       height: 3.h,
                     ),
                     Column(
-                      
                       children: [
                         // SettingTile(
                         //   prefixIcon: AssetConstants.accountSettings,

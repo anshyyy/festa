@@ -105,6 +105,29 @@ dev_dependencies:
   flutter_native_splash: 2.3.10
 
 
+flutter_icons:
+  android: true
+  ios: true
+  adaptive_icon_background: "assets/icons/app_bg.png"
+  adaptive_icon_foreground: "assets/icons/app_fg.png"
+  image_path: "assets/icons/app_logo.png"
+  remove_alpha_ios: false
+  web:
+    generate: false
+  windows:
+    generate: false
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/icons/splash.png
+
+  android_12:
+    image: assets/icons/splash.png
+    icon_background_color: "#FFFFFF"
+
+  ios: false
+  web: false
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

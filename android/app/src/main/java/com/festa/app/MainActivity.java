@@ -1,4 +1,4 @@
-package com.festa.app;
+package com.festaworld.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 

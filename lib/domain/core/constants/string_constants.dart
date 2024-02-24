@@ -40,7 +40,7 @@ class BirthdayScreenConstants {
 class GenderSelectionScreenConstants {
   static String addGenderText = 'What\'s your gender?';
   static String addText =
-      'Lorem ipsum dolor sit amet consectetur. Duis aliquet tellus quis risus tincidunt purus enim nec. Vitae tincidunt suspendisse sed urna egestas dui scelerisque massa vitae. ';
+      'Please enter what gender?';
 }
 
 class TermsAndConditionConstants {

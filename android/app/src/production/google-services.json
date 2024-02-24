@@ -7,18 +7,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:154103086037:android:2eceae422840bb6cfa5b5c",
+        "mobilesdk_app_id": "1:154103086037:android:2abee67b1037d13cfa5b5c",
         "android_client_info": {
-          "package_name": "com.festaworld.app"
+          "package_name": "com.festa.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "154103086037-3f2d5d2iuiqrkgge96issmt44h2k0660.apps.googleusercontent.com",
+          "client_id": "154103086037-5a05bi3n5lt0eo463e0n8r0jkkjiklv2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.festaworld.app",
+            "package_name": "com.festa.app",
             "certificate_hash": "95266e24071e55e3d313f689c2f72b0fa45dee09"
+          }
+        },
+        {
+          "client_id": "154103086037-gese2m71ihg1pp94rr8qqsti8u10q0sr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.festa.app",
+            "certificate_hash": "fa3b9b64f7903ec8ede90b33454268442813f4f5"
           }
         },
         {
@@ -39,7 +47,95 @@
               "client_type": 3
             },
             {
-              "client_id": "154103086037-5mtc26egmo27sai0op1b3jobcp0g95ji.apps.googleusercontent.com",
+              "client_id": "154103086037-0nncc86gh56hmc9qu682qm598n1rg9cm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.festaworld.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154103086037:android:2eceae422840bb6cfa5b5c",
+        "android_client_info": {
+          "package_name": "com.festa.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154103086037-3f2d5d2iuiqrkgge96issmt44h2k0660.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.festa.app.dev",
+            "certificate_hash": "95266e24071e55e3d313f689c2f72b0fa45dee09"
+          }
+        },
+        {
+          "client_id": "154103086037-g78lavml9a9vt12pgla53camjpkvn2g7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.festa.app.dev",
+            "certificate_hash": "fa3b9b64f7903ec8ede90b33454268442813f4f5"
+          }
+        },
+        {
+          "client_id": "154103086037-ic6ar22fckg78c6cu4ceqms3ed3nlt08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbp5Mr8yQvxbundkW3NEeFFCN5O9BRqms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154103086037-ic6ar22fckg78c6cu4ceqms3ed3nlt08.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154103086037-0nncc86gh56hmc9qu682qm598n1rg9cm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.festaworld.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154103086037:android:4dfb864fa028e807fa5b5c",
+        "android_client_info": {
+          "package_name": "com.festaworld.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154103086037-ic6ar22fckg78c6cu4ceqms3ed3nlt08.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbp5Mr8yQvxbundkW3NEeFFCN5O9BRqms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154103086037-ic6ar22fckg78c6cu4ceqms3ed3nlt08.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "154103086037-0nncc86gh56hmc9qu682qm598n1rg9cm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.festaworld.app"

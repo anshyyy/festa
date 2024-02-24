@@ -58,7 +58,6 @@ class IEventRepository extends EventRepository {
       if (otherFilters != null) {
         param['filter'] = otherFilters;
       }
-      print(otherFilters);
       final response =
           await RESTService.performGETRequest(httpUrl: url, param: param);
       if (response.statusCode != 200) {

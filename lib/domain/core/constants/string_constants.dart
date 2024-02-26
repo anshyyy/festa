@@ -183,6 +183,10 @@ class EventDetailsScreenConstants {
   static String fAQs = 'FAQs';
   static String fAQsText =
       'Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut. Tempus tellus suspendisse elementum convallis egestas aliquet egestas. Bibendum sagittis fames ut.';
+  static String followArtists = 'Follow artists';
+  static String addToCalendar = 'Add to calendar';
+  static String shareEvent = 'Share an event';
+  static String report = 'Report';
 }
 
 class UserProfileScreenConstants {

@@ -19,7 +19,7 @@ class AppConstants {
   static String filterKey = 'filter';
   static String otherKey = 'other';
   static String rupees = '₹';
-  static String search = 'search';
+  static String search = 'Search';
   static int otpTimer = 30;
 }
 
@@ -218,4 +218,10 @@ class EditProfileScreenConstants {
   static String editProfile = 'Edit Profile';
   static String profile = 'Profile';
   static String bio = 'Bio';
+}
+
+class SetupLocationScreenConstants {
+  static String setupYourLocation = 'Set your location';
+  static String seeWhatHappening = 'See what’s happening in your city';
+  static String useMyLocation = 'Use my location';
 }

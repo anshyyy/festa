@@ -86,7 +86,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
                       : Provider.of<AppStateNotifier>(context).profileState ==
                               ProfileStateEnum.basic
                           ? AuthRoutes.birthdayRoute
-                          : AuthRoutes.basicInfoRoute
+                          : AuthRoutes.locationSetupRoute
               : AuthRoutes.startRoute,
     );
   }

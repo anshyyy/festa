@@ -93,6 +93,9 @@ class AssetConstants {
   static const logout = '${vectorsFolder}logout-settings.svg';
   static const trash = '${vectorsFolder}trash.svg';
 
+  static const festaSecondary = '${vectorsFolder}festa-secondary-icon.svg';
+  static const setupLocation = '${vectorsFolder}setup-location.svg';
+
 // eventIconConstants
   static const Map<String, String> extras = {
     'light': lightsIcon,

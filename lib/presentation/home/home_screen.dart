@@ -14,6 +14,8 @@ import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../core/primary_button.dart';
+import '../widgets/custom_search.dart';
+import '../widgets/custom_textfield.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
@@ -50,6 +52,7 @@ class HomeScreenConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          
           body: state.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -72,7 +75,14 @@ class HomeScreenConsumer extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  2==2 ? Container(
+                                    child: CustomTextField(
+                                      prefixIcon: SvgPicture.asset(AssetConstants.searchIcon),
+                                      suffixIcon: SvgPicture.asset(AssetConstants.closeIcon),
+                                      hintText: AppConstants.search,
+                                      contentPadding: EdgeInsets.all(5),
+                                    ),
+                                  ): Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -108,8 +118,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                       ),
                                       Row(
                                         children: [
-                                          SvgPicture.asset(
-                                            AssetConstants.searchIcon,
+                                          GestureDetector(
+                                            onTap: (){
+                                              // 
+                                            },
+                                            child: SvgPicture.asset(
+                                              AssetConstants.searchIcon,
+                                            ),
                                           ),
                                           SizedBox(
                                             width: 3.w,

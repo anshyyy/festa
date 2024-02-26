@@ -227,4 +227,12 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(overlayEntry:null));
     }
   }
+
+  void toggleSearch({required bool flag}){
+    emit(state.copyWith(isSearchOpen: flag));
+  }
+  
+  void onSearchChange({required String query}){
+    emit(state.copyWith(isSearchChanged: query.isNotEmpty));
+  }
 }

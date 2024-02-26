@@ -41,6 +41,8 @@ mixin _$HomeState {
       throw _privateConstructorUsedError;
   Offset get chipPosition => throw _privateConstructorUsedError;
   OverlayEntry? get overlayEntry => throw _privateConstructorUsedError;
+  bool get isSearchOpen => throw _privateConstructorUsedError;
+  bool get isSearchChanged => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -73,7 +75,9 @@ abstract class $HomeStateCopyWith<$Res> {
       bool sortDropdownOpen,
       GlobalKey<State<StatefulWidget>> sortKey,
       Offset chipPosition,
-      OverlayEntry? overlayEntry});
+      OverlayEntry? overlayEntry,
+      bool isSearchOpen,
+      bool isSearchChanged});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -113,6 +117,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? sortKey = null,
     Object? chipPosition = null,
     Object? overlayEntry = freezed,
+    Object? isSearchOpen = null,
+    Object? isSearchChanged = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -199,6 +205,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.overlayEntry
           : overlayEntry // ignore: cast_nullable_to_non_nullable
               as OverlayEntry?,
+      isSearchOpen: null == isSearchOpen
+          ? _value.isSearchOpen
+          : isSearchOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSearchChanged: null == isSearchChanged
+          ? _value.isSearchChanged
+          : isSearchChanged // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -252,7 +266,9 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool sortDropdownOpen,
       GlobalKey<State<StatefulWidget>> sortKey,
       Offset chipPosition,
-      OverlayEntry? overlayEntry});
+      OverlayEntry? overlayEntry,
+      bool isSearchOpen,
+      bool isSearchChanged});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -292,6 +308,8 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? sortKey = null,
     Object? chipPosition = null,
     Object? overlayEntry = freezed,
+    Object? isSearchOpen = null,
+    Object? isSearchChanged = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -378,6 +396,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.overlayEntry
           : overlayEntry // ignore: cast_nullable_to_non_nullable
               as OverlayEntry?,
+      isSearchOpen: null == isSearchOpen
+          ? _value.isSearchOpen
+          : isSearchOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSearchChanged: null == isSearchChanged
+          ? _value.isSearchChanged
+          : isSearchChanged // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -406,7 +432,9 @@ class _$HomeStateImpl implements _HomeState {
       required this.sortDropdownOpen,
       required this.sortKey,
       required this.chipPosition,
-      this.overlayEntry});
+      this.overlayEntry,
+      required this.isSearchOpen,
+      required this.isSearchChanged});
 
   @override
   final bool isLoading;
@@ -450,10 +478,14 @@ class _$HomeStateImpl implements _HomeState {
   final Offset chipPosition;
   @override
   final OverlayEntry? overlayEntry;
+  @override
+  final bool isSearchOpen;
+  @override
+  final bool isSearchChanged;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged)';
   }
 
   @override
@@ -497,7 +529,11 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.chipPosition, chipPosition) ||
                 other.chipPosition == chipPosition) &&
             (identical(other.overlayEntry, overlayEntry) ||
-                other.overlayEntry == overlayEntry));
+                other.overlayEntry == overlayEntry) &&
+            (identical(other.isSearchOpen, isSearchOpen) ||
+                other.isSearchOpen == isSearchOpen) &&
+            (identical(other.isSearchChanged, isSearchChanged) ||
+                other.isSearchChanged == isSearchChanged));
   }
 
   @override
@@ -523,7 +559,9 @@ class _$HomeStateImpl implements _HomeState {
         sortDropdownOpen,
         sortKey,
         chipPosition,
-        overlayEntry
+        overlayEntry,
+        isSearchOpen,
+        isSearchChanged
       ]);
 
   @JsonKey(ignore: true)
@@ -555,7 +593,9 @@ abstract class _HomeState implements HomeState {
       required final bool sortDropdownOpen,
       required final GlobalKey<State<StatefulWidget>> sortKey,
       required final Offset chipPosition,
-      final OverlayEntry? overlayEntry}) = _$HomeStateImpl;
+      final OverlayEntry? overlayEntry,
+      required final bool isSearchOpen,
+      required final bool isSearchChanged}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -599,6 +639,10 @@ abstract class _HomeState implements HomeState {
   Offset get chipPosition;
   @override
   OverlayEntry? get overlayEntry;
+  @override
+  bool get isSearchOpen;
+  @override
+  bool get isSearchChanged;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

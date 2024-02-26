@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -24,7 +25,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+          fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: Theme.of(context).colorScheme.background,
             ),

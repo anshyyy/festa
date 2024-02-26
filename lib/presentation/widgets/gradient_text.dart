@@ -19,7 +19,7 @@ class GradientText extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ).createShader(
-              Rect.fromLTWH(0, 60, bounds.width, bounds.height),
+              Rect.fromLTWH(0, 50, bounds.width, bounds.height),
             ),
             child: Text(text, style: textStyle,),
             );

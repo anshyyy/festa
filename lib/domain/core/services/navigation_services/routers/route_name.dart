@@ -28,4 +28,5 @@ class UserRoutes {
   static const String userProfileRoute = 'userProfile';
   static const String personalizeExperienceRoute = 'personalizeExperienceRoute';
   static const String editProfileRoute = 'editProfile';
+  static const String notificationsRoute = 'notifications';
 }

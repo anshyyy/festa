@@ -23,7 +23,9 @@ class HomeState with _$HomeState {
     required bool sortDropdownOpen,
     required GlobalKey sortKey,
     required Offset chipPosition,
-    OverlayEntry? overlayEntry
+    OverlayEntry? overlayEntry,
+    required bool isSearchOpen,
+    required bool isSearchChanged,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
@@ -90,5 +92,7 @@ class HomeState with _$HomeState {
       sortDropdownOpen: false,
       sortKey: GlobalKey(),
       chipPosition: Offset.zero,
+      isSearchOpen:false,
+      isSearchChanged: false,
       );
 }

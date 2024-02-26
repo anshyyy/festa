@@ -19,6 +19,7 @@ import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
+import '../../../../../presentation/notifications/notification_screen.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
 import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
 import '../../../../../presentation/user/personalise_your_experience/personalise_experience_screen.dart';
@@ -78,6 +79,10 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.mainNavRoute:
       return _getPageRoute(const MainNavigator(), settings);
+
+    case UserRoutes.notificationsRoute:
+      return _getPageRoute(const NotificationsScreen(), settings);
+
     default:
       return commonNavigation(settings);
   }

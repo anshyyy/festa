@@ -130,6 +130,7 @@ class HomeScreenConstants {
   static String explorerAll = 'Explore all';
   static String noEventsFound = 'No events found in your selected filters';
   static String editFilters = 'Edit filters';
+  static String searchEvent = 'Search events';
 }
 
 class CartScreenConstants {
@@ -224,4 +225,11 @@ class SetupLocationScreenConstants {
   static String setupYourLocation = 'Set your location';
   static String seeWhatHappening = 'See what’s happening in your city';
   static String useMyLocation = 'Use my location';
+}
+
+class NotificationsScreenConstants {
+  static String notificationsFilter = 'Filter';
+  static String notifications = 'Notifications';
+  static String noNotifications = 'No Notifications yet';
+  static String aboutNotifications = 'Notifications about your events and friends will show up here.';
 }

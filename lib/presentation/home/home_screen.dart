@@ -14,13 +14,13 @@ import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../core/primary_button.dart';
-import '../widgets/custom_search.dart';
 import '../widgets/custom_textfield.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
 import 'widgets/location_dialog.dart';
 import '../common/event_card.dart';
+import 'widgets/search/search_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -52,7 +52,6 @@ class HomeScreenConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          
           body: state.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -75,14 +74,7 @@ class HomeScreenConsumer extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  2==2 ? Container(
-                                    child: CustomTextField(
-                                      prefixIcon: SvgPicture.asset(AssetConstants.searchIcon),
-                                      suffixIcon: SvgPicture.asset(AssetConstants.closeIcon),
-                                      hintText: AppConstants.search,
-                                      contentPadding: EdgeInsets.all(5),
-                                    ),
-                                  ): Row(
+                                  Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -109,7 +101,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       color: themeData
                                                           .colorScheme
                                                           .background,
-                                                          fontSize: 14.sp,
+                                                      fontSize: 14.sp,
                                                       fontWeight:
                                                           FontWeight.w600),
                                             )
@@ -119,8 +111,10 @@ class HomeScreenConsumer extends StatelessWidget {
                                       Row(
                                         children: [
                                           GestureDetector(
-                                            onTap: (){
-                                              // 
+                                            onTap: () {
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .toggleSearch(flag: true);
                                             },
                                             child: SvgPicture.asset(
                                               AssetConstants.searchIcon,
@@ -129,8 +123,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                           SizedBox(
                                             width: 3.w,
                                           ),
-                                          SvgPicture.asset(
-                                              AssetConstants.notificationIcon)
+                                          GestureDetector(
+                                            onTap: (){
+                                              navigator<NavigationService>().navigateTo(UserRoutes.notificationsRoute);
+                                            },
+                                            child: SvgPicture.asset(
+                                                AssetConstants.notificationIcon),
+                                          )
                                         ],
                                       )
                                     ],
@@ -206,8 +205,10 @@ class HomeScreenConsumer extends StatelessWidget {
                                       style: themeData.textTheme.bodySmall!
                                           .copyWith(
                                         fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).colorScheme.onSecondary,
-                                        letterSpacing:0,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
+                                        letterSpacing: 0,
                                       ),
                                     ),
                                     if (state.categoryFilter != null)
@@ -464,6 +465,9 @@ class HomeScreenConsumer extends StatelessWidget {
                               ),
                             ),
                           ),
+                          state.isSearchOpen
+                              ? const HomeSearch()
+                              : const SizedBox(),
                           state.showLocationDialog
                               ? const LocationDialog()
                               : const SizedBox()

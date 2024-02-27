@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../application/starter/starter_cubit.dart';
 import '../../domain/core/configs/injection.dart';
@@ -34,7 +36,7 @@ class StartScreenConsumer extends StatelessWidget {
           //   AuthRoutes.authRoute,
           // );
 
-           navigator<NavigationService>().navigateTo(
+          navigator<NavigationService>().navigateTo(
             AuthRoutes.loginWithPhoneRoute,
           );
 
@@ -77,13 +79,16 @@ class StartScreenConsumer extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text:
-                                    '${TermsAndConditionConstants.privacyMessage} ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                              ),
+                                  text:
+                                      '${TermsAndConditionConstants.privacyMessage} ',
+                                  style:
+                                      Theme.of(context).textTheme.bodySmall!),
                               TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launchUrl(Uri.parse(
+                                        'https://www.festa.world/terms'));
+                                  },
                                 text: TermsAndConditionConstants.termsText,
                                 style: Theme.of(context)
                                     .textTheme
@@ -97,13 +102,16 @@ class StartScreenConsumer extends StatelessWidget {
                                     ),
                               ),
                               TextSpan(
-                                text: ' ${AppConstants.andText} ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    // .copyWith(fontSize: 13.7.sp),
-                              ),
+                                  text: ' ${AppConstants.andText} ',
+                                  style: Theme.of(context).textTheme.bodySmall!
+                                  // .copyWith(fontSize: 13.7.sp),
+                                  ),
                               TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launchUrl(Uri.parse(
+                                        'https://www.festa.world/privacy'));
+                                  },
                                 text: TermsAndConditionConstants.privacyText,
                                 style: Theme.of(context)
                                     .textTheme
@@ -116,7 +124,7 @@ class StartScreenConsumer extends StatelessWidget {
                                           .secondaryContainer,
                                     ),
                               ),
-                               TextSpan(
+                              TextSpan(
                                 text: '.',
                                 style: Theme.of(context)
                                     .textTheme

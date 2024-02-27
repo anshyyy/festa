@@ -16,6 +16,7 @@ import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../common/event_card.dart';
 import '../core/primary_button.dart';
+import '../widgets/gradient_text.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
@@ -439,161 +440,157 @@ class another extends StatelessWidget {
       },
       builder: (context, state) {
         return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(AssetConstants.notFoundFilter),
-            Text(
-              HomeScreenConstants.noEventsFound,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            PrimaryButton(
-              text: HomeScreenConstants.editFilters,
-              function: () {
-                final builderContext = context;
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return FilterModalSheet(
-                        filters: List.from(state.filters
-                            .map((e) => e.copyWith(values: List.from(e.values)))
-                            .toList()),
-                      );
-                    }).then((value) {
-                  if (value != null) {
-                    if (value is List<FilterDto>) {
-                      builderContext
-                          .read<HomeCubit>()
-                          .updateFilterApplied(filters: value);
-                    }
-                  }
-                });
-              },
-              width: 10.w,
-              height: 4.h,
-              borderColor: Theme.of(context).colorScheme.secondaryContainer,
-              backgroundColor: Theme.of(context).colorScheme.onSurface,
-              textColor: Theme.of(context).colorScheme.background,
-            ),
-            
-            SizedBox(
-              height: 10.h,
-            ),
             Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Popular events in Banglore',
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.background,
-                          ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'See all Events',
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.background,
-                            ),
-                      ),
-                    ),
-                  ],
+                SizedBox(height: 10.h,),
+                SvgPicture.asset(AssetConstants.notFoundFilter),
+                Text(
+                  HomeScreenConstants.noEventsFound,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 SizedBox(
-                  height: 1.h,
+                  height: 2.h,
                 ),
-                SizedBox(
-                  height: 50.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 45.w,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 20.h,
-                              width: 20.h,
-                              margin: EdgeInsets.only(right: 3.w),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: CachedNetworkImageProvider(
-                                          'https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Text(
-                              'Now. 8 PM - 12:00 PM',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                            ),
-                            Text(
-                              'THE GREYBOT ALL STARS/MIKE',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                            ),
-                            Text(
-                              'Great Indian Music Hall',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                            ),
-                            Text(
-                              '554+ people booked, 1034+ interested',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                )
+                PrimaryButton(
+                  text: HomeScreenConstants.editFilters,
+                  function: () {
+                    final builderContext = context;
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return FilterModalSheet(
+                            filters: List.from(state.filters
+                                .map((e) =>
+                                    e.copyWith(values: List.from(e.values)))
+                                .toList()),
+                          );
+                        }).then((value) {
+                      if (value != null) {
+                        if (value is List<FilterDto>) {
+                          builderContext
+                              .read<HomeCubit>()
+                              .updateFilterApplied(filters: value);
+                        }
+                      }
+                    });
+                  },
+                  width: 10.w,
+                  height: 4.h,
+                  borderColor: Theme.of(context).colorScheme.secondaryContainer,
+                  backgroundColor: Theme.of(context).colorScheme.onSurface,
+                  textColor: Theme.of(context).colorScheme.background,
+                ),
+                SizedBox(height: 10.h,),
+              
               ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Popular events in Banglore',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.background,
+                      ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GradientText(
+                    text: 'See all Events',
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary
+                    ],
+                    textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [
+                EventWidget(),
+                EventWidget(),
+                EventWidget(),
+                EventWidget(),
+                EventWidget(),
+                EventWidget(),
+              ]),
             )
           ],
         );
       },
+    );
+  }
+}
+
+class EventWidget extends StatelessWidget {
+  const EventWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 45.w,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 20.h,
+            width: 20.h,
+            margin: EdgeInsets.only(right: 3.w),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: CachedNetworkImageProvider(
+                        'https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))),
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          GradientText(
+            text: 'Now. 8 PM - 12:00 PM',
+            colors: [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.secondary
+            ],
+            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).colorScheme.background,
+                ),
+          ),
+          Text(
+            'THE GREYBOT ALL STARS/MIKE',
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).colorScheme.background,
+                ),
+          ),
+          Text(
+            'Great Indian Music Hall',
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+          ),
+          Text(
+            '554+ people booked, 1034+ interested',
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                // fontWeight: FontWeight.w300,
+                ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../domain/core/constants/asset_constants.dart';
@@ -55,7 +56,7 @@ class UsernameScreenConsumer extends StatelessWidget {
                 fillColor: Theme.of(context).colorScheme.primaryContainer,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.h),
-                
+                suffixIcon: 2==2 ? Image.asset(AssetConstants.bubbleLoader): SvgPicture.asset(AssetConstants.accountSettings),
               ),
               const Spacer(),
               Align(

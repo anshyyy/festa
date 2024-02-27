@@ -26,6 +26,7 @@ class HomeState with _$HomeState {
     OverlayEntry? overlayEntry,
     required bool isSearchOpen,
     required bool isSearchChanged,
+    required bool isLocationSearchChanged,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
@@ -94,5 +95,6 @@ class HomeState with _$HomeState {
       chipPosition: Offset.zero,
       isSearchOpen:false,
       isSearchChanged: false,
+      isLocationSearchChanged:false,
       );
 }

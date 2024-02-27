@@ -31,7 +31,7 @@ class HomeSearch extends StatelessWidget{
             child: Column(
               children: [
                 CustomTextField(
-                  contentPadding: EdgeInsets.symmetric(vertical: 1.2.h, horizontal: 4.w),
+                  contentPadding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
                   prefixIcon: SvgPicture.asset(AssetConstants.searchIcon, height: 3.5.h,),
                   suffixIcon: SvgPicture.asset(AssetConstants.closeIcon),
                   hintText: HomeScreenConstants.searchEvent,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,13 +14,12 @@ import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
+import '../common/event_card.dart';
 import '../core/primary_button.dart';
-import '../widgets/custom_textfield.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
 import 'widgets/location_dialog.dart';
-import '../common/event_card.dart';
 import 'widgets/search/search_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -124,11 +124,14 @@ class HomeScreenConsumer extends StatelessWidget {
                                             width: 3.w,
                                           ),
                                           GestureDetector(
-                                            onTap: (){
-                                              navigator<NavigationService>().navigateTo(UserRoutes.notificationsRoute);
+                                            onTap: () {
+                                              navigator<NavigationService>()
+                                                  .navigateTo(UserRoutes
+                                                      .notificationsRoute);
                                             },
                                             child: SvgPicture.asset(
-                                                AssetConstants.notificationIcon),
+                                                AssetConstants
+                                                    .notificationIcon),
                                           )
                                         ],
                                       )
@@ -136,66 +139,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                   ),
                                   if (!state.hasMoreEvents &&
                                       state.events.isEmpty)
-                                    Container(
-                                      height: 80.h,
-                                      alignment: Alignment.center,
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SvgPicture.asset(
-                                                AssetConstants.notFoundFilter),
-                                            Text(
-                                              HomeScreenConstants.noEventsFound,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            PrimaryButton(
-                                              text: HomeScreenConstants
-                                                  .editFilters,
-                                              function: () {
-                                                final builderContext = context;
-                                                showModalBottomSheet(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return FilterModalSheet(
-                                                        filters: List.from(state
-                                                            .filters
-                                                            .map((e) => e.copyWith(
-                                                                values: List.from(
-                                                                    e.values)))
-                                                            .toList()),
-                                                      );
-                                                    }).then((value) {
-                                                  if (value != null) {
-                                                    if (value
-                                                        is List<FilterDto>) {
-                                                      builderContext
-                                                          .read<HomeCubit>()
-                                                          .updateFilterApplied(
-                                                              filters: value);
-                                                    }
-                                                  }
-                                                });
-                                              },
-                                              width: 10.w,
-                                              height: 35,
-                                              borderColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondaryContainer,
-                                              backgroundColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .onSurface,
-                                              textColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                            )
-                                          ]),
-                                    )
+                                    another()
                                   else ...[
                                     SizedBox(
                                       height: 2.h,
@@ -476,6 +420,178 @@ class HomeScreenConsumer extends StatelessWidget {
                     ),
                   ),
                 ),
+        );
+      },
+    );
+  }
+}
+
+class another extends StatelessWidget {
+  const another({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(AssetConstants.notFoundFilter),
+            Text(
+              HomeScreenConstants.noEventsFound,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            PrimaryButton(
+              text: HomeScreenConstants.editFilters,
+              function: () {
+                final builderContext = context;
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return FilterModalSheet(
+                        filters: List.from(state.filters
+                            .map((e) => e.copyWith(values: List.from(e.values)))
+                            .toList()),
+                      );
+                    }).then((value) {
+                  if (value != null) {
+                    if (value is List<FilterDto>) {
+                      builderContext
+                          .read<HomeCubit>()
+                          .updateFilterApplied(filters: value);
+                    }
+                  }
+                });
+              },
+              width: 10.w,
+              height: 4.h,
+              borderColor: Theme.of(context).colorScheme.secondaryContainer,
+              backgroundColor: Theme.of(context).colorScheme.onSurface,
+              textColor: Theme.of(context).colorScheme.background,
+            ),
+            
+            SizedBox(
+              height: 10.h,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Popular events in Banglore',
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.background,
+                          ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'See all Events',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                SizedBox(
+                  height: 50.h,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: 45.w,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 20.h,
+                              width: 20.h,
+                              margin: EdgeInsets.only(right: 3.w),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: const DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: CachedNetworkImageProvider(
+                                          'https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))),
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              'Now. 8 PM - 12:00 PM',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                            ),
+                            Text(
+                              'THE GREYBOT ALL STARS/MIKE',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                            ),
+                            Text(
+                              'Great Indian Music Hall',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                            ),
+                            Text(
+                              '554+ people booked, 1034+ interested',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
+            )
+          ],
         );
       },
     );

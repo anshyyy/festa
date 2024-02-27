@@ -14,7 +14,6 @@ class AssetConstants {
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
   static const homeBobsBarImg = '${vectorsFolder}bobsbarimg.png';
   static const homeFilledLocation = '${vectorsFolder}home-filled-location.svg';
-  // static const shareIcon = '${vectorsFolder}direction-icon.svg';
   static const ticketIcon = '${vectorsFolder}ticket.svg';
   static const heartOutlinedIcon = '${vectorsFolder}heart-outlined-icon.svg';
   static const homeProfilePictureIcon =
@@ -95,6 +94,12 @@ class AssetConstants {
 
   static const festaSecondary = '${vectorsFolder}festa-secondary-icon.svg';
   static const setupLocation = '${vectorsFolder}setup-location.svg';
+
+  static const followIcon = '${vectorsFolder}follow-icon.svg';
+  static const addToCalendar = '${vectorsFolder}calendar-icon.svg';
+  static const shareOutlined = '${vectorsFolder}share-outlined-icon.svg';
+  static const gradientReport = '${vectorsFolder}report-gradient-icon.svg';
+  static const defaultProfileImage = '${imageFolder}default-profile.png';
 
 // eventIconConstants
   static const Map<String, String> extras = {

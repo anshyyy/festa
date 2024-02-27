@@ -235,4 +235,8 @@ class HomeCubit extends Cubit<HomeState> {
   void onSearchChange({required String query}){
     emit(state.copyWith(isSearchChanged: query.isNotEmpty));
   }
+
+  void onLocationSearchChange({required String query}){
+    emit(state.copyWith(isLocationSearchChanged: query.isNotEmpty));
+  }
 }

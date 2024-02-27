@@ -55,6 +55,7 @@ class UsernameScreenConsumer extends StatelessWidget {
                 fillColor: Theme.of(context).colorScheme.primaryContainer,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.h),
+                
               ),
               const Spacer(),
               Align(

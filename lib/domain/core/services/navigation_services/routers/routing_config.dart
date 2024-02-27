@@ -11,6 +11,7 @@ import '../../../../../presentation/basic_profile/basic_profile_screen.dart';
 import '../../../../../presentation/basic_profile/birthday_selection_screen.dart';
 import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 import '../../../../../presentation/basic_profile/set_your_location.dart';
+import '../../../../../presentation/basic_profile/username_screen.dart';
 import '../../../../../presentation/booking/book_ticket_screen.dart';
 import '../../../../../presentation/booking/payment_details_screen.dart';
 import '../../../../../presentation/club_profile/club_profile_screen.dart';
@@ -34,14 +35,21 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case AuthRoutes.basicInfoRoute:
       return _getPageRoute(const BasicProfileScreen(), settings);
 
-    case AuthRoutes.locationSetupRoute:
-      return _getPageRoute(const SetYourLocation(), settings);
+   
 
     case AuthRoutes.birthdayRoute:
       return _getPageRoute(const BirthdayScreen(), settings);
 
     case AuthRoutes.genderRoute:
       return _getPageRoute(const GenderSelectionScreen(), settings);
+
+
+ case AuthRoutes.usernameRoute:
+      return _getPageRoute(const UsernameScreen(), settings);
+
+ case AuthRoutes.locationSetupRoute:
+      return _getPageRoute(const SetYourLocation(), settings);
+
 
     case UserRoutes.homeScreenRoute:
       return _getPageRoute(const HomeScreen(), settings);

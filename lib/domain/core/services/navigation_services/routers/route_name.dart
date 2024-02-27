@@ -13,6 +13,7 @@ class AuthRoutes {
   static const String startRoute = 'start';
   static const String loginWithPhoneRoute = 'phone';
   static const String basicInfoRoute = 'basicInfo';
+  static const String usernameRoute = 'addUsername';
   static const String locationSetupRoute = 'locationSetup';
 }
 

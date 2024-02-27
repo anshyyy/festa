@@ -44,6 +44,7 @@ class VerifyOtpScreen extends StatelessWidget {
     );
   }
 }
+
 class EllipsesBackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -69,7 +70,6 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-
 
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listener: (context, state) {
@@ -98,22 +98,17 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                   : user.fullName.isNotEmpty
                       ? ProfileStateEnum.basic
                       : ProfileStateEnum.started;
-          final route=profileState ==
-                      ProfileStateEnum.completed
-                  ? UserRoutes.mainNavRoute
-                  : profileState ==
-                          ProfileStateEnum.birthday
-                      ? AuthRoutes.genderRoute
-                      : profileState ==
-                              ProfileStateEnum.basic
-                          ? AuthRoutes.birthdayRoute
-                          : AuthRoutes.basicInfoRoute;
+          final route = profileState == ProfileStateEnum.completed
+              ? UserRoutes.mainNavRoute
+              : profileState == ProfileStateEnum.birthday
+                  ? AuthRoutes.genderRoute
+                  : profileState == ProfileStateEnum.basic
+                      ? AuthRoutes.birthdayRoute
+                      : AuthRoutes.basicInfoRoute;
 
           Future.delayed(const Duration(milliseconds: 100)).then((value) async {
-            navigator<NavigationService>().navigateTo(
-              route,
-              isClearStack: true
-            );
+            navigator<NavigationService>()
+                .navigateTo(route, isClearStack: true);
           });
           context.read<VerifyOtpCubit>().emitFromAnywhere(
                 state: state.copyWith(isOTPVerificationSuccessful: false),
@@ -159,164 +154,176 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-                  body: Stack(
-                          children: [
-                            SizedBox(
-                              height: 50.h,
-                              width: 100.w,
-                              child: Image.asset(AssetConstants.scaffoldBcg, fit: BoxFit.cover,),
+          body: Stack(
+            children: [
+              SizedBox(
+                height: 50.h,
+                width: 100.w,
+                child: Image.asset(
+                  AssetConstants.scaffoldBcg,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 11.h,
+                      ),
+                      Text(
+                        LoginScreenConstants.verifyNumberHeader,
+                        style: themeData.textTheme.bodyLarge!.copyWith(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w600,
+                          color: themeData.colorScheme.background,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
+                            style: themeData.textTheme.bodySmall!
+                                .copyWith(fontSize: 14.5.sp),
+                          ),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.read<VerifyOtpCubit>().onGoBack();
+                            },
+                            child: SvgPicture.asset(
+                              AssetConstants.editIcon,
                             ),
-                            
-                            SafeArea(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                                height: 11.h,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      PinCodeTextField(
+                        controller: state.otpController,
+                        appContext: context,
+                        length: 6,
+                        showCursor: false,
+                        obscureText: false,
+                        animationType: AnimationType.fade,
+                        enableActiveFill: true,
+                        enablePinAutofill: false,
+                        hintCharacter: '-',
+                        keyboardType: TextInputType.number,
+                        hintStyle: themeData.textTheme.bodyLarge!.copyWith(
+                          fontSize: 24.sp,
+                          color: themeData.colorScheme.background,
+                        ),
+                        textStyle: themeData.textTheme.bodyLarge!.copyWith(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w500,
+                          color: themeData.scaffoldBackgroundColor,
+                        ),
+                        pinTheme: PinTheme(
+                            inactiveColor:
+                                themeData.colorScheme.primaryContainer,
+                            borderWidth: 0,
+                            inactiveBorderWidth: 0,
+                            activeBorderWidth: 0,
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(40),
+                            fieldHeight: 7.5.h,
+                            fieldWidth: 13.w,
+                            selectedFillColor:
+                                themeData.colorScheme.primaryContainer,
+                            inactiveFillColor:
+                                themeData.colorScheme.primaryContainer,
+                            activeFillColor: themeData.colorScheme.background,
+                            selectedBorderWidth: 0,
+                            selectedColor: themeData.colorScheme.primary),
+                        onChanged: (value) {
+                          context.read<VerifyOtpCubit>().onOtpChange();
+                        },
+                      ),
+                      SizedBox(
+                        height: 1.5.h,
+                      ),
+                      state.showResendButton
+                          ? InkWell(
+                              onTap: () {
+                                context.read<VerifyOtpCubit>().resendOtp();
+                              },
+                              child: Text(
+                                LoginScreenConstants.resendNow,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                     ),
-                                    Text(
-                                                LoginScreenConstants.verifyNumberHeader,
-                                                style: themeData.textTheme.bodyLarge!.copyWith(
-                                                  fontSize: 24.sp,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: themeData.colorScheme.background,
-                                                ),
-                                    ),
-                                    SizedBox(
-                                                height: 1.h,
-                                    ),
-                                    Row(
-                                                children: [
-                                                  Text(
-                                                    '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
-                                                    style: themeData.textTheme.bodySmall!
-                                                        .copyWith(fontSize: 14.5.sp),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 2.w,
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      context.read<VerifyOtpCubit>().onGoBack();
-                                                    },
-                                                    child: SvgPicture.asset(
-                                                      AssetConstants.editIcon,
-                                                    ),
-                                                  )
-                                                ],
-                                    ),
-                                    SizedBox(
-                                                height: 5.h,
-                                    ),
-                                    PinCodeTextField(
-                                                controller: state.otpController,
-                                                appContext: context,
-                                                length: 6,
-                                                showCursor: false,
-                                                obscureText: false,
-                                                animationType: AnimationType.fade,
-                                                enableActiveFill: true,
-                                                enablePinAutofill: false,
-                                                hintCharacter: '-',
-                                                keyboardType: TextInputType.number,
-                                                hintStyle: themeData.textTheme.bodyLarge!.copyWith(
-                                                  fontSize: 24.sp,
-                                                  color: themeData.colorScheme.background,
-                                                ),
-                                                textStyle: themeData.textTheme.bodyLarge!.copyWith(
-                                                  fontSize: 20.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: themeData.scaffoldBackgroundColor,
-                                                ),
-                                                pinTheme: PinTheme(
-                                                    inactiveColor: themeData.colorScheme.primaryContainer,
-                                                    borderWidth: 0,
-                                                    inactiveBorderWidth: 0,
-                                                    activeBorderWidth: 0,
-                                                    shape: PinCodeFieldShape.box,
-                                                    borderRadius: BorderRadius.circular(40),
-                                                    fieldHeight: 7.5.h,
-                                                    fieldWidth: 13.w,
-                                                    selectedFillColor: themeData.colorScheme.primaryContainer,
-                                                    inactiveFillColor: themeData.colorScheme.primaryContainer,
-                                                    activeFillColor: themeData.colorScheme.background,
-                                                    selectedBorderWidth: 0,
-                                                    selectedColor: themeData.colorScheme.primary),
-                                                onChanged: (value) {
-                                                  context.read<VerifyOtpCubit>().onOtpChange();
-                                                },
-                                    ),
-                                    SizedBox(
-                                                height: 1.5.h,
-                                    ),
-                                    state.showResendButton
-                                                  ? InkWell(
-                                                      onTap: () {
-                                                        context.read<VerifyOtpCubit>().resendOtp();
-                                                      },
-                                                      child: Text(
-                                                        LoginScreenConstants.resendNow,
-                                                        style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme.of(context).colorScheme.background,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor:
-                                      Theme.of(context).colorScheme.background,
-                                ),
-                                                      ),
-                                                    )
-                                                  : Countdown(
-                                                      seconds: AppConstants.otpTimer,
-                                                      build: (_, double time) {
-                                                        return Text(
-                              '${LoginScreenConstants.resendAfter}: ${time.toInt()}${AppConstants.seconds}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w700,
-                                    decorationColor:
-                                        Theme.of(context).colorScheme.onSecondary,
-                                    color:
-                                        Theme.of(context).colorScheme.onSecondary,
-                                  ),
-                                                        );
-                                                      },
-                                                      interval: const Duration(seconds: 1),
-                                                      onFinished: () {
-                                                        context.read<VerifyOtpCubit>().coundownFinished();
-                                                      },
-                                                    ),
-                                    const Spacer(),
-                                    Align(
-                                                alignment: Alignment.centerRight,
-                                                child: state.isLoading
-                                                    ? const CircularProgressIndicator()
-                                                    : RoundedArrowButton(
-                                                        height: 6.h,
-                                                        width: 6.h,
-                                                        contentIcon: AssetConstants.longArrowRight,
-                                                        isEnabled: state.isVerifyEnabled,
-                                                        onTap: () {
-                              // if (!state.isLoginEnabled) {
-                              context.read<VerifyOtpCubit>().verifyOtp();
-                              // }
-                                                        },
-                                                      ),
-                                    )
-                                  ],
-                                ),
                               ),
+                            )
+                          : Countdown(
+                              seconds: AppConstants.otpTimer,
+                              build: (_, double time) {
+                                return Text(
+                                  '${LoginScreenConstants.resendAfter}: ${time.toInt()}${AppConstants.seconds}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        decoration: TextDecoration.underline,
+                                        fontWeight: FontWeight.w700,
+                                        decorationColor: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
+                                      ),
+                                );
+                              },
+                              interval: const Duration(seconds: 1),
+                              onFinished: () {
+                                context
+                                    .read<VerifyOtpCubit>()
+                                    .coundownFinished();
+                              },
                             ),
-                          ],
+                      const Spacer(),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: state.isLoading
+                            ? const CircularProgressIndicator()
+                            : RoundedArrowButton(
+                                height: 6.h,
+                                width: 6.h,
+                                contentIcon: AssetConstants.longArrowRight,
+                                isEnabled: state.isVerifyEnabled,
+                                onTap: () {
+                                  // if (!state.isLoginEnabled) {
+                                  context.read<VerifyOtpCubit>().verifyOtp();
+                                  // }
+                                },
+                              ),
+                      )
+                    ],
                   ),
-                );
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }

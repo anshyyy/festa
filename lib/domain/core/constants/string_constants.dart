@@ -76,6 +76,11 @@ class LoginScreenConstants {
   static String success = 'Login Successful';
 }
 
+class UsernameScreenConstants {
+  static String chooseYourUsername = 'Choose your username';
+  static String typeHere = 'Type here';
+}
+
 class ErrorConstants {
   static const String unknownNetworkError = 'Received non 200 status code';
 

@@ -59,16 +59,19 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
           color: Colors.black.withOpacity(1),
           child: Scaffold(
             body: Stack(
-              
               children: [
                 SizedBox(
-                              height: 50.h,
-                              width: 100.w,
-                              child: Image.asset(AssetConstants.scaffoldBcg, fit: BoxFit.cover,),
-                            ),
+                  height: 50.h,
+                  width: 100.w,
+                  child: Image.asset(
+                    AssetConstants.scaffoldBcg,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 SafeArea(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
                     child: Column(
                       children: [
                         SizedBox(
@@ -76,7 +79,10 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
                         ),
                         Text(
                           GenderSelectionScreenConstants.addGenderText,
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
                                 fontSize: 24.sp,
                                 color: Theme.of(context).colorScheme.background,
                               ),

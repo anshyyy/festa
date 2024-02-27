@@ -23,6 +23,7 @@ class AssetConstants {
   static const unSelectedRadio = '${vectorsFolder}unchecked-radio.svg';
   static const heartSelected = '${vectorsFolder}heart-selected.svg';
   static const updateRocket = '${gifFolder}update-rocket.gif';
+  static const bubbleLoader = '${gifFolder}bubble-loader.gif';
 
   static const festaIconPng = '${vectorsFolder}festa-icon.png';
   static const festaIconSvg = '${vectorsFolder}festa-icon.svg';

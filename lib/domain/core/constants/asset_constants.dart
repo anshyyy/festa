@@ -102,6 +102,10 @@ class AssetConstants {
   static const gradientReport = '${vectorsFolder}report-gradient-icon.svg';
   static const defaultProfileImage = '${imageFolder}default-profile.png';
 
+  static const stopIcon = '${vectorsFolder}stop-icon.svg';
+  static const circledTick = '${vectorsFolder}circled-tick.svg';
+
+
 // eventIconConstants
   static const Map<String, String> extras = {
     'light': lightsIcon,

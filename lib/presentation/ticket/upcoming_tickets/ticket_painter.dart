@@ -21,7 +21,7 @@ class TicketPainter extends CustomPainter {
     final dottedLineY = cutoutStartPos - _cutoutRadius - 1.w;
     double dottedLineStartX = _cutoutRadius;
     final double dottedLineEndX = maxWidth - _cutoutRadius;
-    double dashWidth = 2.w;
+    double dashWidth = 1.7.w;
     double dashSpace = dashWidth;
     double dottedLineStartX2 = _cutoutRadius + dashSpace;
 
@@ -64,7 +64,7 @@ class TicketPainter extends CustomPainter {
     canvas.drawPath(path, paintBg);
     canvas.drawPath(path, paintBorder);
 
-    while (dottedLineStartX < dottedLineEndX - 1.5.w) {
+    while (dottedLineStartX < dottedLineEndX-1.5.w) {
       canvas.drawLine(
         Offset(dottedLineStartX, dottedLineY + 1.5.w),
         Offset(dottedLineStartX + dashWidth, dottedLineY),

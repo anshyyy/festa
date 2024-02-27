@@ -16,7 +16,7 @@ class UpcomingTicketsScreen extends StatelessWidget {
         painter: TicketPainter(
             gradientColor1: Theme.of(context).colorScheme.primaryContainer),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.5.w, vertical: 4.5.w),
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical:3.5.w),
           child: Column(
             children: [
               const EventDescription(),

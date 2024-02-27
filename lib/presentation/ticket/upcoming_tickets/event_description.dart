@@ -14,15 +14,17 @@ class EventDescription extends StatelessWidget{
       children: [
         ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: SizedBox(
+            child: Container(
               width: 28.w,
-              height: 16.3.h,
-              
-              child: CachedNetworkImage(
+              height: 15.2.h,
+              decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).colorScheme.background.withOpacity(.2), width: .5.w),
+                borderRadius: BorderRadius.circular(10),
+                image: const DecorationImage(
                 fit: BoxFit.cover,
-                  imageUrl:
-                      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
-            )),
+                  image: CachedNetworkImageProvider('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))
+              ),
+              )),
         SizedBox(
           width: 5.w,
         ),
@@ -32,7 +34,7 @@ class EventDescription extends StatelessWidget{
             children: [
               // big title
               Text(
-                'SCHEVENINGEN Season MAY - OCTOBER',
+                'Reputation Stadium Tour - Tylor Swift Live',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.background),
@@ -45,7 +47,7 @@ class EventDescription extends StatelessWidget{
               Text(
                 'House of commons, Indira Nagar, Bangalore.',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.background),
                 maxLines: 2,
               ),
@@ -56,14 +58,16 @@ class EventDescription extends StatelessWidget{
               Text(
                 'Wednesday, 20 Nov 2023',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14.sp,
                     color: Theme.of(context).colorScheme.background),
                 maxLines: 2,
               ),
               Text(
                 '08:00PM - 10:30PM',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14.sp,
                     color: Theme.of(context).colorScheme.background),
                 maxLines: 2,
               ),

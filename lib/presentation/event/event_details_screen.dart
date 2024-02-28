@@ -10,8 +10,10 @@ import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../common/event_card.dart';
 import '../widgets/custom_appbar.dart';
+import 'core/book_tickets.dart';
 import 'widgets/events_options_modal_sheet.dart';
 
 class EventDetailsScreen extends StatelessWidget {
@@ -52,75 +54,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
         return state.isLoading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
-                // bottomNavigationBar: Container(
-                //   height: 100,
-                //   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-                //   color: Theme.of(context).colorScheme.primaryContainer,
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Expanded(
-                //         child: Column(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             Text(
-                //                 StringExtension.formatDateTimeMedium(
-                //                     DateTime.parse(event!.startDate)),
-                //                 style: Theme.of(context)
-                //                     .textTheme
-                //                     .bodyMedium!
-                //                     .copyWith(
-                //                         fontWeight: FontWeight.w600,
-                //                         color: Theme.of(context)
-                //                             .colorScheme
-                //                             .background,
-                //                         fontSize: 15.sp)),
-                //             Row(
-                //               children: [
-                //                 Text(
-                //                     '${event.priceRangeStart.toIndianRupeeString()} ',
-                //                     style: Theme.of(context)
-                //                         .textTheme
-                //                         .bodyMedium!
-                //                         .copyWith(
-                //                             fontWeight: FontWeight.w600,
-                //                             color: Theme.of(context)
-                //                                 .colorScheme
-                //                                 .background,
-                //                             fontSize: 15.sp)),
-                //                 if (event.priceRangeEnd != null)
-                //                   Text(
-                //                       event.priceRangeEnd!
-                //                           .toIndianRupeeString(),
-                //                       style: Theme.of(context)
-                //                           .textTheme
-                //                           .bodyMedium!
-                //                           .copyWith(
-                //                               fontWeight: FontWeight.w600,
-                //                               fontSize: 15.sp)),
-                //               ],
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       Expanded(
-                //           child: GradientButton(
-                //         text: EventDetailsScreenConstants.bookTheTickets,
-                //         onTap: () {},
-                //         textStyle: Theme.of(context)
-                //             .textTheme
-                //             .bodySmall!
-                //             .copyWith(
-                //               color: Theme.of(context).colorScheme.background,
-                //               fontWeight: FontWeight.w600,
-                //             ),
-                //       ))
-                //     ],
-                //   ),
-                // ),
-
+                bottomNavigationBar: TicketBookingWidget(
+                  onClick: () {
+                    navigator<NavigationService>()
+                        .navigateTo(1==2 ? UserRoutes.bookingRoute : UserRoutes.freeBookingRoute);
+                  },
+                ),
                 appBar: CustomAppBar(
                     title: event!.name,
                     leading: GestureDetector(
@@ -509,4 +448,3 @@ class EventDetailsScreenConsumer extends StatelessWidget {
     );
   }
 }
-

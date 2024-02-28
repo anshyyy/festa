@@ -3,11 +3,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TicketPainter extends CustomPainter {
   final Color gradientColor1;
+  final Color borderColor;
   // final Color gradientColor2;
-  const TicketPainter({required this.gradientColor1});
+  const TicketPainter({required this.gradientColor1, required this.borderColor, });
 
   static const _cornerGap = 20.0;
-  static final double _cutoutRadius = 2.7.h;
+  static final double _cutoutRadius = 2.6.h;
   static final double _cutoutDiameter = _cutoutRadius * 2;
 
   @override
@@ -21,7 +22,7 @@ class TicketPainter extends CustomPainter {
     final dottedLineY = cutoutStartPos - _cutoutRadius - 1.w;
     double dottedLineStartX = _cutoutRadius;
     final double dottedLineEndX = maxWidth - _cutoutRadius;
-    double dashWidth = 1.7.w;
+    double dashWidth = 1.57.w;
     double dashSpace = dashWidth;
     double dottedLineStartX2 = _cutoutRadius + dashSpace;
 
@@ -31,20 +32,21 @@ class TicketPainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: [gradientColor1, Colors.black.withOpacity(0)],
+        colors: [gradientColor1,gradientColor1.withOpacity(.7), Colors.black.withOpacity(0)],
+        stops: const [0, .5,1]
       ).createShader(
           Rect.fromPoints(const Offset(0.0, 00.0), Offset(size.width, size.height)));
     // ..color = bgColor;
 
     final paintBorder = Paint()
-      ..strokeWidth = 1
+      ..strokeWidth = 1.5
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..color = Colors.pink;
+      ..color = borderColor;
 
     final paintDottedLine = Paint()
-      ..color = Colors.pink
-      ..strokeWidth = 1.2;
+      ..color = borderColor
+      ..strokeWidth = .5;
 
     var path = Path();
     path.moveTo(_cornerGap, 0);

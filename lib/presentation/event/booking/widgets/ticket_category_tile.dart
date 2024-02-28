@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../domain/core/constants/asset_constants.dart';
-import '../../widgets/gradient_button.dart';
+import '../../../../domain/core/constants/asset_constants.dart';
+import '../../../widgets/gradient_button.dart';
 
 class TicketCategory extends StatelessWidget {
   final String categoryName;
@@ -23,10 +23,10 @@ class TicketCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
+      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(15),
+        color: Theme.of(context).colorScheme.surface,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,9 +36,10 @@ class TicketCategory extends StatelessWidget {
             children: [
               Text(
                 categoryName,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       color: Theme.of(context).colorScheme.background,
                       fontWeight: FontWeight.w600,
+                      fontSize: 15.5.sp
                     ),
               ),
               SizedBox(
@@ -54,8 +55,8 @@ class TicketCategory extends StatelessWidget {
               ? GradientButton(
                   text: 'Add',
                   onTap: onAdd,
-                  height: 4.5.h,
-                  width: 25.w,
+                  height: 4.h,
+                  width: 27.w,
                   textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Theme.of(context).colorScheme.background,
                         fontWeight: FontWeight.w600,
@@ -71,16 +72,17 @@ class TicketCategory extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 12.w,
+                      width: 9.w,
                       child: Center(
                         child: Text(
                           categoryItems.toString(),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyMedium!
+                              .bodySmall!
                               .copyWith(
                                 color: Theme.of(context).colorScheme.background,
                                 fontWeight: FontWeight.w600,
+                                fontSize: 16.sp,
                               ),
                         ),
                       ),

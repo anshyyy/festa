@@ -22,7 +22,9 @@ class UserRoutes {
   static const String eventCardRoute = 'eventcardscreen';
   static const String ticketsRoute = 'tickets';
   static const String bookingRoute = 'booking';
+  static const String freeBookingRoute = 'freeBooking';
   static const String paymentDetailsRoute = 'paymentDetails';
+  static const String bookingDetailsRoute = 'bookingDetails';
   static const String clubProfileRoute = 'clubProfile';
   static const String homeScreenRoute = 'homeScreen';
   static const String eventDetailsRoute = 'eventDetails';

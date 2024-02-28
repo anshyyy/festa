@@ -104,6 +104,12 @@ class AssetConstants {
 
   static const stopIcon = '${vectorsFolder}stop-icon.svg';
   static const circledTick = '${vectorsFolder}circled-tick.svg';
+  static const circledTickFilledGreen = '${vectorsFolder}circled-tick-filled-green.svg';
+  static const circledCloseFilledRed = '${vectorsFolder}circled-close-filled-red.svg';
+
+  static const upiIcon = '${vectorsFolder}upi-icon.svg';
+  static const debitCreditWalletIcon = '${vectorsFolder}debit-credit-wallet-icon.svg';
+
 
 
 // eventIconConstants

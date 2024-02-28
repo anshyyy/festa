@@ -7,12 +7,13 @@ import '../ticket/tickets_screen.dart';
 import 'bottom_nav.dart';
 
 class MainNavigator extends StatelessWidget {
-  const MainNavigator({super.key});
+  final String routeIndex;
+  const MainNavigator({super.key, required this.routeIndex});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainNavCubit(MainNavState.initial(currentIndex: 0)),
+      create: (context) => MainNavCubit(MainNavState.initial(currentIndex: int.parse(routeIndex))),
       child: const MainNavigatorConsumer(),
     );
   }

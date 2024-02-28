@@ -121,7 +121,37 @@ class TicketScreenConstants {
   static String historyBtnText = 'History';
 }
 
-class BookingScreenConstants {}
+class BookingScreenConstants {
+  static String earlyBird = 'Early Bird';
+  static String standard = 'Standard';
+  static String add = 'Add';
+  static String choosePaymentMode = 'Choose your payment method';
+  static String ticketPrice = 'Ticket Price';
+  static String quantity = 'Quantity';
+  static String title = 'Title';
+  static String gst = 'GST';
+  static String upi = 'UPI';
+  static String debitCredit = 'Debit/Credit Card';
+  static String status = 'Status';
+  static String successful = 'Succesful';  
+  static String failed = 'Failed';  
+  static String noOfTickets = 'Number of tickets';
+  static String date = 'Date';
+  static String paymentMethod = 'Payment Method';
+  static String viewTickets = 'View tickets';
+  static String home = 'Home';
+  static String followMessage = 'Follow to receive notifications on new events';
+}
+
+class FreeBookingScreenConstants {
+  static String whatHappenNext = 'What happens next?';
+  static String qrCodeAdded = '1. QR code added to the ticket section';
+  static String qrCodeAddedDescription ="To gain entry to the event, you'll need to present the QR code we sent you via email as well. Please have the QR code ready for scanning at the entrance. Keep in mind that each QR code is valid for a single use.";
+  static String markYourCalendar = '2. Mark your calendar';
+  static String markYourCalendarDescription = 'Mark your calendar and turn on your notifications. Your spot in line will be determined on a first come serve basis.';
+  static String shareQrWithFriend = 'Share QR code with friends';
+  static String gotoTickets = 'Go to tickets';
+}
 
 class PaymentScreenConstants {
   static String offersAndBenfit = 'Offers and benefits';

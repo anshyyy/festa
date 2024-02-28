@@ -15,13 +15,13 @@ class PriceUnit extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Theme.of(context).colorScheme.background,
                   fontWeight: FontWeight.w600,
-                  fontSize: 15.sp,
+                  fontSize: 14.5.sp,
                 )),
         Text(detail,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Theme.of(context).colorScheme.background,
                   fontWeight: FontWeight.w600,
-                   fontSize: 15.sp,
+                   fontSize: 14.5.sp,
                 )),
       ],
     );

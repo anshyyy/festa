@@ -12,8 +12,10 @@ import '../../../../../presentation/basic_profile/birthday_selection_screen.dart
 import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 import '../../../../../presentation/basic_profile/set_your_location.dart';
 import '../../../../../presentation/basic_profile/username_screen.dart';
-import '../../../../../presentation/booking/book_ticket_screen.dart';
-import '../../../../../presentation/booking/payment_details_screen.dart';
+import '../../../../../presentation/event/booking/book_ticket_screen.dart';
+import '../../../../../presentation/event/booking/booking_details_screen.dart';
+import '../../../../../presentation/event/booking/free_booking_screen.dart';
+import '../../../../../presentation/event/booking/payment_details_screen.dart';
 import '../../../../../presentation/club_profile/club_profile_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
@@ -35,21 +37,17 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case AuthRoutes.basicInfoRoute:
       return _getPageRoute(const BasicProfileScreen(), settings);
 
-   
-
     case AuthRoutes.birthdayRoute:
       return _getPageRoute(const BirthdayScreen(), settings);
 
     case AuthRoutes.genderRoute:
       return _getPageRoute(const GenderSelectionScreen(), settings);
 
-
- case AuthRoutes.usernameRoute:
+    case AuthRoutes.usernameRoute:
       return _getPageRoute(const UsernameScreen(), settings);
 
- case AuthRoutes.locationSetupRoute:
+    case AuthRoutes.locationSetupRoute:
       return _getPageRoute(const SetYourLocation(), settings);
-
 
     case UserRoutes.homeScreenRoute:
       return _getPageRoute(const HomeScreen(), settings);
@@ -79,14 +77,22 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.bookingRoute:
       return _getPageRoute(const BookTicketScreen(), settings);
 
+      case UserRoutes.freeBookingRoute:
+      return _getPageRoute(const FreeBookingScreen(), settings);
+
     case UserRoutes.paymentDetailsRoute:
       return _getPageRoute(const PaymentDetails(), settings);
+
+    case UserRoutes.bookingDetailsRoute:
+      return _getPageRoute(const BookingDetails(), settings);
 
     case UserRoutes.clubProfileRoute:
       return _getPageRoute(const ClubProfileScreen(), settings);
 
     case UserRoutes.mainNavRoute:
-      return _getPageRoute(const MainNavigator(), settings);
+      return _getPageRoute(MainNavigator(
+        routeIndex: routingData.queryParameters['routeIndex'] ?? '0',
+      ), settings);
 
     case UserRoutes.notificationsRoute:
       return _getPageRoute(const NotificationsScreen(), settings);

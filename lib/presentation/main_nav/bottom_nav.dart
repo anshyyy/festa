@@ -27,7 +27,7 @@ class CustomBottomNav extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          height: Platform.isAndroid? 11.h : 12.h,
+          height: Platform.isAndroid? 11.h : 10.2.h,
           color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.4),
           child: SafeArea(
             child: Container(
@@ -38,8 +38,8 @@ class CustomBottomNav extends StatelessWidget {
                       .primaryContainer
                       .withOpacity(.5)),
               margin:
-                  EdgeInsets.only(left: 8.w, top: 2.h, right: 8.w, bottom: 1.h),
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  EdgeInsets.only(left: 8.w, top: 2.h, right: 8.w, bottom: 0.h),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -58,6 +58,7 @@ class CustomBottomNav extends StatelessWidget {
                               color: state.currentIndex == 0
                                   ? Theme.of(context).primaryColor
                                   : Theme.of(context).colorScheme.background,
+                                  height: 27,
                             ),
                           ),
                           Positioned(

@@ -7,8 +7,7 @@ class TransactionDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-                  width: 100.w,
-                  padding: EdgeInsets.symmetric(vertical: 4.h),
+                  padding: EdgeInsets.only(top:4.h,left: 2.w, bottom: .5.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,6 +19,7 @@ class TransactionDetails extends StatelessWidget {
                             'Transaction ID',
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
                                     ),
                           ),
@@ -44,6 +44,8 @@ class TransactionDetails extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+                                      
                                     ),
                           ),
                           Text(
@@ -67,6 +69,8 @@ class TransactionDetails extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+
                                     ),
                           ),
                           Text(
@@ -95,6 +99,8 @@ class TransactionDetails extends StatelessWidget {
                                     .bodySmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+
                                     ),
                               ),
                               Text(
@@ -106,7 +112,7 @@ class TransactionDetails extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .background),
+                                            .background,),
                               ),
                             ],
                           ),
@@ -123,6 +129,8 @@ class TransactionDetails extends StatelessWidget {
                                     .bodySmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+
                                     ),
                               ),
                               Text(
@@ -148,6 +156,8 @@ class TransactionDetails extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+
                                     ),
                           ),
                           Text(

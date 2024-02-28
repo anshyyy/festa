@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-
 import '../../../application/ticket/ticket_cubit.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import 'qr_viewer.dart';
@@ -26,8 +25,9 @@ class BookingDescription extends StatelessWidget {
             children: [
               AnimatedSwitcher(
                 duration: const Duration(seconds: 1),
-                child:
-                    state.showTicketDetails ? const TransactionDetails() : const QrViewer(),
+                child: state.showTicketDetails
+                    ? const TransactionDetails()
+                    : const QrViewer(),
               ),
               Positioned(
                 bottom: 0,
@@ -35,9 +35,12 @@ class BookingDescription extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(AssetConstants.shareIcon),
+                    SvgPicture.asset(
+                      AssetConstants.shareIcon,
+                      height: 6.5.w,
+                    ),
                     SizedBox(
-                      height: 2.5.h,
+                      height: 3.h,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -48,24 +51,30 @@ class BookingDescription extends StatelessWidget {
                             .read<TicketCubit>()
                             .showTransactionDetails(),
                         child: Container(
-                          height: 4.5.h,
-                          width: 4.5.h,
+                          height: 9.w,
+                          width: 10.w,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                width: 1,
+                                width: .8,
                                 color: Theme.of(context)
                                     .colorScheme
                                     .secondaryContainer),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(7),
                           ),
                           child: AnimatedSwitcher(
-                            duration: const Duration(seconds: 1),
+                            duration: const Duration(
+                              seconds: 1,
+                            ),
                             child: !state.showTicketDetails
                                 ? SvgPicture.asset(
                                     AssetConstants.arrowRight,
+                      height: 4.5.w,
+
                                   )
                                 : SvgPicture.asset(
                                     AssetConstants.arrowLeft,
+                      height: 4.5.w,
+
                                   ),
                           ),
                         ),

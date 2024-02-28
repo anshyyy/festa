@@ -37,18 +37,23 @@ final appThemeData = {
         fontWeight: FontWeight.w600,
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',
+        letterSpacing: 0,
+
       ),
       bodyMedium: TextStyle(
         fontSize: 17.sp,
         fontWeight: FontWeight.w500,
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',
+        letterSpacing: 0,
+
       ),
       bodySmall: TextStyle(
         fontSize: 15.sp,
         fontWeight: FontWeight.w400,
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',
+        letterSpacing: 0,
       ),
     ),
   ),

@@ -4,3 +4,8 @@ class EventApiConstants {
   static const GET_FILTERS = '$EVENTS/filters';
   static const GET_USER_DETAILS = '$USERS/details';
 }
+
+class AuthApiConstants {
+  static const USERS = '/users';
+  static const ADD_OR_REMOVE_FCM_TOKEN = '$USERS/firebase/token';
+}

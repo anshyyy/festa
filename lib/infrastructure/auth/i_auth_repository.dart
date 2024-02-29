@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -11,6 +14,7 @@ import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
 import 'dtos/user_dto.dart';
+import 'package:http/http.dart' as http;
 
 class IAuthRepository extends AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -83,11 +87,19 @@ class IAuthRepository extends AuthRepository {
         smsCode: code,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(authCredential).then(
-            (value) => value.user,
-          );
+      final user =
+          await FirebaseAuth.instance.signInWithCredential(authCredential).then(
+                (value) => value.user,
+              );
 
       UserDto userInfo = (await authentication())!;
+      final String? fcmToken = await getFCMToken();
+
+      if (fcmToken != null) {
+        final String? token = await user?.getIdToken();
+        addOrRemoveFCMTokenToServer(
+            token: token!, fcmToken: fcmToken, isRemove: false);
+      }
       return right(userInfo);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'invalid-verification-code') {
@@ -122,12 +134,12 @@ class IAuthRepository extends AuthRepository {
   Future<UserDto?> authentication() async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      if(token==null){
+      if (token == null) {
         return null;
       }
       final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
       final response = await RESTService.performGETRequest(
-          httpUrl: url, isAuth: true, token: token!);
+          httpUrl: url, isAuth: true, token: token);
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
@@ -179,10 +191,63 @@ class IAuthRepository extends AuthRepository {
   @override
   Future<bool> logout({bool skipFCMToken = false}) async {
     try {
+      final user = FirebaseAuth.instance.currentUser!;
+      final String? fcmToken = await getFCMToken();
+      if (fcmToken != null) {
+        final String? token = await user.getIdToken();
+        await addOrRemoveFCMTokenToServer(
+            token: token!, fcmToken: fcmToken, isRemove: true);
+      }
       await FirebaseAuth.instance.signOut();
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<String?> getFCMToken() async {
+    return await FirebaseMessaging.instance.getToken();
+  }
+
+  @override
+  Future addOrRemoveFCMTokenToServer(
+      {required String token,
+      required String fcmToken,
+      required bool isRemove}) async {
+    try {
+      var headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      };
+
+      final String url =
+          '$serverUrl${AuthApiConstants.ADD_OR_REMOVE_FCM_TOKEN}';
+      var request = http.Request(isRemove ? 'DELETE' : 'POST', Uri.parse(url));
+
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      String deviceName = '';
+
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo android = await deviceInfo.androidInfo;
+        deviceName = android.model;
+      }
+
+      if (Platform.isIOS) {
+        IosDeviceInfo ios = await deviceInfo.iosInfo;
+        deviceName = ios.name;
+      }
+
+      final jsonBody = {
+        'token': fcmToken,
+        'deviceDetails': {'name': deviceName},
+      };
+
+      request.body = json.encode(jsonBody);
+      request.headers.addAll(headers);
+      await request.send();
+    } catch (e) {
+      left(e.toString());
     }
   }
 }

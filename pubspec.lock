@@ -297,6 +297,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.10"
+  device_info_plus:
+    dependency: "direct main"
+    description:
+      name: device_info_plus
+      sha256: "77f757b789ff68e4eaf9c56d1752309bd9f7ad557cb105b938a7f8eb89e59110"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.1.2"
+  device_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_plus_platform_interface
+      sha256: d3b01d5868b50ae571cd1dc6e502fc94d956b665756180f7b16ead09e836fd64
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   dots_indicator:
     dependency: "direct main"
     description:
@@ -457,6 +473,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.6.17"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      sha256: "4edd4ea0c314566891877b1e422463937517f4dbbf1ebcf2952b9f7f85388e8a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.7.11"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      sha256: "0917263f599034a12e3c4a1055f3e17f34d784d77a07f22e34f300214cd1b51f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.19"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      sha256: dc9a23cbc4351ca8c8fc6532c56198713d02a10253aeb15af769ab9a4840f83a
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.0"
   firebase_remote_config:
     dependency: "direct main"
     description:
@@ -1549,6 +1589,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.0"
+  win32_registry:
+    dependency: transitive
+    description:
+      name: win32_registry
+      sha256: "41fd8a189940d8696b1b810efb9abcf60827b6cbfab90b0c43e8439e3a39d85a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   xdg_directories:
     dependency: transitive
     description:

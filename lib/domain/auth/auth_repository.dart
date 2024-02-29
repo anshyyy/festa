@@ -27,4 +27,13 @@ abstract class AuthRepository {
   Future<bool> deleteProfile({required int id});
 
   Future<bool> logout({bool skipFCMToken});
+
+  Future<String?> getFCMToken();
+
+  Future addOrRemoveFCMTokenToServer({
+    required String token,
+    required String fcmToken,
+    required bool isRemove,
+  });
+  
 }

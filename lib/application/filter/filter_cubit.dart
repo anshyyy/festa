@@ -41,7 +41,6 @@ class FilterCubit extends Cubit<FilterState> {
 
   
   void clearFilters() {
-    emit(state.copyWith(isClearFilters: true));
     List<FilterDto> filters = List.from(state.filters.map((e) => e.copyWith(
         isApplied: false,
         values: e.values

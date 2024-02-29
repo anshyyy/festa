@@ -106,6 +106,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(
       noUse: !state.noUse,
       page: state.page + 1,
+      noFilteredEvents: true,
       hasMoreEvents: events.length == limit,
     ));
   }
@@ -148,10 +149,23 @@ class HomeCubit extends Cubit<HomeState> {
         filters.firstWhere((element) => element.name == 'sort').isApplied;
     final categoryFilter =
         filters.firstWhere((element) => element.name == 'music');
-    for (int i = 0; i < state.exploreList.length; i++) {
-      if (state.exploreList[i]['id'] == 'sort') {
-        state.exploreList[i] = {
-          ...state.exploreList[i],
+    
+    final appliedFilter = filters.where((element) => element.isApplied==true);
+    final newFilters = appliedFilter.map((e) {
+      final option = e.values.firstWhere((element) => element.isApplied);
+      return {
+          'id': option.name,
+          'isSelected': option.isApplied,
+          'label': '${e.displayName}: ${option.displayName}',
+        };
+    },).toList();
+
+    final tempExploreList = [...state.mainExploreList, ...newFilters];
+
+    for (int i = 0; i < tempExploreList.length; i++) {
+      if (tempExploreList[i]['id'] == 'sort') {
+        tempExploreList[i] = {
+          ...tempExploreList[i],
           'isSelected': sortApplied
         };
       }
@@ -162,7 +176,9 @@ class HomeCubit extends Cubit<HomeState> {
         categoryFilter: categoryFilter,
         page: 1,
         events: [],
-        hasMoreEvents: true));
+        hasMoreEvents: true,
+        exploreList: tempExploreList,
+        ));
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => getEvents());
   }

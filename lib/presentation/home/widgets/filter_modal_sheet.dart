@@ -74,9 +74,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                               state.isClearFilters ? navigator<NavigationService>().goBack(
-                                    responseObject: state.filters,
-                                  ):navigator<NavigationService>().goBack();
+                              navigator<NavigationService>().goBack();
                               },
                               child: SvgPicture.asset(
                                 AssetConstants.closeIcon,

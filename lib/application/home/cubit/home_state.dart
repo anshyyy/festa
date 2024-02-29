@@ -13,6 +13,7 @@ class HomeState with _$HomeState {
     required List<EventDto> events,
     required List<FilterDto> filters,
     required List<Map<String, dynamic>> exploreList,
+    required List<Map<String, dynamic>> mainExploreList,
     required PageController pageController,
     required bool showLocationDialog,
     required List<Map<String, dynamic>> filterOptions,
@@ -27,6 +28,8 @@ class HomeState with _$HomeState {
     required bool isSearchOpen,
     required bool isSearchChanged,
     required bool isLocationSearchChanged,
+    required bool noFilteredEvents,
+    required bool noLocatedEvents,
   }) = _HomeState;
 
   factory HomeState.initial({required String serverUrl}) => HomeState(
@@ -44,6 +47,22 @@ class HomeState with _$HomeState {
       isSuccessful: false,
       location: OtherConstants.defaultLocation,
       pageController: PageController(),
+      mainExploreList :[
+        {
+          'id': 'filter',
+          'isSelected': false,
+          'identifier': AppConstants.filterKey,
+          'svgIcon': AssetConstants.filterIcon,
+          'label': 'Filter',
+        },
+        {
+          'id': 'sort',
+          'isSelected': false,
+          'identifier': AppConstants.otherKey,
+          'svgIcon': AssetConstants.arrowDown,
+          'label': 'Sort',
+        },
+      ],
       exploreList: [
         {
           'id': 'filter',
@@ -96,5 +115,7 @@ class HomeState with _$HomeState {
       isSearchOpen:false,
       isSearchChanged: false,
       isLocationSearchChanged:false,
+      noFilteredEvents: false,
+      noLocatedEvents: false,
       );
 }

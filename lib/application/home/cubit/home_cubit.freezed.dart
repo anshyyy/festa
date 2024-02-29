@@ -27,6 +27,8 @@ mixin _$HomeState {
   List<FilterDto> get filters => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get exploreList =>
       throw _privateConstructorUsedError;
+  List<Map<String, dynamic>> get mainExploreList =>
+      throw _privateConstructorUsedError;
   PageController get pageController => throw _privateConstructorUsedError;
   bool get showLocationDialog => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get filterOptions =>
@@ -44,6 +46,8 @@ mixin _$HomeState {
   bool get isSearchOpen => throw _privateConstructorUsedError;
   bool get isSearchChanged => throw _privateConstructorUsedError;
   bool get isLocationSearchChanged => throw _privateConstructorUsedError;
+  bool get noFilteredEvents => throw _privateConstructorUsedError;
+  bool get noLocatedEvents => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -66,6 +70,7 @@ abstract class $HomeStateCopyWith<$Res> {
       List<EventDto> events,
       List<FilterDto> filters,
       List<Map<String, dynamic>> exploreList,
+      List<Map<String, dynamic>> mainExploreList,
       PageController pageController,
       bool showLocationDialog,
       List<Map<String, dynamic>> filterOptions,
@@ -79,7 +84,9 @@ abstract class $HomeStateCopyWith<$Res> {
       OverlayEntry? overlayEntry,
       bool isSearchOpen,
       bool isSearchChanged,
-      bool isLocationSearchChanged});
+      bool isLocationSearchChanged,
+      bool noFilteredEvents,
+      bool noLocatedEvents});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -108,6 +115,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? events = null,
     Object? filters = null,
     Object? exploreList = null,
+    Object? mainExploreList = null,
     Object? pageController = null,
     Object? showLocationDialog = null,
     Object? filterOptions = null,
@@ -122,6 +130,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
     Object? isLocationSearchChanged = null,
+    Object? noFilteredEvents = null,
+    Object? noLocatedEvents = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -163,6 +173,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       exploreList: null == exploreList
           ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+      mainExploreList: null == mainExploreList
+          ? _value.mainExploreList
+          : mainExploreList // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
       pageController: null == pageController
           ? _value.pageController
@@ -219,6 +233,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       isLocationSearchChanged: null == isLocationSearchChanged
           ? _value.isLocationSearchChanged
           : isLocationSearchChanged // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noFilteredEvents: null == noFilteredEvents
+          ? _value.noFilteredEvents
+          : noFilteredEvents // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noLocatedEvents: null == noLocatedEvents
+          ? _value.noLocatedEvents
+          : noLocatedEvents // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -263,6 +285,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<EventDto> events,
       List<FilterDto> filters,
       List<Map<String, dynamic>> exploreList,
+      List<Map<String, dynamic>> mainExploreList,
       PageController pageController,
       bool showLocationDialog,
       List<Map<String, dynamic>> filterOptions,
@@ -276,7 +299,9 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       OverlayEntry? overlayEntry,
       bool isSearchOpen,
       bool isSearchChanged,
-      bool isLocationSearchChanged});
+      bool isLocationSearchChanged,
+      bool noFilteredEvents,
+      bool noLocatedEvents});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -305,6 +330,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? events = null,
     Object? filters = null,
     Object? exploreList = null,
+    Object? mainExploreList = null,
     Object? pageController = null,
     Object? showLocationDialog = null,
     Object? filterOptions = null,
@@ -319,6 +345,8 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
     Object? isLocationSearchChanged = null,
+    Object? noFilteredEvents = null,
+    Object? noLocatedEvents = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -360,6 +388,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
       exploreList: null == exploreList
           ? _value.exploreList
           : exploreList // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
+      mainExploreList: null == mainExploreList
+          ? _value.mainExploreList
+          : mainExploreList // ignore: cast_nullable_to_non_nullable
               as List<Map<String, dynamic>>,
       pageController: null == pageController
           ? _value.pageController
@@ -417,6 +449,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.isLocationSearchChanged
           : isLocationSearchChanged // ignore: cast_nullable_to_non_nullable
               as bool,
+      noFilteredEvents: null == noFilteredEvents
+          ? _value.noFilteredEvents
+          : noFilteredEvents // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noLocatedEvents: null == noLocatedEvents
+          ? _value.noLocatedEvents
+          : noLocatedEvents // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -435,6 +475,7 @@ class _$HomeStateImpl implements _HomeState {
       required this.events,
       required this.filters,
       required this.exploreList,
+      required this.mainExploreList,
       required this.pageController,
       required this.showLocationDialog,
       required this.filterOptions,
@@ -448,7 +489,9 @@ class _$HomeStateImpl implements _HomeState {
       this.overlayEntry,
       required this.isSearchOpen,
       required this.isSearchChanged,
-      required this.isLocationSearchChanged});
+      required this.isLocationSearchChanged,
+      required this.noFilteredEvents,
+      required this.noLocatedEvents});
 
   @override
   final bool isLoading;
@@ -470,6 +513,8 @@ class _$HomeStateImpl implements _HomeState {
   final List<FilterDto> filters;
   @override
   final List<Map<String, dynamic>> exploreList;
+  @override
+  final List<Map<String, dynamic>> mainExploreList;
   @override
   final PageController pageController;
   @override
@@ -498,10 +543,14 @@ class _$HomeStateImpl implements _HomeState {
   final bool isSearchChanged;
   @override
   final bool isLocationSearchChanged;
+  @override
+  final bool noFilteredEvents;
+  @override
+  final bool noLocatedEvents;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents)';
   }
 
   @override
@@ -525,6 +574,8 @@ class _$HomeStateImpl implements _HomeState {
             const DeepCollectionEquality().equals(other.filters, filters) &&
             const DeepCollectionEquality()
                 .equals(other.exploreList, exploreList) &&
+            const DeepCollectionEquality()
+                .equals(other.mainExploreList, mainExploreList) &&
             (identical(other.pageController, pageController) ||
                 other.pageController == pageController) &&
             (identical(other.showLocationDialog, showLocationDialog) ||
@@ -552,7 +603,11 @@ class _$HomeStateImpl implements _HomeState {
                 other.isSearchChanged == isSearchChanged) &&
             (identical(
                     other.isLocationSearchChanged, isLocationSearchChanged) ||
-                other.isLocationSearchChanged == isLocationSearchChanged));
+                other.isLocationSearchChanged == isLocationSearchChanged) &&
+            (identical(other.noFilteredEvents, noFilteredEvents) ||
+                other.noFilteredEvents == noFilteredEvents) &&
+            (identical(other.noLocatedEvents, noLocatedEvents) ||
+                other.noLocatedEvents == noLocatedEvents));
   }
 
   @override
@@ -568,6 +623,7 @@ class _$HomeStateImpl implements _HomeState {
         const DeepCollectionEquality().hash(events),
         const DeepCollectionEquality().hash(filters),
         const DeepCollectionEquality().hash(exploreList),
+        const DeepCollectionEquality().hash(mainExploreList),
         pageController,
         showLocationDialog,
         const DeepCollectionEquality().hash(filterOptions),
@@ -581,7 +637,9 @@ class _$HomeStateImpl implements _HomeState {
         overlayEntry,
         isSearchOpen,
         isSearchChanged,
-        isLocationSearchChanged
+        isLocationSearchChanged,
+        noFilteredEvents,
+        noLocatedEvents
       ]);
 
   @JsonKey(ignore: true)
@@ -603,6 +661,7 @@ abstract class _HomeState implements HomeState {
       required final List<EventDto> events,
       required final List<FilterDto> filters,
       required final List<Map<String, dynamic>> exploreList,
+      required final List<Map<String, dynamic>> mainExploreList,
       required final PageController pageController,
       required final bool showLocationDialog,
       required final List<Map<String, dynamic>> filterOptions,
@@ -616,7 +675,9 @@ abstract class _HomeState implements HomeState {
       final OverlayEntry? overlayEntry,
       required final bool isSearchOpen,
       required final bool isSearchChanged,
-      required final bool isLocationSearchChanged}) = _$HomeStateImpl;
+      required final bool isLocationSearchChanged,
+      required final bool noFilteredEvents,
+      required final bool noLocatedEvents}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -638,6 +699,8 @@ abstract class _HomeState implements HomeState {
   List<FilterDto> get filters;
   @override
   List<Map<String, dynamic>> get exploreList;
+  @override
+  List<Map<String, dynamic>> get mainExploreList;
   @override
   PageController get pageController;
   @override
@@ -666,6 +729,10 @@ abstract class _HomeState implements HomeState {
   bool get isSearchChanged;
   @override
   bool get isLocationSearchChanged;
+  @override
+  bool get noFilteredEvents;
+  @override
+  bool get noLocatedEvents;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

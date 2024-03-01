@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/extensions/number_extension.dart';
 import '../../domain/core/extensions/string_extension.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import 'show_profile_tile.dart';
 
@@ -239,14 +242,25 @@ class _EventCardState extends State<EventCard> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      widget.event.pub!.fullName,
-                                      style: themeData.textTheme.bodyMedium!
-                                          .copyWith(
-                                              color: themeData
-                                                  .colorScheme.background,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16.5.sp),
+                                    GestureDetector(
+                                      onTap: () {
+                                        navigator<NavigationService>()
+                                            .navigateTo(
+                                                UserRoutes.clubProfileRoute,
+                                                queryParams: {
+                                              'clubId': widget.event.pub!.id
+                                                  .toString()
+                                            });
+                                      },
+                                      child: Text(
+                                        widget.event.pub!.fullName,
+                                        style: themeData.textTheme.bodyMedium!
+                                            .copyWith(
+                                                color: themeData
+                                                    .colorScheme.background,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16.5.sp),
+                                      ),
                                     ),
                                     Text(
                                       widget.event.address?.vicinity ?? '',

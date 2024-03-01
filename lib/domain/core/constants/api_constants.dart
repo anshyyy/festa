@@ -9,3 +9,7 @@ class AuthApiConstants {
   static const USERS = '/users';
   static const ADD_OR_REMOVE_FCM_TOKEN = '$USERS/firebase/token';
 }
+
+class PubApiConstants {
+  static const PUBS = '/pubs';
+}

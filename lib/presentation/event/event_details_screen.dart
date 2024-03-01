@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,9 +45,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EventDetailsCubit, EventDetailsState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final event = state.event;
         return state.isLoading
@@ -56,8 +53,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
             : Scaffold(
                 bottomNavigationBar: TicketBookingWidget(
                   onClick: () {
-                    navigator<NavigationService>()
-                        .navigateTo(1==2 ? UserRoutes.bookingRoute : UserRoutes.freeBookingRoute);
+                    navigator<NavigationService>().navigateTo(1 == 2
+                        ? UserRoutes.bookingRoute
+                        : UserRoutes.freeBookingRoute);
                   },
                 ),
                 appBar: CustomAppBar(

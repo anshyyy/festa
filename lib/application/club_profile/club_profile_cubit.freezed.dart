@@ -16,14 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ClubProfileState {
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isFailed => throw _privateConstructorUsedError;
+  bool get isSuccessful => throw _privateConstructorUsedError;
+  String get responseMsg => throw _privateConstructorUsedError;
   GlobalKey<State<StatefulWidget>> get key =>
       throw _privateConstructorUsedError;
+  int get clubId => throw _privateConstructorUsedError;
   double get viewPortHeight => throw _privateConstructorUsedError;
   int get currentImageIndex => throw _privateConstructorUsedError;
   ScrollController get scrollController => throw _privateConstructorUsedError;
   ScrollController get parentController => throw _privateConstructorUsedError;
   bool get isAtTop => throw _privateConstructorUsedError;
+  String get apiBaseUrl => throw _privateConstructorUsedError;
+  PubRepository get pubRepository => throw _privateConstructorUsedError;
   List<String> get images => throw _privateConstructorUsedError;
+  PubDto? get pub => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ClubProfileStateCopyWith<ClubProfileState> get copyWith =>
@@ -37,13 +45,23 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       _$ClubProfileStateCopyWithImpl<$Res, ClubProfileState>;
   @useResult
   $Res call(
-      {GlobalKey<State<StatefulWidget>> key,
+      {bool isLoading,
+      bool isFailed,
+      bool isSuccessful,
+      String responseMsg,
+      GlobalKey<State<StatefulWidget>> key,
+      int clubId,
       double viewPortHeight,
       int currentImageIndex,
       ScrollController scrollController,
       ScrollController parentController,
       bool isAtTop,
-      List<String> images});
+      String apiBaseUrl,
+      PubRepository pubRepository,
+      List<String> images,
+      PubDto? pub});
+
+  $PubDtoCopyWith<$Res>? get pub;
 }
 
 /// @nodoc
@@ -59,19 +77,47 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isFailed = null,
+    Object? isSuccessful = null,
+    Object? responseMsg = null,
     Object? key = null,
+    Object? clubId = null,
     Object? viewPortHeight = null,
     Object? currentImageIndex = null,
     Object? scrollController = null,
     Object? parentController = null,
     Object? isAtTop = null,
+    Object? apiBaseUrl = null,
+    Object? pubRepository = null,
     Object? images = null,
+    Object? pub = freezed,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailed: null == isFailed
+          ? _value.isFailed
+          : isFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccessful: null == isSuccessful
+          ? _value.isSuccessful
+          : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      responseMsg: null == responseMsg
+          ? _value.responseMsg
+          : responseMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
+      clubId: null == clubId
+          ? _value.clubId
+          : clubId // ignore: cast_nullable_to_non_nullable
+              as int,
       viewPortHeight: null == viewPortHeight
           ? _value.viewPortHeight
           : viewPortHeight // ignore: cast_nullable_to_non_nullable
@@ -92,11 +138,35 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.isAtTop
           : isAtTop // ignore: cast_nullable_to_non_nullable
               as bool,
+      apiBaseUrl: null == apiBaseUrl
+          ? _value.apiBaseUrl
+          : apiBaseUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      pubRepository: null == pubRepository
+          ? _value.pubRepository
+          : pubRepository // ignore: cast_nullable_to_non_nullable
+              as PubRepository,
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      pub: freezed == pub
+          ? _value.pub
+          : pub // ignore: cast_nullable_to_non_nullable
+              as PubDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PubDtoCopyWith<$Res>? get pub {
+    if (_value.pub == null) {
+      return null;
+    }
+
+    return $PubDtoCopyWith<$Res>(_value.pub!, (value) {
+      return _then(_value.copyWith(pub: value) as $Val);
+    });
   }
 }
 
@@ -109,13 +179,24 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {GlobalKey<State<StatefulWidget>> key,
+      {bool isLoading,
+      bool isFailed,
+      bool isSuccessful,
+      String responseMsg,
+      GlobalKey<State<StatefulWidget>> key,
+      int clubId,
       double viewPortHeight,
       int currentImageIndex,
       ScrollController scrollController,
       ScrollController parentController,
       bool isAtTop,
-      List<String> images});
+      String apiBaseUrl,
+      PubRepository pubRepository,
+      List<String> images,
+      PubDto? pub});
+
+  @override
+  $PubDtoCopyWith<$Res>? get pub;
 }
 
 /// @nodoc
@@ -129,19 +210,47 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isFailed = null,
+    Object? isSuccessful = null,
+    Object? responseMsg = null,
     Object? key = null,
+    Object? clubId = null,
     Object? viewPortHeight = null,
     Object? currentImageIndex = null,
     Object? scrollController = null,
     Object? parentController = null,
     Object? isAtTop = null,
+    Object? apiBaseUrl = null,
+    Object? pubRepository = null,
     Object? images = null,
+    Object? pub = freezed,
   }) {
     return _then(_$ClubProfileStateImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailed: null == isFailed
+          ? _value.isFailed
+          : isFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccessful: null == isSuccessful
+          ? _value.isSuccessful
+          : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      responseMsg: null == responseMsg
+          ? _value.responseMsg
+          : responseMsg // ignore: cast_nullable_to_non_nullable
+              as String,
       key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
+      clubId: null == clubId
+          ? _value.clubId
+          : clubId // ignore: cast_nullable_to_non_nullable
+              as int,
       viewPortHeight: null == viewPortHeight
           ? _value.viewPortHeight
           : viewPortHeight // ignore: cast_nullable_to_non_nullable
@@ -162,10 +271,22 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.isAtTop
           : isAtTop // ignore: cast_nullable_to_non_nullable
               as bool,
+      apiBaseUrl: null == apiBaseUrl
+          ? _value.apiBaseUrl
+          : apiBaseUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      pubRepository: null == pubRepository
+          ? _value.pubRepository
+          : pubRepository // ignore: cast_nullable_to_non_nullable
+              as PubRepository,
       images: null == images
-          ? _value._images
+          ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      pub: freezed == pub
+          ? _value.pub
+          : pub // ignore: cast_nullable_to_non_nullable
+              as PubDto?,
     ));
   }
 }
@@ -174,17 +295,34 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
 
 class _$ClubProfileStateImpl implements _ClubProfileState {
   const _$ClubProfileStateImpl(
-      {required this.key,
+      {required this.isLoading,
+      required this.isFailed,
+      required this.isSuccessful,
+      required this.responseMsg,
+      required this.key,
+      required this.clubId,
       required this.viewPortHeight,
       required this.currentImageIndex,
       required this.scrollController,
       required this.parentController,
       required this.isAtTop,
-      required final List<String> images})
-      : _images = images;
+      required this.apiBaseUrl,
+      required this.pubRepository,
+      required this.images,
+      this.pub});
 
   @override
+  final bool isLoading;
+  @override
+  final bool isFailed;
+  @override
+  final bool isSuccessful;
+  @override
+  final String responseMsg;
+  @override
   final GlobalKey<State<StatefulWidget>> key;
+  @override
+  final int clubId;
   @override
   final double viewPortHeight;
   @override
@@ -195,17 +333,18 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   final ScrollController parentController;
   @override
   final bool isAtTop;
-  final List<String> _images;
   @override
-  List<String> get images {
-    if (_images is EqualUnmodifiableListView) return _images;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_images);
-  }
+  final String apiBaseUrl;
+  @override
+  final PubRepository pubRepository;
+  @override
+  final List<String> images;
+  @override
+  final PubDto? pub;
 
   @override
   String toString() {
-    return 'ClubProfileState(key: $key, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, images: $images)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, pub: $pub)';
   }
 
   @override
@@ -213,7 +352,16 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ClubProfileStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isFailed, isFailed) ||
+                other.isFailed == isFailed) &&
+            (identical(other.isSuccessful, isSuccessful) ||
+                other.isSuccessful == isSuccessful) &&
+            (identical(other.responseMsg, responseMsg) ||
+                other.responseMsg == responseMsg) &&
             (identical(other.key, key) || other.key == key) &&
+            (identical(other.clubId, clubId) || other.clubId == clubId) &&
             (identical(other.viewPortHeight, viewPortHeight) ||
                 other.viewPortHeight == viewPortHeight) &&
             (identical(other.currentImageIndex, currentImageIndex) ||
@@ -223,19 +371,32 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
             (identical(other.parentController, parentController) ||
                 other.parentController == parentController) &&
             (identical(other.isAtTop, isAtTop) || other.isAtTop == isAtTop) &&
-            const DeepCollectionEquality().equals(other._images, _images));
+            (identical(other.apiBaseUrl, apiBaseUrl) ||
+                other.apiBaseUrl == apiBaseUrl) &&
+            (identical(other.pubRepository, pubRepository) ||
+                other.pubRepository == pubRepository) &&
+            const DeepCollectionEquality().equals(other.images, images) &&
+            (identical(other.pub, pub) || other.pub == pub));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      isLoading,
+      isFailed,
+      isSuccessful,
+      responseMsg,
       key,
+      clubId,
       viewPortHeight,
       currentImageIndex,
       scrollController,
       parentController,
       isAtTop,
-      const DeepCollectionEquality().hash(_images));
+      apiBaseUrl,
+      pubRepository,
+      const DeepCollectionEquality().hash(images),
+      pub);
 
   @JsonKey(ignore: true)
   @override
@@ -247,16 +408,34 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
 
 abstract class _ClubProfileState implements ClubProfileState {
   const factory _ClubProfileState(
-      {required final GlobalKey<State<StatefulWidget>> key,
+      {required final bool isLoading,
+      required final bool isFailed,
+      required final bool isSuccessful,
+      required final String responseMsg,
+      required final GlobalKey<State<StatefulWidget>> key,
+      required final int clubId,
       required final double viewPortHeight,
       required final int currentImageIndex,
       required final ScrollController scrollController,
       required final ScrollController parentController,
       required final bool isAtTop,
-      required final List<String> images}) = _$ClubProfileStateImpl;
+      required final String apiBaseUrl,
+      required final PubRepository pubRepository,
+      required final List<String> images,
+      final PubDto? pub}) = _$ClubProfileStateImpl;
 
   @override
+  bool get isLoading;
+  @override
+  bool get isFailed;
+  @override
+  bool get isSuccessful;
+  @override
+  String get responseMsg;
+  @override
   GlobalKey<State<StatefulWidget>> get key;
+  @override
+  int get clubId;
   @override
   double get viewPortHeight;
   @override
@@ -268,7 +447,13 @@ abstract class _ClubProfileState implements ClubProfileState {
   @override
   bool get isAtTop;
   @override
+  String get apiBaseUrl;
+  @override
+  PubRepository get pubRepository;
+  @override
   List<String> get images;
+  @override
+  PubDto? get pub;
   @override
   @JsonKey(ignore: true)
   _$$ClubProfileStateImplCopyWith<_$ClubProfileStateImpl> get copyWith =>

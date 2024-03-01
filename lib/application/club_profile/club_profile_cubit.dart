@@ -2,35 +2,61 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../domain/pub/pub_repository.dart';
+import '../../infrastructure/core/dtos/asset/asset_dto.dart';
+import '../../infrastructure/event/dtos/pub/pub_dto.dart';
+import '../../infrastructure/pub/i_pub_repository.dart';
+
 part 'club_profile_state.dart';
 part 'club_profile_cubit.freezed.dart';
 
 class ClubProfileCubit extends Cubit<ClubProfileState> {
-  ClubProfileCubit() : super(ClubProfileState.initial()){
-    state.parentController.addListener(() { 
+  ClubProfileCubit(super.initialState) {
+    state.parentController.addListener(() {
       print(state.parentController.position.extentAfter);
     });
 
-    state.scrollController.addListener(() { 
-      emit(state.copyWith(isAtTop: state.scrollController.offset<1));
+    state.scrollController.addListener(() {
+      emit(state.copyWith(isAtTop: state.scrollController.offset < 1));
     });
   }
 
-  void calculateHeight(){
+  void init() async {
+    emit(state.copyWith(isLoading: true));
+    final club = await state.pubRepository.getPubById(pubId: state.clubId);
+    club.fold((l) {
+      emit(state.copyWith(
+        isLoading: false,
+        isFailed: true,
+        isSuccessful: false,
+        responseMsg: l,
+      ));
+    }, (r) {
+      if (r.coverImageUrl.isNotEmpty) {
+        final coverImageAsset = AssetDto(type: 'image', url: r.coverImageUrl);
+        r.assets.insert(0, coverImageAsset);
+      }
+      emit(state.copyWith(
+        isLoading: false,
+        isFailed: false,
+        isSuccessful: true,
+        pub: r,
+      ));
+    });
+  }
+
+  void calculateHeight() {
     double imageHeight = state.key.currentContext!.size!.height;
     // double imageWidth = state.key.currentContext!.size!.height;
 
-    emit(state.copyWith(
-      viewPortHeight: imageHeight
-    ));
+    emit(state.copyWith(viewPortHeight: imageHeight));
   }
 
-  void onCarouselChange({required int index}){
+  void onCarouselChange({required int index}) {
     emit(state.copyWith(currentImageIndex: index));
   }
 
-  void onControllerChange(ScrollController controller){
+  void onControllerChange(ScrollController controller) {
     emit(state.copyWith(parentController: controller));
   }
-
 }

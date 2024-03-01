@@ -3,18 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/club_profile/club_profile_cubit.dart';
+import '../../domain/core/configs/app_config.dart';
 import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
 import 'widgets/media_viewer_tabs.dart';
 
-
 class ClubProfileScreen extends StatelessWidget {
-  const ClubProfileScreen({super.key});
+  final int clubId;
+  const ClubProfileScreen({super.key, required this.clubId});
 
   @override
   Widget build(BuildContext context) {
+    final AppConfig appConfig = AppConfig.of(context)!;
+
     return BlocProvider(
-      create: (context) => ClubProfileCubit(),
+      create: (context) => ClubProfileCubit(ClubProfileState.initial(
+        clubId: clubId,
+        apiBaseUrl: appConfig.serverUrl,
+      ))
+        ..init(),
       child: const ClubProfileScreenConsumer(),
     );
   }
@@ -29,38 +36,44 @@ class ClubProfileScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: Stack(
-              children: [
-                const ImageCarousel(),
-                SizedBox.expand(
-                  child: DraggableScrollableSheet(
-                    initialChildSize: .5,
-                    minChildSize: .5,
-                    builder: (context, scrollController) {
-                      return SingleChildScrollView(
-                        controller: scrollController,
-                        child: Container(
-                          margin: EdgeInsets.only(top: 5.h),
-                          child: Column(
-                            children: [
-                              const ClubProfile(),
-                              // MediaGrid(),
-                              MediaViewerTabs(),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
+            child: state.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : state.pub == null
+                    ? const Center(
+                        child: Text('Data not found'),
+                      )
+                    : Stack(
+                        children: [
+                          const ImageCarousel(),
+                          SizedBox.expand(
+                            child: DraggableScrollableSheet(
+                              initialChildSize: .5,
+                              minChildSize: .5,
+                              builder: (context, scrollController) {
+                                return SingleChildScrollView(
+                                  controller: scrollController,
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 5.h),
+                                    child: Column(
+                                      children: [
+                                        const ClubProfile(),
+                                        // MediaGrid(),
+                                        MediaViewerTabs(),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        ],
+                      ),
           ),
         );
       },

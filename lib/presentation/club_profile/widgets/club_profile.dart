@@ -40,10 +40,10 @@ class ClubProfile extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 3.h,
+                    height: 5.h,
                   ),
                   Text(
-                    'House of Commons',
+                    state.pub!.fullName,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background),
@@ -77,7 +77,7 @@ class ClubProfile extends StatelessWidget {
                     height: 1.h,
                   ),
                   Text(
-                    'Sem vitae vitae turpis auctor purus erat ac aliquam scelerisque risus morbi vel. Eleifend nulla.',
+                    state.pub!.description,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Theme.of(context).colorScheme.background),
                     textAlign: TextAlign.center,
@@ -121,7 +121,7 @@ class ClubProfile extends StatelessWidget {
                             width: 1.w,
                           ),
                           Text(
-                            '5.0 (100 ratings)',
+                            '${state.pub!.averageRating} (100 ratings)',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -142,7 +142,11 @@ class ClubProfile extends StatelessWidget {
                   SizedBox(
                     height: 1.h,
                   ),
-                  const SocialReach()
+                  SocialReach(
+                    totalFollowers: state.pub!.extraDetailsDto.totalFollowers,
+                    totalFriends: state.pub!.extraDetailsDto.totalFriends,
+                    totalParties: state.pub!.extraDetailsDto.totalParties,
+                  )
                 ],
               ),
             ),

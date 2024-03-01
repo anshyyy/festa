@@ -24,12 +24,17 @@ mixin _$PubDto {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'fullName', defaultValue: '')
   String get fullName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'description', defaultValue: '')
+  String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'userName', defaultValue: '')
   String get userName => throw _privateConstructorUsedError;
   @JsonKey(name: 'averageRating', defaultValue: 0.0)
   double get averageRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
   String get coverImageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'assets', defaultValue: [])
+  List<AssetDto> get assets => throw _privateConstructorUsedError;
+  PubExtraDetailsDto get extraDetailsDto => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,9 +49,14 @@ abstract class $PubDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
+      @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'userName', defaultValue: '') String userName,
       @JsonKey(name: 'averageRating', defaultValue: 0.0) double averageRating,
-      @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl});
+      @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
+      @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
+      PubExtraDetailsDto extraDetailsDto});
+
+  $PubExtraDetailsDtoCopyWith<$Res> get extraDetailsDto;
 }
 
 /// @nodoc
@@ -64,9 +74,12 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
   $Res call({
     Object? id = null,
     Object? fullName = null,
+    Object? description = null,
     Object? userName = null,
     Object? averageRating = null,
     Object? coverImageUrl = null,
+    Object? assets = null,
+    Object? extraDetailsDto = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -76,6 +89,10 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       userName: null == userName
           ? _value.userName
@@ -89,7 +106,23 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
           ? _value.coverImageUrl
           : coverImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      assets: null == assets
+          ? _value.assets
+          : assets // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
+      extraDetailsDto: null == extraDetailsDto
+          ? _value.extraDetailsDto
+          : extraDetailsDto // ignore: cast_nullable_to_non_nullable
+              as PubExtraDetailsDto,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PubExtraDetailsDtoCopyWith<$Res> get extraDetailsDto {
+    return $PubExtraDetailsDtoCopyWith<$Res>(_value.extraDetailsDto, (value) {
+      return _then(_value.copyWith(extraDetailsDto: value) as $Val);
+    });
   }
 }
 
@@ -103,9 +136,15 @@ abstract class _$$PubDtoImplCopyWith<$Res> implements $PubDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
+      @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'userName', defaultValue: '') String userName,
       @JsonKey(name: 'averageRating', defaultValue: 0.0) double averageRating,
-      @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl});
+      @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
+      @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
+      PubExtraDetailsDto extraDetailsDto});
+
+  @override
+  $PubExtraDetailsDtoCopyWith<$Res> get extraDetailsDto;
 }
 
 /// @nodoc
@@ -121,9 +160,12 @@ class __$$PubDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? fullName = null,
+    Object? description = null,
     Object? userName = null,
     Object? averageRating = null,
     Object? coverImageUrl = null,
+    Object? assets = null,
+    Object? extraDetailsDto = null,
   }) {
     return _then(_$PubDtoImpl(
       id: null == id
@@ -133,6 +175,10 @@ class __$$PubDtoImplCopyWithImpl<$Res>
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       userName: null == userName
           ? _value.userName
@@ -146,6 +192,14 @@ class __$$PubDtoImplCopyWithImpl<$Res>
           ? _value.coverImageUrl
           : coverImageUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      assets: null == assets
+          ? _value.assets
+          : assets // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
+      extraDetailsDto: null == extraDetailsDto
+          ? _value.extraDetailsDto
+          : extraDetailsDto // ignore: cast_nullable_to_non_nullable
+              as PubExtraDetailsDto,
     ));
   }
 }
@@ -156,11 +210,14 @@ class _$PubDtoImpl implements _PubDto {
   const _$PubDtoImpl(
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
+      @JsonKey(name: 'description', defaultValue: '') required this.description,
       @JsonKey(name: 'userName', defaultValue: '') required this.userName,
       @JsonKey(name: 'averageRating', defaultValue: 0.0)
       required this.averageRating,
       @JsonKey(name: 'coverImageUrl', defaultValue: '')
-      required this.coverImageUrl});
+      required this.coverImageUrl,
+      @JsonKey(name: 'assets', defaultValue: []) required this.assets,
+      required this.extraDetailsDto});
 
   factory _$PubDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PubDtoImplFromJson(json);
@@ -172,6 +229,9 @@ class _$PubDtoImpl implements _PubDto {
   @JsonKey(name: 'fullName', defaultValue: '')
   final String fullName;
   @override
+  @JsonKey(name: 'description', defaultValue: '')
+  final String description;
+  @override
   @JsonKey(name: 'userName', defaultValue: '')
   final String userName;
   @override
@@ -180,10 +240,15 @@ class _$PubDtoImpl implements _PubDto {
   @override
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
   final String coverImageUrl;
+  @override
+  @JsonKey(name: 'assets', defaultValue: [])
+  final List<AssetDto> assets;
+  @override
+  final PubExtraDetailsDto extraDetailsDto;
 
   @override
   String toString() {
-    return 'PubDto(id: $id, fullName: $fullName, userName: $userName, averageRating: $averageRating, coverImageUrl: $coverImageUrl)';
+    return 'PubDto(id: $id, fullName: $fullName, description: $description, userName: $userName, averageRating: $averageRating, coverImageUrl: $coverImageUrl, assets: $assets, extraDetailsDto: $extraDetailsDto)';
   }
 
   @override
@@ -194,18 +259,31 @@ class _$PubDtoImpl implements _PubDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.averageRating, averageRating) ||
                 other.averageRating == averageRating) &&
             (identical(other.coverImageUrl, coverImageUrl) ||
-                other.coverImageUrl == coverImageUrl));
+                other.coverImageUrl == coverImageUrl) &&
+            const DeepCollectionEquality().equals(other.assets, assets) &&
+            (identical(other.extraDetailsDto, extraDetailsDto) ||
+                other.extraDetailsDto == extraDetailsDto));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, fullName, userName, averageRating, coverImageUrl);
+      runtimeType,
+      id,
+      fullName,
+      description,
+      userName,
+      averageRating,
+      coverImageUrl,
+      const DeepCollectionEquality().hash(assets),
+      extraDetailsDto);
 
   @JsonKey(ignore: true)
   @override
@@ -226,12 +304,17 @@ abstract class _PubDto implements PubDto {
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
       @JsonKey(name: 'fullName', defaultValue: '')
       required final String fullName,
+      @JsonKey(name: 'description', defaultValue: '')
+      required final String description,
       @JsonKey(name: 'userName', defaultValue: '')
       required final String userName,
       @JsonKey(name: 'averageRating', defaultValue: 0.0)
       required final double averageRating,
       @JsonKey(name: 'coverImageUrl', defaultValue: '')
-      required final String coverImageUrl}) = _$PubDtoImpl;
+      required final String coverImageUrl,
+      @JsonKey(name: 'assets', defaultValue: [])
+      required final List<AssetDto> assets,
+      required final PubExtraDetailsDto extraDetailsDto}) = _$PubDtoImpl;
 
   factory _PubDto.fromJson(Map<String, dynamic> json) = _$PubDtoImpl.fromJson;
 
@@ -242,6 +325,9 @@ abstract class _PubDto implements PubDto {
   @JsonKey(name: 'fullName', defaultValue: '')
   String get fullName;
   @override
+  @JsonKey(name: 'description', defaultValue: '')
+  String get description;
+  @override
   @JsonKey(name: 'userName', defaultValue: '')
   String get userName;
   @override
@@ -250,6 +336,11 @@ abstract class _PubDto implements PubDto {
   @override
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
   String get coverImageUrl;
+  @override
+  @JsonKey(name: 'assets', defaultValue: [])
+  List<AssetDto> get assets;
+  @override
+  PubExtraDetailsDto get extraDetailsDto;
   @override
   @JsonKey(ignore: true)
   _$$PubDtoImplCopyWith<_$PubDtoImpl> get copyWith =>

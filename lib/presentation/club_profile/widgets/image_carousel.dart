@@ -18,14 +18,14 @@ class ImageCarousel extends StatelessWidget {
         return Stack(
           children: [
             CarouselSlider.builder(
-                itemCount: 3,
+                itemCount: state.pub!.assets.length,
                 itemBuilder: (context, imageIndex, realIndex) {
                   return Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                          'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                          state.pub!.assets[imageIndex].url,
                         ),
                       ),
                     ),
@@ -39,7 +39,9 @@ class ImageCarousel extends StatelessWidget {
                   autoPlay: true,
                   viewportFraction: 1,
                   onPageChanged: (index, reason) {
-                    context.read<ClubProfileCubit>().onCarouselChange(index: index);
+                    context
+                        .read<ClubProfileCubit>()
+                        .onCarouselChange(index: index);
                   },
                 )),
             Padding(
@@ -49,9 +51,9 @@ class ImageCarousel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ...List.generate(
-                      3,
+                      state.pub!.assets.length,
                       (dotIndex) => Padding(
-                             padding: EdgeInsets.all(.3.w),
+                            padding: EdgeInsets.all(.3.w),
                             child: Container(
                               height: 1.5.h,
                               width: 1.3.w,

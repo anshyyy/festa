@@ -77,7 +77,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.bookingRoute:
       return _getPageRoute(const BookTicketScreen(), settings);
 
-      case UserRoutes.freeBookingRoute:
+    case UserRoutes.freeBookingRoute:
       return _getPageRoute(const FreeBookingScreen(), settings);
 
     case UserRoutes.paymentDetailsRoute:
@@ -87,12 +87,19 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const BookingDetails(), settings);
 
     case UserRoutes.clubProfileRoute:
-      return _getPageRoute(const ClubProfileScreen(), settings);
+      final clubId = routingData.queryParameters['clubId'] ?? '0';
+      return _getPageRoute(
+          ClubProfileScreen(
+            clubId: int.parse(clubId),
+          ),
+          settings);
 
     case UserRoutes.mainNavRoute:
-      return _getPageRoute(MainNavigator(
-        routeIndex: routingData.queryParameters['routeIndex'] ?? '0',
-      ), settings);
+      return _getPageRoute(
+          MainNavigator(
+            routeIndex: routingData.queryParameters['routeIndex'] ?? '0',
+          ),
+          settings);
 
     case UserRoutes.notificationsRoute:
       return _getPageRoute(const NotificationsScreen(), settings);

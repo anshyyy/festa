@@ -46,7 +46,7 @@ class HomeCubit extends Cubit<HomeState> {
     getEvents();
   }
 
-  Future getEvents() async {
+  Future getEvents({String? eventsFrom}) async {
     String? sort;
     int? range;
     String? otherFilters;
@@ -105,8 +105,8 @@ class HomeCubit extends Cubit<HomeState> {
     isFetching = false;
     emit(state.copyWith(
       noUse: !state.noUse,
+      noFilteredEvents: eventsFrom == 'filters',
       page: state.page + 1,
-      noFilteredEvents: true,
       hasMoreEvents: events.length == limit,
     ));
   }
@@ -140,25 +140,44 @@ class HomeCubit extends Cubit<HomeState> {
         events: [],
         filters: filters,
         hasMoreEvents: true,
+        exploreList: state.mainExploreList,
         page: 1));
-    getEvents();
+    getEvents(eventsFrom: 'location');
+  }
+
+  void removeAppliedFilter({required String id}) {
+    List<FilterDto> filters = List.from(state.filters.map((e) {
+      if (e.name == id) {
+        return e.copyWith(
+            isApplied: false,
+            values: e.values.map((e) => e.copyWith(isApplied: false)).toList());
+      }
+      return e;
+    }));
+    updateFilterApplied(filters: filters);
   }
 
   void updateFilterApplied({required List<FilterDto> filters}) {
-    final sortApplied =
-        filters.firstWhere((element) => element.name == 'sort').isApplied;
+    final sortFilter =
+        filters.firstWhere((element) => element.name == 'sort');
+
+    final sortDisplayName= sortFilter.isApplied ? sortFilter.values.firstWhere((element) => element.isApplied).displayName : 'Sort'; 
+
     final categoryFilter =
         filters.firstWhere((element) => element.name == 'music');
-    
-    final appliedFilter = filters.where((element) => element.isApplied==true);
-    final newFilters = appliedFilter.map((e) {
-      final option = e.values.firstWhere((element) => element.isApplied);
-      return {
-          'id': option.name,
+
+    final appliedFilter = filters.where((element) =>( element.isApplied == true && element.name != 'sort'));
+  
+    final newFilters = appliedFilter.map(
+      (e) {
+        final option = e.values.firstWhere((element) => element.isApplied);
+        return {
+          'id': e.name,
           'isSelected': option.isApplied,
           'label': '${e.displayName}: ${option.displayName}',
         };
-    },).toList();
+      },
+    ).toList();
 
     final tempExploreList = [...state.mainExploreList, ...newFilters];
 
@@ -166,21 +185,22 @@ class HomeCubit extends Cubit<HomeState> {
       if (tempExploreList[i]['id'] == 'sort') {
         tempExploreList[i] = {
           ...tempExploreList[i],
-          'isSelected': sortApplied
+          'isSelected': sortFilter.isApplied,
         };
       }
     }
     emit(state.copyWith(
-        noUse: !state.noUse,
-        filters: filters,
-        categoryFilter: categoryFilter,
-        page: 1,
-        events: [],
-        hasMoreEvents: true,
-        exploreList: tempExploreList,
-        ));
+      noUse: !state.noUse,
+      filters: filters,
+      categoryFilter: categoryFilter,
+      page: 1,
+      events: [],
+      hasMoreEvents: true,
+      exploreList: tempExploreList,
+      sortDisplayName: sortDisplayName,
+    ));
     Future.delayed(const Duration(milliseconds: 200))
-        .then((value) => getEvents());
+        .then((value) => getEvents(eventsFrom: 'filters'));
   }
 
   void emitFromEveryWhere({required HomeState currentState}) {
@@ -223,7 +243,7 @@ class HomeCubit extends Cubit<HomeState> {
                 state.filters[index] =
                     state.filters[index].copyWith(isApplied: true);
                 removeOverlay();
-               updateFilterApplied(filters: state.filters);
+                updateFilterApplied(filters: state.filters);
               },
               filters: state.filters
                   .firstWhere((element) => element.name == 'sort')
@@ -240,19 +260,19 @@ class HomeCubit extends Cubit<HomeState> {
     if (state.overlayEntry != null && state.overlayEntry!.mounted) {
       toggleSort(flag: false);
       state.overlayEntry!.remove();
-      emit(state.copyWith(overlayEntry:null));
+      emit(state.copyWith(overlayEntry: null));
     }
   }
 
-  void toggleSearch({required bool flag}){
+  void toggleSearch({required bool flag}) {
     emit(state.copyWith(isSearchOpen: flag));
   }
-  
-  void onSearchChange({required String query}){
+
+  void onSearchChange({required String query}) {
     emit(state.copyWith(isSearchChanged: query.isNotEmpty));
   }
 
-  void onLocationSearchChange({required String query}){
+  void onLocationSearchChange({required String query}) {
     emit(state.copyWith(isLocationSearchChanged: query.isNotEmpty));
   }
 }

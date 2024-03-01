@@ -49,7 +49,7 @@ class ExploreTile extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                label ?? '',
+                label.toString().toLowerCase() == 'sort' ? state.sortDisplayName :label!,
                 style: themeData.textTheme.bodySmall!.copyWith(
                   color: themeData.colorScheme.background,
                   fontSize: 14.5.sp,

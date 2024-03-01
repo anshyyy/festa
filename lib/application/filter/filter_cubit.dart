@@ -20,6 +20,7 @@ class FilterCubit extends Cubit<FilterState> {
   }
 
   void onOptionChange({required String optionId}) {
+    emit(state.copyWith(isFilterOptionSelected: true));
     final indexOfOption = state.filterValues
         .indexWhere((filterValue) => filterValue.displayName == optionId);
     for (int i = 0; i < state.filterValues.length; i++) {
@@ -41,6 +42,7 @@ class FilterCubit extends Cubit<FilterState> {
 
   
   void clearFilters() {
+    emit(state.copyWith(isFilterOptionSelected: false));
     List<FilterDto> filters = List.from(state.filters.map((e) => e.copyWith(
         isApplied: false,
         values: e.values

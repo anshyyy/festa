@@ -140,7 +140,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                   ),
                                   if (!state.hasMoreEvents &&
                                       state.events.isEmpty)
-                                    another()
+                                    EmptyEvents()
                                   else ...[
                                     SizedBox(
                                       height: 2.h,
@@ -365,6 +365,9 @@ class HomeScreenConsumer extends StatelessWidget {
                                                                 Overlay.of(
                                                                     context));
                                                   }
+                                                  else {
+                                                    context.read<HomeCubit>().removeAppliedFilter(id: item['id']);
+                                                  }
                                                 },
                                               );
                                             }).toList(),
@@ -427,8 +430,8 @@ class HomeScreenConsumer extends StatelessWidget {
   }
 }
 
-class another extends StatelessWidget {
-  const another({
+class EmptyEvents extends StatelessWidget {
+  const EmptyEvents({
     super.key,
   });
 
@@ -443,46 +446,99 @@ class another extends StatelessWidget {
           children: [
             Column(
               children: [
-                SizedBox(height: 10.h,),
+                SizedBox(
+                  height: 10.h,
+                ),
                 SvgPicture.asset(AssetConstants.notFoundFilter),
                 Text(
-                  HomeScreenConstants.noEventsFound,
+                  '${HomeScreenConstants.noEventsFound}${state.noFilteredEvents ? HomeScreenConstants.filters : HomeScreenConstants.area}',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 SizedBox(
                   height: 2.h,
                 ),
-                PrimaryButton(
-                  text: HomeScreenConstants.editFilters,
-                  function: () {
-                    final builderContext = context;
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return FilterModalSheet(
-                            filters: List.from(state.filters
-                                .map((e) =>
-                                    e.copyWith(values: List.from(e.values)))
-                                .toList()),
-                          );
-                        }).then((value) {
-                      if (value != null) {
-                        if (value is List<FilterDto>) {
-                          builderContext
-                              .read<HomeCubit>()
-                              .updateFilterApplied(filters: value);
-                        }
-                      }
-                    });
-                  },
-                  width: 10.w,
-                  height: 4.h,
-                  borderColor: Theme.of(context).colorScheme.secondaryContainer,
-                  backgroundColor: Theme.of(context).colorScheme.onSurface,
-                  textColor: Theme.of(context).colorScheme.background,
+                state.noFilteredEvents
+                    ? PrimaryButton(
+                        text: HomeScreenConstants.editFilters,
+                        function: () {
+                          final builderContext = context;
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return FilterModalSheet(
+                                  filters: List.from(state.filters
+                                      .map((e) => e.copyWith(
+                                          values: List.from(e.values)))
+                                      .toList()),
+                                );
+                              }).then((value) {
+                            if (value != null) {
+                              if (value is List<FilterDto>) {
+                                builderContext
+                                    .read<HomeCubit>()
+                                    .updateFilterApplied(filters: value);
+                              }
+                            }
+                          });
+                        },
+                        width: 10.w,
+                        height: 4.h,
+                        borderColor:
+                            Theme.of(context).colorScheme.secondaryContainer,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onSurface,
+                        textColor: Theme.of(context).colorScheme.background,
+                        textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 14.sp,
+                                    color: Theme.of(context).colorScheme.background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                      )
+                    : GestureDetector(
+                      onTap: () {
+                                          context
+                                              .read<HomeCubit>()
+                                              .toggleLocationDialog();
+                                        },
+                      child: Container(
+                          height: 4.h,
+                          width: 35.w,
+                          padding: EdgeInsets.symmetric(horizontal: 2.w),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Theme.of(context).colorScheme.primary,
+                                Theme.of(context).colorScheme.secondary
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(AssetConstants.setupLocation,
+                              height: 2.h,
+                              ),
+                              Expanded(
+                                child: Center(
+                                  child: Text(HomeScreenConstants.chooseLocation,
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    fontSize: 14.sp,
+                                    color: Theme.of(context).colorScheme.background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                    ),
+                SizedBox(
+                  height: 10.h,
                 ),
-                SizedBox(height: 10.h,),
-              
               ],
             ),
             Row(

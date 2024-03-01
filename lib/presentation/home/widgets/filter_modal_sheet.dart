@@ -74,7 +74,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                              navigator<NavigationService>().goBack();
+                                navigator<NavigationService>().goBack();
                               },
                               child: SvgPicture.asset(
                                 AssetConstants.closeIcon,
@@ -312,14 +312,19 @@ class FilterModalSheetConsumer extends StatelessWidget {
                         children: [
                           Expanded(
                               child: MaterialButton(
-                            onPressed: () {
-                              context.read<FilterCubit>().clearFilters();
-                              Fluttertoast.showToast(msg: 'All the filters are cleared');
-                            },
+                            onPressed: state.isFilterOptionSelected
+                                ? () {
+                                    context.read<FilterCubit>().clearFilters();
+                                    Fluttertoast.showToast(
+                                        msg: 'All the filters are cleared');
+                                  }
+                                : null,
                             child: Text(
                               'Clear All',
                               style: themeData.textTheme.bodySmall!.copyWith(
-                                color: themeData.colorScheme.background,
+                                color: state.isFilterOptionSelected
+                                    ? themeData.colorScheme.background
+                                    : themeData.colorScheme.secondaryContainer,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

@@ -82,12 +82,13 @@ class LocationDialog extends StatelessWidget {
                         fillColor: Theme.of(context).scaffoldBackgroundColor,
                         hintText: 'Search',
                         contentPadding: EdgeInsets.symmetric(vertical: 1.2.h),
-                        onChanged: (p0){
-                          context.read<HomeCubit>().onLocationSearchChange(query: p0);
+                        onChanged: (p0) {
+                          context
+                              .read<HomeCubit>()
+                              .onLocationSearchChange(query: p0);
                         },
                         hintTextStyle:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                ),
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(),
                         textStyle: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -100,131 +101,170 @@ class LocationDialog extends StatelessWidget {
                                   color: Theme.of(context).colorScheme.error,
                                 ),
                       ),
-                      
-                      state.isLocationSearchChanged ?  SingleChildScrollView(
-                        child: Column(
-                          children: [
-                           Padding(
-                             padding: EdgeInsets.only(left: 1.w, bottom: 3.w),
-                             child: Text('Banglore',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 16.sp
-                              ), 
-                             ),
-                           ),
-                           Padding(
-                             padding: EdgeInsets.only(left: 1.w, bottom: 3.w),
-                             child: Text('Banglore',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 16.sp
-                              ), 
-                             ),
-                           ),Padding(
-                             padding: EdgeInsets.only(left: 1.w, bottom: 3.w),
-                             child: Text('Banglore',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 16.sp
-                              ), 
-                             ),
-                           ),Padding(
-                             padding: EdgeInsets.only(left: 1.w, bottom: 3.w),
-                             child: Text('Banglore',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 16.sp
-                              ), 
-                             ),
-                           ),Padding(
-                             padding: EdgeInsets.only(left: 1.w, bottom: 3.w),
-                             child: Text('Banglore',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 16.sp
-                              ), 
-                             ),
-                           ),
-                          ],
-                        ),
-                      ) :Column(
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(AssetConstants.navigationIcon),
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              Text(
-                                'Detect my location',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.background,
-                                      fontWeight: FontWeight.w600,
+                      state.isLocationSearchChanged
+                          ? SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
+                                    child: Text(
+                                      'Banglore',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontSize: 16.sp),
                                     ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Suggested',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.background,
-                                      fontWeight: FontWeight.w600,
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
+                                    child: Text(
+                                      'Banglore',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontSize: 16.sp),
                                     ),
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              SizedBox(
-                                  height: 10.h,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        const LocationTile(
-                                          location: OtherConstants.defaultLocation,
-                                        ),
-                                        SizedBox(
-                                          width: 3.5.w,
-                                        ),
-                                        const LocationTile(
-                                          location: OtherConstants.mumbai,
-                                        ),
-                                        SizedBox(
-                                          width: 3.5.w,
-                                        ),
-                                        const LocationTile(
-                                          location: OtherConstants.delhi,
-                                        ),
-                                        SizedBox(
-                                          width: 3.5.w,
-                                        ),
-                                        const LocationTile(
-                                          location: OtherConstants.hyderabad,
-                                        ),
-                                      ],
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
+                                    child: Text(
+                                      'Banglore',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontSize: 16.sp),
                                     ),
-                                  ))
-                            ],
-                          ),
-                        ],
-                      )
-                    
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
+                                    child: Text(
+                                      'Banglore',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontSize: 16.sp),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
+                                    child: Text(
+                                      'Banglore',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontSize: 16.sp),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                        AssetConstants.navigationIcon),
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    Text(
+                                      'Detect my location',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 3.h,
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Suggested',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    SizedBox(
+                                        height: 10.h,
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: [
+                                              const LocationTile(
+                                                location: OtherConstants
+                                                    .defaultLocation,
+                                              ),
+                                              SizedBox(
+                                                width: 3.5.w,
+                                              ),
+                                              const LocationTile(
+                                                location: OtherConstants.mumbai,
+                                              ),
+                                              SizedBox(
+                                                width: 3.5.w,
+                                              ),
+                                              const LocationTile(
+                                                location: OtherConstants.delhi,
+                                              ),
+                                              SizedBox(
+                                                width: 3.5.w,
+                                              ),
+                                              const LocationTile(
+                                                location:
+                                                    OtherConstants.hyderabad,
+                                              ),
+                                            ],
+                                          ),
+                                        ))
+                                  ],
+                                ),
+                              ],
+                            )
                     ],
                   ),
                 ),

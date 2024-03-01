@@ -163,9 +163,14 @@ class HomeScreenConstants {
   static String welcomeText = 'Let’s party!';
   static String pickYourExperience = 'Pick your experience';
   static String explorerAll = 'Explore all';
-  static String noEventsFound = 'No events found in your selected filters';
+  static String noEventsFound = 'No events found in your selected ';
+
   static String editFilters = 'Edit filters';
   static String searchEvent = 'Search events';
+
+  static String filters = 'filters';
+  static String area = 'area';
+  static String chooseLocation = 'Choose location';
 }
 
 class CartScreenConstants {

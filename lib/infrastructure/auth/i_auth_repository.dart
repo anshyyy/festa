@@ -134,6 +134,7 @@ class IAuthRepository extends AuthRepository {
   Future<UserDto?> authentication() async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      print(token);
       if (token == null) {
         return null;
       }

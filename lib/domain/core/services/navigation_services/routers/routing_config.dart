@@ -24,6 +24,8 @@ import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/notifications/notification_screen.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
+import '../../../../../presentation/user/account_settings/account_privacy/account_privacy_screen.dart';
+import '../../../../../presentation/user/account_settings/account_settings_screen.dart';
 import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
 import '../../../../../presentation/user/personalise_your_experience/personalise_experience_screen.dart';
 import '../../../../../presentation/user/profile_and_settings.dart';
@@ -60,6 +62,12 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.editProfileRoute:
       return _getPageRoute(const EditProfileScreen(), settings);
+
+    case UserRoutes.accountSettingsRoute:
+      return _getPageRoute(const AccountSettingScreen(), settings);
+
+    case UserRoutes.accountPrivacyRoute:
+      return _getPageRoute(const AccountPrivacyScreen(), settings);
 
     case UserRoutes.eventDetailsRoute:
       return _getPageRoute(

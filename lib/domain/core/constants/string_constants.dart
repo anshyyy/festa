@@ -231,7 +231,6 @@ class EventDetailsScreenConstants {
 
 class UserProfileScreenConstants {
   static String personalizeYourExperience = 'Personalise your experience';
-
   static String profileAndSettings = 'Profile and settings';
   static String accountSettings = 'Account Settings';
   static String notifications = 'Notifications';
@@ -263,6 +262,22 @@ class EditProfileScreenConstants {
   static String editProfile = 'Edit Profile';
   static String profile = 'Profile';
   static String bio = 'Bio';
+}
+
+class AccountSettingScreenConstants{
+  static String accountPrivacy = 'Account Privacy';
+  static String email = 'Email';
+  static String phone = 'Phone';
+  static String username = 'Username';
+  static String dateOfBirth = 'Date of Birth';
+  static String password = 'Password';
+  static String deleteAccount = 'Delete Account';
+}
+
+class AccountPrivacyScreenConstants{
+  static String privateAccount= 'Private Account';
+  static String accountPrivacyDescription = 
+  "When your account is set to public, your profile and posts are visible to everyone, both on and off Festa, even if they're not Festa users.\n\nIf you choose to go private, only the followers you approve get to see what you share, from photos and videos to hashtags and location Pages, as well as your followers and following lists.";
 }
 
 class SetupLocationScreenConstants {

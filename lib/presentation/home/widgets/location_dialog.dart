@@ -32,6 +32,7 @@ class LocationDialog extends StatelessWidget {
             ),
             Center(
               child: AnimatedContainer(
+                height: 37.h,
                 duration: const Duration(seconds: 1),
                 margin: EdgeInsets.all(1.w),
                 decoration: BoxDecoration(
@@ -46,6 +47,7 @@ class LocationDialog extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween ,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
@@ -109,61 +111,63 @@ class LocationDialog extends StatelessWidget {
                                 ),
                       ),
                       state.isLocationSearchChanged
-                          ? SingleChildScrollView(
-                              child: 
-                              // state.suggestions.isEmpty
-                              //     ? Padding(
-                              //         padding: EdgeInsets.only(
-                              //             left: 1.w, bottom: 3.w),
-                              //         child: Text(
-                              //           'No suggestion',
-                              //           style: Theme.of(context)
-                              //               .textTheme
-                              //               .bodyMedium!
-                              //               .copyWith(
-                              //                   color: Theme.of(context)
-                              //                       .colorScheme
-                              //                       .background,
-                              //                   fontSize: 16.sp),
-                              //         ),
-                              //       )
-                              //     : 
-                                  Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children:
-                                          state.suggestions.map((suggestion) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            context
-                                                .read<HomeCubit>()
-                                                .onLocationChange(
-                                                  placeId: suggestion.placeId,
-                                                  locationName:
-                                                      suggestion.mainText,
-                                                );
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 1.w, bottom: 4.w),
-                                            child: Text(
-                                              suggestion.description,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .background,
-                                                      fontSize: 16.sp),
+                          ? Expanded(
+                            child: SingleChildScrollView(
+                                child: 
+                                // state.suggestions.isEmpty
+                                //     ? Padding(
+                                //         padding: EdgeInsets.only(
+                                //             left: 1.w, bottom: 3.w),
+                                //         child: Text(
+                                //           'No suggestion',
+                                //           style: Theme.of(context)
+                                //               .textTheme
+                                //               .bodyMedium!
+                                //               .copyWith(
+                                //                   color: Theme.of(context)
+                                //                       .colorScheme
+                                //                       .background,
+                                //                   fontSize: 16.sp),
+                                //         ),
+                                //       )
+                                //     : 
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children:
+                                            state.suggestions.map((suggestion) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .onLocationChange(
+                                                    placeId: suggestion.placeId,
+                                                    locationName:
+                                                        suggestion.mainText,
+                                                  );
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 1.w, bottom: 4.w),
+                                              child: Text(
+                                                suggestion.description,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .background,
+                                                        fontSize: 16.sp),
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                            )
+                                          );
+                                        }).toList(),
+                                      ),
+                              ),
+                          )
                           : Column(
                               children: [
                                 Row(

@@ -110,7 +110,12 @@ class AssetConstants {
   static const upiIcon = '${vectorsFolder}upi-icon.svg';
   static const debitCreditWalletIcon = '${vectorsFolder}debit-credit-wallet-icon.svg';
 
-
+  static const emailIcon = '${vectorsFolder}mail-icon.svg';
+  static const mobileIcon = '${vectorsFolder}mobile-icon.svg';
+  static const usernameIcon = '${vectorsFolder}username-icon.svg';
+  static const candleIcon = '${vectorsFolder}candle-icon.svg';
+  static const lockIcon = '${vectorsFolder}password-lock-icon.svg';
+  static const deleteBinIcon = '${vectorsFolder}delete-bin-icon.svg';
 
 // eventIconConstants
   static const Map<String, String> extras = {

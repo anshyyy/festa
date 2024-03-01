@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/auth/profile/profile_cubit.dart';
@@ -18,6 +17,7 @@ import '../widgets/custom_appbar.dart';
 import '../widgets/custom_textfield.dart';
 import '../widgets/delete_ac_modal.dart';
 import '../widgets/snackbar_alert.dart';
+import 'widgets/setting_tile.dart';
 
 class ProfileAndSettingsScreen extends StatelessWidget {
   const ProfileAndSettingsScreen({super.key});
@@ -323,11 +323,12 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        // SettingTile(
-                        //   prefixIcon: AssetConstants.accountSettings,
-                        //   label: UserProfileScreenConstants.accountSettings,
-                        //   suffixIcon: AssetConstants.arrowRight,
-                        // ),
+                        SettingTile(
+                          prefixIcon: AssetConstants.accountSettings,
+                          label: UserProfileScreenConstants.accountSettings,
+                          suffixIcon: AssetConstants.arrowRight,
+                          onTap: ()=>navigator<NavigationService>().navigateTo(UserRoutes.accountSettingsRoute),
+                        ),
                         // SettingTile(
                         //   prefixIcon: AssetConstants.notificationSettings,
                         //   label: UserProfileScreenConstants.notifications,
@@ -445,57 +446,3 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
   }
 }
 
-class SettingTile extends StatelessWidget {
-  final String prefixIcon;
-  final String label;
-  final String suffixIcon;
-  const SettingTile({
-    super.key,
-    required this.prefixIcon,
-    required this.label,
-    required this.suffixIcon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      splashColor: Theme.of(context).colorScheme.surface,
-      child: Container(
-        height: 5.h,
-        // color: Colors.red,
-        padding: EdgeInsets.symmetric(horizontal: 3.w),
-
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  prefixIcon,
-                  height: 3.h,
-                ),
-                SizedBox(
-                  width: 4.w,
-                ),
-                Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.background,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.5.sp),
-                )
-              ],
-            ),
-            SvgPicture.asset(
-              suffixIcon,
-              height: 2.5.h,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}

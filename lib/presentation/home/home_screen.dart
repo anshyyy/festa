@@ -32,6 +32,7 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeCubit(HomeState.initial(
         serverUrl: appConfig.serverUrl,
+        mapsApiKey: appConfig.googleMapsApiKey,
       ))
         ..init(),
       child: const HomeScreenConsumer(),
@@ -360,7 +361,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     context
                                                         .read<HomeCubit>()
                                                         .getChipPosition(
-                                                            key: state.sortKey,
+                                                            key: state.sortKey as GlobalKey<State<StatefulWidget>>,
                                                             overlayState:
                                                                 Overlay.of(
                                                                     context));

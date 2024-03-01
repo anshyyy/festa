@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -6,11 +7,14 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/event/event_repository.dart';
+import '../../../domain/location/location_repository.dart';
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../../../infrastructure/event/dtos/filter_value/filter_value_dto.dart';
 import '../../../infrastructure/event/i_event_repository.dart';
+import '../../../infrastructure/location/dtos/suggestion/suggestion_dto.dart';
+import '../../../infrastructure/location/i_location_repository.dart';
 import '../../../presentation/home/widgets/dropdown_panel.dart';
 
 part 'home_state.dart';
@@ -158,16 +162,20 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void updateFilterApplied({required List<FilterDto> filters}) {
-    final sortFilter =
-        filters.firstWhere((element) => element.name == 'sort');
+    final sortFilter = filters.firstWhere((element) => element.name == 'sort');
 
-    final sortDisplayName= sortFilter.isApplied ? sortFilter.values.firstWhere((element) => element.isApplied).displayName : 'Sort'; 
+    final sortDisplayName = sortFilter.isApplied
+        ? sortFilter.values
+            .firstWhere((element) => element.isApplied)
+            .displayName
+        : 'Sort';
 
     final categoryFilter =
         filters.firstWhere((element) => element.name == 'music');
 
-    final appliedFilter = filters.where((element) =>( element.isApplied == true && element.name != 'sort'));
-  
+    final appliedFilter = filters.where(
+        (element) => (element.isApplied == true && element.name != 'sort'));
+
     final newFilters = appliedFilter.map(
       (e) {
         final option = e.values.firstWhere((element) => element.isApplied);
@@ -272,7 +280,28 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(isSearchChanged: query.isNotEmpty));
   }
 
-  void onLocationSearchChange({required String query}) {
+  void onLocationSearchChange({required String query}) async {
     emit(state.copyWith(isLocationSearchChanged: query.isNotEmpty));
+    final locationSuggestions =
+        await state.locationRepository.getLocationSuggestions(query: query);
+    emit(state.copyWith(suggestions: locationSuggestions));
+  }
+
+  void onLocationChange(
+      {required String placeId, required String locationName}) async {
+    Either<dynamic, Map<String, dynamic>> response =
+        await state.locationRepository.getLocationDetails(placeId: placeId);
+    response.fold((l) => null, (r) {
+      final updatedLocation = LocationDto(
+          latitude: r['lat'] as double,
+          longitude: r['lng'] as double,
+          area: locationName,
+          city: locationName,
+          state: locationName,
+          country: 'India',
+          icon: '');
+      updateLocation(location: updatedLocation);
+    });
+    emit(state.copyWith(suggestions: [], isLocationSearchChanged: false));
   }
 }

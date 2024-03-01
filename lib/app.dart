@@ -153,6 +153,7 @@ Future appInitializer(AppConfig appConfig) async {
     appTitle: appConfig.appTitle,
     buildFlavor: appConfig.buildFlavor,
     serverUrl: appConfig.serverUrl,
+    googleMapsApiKey: appConfig.googleMapsApiKey,
     child: ChangeNotifierProvider<AppStateNotifier>(
       create: (context) {
         return appStateNotifier;

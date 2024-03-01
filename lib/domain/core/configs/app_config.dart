@@ -49,7 +49,7 @@ class AppConfig extends InheritedWidget {
   final String appTitle;
   final String buildFlavor;
   final String serverUrl;
-
+  final String googleMapsApiKey;
   @override
   // ignore: overridden_fields
   final Widget child;
@@ -60,6 +60,7 @@ class AppConfig extends InheritedWidget {
     required this.buildFlavor,
     required this.child,
     required this.serverUrl,
+    required this.googleMapsApiKey,
   }) : super(child: child);
 
   static AppConfig? of(BuildContext context) {

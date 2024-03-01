@@ -1,3 +1,4 @@
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -82,10 +83,16 @@ class LocationDialog extends StatelessWidget {
                         fillColor: Theme.of(context).scaffoldBackgroundColor,
                         hintText: 'Search',
                         contentPadding: EdgeInsets.symmetric(vertical: 1.2.h),
-                        onChanged: (p0) {
-                          context
-                              .read<HomeCubit>()
-                              .onLocationSearchChange(query: p0);
+                        onChanged: (value) {
+                          EasyDebounce.debounce(
+                            'location-search',
+                            const Duration(milliseconds: 500),
+                            () {
+                              context
+                                  .read<HomeCubit>()
+                                  .onLocationSearchChange(query: value);
+                            },
+                          );
                         },
                         hintTextStyle:
                             Theme.of(context).textTheme.bodyMedium!.copyWith(),
@@ -103,85 +110,59 @@ class LocationDialog extends StatelessWidget {
                       ),
                       state.isLocationSearchChanged
                           ? SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
-                                    child: Text(
-                                      'Banglore',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontSize: 16.sp),
+                              child: 
+                              // state.suggestions.isEmpty
+                              //     ? Padding(
+                              //         padding: EdgeInsets.only(
+                              //             left: 1.w, bottom: 3.w),
+                              //         child: Text(
+                              //           'No suggestion',
+                              //           style: Theme.of(context)
+                              //               .textTheme
+                              //               .bodyMedium!
+                              //               .copyWith(
+                              //                   color: Theme.of(context)
+                              //                       .colorScheme
+                              //                       .background,
+                              //                   fontSize: 16.sp),
+                              //         ),
+                              //       )
+                              //     : 
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children:
+                                          state.suggestions.map((suggestion) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<HomeCubit>()
+                                                .onLocationChange(
+                                                  placeId: suggestion.placeId,
+                                                  locationName:
+                                                      suggestion.mainText,
+                                                );
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 1.w, bottom: 4.w),
+                                            child: Text(
+                                              suggestion.description,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .background,
+                                                      fontSize: 16.sp),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
-                                    child: Text(
-                                      'Banglore',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontSize: 16.sp),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
-                                    child: Text(
-                                      'Banglore',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontSize: 16.sp),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
-                                    child: Text(
-                                      'Banglore',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontSize: 16.sp),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 1.w, bottom: 3.w),
-                                    child: Text(
-                                      'Banglore',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontSize: 16.sp),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             )
                           : Column(
                               children: [

@@ -33,5 +33,12 @@ class UserRoutes {
   static const String editProfileRoute = 'editProfile';
   static const String accountSettingsRoute = 'accountSettings';
   static const String accountPrivacyRoute = 'accountPrivacy';
+  static const String emailScreenRoute = 'emailScreen';
+  static const String emailOtpVerificationRoute = 'emailOtpVerification';
+  static const String emailDetailsScreenRoute = 'emailDetailsScreen';
+  static const String phoneScreenRoute = 'phoneScreen';
+  static const String phoneOtpVerificationRoute = 'phoneOtpVerification';
+  static const String phoneDetailsScreenRoute = 'phoneDetailsScreen';
+
   static const String notificationsRoute = 'notifications';
 }

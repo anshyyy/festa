@@ -312,23 +312,15 @@ class FilterModalSheetConsumer extends StatelessWidget {
                         children: [
                           Expanded(
                               child: MaterialButton(
-                            onPressed:
-                                //  state.isFilterOptionSelected
-                                //     ?
-                                () {
+                            onPressed: () {
                               context.read<FilterCubit>().clearFilters();
                               Fluttertoast.showToast(
                                   msg: 'All the filters are cleared');
                             },
-                            // : null,
                             child: Text(
                               'Clear All',
                               style: themeData.textTheme.bodySmall!.copyWith(
-                                color: 
-                                // state.isFilterOptionSelected
-                                //     ? 
-                                    themeData.colorScheme.background,
-                                    // : themeData.colorScheme.secondaryContainer,
+                                color: themeData.colorScheme.background,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

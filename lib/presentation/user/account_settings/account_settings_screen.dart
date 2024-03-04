@@ -54,14 +54,18 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             label: AccountSettingScreenConstants.email,
             suffixIcon: AssetConstants.arrowRight,
             detail: 'mrpramodjadhav.design.comddddddddddd',
-            onTap: () {},
+            onTap: () =>navigator<NavigationService>().navigateTo(
+              UserRoutes.emailScreenRoute,
+            ),
           ),
           SettingTile(
             prefixIcon: AssetConstants.mobileIcon,
             label: AccountSettingScreenConstants.phone,
             suffixIcon: AssetConstants.arrowRight,
             detail: '+91 9987731025',
-            onTap: () {},
+            onTap: ()=>navigator<NavigationService>().navigateTo(
+              UserRoutes.phoneScreenRoute,
+            ),
           ),
           SettingTile(
             prefixIcon: AssetConstants.usernameIcon,

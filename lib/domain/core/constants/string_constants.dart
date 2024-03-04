@@ -39,8 +39,7 @@ class BirthdayScreenConstants {
 
 class GenderSelectionScreenConstants {
   static String addGenderText = 'What\'s your gender?';
-  static String addText =
-      'Please enter what gender?';
+  static String addText = 'Please enter what gender?';
 }
 
 class TermsAndConditionConstants {
@@ -113,6 +112,7 @@ class ErrorConstants {
       );
   static String invalidVideo = 'Invalid Video!';
   static String shortVideo = 'Captured video is too short!';
+  static String invalidEmail = 'Enter a valid Email';
 }
 
 class TicketScreenConstants {
@@ -133,8 +133,8 @@ class BookingScreenConstants {
   static String upi = 'UPI';
   static String debitCredit = 'Debit/Credit Card';
   static String status = 'Status';
-  static String successful = 'Succesful';  
-  static String failed = 'Failed';  
+  static String successful = 'Succesful';
+  static String failed = 'Failed';
   static String noOfTickets = 'Number of tickets';
   static String date = 'Date';
   static String paymentMethod = 'Payment Method';
@@ -146,9 +146,11 @@ class BookingScreenConstants {
 class FreeBookingScreenConstants {
   static String whatHappenNext = 'What happens next?';
   static String qrCodeAdded = '1. QR code added to the ticket section';
-  static String qrCodeAddedDescription ="To gain entry to the event, you'll need to present the QR code we sent you via email as well. Please have the QR code ready for scanning at the entrance. Keep in mind that each QR code is valid for a single use.";
+  static String qrCodeAddedDescription =
+      "To gain entry to the event, you'll need to present the QR code we sent you via email as well. Please have the QR code ready for scanning at the entrance. Keep in mind that each QR code is valid for a single use.";
   static String markYourCalendar = '2. Mark your calendar';
-  static String markYourCalendarDescription = 'Mark your calendar and turn on your notifications. Your spot in line will be determined on a first come serve basis.';
+  static String markYourCalendarDescription =
+      'Mark your calendar and turn on your notifications. Your spot in line will be determined on a first come serve basis.';
   static String shareQrWithFriend = 'Share QR code with friends';
   static String gotoTickets = 'Go to tickets';
 }
@@ -264,7 +266,7 @@ class EditProfileScreenConstants {
   static String bio = 'Bio';
 }
 
-class AccountSettingScreenConstants{
+class AccountSettingScreenConstants {
   static String accountPrivacy = 'Account Privacy';
   static String email = 'Email';
   static String phone = 'Phone';
@@ -274,10 +276,67 @@ class AccountSettingScreenConstants{
   static String deleteAccount = 'Delete Account';
 }
 
-class AccountPrivacyScreenConstants{
-  static String privateAccount= 'Private Account';
-  static String accountPrivacyDescription = 
-  "When your account is set to public, your profile and posts are visible to everyone, both on and off Festa, even if they're not Festa users.\n\nIf you choose to go private, only the followers you approve get to see what you share, from photos and videos to hashtags and location Pages, as well as your followers and following lists.";
+class AccountPrivacyScreenConstants {
+  static String privateAccount = 'Private Account';
+  static String accountPrivacyDescription =
+      "When your account is set to public, your profile and posts are visible to everyone, both on and off Festa, even if they're not Festa users.\n\nIf you choose to go private, only the followers you approve get to see what you share, from photos and videos to hashtags and location Pages, as well as your followers and following lists.";
+  static String switchToPublic = 'Switch to public account?';
+  static String anyoneCanSeeYourProfile =
+      'Anyone can see your posts, videos and highlights.';
+  static String thisWontChange =
+      'This won’t change who can message, tag or @mention you.';
+  static String youCanAlwaysGoPrivate = 'You can always go private in settings';
+  static String switchToPublicBtnText = 'Switch to Public';
+  static String switchToPrivateBtnText = 'Switch to Private';
+  static String cancel = 'Cancel';
+  static String switchToPrivate = 'Switch to private account?';
+  static String onlyFollowersCanSee =
+      'Only followers can see your posts, videos and highlights.';
+  static String youCanAlwaysGoPublic = 'You can always go public in settings';
+}
+
+class AccountEmailScreenConstants {
+  static String title = 'Email Address';
+  static String youHaveNotAddedEmail =
+      'You have not added your email address yet. You can add the email address below.';
+  static String typeNewEmail = 'Type new email address...';
+  static String addEmail = 'Add Email';
+  static String otpSent = 'We have sent OTP to ';
+  static String changeEmail = 'Change email';
+  static String enterOtp = 'Enter the OTP here..';
+  static String resendNow = 'Resend now ';
+  static String resendAfter = 'Resend after ';
+  static String youHaveAddedThisEmail =
+      'You added this email to this accounts.';
+  static String whoCanSeeYourEmailAddress = 'Who can see your email address?';
+  static String deleteEmailAddress = 'Delete email address';
+  static String submit = 'Submit';
+  static String deleteEmailDescription =
+      'You’ll no longer be able to use this email address to log in, reset your password or receive notifications.\n\nPlease note that you may not able to delete this email address from accounts where it is the only contact method.';
+  static String confirm = 'Confirm';
+  static String cancel = 'Cancel';
+}
+
+class PhoneScreenConstants {
+  static String title = 'Mobile Settings';
+  static String youHaveNotAddedContact =
+      'You have not added your contact number yet. You can add the number below.';
+  static String typeHere = 'Type here';
+  static String addNumber = 'Add number';
+  static String otpSent = 'We have sent OTP to ';
+  static String changeNumber = 'Change number';
+  static String enterOtp = 'Enter the OTP here..';
+  static String resendNow = 'Resend now ';
+  static String resendAfter = 'Resend after ';
+  static String youHaveAddedThisNumber =
+      'You added this number to this accounts.';
+  static String whoCanSeeYourNumber = 'Who can see your number?';
+  static String deleteNumber = 'Delete number';
+  static String submit = 'Submit';
+  static String deletePhoneDescription =
+      'You’ll no longer be able to use this number to log in, reset your password or receive notifications.\n\nPlease note that you may not able to delete this number from accounts where it is the only contact method.';
+  static String confirm = 'Confirm';
+  static String cancel = 'Cancel';
 }
 
 class SetupLocationScreenConstants {
@@ -290,5 +349,6 @@ class NotificationsScreenConstants {
   static String notificationsFilter = 'Filter';
   static String notifications = 'Notifications';
   static String noNotifications = 'No Notifications yet';
-  static String aboutNotifications = 'Notifications about your events and friends will show up here.';
+  static String aboutNotifications =
+      'Notifications about your events and friends will show up here.';
 }

@@ -26,6 +26,12 @@ import '../../../../../presentation/notifications/notification_screen.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
 import '../../../../../presentation/user/account_settings/account_privacy/account_privacy_screen.dart';
 import '../../../../../presentation/user/account_settings/account_settings_screen.dart';
+import '../../../../../presentation/user/account_settings/email/email_details_screen.dart';
+import '../../../../../presentation/user/account_settings/email/email_otp_verification.dart';
+import '../../../../../presentation/user/account_settings/email/email_screen.dart';
+import '../../../../../presentation/user/account_settings/phone/phone_details_screen.dart';
+import '../../../../../presentation/user/account_settings/phone/phone_otp_verification.dart';
+import '../../../../../presentation/user/account_settings/phone/phone_screen.dart';
 import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
 import '../../../../../presentation/user/personalise_your_experience/personalise_experience_screen.dart';
 import '../../../../../presentation/user/profile_and_settings.dart';
@@ -68,6 +74,36 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.accountPrivacyRoute:
       return _getPageRoute(const AccountPrivacyScreen(), settings);
+
+    case UserRoutes.emailScreenRoute:
+      return _getPageRoute(const EmailScreen(), settings);
+
+    case UserRoutes.emailOtpVerificationRoute:
+      return _getPageRoute(
+          EmailOtpVerification(
+              emailAddress: routingData.queryParameters['emailAddress'] ?? ''),
+          settings);
+
+    case UserRoutes.emailDetailsScreenRoute:
+      return _getPageRoute(
+          EmailDetailsScreen(
+              emailAddress: routingData.queryParameters['emailAddress'] ?? ''),
+          settings);
+
+    case UserRoutes.phoneScreenRoute:
+      return _getPageRoute(const PhoneScreen(), settings);
+
+    case UserRoutes.phoneOtpVerificationRoute:
+      return _getPageRoute(
+          PhoneOtpVerification(
+              phoneNumber: routingData.queryParameters['phoneNumber'] ?? ''),
+          settings);
+
+    case UserRoutes.phoneDetailsScreenRoute:
+      return _getPageRoute(
+          PhoneDetailsScreen(
+              phoneNumber: routingData.queryParameters['emailAddress'] ?? ''),
+          settings);
 
     case UserRoutes.eventDetailsRoute:
       return _getPageRoute(

@@ -24,6 +24,7 @@ final appThemeData = {
           surface: const Color(0XFF171717),
           error: const Color(0XFFDF1642),
           inversePrimary:const Color(0XFF18A957), // success
+          scrim: const Color(0XFF3D53F5)
         ),
     appBarTheme: const AppBarTheme(
       color: Colors.white,

@@ -57,16 +57,21 @@ extension StringExtension on String {
     }
     return location.city;
   }
+  
+static String formatDateTimeNormal(DateTime dateTime) {
+    DateFormat formatter = DateFormat('dd MMM yyyy');
+    return formatter.format(dateTime);
+  }
 
   static String formatDateTimeLong(DateTime dateTime) {
-  DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
-  return formatter.format(dateTime);
-}
-  static String formatDateTimeMedium(DateTime dateTime) {
-  DateFormat formatter = DateFormat('MMM dd, hh:mma');
-  return formatter.format(dateTime);
-}
+    DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
+    return formatter.format(dateTime);
+  }
 
+  static String formatDateTimeMedium(DateTime dateTime) {
+    DateFormat formatter = DateFormat('MMM dd, hh:mma');
+    return formatter.format(dateTime);
+  }
 }
 
 class CapitalizeText extends TextInputFormatter {

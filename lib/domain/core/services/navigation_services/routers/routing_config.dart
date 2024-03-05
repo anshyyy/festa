@@ -26,12 +26,15 @@ import '../../../../../presentation/notifications/notification_screen.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
 import '../../../../../presentation/user/account_settings/account_privacy/account_privacy_screen.dart';
 import '../../../../../presentation/user/account_settings/account_settings_screen.dart';
+import '../../../../../presentation/user/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
+import '../../../../../presentation/user/account_settings/delete_account/delete_account_screen.dart';
 import '../../../../../presentation/user/account_settings/email/email_details_screen.dart';
 import '../../../../../presentation/user/account_settings/email/email_otp_verification.dart';
 import '../../../../../presentation/user/account_settings/email/email_screen.dart';
 import '../../../../../presentation/user/account_settings/phone/phone_details_screen.dart';
 import '../../../../../presentation/user/account_settings/phone/phone_otp_verification.dart';
 import '../../../../../presentation/user/account_settings/phone/phone_screen.dart';
+import '../../../../../presentation/user/account_settings/username/username_settings_screen.dart';
 import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
 import '../../../../../presentation/user/personalise_your_experience/personalise_experience_screen.dart';
 import '../../../../../presentation/user/profile_and_settings.dart';
@@ -102,8 +105,17 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.phoneDetailsScreenRoute:
       return _getPageRoute(
           PhoneDetailsScreen(
-              phoneNumber: routingData.queryParameters['emailAddress'] ?? ''),
+              phoneNumber: routingData.queryParameters['phoneNumber'] ?? ''),
           settings);
+
+    case UserRoutes.usernameSettingsScreenRoute:
+      return _getPageRoute(const UsernameSettingsScreen(), settings);
+
+    case UserRoutes.dateOfBirthSettingsScreenRoute:
+      return _getPageRoute(const DateOfBirthSettingsScreen(), settings);
+
+    case UserRoutes.deleteAccountScreenRoute:
+      return _getPageRoute(const DeleteAccountScreen(), settings);
 
     case UserRoutes.eventDetailsRoute:
       return _getPageRoute(
@@ -111,9 +123,6 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
             id: routingData.queryParameters['id'] ?? '',
           ),
           settings);
-
-    // case UserRoutes.eventCardRoute:
-    //   return _getPageRoute(const EventCardScreen(), settings);
 
     case UserRoutes.ticketsRoute:
       return _getPageRoute(const TicketScreen(), settings);

@@ -339,10 +339,72 @@ class PhoneScreenConstants {
   static String cancel = 'Cancel';
 }
 
+class UsernameSettingsScreenConstants {
+  static String title = 'Username';
+  static String typeHere = 'Type here';
+  static String chooseNewUsernameMessage =
+      'Choose a new username to represent yourself on Festa.';
+  static String usernameCanConsistMessage =
+      'Username can consist of 3-15 characters with letters, numbers and underscores.';
+  static String inMostCasesMessage =
+      'In most cases, you’ll be able to change your username once in 14 days.';
+  static String updateUsername = 'Update Username';
+  static String cancel = 'Cancel';
+  static String userNameIsntAvailable =
+      "This username isn't available, please try another.";
+}
+
+class DateOfBirthSettingsScreenConstants {
+  static String title = 'Date of Birth';
+  static String edit = 'Edit';
+  static String dateOfBirthMessage =
+      'Providing your date of birth helps make sure that you get the right experience for your age.';
+  static String whoCanSeeYourDobMessage = 'Who can see you birthday?';
+  static String save = 'Save';
+  static String cancel = 'Cancel';
+}
+
+class DeleteAccountScreenConstants {
+  static String delete = 'delete';
+  static String title = 'Delete Account';
+  static String whyYouWouldDeleteMessage =
+      'Why would you like to delete your account?';
+  static String dontWantToUseFesta = 'I don’t want to use Festa anymore';
+  static String usingAnotherAccount = 'I am using another account';
+  static String worriedAboutMyPrivacy = 'I am worried about my privacy';
+  static String sendingMeTooManyNotifications =
+      'You’re sending me too many notifications';
+  static String theAppIsNotWorking = 'The app is not working properly';
+  static String other = 'Others';
+  static String accountDeletion = 'Account Deletion';
+  static String accountDeletionMessage =
+      'You will lose access to any tickets you’ve purchased and our past event attendance records.\n\nAll your events, friends, posts and everything else will be permanently erased.\n\nThis action cannot be reverted.';
+  static String cancel = 'Cancel';
+  static String confirmDelete = 'Confirm Deletion';
+  static String actionCannotBeReverted = 'This action cannot be reverted.';
+  static String deleteConfirm = 'Type “delete” to confirm.';
+  static String typeHere = 'Type here...';
+  static String sadToSeeYouGo = 'Sad to see you go :(';
+  static String youWillLoggedOut = 'You will logged out from every device.';
+  static String youCanAlwaysJoinMessage =
+      'You can always join back using same credentials.';
+  static String close = 'Close';
+
+  static List<String> deleteReasons = [
+    dontWantToUseFesta,
+    usingAnotherAccount,
+    worriedAboutMyPrivacy,
+    sendingMeTooManyNotifications,
+    theAppIsNotWorking
+  ];
+}
+
 class SetupLocationScreenConstants {
   static String setupYourLocation = 'Set your location';
   static String seeWhatHappening = 'See what’s happening in your city';
   static String useMyLocation = 'Use my location';
+  static String save = 'Save';
+  static String cancel = 'Cancel';
 }
 
 class NotificationsScreenConstants {

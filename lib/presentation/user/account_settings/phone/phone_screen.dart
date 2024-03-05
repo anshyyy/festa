@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../application/user/email/email_cubit.dart';
 import '../../../../application/user/phone/phone_cubit.dart';
 import '../../../../domain/core/configs/injection.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
@@ -74,6 +73,7 @@ class PhoneScreenConsumer extends StatelessWidget {
                   height: 2.5.h,
                 ),
                 CustomTextField(
+                  controller: state.phoneNumberController,
                   prefixIcon: Text('+91',),
                   isFill: true,
                   fillColor: colorScheme.surface,

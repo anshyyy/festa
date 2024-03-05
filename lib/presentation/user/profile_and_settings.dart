@@ -167,24 +167,21 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                 height: 15.w,
                                 width: 15.w,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .background,
-                                    width: .5.w,
-                                  ),
-                                  image: state.user!.profileImage != null
-                                      ? DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: CachedNetworkImageProvider(
-                                              state.user!.profileImage),
-                                        )
-                                      : null,
-                                ),
+                                        .primaryContainer,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                      width: .5.w,
+                                    ),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: CachedNetworkImageProvider(
+                                          state.user!.profileImage),
+                                    )),
                               ),
                               SizedBox(
                                 width: 3.w,
@@ -327,7 +324,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                           prefixIcon: AssetConstants.accountSettings,
                           label: UserProfileScreenConstants.accountSettings,
                           suffixIcon: AssetConstants.arrowRight,
-                          onTap: ()=>navigator<NavigationService>().navigateTo(UserRoutes.accountSettingsRoute),
+                          onTap: () => navigator<NavigationService>()
+                              .navigateTo(UserRoutes.accountSettingsRoute),
                         ),
                         // SettingTile(
                         //   prefixIcon: AssetConstants.notificationSettings,
@@ -445,4 +443,3 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
     );
   }
 }
-

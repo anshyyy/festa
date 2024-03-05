@@ -54,7 +54,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             label: AccountSettingScreenConstants.email,
             suffixIcon: AssetConstants.arrowRight,
             detail: 'mrpramodjadhav.design.comddddddddddd',
-            onTap: () =>navigator<NavigationService>().navigateTo(
+            onTap: () => navigator<NavigationService>().navigateTo(
               UserRoutes.emailScreenRoute,
             ),
           ),
@@ -63,7 +63,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             label: AccountSettingScreenConstants.phone,
             suffixIcon: AssetConstants.arrowRight,
             detail: '+91 9987731025',
-            onTap: ()=>navigator<NavigationService>().navigateTo(
+            onTap: () => navigator<NavigationService>().navigateTo(
               UserRoutes.phoneScreenRoute,
             ),
           ),
@@ -72,27 +72,33 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             label: AccountSettingScreenConstants.username,
             suffixIcon: AssetConstants.arrowRight,
             detail: 'mrpramodjadhav',
-            onTap: () {},
+            onTap: () => navigator<NavigationService>().navigateTo(
+              UserRoutes.usernameSettingsScreenRoute,
+            ),
           ),
           SettingTile(
             prefixIcon: AssetConstants.candleIcon,
             label: AccountSettingScreenConstants.dateOfBirth,
             suffixIcon: AssetConstants.arrowRight,
             detail: '13 May 1997',
-            onTap: () {},
+            onTap: () => navigator<NavigationService>().navigateTo(
+              UserRoutes.dateOfBirthSettingsScreenRoute,
+            ),
           ),
-          SettingTile(
-            prefixIcon: AssetConstants.lockIcon,
-            label: AccountSettingScreenConstants.password,
-            suffixIcon: AssetConstants.arrowRight,
-            detail: 'Change',
-            onTap: () {},
-          ),
+          // SettingTile(
+          //   prefixIcon: AssetConstants.lockIcon,
+          //   label: AccountSettingScreenConstants.password,
+          //   suffixIcon: AssetConstants.arrowRight,
+          //   detail: 'Change',
+          //   onTap: () {},
+          // ),
           SettingTile(
             prefixIcon: AssetConstants.deleteBinIcon,
             label: AccountSettingScreenConstants.deleteAccount,
             suffixIcon: AssetConstants.arrowRight,
-            onTap: () {},
+             onTap: () => navigator<NavigationService>().navigateTo(
+              UserRoutes.deleteAccountScreenRoute,
+            ),
           ),
         ],
       ),

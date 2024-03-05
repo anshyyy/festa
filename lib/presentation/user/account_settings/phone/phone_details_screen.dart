@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../application/user/email/email_details/email_details_cubit.dart';
+import '../../../../application/user/phone/phone_details/phone_details_cubit.dart';
 import '../../../../domain/core/configs/injection.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
 import '../../../../domain/core/constants/string_constants.dart';
@@ -18,15 +18,15 @@ class PhoneDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EmailDetailsCubit(
-          EmailDetailsState.initial(emailAddress: phoneNumber)),
-      child: const EmailDetailsScreenConsumer(),
+      create: (context) =>PhoneDetailsCubit(
+          PhoneDetailsState.initial(phoneNumber: phoneNumber)),
+      child: const PhoneDetailsScreenConsumer(),
     );
   }
 }
 
-class EmailDetailsScreenConsumer extends StatelessWidget {
-  const EmailDetailsScreenConsumer({
+class PhoneDetailsScreenConsumer extends StatelessWidget {
+  const PhoneDetailsScreenConsumer({
     super.key,
   });
 
@@ -36,14 +36,14 @@ class EmailDetailsScreenConsumer extends StatelessWidget {
     final colorScheme = themeData.colorScheme;
     final textTheme = themeData.textTheme;
 
-    return BlocConsumer<EmailDetailsCubit, EmailDetailsState>(
+    return BlocConsumer<PhoneDetailsCubit, PhoneDetailsState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: AccountEmailScreenConstants.title,
+            title: PhoneScreenConstants.title,
             leading: GestureDetector(
               onTap: () {
                 navigator<NavigationService>().goBack();
@@ -63,7 +63,7 @@ class EmailDetailsScreenConsumer extends StatelessWidget {
                   height: 2.h,
                 ),
                 Text(
-                  state.emailAddress,
+                  state.phoneNumber,
                   style: textTheme.bodyLarge!
                       .copyWith(color: colorScheme.background),
                 ),
@@ -71,7 +71,7 @@ class EmailDetailsScreenConsumer extends StatelessWidget {
                   height: 3.h,
                 ),
                 Text(
-                  AccountEmailScreenConstants.youHaveAddedThisEmail,
+                  PhoneScreenConstants.youHaveAddedThisNumber,
                   style: textTheme.bodyMedium!.copyWith(
                     color: colorScheme.background.withOpacity(.7),
                     fontWeight: FontWeight.w400,
@@ -82,7 +82,7 @@ class EmailDetailsScreenConsumer extends StatelessWidget {
                   height: 1.h,
                 ),
                 Text(
-                  AccountEmailScreenConstants.whoCanSeeYourEmailAddress,
+                  PhoneScreenConstants.whoCanSeeYourNumber,
                   style: textTheme.bodySmall!.copyWith(
                       color: colorScheme.scrim, fontWeight: FontWeight.w600),
                 ),
@@ -90,7 +90,7 @@ class EmailDetailsScreenConsumer extends StatelessWidget {
                   height: 5.h,
                 ),
                 GradientButton(
-                  text: AccountEmailScreenConstants.deleteEmailAddress,
+                  text: PhoneScreenConstants.deleteNumber,
                   onTap: () {
                     showModalBottomSheet(
                         context: context,
@@ -149,7 +149,7 @@ class DeleteEmailModalSheet extends StatelessWidget {
                 Expanded(
                     child: Center(
                   child: Text(
-                    AccountEmailScreenConstants.deleteEmailAddress,
+                    PhoneScreenConstants.deleteNumber,
                     style: textTheme.bodyMedium!.copyWith(
                       color: colorScheme.background,
                       fontWeight: FontWeight.w600,
@@ -167,7 +167,7 @@ class DeleteEmailModalSheet extends StatelessWidget {
               height: 3.h,
             ),
             Text(
-              AccountEmailScreenConstants.deleteEmailDescription,
+              PhoneScreenConstants.deletePhoneDescription,
               textAlign: TextAlign.center,
               style: textTheme.bodySmall!.copyWith(
                 fontSize: 15.5.sp,
@@ -178,7 +178,7 @@ class DeleteEmailModalSheet extends StatelessWidget {
               height: 3.h,
             ),
             GradientButton(
-              text: AccountEmailScreenConstants.submit,
+              text: PhoneScreenConstants.submit,
               onTap: () {},
               height: 5.h,
               textStyle: textTheme.bodySmall!.copyWith(
@@ -194,7 +194,7 @@ class DeleteEmailModalSheet extends StatelessWidget {
                 navigator<NavigationService>().goBack();
               },
               child: Text(
-                AccountEmailScreenConstants.cancel,
+                PhoneScreenConstants.cancel,
                 style: textTheme.bodySmall!.copyWith(
                   color: colorScheme.background,
                   fontWeight: FontWeight.w600,

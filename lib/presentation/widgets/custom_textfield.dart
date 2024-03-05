@@ -100,87 +100,83 @@ class CustomTextField extends StatelessWidget {
       ),
     );
 
-    return SizedBox(
-      width: width ?? double.infinity,
-      // height: height ?? 9.h,
-      child: TextFormField(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        key: textFieldKey,
-        controller: controller,
-        initialValue: initialVal,
-        cursorColor: cursorColor ?? Theme.of(context).primaryColor,
-        cursorHeight: isUpload ? 0 : null,
-        textCapitalization: textCapitalization ?? TextCapitalization.none,
-        cursorWidth: isUpload ? 0 : 2.0,
-        obscureText: obscureText,
-        autocorrect: autoCorrect,
-        showCursor: true,
-        inputFormatters: inputFormatters,
-        validator: validator,
-        onTap: onTap,
-        enabled: !readOnly,
-        keyboardType: isUpload ? TextInputType.none : keyboardType,
-        decoration: InputDecoration(
-          filled: isFill,
-          isDense: true,
-          helperText: '',
-          fillColor: isFill == true ? fillColor : null,
-          counter: const Offstage(),
-          border: borderLess == true ? InputBorder.none : outlineInputBorder,
-          enabledBorder:
-              borderLess == true ? InputBorder.none : outlineInputBorder,
-          focusedBorder: outlineInputBorder,
-          errorBorder: outlineInputBorder.copyWith(
-            borderSide: const BorderSide(color: Color(0xFFEA4335)),
-          ),
-          disabledBorder: outlineInputBorder.copyWith(),
-          prefixIcon: prefixIcon != null
-              ? GestureDetector(child: Center(child: prefixIcon))
-              : null,
-          prefixIconConstraints: prefixIcon != null
-              ? BoxConstraints(
-                  maxWidth: 14.w,
-                )
-              : null,
-          suffixIconConstraints: suffixIcon != null
-              ? BoxConstraints(
-                  maxWidth: 14.w,
-                )
-              : null,
-          suffixIcon: suffixIcon != null
-              ? GestureDetector(
-                  onTap: suffixIconTap,
-                  child: Center(
-                    child: suffixIcon,
-                  ))
-              : null,
-          hintText: hintText,
-          contentPadding: contentPadding ??
-              EdgeInsets.symmetric(vertical: 1.8.h, horizontal: 4.w)
-                  .copyWith(right: suffixIcon == null ? 10.sp : 0),
-          hintStyle: hintTextStyle ??
-              TextStyle(
-                overflow: TextOverflow.ellipsis,
-                color: const Color(0xFFABB3BB),
-                fontSize: 12.sp,
-              ),
-          errorStyle: errorStyle ??
-              Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Colors.red,
-                    fontSize: 10.sp,
-                  ),
+    return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: textFieldKey,
+      controller: controller,
+      initialValue: initialVal,
+      cursorColor: cursorColor ?? Theme.of(context).primaryColor,
+      cursorHeight: isUpload ? 0 : null,
+      textCapitalization: textCapitalization ?? TextCapitalization.none,
+      cursorWidth: isUpload ? 0 : 2.0,
+      obscureText: obscureText,
+      autocorrect: autoCorrect,
+      showCursor: true,
+      inputFormatters: inputFormatters,
+      validator: validator,
+      onTap: onTap,
+      enabled: !readOnly,
+      keyboardType: isUpload ? TextInputType.none : keyboardType,
+      decoration: InputDecoration(
+        filled: isFill,
+        isDense: true,
+        helperText: '',
+        fillColor: isFill == true ? fillColor : null,
+        counter: const Offstage(),
+        border: borderLess == true ? InputBorder.none : outlineInputBorder,
+        enabledBorder:
+            borderLess == true ? InputBorder.none : outlineInputBorder,
+        focusedBorder: borderLess == true ? InputBorder.none : outlineInputBorder ,
+        errorBorder: outlineInputBorder.copyWith(
+          borderSide: const BorderSide(color: Color(0xFFEA4335)),
         ),
-        style: textStyle ??
+        disabledBorder: outlineInputBorder.copyWith(),
+        prefixIcon: prefixIcon != null
+            ? GestureDetector(child: Center(child: prefixIcon))
+            : null,
+        prefixIconConstraints: prefixIcon != null
+            ? BoxConstraints(
+                maxWidth: 14.w,
+              )
+            : null,
+        suffixIconConstraints: suffixIcon != null
+            ? BoxConstraints(
+                maxWidth: 14.w,
+              )
+            : null,
+        suffixIcon: suffixIcon != null
+            ? GestureDetector(
+                onTap: suffixIconTap,
+                child: Center(
+                  child: suffixIcon,
+                ))
+            : null,
+        hintText: hintText,
+        contentPadding: contentPadding ??
+            EdgeInsets.symmetric(vertical: 1.8.h, horizontal: 4.w)
+                .copyWith(right: suffixIcon == null ? 10.sp : 0),
+        hintStyle: hintTextStyle ??
             TextStyle(
               overflow: TextOverflow.ellipsis,
+              color: const Color(0xFFABB3BB),
               fontSize: 12.sp,
-              color: Theme.of(context).colorScheme.primaryContainer,
             ),
-        onChanged: onChanged,
-        onEditingComplete: onEditingComplete,
-        minLines: minLines,
-        maxLines: maxLines,
+        errorStyle: errorStyle ??
+            Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Colors.red,
+                  fontSize: 10.sp,
+                ),
       ),
+      style: textStyle ??
+          TextStyle(
+            overflow: TextOverflow.ellipsis,
+            fontSize: 12.sp,
+            color: Theme.of(context).colorScheme.primaryContainer,
+          ),
+      onChanged: onChanged,
+      onEditingComplete: onEditingComplete,
+      minLines: minLines,
+      maxLines: maxLines,
     );
   }
 }

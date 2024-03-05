@@ -7,7 +7,6 @@ class GradientButton extends StatelessWidget {
   final void Function()? onTap;
   final Color? gradientColor1;
   final Color? gradientColor2;
-  final Color? fontColor;
   final Color? showColor;
   final double? height;
   final double? width;
@@ -22,7 +21,6 @@ class GradientButton extends StatelessWidget {
     this.gradientColor1,
     this.gradientColor2,
     this.showColor,
-    this.fontColor,
     this.textStyle,
   });
 
@@ -61,8 +59,7 @@ class GradientButton extends StatelessWidget {
           child: Text(text,
               style: textStyle ??
                   Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: fontColor ??
-                            Theme.of(context).colorScheme.background,
+                        color: Theme.of(context).colorScheme.background,
                         fontWeight: FontWeight.w700,
                       )),
         ),

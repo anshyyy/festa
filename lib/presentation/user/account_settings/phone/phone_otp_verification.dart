@@ -98,7 +98,6 @@ class PhoneOtpVerificationScreen extends StatelessWidget {
                   errorStyle: textTheme.bodySmall!.copyWith(
                     color: colorScheme.error,
                   ),
-                  validator: (value) {},
                 ),
                 Text(
                   PhoneScreenConstants.resendAfter,

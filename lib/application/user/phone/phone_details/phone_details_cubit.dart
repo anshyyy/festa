@@ -5,5 +5,5 @@ part 'phone_details_state.dart';
 part 'phone_details_cubit.freezed.dart';
 
 class PhoneDetailsCubit extends Cubit<PhoneDetailsState> {
-  PhoneDetailsCubit() : super(PhoneDetailsState.initial());
+  PhoneDetailsCubit(super.initialState);
 }

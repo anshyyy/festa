@@ -39,6 +39,8 @@ class UserRoutes {
   static const String phoneScreenRoute = 'phoneScreen';
   static const String phoneOtpVerificationRoute = 'phoneOtpVerification';
   static const String phoneDetailsScreenRoute = 'phoneDetailsScreen';
-
+  static const String usernameSettingsScreenRoute = 'usernameSettings';
+  static const String dateOfBirthSettingsScreenRoute = 'dateOfBirthSettings';
+  static const String deleteAccountScreenRoute = 'deleteAccountScreen';
   static const String notificationsRoute = 'notifications';
 }

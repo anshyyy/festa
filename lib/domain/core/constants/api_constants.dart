@@ -13,3 +13,8 @@ class AuthApiConstants {
 class PubApiConstants {
   static const PUBS = '/pubs';
 }
+
+class NotificationConstants {
+  static const notification = '/notifications';
+  static const getNotification = '/notifications/user';
+}

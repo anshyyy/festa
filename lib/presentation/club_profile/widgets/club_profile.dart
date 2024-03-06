@@ -143,9 +143,9 @@ class ClubProfile extends StatelessWidget {
                     height: 1.h,
                   ),
                   SocialReach(
-                    totalFollowers: state.pub!.extraDetailsDto.totalFollowers,
-                    totalFriends: state.pub!.extraDetailsDto.totalFriends,
-                    totalParties: state.pub!.extraDetailsDto.totalParties,
+                    totalFollowers: state.pub!.extraDetailsDto!.totalFollowers,
+                    totalFriends: state.pub!.extraDetailsDto!.totalFriends,
+                    totalParties: state.pub!.extraDetailsDto!.totalParties,
                   )
                 ],
               ),

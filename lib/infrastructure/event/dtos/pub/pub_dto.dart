@@ -20,7 +20,7 @@ class PubDto with _$PubDto {
     @JsonKey(name: 'coverImageUrl', defaultValue: '')
     required String coverImageUrl,
     @JsonKey(name: 'assets', defaultValue: []) required List<AssetDto> assets,
-    required PubExtraDetailsDto extraDetailsDto,
+    PubExtraDetailsDto? extraDetailsDto,
   }) = _PubDto;
 
   factory PubDto.fromJson(Map<String, dynamic> json) => _$PubDtoFromJson(json);

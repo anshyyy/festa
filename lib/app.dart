@@ -102,6 +102,7 @@ Future appInitializer(AppConfig appConfig) async {
   AuthRepository authRepository =
       IAuthRepository(serverUrl: appConfig.serverUrl);
   final user = await authRepository.authentication();
+
   bool isAuthorized = user != null;
 
   bool isOffline = false;

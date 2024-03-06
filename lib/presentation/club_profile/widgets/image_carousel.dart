@@ -32,11 +32,10 @@ class ImageCarousel extends StatelessWidget {
                   );
                 },
                 options: CarouselOptions(
-                  // autoPlay: true,
                   height: 60.h,
                   enlargeCenterPage: true,
                   autoPlayCurve: Curves.easeInOutBack,
-                  autoPlay: true,
+                  autoPlay: false,
                   viewportFraction: 1,
                   onPageChanged: (index, reason) {
                     context

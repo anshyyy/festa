@@ -17,8 +17,10 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
               ?.map((e) => AssetDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      extraDetailsDto: PubExtraDetailsDto.fromJson(
-          json['extraDetailsDto'] as Map<String, dynamic>),
+      extraDetailsDto: json['extraDetailsDto'] == null
+          ? null
+          : PubExtraDetailsDto.fromJson(
+              json['extraDetailsDto'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>

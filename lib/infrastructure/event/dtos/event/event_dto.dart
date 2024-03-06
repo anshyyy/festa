@@ -50,6 +50,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'address') AddressDto? address,
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
+    @JsonKey(defaultValue: false) required bool isLiked,
     @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
   }) = _EventDto;
 

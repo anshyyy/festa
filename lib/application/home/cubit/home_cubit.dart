@@ -304,4 +304,15 @@ class HomeCubit extends Cubit<HomeState> {
     });
     emit(state.copyWith(suggestions: [], isLocationSearchChanged: false));
   }
+
+  void onEventLiked({required int id, bool isLiked = true}) {
+    final List<EventDto> updatedEvents = state.events.map((event) {
+      if (event.id == id) {
+        return event.copyWith(isLiked: isLiked);
+      }
+      return event;
+    }).toList();
+
+    emit(state.copyWith(events: updatedEvents));
+  }
 }

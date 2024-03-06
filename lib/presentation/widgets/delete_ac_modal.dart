@@ -27,7 +27,7 @@ class DeleteAccountModal extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  UserProfileScreenConstants.deleteAccount,
+                  ProfileAndSettingsScreenConstants.deleteAccount,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w700,
                         color: Theme.of(context).colorScheme.error,
@@ -37,7 +37,7 @@ class DeleteAccountModal extends StatelessWidget {
                   height: 1.h,
                 ),
                 Text(
-                  UserProfileScreenConstants.deleteACWarning,
+                  ProfileAndSettingsScreenConstants.deleteACWarning,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 15.sp,
@@ -56,7 +56,7 @@ class DeleteAccountModal extends StatelessWidget {
                             .goBack(responseObject: true);
                       },
                       child: Text(
-                        UserProfileScreenConstants.yes,
+                        ProfileAndSettingsScreenConstants.yes,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: Theme.of(context).colorScheme.primary,
                             ),
@@ -71,7 +71,7 @@ class DeleteAccountModal extends StatelessWidget {
                             .goBack(responseObject: false);
                       },
                       child: Text(
-                        UserProfileScreenConstants.no,
+                        ProfileAndSettingsScreenConstants.no,
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: Theme.of(context).colorScheme.background,
                             ),

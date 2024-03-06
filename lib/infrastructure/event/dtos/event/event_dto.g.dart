@@ -57,6 +57,7 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
           ? null
           : PubDto.fromJson(json['pub'] as Map<String, dynamic>),
       isApplied: json['isApplied'] as bool? ?? false,
+      isLiked: json['isLiked'] as bool? ?? false,
       categories: (json['categories'] as List<dynamic>?)
               ?.map((e) => CategoryDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -89,5 +90,6 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'address': instance.address,
       'pub': instance.pub,
       'isApplied': instance.isApplied,
+      'isLiked': instance.isLiked,
       'categories': instance.categories,
     };

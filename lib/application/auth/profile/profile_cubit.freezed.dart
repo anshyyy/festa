@@ -19,11 +19,15 @@ mixin _$ProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
+  bool get noUse => throw _privateConstructorUsedError;
   bool get isAccountDelete => throw _privateConstructorUsedError;
   bool get isLogout => throw _privateConstructorUsedError;
   String get responseMsg => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
+  TextEditingController get menuSearchController =>
+      throw _privateConstructorUsedError;
+  List<SettingsMenuDto> get settingsMenu => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -41,11 +45,14 @@ abstract class $ProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool noUse,
       bool isAccountDelete,
       bool isLogout,
       String responseMsg,
       AuthRepository authRepository,
       AppStateNotifier appStateNotifier,
+      TextEditingController menuSearchController,
+      List<SettingsMenuDto> settingsMenu,
       UserDto? user});
 
   $UserDtoCopyWith<$Res>? get user;
@@ -67,11 +74,14 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? noUse = null,
     Object? isAccountDelete = null,
     Object? isLogout = null,
     Object? responseMsg = null,
     Object? authRepository = null,
     Object? appStateNotifier = null,
+    Object? menuSearchController = null,
+    Object? settingsMenu = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -86,6 +96,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
       isFailure: null == isFailure
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noUse: null == noUse
+          ? _value.noUse
+          : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
       isAccountDelete: null == isAccountDelete
           ? _value.isAccountDelete
@@ -107,6 +121,14 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
+      menuSearchController: null == menuSearchController
+          ? _value.menuSearchController
+          : menuSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      settingsMenu: null == settingsMenu
+          ? _value.settingsMenu
+          : settingsMenu // ignore: cast_nullable_to_non_nullable
+              as List<SettingsMenuDto>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -139,11 +161,14 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool noUse,
       bool isAccountDelete,
       bool isLogout,
       String responseMsg,
       AuthRepository authRepository,
       AppStateNotifier appStateNotifier,
+      TextEditingController menuSearchController,
+      List<SettingsMenuDto> settingsMenu,
       UserDto? user});
 
   @override
@@ -164,11 +189,14 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? noUse = null,
     Object? isAccountDelete = null,
     Object? isLogout = null,
     Object? responseMsg = null,
     Object? authRepository = null,
     Object? appStateNotifier = null,
+    Object? menuSearchController = null,
+    Object? settingsMenu = null,
     Object? user = freezed,
   }) {
     return _then(_$ProfileStateImpl(
@@ -183,6 +211,10 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
       isFailure: null == isFailure
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noUse: null == noUse
+          ? _value.noUse
+          : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
       isAccountDelete: null == isAccountDelete
           ? _value.isAccountDelete
@@ -204,6 +236,14 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
+      menuSearchController: null == menuSearchController
+          ? _value.menuSearchController
+          : menuSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      settingsMenu: null == settingsMenu
+          ? _value._settingsMenu
+          : settingsMenu // ignore: cast_nullable_to_non_nullable
+              as List<SettingsMenuDto>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -219,12 +259,16 @@ class _$ProfileStateImpl implements _ProfileState {
       {required this.isLoading,
       required this.isSuccess,
       required this.isFailure,
+      required this.noUse,
       required this.isAccountDelete,
       required this.isLogout,
       required this.responseMsg,
       required this.authRepository,
       required this.appStateNotifier,
-      this.user});
+      required this.menuSearchController,
+      required final List<SettingsMenuDto> settingsMenu,
+      this.user})
+      : _settingsMenu = settingsMenu;
 
   @override
   final bool isLoading;
@@ -232,6 +276,8 @@ class _$ProfileStateImpl implements _ProfileState {
   final bool isSuccess;
   @override
   final bool isFailure;
+  @override
+  final bool noUse;
   @override
   final bool isAccountDelete;
   @override
@@ -243,11 +289,21 @@ class _$ProfileStateImpl implements _ProfileState {
   @override
   final AppStateNotifier appStateNotifier;
   @override
+  final TextEditingController menuSearchController;
+  final List<SettingsMenuDto> _settingsMenu;
+  @override
+  List<SettingsMenuDto> get settingsMenu {
+    if (_settingsMenu is EqualUnmodifiableListView) return _settingsMenu;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_settingsMenu);
+  }
+
+  @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isAccountDelete: $isAccountDelete, isLogout: $isLogout, responseMsg: $responseMsg, authRepository: $authRepository, appStateNotifier: $appStateNotifier, user: $user)';
+    return 'ProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, isAccountDelete: $isAccountDelete, isLogout: $isLogout, responseMsg: $responseMsg, authRepository: $authRepository, appStateNotifier: $appStateNotifier, menuSearchController: $menuSearchController, settingsMenu: $settingsMenu, user: $user)';
   }
 
   @override
@@ -261,6 +317,7 @@ class _$ProfileStateImpl implements _ProfileState {
                 other.isSuccess == isSuccess) &&
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
+            (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.isAccountDelete, isAccountDelete) ||
                 other.isAccountDelete == isAccountDelete) &&
             (identical(other.isLogout, isLogout) ||
@@ -271,6 +328,10 @@ class _$ProfileStateImpl implements _ProfileState {
                 other.authRepository == authRepository) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
+            (identical(other.menuSearchController, menuSearchController) ||
+                other.menuSearchController == menuSearchController) &&
+            const DeepCollectionEquality()
+                .equals(other._settingsMenu, _settingsMenu) &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -280,11 +341,14 @@ class _$ProfileStateImpl implements _ProfileState {
       isLoading,
       isSuccess,
       isFailure,
+      noUse,
       isAccountDelete,
       isLogout,
       responseMsg,
       authRepository,
       appStateNotifier,
+      menuSearchController,
+      const DeepCollectionEquality().hash(_settingsMenu),
       user);
 
   @JsonKey(ignore: true)
@@ -299,11 +363,14 @@ abstract class _ProfileState implements ProfileState {
       {required final bool isLoading,
       required final bool isSuccess,
       required final bool isFailure,
+      required final bool noUse,
       required final bool isAccountDelete,
       required final bool isLogout,
       required final String responseMsg,
       required final AuthRepository authRepository,
       required final AppStateNotifier appStateNotifier,
+      required final TextEditingController menuSearchController,
+      required final List<SettingsMenuDto> settingsMenu,
       final UserDto? user}) = _$ProfileStateImpl;
 
   @override
@@ -312,6 +379,8 @@ abstract class _ProfileState implements ProfileState {
   bool get isSuccess;
   @override
   bool get isFailure;
+  @override
+  bool get noUse;
   @override
   bool get isAccountDelete;
   @override
@@ -322,6 +391,10 @@ abstract class _ProfileState implements ProfileState {
   AuthRepository get authRepository;
   @override
   AppStateNotifier get appStateNotifier;
+  @override
+  TextEditingController get menuSearchController;
+  @override
+  List<SettingsMenuDto> get settingsMenu;
   @override
   UserDto? get user;
   @override

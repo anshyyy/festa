@@ -17,7 +17,7 @@ class BookingDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
-    const sof = true;
+    const sof = 1==2;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

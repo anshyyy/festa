@@ -361,13 +361,18 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     context
                                                         .read<HomeCubit>()
                                                         .getChipPosition(
-                                                            key: state.sortKey as GlobalKey<State<StatefulWidget>>,
+                                                            key: state.sortKey
+                                                                as GlobalKey<
+                                                                    State<
+                                                                        StatefulWidget>>,
                                                             overlayState:
                                                                 Overlay.of(
                                                                     context));
-                                                  }
-                                                  else {
-                                                    context.read<HomeCubit>().removeAppliedFilter(id: item['id']);
+                                                  } else {
+                                                    context
+                                                        .read<HomeCubit>()
+                                                        .removeAppliedFilter(
+                                                            id: item['id']);
                                                   }
                                                 },
                                               );
@@ -402,6 +407,12 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   'id': state.events[index].id
                                                       .toString(),
                                                 });
+                                          },
+                                          onDoubleTap: () {
+                                            context
+                                                .read<HomeCubit>()
+                                                .onEventLiked(
+                                                    id: state.events[index].id, isLiked: !state.events[index].isLiked);
                                           },
                                           child: EventCard(
                                             event: state.events[index],
@@ -489,19 +500,20 @@ class EmptyEvents extends StatelessWidget {
                         backgroundColor:
                             Theme.of(context).colorScheme.onSurface,
                         textColor: Theme.of(context).colorScheme.background,
-                        textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 14.sp,
-                                    color: Theme.of(context).colorScheme.background,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(
+                              fontSize: 14.sp,
+                              color: Theme.of(context).colorScheme.background,
+                              fontWeight: FontWeight.w600,
+                            ),
                       )
                     : GestureDetector(
-                      onTap: () {
-                                          context
-                                              .read<HomeCubit>()
-                                              .toggleLocationDialog();
-                                        },
-                      child: Container(
+                        onTap: () {
+                          context.read<HomeCubit>().toggleLocationDialog();
+                        },
+                        child: Container(
                           height: 4.h,
                           width: 35.w,
                           padding: EdgeInsets.symmetric(horizontal: 2.w),
@@ -519,24 +531,31 @@ class EmptyEvents extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset(AssetConstants.setupLocation,
-                              height: 2.h,
+                              SvgPicture.asset(
+                                AssetConstants.setupLocation,
+                                height: 2.h,
                               ),
                               Expanded(
                                 child: Center(
-                                  child: Text(HomeScreenConstants.chooseLocation,
-                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 14.sp,
-                                    color: Theme.of(context).colorScheme.background,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  child: Text(
+                                    HomeScreenConstants.chooseLocation,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14.sp,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   ),
                                 ),
                               )
                             ],
                           ),
                         ),
-                    ),
+                      ),
                 SizedBox(
                   height: 10.h,
                 ),

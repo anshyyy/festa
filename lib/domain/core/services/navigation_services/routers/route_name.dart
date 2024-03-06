@@ -29,6 +29,7 @@ class UserRoutes {
   static const String homeScreenRoute = 'homeScreen';
   static const String eventDetailsRoute = 'eventDetails';
   static const String userProfileRoute = 'userProfile';
+  static const String profileAndSettingsRoute = 'profileAndSettings';
   static const String personalizeExperienceRoute = 'personalizeExperienceRoute';
   static const String editProfileRoute = 'editProfile';
   static const String accountSettingsRoute = 'accountSettings';
@@ -43,4 +44,5 @@ class UserRoutes {
   static const String dateOfBirthSettingsScreenRoute = 'dateOfBirthSettings';
   static const String deleteAccountScreenRoute = 'deleteAccountScreen';
   static const String notificationsRoute = 'notifications';
+  static const String artistProfileScreenRoute = 'artistProfileScreen';
 }

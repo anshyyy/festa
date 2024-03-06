@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
-import '../../../infrastructure/core/dtos/menu/menu_dto.dart';
+import '../../../infrastructure/user/dtos/personalization_menu/personalization_menu_dto.dart';
+import '../../../infrastructure/user/dtos/settings_menu/settings_menu_dto.dart';
+import '../services/navigation_services/routers/route_name.dart';
 import 'asset_constants.dart';
+import 'string_constants.dart';
 
 class OtherConstants {
   static const int limit = 10;
@@ -49,19 +52,87 @@ class OtherConstants {
   final Shader linearGradient = const LinearGradient(
     colors: <Color>[Color(0xffFF1759), Color(0xffBF0036)],
   ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
-  
-  static const MenuDto home = MenuDto(
-    id: 1,
-    icon: AssetConstants.homeFilled,
-  );
 
-  static const MenuDto community = MenuDto(
-    id: 2,
-    icon: AssetConstants.communityIcon,
-  );
+  static List<SettingsMenuDto> settingsMenu = [
+    SettingsMenuDto(
+      icon: AssetConstants.accountSettings,
+      title: ProfileAndSettingsScreenConstants.accountSettings,
+      navigationRoute: UserRoutes.accountSettingsRoute,
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.notificationSettings,
+      title: ProfileAndSettingsScreenConstants.notifications,
+      navigationRoute: '',
 
-  static const MenuDto tickets = MenuDto(
-    id: 3,
-    icon: AssetConstants.ticketsIcon,
-  );
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.activitiesSettings,
+      title: ProfileAndSettingsScreenConstants.yourActivities,
+      navigationRoute: '',
+
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.privacySettings,
+      title: ProfileAndSettingsScreenConstants.privacy,
+      navigationRoute: '',
+
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.blockedSettings,
+      title: ProfileAndSettingsScreenConstants.blockedUsers,
+      navigationRoute: '',
+
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.heartSettings,
+      title: ProfileAndSettingsScreenConstants.tellAFriend,
+      navigationRoute: '',
+
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.helpSettings,
+      title: ProfileAndSettingsScreenConstants.help,
+      navigationRoute: '',
+
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.feedbackSettings,
+      title: ProfileAndSettingsScreenConstants.feedback,
+      navigationRoute: '',
+
+    ),
+    SettingsMenuDto(
+      icon: AssetConstants.starSettings,
+      title: ProfileAndSettingsScreenConstants.rateInPlayStore,
+      navigationRoute: '',
+
+    ),
+  ];
+
+  static const List<PersonalizationMenuDto> personalizationMenuList = [
+    PersonalizationMenuDto(
+        icon: AssetConstants.genderIcon,
+        title: 'Gender',
+        description: 'Who can see your gender'),
+    PersonalizationMenuDto(
+        icon: AssetConstants.partiesIcon,
+        title: 'Parties',
+        description: 'Parties I would like to go...'),
+    PersonalizationMenuDto(
+        icon: AssetConstants.musicIcon,
+        title: 'Music',
+        description: 'Genres I listen to...'),
+    PersonalizationMenuDto(
+        icon: AssetConstants.crowdIcon,
+        title: 'Crowd',
+        description: 'Crowd I like to hangout with...'),
+    PersonalizationMenuDto(
+        icon: AssetConstants.cuisineIcon,
+        title: 'Cuisine',
+        description: 'My favourite food...'),
+    PersonalizationMenuDto(
+        icon: AssetConstants.drinkPersonalizeIcon,
+        title: 'Drink',
+        description: 'My favourite drink type...'),
+  ];
 }

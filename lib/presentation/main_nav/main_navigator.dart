@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/main_nav/main_nav_cubit.dart';
 import '../home/home_screen.dart';
 import '../ticket/tickets_screen.dart';
+import '../user/user_profile_screen.dart';
 import 'bottom_nav.dart';
 
 class MainNavigator extends StatelessWidget {
@@ -13,7 +14,8 @@ class MainNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainNavCubit(MainNavState.initial(currentIndex: int.parse(routeIndex))),
+      create: (context) => MainNavCubit(
+          MainNavState.initial(currentIndex: int.parse(routeIndex))),
       child: const MainNavigatorConsumer(),
     );
   }
@@ -35,7 +37,11 @@ class MainNavigatorConsumer extends StatelessWidget {
           bottomNavigationBar: const CustomBottomNav(),
           body: state.currentIndex == 0
               ? const HomeScreen()
-              : state.currentIndex == 2 ? TicketScreen():null,
+              : state.currentIndex == 2
+                  ? const TicketScreen()
+                  : state.currentIndex == 3
+                      ? const UserProfileScreen()
+                      : null,
         );
       },
     );

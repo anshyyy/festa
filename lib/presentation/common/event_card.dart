@@ -337,10 +337,15 @@ class _EventCardState extends State<EventCard> {
                             )
                           else
                             const SizedBox(),
-                          SvgPicture.asset(
-                            AssetConstants.heartOutlinedIcon,
-                            width: 5.w,
-                            height: 5.w,
+                          GestureDetector(
+                            onTap: (){
+                              print('object');
+                            },
+                            child: SvgPicture.asset(
+                              widget.event.isLiked? AssetConstants.heartFilledIcon:  AssetConstants.heartOutlinedIcon,
+                              width: 5.w,
+                              height: 5.w,
+                            ),
                           ),
                         ],
                       ),

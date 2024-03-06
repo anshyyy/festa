@@ -8,8 +8,8 @@ import 'media_grid_widget.dart';
 
 // normal way 
 class MediaViewerTabs extends StatelessWidget {
-  MediaViewerTabs({super.key});
-  List<String> images = [
+  const MediaViewerTabs({super.key});
+  final List<String> images = const[
     'https://plus.unsplash.com/premium_photo-1683129651802-1c7ba429a137?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1556035511-3168381ea4d4?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://images.unsplash.com/photo-1570872626485-d8ffea69f463?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',

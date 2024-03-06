@@ -27,7 +27,7 @@ class CustomBottomNav extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          height: Platform.isAndroid? 11.h : 10.2.h,
+          height: Platform.isAndroid ? 11.h : 10.2.h,
           color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.4),
           child: SafeArea(
             child: Container(
@@ -58,7 +58,7 @@ class CustomBottomNav extends StatelessWidget {
                               color: state.currentIndex == 0
                                   ? Theme.of(context).primaryColor
                                   : Theme.of(context).colorScheme.background,
-                                  height: 27,
+                              height: 27,
                             ),
                           ),
                           Positioned(
@@ -152,14 +152,16 @@ class CustomBottomNav extends StatelessWidget {
                       ),
                     ),
                   ),
-                  
+
                   GestureDetector(
                     onTap: () {
-                      navigator<NavigationService>().navigateTo(UserRoutes.userProfileRoute);
+                      // navigator<NavigationService>().navigateTo(UserRoutes.userProfileRoute);
+                      context.read<MainNavCubit>().onIndexChange(index: 3);
                     },
                     child: CircleAvatar(
                       radius: 3.w,
-                      foregroundImage: NetworkImage(appStateNotifier.user!.profileImage),
+                      foregroundImage:
+                          NetworkImage(appStateNotifier.user!.profileImage),
                     ),
                   )
                 ],

@@ -68,6 +68,8 @@ mixin _$EventDto {
   PubDto? get pub => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get isApplied => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: false)
+  bool get isLiked => throw _privateConstructorUsedError;
   @JsonKey(name: 'categories', defaultValue: [])
   List<CategoryDto> get categories => throw _privateConstructorUsedError;
 
@@ -110,6 +112,7 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(defaultValue: false) bool isLiked,
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories});
 
@@ -154,6 +157,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
+    Object? isLiked = null,
     Object? categories = null,
   }) {
     return _then(_value.copyWith(
@@ -253,6 +257,10 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLiked: null == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
       categories: null == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -321,6 +329,7 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(defaultValue: false) bool isLiked,
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories});
 
@@ -365,6 +374,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
+    Object? isLiked = null,
     Object? categories = null,
   }) {
     return _then(_$EventDtoImpl(
@@ -464,6 +474,10 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLiked: null == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
       categories: null == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -506,6 +520,7 @@ class _$EventDtoImpl implements _EventDto {
       @JsonKey(name: 'address') this.address,
       @JsonKey(name: 'pub') this.pub,
       @JsonKey(defaultValue: false) required this.isApplied,
+      @JsonKey(defaultValue: false) required this.isLiked,
       @JsonKey(name: 'categories', defaultValue: []) required this.categories});
 
   factory _$EventDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -584,12 +599,15 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(defaultValue: false)
   final bool isApplied;
   @override
+  @JsonKey(defaultValue: false)
+  final bool isLiked;
+  @override
   @JsonKey(name: 'categories', defaultValue: [])
   final List<CategoryDto> categories;
 
   @override
   String toString() {
-    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied, categories: $categories)';
+    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied, isLiked: $isLiked, categories: $categories)';
   }
 
   @override
@@ -634,6 +652,7 @@ class _$EventDtoImpl implements _EventDto {
             (identical(other.pub, pub) || other.pub == pub) &&
             (identical(other.isApplied, isApplied) ||
                 other.isApplied == isApplied) &&
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
             const DeepCollectionEquality()
                 .equals(other.categories, categories));
   }
@@ -666,6 +685,7 @@ class _$EventDtoImpl implements _EventDto {
         address,
         pub,
         isApplied,
+        isLiked,
         const DeepCollectionEquality().hash(categories)
       ]);
 
@@ -725,6 +745,7 @@ abstract class _EventDto implements EventDto {
       @JsonKey(name: 'address') final AddressDto? address,
       @JsonKey(name: 'pub') final PubDto? pub,
       @JsonKey(defaultValue: false) required final bool isApplied,
+      @JsonKey(defaultValue: false) required final bool isLiked,
       @JsonKey(name: 'categories', defaultValue: [])
       required final List<CategoryDto> categories}) = _$EventDtoImpl;
 
@@ -803,6 +824,9 @@ abstract class _EventDto implements EventDto {
   @override
   @JsonKey(defaultValue: false)
   bool get isApplied;
+  @override
+  @JsonKey(defaultValue: false)
+  bool get isLiked;
   @override
   @JsonKey(name: 'categories', defaultValue: [])
   List<CategoryDto> get categories;

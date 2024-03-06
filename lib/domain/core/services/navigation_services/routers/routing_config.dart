@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../presentation/artist_profile/artist_profile_screen.dart';
+import '../../../../../presentation/artist_profile/widgets/artist_profile.dart';
 import '../../../../../presentation/auth/auth_screen.dart';
 import '../../../../../presentation/auth/login_with_phone_screen.dart';
 import '../../../../../presentation/auth/start_screen.dart';
@@ -24,20 +26,21 @@ import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/notifications/notification_screen.dart';
 import '../../../../../presentation/ticket/tickets_screen.dart';
-import '../../../../../presentation/user/account_settings/account_privacy/account_privacy_screen.dart';
-import '../../../../../presentation/user/account_settings/account_settings_screen.dart';
-import '../../../../../presentation/user/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
-import '../../../../../presentation/user/account_settings/delete_account/delete_account_screen.dart';
-import '../../../../../presentation/user/account_settings/email/email_details_screen.dart';
-import '../../../../../presentation/user/account_settings/email/email_otp_verification.dart';
-import '../../../../../presentation/user/account_settings/email/email_screen.dart';
-import '../../../../../presentation/user/account_settings/phone/phone_details_screen.dart';
-import '../../../../../presentation/user/account_settings/phone/phone_otp_verification.dart';
-import '../../../../../presentation/user/account_settings/phone/phone_screen.dart';
-import '../../../../../presentation/user/account_settings/username/username_settings_screen.dart';
-import '../../../../../presentation/user/edit_profile_screen/edit_profile_screen.dart';
-import '../../../../../presentation/user/personalise_your_experience/personalise_experience_screen.dart';
-import '../../../../../presentation/user/profile_and_settings.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/account_privacy/account_privacy_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/account_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/delete_account/delete_account_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/email/email_details_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/email/email_otp_verification.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/email/email_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_details_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_otp_verification.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/username/username_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/edit_profile_screen/edit_profile_screen.dart';
+import '../../../../../presentation/user/profile_settings/personalise_your_experience/personalise_experience_screen.dart';
+import '../../../../../presentation/user/profile_settings/profile_and_settings.dart';
+import '../../../../../presentation/user/user_profile_screen.dart';
 import '../../../extensions/string_extension.dart';
 import 'route_name.dart';
 
@@ -64,6 +67,9 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const HomeScreen(), settings);
 
     case UserRoutes.userProfileRoute:
+      return _getPageRoute(const UserProfileScreen(), settings);
+
+    case UserRoutes.profileAndSettingsRoute:
       return _getPageRoute(const ProfileAndSettingsScreen(), settings);
 
     case UserRoutes.personalizeExperienceRoute:
@@ -146,6 +152,9 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
             clubId: int.parse(clubId),
           ),
           settings);
+
+    case UserRoutes.artistProfileScreenRoute:
+      return _getPageRoute(const ArtistProfileScreen(), settings);
 
     case UserRoutes.mainNavRoute:
       return _getPageRoute(

@@ -6,11 +6,14 @@ class ProfileState with _$ProfileState {
     required bool isLoading,
     required bool isSuccess,
     required bool isFailure,
+    required bool noUse,
     required bool isAccountDelete,
     required bool isLogout,
     required String responseMsg,
     required AuthRepository authRepository,
     required AppStateNotifier appStateNotifier,
+    required TextEditingController menuSearchController,
+    required List<SettingsMenuDto> settingsMenu,
     UserDto? user,
   }) = _ProfileState;
 
@@ -28,5 +31,8 @@ class ProfileState with _$ProfileState {
         authRepository: IAuthRepository(serverUrl: serverUrl),
         appStateNotifier: appStateNotifier,
         isAccountDelete: false,
+        noUse: false,
+        menuSearchController:TextEditingController(),
+        settingsMenu: []
       );
 }

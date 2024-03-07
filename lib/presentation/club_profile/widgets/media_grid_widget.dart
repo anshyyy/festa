@@ -30,7 +30,7 @@ class MediaGridViewer extends StatelessWidget {
           // shrinkWrap: true,
           controller: state.scrollController,
           scrollDirection: Axis.vertical,
-          physics: state.isAtTop ? const NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
+          // physics:  const NeverScrollableScrollPhysics() ,
           gridDelegate: SliverQuiltedGridDelegate(
             crossAxisCount: crossAxisCount,
             mainAxisSpacing: mainAxisSpacing ?? 0,

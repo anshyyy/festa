@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/user/user_profile/user_profile_cubit.dart';
@@ -54,35 +53,15 @@ class UserProfileScreenConsumer extends StatelessWidget {
                 height: 80.h,
                 decoration: BoxDecoration(
                     color: colorScheme.secondaryContainer.withOpacity(.3)),
-                child: state.profileImage != null
-                    ? Stack(
+                child: Stack(
                         children: [
-                          SizedBox(
+                          state.profileImage != null
+                    ?  SizedBox(
                               height: 100.h,
                               child: CachedNetworkImage(
                                 imageUrl: state.profileImage!,
                                 fit: BoxFit.cover,
-                              )),
-                          SafeArea(
-                            child: GestureDetector(
-                              onTap: () {
-                                navigator<NavigationService>().navigateTo(UserRoutes.profileAndSettingsRoute);
-                              },
-                              child: Padding(
-                                padding:  EdgeInsets.only(right: 5.w, top: 1.h),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    SvgPicture.asset(
-                                        AssetConstants.accountSettings),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      )
-                    : Center(
+                              )) : Center(
                         child: CustomOutlinedButton(
                           onTap: () {
                             context
@@ -99,6 +78,26 @@ class UserProfileScreenConsumer extends StatelessWidget {
                           height: 4.h,
                         ),
                       ),
+                          SafeArea(
+                            child: GestureDetector(
+                              onTap: () {
+                                navigator<NavigationService>().navigateTo(UserRoutes.profileAndSettingsRoute);
+                              },
+                              child: Padding(
+                                padding:  EdgeInsets.only(right: 5.w, top: 1.h),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    SvgPicture.asset(
+                                        AssetConstants.hamBurgerMenu),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,

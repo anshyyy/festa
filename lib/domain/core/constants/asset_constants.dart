@@ -117,6 +117,7 @@ class AssetConstants {
   static const lockIcon = '${vectorsFolder}password-lock-icon.svg';
   static const deleteBinIcon = '${vectorsFolder}delete-bin-icon.svg';
 
+  static const hamBurgerMenu = '${vectorsFolder}hamburger-menu-icon.svg';
   static const genderIcon = '${vectorsFolder}gender-icon.svg';
   static const partiesIcon = '${vectorsFolder}parties-icon.svg';
   static const musicIcon = '${vectorsFolder}music-icon.svg';

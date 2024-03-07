@@ -8,6 +8,7 @@ import '../../../../../domain/core/configs/injection.dart';
 import '../../../../../domain/core/constants/asset_constants.dart';
 import '../../../../../domain/core/constants/string_constants.dart';
 import '../../../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../../widgets/custom_appbar.dart';
 import '../../../../widgets/gradient_button.dart';
 
@@ -179,7 +180,10 @@ class DeleteEmailModalSheet extends StatelessWidget {
             ),
             GradientButton(
               text: PhoneScreenConstants.submit,
-              onTap: () {},
+              onTap: () {
+                navigator<NavigationService>().navigateTo(UserRoutes.accountSettingsRoute);
+
+              },
               height: 5.h,
               textStyle: textTheme.bodySmall!.copyWith(
                 color: colorScheme.background,

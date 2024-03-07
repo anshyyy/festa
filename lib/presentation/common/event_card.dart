@@ -273,9 +273,20 @@ class _EventCardState extends State<EventCard> {
                                         color: themeData.colorScheme.background,
                                       ),
                                     ),
-                                  ],
+                                    //   Text(
+                                    //     widget.event.address?.vicinity ?? '',
+                                    //     maxLines: 1,
+                                    //     overflow: TextOverflow.ellipsis,
+                                    //     style: themeData.textTheme.bodySmall!
+                                    //         .copyWith(
+                                    //       fontWeight: FontWeight.w400,
+                                    //       fontSize: 14.sp,
+                                    //       color: themeData.colorScheme.background,
+                                    //     ),
+                                    //   ),
+                                    ],
+                                  ),
                                 ),
-                              )
                             ],
                           ),
                         ),

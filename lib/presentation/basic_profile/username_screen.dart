@@ -56,8 +56,20 @@ class UsernameScreenConsumer extends StatelessWidget {
                 fillColor: Theme.of(context).colorScheme.primaryContainer,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.h),
-                suffixIcon: 1==2 ? Image.asset(AssetConstants.bubbleLoader, height: 8.w,)
-                : 1==2 ? SvgPicture.asset(AssetConstants.stopIcon,  color: Theme.of(context).colorScheme.error,) : SvgPicture.asset(AssetConstants.circledTick, color: Theme.of(context).colorScheme.inversePrimary,) ,
+                suffixIcon: 1 == 2
+                    ? Image.asset(
+                        AssetConstants.bubbleLoader,
+                        height: 8.w,
+                      )
+                    : 1 == 2
+                        ? SvgPicture.asset(
+                            AssetConstants.stopIcon,
+                            color: Theme.of(context).colorScheme.error,
+                          )
+                        : SvgPicture.asset(
+                            AssetConstants.circledTick,
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                          ),
               ),
               const Spacer(),
               Align(

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../application/club_profile/club_profile_cubit.dart';
 import '../../../domain/core/constants/asset_constants.dart';
-import '../../../domain/core/constants/string_constants.dart';
-import '../../widgets/gradient_button.dart';
 import 'social_reach.dart';
 
 class UserProfile extends StatelessWidget {
@@ -27,6 +23,9 @@ class UserProfile extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: 5.w,
             vertical: 3.h,
+          ),
+          margin: EdgeInsets.symmetric(
+            horizontal: .5.w,
           ),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,

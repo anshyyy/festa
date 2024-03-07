@@ -103,9 +103,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   const UserProfile(),
-                  SizedBox(
-                    height: 4.h,
-                  ),
+                 
                 ],
               ),
             ],

@@ -12,7 +12,7 @@ class EventCalender extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.surface,
           ),
       child: Padding(
         padding: EdgeInsets.all(5.w),
@@ -20,7 +20,7 @@ class EventCalender extends StatelessWidget {
           availableGestures: AvailableGestures.none,
           firstDay: startDate,
           lastDay: endDate,
-          focusedDay: DateTime.now(),
+          focusedDay: startDate,
           headerStyle: HeaderStyle(
             titleTextStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w600,
@@ -34,14 +34,15 @@ class EventCalender extends StatelessWidget {
             isTodayHighlighted: false,
             outsideDaysVisible: false,
           ),
-          daysOfWeekHeight: 4.h,
+        
+          daysOfWeekHeight:2.5.h,
           daysOfWeekStyle: DaysOfWeekStyle(
-            weekdayStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600),
-            weekendStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w600)
+            weekdayStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16.5.sp),
+            weekendStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500, fontSize: 16.5.sp)
           ),
-          calendarBuilders: CalendarBuilders(
+                    calendarBuilders: CalendarBuilders(
               defaultBuilder: (context, day, focusedDay) => Container(
-                    height: 4.h,
+                    height: 3.5.h,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: day.day % 5 == 0
@@ -56,7 +57,10 @@ class EventCalender extends StatelessWidget {
                       child: Text(
                         '${day.day}',
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Theme.of(context).colorScheme.background),
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 14.5.sp,
+                            fontWeight: FontWeight.w600
+                            ),
                       ),
                     ),
                   )),

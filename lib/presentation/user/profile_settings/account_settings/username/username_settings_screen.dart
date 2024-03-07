@@ -71,22 +71,22 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                       color: colorScheme.secondaryContainer.withOpacity(.5)),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 1.h, horizontal: 0.w),
-                  isUpload: true,
+                  // isUpload: true,
                   textStyle: textTheme.bodyLarge!
                       .copyWith(color: colorScheme.background),
-                  errorStyle:
-                      textTheme.bodySmall!.copyWith(color: colorScheme.error),
-                  validator: (value) {
-                    bool hasError = false;
+                  // errorStyle:
+                  //     textTheme.bodySmall!.copyWith(color: colorScheme.error),
+                  // validator: (value) {
+                  //   bool hasError = false;
 
-                    if (value!.isEmpty || value.length < 6) {
-                      hasError = true;
-                    }
-                    context
-                        .read<UsernameSettingsCubit>()
-                        .hasError(errorFlag: hasError);
-                    return hasError ? ErrorConstants.invalidEmail : '';
-                  },
+                  //   if (value!.isEmpty || value.length < 6) {
+                  //     hasError = true;
+                  //   }
+                  //   context
+                  //       .read<UsernameSettingsCubit>()
+                  //       .hasError(errorFlag: hasError);
+                  //   return hasError ? ErrorConstants.invalidEmail : '';
+                  // },
                 ),
                 SizedBox(
                   height: state.hasError ? 2.h : 0,
@@ -129,14 +129,16 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                         .read<UsernameSettingsCubit>()
                         .showUsernameErrorToast();
                   },
-                  isEnabled: state.usernameInputController.text.isNotEmpty &&
-                      !state.hasError,
+                  // isEnabled: state.usernameInputController.text.isNotEmpty &&
+                  //     !state.hasError,
                   textStyle: textTheme.bodySmall!.copyWith(
                     fontSize: 15.5.sp,
-                    color: state.usernameInputController.text.isEmpty ||
-                            state.hasError
-                        ? colorScheme.secondaryContainer
-                        : colorScheme.background,
+                    color: 
+                    // state.usernameInputController.text.isEmpty ||
+                    //         state.hasError
+                    //     ? colorScheme.secondaryContainer
+                    //     :
+                        colorScheme.background,
                     fontWeight: FontWeight.w600,
                   ),
                   height: 5.5.h,

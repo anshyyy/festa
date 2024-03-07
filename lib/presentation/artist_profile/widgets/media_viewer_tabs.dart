@@ -56,7 +56,7 @@ class MediaViewerTabsConsumer extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                  child: Container(),
+                  child: VideoMediaGrid(images: [],),
                 ),
                 Container()
               ]),
@@ -67,6 +67,60 @@ class MediaViewerTabsConsumer extends StatelessWidget {
     );
   }
 }
+
+
+class VideoMediaGrid extends StatelessWidget {
+  final List<String> images;
+  const VideoMediaGrid({
+    super.key,
+    required this.images,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
+    final textTheme = themeData.textTheme;
+    return GridView.builder(
+        itemCount: images.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              MediaQuery.of(context).orientation == Orientation.landscape
+                  ? 3
+                  : 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          childAspectRatio: 1.w / 1.3.w,
+        ),
+        itemBuilder: (context, position) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(
+                  images[position],
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(3.5.w),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  '1.4k plays',
+                  style: textTheme.bodySmall!.copyWith(
+                    color: colorScheme.background,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+}
+
 
 class ArtistMusicCollectionWidget extends StatelessWidget {
   const ArtistMusicCollectionWidget({

@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
+import '../../../domain/core/constants/asset_constants.dart';
 
 class MediaGridViewer extends StatelessWidget {
   final List<String> images;
@@ -23,34 +25,77 @@ class MediaGridViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        return GridView.custom(
-          // shrinkWrap: true,
-          controller: state.scrollController,
-          scrollDirection: Axis.vertical,
-          // physics:  const NeverScrollableScrollPhysics() ,
-          gridDelegate: SliverQuiltedGridDelegate(
-            crossAxisCount: crossAxisCount,
-            mainAxisSpacing: mainAxisSpacing ?? 0,
-            crossAxisSpacing: crossAxisSpacing ?? 0,
-            repeatPattern: QuiltedGridRepeatPattern.inverted,
-            pattern: quiltedPattern,
-          ),
-          childrenDelegate: SliverChildBuilderDelegate(
-            childCount: images.length,
-            (context, index) => GestureDetector(
-            onTap: () => context.read<ClubProfileCubit>().calculateHeight(),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(3.w),
-                  child: CachedNetworkImage(
-                    imageUrl: images[index],
-                    fit: BoxFit.cover,
-                  )),
-            ),
-          ),
-        );
+        return 1 == 2
+            ? Container(
+                height: 100.h,
+                width: 100.w,
+                color: Theme.of(context).colorScheme.surface,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(AssetConstants.noPostsBannerImage),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      'No Posts yet',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.background,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
+                ),
+              )
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                child: GridView.custom(
+                  // shrinkWrap: true,
+                  controller: state.scrollController,
+                  scrollDirection: Axis.vertical,
+                  // physics:  const NeverScrollableScrollPhysics() ,
+                  gridDelegate: SliverQuiltedGridDelegate(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisSpacing: mainAxisSpacing ?? 0,
+                    crossAxisSpacing: crossAxisSpacing ?? 0,
+                    repeatPattern: QuiltedGridRepeatPattern.inverted,
+                    pattern: quiltedPattern,
+                  ),
+                  childrenDelegate: SliverChildBuilderDelegate(
+                    childCount: images.length,
+                    (context, index) => GestureDetector(
+                        onTap: () =>
+                            context.read<ClubProfileCubit>().calculateHeight(),
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          images[index]),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Column(
+                              children: [
+                                1 == 1
+                                    ? Padding(
+                                      padding:  EdgeInsets.all(3.w),
+                                      child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: SvgPicture.asset(
+                                              AssetConstants.pinnedIcon)),
+                                    )
+                                    : SizedBox()
+                              ],
+                            )
+                          ],
+                        )),
+                  ),
+                ),
+              );
       },
     );
   }

@@ -124,6 +124,8 @@ class AssetConstants {
   static const crowdIcon = '${vectorsFolder}crowd-icon.svg';
   static const cuisineIcon = '${vectorsFolder}cuisine-icon.svg';
   static const drinkPersonalizeIcon = '${vectorsFolder}drink-icon.svg';
+  static const noPostsBannerImage = '${vectorsFolder}no-posts.svg';
+  static const pinnedIcon = '${vectorsFolder}pinned-icon.svg';
 
 
 // eventIconConstants

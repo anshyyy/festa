@@ -194,17 +194,16 @@ class MenuModalSheet extends StatelessWidget {
           Stack(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                  child: Center(
-                child: Text(
-                  'Crowd',
-                  style: textTheme.bodyMedium!.copyWith(
-                      color: colorScheme.background,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18.sp,
-                      ),
-                ),
-              )),
+              Center(
+                              child: Text(
+              'Crowd',
+              style: textTheme.bodyMedium!.copyWith(
+                  color: colorScheme.background,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.sp,
+                  ),
+                              ),
+                            ),
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(

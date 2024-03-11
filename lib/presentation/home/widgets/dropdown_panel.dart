@@ -17,7 +17,7 @@ class DropView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 45.w,
+      width: 45.5.w,
       padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.w),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -35,10 +35,10 @@ class DropView extends StatelessWidget {
                 ),
           ),
           SizedBox(
-            height: 1.h,
+            height: .5.h,
           ),
           ...filters.map((e) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 1.h),
+                padding: EdgeInsets.symmetric(vertical: .5.h),
                 child: GestureDetector(
                   onTap: () {
                     if (onBack != null) onBack!(e.name, e.value);
@@ -58,7 +58,8 @@ class DropView extends StatelessWidget {
                       ),
                       SvgPicture.asset(e.isApplied
                           ? AssetConstants.selectedRadio
-                          : AssetConstants.unSelectedRadio)
+                          : AssetConstants.unSelectedRadio,
+                          )
                     ],
                   ),
                 ),

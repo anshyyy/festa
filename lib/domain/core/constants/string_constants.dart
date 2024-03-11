@@ -67,7 +67,7 @@ class LoginScreenConstants {
   static String appleContinue = 'Continue with Apple';
   static String googleContinue = 'Continue with Google';
   static String phoneNumberContinue = 'Use mobile number';
-  static String phoneNumberHint = 'Phone number';
+  static String phoneNumberHint = 'Phone Number';
 
   static String resendNow = 'Resend now ';
   static String resendAfter = 'Resend after ';

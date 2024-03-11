@@ -43,7 +43,7 @@ class PaymentDetailsConsumer extends StatelessWidget {
           actions: []),
       body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal:2.w),
+            padding: EdgeInsets.symmetric(horizontal:5.w),
             child: Column(
               children: [
                 const EventDetails(),
@@ -164,7 +164,7 @@ class EventDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30.5.w,
+      height: 32.w,
                   width: 100.w,
       padding: EdgeInsets.all(2.w),
       decoration: BoxDecoration(

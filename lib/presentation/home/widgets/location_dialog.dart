@@ -148,7 +148,7 @@ class LocationDialog extends StatelessWidget {
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.only(
-                                                  left: 1.w, bottom: 4.w),
+                                                  left: 1.w, bottom: 6.w),
                                               child: Text(
                                                 suggestion.description,
                                                 maxLines: 1,

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,25 +41,6 @@ class VerifyOtpScreen extends StatelessWidget {
       )),
       child: const VerifyOtpScreenConsumer(),
     );
-  }
-}
-
-class EllipsesBackgroundPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = Colors.blue
-      ..style = PaintingStyle.fill;
-
-    // Draw ellipses of different shapes and sizes
-    canvas.drawOval(Rect.fromLTWH(20, 20, 100, 50), paint);
-    canvas.drawOval(Rect.fromLTWH(150, 100, 80, 40), paint);
-    canvas.drawOval(Rect.fromLTWH(220, 10, 120, 60), paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
   }
 }
 
@@ -156,14 +136,14 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: [
-              SizedBox(
-                height: 50.h,
-                width: 100.w,
-                child: Image.asset(
-                  AssetConstants.scaffoldBcg,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              // SizedBox(
+              //   height: 50.h,
+              //   width: 100.w,
+              //   child: Image.asset(
+              //     AssetConstants.scaffoldBcg,
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
@@ -189,7 +169,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                           Text(
                             '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
                             style: themeData.textTheme.bodySmall!
-                                .copyWith(fontSize: 14.5.sp),
+                                .copyWith(),
                           ),
                           SizedBox(
                             width: 2.w,
@@ -219,7 +199,8 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                         hintCharacter: '-',
                         keyboardType: TextInputType.number,
                         hintStyle: themeData.textTheme.bodyLarge!.copyWith(
-                          fontSize: 24.sp,
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.bold,
                           color: themeData.colorScheme.background,
                         ),
                         textStyle: themeData.textTheme.bodyLarge!.copyWith(
@@ -236,7 +217,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(40),
                             fieldHeight: 7.5.h,
-                            fieldWidth: 13.w,
+                            fieldWidth: 13.5.w,
                             selectedFillColor:
                                 themeData.colorScheme.primaryContainer,
                             inactiveFillColor:
@@ -263,6 +244,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                                     .bodySmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .background,
@@ -277,13 +259,14 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                               seconds: AppConstants.otpTimer,
                               build: (_, double time) {
                                 return Text(
-                                  '${LoginScreenConstants.resendAfter}: ${time.toInt()}${AppConstants.seconds}',
+                                  '${LoginScreenConstants.resendAfter}${time.toInt()}${AppConstants.seconds}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
                                         decoration: TextDecoration.underline,
-                                        fontWeight: FontWeight.w700,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp,
                                         decorationColor: Theme.of(context)
                                             .colorScheme
                                             .onSecondary,

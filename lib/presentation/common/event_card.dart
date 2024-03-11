@@ -32,57 +32,102 @@ class _EventCardState extends State<EventCard> {
         children: [
           Column(
             children: [
-              CarouselSlider.builder(
-                  itemCount: widget.event.assets.length +
-                      (widget.event.coverImage.isNotEmpty ? 1 : 0),
-                  itemBuilder: (context, imageIndex, realIndex) {
-                    final index = imageIndex -
-                        (widget.event.coverImage.isNotEmpty ? 1 : 0);
-                    return Container(
-                      foregroundDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.black.withOpacity(.8),
-                            Colors.transparent,
-                            Colors.transparent,
-                            Colors.black.withOpacity(.8)
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: const [0, 0.4, 0.6, 1],
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            imageIndex == 0 &&
-                                    widget.event.coverImage.isNotEmpty
-                                ? widget.event.coverImage
-                                : widget.event.assets[index].url,
+              // CarouselSlider.builder(
+              //     itemCount: widget.event.assets.length +
+              //         (widget.event.coverImage.isNotEmpty ? 1 : 0),
+              //     itemBuilder: (context, imageIndex, realIndex) {
+              //       final index = imageIndex -
+              //           (widget.event.coverImage.isNotEmpty ? 1 : 0);
+              //       return Container(
+              //         foregroundDecoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(20),
+              //           gradient: LinearGradient(
+              //             colors: [
+              //               Colors.black.withOpacity(.8),
+              //               Colors.transparent,
+              //               Colors.transparent,
+              //               Colors.black.withOpacity(.8)
+              //             ],
+              //             begin: Alignment.topCenter,
+              //             end: Alignment.bottomCenter,
+              //             stops: const [0, 0.4, 0.6, 1],
+              //           ),
+              //         ),
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(20),
+              //           image: DecorationImage(
+              //             fit: BoxFit.cover,
+              //             image: NetworkImage(
+              //               imageIndex == 0 &&
+              //                       widget.event.coverImage.isNotEmpty
+              //                   ? widget.event.coverImage
+              //                   : widget.event.assets[index].url,
+              //             ),
+              //           ),
+              //         ),
+              //       );
+              //     },
+              //     options: CarouselOptions(
+              //       autoPlay: false,
+              //       height: 105.w,
+              //       enlargeCenterPage: true,
+              //       autoPlayCurve: Curves.easeInOutBack,
+              //       viewportFraction: 1,
+              //       enableInfiniteScroll: false,
+              //       onPageChanged: (index, reason) {
+              //         Future.delayed(const Duration(milliseconds: 300))
+              //             .then((value) {
+              //           setState(() {
+              //             this.index = index;
+              //           });
+              //         });
+              //       },
+              //     )),
+              SizedBox(
+                height: 105.w,
+                child: PageView.builder(
+                    itemCount: widget.event.assets.length +
+                        (widget.event.coverImage.isNotEmpty ? 1 : 0),
+                    itemBuilder: (context, imageIndex) {
+                      final index = imageIndex -
+                          (widget.event.coverImage.isNotEmpty ? 1 : 0);
+                      return Container(
+                        foregroundDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black.withOpacity(.8),
+                              Colors.transparent,
+                              Colors.transparent,
+                              Colors.black.withOpacity(.8)
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: const [0, 0.4, 0.6, 1],
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                    autoPlay: false,
-                    height: 100.w,
-                    enlargeCenterPage: true,
-                    autoPlayCurve: Curves.easeInOutBack,
-                    viewportFraction: 1,
-                    enableInfiniteScroll: false,
-                    onPageChanged: (index, reason) {
-                      Future.delayed(const Duration(milliseconds: 300))
-                          .then((value) {
-                        setState(() {
-                          this.index = index;
-                        });
-                      });
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              imageIndex == 0 &&
+                                      widget.event.coverImage.isNotEmpty
+                                  ? widget.event.coverImage
+                                  : widget.event.assets[index].url,
+                            ),
+                          ),
+                        ),
+                      );
                     },
-                  )),
+                    onPageChanged: (value) {
+                      
+                        setState(() {
+                          this.index = value;
+                        });
+                    },
+                    ),
+              ),
               SizedBox(
                 height: 1.h,
               ),
@@ -214,7 +259,7 @@ class _EventCardState extends State<EventCard> {
             ],
           ),
           SizedBox(
-            height: 100.w,
+            height: 105.w,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -332,7 +377,7 @@ class _EventCardState extends State<EventCard> {
                           if (widget.event.startDate.isNotEmpty)
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 1.7.w, vertical: .3.h),
+                                  horizontal: 2.w, vertical: .5.h),
                               decoration: BoxDecoration(
                                   color: themeData.colorScheme.primaryContainer,
                                   borderRadius: BorderRadius.circular(50.w)),
@@ -342,18 +387,18 @@ class _EventCardState extends State<EventCard> {
                                 style: themeData.textTheme.bodySmall!.copyWith(
                                   color: themeData.colorScheme.background,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
+                                  // fontSize: 14.sp,
                                 ),
                               ),
                             )
                           else
                             const SizedBox(),
                           GestureDetector(
-                            onTap: (){
-                              print('object');
-                            },
+                            onTap: () {},
                             child: SvgPicture.asset(
-                              widget.event.isLiked? AssetConstants.heartFilledIcon:  AssetConstants.heartOutlinedIcon,
+                              widget.event.isLiked
+                                  ? AssetConstants.heartFilledIcon
+                                  : AssetConstants.heartOutlinedIcon,
                               width: 5.w,
                               height: 5.w,
                             ),

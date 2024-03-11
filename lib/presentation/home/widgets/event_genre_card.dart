@@ -27,7 +27,7 @@ class EventTypeTile extends StatelessWidget {
                 color: isSelected
                     ? Theme.of(context).primaryColor
                     : Theme.of(context).colorScheme.background.withOpacity(.2),
-                width:isSelected? .5.w: .5.w),
+                width:isSelected? .3.w: .3.w),
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
               fit: BoxFit.cover,

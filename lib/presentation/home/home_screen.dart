@@ -29,8 +29,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppConfig appConfig = AppConfig.of(context)!;
+    AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
     return BlocProvider(
       create: (context) => HomeCubit(HomeState.initial(
+        appStateNotifier: appStateNotifier,
         serverUrl: appConfig.serverUrl,
         mapsApiKey: appConfig.googleMapsApiKey,
       ))
@@ -72,9 +74,10 @@ class HomeScreenConsumer extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             controller: state.scrollController,
                             child: Padding(
-                              padding: EdgeInsets.all(3.w),
+                              padding: EdgeInsets.all(5.w),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
@@ -455,6 +458,7 @@ class EmptyEvents extends StatelessWidget {
       },
       builder: (context, state) {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: [
@@ -476,6 +480,7 @@ class EmptyEvents extends StatelessWidget {
                           final builderContext = context;
                           showModalBottomSheet(
                               context: context,
+                              isScrollControlled: true,
                               builder: (context) {
                                 return FilterModalSheet(
                                   filters: List.from(state.filters
@@ -568,6 +573,7 @@ class EmptyEvents extends StatelessWidget {
                   'Popular events in Banglore',
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
                         color: Theme.of(context).colorScheme.background,
                       ),
                 ),
@@ -581,6 +587,7 @@ class EmptyEvents extends StatelessWidget {
                     ],
                     textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
+                        fontSize: 16.sp,
                           color: Theme.of(context).colorScheme.background,
                         ),
                   ),
@@ -588,7 +595,7 @@ class EmptyEvents extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 1.h,
+              height: 2.h,
             ),
             const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -645,6 +652,7 @@ class EventWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.background,
                 ),
           ),
+          SizedBox(height: .5.h,),
           Text(
             'THE GREYBOT ALL STARS/MIKE',
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -652,6 +660,8 @@ class EventWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.background,
                 ),
           ),
+          SizedBox(height: .5.h,),
+
           Text(
             'Great Indian Music Hall',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -659,6 +669,8 @@ class EventWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
           ),
+          SizedBox(height: .5.h,),
+
           Text(
             '554+ people booked, 1034+ interested',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

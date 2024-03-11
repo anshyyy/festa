@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
@@ -17,7 +18,9 @@ class IEventRepository extends EventRepository {
   Future<List<FilterDto>> getFilter() async {
     try {
       final url = '$serverUrl${EventApiConstants.GET_FILTERS}';
-      final response = await RESTService.performGETRequest(httpUrl: url);
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+      final response =
+          await RESTService.performGETRequest(httpUrl: url, token: token!, isAuth: true);
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
@@ -28,7 +31,7 @@ class IEventRepository extends EventRepository {
       }).toList();
       return filters;
     } catch (error) {
-      return [];
+      return  [];
     }
   }
 
@@ -42,6 +45,7 @@ class IEventRepository extends EventRepository {
       String? sort,
       String? otherFilters}) async {
     try {
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
       final url = '$serverUrl${EventApiConstants.EVENTS}';
       final Map<String, String> param = {
         'page': page.toString(),
@@ -59,7 +63,7 @@ class IEventRepository extends EventRepository {
         param['filter'] = otherFilters;
       }
       final response =
-          await RESTService.performGETRequest(httpUrl: url, param: param);
+          await RESTService.performGETRequest(httpUrl: url, param: param, isAuth: true, token: token!);
       if (response.statusCode != 200) {
         return [];
       }
@@ -78,14 +82,14 @@ class IEventRepository extends EventRepository {
   }) async {
     try {
       final url = '$serverUrl${EventApiConstants.EVENTS}/$eventId';
-    final response = await RESTService.performGETRequest(httpUrl: url);
-    if (response.statusCode != 200) {
-      return left(null);
-    }
-    final body = response.body;
-    final eventRaw = jsonDecode(body);
+      final response = await RESTService.performGETRequest(httpUrl: url);
+      if (response.statusCode != 200) {
+        return left(null);
+      }
+      final body = response.body;
+      final eventRaw = jsonDecode(body);
 
-    return right(EventDto.fromJson(eventRaw));
+      return right(EventDto.fromJson(eventRaw));
     } catch (e) {
       return left(null);
     }

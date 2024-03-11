@@ -102,7 +102,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                   Text(
                     LoginScreenConstants.mobileLoginDescription,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 14.5.sp
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
                   SizedBox(
@@ -133,9 +133,9 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                           });
                         },
                         child: Container(
-                          width: 25.w,
-                          height: 56,
-                          padding: EdgeInsets.symmetric(horizontal: 2.w),
+                          width: 26.w,
+                          height: 17.w,
+                          padding: EdgeInsets.symmetric(horizontal: 2.5.w),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -154,7 +154,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        // fontSize: 16.sp,
+                                        fontWeight: FontWeight.w400,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .background,
@@ -166,6 +166,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                               ),
                               SvgPicture.asset(
                                 AssetConstants.arrowDown,
+                                width: 7.w,
                               )
                             ],
                           ),
@@ -181,12 +182,13 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                           maxLines: 1,
                           isFill: true,
                           inputWithLabel: false,
+                          contentPadding: EdgeInsets.symmetric(vertical:5.6.w, horizontal: 4.w),
                           fillColor:
                               Theme.of(context).colorScheme.primaryContainer,
                           hintText: LoginScreenConstants.phoneNumberHint,
                           hintTextStyle:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    // fontSize: 17.sp,
+                                    fontWeight: FontWeight.w300,
                                   ),
                           textStyle: Theme.of(context)
                               .textTheme

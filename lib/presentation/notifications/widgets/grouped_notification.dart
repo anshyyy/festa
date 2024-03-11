@@ -20,7 +20,7 @@ class GroupedNotifications extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 4.w, top: 4.w),
+          padding: EdgeInsets.only(left: 5.w, top: 4.w),
           child: Text(
             header,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -35,7 +35,7 @@ class GroupedNotifications extends StatelessWidget {
           itemCount: itemsCount,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -59,7 +59,7 @@ class GroupedNotifications extends StatelessWidget {
                                 .bodySmall!
                                 .copyWith(
                                   fontWeight: FontWeight.w600,
-                                  // fontSize: 16.sp,
+                                  fontSize: 14.5.sp,
                                   color:
                                       Theme.of(context).colorScheme.background,
                                 ),
@@ -70,7 +70,8 @@ class GroupedNotifications extends StatelessWidget {
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
-                                  // fontSize: 16.sp,
+                                  fontSize: 14.5.sp,
+                                  fontWeight: FontWeight.w300,
                                   color:
                                       Theme.of(context).colorScheme.background,
                                 ),
@@ -86,7 +87,7 @@ class GroupedNotifications extends StatelessWidget {
                       ? Expanded(
                           child: index % 3 == 0
                               ? GradientButton(
-                                  height: 4.5.h,
+                                  height: 4.h,
                                   text: 'Follow',
                                   onTap: () {},
                                   textStyle: Theme.of(context)
@@ -98,7 +99,7 @@ class GroupedNotifications extends StatelessWidget {
                                               .colorScheme
                                               .background),
                                 )
-                              : const CustomOutlinedButton(text: 'Check now'))
+                              : CustomOutlinedButton(text: 'Check now', height: 4.h,))
                       : const PosterPreview(),
                 ],
               ),

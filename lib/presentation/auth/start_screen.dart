@@ -68,13 +68,12 @@ class StartScreenConsumer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 21),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        RichText(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 5.w),
+                        child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             children: [
@@ -82,7 +81,7 @@ class StartScreenConsumer extends StatelessWidget {
                                   text:
                                       '${TermsAndConditionConstants.privacyMessage} ',
                                   style:
-                                      Theme.of(context).textTheme.bodySmall!),
+                                      Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14.sp,)),
                               TextSpan(
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
@@ -94,7 +93,7 @@ class StartScreenConsumer extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      // fontSize: 13.sp,
+                                      fontSize: 14.sp,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Theme.of(context)
                                           .colorScheme
@@ -104,7 +103,7 @@ class StartScreenConsumer extends StatelessWidget {
                               TextSpan(
                                   text: ' ${AppConstants.andText} ',
                                   style: Theme.of(context).textTheme.bodySmall!
-                                  // .copyWith(fontSize: 13.7.sp),
+                                  .copyWith(fontSize: 14.sp),
                                   ),
                               TextSpan(
                                 recognizer: TapGestureRecognizer()
@@ -117,7 +116,7 @@ class StartScreenConsumer extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      // fontSize: 13.7.sp,
+                                      fontSize: 14.sp,
                                       decoration: TextDecoration.underline,
                                       decorationColor: Theme.of(context)
                                           .colorScheme
@@ -129,22 +128,28 @@ class StartScreenConsumer extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
-                                    .copyWith(fontSize: 13.7.sp),
+                                    .copyWith(fontSize: 14.sp),
                               ),
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        GradientButton(
+                      ),
+                       SizedBox(
+                        height: 4.h,
+                      ),
+                      Container(
+                        height: 14.h,
+                        color: Theme.of(context).colorScheme.surface,
+                        padding: EdgeInsets.only(bottom: 5.h, top: 3.h, left: 6.w, right: 6.w),
+                        child: GradientButton(
+                          // height:6.h,
                           text: AppConstants.continueText,
                           onTap: () {
                             context.read<StarterCubit>().completeOnboarding();
                           },
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),

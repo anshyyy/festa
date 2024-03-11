@@ -52,6 +52,7 @@ mixin _$HomeState {
   LocationRepository get locationRepository =>
       throw _privateConstructorUsedError;
   List<SuggestionDto> get suggestions => throw _privateConstructorUsedError;
+  AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -93,7 +94,8 @@ abstract class $HomeStateCopyWith<$Res> {
       bool noFilteredEvents,
       bool noLocatedEvents,
       LocationRepository locationRepository,
-      List<SuggestionDto> suggestions});
+      List<SuggestionDto> suggestions,
+      AppStateNotifier appStateNotifier});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
@@ -142,6 +144,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? noLocatedEvents = null,
     Object? locationRepository = null,
     Object? suggestions = null,
+    Object? appStateNotifier = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -264,6 +267,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
               as List<SuggestionDto>,
+      appStateNotifier: freezed == appStateNotifier
+          ? _value.appStateNotifier
+          : appStateNotifier // ignore: cast_nullable_to_non_nullable
+              as AppStateNotifier,
     ) as $Val);
   }
 
@@ -326,7 +333,8 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool noFilteredEvents,
       bool noLocatedEvents,
       LocationRepository locationRepository,
-      List<SuggestionDto> suggestions});
+      List<SuggestionDto> suggestions,
+      AppStateNotifier appStateNotifier});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -375,6 +383,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? noLocatedEvents = null,
     Object? locationRepository = null,
     Object? suggestions = null,
+    Object? appStateNotifier = freezed,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -497,6 +506,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
               as List<SuggestionDto>,
+      appStateNotifier: freezed == appStateNotifier
+          ? _value.appStateNotifier
+          : appStateNotifier // ignore: cast_nullable_to_non_nullable
+              as AppStateNotifier,
     ));
   }
 }
@@ -534,7 +547,8 @@ class _$HomeStateImpl implements _HomeState {
       required this.noFilteredEvents,
       required this.noLocatedEvents,
       required this.locationRepository,
-      required this.suggestions});
+      required this.suggestions,
+      required this.appStateNotifier});
 
   @override
   final bool isLoading;
@@ -596,10 +610,12 @@ class _$HomeStateImpl implements _HomeState {
   final LocationRepository locationRepository;
   @override
   final List<SuggestionDto> suggestions;
+  @override
+  final AppStateNotifier appStateNotifier;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, appStateNotifier: $appStateNotifier)';
   }
 
   @override
@@ -662,7 +678,9 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.locationRepository, locationRepository) ||
                 other.locationRepository == locationRepository) &&
             const DeepCollectionEquality()
-                .equals(other.suggestions, suggestions));
+                .equals(other.suggestions, suggestions) &&
+            const DeepCollectionEquality()
+                .equals(other.appStateNotifier, appStateNotifier));
   }
 
   @override
@@ -697,7 +715,8 @@ class _$HomeStateImpl implements _HomeState {
         noFilteredEvents,
         noLocatedEvents,
         locationRepository,
-        const DeepCollectionEquality().hash(suggestions)
+        const DeepCollectionEquality().hash(suggestions),
+        const DeepCollectionEquality().hash(appStateNotifier)
       ]);
 
   @JsonKey(ignore: true)
@@ -738,7 +757,8 @@ abstract class _HomeState implements HomeState {
       required final bool noFilteredEvents,
       required final bool noLocatedEvents,
       required final LocationRepository locationRepository,
-      required final List<SuggestionDto> suggestions}) = _$HomeStateImpl;
+      required final List<SuggestionDto> suggestions,
+      required final AppStateNotifier appStateNotifier}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -800,6 +820,8 @@ abstract class _HomeState implements HomeState {
   LocationRepository get locationRepository;
   @override
   List<SuggestionDto> get suggestions;
+  @override
+  AppStateNotifier get appStateNotifier;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

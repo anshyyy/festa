@@ -21,49 +21,52 @@ class HomeSearch extends StatelessWidget{
         // TODO: implement listener
       },
       builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            context.read<HomeCubit>().toggleSearch(flag: false);
-          },
-          child: Container(
-            height: 100.h,
-            color: state.isSearchChanged?Theme.of(context).colorScheme.onSurface: Colors.transparent.withOpacity(.5),
-            child: Column(
-              children: [
-                CustomTextField(
-                  contentPadding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
-                  prefixIcon: SvgPicture.asset(AssetConstants.searchIcon, height: 3.5.h,),
-                  suffixIcon: SvgPicture.asset(AssetConstants.closeIcon),
-                  hintText: HomeScreenConstants.searchEvent,
-                  hintTextStyle:
-                      Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16.sp
-                      ),
-                  fillColor: Theme.of(context).colorScheme.primaryContainer,
-                  isFill: true,
-                  textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(),
-                  onChanged:(p0) {
-                    context.read<HomeCubit>().onSearchChange(query: p0);
-                  },
-                ),
-                // ListView.builder(
-                //   itemCount: 1,
-                //   shrinkWrap: true,
-                //   itemBuilder:(context, index) {
-                //   return Row(
-                //     children: [
-                //       Container(
-                //         color: Theme.of(context).colorScheme.surface,
-                //         height: 3.5.h,
-                //         width: 3.5.h,
-                //       ),
-                //       SizedBox(width: 2.w,),
-                //       const Text('Banglore')
-                //     ],
-                //   );
-                // },)
-              ],
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+          child: GestureDetector(
+            onTap: () {
+              context.read<HomeCubit>().toggleSearch(flag: false);
+            },
+            child: Container(
+              height: 100.h,
+              color: state.isSearchChanged?Theme.of(context).colorScheme.onSurface: Colors.transparent.withOpacity(.5),
+              child: Column(
+                children: [
+                  CustomTextField(
+                    contentPadding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 4.w),
+                    prefixIcon: SvgPicture.asset(AssetConstants.searchIcon, height: 3.5.h,),
+                    suffixIcon: SvgPicture.asset(AssetConstants.closeIcon),
+                    hintText: HomeScreenConstants.searchEvent,
+                    hintTextStyle:
+                        Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.sp
+                        ),
+                    fillColor: Theme.of(context).colorScheme.primaryContainer,
+                    isFill: true,
+                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+                    onChanged:(p0) {
+                      context.read<HomeCubit>().onSearchChange(query: p0);
+                    },
+                  ),
+                  // ListView.builder(
+                  //   itemCount: 1,
+                  //   shrinkWrap: true,
+                  //   itemBuilder:(context, index) {
+                  //   return Row(
+                  //     children: [
+                  //       Container(
+                  //         color: Theme.of(context).colorScheme.surface,
+                  //         height: 3.5.h,
+                  //         width: 3.5.h,
+                  //       ),
+                  //       SizedBox(width: 2.w,),
+                  //       const Text('Banglore')
+                  //     ],
+                  //   );
+                  // },)
+                ],
+              ),
             ),
           ),
         );

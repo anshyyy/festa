@@ -33,10 +33,11 @@ class HomeState with _$HomeState {
     required bool noLocatedEvents,
     required LocationRepository locationRepository,
     required List<SuggestionDto> suggestions,
+    required AppStateNotifier appStateNotifier,
   }) = _HomeState;
 
   factory HomeState.initial(
-          {required String serverUrl, required String mapsApiKey}) =>
+          {required AppStateNotifier appStateNotifier ,required String serverUrl, required String mapsApiKey}) =>
       HomeState(
         page: 1,
         noUse: false,
@@ -126,5 +127,6 @@ class HomeState with _$HomeState {
           mapsApiKey: mapsApiKey,
         ),
         suggestions: [],
+        appStateNotifier: appStateNotifier,
       );
 }

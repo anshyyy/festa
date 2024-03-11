@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
@@ -230,8 +231,8 @@ class HomeCubit extends Cubit<HomeState> {
     final overlayEntry = OverlayEntry(
       builder: (context) {
         return Positioned(
-            top: dy,
-            left: dx,
+            top: dy-.5,
+            left: dx-.5,
             child: DropView(
               onBack: (String name, String? value) {
                 final index = state.filters

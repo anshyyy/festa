@@ -80,7 +80,7 @@ class BookingDetails extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
                           height: 3.h,
@@ -232,10 +232,11 @@ class BookingDetails extends StatelessWidget {
                                         'Ending with 3092',
                                       )
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
-                            )
+                            ),
+                            SizedBox(height: 1.5.h,),
                           ],
                         )
                       ],

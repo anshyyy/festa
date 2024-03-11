@@ -45,7 +45,7 @@ class UpcomingTicketsScreen extends StatelessWidget {
                               width: 1.5.w,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: dotIndex == 1
+                                  color: dotIndex == 0
                                       ? Theme.of(context).colorScheme.background
                                       : Theme.of(context)
                                           .colorScheme

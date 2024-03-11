@@ -51,7 +51,7 @@ class BookingDescription extends StatelessWidget {
                             .read<TicketCubit>()
                             .showTransactionDetails(),
                         child: Container(
-                          height: 9.w,
+                          height: 10.w,
                           width: 10.w,
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -68,13 +68,11 @@ class BookingDescription extends StatelessWidget {
                             child: !state.showTicketDetails
                                 ? SvgPicture.asset(
                                     AssetConstants.arrowRight,
-                      height: 4.5.w,
-
+                                    height: 4.5.w,
                                   )
                                 : SvgPicture.asset(
                                     AssetConstants.arrowLeft,
-                      height: 4.5.w,
-
+                                    height: 4.5.w,
                                   ),
                           ),
                         ),

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/club_profile/club_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/configs/injection.dart';
+import '../../domain/core/constants/asset_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../widgets/custom_appbar.dart';
 import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
 import 'widgets/media_viewer_tabs.dart';
@@ -39,42 +44,51 @@ class ClubProfileScreenConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          body: SafeArea(
-            child: state.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : state.pub == null
-                    ? const Center(
-                        child: Text('Data not found'),
-                      )
-                    : Stack(
-                        children: [
-                          const ImageCarousel(),
-                          SizedBox.expand(
-                            child: DraggableScrollableSheet(
-                              initialChildSize: .5,
-                              minChildSize: .5,
-                              builder: (context, scrollController) {
-                                return SingleChildScrollView(
-                                  controller: scrollController,
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 5.h),
-                                    child: const Column(
-                                      children: [
-                                        ClubProfile(),
-                                        // MediaGrid(),
-                                        MediaViewerTabs(),
-                                      ],
-                                    ),
+          body: state.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : state.pub == null
+                  ? const Center(
+                      child: Text('Data not found'),
+                    )
+                  : Stack(
+                      children: [
+                        const ImageCarousel(),
+                        SizedBox.expand(
+                          child: DraggableScrollableSheet(
+                            initialChildSize: .5,
+                            minChildSize: .5,
+                            builder: (context, scrollController) {
+                              return SingleChildScrollView(
+                                controller: scrollController,
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 5.h),
+                                  child: const Column(
+                                    children: [
+                                      ClubProfile(),
+                                      // MediaGrid(),
+                                      MediaViewerTabs(),
+                                    ],
                                   ),
-                                );
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          top: 15.w,
+                          left: 1.w,
+                          child: GestureDetector(
+                              onTap: () {
+                                navigator<NavigationService>().goBack();
                               },
-                            ),
-                          )
-                        ],
-                      ),
-          ),
+                              child: Center(
+                                  child: SvgPicture.asset(
+                                      AssetConstants.arrowLeft))),
+                        ),
+                      ],
+                    ),
         );
       },
     );

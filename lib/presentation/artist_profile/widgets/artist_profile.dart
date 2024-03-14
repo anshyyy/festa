@@ -9,7 +9,6 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
-import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
 import 'mutual_followers.dart';
 import 'social_reach.dart';

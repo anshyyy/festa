@@ -38,43 +38,43 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
-              title: '',
-              leading: GestureDetector(
-                  onTap: () {
-                    navigator<NavigationService>().goBack();
-                  },
-                  child: Center(
-                      child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                // const ImageCarousel(),
-
-                SizedBox.expand(
-                  child: DraggableScrollableSheet(
-                    initialChildSize: .5,
-                    minChildSize: .5,
-                    builder: (context, scrollController) {
-                      return SingleChildScrollView(
-                        controller: scrollController,
-                        child: Container(
-                          margin: EdgeInsets.only(top: 5.h),
-                          child: const Column(
-                            children: [
-                              ArtistProfile(),
-                              // MediaGrid(),
-                              MediaViewerTabs(),
-                            ],
-                          ),
+          body: Stack(
+            children: [
+              // const ImageCarousel(),
+          
+              SizedBox.expand(
+                child: DraggableScrollableSheet(
+                  initialChildSize: .5,
+                  minChildSize: .5,
+                  builder: (context, scrollController) {
+                    return SingleChildScrollView(
+                      controller: scrollController,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 5.h),
+                        child: const Column(
+                          children: [
+                            ArtistProfile(),
+                            // MediaGrid(),
+                            MediaViewerTabs(),
+                          ],
                         ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Positioned(
+                        top: 15.w,
+                        left: 1.w,
+                        child: GestureDetector(
+                            onTap: () {
+                              navigator<NavigationService>().goBack();
+                            },
+                            child: Center(
+                                child: SvgPicture.asset(
+                                    AssetConstants.arrowLeft))),
+                      ),
+            ],
           ),
         );
       },

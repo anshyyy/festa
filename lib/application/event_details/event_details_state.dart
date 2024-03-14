@@ -13,6 +13,7 @@ class EventDetailsState with _$EventDetailsState {
     required bool ambExpanded,
     required bool fnbExpanded,
     required bool faqExpanded,
+    required bool isEventLiked,
   }) = _EventDetailsState;
 
   factory EventDetailsState.initial({
@@ -31,5 +32,6 @@ class EventDetailsState with _$EventDetailsState {
         ambExpanded: false,
         fnbExpanded: false,
         faqExpanded: false,
+        isEventLiked:false,
       );
 }

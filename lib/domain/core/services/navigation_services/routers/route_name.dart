@@ -26,6 +26,7 @@ class UserRoutes {
   static const String paymentDetailsRoute = 'paymentDetails';
   static const String bookingDetailsRoute = 'bookingDetails';
   static const String clubProfileRoute = 'clubProfile';
+  static const String clubCommunityScreenRoute= 'clubCommunity';
   static const String homeScreenRoute = 'homeScreen';
   static const String eventDetailsRoute = 'eventDetails';
   static const String userProfileRoute = 'userProfile';
@@ -45,4 +46,5 @@ class UserRoutes {
   static const String deleteAccountScreenRoute = 'deleteAccountScreen';
   static const String notificationsRoute = 'notifications';
   static const String artistProfileScreenRoute = 'artistProfileScreen';
+  static const String artistCommunityScreenRoute = 'artistCommunityRoute';
 }

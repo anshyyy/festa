@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../domain/core/extensions/string_extension.dart';
+
 class SocialReach extends StatelessWidget {
   final int totalParties;
   final int totalFollowers;
@@ -29,7 +31,7 @@ class SocialReach extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                    text: '$totalParties ',
+                    text: StringExtension.formatAmount(totalParties),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background)),
@@ -45,7 +47,7 @@ class SocialReach extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                    text: '$totalFollowers ',
+                    text: StringExtension.formatAmount(totalFollowers),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background)),
@@ -61,7 +63,7 @@ class SocialReach extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                    text: '$totalFriends ',
+                    text: StringExtension.formatAmount(totalFriends),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background)),

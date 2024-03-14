@@ -13,6 +13,7 @@ class GenderSelectionState with _$GenderSelectionState {
     required String errorMessage,
     required AppStateNotifier appStateNotifier,
     required AuthRepository authRepository,
+    required UserRepository userRepository,
         int? selectedSex,
 
   }) = _GenderSelectionState;
@@ -30,6 +31,7 @@ class GenderSelectionState with _$GenderSelectionState {
           lsOFSex: ['Woman', 'Man', 'Nonbinary'],
           lsOFSexValue: ['female', 'male', 'other'],
           authRepository: IAuthRepository(serverUrl: serverUrl),
+          userRepository: IUserRepository(serverUrl: serverUrl),
           appStateNotifier: appStateNotifier,
           errorMessage: '');
 }

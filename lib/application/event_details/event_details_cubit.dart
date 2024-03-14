@@ -46,4 +46,9 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
   void toggle_faq() {
     emit(state.copyWith(faqExpanded: !state.faqExpanded));
   }
+
+  void onEventLikedUnliked({required int eventId}){
+    state.eventRepository.likeUnlikeEvent(eventId: eventId, isLiked: state.isEventLiked);
+    emit(state.copyWith(isEventLiked: !state.isEventLiked));
+  }
 }

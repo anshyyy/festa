@@ -3,6 +3,14 @@ class EventApiConstants {
   static const USERS = '/users';
   static const GET_FILTERS = '$EVENTS/filters';
   static const GET_USER_DETAILS = '$USERS/details';
+  static const GET_EVENTS_BY_PUB_ID = '$EVENTS/pub';
+  static const LIKE_EVENT = '$EVENTS/like';
+  static const UNLIKE_EVENT = '$EVENTS/unlike';
+}
+
+class UserApiConstants {
+  static const USERS = '/users';
+  static const GET_USER_DETAILS = '$USERS/details';
 }
 
 class AuthApiConstants {
@@ -12,6 +20,12 @@ class AuthApiConstants {
 
 class PubApiConstants {
   static const PUBS = '/pubs';
+}
+
+class ArtistApiConstants {
+  static const ARTIST = '/artist';
+  static const FOLLOW_ARTIST = '$ARTIST/follow';
+  static const UNFOLLOW_ARTIST = '$ARTIST/unfollow';
 }
 
 class NotificationConstants {

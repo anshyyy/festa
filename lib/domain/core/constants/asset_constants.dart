@@ -126,6 +126,7 @@ class AssetConstants {
   static const drinkPersonalizeIcon = '${vectorsFolder}drink-icon.svg';
   static const noPostsBannerImage = '${vectorsFolder}no-posts.svg';
   static const pinnedIcon = '${vectorsFolder}pinned-icon.svg';
+  static const playButtonIcon = '${vectorsFolder}play-button-icon.svg';
 
 
 // eventIconConstants

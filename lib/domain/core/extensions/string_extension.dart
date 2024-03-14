@@ -20,6 +20,18 @@ extension StringExtension on String {
     return currentStatus;
   }
 
+  static String formatAmount(int amount) {
+  if (amount < 1000) {
+    return amount.toString();
+  } else if (amount < 1000000) {
+    double result = amount / 1000.0;
+    return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}k';
+  } else {
+    double result = amount / 1000000.0;
+    return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}M';
+  }
+}
+
   String get capitalizeCamel {
     if (isNotEmpty) {
       return '${this[0].toUpperCase()}${substring(1)}';

@@ -21,35 +21,37 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     });
   }
 
+  final int limit = 10;
+  bool isFetching = false;
+
   void init() async {
     emit(state.copyWith(isLoading: true));
     final club = await state.pubRepository.getPubById(pubId: state.clubId);
+    final assets = await state.pubRepository.getPubAssets(
+      pubId: state.clubId,
+      page: state.page,
+      limit: limit,
+    );
     club.fold((l) {
       emit(state.copyWith(
-        isLoading: false,
-        isFailed: true,
-        isSuccessful: false,
-        responseMsg: l,
-      ));
+          isLoading: false,
+          isFailed: true,
+          isSuccessful: false,
+          responseMsg: l,
+          assets: assets));
     }, (r) {
       if (r.coverImageUrl.isNotEmpty) {
         final coverImageAsset = AssetDto(type: 'image', url: r.coverImageUrl);
         r.assets.insert(0, coverImageAsset);
       }
       emit(state.copyWith(
-        isLoading: false,
-        isFailed: false,
-        isSuccessful: true,
-        pub: r,
-      ));
+          isLoading: false,
+          isFailed: false,
+          isSuccessful: true,
+          pub: r,
+          assets: assets,
+          isFollowing: r.extraDetailsDto!.isFollowing));
     });
-  }
-
-  void calculateHeight() {
-    double imageHeight = state.key.currentContext!.size!.height;
-    // double imageWidth = state.key.currentContext!.size!.height;
-
-    emit(state.copyWith(viewPortHeight: imageHeight));
   }
 
   void onCarouselChange({required int index}) {
@@ -58,5 +60,10 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
 
   void onControllerChange(ScrollController controller) {
     emit(state.copyWith(parentController: controller));
+  }
+
+  void followUnfollowPub({required String pubId}) {
+    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: false, isFollowing: !state.isFollowing));
   }
 }

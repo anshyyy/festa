@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../domain/core/configs/app_config.dart';
 import '../../../../domain/core/configs/injection.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
 import '../../../../domain/core/constants/string_constants.dart';
+import '../../../../domain/core/extensions/string_extension.dart';
 import '../../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../widgets/custom_appbar.dart';
@@ -25,6 +28,8 @@ class AccountSettingScreenConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
+    final user = appStateNotifier.user;
     return Scaffold(
       appBar: CustomAppBar(
         title: ProfileAndSettingsScreenConstants.accountSettings,
@@ -53,7 +58,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             prefixIcon: AssetConstants.emailIcon,
             label: AccountSettingScreenConstants.email,
             suffixIcon: AssetConstants.arrowRight,
-            detail: 'mrpramodjadhav.design.comddddddddddd',
+            detail: user!.email,
             onTap: () => navigator<NavigationService>().navigateTo(
               UserRoutes.emailScreenRoute,
             ),
@@ -62,7 +67,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             prefixIcon: AssetConstants.mobileIcon,
             label: AccountSettingScreenConstants.phone,
             suffixIcon: AssetConstants.arrowRight,
-            detail: '+91 9987731025',
+            detail: user.phoneNumber,
             onTap: () => navigator<NavigationService>().navigateTo(
               UserRoutes.phoneScreenRoute,
             ),
@@ -80,7 +85,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
             prefixIcon: AssetConstants.candleIcon,
             label: AccountSettingScreenConstants.dateOfBirth,
             suffixIcon: AssetConstants.arrowRight,
-            detail: '13 May 1997',
+            detail: StringExtension.formatDateTimeNormal(DateTime.parse(user.dob)),
             onTap: () => navigator<NavigationService>().navigateTo(
               UserRoutes.dateOfBirthSettingsScreenRoute,
             ),

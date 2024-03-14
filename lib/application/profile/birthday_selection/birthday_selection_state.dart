@@ -12,6 +12,7 @@ class BirthdaySelectionState with _$BirthdaySelectionState {
     required String errorMessage,
     required AppStateNotifier appStateNotifier,
     required AuthRepository authRepository,
+    required UserRepository userRepository,
   }) = _BirthdaySelectionState;
 
   factory BirthdaySelectionState.initial({
@@ -22,6 +23,7 @@ class BirthdaySelectionState with _$BirthdaySelectionState {
         noUse: false,
         isLoading: false,
         authRepository: IAuthRepository(serverUrl: serverUrl),
+        userRepository: IUserRepository(serverUrl: serverUrl),
         appStateNotifier: appStateNotifier,
         isFailed: false,
         isSuccessful: false,

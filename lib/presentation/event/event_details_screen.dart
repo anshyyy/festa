@@ -85,7 +85,15 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        EventCard(event: event),
+                        EventCard(
+                          event: event,
+                          isLiked:state.isEventLiked,
+                          onLike: () {
+                            context
+                                .read<EventDetailsCubit>()
+                                .onEventLikedUnliked(eventId: event.id);
+                          },
+                        ),
                         // GradientText(
                         //   text: EventDetailsScreenConstants.viewOnMaps,
                         //   colors: [

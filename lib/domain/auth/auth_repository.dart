@@ -20,9 +20,9 @@ abstract class AuthRepository {
   Future loginWithGoogle();
   Future<UserDto?> authentication();
 
-  Future<Either<String, UserDto>> patchProfile({
-    required Map<String, dynamic> input,
-  });
+  // Future<Either<String, UserDto>> patchProfile({
+  //   required Map<String, dynamic> input,
+  // });
 
   Future<bool> deleteProfile({required int id});
 

@@ -19,8 +19,8 @@ class IEventRepository extends EventRepository {
     try {
       final url = '$serverUrl${EventApiConstants.GET_FILTERS}';
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
-      final response =
-          await RESTService.performGETRequest(httpUrl: url, token: token!, isAuth: true);
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, token: token!, isAuth: true);
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
@@ -31,7 +31,7 @@ class IEventRepository extends EventRepository {
       }).toList();
       return filters;
     } catch (error) {
-      return  [];
+      return [];
     }
   }
 
@@ -62,8 +62,8 @@ class IEventRepository extends EventRepository {
       if (otherFilters != null) {
         param['filter'] = otherFilters;
       }
-      final response =
-          await RESTService.performGETRequest(httpUrl: url, param: param, isAuth: true, token: token!);
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, param: param, isAuth: true, token: token!);
       if (response.statusCode != 200) {
         return [];
       }
@@ -82,7 +82,10 @@ class IEventRepository extends EventRepository {
   }) async {
     try {
       final url = '$serverUrl${EventApiConstants.EVENTS}/$eventId';
-      final response = await RESTService.performGETRequest(httpUrl: url);
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, token: token!, isAuth: true);
+
       if (response.statusCode != 200) {
         return left(null);
       }
@@ -94,4 +97,19 @@ class IEventRepository extends EventRepository {
       return left(null);
     }
   }
+
+  @override
+  void likeUnlikeEvent({required int eventId, required bool isLiked}) async {
+   try {
+      final url = isLiked
+        ? '$serverUrl${EventApiConstants.UNLIKE_EVENT}/$eventId'
+        : '$serverUrl${EventApiConstants.LIKE_EVENT}/$eventId';
+    String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+    await RESTService.performPOSTRequest(
+        httpUrl: url, token: token!, isAuth: true);
+   } catch (e) {
+     print(e);
+   }
+  }
+
 }

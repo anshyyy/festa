@@ -27,7 +27,7 @@ class MediaGridViewer extends StatelessWidget {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return 1 == 2
+        return state.assets.isEmpty
             ? Container(
                 height: 100.h,
                 width: 100.w,
@@ -64,35 +64,20 @@ class MediaGridViewer extends StatelessWidget {
                     pattern: quiltedPattern,
                   ),
                   childrenDelegate: SliverChildBuilderDelegate(
-                    childCount: images.length,
-                    (context, index) => GestureDetector(
-                        onTap: () =>
-                            context.read<ClubProfileCubit>().calculateHeight(),
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                          images[index]),
-                                      fit: BoxFit.cover)),
-                            ),
-                            Column(
-                              children: [
-                                1 == 1
-                                    ? Padding(
-                                      padding:  EdgeInsets.all(3.w),
-                                      child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: SvgPicture.asset(
-                                              AssetConstants.pinnedIcon)),
-                                    )
-                                    : SizedBox()
-                              ],
-                            )
-                          ],
-                        )),
+                    childCount: state.assets.length,
+                    (context, index) => Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                      state.assets[index].url),
+                                  fit: BoxFit.cover)),
+                        ),
+                       
+                      ],
+                    ),
                   ),
                 ),
               );

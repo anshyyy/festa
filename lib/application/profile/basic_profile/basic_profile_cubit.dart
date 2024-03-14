@@ -5,8 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/core_repository.dart';
+import '../../../domain/user/user_repository.dart';
 import '../../../infrastructure/auth/i_auth_repository.dart';
 import '../../../infrastructure/core/i_core_repository.dart';
+import '../../../infrastructure/user/i_user_repository.dart';
 
 part 'basic_profile_state.dart';
 part 'basic_profile_cubit.freezed.dart';
@@ -45,7 +47,7 @@ class BasicProfileCubit extends Cubit<BasicProfileState> {
     emit(state.copyWith(
       isLoading: true,
     ));
-    final response = await state.authRepository.patchProfile(input: {
+    final response = await state.userRepository.patchProfile(input: {
       'fullName': fullName,
       'profileImage': profileImage,
     });

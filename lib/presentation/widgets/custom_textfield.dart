@@ -46,6 +46,7 @@ class CustomTextField extends StatelessWidget {
     this.cursorColor,
     this.textStyle,
     this.errorStyle,
+    this.helperText,
   });
 
   final TextCapitalization? textCapitalization;
@@ -88,6 +89,8 @@ class CustomTextField extends StatelessWidget {
   final Color? fillColor;
   final Color? cursorColor;
   final double? borderRadius;
+  final String? helperText;
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +123,7 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: isFill,
         isDense: true,
-        helperText: '',
+        helperText: helperText,
         fillColor: isFill == true ? fillColor : null,
         counter: const Offstage(),
         border: borderLess == true ? InputBorder.none : outlineInputBorder,

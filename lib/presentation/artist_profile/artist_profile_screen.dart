@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../application/artist/artist_cubit.dart';
+import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/configs/injection.dart';
+import '../../domain/core/constants/asset_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
+import '../widgets/custom_appbar.dart';
 import 'widgets/artist_profile.dart';
 import 'widgets/media_viewer_tabs.dart';
 
 class ArtistProfileScreen extends StatelessWidget {
-  const ArtistProfileScreen({super.key});
+  final int artistId;
+  const ArtistProfileScreen({super.key, required this.artistId});
 
   @override
   Widget build(BuildContext context) {
-    return const ArtistProfileScreenConsumer();
+    final appconfig = AppConfig.of(context)!;
+    return BlocProvider(
+      create: (context) => ArtistCubit(ArtistState.initial(
+          artistId: artistId, serverUrl: appconfig.serverUrl))
+        ..init(),
+      child: const ArtistProfileScreenConsumer(),
+    );
   }
 }
 
@@ -17,12 +32,26 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocConsumer<ArtistCubit, ArtistState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: CustomAppBar(
+              title: '',
+              leading: GestureDetector(
+                  onTap: () {
+                    navigator<NavigationService>().goBack();
+                  },
+                  child: Center(
+                      child: SvgPicture.asset(AssetConstants.arrowLeft))),
+              actions: []),
           body: SafeArea(
             child: Stack(
               children: [
                 // const ImageCarousel(),
-                
+
                 SizedBox.expand(
                   child: DraggableScrollableSheet(
                     initialChildSize: .5,
@@ -34,7 +63,7 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                           margin: EdgeInsets.only(top: 5.h),
                           child: const Column(
                             children: [
-                             ArtistProfile(),
+                              ArtistProfile(),
                               // MediaGrid(),
                               MediaViewerTabs(),
                             ],
@@ -48,5 +77,7 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
             ),
           ),
         );
+      },
+    );
   }
 }

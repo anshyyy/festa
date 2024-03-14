@@ -26,6 +26,7 @@ mixin _$GenderSelectionState {
   String get errorMessage => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
   int? get selectedSex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -50,6 +51,7 @@ abstract class $GenderSelectionStateCopyWith<$Res> {
       String errorMessage,
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
+      UserRepository userRepository,
       int? selectedSex});
 }
 
@@ -77,6 +79,7 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
     Object? errorMessage = null,
     Object? appStateNotifier = null,
     Object? authRepository = null,
+    Object? userRepository = null,
     Object? selectedSex = freezed,
   }) {
     return _then(_value.copyWith(
@@ -120,6 +123,10 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       selectedSex: freezed == selectedSex
           ? _value.selectedSex
           : selectedSex // ignore: cast_nullable_to_non_nullable
@@ -147,6 +154,7 @@ abstract class _$$GenderSelectionStateImplCopyWith<$Res>
       String errorMessage,
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
+      UserRepository userRepository,
       int? selectedSex});
 }
 
@@ -171,6 +179,7 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
     Object? errorMessage = null,
     Object? appStateNotifier = null,
     Object? authRepository = null,
+    Object? userRepository = null,
     Object? selectedSex = freezed,
   }) {
     return _then(_$GenderSelectionStateImpl(
@@ -214,6 +223,10 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       selectedSex: freezed == selectedSex
           ? _value.selectedSex
           : selectedSex // ignore: cast_nullable_to_non_nullable
@@ -236,6 +249,7 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       required this.errorMessage,
       required this.appStateNotifier,
       required this.authRepository,
+      required this.userRepository,
       this.selectedSex})
       : _lsOFSex = lsOFSex,
         _lsOFSexValue = lsOFSexValue;
@@ -273,11 +287,13 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
   @override
   final AuthRepository authRepository;
   @override
+  final UserRepository userRepository;
+  @override
   final int? selectedSex;
 
   @override
   String toString() {
-    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, selectedSex: $selectedSex)';
+    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository, selectedSex: $selectedSex)';
   }
 
   @override
@@ -304,6 +320,8 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
                 other.appStateNotifier == appStateNotifier) &&
             (identical(other.authRepository, authRepository) ||
                 other.authRepository == authRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.selectedSex, selectedSex) ||
                 other.selectedSex == selectedSex));
   }
@@ -321,6 +339,7 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       errorMessage,
       appStateNotifier,
       authRepository,
+      userRepository,
       selectedSex);
 
   @JsonKey(ignore: true)
@@ -344,6 +363,7 @@ abstract class _GenderSelectionState implements GenderSelectionState {
       required final String errorMessage,
       required final AppStateNotifier appStateNotifier,
       required final AuthRepository authRepository,
+      required final UserRepository userRepository,
       final int? selectedSex}) = _$GenderSelectionStateImpl;
 
   @override
@@ -366,6 +386,8 @@ abstract class _GenderSelectionState implements GenderSelectionState {
   AppStateNotifier get appStateNotifier;
   @override
   AuthRepository get authRepository;
+  @override
+  UserRepository get userRepository;
   @override
   int? get selectedSex;
   @override

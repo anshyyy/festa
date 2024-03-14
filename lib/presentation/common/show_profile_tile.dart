@@ -20,7 +20,7 @@ class ShortProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => navigator<NavigationService>().navigateTo(UserRoutes.artistProfileScreenRoute),
+      onTap: () => navigator<NavigationService>().navigateTo(UserRoutes.artistProfileScreenRoute, queryParams: {'artistId':artist.id.toString()}),
       child: Container(
         padding: EdgeInsets.all(2.w),
         margin: EdgeInsets.only(right: 3.w),

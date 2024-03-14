@@ -27,6 +27,7 @@ mixin _$BasicProfileState {
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   CoreRepository get coreRepository => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
   TextEditingController get fullNameController =>
       throw _privateConstructorUsedError;
   String get errorFullName => throw _privateConstructorUsedError;
@@ -54,6 +55,7 @@ abstract class $BasicProfileStateCopyWith<$Res> {
       AppStateNotifier appStateNotifier,
       CoreRepository coreRepository,
       AuthRepository authRepository,
+      UserRepository userRepository,
       TextEditingController fullNameController,
       String errorFullName});
 }
@@ -82,6 +84,7 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
     Object? appStateNotifier = null,
     Object? coreRepository = null,
     Object? authRepository = null,
+    Object? userRepository = null,
     Object? fullNameController = null,
     Object? errorFullName = null,
   }) {
@@ -130,6 +133,10 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       fullNameController: null == fullNameController
           ? _value.fullNameController
           : fullNameController // ignore: cast_nullable_to_non_nullable
@@ -162,6 +169,7 @@ abstract class _$$BasicProfileStateImplCopyWith<$Res>
       AppStateNotifier appStateNotifier,
       CoreRepository coreRepository,
       AuthRepository authRepository,
+      UserRepository userRepository,
       TextEditingController fullNameController,
       String errorFullName});
 }
@@ -188,6 +196,7 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
     Object? appStateNotifier = null,
     Object? coreRepository = null,
     Object? authRepository = null,
+    Object? userRepository = null,
     Object? fullNameController = null,
     Object? errorFullName = null,
   }) {
@@ -236,6 +245,10 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       fullNameController: null == fullNameController
           ? _value.fullNameController
           : fullNameController // ignore: cast_nullable_to_non_nullable
@@ -263,6 +276,7 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       required this.appStateNotifier,
       required this.coreRepository,
       required this.authRepository,
+      required this.userRepository,
       required this.fullNameController,
       required this.errorFullName});
 
@@ -289,13 +303,15 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
   @override
   final AuthRepository authRepository;
   @override
+  final UserRepository userRepository;
+  @override
   final TextEditingController fullNameController;
   @override
   final String errorFullName;
 
   @override
   String toString() {
-    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, startValidation: $startValidation, errorMessage: $errorMessage, profileImage: $profileImage, appStateNotifier: $appStateNotifier, coreRepository: $coreRepository, authRepository: $authRepository, fullNameController: $fullNameController, errorFullName: $errorFullName)';
+    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, startValidation: $startValidation, errorMessage: $errorMessage, profileImage: $profileImage, appStateNotifier: $appStateNotifier, coreRepository: $coreRepository, authRepository: $authRepository, userRepository: $userRepository, fullNameController: $fullNameController, errorFullName: $errorFullName)';
   }
 
   @override
@@ -324,6 +340,8 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
                 other.coreRepository == coreRepository) &&
             (identical(other.authRepository, authRepository) ||
                 other.authRepository == authRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.fullNameController, fullNameController) ||
                 other.fullNameController == fullNameController) &&
             (identical(other.errorFullName, errorFullName) ||
@@ -344,6 +362,7 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       appStateNotifier,
       coreRepository,
       authRepository,
+      userRepository,
       fullNameController,
       errorFullName);
 
@@ -368,6 +387,7 @@ abstract class _BasicProfileState implements BasicProfileState {
       required final AppStateNotifier appStateNotifier,
       required final CoreRepository coreRepository,
       required final AuthRepository authRepository,
+      required final UserRepository userRepository,
       required final TextEditingController fullNameController,
       required final String errorFullName}) = _$BasicProfileStateImpl;
 
@@ -393,6 +413,8 @@ abstract class _BasicProfileState implements BasicProfileState {
   CoreRepository get coreRepository;
   @override
   AuthRepository get authRepository;
+  @override
+  UserRepository get userRepository;
   @override
   TextEditingController get fullNameController;
   @override

@@ -3,7 +3,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/dtos/asset/asset_dto.dart';
-import '../../../pub/pub_extra_details/pub_extra_details_dto.dart';
+import '../../../pub/dtos/pub_extra_details/pub_extra_details_dto.dart';
+import '../../../pub/dtos/pub_location/pub_location_dto.dart';
+import '../../../pub/dtos/pub_tag/pub_tag_dto.dart';
+
 
 part 'pub_dto.freezed.dart';
 part 'pub_dto.g.dart';
@@ -15,12 +18,15 @@ class PubDto with _$PubDto {
     @JsonKey(name: 'fullName', defaultValue: '') required String fullName,
     @JsonKey(name: 'description', defaultValue: '') required String description,
     @JsonKey(name: 'userName', defaultValue: '') required String userName,
+    @JsonKey(name: 'logo', defaultValue: '') required String logo,
     @JsonKey(name: 'averageRating', defaultValue: 0.0)
     required double averageRating,
     @JsonKey(name: 'coverImageUrl', defaultValue: '')
     required String coverImageUrl,
     @JsonKey(name: 'assets', defaultValue: []) required List<AssetDto> assets,
-    PubExtraDetailsDto? extraDetailsDto,
+    @JsonKey(name: 'tag', defaultValue: null) PubTagDto? tag,
+    @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
+    @JsonKey(name: 'extraDetails', defaultValue: null) PubExtraDetailsDto? extraDetailsDto,
   }) = _PubDto;
 
   factory PubDto.fromJson(Map<String, dynamic> json) => _$PubDtoFromJson(json);

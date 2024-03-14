@@ -24,7 +24,7 @@ class MediaViewerTabsConsumer extends StatelessWidget {
     return SizedBox(
       height: 100.h,
       child: DefaultTabController(
-        length: 3,
+        length: 1,
         child: Column(
           children: [
             TabBar(
@@ -40,25 +40,25 @@ class MediaViewerTabsConsumer extends StatelessWidget {
                 Tab(
                   child: Text('Music'),
                 ),
-                Tab(
-                  child: Text('Videos'),
-                ),
-                Tab(
-                  child: Text('Events'),
-                ),
+                // Tab(
+                //   child: Text('Videos'),
+                // ),
+                // Tab(
+                //   child: Text('Events'),
+                // ),
               ],
             ),
             Expanded(
               child: TabBarView(children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                  child: ArtistMusicCollectionWidget(),
+                  child: const ArtistMusicCollectionWidget(),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                  child: VideoMediaGrid(images: [],),
-                ),
-                Container()
+                // Padding(
+                //   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                //   child: VideoMediaGrid(images: [],),
+                // ),
+                // Container()
               ]),
             )
           ],

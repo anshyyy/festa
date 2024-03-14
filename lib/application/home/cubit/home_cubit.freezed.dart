@@ -144,7 +144,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? noLocatedEvents = null,
     Object? locationRepository = null,
     Object? suggestions = null,
-    Object? appStateNotifier = freezed,
+    Object? appStateNotifier = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -267,7 +267,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
               as List<SuggestionDto>,
-      appStateNotifier: freezed == appStateNotifier
+      appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
@@ -383,7 +383,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? noLocatedEvents = null,
     Object? locationRepository = null,
     Object? suggestions = null,
-    Object? appStateNotifier = freezed,
+    Object? appStateNotifier = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -506,7 +506,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
               as List<SuggestionDto>,
-      appStateNotifier: freezed == appStateNotifier
+      appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
@@ -679,8 +679,8 @@ class _$HomeStateImpl implements _HomeState {
                 other.locationRepository == locationRepository) &&
             const DeepCollectionEquality()
                 .equals(other.suggestions, suggestions) &&
-            const DeepCollectionEquality()
-                .equals(other.appStateNotifier, appStateNotifier));
+            (identical(other.appStateNotifier, appStateNotifier) ||
+                other.appStateNotifier == appStateNotifier));
   }
 
   @override
@@ -716,7 +716,7 @@ class _$HomeStateImpl implements _HomeState {
         noLocatedEvents,
         locationRepository,
         const DeepCollectionEquality().hash(suggestions),
-        const DeepCollectionEquality().hash(appStateNotifier)
+        appStateNotifier
       ]);
 
   @JsonKey(ignore: true)

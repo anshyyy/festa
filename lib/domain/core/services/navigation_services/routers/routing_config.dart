@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../presentation/artist_profile/artist_profile_screen.dart';
-import '../../../../../presentation/artist_profile/widgets/artist_profile.dart';
+import '../../../../../presentation/artist_profile/widgets/artist_community_screen.dart';
 import '../../../../../presentation/auth/auth_screen.dart';
 import '../../../../../presentation/auth/login_with_phone_screen.dart';
 import '../../../../../presentation/auth/start_screen.dart';
@@ -14,6 +14,7 @@ import '../../../../../presentation/basic_profile/birthday_selection_screen.dart
 import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 import '../../../../../presentation/basic_profile/set_your_location.dart';
 import '../../../../../presentation/basic_profile/username_screen.dart';
+import '../../../../../presentation/club_profile/widgets/club_community_screen.dart';
 import '../../../../../presentation/event/booking/book_ticket_screen.dart';
 import '../../../../../presentation/event/booking/booking_details_screen.dart';
 import '../../../../../presentation/event/booking/free_booking_screen.dart';
@@ -153,8 +154,29 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           ),
           settings);
 
+    case UserRoutes.clubCommunityScreenRoute:
+      final clubId = routingData.queryParameters['clubId'] ?? '0';
+      return _getPageRoute(
+          ClubCommunity(
+            clubId: int.parse(clubId),
+          ),
+          settings);
+
     case UserRoutes.artistProfileScreenRoute:
-      return _getPageRoute(const ArtistProfileScreen(), settings);
+      final artistId = routingData.queryParameters['artistId'] ?? '0';
+      return _getPageRoute(
+          ArtistProfileScreen(
+            artistId: int.parse(artistId),
+          ),
+          settings);
+
+    case UserRoutes.artistCommunityScreenRoute:
+      final artistId = routingData.queryParameters['artistId'] ?? '0';
+      return _getPageRoute(
+          ArtistCommunity(
+            artistId: int.parse(artistId),
+          ),
+          settings);
 
     case UserRoutes.mainNavRoute:
       return _getPageRoute(

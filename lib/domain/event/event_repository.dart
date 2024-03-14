@@ -15,4 +15,5 @@ abstract class EventRepository {
       String? otherFilters});
 
   Future<Either<dynamic, EventDto>> getEventDetails({required int eventId});
+  void likeUnlikeEvent({required int eventId, required bool isLiked});
 }

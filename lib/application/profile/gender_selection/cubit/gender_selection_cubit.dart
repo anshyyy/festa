@@ -3,7 +3,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../domain/auth/auth_repository.dart';
 import '../../../../domain/core/configs/app_config.dart';
+import '../../../../domain/user/user_repository.dart';
 import '../../../../infrastructure/auth/i_auth_repository.dart';
+import '../../../../infrastructure/user/i_user_repository.dart';
 
 part 'gender_selection_state.dart';
 part 'gender_selection_cubit.freezed.dart';
@@ -22,7 +24,7 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
       isLoading: true,
     ));
     final response =
-        await state.authRepository.patchProfile(input: {'gender': sex});
+        await state.userRepository.patchProfile(input: {'gender': sex});
 
     emit(response.fold(
         (l) => state.copyWith(

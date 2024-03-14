@@ -31,7 +31,10 @@ mixin _$ClubProfileState {
   String get apiBaseUrl => throw _privateConstructorUsedError;
   PubRepository get pubRepository => throw _privateConstructorUsedError;
   List<String> get images => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
+  List<AssetDto> get assets => throw _privateConstructorUsedError;
   PubDto? get pub => throw _privateConstructorUsedError;
+  bool get isFollowing => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ClubProfileStateCopyWith<ClubProfileState> get copyWith =>
@@ -59,7 +62,10 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       String apiBaseUrl,
       PubRepository pubRepository,
       List<String> images,
-      PubDto? pub});
+      int page,
+      List<AssetDto> assets,
+      PubDto? pub,
+      bool isFollowing});
 
   $PubDtoCopyWith<$Res>? get pub;
 }
@@ -91,7 +97,10 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     Object? apiBaseUrl = null,
     Object? pubRepository = null,
     Object? images = null,
+    Object? page = null,
+    Object? assets = null,
     Object? pub = freezed,
+    Object? isFollowing = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -150,10 +159,22 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      assets: null == assets
+          ? _value.assets
+          : assets // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
       pub: freezed == pub
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
               as PubDto?,
+      isFollowing: null == isFollowing
+          ? _value.isFollowing
+          : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -193,7 +214,10 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
       String apiBaseUrl,
       PubRepository pubRepository,
       List<String> images,
-      PubDto? pub});
+      int page,
+      List<AssetDto> assets,
+      PubDto? pub,
+      bool isFollowing});
 
   @override
   $PubDtoCopyWith<$Res>? get pub;
@@ -224,7 +248,10 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
     Object? apiBaseUrl = null,
     Object? pubRepository = null,
     Object? images = null,
+    Object? page = null,
+    Object? assets = null,
     Object? pub = freezed,
+    Object? isFollowing = null,
   }) {
     return _then(_$ClubProfileStateImpl(
       isLoading: null == isLoading
@@ -283,10 +310,22 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      page: null == page
+          ? _value.page
+          : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      assets: null == assets
+          ? _value.assets
+          : assets // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
       pub: freezed == pub
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
               as PubDto?,
+      isFollowing: null == isFollowing
+          ? _value.isFollowing
+          : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -309,7 +348,10 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       required this.apiBaseUrl,
       required this.pubRepository,
       required this.images,
-      this.pub});
+      required this.page,
+      required this.assets,
+      this.pub,
+      required this.isFollowing});
 
   @override
   final bool isLoading;
@@ -340,11 +382,17 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   @override
   final List<String> images;
   @override
+  final int page;
+  @override
+  final List<AssetDto> assets;
+  @override
   final PubDto? pub;
+  @override
+  final bool isFollowing;
 
   @override
   String toString() {
-    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, pub: $pub)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, assets: $assets, pub: $pub, isFollowing: $isFollowing)';
   }
 
   @override
@@ -376,7 +424,11 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
             (identical(other.pubRepository, pubRepository) ||
                 other.pubRepository == pubRepository) &&
             const DeepCollectionEquality().equals(other.images, images) &&
-            (identical(other.pub, pub) || other.pub == pub));
+            (identical(other.page, page) || other.page == page) &&
+            const DeepCollectionEquality().equals(other.assets, assets) &&
+            (identical(other.pub, pub) || other.pub == pub) &&
+            (identical(other.isFollowing, isFollowing) ||
+                other.isFollowing == isFollowing));
   }
 
   @override
@@ -396,7 +448,10 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       apiBaseUrl,
       pubRepository,
       const DeepCollectionEquality().hash(images),
-      pub);
+      page,
+      const DeepCollectionEquality().hash(assets),
+      pub,
+      isFollowing);
 
   @JsonKey(ignore: true)
   @override
@@ -422,7 +477,10 @@ abstract class _ClubProfileState implements ClubProfileState {
       required final String apiBaseUrl,
       required final PubRepository pubRepository,
       required final List<String> images,
-      final PubDto? pub}) = _$ClubProfileStateImpl;
+      required final int page,
+      required final List<AssetDto> assets,
+      final PubDto? pub,
+      required final bool isFollowing}) = _$ClubProfileStateImpl;
 
   @override
   bool get isLoading;
@@ -453,7 +511,13 @@ abstract class _ClubProfileState implements ClubProfileState {
   @override
   List<String> get images;
   @override
+  int get page;
+  @override
+  List<AssetDto> get assets;
+  @override
   PubDto? get pub;
+  @override
+  bool get isFollowing;
   @override
   @JsonKey(ignore: true)
   _$$ClubProfileStateImplCopyWith<_$ClubProfileStateImpl> get copyWith =>

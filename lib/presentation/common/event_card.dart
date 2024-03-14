@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
@@ -15,7 +17,9 @@ import 'show_profile_tile.dart';
 
 class EventCard extends StatefulWidget {
   final EventDto event;
-  const EventCard({super.key, required this.event});
+  final bool isLiked;
+  final void Function()? onLike;
+  const EventCard({super.key, required this.event, this.onLike, required this.isLiked});
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -86,47 +90,46 @@ class _EventCardState extends State<EventCard> {
               SizedBox(
                 height: 105.w,
                 child: PageView.builder(
-                    itemCount: widget.event.assets.length +
-                        (widget.event.coverImage.isNotEmpty ? 1 : 0),
-                    itemBuilder: (context, imageIndex) {
-                      final index = imageIndex -
-                          (widget.event.coverImage.isNotEmpty ? 1 : 0);
-                      return Container(
-                        foregroundDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.black.withOpacity(.8),
-                              Colors.transparent,
-                              Colors.transparent,
-                              Colors.black.withOpacity(.8)
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: const [0, 0.4, 0.6, 1],
+                  itemCount: widget.event.assets.length +
+                      (widget.event.coverImage.isNotEmpty ? 1 : 0),
+                  itemBuilder: (context, imageIndex) {
+                    final index = imageIndex -
+                        (widget.event.coverImage.isNotEmpty ? 1 : 0);
+                    return Container(
+                      foregroundDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(.8),
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.black.withOpacity(.8)
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: const [0, 0.4, 0.6, 1],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            imageIndex == 0 &&
+                                    widget.event.coverImage.isNotEmpty
+                                ? widget.event.coverImage
+                                : widget.event.assets[index].url,
                           ),
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              imageIndex == 0 &&
-                                      widget.event.coverImage.isNotEmpty
-                                  ? widget.event.coverImage
-                                  : widget.event.assets[index].url,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    onPageChanged: (value) {
-                      
-                        setState(() {
-                          this.index = value;
-                        });
-                    },
-                    ),
+                      ),
+                    );
+                  },
+                  onPageChanged: (value) {
+                    setState(() {
+                      this.index = value;
+                    });
+                  },
+                ),
               ),
               SizedBox(
                 height: 1.h,
@@ -278,7 +281,7 @@ class _EventCardState extends State<EventCard> {
                               CircleAvatar(
                                 radius: 4.5.w,
                                 backgroundImage: CachedNetworkImageProvider(
-                                    widget.event.pub!.coverImageUrl),
+                                    widget.event.pub?.coverImageUrl ?? ''),
                               ),
                               SizedBox(
                                 width: 2.w,
@@ -329,9 +332,9 @@ class _EventCardState extends State<EventCard> {
                                     //       color: themeData.colorScheme.background,
                                     //     ),
                                     //   ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
+                              ),
                             ],
                           ),
                         ),
@@ -394,9 +397,9 @@ class _EventCardState extends State<EventCard> {
                           else
                             const SizedBox(),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: widget.onLike,
                             child: SvgPicture.asset(
-                              widget.event.isLiked
+                              widget.isLiked
                                   ? AssetConstants.heartFilledIcon
                                   : AssetConstants.heartOutlinedIcon,
                               width: 5.w,

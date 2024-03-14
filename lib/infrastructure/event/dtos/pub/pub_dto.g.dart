@@ -11,16 +11,23 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
       fullName: json['fullName'] as String? ?? '',
       description: json['description'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
+      logo: json['logo'] as String? ?? '',
       averageRating: (json['averageRating'] as num?)?.toDouble() ?? 0.0,
       coverImageUrl: json['coverImageUrl'] as String? ?? '',
       assets: (json['assets'] as List<dynamic>?)
               ?.map((e) => AssetDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      extraDetailsDto: json['extraDetailsDto'] == null
+      tag: json['tag'] == null
+          ? null
+          : PubTagDto.fromJson(json['tag'] as Map<String, dynamic>),
+      location: json['address'] == null
+          ? null
+          : PubLocationDto.fromJson(json['address'] as Map<String, dynamic>),
+      extraDetailsDto: json['extraDetails'] == null
           ? null
           : PubExtraDetailsDto.fromJson(
-              json['extraDetailsDto'] as Map<String, dynamic>),
+              json['extraDetails'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
@@ -29,8 +36,11 @@ Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
       'fullName': instance.fullName,
       'description': instance.description,
       'userName': instance.userName,
+      'logo': instance.logo,
       'averageRating': instance.averageRating,
       'coverImageUrl': instance.coverImageUrl,
       'assets': instance.assets,
-      'extraDetailsDto': instance.extraDetailsDto,
+      'tag': instance.tag,
+      'address': instance.location,
+      'extraDetails': instance.extraDetailsDto,
     };

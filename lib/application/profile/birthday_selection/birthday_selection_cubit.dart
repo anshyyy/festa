@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 
 import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/configs/app_config.dart';
+import '../../../domain/user/user_repository.dart';
 import '../../../infrastructure/auth/i_auth_repository.dart';
+import '../../../infrastructure/user/i_user_repository.dart';
 
 part 'birthday_selection_state.dart';
 part 'birthday_selection_cubit.freezed.dart';
@@ -30,7 +32,7 @@ class BirthdaySelectionCubit extends Cubit<BirthdaySelectionState> {
     final dateFormatter = DateFormat('yyyy-MM-dd');
     final formattedDate = dateFormatter.format(state.selectedDate);
     final response =
-        await state.authRepository.patchProfile(input: {'dob': formattedDate});
+        await state.userRepository.patchProfile(input: {'dob': formattedDate});
 
     emit(response.fold(
         (l) => state.copyWith(

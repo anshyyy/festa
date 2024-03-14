@@ -151,24 +151,24 @@ class IAuthRepository extends AuthRepository {
     }
   }
 
-  @override
-  Future<Either<String, UserDto>> patchProfile({
-    required Map<String, dynamic> input,
-  }) async {
-    try {
-      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      final url = '$serverUrl${EventApiConstants.USERS}';
-      final response = await RESTService.performPATCHRequest(
-          httpUrl: url, isAuth: true, token: token!, body: jsonEncode(input));
-      if (response.statusCode != 200) {
-        throw ErrorConstants.unknownNetworkError;
-      }
-      final data = jsonDecode(response.body);
-      return right(UserDto.fromJson(data));
-    } catch (error) {
-      return left(ErrorConstants.networkUnavailable);
-    }
-  }
+  // @override
+  // Future<Either<String, UserDto>> patchProfile({
+  //   required Map<String, dynamic> input,
+  // }) async {
+  //   try {
+  //     final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+  //     final url = '$serverUrl${EventApiConstants.USERS}';
+  //     final response = await RESTService.performPATCHRequest(
+  //         httpUrl: url, isAuth: true, token: token!, body: jsonEncode(input));
+  //     if (response.statusCode != 200) {
+  //       throw ErrorConstants.unknownNetworkError;
+  //     }
+  //     final data = jsonDecode(response.body);
+  //     return right(UserDto.fromJson(data));
+  //   } catch (error) {
+  //     return left(ErrorConstants.networkUnavailable);
+  //   }
+  // }
 
   @override
   Future<bool> deleteProfile({required int id}) async {

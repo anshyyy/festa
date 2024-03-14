@@ -60,9 +60,9 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                                   controller: scrollController,
                                   child: Container(
                                     margin: EdgeInsets.only(top: 5.h),
-                                    child: Column(
+                                    child: const Column(
                                       children: [
-                                        const ClubProfile(),
+                                        ClubProfile(),
                                         // MediaGrid(),
                                         MediaViewerTabs(),
                                       ],

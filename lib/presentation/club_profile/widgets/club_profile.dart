@@ -5,7 +5,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
+import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
 import 'mutual_followers.dart';
 import 'social_reach.dart';
@@ -15,6 +20,10 @@ class ClubProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
+    final textTheme = themeData.textTheme;
+
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -48,7 +57,7 @@ class ClubProfile extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background),
                   ),
-                  Text('@houseofcommons',
+                  Text('@${state.pub!.tag!.tag}',
                       style: Theme.of(context).textTheme.bodySmall!),
                   SizedBox(
                     height: 1.h,
@@ -63,14 +72,19 @@ class ClubProfile extends StatelessWidget {
                       SizedBox(
                         width: 2.w,
                       ),
-                      Text('Indira Nagar, Banglore',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 15.sp,
-                              )),
+                      Expanded(
+                        child: Text(state.pub!.location!.vicinity,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  fontSize: 15.sp,
+                                )),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -121,7 +135,7 @@ class ClubProfile extends StatelessWidget {
                             width: 1.w,
                           ),
                           Text(
-                            '${state.pub!.averageRating} (100 ratings)',
+                            '${state.pub!.averageRating}',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -138,14 +152,26 @@ class ClubProfile extends StatelessWidget {
                     thickness: .1.w,
                     // color: Colors.white,
                   ),
-                  MutualFollowers(),
+                  state.pub!.extraDetailsDto!.followedBy.isNotEmpty
+                      ? MutualFollowers()
+                      : const SizedBox(),
                   SizedBox(
                     height: 1.h,
                   ),
-                  SocialReach(
-                    totalFollowers: state.pub!.extraDetailsDto!.totalFollowers,
-                    totalFriends: state.pub!.extraDetailsDto!.totalFriends,
-                    totalParties: state.pub!.extraDetailsDto!.totalParties,
+                  GestureDetector(
+                    onTap: () {
+                      navigator<NavigationService>().navigateTo(
+                          UserRoutes.clubCommunityScreenRoute,
+                          queryParams: {
+                            'clubId': state.clubId.toString(),
+                          });
+                    },
+                    child: SocialReach(
+                      totalFollowers:
+                          state.pub!.extraDetailsDto!.totalFollowers,
+                      totalFriends: state.pub!.extraDetailsDto!.totalFriends,
+                      totalParties: state.pub!.extraDetailsDto!.totalParties,
+                    ),
                   )
                 ],
               ),
@@ -160,31 +186,74 @@ class ClubProfile extends StatelessWidget {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(width: 1, color: Colors.white),
-                        image: const DecorationImage(
+                        image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: NetworkImage(
-                                'https://i.pinimg.com/736x/0c/c2/74/0cc2740f7cc70dd14f2dbf80076d26df.jpg'))),
+                            image: NetworkImage(state.pub?.logo ?? ''))),
                   ),
                 ],
               ),
             ),
-            Positioned(
-              top: 1.5.h,
-              right: 4.5.w,
-              child: GradientButton(
-                width: 23.w,
-                height: 4.h,
-                text: 'Follow',
-                onTap: () {
-                  context.read<ClubProfileCubit>().calculateHeight();
-                },
-                textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontSize: 14.sp,
-                      color: Theme.of(context).colorScheme.background,
-                      fontWeight: FontWeight.w600,
+            !state.isFollowing
+                ? Positioned(
+                    top: 1.5.h,
+                    right: 4.5.w,
+                    child: GradientButton(
+                      width: 23.w,
+                      height: 4.h,
+                      text: ClubProfileScreenConstants.follow,
+                      onTap: () {
+                        context
+                            .read<ClubProfileCubit>()
+                            .followUnfollowPub(pubId: state.pub!.id.toString());
+                      },
+                      textStyle:
+                          Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontSize: 14.sp,
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w600,
+                              ),
                     ),
-              ),
-            ),
+                  )
+                : Positioned(
+                    top: 1.5.h,
+                    right: 4.5.w,
+                    child: GestureDetector(
+                      onTap: () {
+                        context
+                            .read<ClubProfileCubit>()
+                            .followUnfollowPub(pubId: state.pub!.id.toString());
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 3.w, vertical: 2.w),
+                        decoration: BoxDecoration(
+                            color:
+                                colorScheme.secondaryContainer.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(2.w)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Following',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontSize: 14.sp,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                            SizedBox(
+                              width: 1.w,
+                            ),
+                            SvgPicture.asset(AssetConstants.arrowDown)
+                          ],
+                        ),
+                      ),
+                    )),
             Positioned(
               top: 1.h,
               left: 2.w,

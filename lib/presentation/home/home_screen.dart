@@ -77,7 +77,8 @@ class HomeScreenConsumer extends StatelessWidget {
                               padding: EdgeInsets.all(5.w),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
@@ -415,10 +416,21 @@ class HomeScreenConsumer extends StatelessWidget {
                                             context
                                                 .read<HomeCubit>()
                                                 .onEventLiked(
-                                                    id: state.events[index].id, isLiked: !state.events[index].isLiked);
+                                                    id: state.events[index].id);
                                           },
                                           child: EventCard(
                                             event: state.events[index],
+                                            isLiked: state.events[index].isLiked,
+                                            onLike: () {
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .onEventLiked(
+                                                      id: state
+                                                          .events[index].id,
+                                                      isLiked: !state
+                                                          .events[index]
+                                                          .isLiked);
+                                            },
                                           ),
                                         );
                                       },
@@ -587,7 +599,7 @@ class EmptyEvents extends StatelessWidget {
                     ],
                     textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
+                          fontSize: 16.sp,
                           color: Theme.of(context).colorScheme.background,
                         ),
                   ),
@@ -652,7 +664,9 @@ class EventWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.background,
                 ),
           ),
-          SizedBox(height: .5.h,),
+          SizedBox(
+            height: .5.h,
+          ),
           Text(
             'THE GREYBOT ALL STARS/MIKE',
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -660,8 +674,9 @@ class EventWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.background,
                 ),
           ),
-          SizedBox(height: .5.h,),
-
+          SizedBox(
+            height: .5.h,
+          ),
           Text(
             'Great Indian Music Hall',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -669,8 +684,9 @@ class EventWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
           ),
-          SizedBox(height: .5.h,),
-
+          SizedBox(
+            height: .5.h,
+          ),
           Text(
             '554+ people booked, 1034+ interested',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(

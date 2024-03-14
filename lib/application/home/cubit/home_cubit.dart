@@ -231,8 +231,8 @@ class HomeCubit extends Cubit<HomeState> {
     final overlayEntry = OverlayEntry(
       builder: (context) {
         return Positioned(
-            top: dy-.5,
-            left: dx-.5,
+            top: dy - .5,
+            left: dx - .5,
             child: DropView(
               onBack: (String name, String? value) {
                 final index = state.filters
@@ -306,7 +306,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(suggestions: [], isLocationSearchChanged: false));
   }
 
-  void onEventLiked({required int id, bool isLiked = true}) {
+  void onEventLiked({required int id, bool isLiked = true}) async {
+    state.eventRepository.likeUnlikeEvent(eventId: id, isLiked: !isLiked);
     final List<EventDto> updatedEvents = state.events.map((event) {
       if (event.id == id) {
         return event.copyWith(isLiked: isLiked);

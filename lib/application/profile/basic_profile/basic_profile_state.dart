@@ -14,6 +14,7 @@ class BasicProfileState with _$BasicProfileState {
     required AppStateNotifier appStateNotifier,
     required CoreRepository coreRepository,
     required AuthRepository authRepository,
+    required UserRepository userRepository,
     required TextEditingController fullNameController,
     required String errorFullName,
   }) = _BasicProfileState;
@@ -29,6 +30,7 @@ class BasicProfileState with _$BasicProfileState {
           isFailed: false,
           isSuccessful: false,
           isSaveDetailsEnable: false,
+          userRepository: IUserRepository(serverUrl: serverUrl),
           authRepository: IAuthRepository(serverUrl: serverUrl),
           coreRepository: ICoreRepository(serverUrl: serverUrl),
           appStateNotifier: appStateNotifier,

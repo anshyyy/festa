@@ -26,6 +26,7 @@ mixin _$EventDetailsState {
   bool get ambExpanded => throw _privateConstructorUsedError;
   bool get fnbExpanded => throw _privateConstructorUsedError;
   bool get faqExpanded => throw _privateConstructorUsedError;
+  bool get isEventLiked => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventDetailsStateCopyWith<EventDetailsState> get copyWith =>
@@ -48,7 +49,8 @@ abstract class $EventDetailsStateCopyWith<$Res> {
       bool lsdExpanded,
       bool ambExpanded,
       bool fnbExpanded,
-      bool faqExpanded});
+      bool faqExpanded,
+      bool isEventLiked});
 
   $EventDtoCopyWith<$Res>? get event;
 }
@@ -76,6 +78,7 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
     Object? ambExpanded = null,
     Object? fnbExpanded = null,
     Object? faqExpanded = null,
+    Object? isEventLiked = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -118,6 +121,10 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
           ? _value.faqExpanded
           : faqExpanded // ignore: cast_nullable_to_non_nullable
               as bool,
+      isEventLiked: null == isEventLiked
+          ? _value.isEventLiked
+          : isEventLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -152,7 +159,8 @@ abstract class _$$EventDetailsStateImplCopyWith<$Res>
       bool lsdExpanded,
       bool ambExpanded,
       bool fnbExpanded,
-      bool faqExpanded});
+      bool faqExpanded,
+      bool isEventLiked});
 
   @override
   $EventDtoCopyWith<$Res>? get event;
@@ -179,6 +187,7 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
     Object? ambExpanded = null,
     Object? fnbExpanded = null,
     Object? faqExpanded = null,
+    Object? isEventLiked = null,
   }) {
     return _then(_$EventDetailsStateImpl(
       isLoading: null == isLoading
@@ -221,6 +230,10 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
           ? _value.faqExpanded
           : faqExpanded // ignore: cast_nullable_to_non_nullable
               as bool,
+      isEventLiked: null == isEventLiked
+          ? _value.isEventLiked
+          : isEventLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -238,7 +251,8 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       required this.lsdExpanded,
       required this.ambExpanded,
       required this.fnbExpanded,
-      required this.faqExpanded});
+      required this.faqExpanded,
+      required this.isEventLiked});
 
   @override
   final bool isLoading;
@@ -260,10 +274,12 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
   final bool fnbExpanded;
   @override
   final bool faqExpanded;
+  @override
+  final bool isEventLiked;
 
   @override
   String toString() {
-    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded)';
+    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked)';
   }
 
   @override
@@ -289,7 +305,9 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
             (identical(other.fnbExpanded, fnbExpanded) ||
                 other.fnbExpanded == fnbExpanded) &&
             (identical(other.faqExpanded, faqExpanded) ||
-                other.faqExpanded == faqExpanded));
+                other.faqExpanded == faqExpanded) &&
+            (identical(other.isEventLiked, isEventLiked) ||
+                other.isEventLiked == isEventLiked));
   }
 
   @override
@@ -304,7 +322,8 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       lsdExpanded,
       ambExpanded,
       fnbExpanded,
-      faqExpanded);
+      faqExpanded,
+      isEventLiked);
 
   @JsonKey(ignore: true)
   @override
@@ -325,7 +344,8 @@ abstract class _EventDetailsState implements EventDetailsState {
       required final bool lsdExpanded,
       required final bool ambExpanded,
       required final bool fnbExpanded,
-      required final bool faqExpanded}) = _$EventDetailsStateImpl;
+      required final bool faqExpanded,
+      required final bool isEventLiked}) = _$EventDetailsStateImpl;
 
   @override
   bool get isLoading;
@@ -347,6 +367,8 @@ abstract class _EventDetailsState implements EventDetailsState {
   bool get fnbExpanded;
   @override
   bool get faqExpanded;
+  @override
+  bool get isEventLiked;
   @override
   @JsonKey(ignore: true)
   _$$EventDetailsStateImplCopyWith<_$EventDetailsStateImpl> get copyWith =>

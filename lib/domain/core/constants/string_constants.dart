@@ -231,6 +231,17 @@ class EventDetailsScreenConstants {
   static String report = 'Report';
 }
 
+class ClubProfileScreenConstants {
+  static String parties = 'Parties';
+  static String followers= 'Followers';
+  static String friends='Friends';
+  static String follow = 'Follow';
+  static String following = 'Following';
+  static String am = 'AM';
+  static String pm = 'PM';
+  
+}
+
 class UserProfileScreenConstants{
   static String uploadYourHighlight = 'Upload your highlight';
   static String follow = 'Follow';

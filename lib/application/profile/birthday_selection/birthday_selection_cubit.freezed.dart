@@ -25,6 +25,7 @@ mixin _$BirthdaySelectionState {
   String get errorMessage => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BirthdaySelectionStateCopyWith<BirthdaySelectionState> get copyWith =>
@@ -46,7 +47,8 @@ abstract class $BirthdaySelectionStateCopyWith<$Res> {
       DateTime selectedDate,
       String errorMessage,
       AppStateNotifier appStateNotifier,
-      AuthRepository authRepository});
+      AuthRepository authRepository,
+      UserRepository userRepository});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$BirthdaySelectionStateCopyWithImpl<$Res,
     Object? errorMessage = null,
     Object? appStateNotifier = null,
     Object? authRepository = null,
+    Object? userRepository = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -110,6 +113,10 @@ class _$BirthdaySelectionStateCopyWithImpl<$Res,
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
     ) as $Val);
   }
 }
@@ -132,7 +139,8 @@ abstract class _$$BirthdaySelectionStateImplCopyWith<$Res>
       DateTime selectedDate,
       String errorMessage,
       AppStateNotifier appStateNotifier,
-      AuthRepository authRepository});
+      AuthRepository authRepository,
+      UserRepository userRepository});
 }
 
 /// @nodoc
@@ -157,6 +165,7 @@ class __$$BirthdaySelectionStateImplCopyWithImpl<$Res>
     Object? errorMessage = null,
     Object? appStateNotifier = null,
     Object? authRepository = null,
+    Object? userRepository = null,
   }) {
     return _then(_$BirthdaySelectionStateImpl(
       isLoading: null == isLoading
@@ -195,6 +204,10 @@ class __$$BirthdaySelectionStateImplCopyWithImpl<$Res>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
     ));
   }
 }
@@ -211,7 +224,8 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
       required this.selectedDate,
       required this.errorMessage,
       required this.appStateNotifier,
-      required this.authRepository});
+      required this.authRepository,
+      required this.userRepository});
 
   @override
   final bool isLoading;
@@ -231,10 +245,12 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
   final AppStateNotifier appStateNotifier;
   @override
   final AuthRepository authRepository;
+  @override
+  final UserRepository userRepository;
 
   @override
   String toString() {
-    return 'BirthdaySelectionState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, selectedDate: $selectedDate, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository)';
+    return 'BirthdaySelectionState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, selectedDate: $selectedDate, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository)';
   }
 
   @override
@@ -258,7 +274,9 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
             (identical(other.authRepository, authRepository) ||
-                other.authRepository == authRepository));
+                other.authRepository == authRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository));
   }
 
   @override
@@ -272,7 +290,8 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
       selectedDate,
       errorMessage,
       appStateNotifier,
-      authRepository);
+      authRepository,
+      userRepository);
 
   @JsonKey(ignore: true)
   @override
@@ -292,7 +311,8 @@ abstract class _BirthdaySelectionState implements BirthdaySelectionState {
           required final DateTime selectedDate,
           required final String errorMessage,
           required final AppStateNotifier appStateNotifier,
-          required final AuthRepository authRepository}) =
+          required final AuthRepository authRepository,
+          required final UserRepository userRepository}) =
       _$BirthdaySelectionStateImpl;
 
   @override
@@ -313,6 +333,8 @@ abstract class _BirthdaySelectionState implements BirthdaySelectionState {
   AppStateNotifier get appStateNotifier;
   @override
   AuthRepository get authRepository;
+  @override
+  UserRepository get userRepository;
   @override
   @JsonKey(ignore: true)
   _$$BirthdaySelectionStateImplCopyWith<_$BirthdaySelectionStateImpl>

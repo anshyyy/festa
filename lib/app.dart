@@ -17,6 +17,7 @@ import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
 import 'domain/core/themes/app_theme.dart';
+import 'domain/core/utils/dynamic_link.dart';
 import 'infrastructure/auth/i_auth_repository.dart';
 import 'infrastructure/core/dtos/location/location_dto.dart';
 import 'infrastructure/core/enum/profile_state.enum.dart';
@@ -169,8 +170,28 @@ Future appInitializer(AppConfig appConfig) async {
   checkForAppUpdate(navKey);
 
   setupLocator(navKey, appStateNotifier);
+  Future.delayed(const Duration(seconds: 4)).then((value) {
+    DynamicLinkUtil.initDynamicLinks(isAuthorized: isAuthorized);
+
+    // initClearNotificationsState(navigationKey: navKey);
+  });
   return runApp(configuredApp);
 }
+
+// void initDynamicLink(GlobalKey<NavigatorState> navKey) async {
+//   FirebaseDynamicLinks.instance.getInitialLink().then((dynamicLinkData) {
+//     if (dynamicLinkData != null) {
+//       handleDynamicLink(navKey: navKey, url: dynamicLinkData.link);
+//     }
+//   });
+// }
+
+// handleDynamicLink(
+//     {required Uri url, required GlobalKey<NavigatorState> navKey}) {
+//   if (url.queryParameters.isNotEmpty) {
+//     print('deeplink ${url.queryParameters}');
+//   }
+// }
 
 Future<Map<String, dynamic>> getRemoteConfigs() async {
   Map<String, dynamic> configs = {};

@@ -9,7 +9,6 @@ import '../../../../../domain/core/constants/asset_constants.dart';
 import '../../../../../domain/core/constants/string_constants.dart';
 import '../../../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../../../domain/core/services/navigation_services/routers/route_name.dart';
-import '../../../../widgets/custom_appbar.dart';
 import '../../../../widgets/gradient_button.dart';
 
 class EmailDetailsScreen extends StatelessWidget {
@@ -43,69 +42,75 @@ class ExmailDetailsScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
-            title: AccountEmailScreenConstants.title,
-            leading: GestureDetector(
-              onTap: () {
-                navigator<NavigationService>().goBack();
-              },
-              child: Center(
-                child: SvgPicture.asset(AssetConstants.arrowLeft),
+          // appBar: CustomAppBar(
+          //   title: AccountEmailScreenConstants.title,
+          //   leading: GestureDetector(
+          //     onTap: () {
+          //       navigator<NavigationService>().goBack();
+          //     },
+          //     child: Center(
+          //       child: SvgPicture.asset(AssetConstants.arrowLeft),
+          //     ),
+          //   ),
+          //   actions: [],
+          // ),
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Text(
+                    state.emailAddress,
+                    style: textTheme.bodyLarge!
+                        .copyWith(color: colorScheme.background),
+                  ),
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                  Text(
+                    AccountEmailScreenConstants.youHaveAddedThisEmail,
+                    style: textTheme.bodyMedium!.copyWith(
+                      color: colorScheme.background.withOpacity(.7),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16.3.sp,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Text(
+                    AccountEmailScreenConstants.whoCanSeeYourEmailAddress,
+                    style: textTheme.bodySmall!.copyWith(
+                        color: colorScheme.scrim, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  GradientButton(
+                    text: 'Go to Home',
+                    onTap: () {
+                      // showModalBottomSheet(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       return DeleteEmailModalSheet();
+                      //     });
+                      navigator<NavigationService>().navigateTo(UserRoutes.mainNavRoute, queryParams: {
+                        'routeIndex':'0',
+                      },
+                      isClearStack: true);
+                    },
+                    height: 5.h,
+                    textStyle: textTheme.bodySmall!.copyWith(
+                      color: colorScheme.background,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                ],
               ),
-            ),
-            actions: [],
-          ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 2.h,
-                ),
-                Text(
-                  state.emailAddress,
-                  style: textTheme.bodyLarge!
-                      .copyWith(color: colorScheme.background),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Text(
-                  AccountEmailScreenConstants.youHaveAddedThisEmail,
-                  style: textTheme.bodyMedium!.copyWith(
-                    color: colorScheme.background.withOpacity(.7),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16.3.sp,
-                  ),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Text(
-                  AccountEmailScreenConstants.whoCanSeeYourEmailAddress,
-                  style: textTheme.bodySmall!.copyWith(
-                      color: colorScheme.scrim, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                GradientButton(
-                  text: AccountEmailScreenConstants.deleteEmailAddress,
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return DeleteEmailModalSheet();
-                        });
-                  },
-                  height: 5.h,
-                  textStyle: textTheme.bodySmall!.copyWith(
-                    color: colorScheme.background,
-                    fontWeight: FontWeight.w700,
-                  ),
-                )
-              ],
             ),
           ),
         );

@@ -166,7 +166,8 @@ class CustomBottomNav extends StatelessWidget {
                         children: [
                           Center(
                             child: Container(
-                              height: 3.5.h,
+                              height: 2.5.h,
+                              width: 2.5.h,
                               decoration: BoxDecoration(
                                 border: Border.all(color: state.currentIndex == 3 ?Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondaryContainer),
                               borderRadius: BorderRadius.circular(50.w),

@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/extensions/string_extension.dart';
 
 class SocialReach extends StatelessWidget {
-  const SocialReach({super.key});
+    final int totalParties;
+  final int totalFollowers;
+  final int totalFriends;
+  const SocialReach({super.key, required this.totalParties, required this.totalFollowers, required this.totalFriends});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +30,13 @@ class SocialReach extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: '30 ',
+                      text:  StringExtension.formatAmount(totalParties),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 17.sp,
                           color: Theme.of(context).colorScheme.background)),
                   TextSpan(
-                      text: UserProfileScreenConstants.parties,
+                      text: ' ${UserProfileScreenConstants.parties}',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 13.sp,
                           letterSpacing: -0.5,
@@ -47,13 +51,13 @@ class SocialReach extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: '300K ',
+                      text: StringExtension.formatAmount(totalFollowers),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 17.sp,
                           color: Theme.of(context).colorScheme.background)),
                   TextSpan(
-                      text: UserProfileScreenConstants.followers,
+                      text: ' ${UserProfileScreenConstants.followers}',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 13.sp,
                          letterSpacing: -0.5,
@@ -67,13 +71,13 @@ class SocialReach extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: '300K ',
+                      text: StringExtension.formatAmount(totalFriends),
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 17.sp,
                           color: Theme.of(context).colorScheme.background)),
                   TextSpan(
-                      text: UserProfileScreenConstants.friends,
+                      text: ' ${UserProfileScreenConstants.friends}',
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontSize: 13.sp,
                           letterSpacing: -0.5,

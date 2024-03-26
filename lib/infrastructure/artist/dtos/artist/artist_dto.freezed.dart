@@ -31,7 +31,7 @@ mixin _$ArtistDto {
   @JsonKey(name: 'city', defaultValue: '')
   String get city => throw _privateConstructorUsedError;
   @JsonKey(name: 'tag', defaultValue: null)
-  ArtistTagDto? get tag => throw _privateConstructorUsedError;
+  TagDto? get tag => throw _privateConstructorUsedError;
   @JsonKey(name: 'extraDetails', defaultValue: null)
   ArtistExtraDetailsDto? get extraDetailsDto =>
       throw _privateConstructorUsedError;
@@ -54,11 +54,11 @@ abstract class $ArtistDtoCopyWith<$Res> {
       @JsonKey(name: 'category', defaultValue: [])
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
-      @JsonKey(name: 'tag', defaultValue: null) ArtistTagDto? tag,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       ArtistExtraDetailsDto? extraDetailsDto});
 
-  $ArtistTagDtoCopyWith<$Res>? get tag;
+  $TagDtoCopyWith<$Res>? get tag;
   $ArtistExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
 }
 
@@ -107,7 +107,7 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
       tag: freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
-              as ArtistTagDto?,
+              as TagDto?,
       extraDetailsDto: freezed == extraDetailsDto
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
@@ -117,12 +117,12 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
 
   @override
   @pragma('vm:prefer-inline')
-  $ArtistTagDtoCopyWith<$Res>? get tag {
+  $TagDtoCopyWith<$Res>? get tag {
     if (_value.tag == null) {
       return null;
     }
 
-    return $ArtistTagDtoCopyWith<$Res>(_value.tag!, (value) {
+    return $TagDtoCopyWith<$Res>(_value.tag!, (value) {
       return _then(_value.copyWith(tag: value) as $Val);
     });
   }
@@ -156,12 +156,12 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
       @JsonKey(name: 'category', defaultValue: [])
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
-      @JsonKey(name: 'tag', defaultValue: null) ArtistTagDto? tag,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       ArtistExtraDetailsDto? extraDetailsDto});
 
   @override
-  $ArtistTagDtoCopyWith<$Res>? get tag;
+  $TagDtoCopyWith<$Res>? get tag;
   @override
   $ArtistExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
 }
@@ -209,7 +209,7 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
       tag: freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
-              as ArtistTagDto?,
+              as TagDto?,
       extraDetailsDto: freezed == extraDetailsDto
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
@@ -250,7 +250,7 @@ class _$ArtistDtoImpl implements _ArtistDto {
   final String city;
   @override
   @JsonKey(name: 'tag', defaultValue: null)
-  final ArtistTagDto? tag;
+  final TagDto? tag;
   @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   final ArtistExtraDetailsDto? extraDetailsDto;
@@ -314,7 +314,7 @@ abstract class _ArtistDto implements ArtistDto {
       @JsonKey(name: 'category', defaultValue: [])
       required final List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') required final String city,
-      @JsonKey(name: 'tag', defaultValue: null) final ArtistTagDto? tag,
+      @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       final ArtistExtraDetailsDto? extraDetailsDto}) = _$ArtistDtoImpl;
 
@@ -338,7 +338,7 @@ abstract class _ArtistDto implements ArtistDto {
   String get city;
   @override
   @JsonKey(name: 'tag', defaultValue: null)
-  ArtistTagDto? get tag;
+  TagDto? get tag;
   @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   ArtistExtraDetailsDto? get extraDetailsDto;

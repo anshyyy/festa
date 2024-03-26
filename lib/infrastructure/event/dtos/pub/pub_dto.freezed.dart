@@ -37,7 +37,7 @@ mixin _$PubDto {
   @JsonKey(name: 'assets', defaultValue: [])
   List<AssetDto> get assets => throw _privateConstructorUsedError;
   @JsonKey(name: 'tag', defaultValue: null)
-  PubTagDto? get tag => throw _privateConstructorUsedError;
+  TagDto? get tag => throw _privateConstructorUsedError;
   @JsonKey(name: 'address', defaultValue: null)
   PubLocationDto? get location => throw _privateConstructorUsedError;
   @JsonKey(name: 'extraDetails', defaultValue: null)
@@ -62,12 +62,12 @@ abstract class $PubDtoCopyWith<$Res> {
       @JsonKey(name: 'averageRating', defaultValue: 0.0) double averageRating,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
-      @JsonKey(name: 'tag', defaultValue: null) PubTagDto? tag,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       PubExtraDetailsDto? extraDetailsDto});
 
-  $PubTagDtoCopyWith<$Res>? get tag;
+  $TagDtoCopyWith<$Res>? get tag;
   $PubLocationDtoCopyWith<$Res>? get location;
   $PubExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
 }
@@ -133,7 +133,7 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
       tag: freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
-              as PubTagDto?,
+              as TagDto?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -147,12 +147,12 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
 
   @override
   @pragma('vm:prefer-inline')
-  $PubTagDtoCopyWith<$Res>? get tag {
+  $TagDtoCopyWith<$Res>? get tag {
     if (_value.tag == null) {
       return null;
     }
 
-    return $PubTagDtoCopyWith<$Res>(_value.tag!, (value) {
+    return $TagDtoCopyWith<$Res>(_value.tag!, (value) {
       return _then(_value.copyWith(tag: value) as $Val);
     });
   }
@@ -198,13 +198,13 @@ abstract class _$$PubDtoImplCopyWith<$Res> implements $PubDtoCopyWith<$Res> {
       @JsonKey(name: 'averageRating', defaultValue: 0.0) double averageRating,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
-      @JsonKey(name: 'tag', defaultValue: null) PubTagDto? tag,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       PubExtraDetailsDto? extraDetailsDto});
 
   @override
-  $PubTagDtoCopyWith<$Res>? get tag;
+  $TagDtoCopyWith<$Res>? get tag;
   @override
   $PubLocationDtoCopyWith<$Res>? get location;
   @override
@@ -270,7 +270,7 @@ class __$$PubDtoImplCopyWithImpl<$Res>
       tag: freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
-              as PubTagDto?,
+              as TagDto?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -330,7 +330,7 @@ class _$PubDtoImpl implements _PubDto {
   final List<AssetDto> assets;
   @override
   @JsonKey(name: 'tag', defaultValue: null)
-  final PubTagDto? tag;
+  final TagDto? tag;
   @override
   @JsonKey(name: 'address', defaultValue: null)
   final PubLocationDto? location;
@@ -414,7 +414,7 @@ abstract class _PubDto implements PubDto {
       required final String coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: [])
       required final List<AssetDto> assets,
-      @JsonKey(name: 'tag', defaultValue: null) final PubTagDto? tag,
+      @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
       @JsonKey(name: 'address', defaultValue: null)
       final PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
@@ -448,7 +448,7 @@ abstract class _PubDto implements PubDto {
   List<AssetDto> get assets;
   @override
   @JsonKey(name: 'tag', defaultValue: null)
-  PubTagDto? get tag;
+  TagDto? get tag;
   @override
   @JsonKey(name: 'address', defaultValue: null)
   PubLocationDto? get location;

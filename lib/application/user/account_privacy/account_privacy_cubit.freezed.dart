@@ -16,7 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AccountPrivacyState {
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
+  bool get isFailure => throw _privateConstructorUsedError;
   bool get isPrivate => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AccountPrivacyStateCopyWith<AccountPrivacyState> get copyWith =>
@@ -29,7 +34,15 @@ abstract class $AccountPrivacyStateCopyWith<$Res> {
           AccountPrivacyState value, $Res Function(AccountPrivacyState) then) =
       _$AccountPrivacyStateCopyWithImpl<$Res, AccountPrivacyState>;
   @useResult
-  $Res call({bool isPrivate});
+  $Res call(
+      {bool isLoading,
+      bool isSuccess,
+      bool isFailure,
+      bool isPrivate,
+      UserRepository userRepository,
+      UserDto? user});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -45,14 +58,51 @@ class _$AccountPrivacyStateCopyWithImpl<$Res, $Val extends AccountPrivacyState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
     Object? isPrivate = null,
+    Object? userRepository = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
       isPrivate: null == isPrivate
           ? _value.isPrivate
           : isPrivate // ignore: cast_nullable_to_non_nullable
               as bool,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -64,7 +114,16 @@ abstract class _$$AccountPrivacyImplCopyWith<$Res>
       __$$AccountPrivacyImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isPrivate});
+  $Res call(
+      {bool isLoading,
+      bool isSuccess,
+      bool isFailure,
+      bool isPrivate,
+      UserRepository userRepository,
+      UserDto? user});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -78,13 +137,38 @@ class __$$AccountPrivacyImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
     Object? isPrivate = null,
+    Object? userRepository = null,
+    Object? user = freezed,
   }) {
     return _then(_$AccountPrivacyImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
       isPrivate: null == isPrivate
           ? _value.isPrivate
           : isPrivate // ignore: cast_nullable_to_non_nullable
               as bool,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ));
   }
 }
@@ -92,14 +176,30 @@ class __$$AccountPrivacyImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AccountPrivacyImpl implements _AccountPrivacy {
-  const _$AccountPrivacyImpl({required this.isPrivate});
+  const _$AccountPrivacyImpl(
+      {required this.isLoading,
+      required this.isSuccess,
+      required this.isFailure,
+      required this.isPrivate,
+      required this.userRepository,
+      this.user});
 
   @override
+  final bool isLoading;
+  @override
+  final bool isSuccess;
+  @override
+  final bool isFailure;
+  @override
   final bool isPrivate;
+  @override
+  final UserRepository userRepository;
+  @override
+  final UserDto? user;
 
   @override
   String toString() {
-    return 'AccountPrivacyState(isPrivate: $isPrivate)';
+    return 'AccountPrivacyState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isPrivate: $isPrivate, userRepository: $userRepository, user: $user)';
   }
 
   @override
@@ -107,12 +207,22 @@ class _$AccountPrivacyImpl implements _AccountPrivacy {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AccountPrivacyImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess) &&
+            (identical(other.isFailure, isFailure) ||
+                other.isFailure == isFailure) &&
             (identical(other.isPrivate, isPrivate) ||
-                other.isPrivate == isPrivate));
+                other.isPrivate == isPrivate) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isPrivate);
+  int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
+      isPrivate, userRepository, user);
 
   @JsonKey(ignore: true)
   @override
@@ -123,11 +233,26 @@ class _$AccountPrivacyImpl implements _AccountPrivacy {
 }
 
 abstract class _AccountPrivacy implements AccountPrivacyState {
-  const factory _AccountPrivacy({required final bool isPrivate}) =
-      _$AccountPrivacyImpl;
+  const factory _AccountPrivacy(
+      {required final bool isLoading,
+      required final bool isSuccess,
+      required final bool isFailure,
+      required final bool isPrivate,
+      required final UserRepository userRepository,
+      final UserDto? user}) = _$AccountPrivacyImpl;
 
   @override
+  bool get isLoading;
+  @override
+  bool get isSuccess;
+  @override
+  bool get isFailure;
+  @override
   bool get isPrivate;
+  @override
+  UserRepository get userRepository;
+  @override
+  UserDto? get user;
   @override
   @JsonKey(ignore: true)
   _$$AccountPrivacyImplCopyWith<_$AccountPrivacyImpl> get copyWith =>

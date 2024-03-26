@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +15,8 @@ import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../domain/core/services/storage_service/dynamic_link_storage_service.dart';
+import '../../domain/core/utils/dynamic_link.dart';
 import '../../infrastructure/core/enum/profile_state.enum.dart';
 import '../widgets/rounded_arrow_button.dart';
 import '../widgets/snackbar_alert.dart';
@@ -69,30 +73,43 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
             isAuthorized: true,
             user: state.user,
           );
-          final profileState = user.fullName.isNotEmpty &&
-                  user.dob.isNotEmpty &&
-                  user.gender.isNotEmpty
-              ? ProfileStateEnum.completed
-              : user.fullName.isNotEmpty && user.dob.isNotEmpty
-                  ? ProfileStateEnum.birthday
-                  : user.fullName.isNotEmpty
-                      ? ProfileStateEnum.basic
-                      : ProfileStateEnum.started;
-          final route = profileState == ProfileStateEnum.completed
-              ? UserRoutes.mainNavRoute
-              : profileState == ProfileStateEnum.birthday
-                  ? AuthRoutes.genderRoute
-                  : profileState == ProfileStateEnum.basic
-                      ? AuthRoutes.birthdayRoute
-                      : AuthRoutes.basicInfoRoute;
 
-          Future.delayed(const Duration(milliseconds: 100)).then((value) async {
-            navigator<NavigationService>()
-                .navigateTo(route, isClearStack: true);
+          DynamicLinkStorageService.getStoredDynamicLink().then((value) {
+            final profileState = user.fullName.isNotEmpty &&
+                    user.dob.isNotEmpty &&
+                    user.gender.isNotEmpty
+                ? ProfileStateEnum.completed
+                : user.fullName.isNotEmpty && user.dob.isNotEmpty
+                    ? ProfileStateEnum.birthday
+                    : user.fullName.isNotEmpty
+                        ? ProfileStateEnum.basic
+                        : ProfileStateEnum.started;
+
+            final route = profileState == ProfileStateEnum.completed
+                ? UserRoutes.mainNavRoute
+                : profileState == ProfileStateEnum.birthday
+                    ? AuthRoutes.genderRoute
+                    : profileState == ProfileStateEnum.basic
+                        ? AuthRoutes.birthdayRoute
+                        : AuthRoutes.basicInfoRoute;
+
+            if (value != null) {
+              Map pathSegments = jsonDecode(value);
+              String category = pathSegments['category'];
+              String id = pathSegments['id'];
+
+              DynamicLinkUtil.dynamicNavigation(category, id);
+            } else {
+              Future.delayed(const Duration(milliseconds: 100))
+                  .then((value) async {
+                navigator<NavigationService>()
+                    .navigateTo(route, isClearStack: true);
+              });
+            }
+            context.read<VerifyOtpCubit>().emitFromAnywhere(
+                  state: state.copyWith(isOTPVerificationSuccessful: false),
+                );
           });
-          context.read<VerifyOtpCubit>().emitFromAnywhere(
-                state: state.copyWith(isOTPVerificationSuccessful: false),
-              );
         }
 
         // verify otp -> result - failed
@@ -168,8 +185,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                         children: [
                           Text(
                             '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
-                            style: themeData.textTheme.bodySmall!
-                                .copyWith(),
+                            style: themeData.textTheme.bodySmall!.copyWith(),
                           ),
                           SizedBox(
                             width: 2.w,
@@ -244,7 +260,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                                     .bodySmall!
                                     .copyWith(
                                       fontWeight: FontWeight.w600,
-                                        fontSize: 16.sp,
+                                      fontSize: 16.sp,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .background,

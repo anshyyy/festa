@@ -59,80 +59,53 @@ class OtherConstants {
       title: ProfileAndSettingsScreenConstants.accountSettings,
       navigationRoute: UserRoutes.accountSettingsRoute,
     ),
-    SettingsMenuDto(
-      icon: AssetConstants.notificationSettings,
-      title: ProfileAndSettingsScreenConstants.notifications,
-      navigationRoute: '',
+    // SettingsMenuDto(
+    //   icon: AssetConstants.notificationSettings,
+    //   title: ProfileAndSettingsScreenConstants.notifications,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.activitiesSettings,
-      title: ProfileAndSettingsScreenConstants.yourActivities,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.activitiesSettings,
+    //   title: ProfileAndSettingsScreenConstants.yourActivities,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.privacySettings,
-      title: ProfileAndSettingsScreenConstants.privacy,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.privacySettings,
+    //   title: ProfileAndSettingsScreenConstants.privacy,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.blockedSettings,
-      title: ProfileAndSettingsScreenConstants.blockedUsers,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.blockedSettings,
+    //   title: ProfileAndSettingsScreenConstants.blockedUsers,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.heartSettings,
-      title: ProfileAndSettingsScreenConstants.tellAFriend,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.heartSettings,
+    //   title: ProfileAndSettingsScreenConstants.tellAFriend,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.helpSettings,
-      title: ProfileAndSettingsScreenConstants.help,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.helpSettings,
+    //   title: ProfileAndSettingsScreenConstants.help,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.feedbackSettings,
-      title: ProfileAndSettingsScreenConstants.feedback,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.feedbackSettings,
+    //   title: ProfileAndSettingsScreenConstants.feedback,
+    //   navigationRoute: '',
 
-    ),
-    SettingsMenuDto(
-      icon: AssetConstants.starSettings,
-      title: ProfileAndSettingsScreenConstants.rateInPlayStore,
-      navigationRoute: '',
+    // ),
+    // SettingsMenuDto(
+    //   icon: AssetConstants.starSettings,
+    //   title: ProfileAndSettingsScreenConstants.rateInPlayStore,
+    //   navigationRoute: '',
 
-    ),
-  ];
-
-  static const List<PersonalizationMenuDto> personalizationMenuList = [
-    PersonalizationMenuDto(
-        icon: AssetConstants.genderIcon,
-        title: 'Gender',
-        description: 'Who can see your gender'),
-    PersonalizationMenuDto(
-        icon: AssetConstants.partiesIcon,
-        title: 'Parties',
-        description: 'Parties I would like to go...'),
-    PersonalizationMenuDto(
-        icon: AssetConstants.musicIcon,
-        title: 'Music',
-        description: 'Genres I listen to...'),
-    PersonalizationMenuDto(
-        icon: AssetConstants.crowdIcon,
-        title: 'Crowd',
-        description: 'Crowd I like to hangout with...'),
-    PersonalizationMenuDto(
-        icon: AssetConstants.cuisineIcon,
-        title: 'Cuisine',
-        description: 'My favourite food...'),
-    PersonalizationMenuDto(
-        icon: AssetConstants.drinkPersonalizeIcon,
-        title: 'Drink',
-        description: 'My favourite drink type...'),
+    // ),
   ];
 }

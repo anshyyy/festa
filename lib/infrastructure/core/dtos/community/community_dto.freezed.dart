@@ -20,7 +20,7 @@ CommunityDto _$CommunityDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CommunityDto {
-  @JsonKey(name: 'count', defaultValue: 0)
+  @JsonKey(name: 'totalCount', defaultValue: 0)
   int get totalCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'users', defaultValue: [])
   List<CommunityUserDto> get users => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $CommunityDtoCopyWith<$Res> {
       _$CommunityDtoCopyWithImpl<$Res, CommunityDto>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'count', defaultValue: 0) int totalCount,
+      {@JsonKey(name: 'totalCount', defaultValue: 0) int totalCount,
       @JsonKey(name: 'users', defaultValue: []) List<CommunityUserDto> users});
 }
 
@@ -80,7 +80,7 @@ abstract class _$$CommunityDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'count', defaultValue: 0) int totalCount,
+      {@JsonKey(name: 'totalCount', defaultValue: 0) int totalCount,
       @JsonKey(name: 'users', defaultValue: []) List<CommunityUserDto> users});
 }
 
@@ -115,14 +115,14 @@ class __$$CommunityDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommunityDtoImpl implements _CommunityDto {
   const _$CommunityDtoImpl(
-      {@JsonKey(name: 'count', defaultValue: 0) required this.totalCount,
+      {@JsonKey(name: 'totalCount', defaultValue: 0) required this.totalCount,
       @JsonKey(name: 'users', defaultValue: []) required this.users});
 
   factory _$CommunityDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommunityDtoImplFromJson(json);
 
   @override
-  @JsonKey(name: 'count', defaultValue: 0)
+  @JsonKey(name: 'totalCount', defaultValue: 0)
   final int totalCount;
   @override
   @JsonKey(name: 'users', defaultValue: [])
@@ -164,7 +164,8 @@ class _$CommunityDtoImpl implements _CommunityDto {
 
 abstract class _CommunityDto implements CommunityDto {
   const factory _CommunityDto(
-      {@JsonKey(name: 'count', defaultValue: 0) required final int totalCount,
+      {@JsonKey(name: 'totalCount', defaultValue: 0)
+      required final int totalCount,
       @JsonKey(name: 'users', defaultValue: [])
       required final List<CommunityUserDto> users}) = _$CommunityDtoImpl;
 
@@ -172,7 +173,7 @@ abstract class _CommunityDto implements CommunityDto {
       _$CommunityDtoImpl.fromJson;
 
   @override
-  @JsonKey(name: 'count', defaultValue: 0)
+  @JsonKey(name: 'totalCount', defaultValue: 0)
   int get totalCount;
   @override
   @JsonKey(name: 'users', defaultValue: [])

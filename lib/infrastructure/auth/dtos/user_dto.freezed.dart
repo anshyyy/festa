@@ -28,6 +28,8 @@ mixin _$UserDto {
   String get fullName => throw _privateConstructorUsedError;
   @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coverImage', defaultValue: '')
+  String get coverImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'description', defaultValue: '')
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'gender', defaultValue: '')
@@ -38,6 +40,13 @@ mixin _$UserDto {
   String get dob => throw _privateConstructorUsedError;
   @JsonKey(name: 'email')
   String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tag', defaultValue: null)
+  TagDto? get tag => throw _privateConstructorUsedError;
+  @JsonKey(name: 'extraDetails', defaultValue: null)
+  UserExtraDetailsDto? get extraDetailsDto =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+  bool get isPrivateAccount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,11 +63,20 @@ abstract class $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'externalUserId', defaultValue: '') String externalUserId,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
+      @JsonKey(name: 'coverImage', defaultValue: '') String coverImage,
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'gender', defaultValue: '') String gender,
       @JsonKey(name: 'phoneNumber', defaultValue: '') String phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') String dob,
-      @JsonKey(name: 'email') String? email});
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'extraDetails', defaultValue: null)
+      UserExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+      bool isPrivateAccount});
+
+  $TagDtoCopyWith<$Res>? get tag;
+  $UserExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
 }
 
 /// @nodoc
@@ -78,11 +96,15 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? externalUserId = null,
     Object? fullName = null,
     Object? profileImage = null,
+    Object? coverImage = null,
     Object? description = null,
     Object? gender = null,
     Object? phoneNumber = null,
     Object? dob = null,
     Object? email = freezed,
+    Object? tag = freezed,
+    Object? extraDetailsDto = freezed,
+    Object? isPrivateAccount = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,6 +123,10 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
+      coverImage: null == coverImage
+          ? _value.coverImage
+          : coverImage // ignore: cast_nullable_to_non_nullable
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -121,7 +147,43 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagDto?,
+      extraDetailsDto: freezed == extraDetailsDto
+          ? _value.extraDetailsDto
+          : extraDetailsDto // ignore: cast_nullable_to_non_nullable
+              as UserExtraDetailsDto?,
+      isPrivateAccount: null == isPrivateAccount
+          ? _value.isPrivateAccount
+          : isPrivateAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TagDtoCopyWith<$Res>? get tag {
+    if (_value.tag == null) {
+      return null;
+    }
+
+    return $TagDtoCopyWith<$Res>(_value.tag!, (value) {
+      return _then(_value.copyWith(tag: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto {
+    if (_value.extraDetailsDto == null) {
+      return null;
+    }
+
+    return $UserExtraDetailsDtoCopyWith<$Res>(_value.extraDetailsDto!, (value) {
+      return _then(_value.copyWith(extraDetailsDto: value) as $Val);
+    });
   }
 }
 
@@ -137,11 +199,22 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'externalUserId', defaultValue: '') String externalUserId,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
+      @JsonKey(name: 'coverImage', defaultValue: '') String coverImage,
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'gender', defaultValue: '') String gender,
       @JsonKey(name: 'phoneNumber', defaultValue: '') String phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') String dob,
-      @JsonKey(name: 'email') String? email});
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'extraDetails', defaultValue: null)
+      UserExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+      bool isPrivateAccount});
+
+  @override
+  $TagDtoCopyWith<$Res>? get tag;
+  @override
+  $UserExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
 }
 
 /// @nodoc
@@ -159,11 +232,15 @@ class __$$UserDtoImplCopyWithImpl<$Res>
     Object? externalUserId = null,
     Object? fullName = null,
     Object? profileImage = null,
+    Object? coverImage = null,
     Object? description = null,
     Object? gender = null,
     Object? phoneNumber = null,
     Object? dob = null,
     Object? email = freezed,
+    Object? tag = freezed,
+    Object? extraDetailsDto = freezed,
+    Object? isPrivateAccount = null,
   }) {
     return _then(_$UserDtoImpl(
       id: null == id
@@ -182,6 +259,10 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
+      coverImage: null == coverImage
+          ? _value.coverImage
+          : coverImage // ignore: cast_nullable_to_non_nullable
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -202,6 +283,18 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagDto?,
+      extraDetailsDto: freezed == extraDetailsDto
+          ? _value.extraDetailsDto
+          : extraDetailsDto // ignore: cast_nullable_to_non_nullable
+              as UserExtraDetailsDto?,
+      isPrivateAccount: null == isPrivateAccount
+          ? _value.isPrivateAccount
+          : isPrivateAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -216,11 +309,16 @@ class _$UserDtoImpl implements _UserDto {
       @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
       @JsonKey(name: 'profileImage', defaultValue: '')
       required this.profileImage,
+      @JsonKey(name: 'coverImage', defaultValue: '') required this.coverImage,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
       @JsonKey(name: 'gender', defaultValue: '') required this.gender,
       @JsonKey(name: 'phoneNumber', defaultValue: '') required this.phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') required this.dob,
-      @JsonKey(name: 'email') this.email});
+      @JsonKey(name: 'email') this.email,
+      @JsonKey(name: 'tag', defaultValue: null) this.tag,
+      @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto,
+      @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+      required this.isPrivateAccount});
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDtoImplFromJson(json);
@@ -238,6 +336,9 @@ class _$UserDtoImpl implements _UserDto {
   @JsonKey(name: 'profileImage', defaultValue: '')
   final String profileImage;
   @override
+  @JsonKey(name: 'coverImage', defaultValue: '')
+  final String coverImage;
+  @override
   @JsonKey(name: 'description', defaultValue: '')
   final String description;
   @override
@@ -252,10 +353,19 @@ class _$UserDtoImpl implements _UserDto {
   @override
   @JsonKey(name: 'email')
   final String? email;
+  @override
+  @JsonKey(name: 'tag', defaultValue: null)
+  final TagDto? tag;
+  @override
+  @JsonKey(name: 'extraDetails', defaultValue: null)
+  final UserExtraDetailsDto? extraDetailsDto;
+  @override
+  @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+  final bool isPrivateAccount;
 
   @override
   String toString() {
-    return 'UserDto(id: $id, externalUserId: $externalUserId, fullName: $fullName, profileImage: $profileImage, description: $description, gender: $gender, phoneNumber: $phoneNumber, dob: $dob, email: $email)';
+    return 'UserDto(id: $id, externalUserId: $externalUserId, fullName: $fullName, profileImage: $profileImage, coverImage: $coverImage, description: $description, gender: $gender, phoneNumber: $phoneNumber, dob: $dob, email: $email, tag: $tag, extraDetailsDto: $extraDetailsDto, isPrivateAccount: $isPrivateAccount)';
   }
 
   @override
@@ -270,19 +380,39 @@ class _$UserDtoImpl implements _UserDto {
                 other.fullName == fullName) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
+            (identical(other.coverImage, coverImage) ||
+                other.coverImage == coverImage) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.dob, dob) || other.dob == dob) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.tag, tag) || other.tag == tag) &&
+            (identical(other.extraDetailsDto, extraDetailsDto) ||
+                other.extraDetailsDto == extraDetailsDto) &&
+            (identical(other.isPrivateAccount, isPrivateAccount) ||
+                other.isPrivateAccount == isPrivateAccount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, externalUserId, fullName,
-      profileImage, description, gender, phoneNumber, dob, email);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      externalUserId,
+      fullName,
+      profileImage,
+      coverImage,
+      description,
+      gender,
+      phoneNumber,
+      dob,
+      email,
+      tag,
+      extraDetailsDto,
+      isPrivateAccount);
 
   @JsonKey(ignore: true)
   @override
@@ -307,13 +437,20 @@ abstract class _UserDto implements UserDto {
       required final String fullName,
       @JsonKey(name: 'profileImage', defaultValue: '')
       required final String profileImage,
+      @JsonKey(name: 'coverImage', defaultValue: '')
+      required final String coverImage,
       @JsonKey(name: 'description', defaultValue: '')
       required final String description,
       @JsonKey(name: 'gender', defaultValue: '') required final String gender,
       @JsonKey(name: 'phoneNumber', defaultValue: '')
       required final String phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') required final String dob,
-      @JsonKey(name: 'email') final String? email}) = _$UserDtoImpl;
+      @JsonKey(name: 'email') final String? email,
+      @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
+      @JsonKey(name: 'extraDetails', defaultValue: null)
+      final UserExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+      required final bool isPrivateAccount}) = _$UserDtoImpl;
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
 
@@ -330,6 +467,9 @@ abstract class _UserDto implements UserDto {
   @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage;
   @override
+  @JsonKey(name: 'coverImage', defaultValue: '')
+  String get coverImage;
+  @override
   @JsonKey(name: 'description', defaultValue: '')
   String get description;
   @override
@@ -344,6 +484,15 @@ abstract class _UserDto implements UserDto {
   @override
   @JsonKey(name: 'email')
   String? get email;
+  @override
+  @JsonKey(name: 'tag', defaultValue: null)
+  TagDto? get tag;
+  @override
+  @JsonKey(name: 'extraDetails', defaultValue: null)
+  UserExtraDetailsDto? get extraDetailsDto;
+  @override
+  @JsonKey(name: 'isPrivateAccount', defaultValue: false)
+  bool get isPrivateAccount;
   @override
   @JsonKey(ignore: true)
   _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>

@@ -24,6 +24,7 @@ mixin _$ClubCommunityState {
   int get followersPage => throw _privateConstructorUsedError;
   int get friendsPage => throw _privateConstructorUsedError;
   PubRepository get pubRepository => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
   CommunityDto get pubFollowers => throw _privateConstructorUsedError;
   CommunityDto get pubFriends => throw _privateConstructorUsedError;
   int get pubFollowersCount => throw _privateConstructorUsedError;
@@ -55,6 +56,7 @@ abstract class $ClubCommunityStateCopyWith<$Res> {
       int followersPage,
       int friendsPage,
       PubRepository pubRepository,
+      UserRepository userRepository,
       CommunityDto pubFollowers,
       CommunityDto pubFriends,
       int pubFollowersCount,
@@ -89,6 +91,7 @@ class _$ClubCommunityStateCopyWithImpl<$Res, $Val extends ClubCommunityState>
     Object? followersPage = null,
     Object? friendsPage = null,
     Object? pubRepository = null,
+    Object? userRepository = null,
     Object? pubFollowers = null,
     Object? pubFriends = null,
     Object? pubFollowersCount = null,
@@ -131,6 +134,10 @@ class _$ClubCommunityStateCopyWithImpl<$Res, $Val extends ClubCommunityState>
           ? _value.pubRepository
           : pubRepository // ignore: cast_nullable_to_non_nullable
               as PubRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       pubFollowers: null == pubFollowers
           ? _value.pubFollowers
           : pubFollowers // ignore: cast_nullable_to_non_nullable
@@ -200,6 +207,7 @@ abstract class _$$ClubCommunityStateImplCopyWith<$Res>
       int followersPage,
       int friendsPage,
       PubRepository pubRepository,
+      UserRepository userRepository,
       CommunityDto pubFollowers,
       CommunityDto pubFriends,
       int pubFollowersCount,
@@ -234,6 +242,7 @@ class __$$ClubCommunityStateImplCopyWithImpl<$Res>
     Object? followersPage = null,
     Object? friendsPage = null,
     Object? pubRepository = null,
+    Object? userRepository = null,
     Object? pubFollowers = null,
     Object? pubFriends = null,
     Object? pubFollowersCount = null,
@@ -276,6 +285,10 @@ class __$$ClubCommunityStateImplCopyWithImpl<$Res>
           ? _value.pubRepository
           : pubRepository // ignore: cast_nullable_to_non_nullable
               as PubRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       pubFollowers: null == pubFollowers
           ? _value.pubFollowers
           : pubFollowers // ignore: cast_nullable_to_non_nullable
@@ -324,6 +337,7 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
       required this.followersPage,
       required this.friendsPage,
       required this.pubRepository,
+      required this.userRepository,
       required this.pubFollowers,
       required this.pubFriends,
       required this.pubFollowersCount,
@@ -350,6 +364,8 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
   @override
   final PubRepository pubRepository;
   @override
+  final UserRepository userRepository;
+  @override
   final CommunityDto pubFollowers;
   @override
   final CommunityDto pubFriends;
@@ -368,7 +384,7 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
 
   @override
   String toString() {
-    return 'ClubCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, clubId: $clubId, followersPage: $followersPage, friendsPage: $friendsPage, pubRepository: $pubRepository, pubFollowers: $pubFollowers, pubFriends: $pubFriends, pubFollowersCount: $pubFollowersCount, scrollController: $scrollController, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
+    return 'ClubCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, clubId: $clubId, followersPage: $followersPage, friendsPage: $friendsPage, pubRepository: $pubRepository, userRepository: $userRepository, pubFollowers: $pubFollowers, pubFriends: $pubFriends, pubFollowersCount: $pubFollowersCount, scrollController: $scrollController, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
   }
 
   @override
@@ -391,6 +407,8 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
                 other.friendsPage == friendsPage) &&
             (identical(other.pubRepository, pubRepository) ||
                 other.pubRepository == pubRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.pubFollowers, pubFollowers) ||
                 other.pubFollowers == pubFollowers) &&
             (identical(other.pubFriends, pubFriends) ||
@@ -422,6 +440,7 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
       followersPage,
       friendsPage,
       pubRepository,
+      userRepository,
       pubFollowers,
       pubFriends,
       pubFollowersCount,
@@ -449,6 +468,7 @@ abstract class _ClubCommunityState implements ClubCommunityState {
       required final int followersPage,
       required final int friendsPage,
       required final PubRepository pubRepository,
+      required final UserRepository userRepository,
       required final CommunityDto pubFollowers,
       required final CommunityDto pubFriends,
       required final int pubFollowersCount,
@@ -474,6 +494,8 @@ abstract class _ClubCommunityState implements ClubCommunityState {
   int get friendsPage;
   @override
   PubRepository get pubRepository;
+  @override
+  UserRepository get userRepository;
   @override
   CommunityDto get pubFollowers;
   @override

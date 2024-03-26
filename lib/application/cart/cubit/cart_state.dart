@@ -7,8 +7,6 @@ class CartState with _$CartState {
     required bool isSuccessful,
     required bool isFailed,
     required bool noUse,
-    required List<String> imageList,
-    required int selectedImageIndex,
   }) = _CartState;
 
   factory CartState.initial() => const CartState(
@@ -16,14 +14,5 @@ class CartState with _$CartState {
         isLoading: false,
         isFailed: false,
         isSuccessful: false,
-        imageList: [
-          AssetConstants.homeBobsBarImg,
-          AssetConstants.homeBobsBarImg,
-          AssetConstants.homeBobsBarImg,
-          AssetConstants.homeBobsBarImg,
-          AssetConstants.homeBobsBarImg,
-          AssetConstants.homeBobsBarImg,
-        ],
-        selectedImageIndex: 0,
       );
 }

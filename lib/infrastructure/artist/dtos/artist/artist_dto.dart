@@ -2,9 +2,9 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../core/dtos/tag/tag_dto.dart';
 import '../artist_category/artist_category_dto.dart';
 import '../artist_extra_details/artist_extra_details_dto.dart';
-import '../artist_tag/artist_tag_dto.dart';
 
 
 part 'artist_dto.freezed.dart';
@@ -18,7 +18,7 @@ class ArtistDto with _$ArtistDto {
     @JsonKey(name: 'description', defaultValue: '') required String description,
     @JsonKey(name: 'category', defaultValue: []) required List<ArtistCategoryDto> categories,
     @JsonKey(name: 'city', defaultValue: '') required String city,
-    @JsonKey(name: 'tag', defaultValue: null) ArtistTagDto? tag,
+    @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
     @JsonKey(name: 'extraDetails', defaultValue: null) ArtistExtraDetailsDto? extraDetailsDto,
   }) = _ArtistDto;
 

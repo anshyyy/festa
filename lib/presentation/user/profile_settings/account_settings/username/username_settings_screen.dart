@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../application/user/username_settings/username_settings_cubit.dart';
+import '../../../../../domain/core/configs/app_config.dart';
 import '../../../../../domain/core/configs/injection.dart';
 import '../../../../../domain/core/constants/asset_constants.dart';
 import '../../../../../domain/core/constants/string_constants.dart';
@@ -13,12 +15,15 @@ import '../../../../widgets/custom_textfield.dart';
 import '../../../../widgets/gradient_button.dart';
 
 class UsernameSettingsScreen extends StatelessWidget {
-  const UsernameSettingsScreen({super.key});
+  final String username;
+  const UsernameSettingsScreen({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
+    final AppConfig appConfig = AppConfig.of(context)!;
     return BlocProvider(
-      create: (context) => UsernameSettingsCubit(),
+      create: (context) => UsernameSettingsCubit(UsernameSettingsState.initial(
+          serverUrl: appConfig.serverUrl, username: username)),
       child: const UsernameSettingsScreenConsumer(),
     );
   }
@@ -34,10 +39,21 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
     final textTheme = themeData.textTheme;
+    final AppStateNotifier appStateNotifier =
+        Provider.of<AppStateNotifier>(context);
 
     return BlocConsumer<UsernameSettingsCubit, UsernameSettingsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (!state.isUsernameUpdateFailure && state.isUsernameUpdateSuccess) {
+          if (state.user != null) {
+            appStateNotifier.updateAfterAuthChange(
+              user: state.user,
+              isAuthorized: true,
+            );
+          }
+
+          // navigator<NavigationService>().goBack();
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -61,11 +77,29 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                 CustomTextField(
                   controller: state.usernameInputController,
                   borderLess: true,
-                  suffixIcon: GestureDetector(
-                      onTap: () {
-                        context.read<UsernameSettingsCubit>().clearTextField();
-                      },
-                      child: SvgPicture.asset(AssetConstants.closeIcon)),
+                  suffixIcon: state.isLoading
+                      ? Image.asset(
+                        AssetConstants.bubbleLoader,
+                        height: 3.5.h,
+                      )
+                      : state.isUsernameUpdateSuccess
+                          ? SvgPicture.asset(
+                              AssetConstants.circledTick,
+                              height: 3.h,
+                              color: colorScheme.inversePrimary,
+                            )
+                          : state.isUsernameUpdateFailure ? SvgPicture.asset(
+                              AssetConstants.stopIcon,
+                              height: 3.h,
+                              color: colorScheme.error,
+                            ): GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<UsernameSettingsCubit>()
+                                    .clearTextField();
+                              },
+                              child:
+                                  SvgPicture.asset(AssetConstants.closeIcon)),
                   hintText: UsernameScreenConstants.typeHere,
                   hintTextStyle: textTheme.bodyLarge!.copyWith(
                       color: colorScheme.secondaryContainer.withOpacity(.5)),
@@ -74,19 +108,13 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                   // isUpload: true,
                   textStyle: textTheme.bodyLarge!
                       .copyWith(color: colorScheme.background),
-                  // errorStyle:
-                  //     textTheme.bodySmall!.copyWith(color: colorScheme.error),
-                  // validator: (value) {
-                  //   bool hasError = false;
-
-                  //   if (value!.isEmpty || value.length < 6) {
-                  //     hasError = true;
-                  //   }
-                  //   context
-                  //       .read<UsernameSettingsCubit>()
-                  //       .hasError(errorFlag: hasError);
-                  //   return hasError ? ErrorConstants.invalidEmail : '';
-                  // },
+                  onChanged: (text) {
+                    context
+                        .read<UsernameSettingsCubit>()
+                        .onUsernameChange(text: text);
+                  },
+                  errorStyle:
+                      textTheme.bodySmall!.copyWith(color: colorScheme.error),
                 ),
                 SizedBox(
                   height: state.hasError ? 2.h : 0,
@@ -123,22 +151,18 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                 ),
                 const Spacer(),
                 GradientButton(
+                  isEnabled: state.isUpdateEnabled ,
                   text: UsernameSettingsScreenConstants.updateUsername,
                   onTap: () {
-                    context
-                        .read<UsernameSettingsCubit>()
-                        .showUsernameErrorToast();
+                    context.read<UsernameSettingsCubit>().onUpdateUsername();
                   },
                   // isEnabled: state.usernameInputController.text.isNotEmpty &&
                   //     !state.hasError,
                   textStyle: textTheme.bodySmall!.copyWith(
                     fontSize: 15.5.sp,
-                    color: 
-                    // state.usernameInputController.text.isEmpty ||
-                    //         state.hasError
-                    //     ? colorScheme.secondaryContainer
-                    //     :
-                        colorScheme.background,
+                    color: !state.isUpdateEnabled
+                        ? colorScheme.secondaryContainer
+                        : colorScheme.background,
                     fontWeight: FontWeight.w600,
                   ),
                   height: 5.5.h,

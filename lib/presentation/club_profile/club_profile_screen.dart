@@ -8,7 +8,6 @@ import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
-import '../widgets/custom_appbar.dart';
 import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
 import 'widgets/media_viewer_tabs.dart';

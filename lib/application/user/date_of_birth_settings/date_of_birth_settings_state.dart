@@ -6,18 +6,23 @@ class DateOfBirthSettingsState with _$DateOfBirthSettingsState {
     required bool openDatePicker,
     required DateTime selectedDate,
     required DateTime updatedDate,
+    required String currentDob,
+    required UserRepository userRepository,
+    UserDto? user,
+    required bool isLoading,
   }) = _DateOfBirthSettingsState;
-  factory DateOfBirthSettingsState.initial() => DateOfBirthSettingsState(
+  factory DateOfBirthSettingsState.initial({
+    required String dob,
+    required String serverUrl,
+  }) =>
+      DateOfBirthSettingsState(
         openDatePicker: false,
-        selectedDate: DateTime(
-          2010,
-          DateTime.now().month,
-          DateTime.now().day,
-        ),
-        updatedDate: DateTime(
-          2010,
-          DateTime.now().month,
-          DateTime.now().day,
+        isLoading: false,
+        selectedDate: GenericHelpers().getDatetimeFromString(dob),
+        updatedDate: GenericHelpers().getDatetimeFromString(dob),
+        currentDob: dob,
+        userRepository: IUserRepository(
+          serverUrl: serverUrl,
         ),
       );
 }

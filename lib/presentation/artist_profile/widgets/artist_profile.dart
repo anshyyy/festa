@@ -7,8 +7,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../application/artist/artist_cubit.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/dynamic_link.dart';
 import '../../widgets/gradient_button.dart';
 import 'mutual_followers.dart';
 import 'social_reach.dart';
@@ -110,7 +112,7 @@ class ArtistProfile extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-                       
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:
@@ -161,7 +163,8 @@ class ArtistProfile extends StatelessWidget {
                             navigator<NavigationService>().navigateTo(
                                 UserRoutes.artistCommunityScreenRoute,
                                 queryParams: {
-                                  'artistId': state.artistId.toString()
+                                  'artistId': state.artistId.toString(),
+                                  'artistName':state.artistProfile!.fullName,
                                 });
                           },
                           child: SocialReach(
@@ -196,7 +199,6 @@ class ArtistProfile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
                   state.isFollowing
                       ? Positioned(
                           top: 1.5.h,
@@ -209,33 +211,35 @@ class ArtistProfile extends StatelessWidget {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 3.w, vertical: 2.w
-                              ),
+                                  horizontal: 3.w, vertical: 2.w),
                               decoration: BoxDecoration(
-                                color: colorScheme.secondaryContainer.withOpacity(.2),
-                                borderRadius: BorderRadius.circular(2.w)
-                              ),
+                                  color: colorScheme.secondaryContainer
+                                      .withOpacity(.2),
+                                  borderRadius: BorderRadius.circular(2.w)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Following',
-                                  style:Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  fontSize: 14.sp,
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                  Text(
+                                    'Following',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                          fontSize: 14.sp,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   ),
-                                  SizedBox(width: 1.w,),
+                                  SizedBox(
+                                    width: 1.w,
+                                  ),
                                   SvgPicture.asset(AssetConstants.arrowDown)
                                 ],
                               ),
                             ),
-                          )
-                        )
+                          ))
                       : Positioned(
                           top: 1.5.h,
                           right: 4.5.w,
@@ -266,7 +270,8 @@ class ArtistProfile extends StatelessWidget {
                       height: 15.h,
                       width: 15.w,
                       child: QrImageView(
-                        data: '1234567890',
+                        data: DynamicLinkUtil.generateLink(
+                            AppConstants.artist, state.artistId.toString()),
                         eyeStyle: QrEyeStyle(
                             color: Theme.of(context)
                                 .colorScheme
@@ -275,7 +280,8 @@ class ArtistProfile extends StatelessWidget {
                         dataModuleStyle: QrDataModuleStyle(
                             color: Theme.of(context)
                                 .colorScheme
-                                .secondaryContainer),
+                                .secondaryContainer,
+                                dataModuleShape: QrDataModuleShape.square),
                       ),
                     ),
                   )

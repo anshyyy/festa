@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../application/artist/artist_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
-import '../widgets/custom_appbar.dart';
 import 'widgets/artist_profile.dart';
 import 'widgets/media_viewer_tabs.dart';
 
@@ -41,7 +41,7 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
           body: Stack(
             children: [
               // const ImageCarousel(),
-          
+
               SizedBox.expand(
                 child: DraggableScrollableSheet(
                   initialChildSize: .5,
@@ -51,11 +51,13 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                       controller: scrollController,
                       child: Container(
                         margin: EdgeInsets.only(top: 5.h),
-                        child: const Column(
+                        child: Column(
                           children: [
-                            ArtistProfile(),
+                            const ArtistProfile(),
                             // MediaGrid(),
-                            MediaViewerTabs(),
+                            MediaViewerTabs(
+                              artistId: state.artistId,
+                            ),
                           ],
                         ),
                       ),
@@ -64,16 +66,15 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                 ),
               ),
               Positioned(
-                        top: 15.w,
-                        left: 1.w,
-                        child: GestureDetector(
-                            onTap: () {
-                              navigator<NavigationService>().goBack();
-                            },
-                            child: Center(
-                                child: SvgPicture.asset(
-                                    AssetConstants.arrowLeft))),
-                      ),
+                top: 15.w,
+                left: 1.w,
+                child: GestureDetector(
+                    onTap: () {
+                      navigator<NavigationService>().goBack();
+                    },
+                    child: Center(
+                        child: SvgPicture.asset(AssetConstants.arrowLeft))),
+              ),
             ],
           ),
         );

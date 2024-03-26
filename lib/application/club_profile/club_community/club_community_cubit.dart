@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/pub/pub_repository.dart';
+import '../../../domain/user/user_repository.dart';
 import '../../../infrastructure/core/dtos/community/community_dto.dart';
 import '../../../infrastructure/core/dtos/community_user/community_user_dto.dart';
 import '../../../infrastructure/pub/i_pub_repository.dart';
+import '../../../infrastructure/user/i_user_repository.dart';
 
 part 'club_community_state.dart';
 part 'club_community_cubit.freezed.dart';
@@ -103,5 +105,73 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
     } catch (e) {
       print(e);
     }
+  }
+
+  void followFollower({required int id}) {
+    state.userRepository.followUser(userId: id);
+
+    final List<CommunityUserDto> listOfFollowers =
+        List.from(state.pubFollowers.users.map((e) {
+      if (e.id == id) {
+        return e.copyWith(isFollowing: true);
+      }
+      return e;
+    }));
+
+    emit(state.copyWith(
+        pubFollowers: CommunityDto(
+            totalCount: state.pubFollowers.totalCount,
+            users: listOfFollowers)));
+  }
+
+  void unFollowFollower({required int id}) {
+    state.userRepository.unFollowUser(userId: id);
+
+    final List<CommunityUserDto> listOfFollowers =
+        List.from(state.pubFollowers.users.map((e) {
+      if (e.id == id) {
+        return e.copyWith(isFollowing: false);
+      }
+      return e;
+    }));
+
+    emit(state.copyWith(
+        pubFollowers: CommunityDto(
+            totalCount: state.pubFollowers.totalCount,
+            users: listOfFollowers)));
+  }
+
+  void followFriend({required int id}) {
+    state.userRepository.followUser(userId: id);
+
+    final List<CommunityUserDto> listOfFollowers =
+        List.from(state.pubFollowers.users.map((e) {
+      if (e.id == id) {
+        return e.copyWith(isFollowing: true);
+      }
+      return e;
+    }));
+
+    emit(state.copyWith(
+        pubFollowers: CommunityDto(
+            totalCount: state.pubFollowers.totalCount,
+            users: listOfFollowers)));
+  }
+
+  void unFollowFriend({required int id}) {
+    state.userRepository.unFollowUser(userId: id);
+
+    final List<CommunityUserDto> listOfFollowers =
+        List.from(state.pubFollowers.users.map((e) {
+      if (e.id == id) {
+        return e.copyWith(isFollowing: false);
+      }
+      return e;
+    }));
+
+    emit(state.copyWith(
+        pubFollowers: CommunityDto(
+            totalCount: state.pubFollowers.totalCount,
+            users: listOfFollowers)));
   }
 }

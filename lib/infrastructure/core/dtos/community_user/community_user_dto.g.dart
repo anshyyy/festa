@@ -12,6 +12,10 @@ _$CommunityUserDtoImpl _$$CommunityUserDtoImplFromJson(
       id: json['id'] as int? ?? 0,
       fullName: json['fullName'] as String? ?? '',
       profileImage: json['profileImage'] as String? ?? '',
+      tag: json['tag'] == null
+          ? null
+          : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
+      isFollowing: json['isFollowing'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$CommunityUserDtoImplToJson(
@@ -20,4 +24,6 @@ Map<String, dynamic> _$$CommunityUserDtoImplToJson(
       'id': instance.id,
       'fullName': instance.fullName,
       'profileImage': instance.profileImage,
+      'tag': instance.tag,
+      'isFollowing': instance.isFollowing,
     };

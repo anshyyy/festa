@@ -145,7 +145,7 @@ class IAuthRepository extends AuthRepository {
         throw ErrorConstants.unknownNetworkError;
       }
       final data = jsonDecode(response.body);
-      return UserDto.fromJson(data['userDetails']);
+      return UserDto.fromJson(data);
     } catch (error) {
       return null;
     }

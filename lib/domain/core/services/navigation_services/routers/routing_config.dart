@@ -42,6 +42,7 @@ import '../../../../../presentation/user/profile_settings/edit_profile_screen/ed
 import '../../../../../presentation/user/profile_settings/personalise_your_experience/personalise_experience_screen.dart';
 import '../../../../../presentation/user/profile_settings/profile_and_settings.dart';
 import '../../../../../presentation/user/user_profile_screen.dart';
+import '../../../../../presentation/user/widgets/user_community_screen.dart';
 import '../../../extensions/string_extension.dart';
 import 'route_name.dart';
 
@@ -68,7 +69,20 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const HomeScreen(), settings);
 
     case UserRoutes.userProfileRoute:
-      return _getPageRoute(const UserProfileScreen(), settings);
+      final userId = routingData.queryParameters['userId'] ?? '0';
+
+      return _getPageRoute(
+          UserProfileScreen(
+            userId: int.parse(userId),
+          ),
+          settings);
+
+    case UserRoutes.userCommunityScreenRoute:
+      final userId = routingData.queryParameters['userId'] ?? '0';
+      final username = routingData.queryParameters['username'] ?? '0';
+      return _getPageRoute(
+          UserCommunity(userId: int.parse(userId), username: username),
+          settings);
 
     case UserRoutes.profileAndSettingsRoute:
       return _getPageRoute(const ProfileAndSettingsScreen(), settings);
@@ -80,10 +94,23 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const EditProfileScreen(), settings);
 
     case UserRoutes.accountSettingsRoute:
-      return _getPageRoute(const AccountSettingScreen(), settings);
+      final userId = routingData.queryParameters['userId'] ?? '0';
+      return _getPageRoute(
+        AccountSettingScreen(
+          userId: int.parse(userId),
+        ),
+        settings,
+      );
 
     case UserRoutes.accountPrivacyRoute:
-      return _getPageRoute(const AccountPrivacyScreen(), settings);
+      final isPrivateAccount =
+          routingData.queryParameters['isPrivateAccount']!.toLowerCase() ==
+              'true';
+      return _getPageRoute(
+          AccountPrivacyScreen(
+            isPrivateAccount: isPrivateAccount,
+          ),
+          settings);
 
     case UserRoutes.emailScreenRoute:
       return _getPageRoute(const EmailScreen(), settings);
@@ -116,10 +143,20 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           settings);
 
     case UserRoutes.usernameSettingsScreenRoute:
-      return _getPageRoute(const UsernameSettingsScreen(), settings);
+      final username = routingData.queryParameters['username'];
+      return _getPageRoute(
+          UsernameSettingsScreen(
+            username: username!,
+          ),
+          settings);
 
     case UserRoutes.dateOfBirthSettingsScreenRoute:
-      return _getPageRoute(const DateOfBirthSettingsScreen(), settings);
+      final dob = routingData.queryParameters['dob'] ?? '';
+      return _getPageRoute(
+          DateOfBirthSettingsScreen(
+            dob: dob,
+          ),
+          settings);
 
     case UserRoutes.deleteAccountScreenRoute:
       return _getPageRoute(const DeleteAccountScreen(), settings);
@@ -172,9 +209,11 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.artistCommunityScreenRoute:
       final artistId = routingData.queryParameters['artistId'] ?? '0';
+      final artistName = routingData.queryParameters['artistName'] ?? '0';
       return _getPageRoute(
           ArtistCommunity(
             artistId: int.parse(artistId),
+            fullName: artistName,
           ),
           settings);
 

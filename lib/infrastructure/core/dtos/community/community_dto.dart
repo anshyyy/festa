@@ -10,7 +10,7 @@ part 'community_dto.g.dart';
 @Freezed(makeCollectionsUnmodifiable: false)
 class CommunityDto with _$CommunityDto {
   const factory CommunityDto({
-    @JsonKey(name: 'count', defaultValue: 0) required int totalCount,
+    @JsonKey(name: 'totalCount', defaultValue: 0) required int totalCount,
     @JsonKey(name: 'users', defaultValue: [])
     required List<CommunityUserDto> users,
   }) = _CommunityDto;

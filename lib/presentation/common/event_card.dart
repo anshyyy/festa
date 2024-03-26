@@ -1,15 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
+import 'package:share_plus/share_plus.dart';
 
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
+import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/number_extension.dart';
 import '../../domain/core/extensions/string_extension.dart';
+import '../../domain/core/helpers/generic_helpers.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
@@ -19,7 +20,8 @@ class EventCard extends StatefulWidget {
   final EventDto event;
   final bool isLiked;
   final void Function()? onLike;
-  const EventCard({super.key, required this.event, this.onLike, required this.isLiked});
+  const EventCard(
+      {super.key, required this.event, this.onLike, required this.isLiked});
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -145,9 +147,15 @@ class _EventCardState extends State<EventCard> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 5.w),
-                    child: SvgPicture.asset(AssetConstants.shareIcon),
+                  GestureDetector(
+                    onTap: () {
+                      Share.share(GenericHelpers().getDynamicLink(
+                          AppConstants.event, widget.event.id.toString()));
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 5.w),
+                      child: SvgPicture.asset(AssetConstants.shareIcon),
+                    ),
                   ),
                 ],
               ),

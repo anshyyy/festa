@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import '../../application/main_nav/main_nav_cubit.dart';
+import '../../domain/core/configs/app_config.dart';
 import '../home/home_screen.dart';
 import '../ticket/tickets_screen.dart';
 import '../user/user_profile_screen.dart';
@@ -28,6 +30,8 @@ class MainNavigatorConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStateNotifier appStateNotifier =
+        Provider.of<AppStateNotifier>(context);
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -40,7 +44,9 @@ class MainNavigatorConsumer extends StatelessWidget {
               : state.currentIndex == 2
                   ? const TicketScreen()
                   : state.currentIndex == 3
-                      ? const UserProfileScreen()
+                      ? UserProfileScreen(
+                          userId: appStateNotifier.user!.id,
+                        )
                       : null,
         );
       },

@@ -16,10 +16,19 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UsernameSettingsState {
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isFailure => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
   TextEditingController get usernameInputController =>
       throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   bool get hasError => throw _privateConstructorUsedError;
+  bool get isUpdateEnabled => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
+  String get currentUsername => throw _privateConstructorUsedError;
+  bool get isUsernameUpdateSuccess => throw _privateConstructorUsedError;
+  bool get isUsernameUpdateFailure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UsernameSettingsStateCopyWith<UsernameSettingsState> get copyWith =>
@@ -33,9 +42,20 @@ abstract class $UsernameSettingsStateCopyWith<$Res> {
       _$UsernameSettingsStateCopyWithImpl<$Res, UsernameSettingsState>;
   @useResult
   $Res call(
-      {TextEditingController usernameInputController,
+      {bool isLoading,
+      bool isFailure,
+      bool isSuccess,
+      TextEditingController usernameInputController,
       bool noUse,
-      bool hasError});
+      bool hasError,
+      bool isUpdateEnabled,
+      UserRepository userRepository,
+      UserDto? user,
+      String currentUsername,
+      bool isUsernameUpdateSuccess,
+      bool isUsernameUpdateFailure});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -52,11 +72,32 @@ class _$UsernameSettingsStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isFailure = null,
+    Object? isSuccess = null,
     Object? usernameInputController = null,
     Object? noUse = null,
     Object? hasError = null,
+    Object? isUpdateEnabled = null,
+    Object? userRepository = null,
+    Object? user = freezed,
+    Object? currentUsername = null,
+    Object? isUsernameUpdateSuccess = null,
+    Object? isUsernameUpdateFailure = null,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
       usernameInputController: null == usernameInputController
           ? _value.usernameInputController
           : usernameInputController // ignore: cast_nullable_to_non_nullable
@@ -69,7 +110,43 @@ class _$UsernameSettingsStateCopyWithImpl<$Res,
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isUpdateEnabled: null == isUpdateEnabled
+          ? _value.isUpdateEnabled
+          : isUpdateEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
+      currentUsername: null == currentUsername
+          ? _value.currentUsername
+          : currentUsername // ignore: cast_nullable_to_non_nullable
+              as String,
+      isUsernameUpdateSuccess: null == isUsernameUpdateSuccess
+          ? _value.isUsernameUpdateSuccess
+          : isUsernameUpdateSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUsernameUpdateFailure: null == isUsernameUpdateFailure
+          ? _value.isUsernameUpdateFailure
+          : isUsernameUpdateFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -83,9 +160,21 @@ abstract class _$$UsernameSettingsStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {TextEditingController usernameInputController,
+      {bool isLoading,
+      bool isFailure,
+      bool isSuccess,
+      TextEditingController usernameInputController,
       bool noUse,
-      bool hasError});
+      bool hasError,
+      bool isUpdateEnabled,
+      UserRepository userRepository,
+      UserDto? user,
+      String currentUsername,
+      bool isUsernameUpdateSuccess,
+      bool isUsernameUpdateFailure});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -100,11 +189,32 @@ class __$$UsernameSettingsStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
+    Object? isFailure = null,
+    Object? isSuccess = null,
     Object? usernameInputController = null,
     Object? noUse = null,
     Object? hasError = null,
+    Object? isUpdateEnabled = null,
+    Object? userRepository = null,
+    Object? user = freezed,
+    Object? currentUsername = null,
+    Object? isUsernameUpdateSuccess = null,
+    Object? isUsernameUpdateFailure = null,
   }) {
     return _then(_$UsernameSettingsStateImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
       usernameInputController: null == usernameInputController
           ? _value.usernameInputController
           : usernameInputController // ignore: cast_nullable_to_non_nullable
@@ -117,6 +227,30 @@ class __$$UsernameSettingsStateImplCopyWithImpl<$Res>
           ? _value.hasError
           : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
+      isUpdateEnabled: null == isUpdateEnabled
+          ? _value.isUpdateEnabled
+          : isUpdateEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
+      currentUsername: null == currentUsername
+          ? _value.currentUsername
+          : currentUsername // ignore: cast_nullable_to_non_nullable
+              as String,
+      isUsernameUpdateSuccess: null == isUsernameUpdateSuccess
+          ? _value.isUsernameUpdateSuccess
+          : isUsernameUpdateSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUsernameUpdateFailure: null == isUsernameUpdateFailure
+          ? _value.isUsernameUpdateFailure
+          : isUsernameUpdateFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -125,20 +259,47 @@ class __$$UsernameSettingsStateImplCopyWithImpl<$Res>
 
 class _$UsernameSettingsStateImpl implements _UsernameSettingsState {
   _$UsernameSettingsStateImpl(
-      {required this.usernameInputController,
+      {required this.isLoading,
+      required this.isFailure,
+      required this.isSuccess,
+      required this.usernameInputController,
       required this.noUse,
-      required this.hasError});
+      required this.hasError,
+      required this.isUpdateEnabled,
+      required this.userRepository,
+      this.user,
+      required this.currentUsername,
+      required this.isUsernameUpdateSuccess,
+      required this.isUsernameUpdateFailure});
 
+  @override
+  final bool isLoading;
+  @override
+  final bool isFailure;
+  @override
+  final bool isSuccess;
   @override
   final TextEditingController usernameInputController;
   @override
   final bool noUse;
   @override
   final bool hasError;
+  @override
+  final bool isUpdateEnabled;
+  @override
+  final UserRepository userRepository;
+  @override
+  final UserDto? user;
+  @override
+  final String currentUsername;
+  @override
+  final bool isUsernameUpdateSuccess;
+  @override
+  final bool isUsernameUpdateFailure;
 
   @override
   String toString() {
-    return 'UsernameSettingsState(usernameInputController: $usernameInputController, noUse: $noUse, hasError: $hasError)';
+    return 'UsernameSettingsState(isLoading: $isLoading, isFailure: $isFailure, isSuccess: $isSuccess, usernameInputController: $usernameInputController, noUse: $noUse, hasError: $hasError, isUpdateEnabled: $isUpdateEnabled, userRepository: $userRepository, user: $user, currentUsername: $currentUsername, isUsernameUpdateSuccess: $isUsernameUpdateSuccess, isUsernameUpdateFailure: $isUsernameUpdateFailure)';
   }
 
   @override
@@ -146,17 +307,48 @@ class _$UsernameSettingsStateImpl implements _UsernameSettingsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UsernameSettingsStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isFailure, isFailure) ||
+                other.isFailure == isFailure) &&
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess) &&
             (identical(
                     other.usernameInputController, usernameInputController) ||
                 other.usernameInputController == usernameInputController) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.hasError, hasError) ||
-                other.hasError == hasError));
+                other.hasError == hasError) &&
+            (identical(other.isUpdateEnabled, isUpdateEnabled) ||
+                other.isUpdateEnabled == isUpdateEnabled) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.currentUsername, currentUsername) ||
+                other.currentUsername == currentUsername) &&
+            (identical(
+                    other.isUsernameUpdateSuccess, isUsernameUpdateSuccess) ||
+                other.isUsernameUpdateSuccess == isUsernameUpdateSuccess) &&
+            (identical(
+                    other.isUsernameUpdateFailure, isUsernameUpdateFailure) ||
+                other.isUsernameUpdateFailure == isUsernameUpdateFailure));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, usernameInputController, noUse, hasError);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      isFailure,
+      isSuccess,
+      usernameInputController,
+      noUse,
+      hasError,
+      isUpdateEnabled,
+      userRepository,
+      user,
+      currentUsername,
+      isUsernameUpdateSuccess,
+      isUsernameUpdateFailure);
 
   @JsonKey(ignore: true)
   @override
@@ -168,16 +360,44 @@ class _$UsernameSettingsStateImpl implements _UsernameSettingsState {
 
 abstract class _UsernameSettingsState implements UsernameSettingsState {
   factory _UsernameSettingsState(
-      {required final TextEditingController usernameInputController,
-      required final bool noUse,
-      required final bool hasError}) = _$UsernameSettingsStateImpl;
+          {required final bool isLoading,
+          required final bool isFailure,
+          required final bool isSuccess,
+          required final TextEditingController usernameInputController,
+          required final bool noUse,
+          required final bool hasError,
+          required final bool isUpdateEnabled,
+          required final UserRepository userRepository,
+          final UserDto? user,
+          required final String currentUsername,
+          required final bool isUsernameUpdateSuccess,
+          required final bool isUsernameUpdateFailure}) =
+      _$UsernameSettingsStateImpl;
 
+  @override
+  bool get isLoading;
+  @override
+  bool get isFailure;
+  @override
+  bool get isSuccess;
   @override
   TextEditingController get usernameInputController;
   @override
   bool get noUse;
   @override
   bool get hasError;
+  @override
+  bool get isUpdateEnabled;
+  @override
+  UserRepository get userRepository;
+  @override
+  UserDto? get user;
+  @override
+  String get currentUsername;
+  @override
+  bool get isUsernameUpdateSuccess;
+  @override
+  bool get isUsernameUpdateFailure;
   @override
   @JsonKey(ignore: true)
   _$$UsernameSettingsStateImplCopyWith<_$UsernameSettingsStateImpl>

@@ -95,8 +95,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         final themeData = Theme.of(context);
-        final colorScheme = themeData.colorScheme;
-        final textTheme = themeData.textTheme;
+        // final colorScheme = themeData.colorScheme;
+        // final textTheme = themeData.textTheme;
 
         return Scaffold(
           appBar: CustomAppBar(
@@ -351,7 +351,12 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                             : () {
                                                 navigator<NavigationService>()
                                                     .navigateTo(currentMenu
-                                                        .navigationRoute);
+                                                        .navigationRoute,
+                                                         queryParams: {
+                                                    'userId': state.user!.id
+                                                        .toString()
+                                                  }
+                                                        );
                                               });
                                   },
                                 ),
@@ -450,10 +455,17 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       onTap: currentMenu.navigationRoute.isEmpty
                                           ? null
                                           : () {
-                                              context.read<ProfileCubit>().clearMenuSearch();
+                                              context
+                                                  .read<ProfileCubit>()
+                                                  .clearMenuSearch();
                                               navigator<NavigationService>()
-                                                  .navigateTo(currentMenu
-                                                      .navigationRoute);
+                                                  .navigateTo(
+                                                      currentMenu
+                                                          .navigationRoute,
+                                                      queryParams: {
+                                                    'userId': state.user!.id
+                                                        .toString()
+                                                  });
                                             },
                                     );
                                   },

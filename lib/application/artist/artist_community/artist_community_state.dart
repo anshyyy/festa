@@ -8,8 +8,10 @@ class ArtistCommunityState with _$ArtistCommunityState {
     required bool isFailed,
     required bool isSuccessful,
     required int artistId,
+    required String artistName,
     required int page,
     required ArtistRepository artistRepository,
+    required UserRepository userRepository,
     CommunityDto? artistFollowers,
     CommunityDto? artistFriends,
     required ScrollController followersScrollController,
@@ -21,6 +23,7 @@ class ArtistCommunityState with _$ArtistCommunityState {
   factory ArtistCommunityState.initial({
     required int artistId,
     required String serverUrl,
+    required String artistName,
   }) =>
       ArtistCommunityState(
         isFollowersFetching: false,
@@ -28,10 +31,12 @@ class ArtistCommunityState with _$ArtistCommunityState {
         isFailed: false,
         isSuccessful: false,
         artistId: artistId,
+        artistName: artistName,
         page: 1,
         followersScrollController: ScrollController(),
         friendsScrollController: ScrollController(),
         artistRepository: IArtistRepository(serverUrl: serverUrl),
+        userRepository: IUserRepository(serverUrl: serverUrl),
         hasMoreFollowers:true,
         hasMoreFriends:true,
       );

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -5,7 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/core_repository.dart';
+import '../../domain/core/services/network_service/rest_service.dart';
 
 class ICoreRepository extends CoreRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -40,6 +43,26 @@ class ICoreRepository extends CoreRepository {
       return Right(downloadUrl); // Return the download URL on success
     } catch (e) {
       return Left(e.toString()); // Return error message on failure
+    }
+  }
+
+  @override
+  Future<String> uploadFile({required File file}) async {
+    try {
+      final url = '$serverUrl${CoreApiConstants.UPLOAD}';
+      final response =
+          await RESTService.performPOSTMediaRequest(httpUrl: url, file: file);
+
+      // if (response.statusCode != 200) {
+      //   return '';
+      // }
+
+      final body = response.body;
+      final mediaUrlRaw = jsonDecode(body) as Map<String, dynamic>;
+      final mediaUrl = mediaUrlRaw['url'];
+      return mediaUrl ?? '';
+    } catch (e) {
+      return '';
     }
   }
 }

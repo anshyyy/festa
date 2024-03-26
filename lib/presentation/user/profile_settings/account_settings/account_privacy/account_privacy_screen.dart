@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../application/user/account_privacy/account_privacy_cubit.dart';
+import '../../../../../domain/core/configs/app_config.dart';
 import '../../../../../domain/core/configs/injection.dart';
 import '../../../../../domain/core/constants/asset_constants.dart';
 import '../../../../../domain/core/constants/string_constants.dart';
@@ -12,15 +14,20 @@ import '../../../../widgets/custom_appbar.dart';
 import 'widgets/account_privacy_modal_sheet.dart';
 
 class AccountPrivacyScreen extends StatelessWidget {
-  const AccountPrivacyScreen({super.key});
+  final bool isPrivateAccount;
+  const AccountPrivacyScreen({super.key, required this.isPrivateAccount});
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
     final textTheme = themeData.textTheme;
+
+    final AppConfig appConfig = AppConfig.of(context)!;
+
     return BlocProvider(
-      create: (context) => AccountPrivacyCubit(),
+      create: (context) => AccountPrivacyCubit(AccountPrivacyState.initial(
+          serverUrl: appConfig.serverUrl, isPrivate: isPrivateAccount)),
       child: AccountPrivacyScreenConsumer(
         textTheme: textTheme,
         colorScheme: colorScheme,
@@ -44,6 +51,13 @@ class AccountPrivacyScreenConsumer extends StatelessWidget {
     return BlocConsumer<AccountPrivacyCubit, AccountPrivacyState>(
       listener: (context, state) {
         // TODO: implement listener
+        if (state.user != null) {
+          Provider.of<AppStateNotifier>(context, listen: false)
+              .updateAfterAuthChange(
+            isAuthorized: true,
+            user: state.user,
+          );
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -75,9 +89,9 @@ class AccountPrivacyScreenConsumer extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        context
-                            .read<AccountPrivacyCubit>()
-                            .switchAccount(isPrivate: !state.isPrivate);
+                        // context
+                        //     .read<AccountPrivacyCubit>()
+                        //     .switchAccount(isPrivate: !state.isPrivate);
                         !state.isPrivate
                             ? showModalBottomSheet(
                                 context: context,
@@ -100,9 +114,9 @@ class AccountPrivacyScreenConsumer extends StatelessWidget {
                               ).then((value) {
                                 final bool isPrivate = value ?? state.isPrivate;
 
-                                  context
-                                      .read<AccountPrivacyCubit>()
-                                      .switchAccount(isPrivate: isPrivate);
+                                context
+                                    .read<AccountPrivacyCubit>()
+                                    .switchAccount(isPrivate: isPrivate);
                               })
                             : showModalBottomSheet(
                                 context: context,

@@ -20,8 +20,6 @@ mixin _$CartState {
   bool get isSuccessful => throw _privateConstructorUsedError;
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
-  List<String> get imageList => throw _privateConstructorUsedError;
-  int get selectedImageIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartStateCopyWith<CartState> get copyWith =>
@@ -33,13 +31,7 @@ abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
       _$CartStateCopyWithImpl<$Res, CartState>;
   @useResult
-  $Res call(
-      {bool isLoading,
-      bool isSuccessful,
-      bool isFailed,
-      bool noUse,
-      List<String> imageList,
-      int selectedImageIndex});
+  $Res call({bool isLoading, bool isSuccessful, bool isFailed, bool noUse});
 }
 
 /// @nodoc
@@ -59,8 +51,6 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
     Object? isSuccessful = null,
     Object? isFailed = null,
     Object? noUse = null,
-    Object? imageList = null,
-    Object? selectedImageIndex = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -79,14 +69,6 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
-      imageList: null == imageList
-          ? _value.imageList
-          : imageList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      selectedImageIndex: null == selectedImageIndex
-          ? _value.selectedImageIndex
-          : selectedImageIndex // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -99,13 +81,7 @@ abstract class _$$CartStateImplCopyWith<$Res>
       __$$CartStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool isLoading,
-      bool isSuccessful,
-      bool isFailed,
-      bool noUse,
-      List<String> imageList,
-      int selectedImageIndex});
+  $Res call({bool isLoading, bool isSuccessful, bool isFailed, bool noUse});
 }
 
 /// @nodoc
@@ -123,8 +99,6 @@ class __$$CartStateImplCopyWithImpl<$Res>
     Object? isSuccessful = null,
     Object? isFailed = null,
     Object? noUse = null,
-    Object? imageList = null,
-    Object? selectedImageIndex = null,
   }) {
     return _then(_$CartStateImpl(
       isLoading: null == isLoading
@@ -143,14 +117,6 @@ class __$$CartStateImplCopyWithImpl<$Res>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
-      imageList: null == imageList
-          ? _value._imageList
-          : imageList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      selectedImageIndex: null == selectedImageIndex
-          ? _value.selectedImageIndex
-          : selectedImageIndex // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -162,10 +128,7 @@ class _$CartStateImpl implements _CartState {
       {required this.isLoading,
       required this.isSuccessful,
       required this.isFailed,
-      required this.noUse,
-      required final List<String> imageList,
-      required this.selectedImageIndex})
-      : _imageList = imageList;
+      required this.noUse});
 
   @override
   final bool isLoading;
@@ -175,20 +138,10 @@ class _$CartStateImpl implements _CartState {
   final bool isFailed;
   @override
   final bool noUse;
-  final List<String> _imageList;
-  @override
-  List<String> get imageList {
-    if (_imageList is EqualUnmodifiableListView) return _imageList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imageList);
-  }
-
-  @override
-  final int selectedImageIndex;
 
   @override
   String toString() {
-    return 'CartState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, imageList: $imageList, selectedImageIndex: $selectedImageIndex)';
+    return 'CartState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse)';
   }
 
   @override
@@ -202,22 +155,12 @@ class _$CartStateImpl implements _CartState {
                 other.isSuccessful == isSuccessful) &&
             (identical(other.isFailed, isFailed) ||
                 other.isFailed == isFailed) &&
-            (identical(other.noUse, noUse) || other.noUse == noUse) &&
-            const DeepCollectionEquality()
-                .equals(other._imageList, _imageList) &&
-            (identical(other.selectedImageIndex, selectedImageIndex) ||
-                other.selectedImageIndex == selectedImageIndex));
+            (identical(other.noUse, noUse) || other.noUse == noUse));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      isSuccessful,
-      isFailed,
-      noUse,
-      const DeepCollectionEquality().hash(_imageList),
-      selectedImageIndex);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoading, isSuccessful, isFailed, noUse);
 
   @JsonKey(ignore: true)
   @override
@@ -231,9 +174,7 @@ abstract class _CartState implements CartState {
       {required final bool isLoading,
       required final bool isSuccessful,
       required final bool isFailed,
-      required final bool noUse,
-      required final List<String> imageList,
-      required final int selectedImageIndex}) = _$CartStateImpl;
+      required final bool noUse}) = _$CartStateImpl;
 
   @override
   bool get isLoading;
@@ -243,10 +184,6 @@ abstract class _CartState implements CartState {
   bool get isFailed;
   @override
   bool get noUse;
-  @override
-  List<String> get imageList;
-  @override
-  int get selectedImageIndex;
   @override
   @JsonKey(ignore: true)
   _$$CartStateImplCopyWith<_$CartStateImpl> get copyWith =>

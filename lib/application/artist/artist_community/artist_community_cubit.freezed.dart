@@ -21,8 +21,10 @@ mixin _$ArtistCommunityState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
   int get artistId => throw _privateConstructorUsedError;
+  String get artistName => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   ArtistRepository get artistRepository => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
   CommunityDto? get artistFollowers => throw _privateConstructorUsedError;
   CommunityDto? get artistFriends => throw _privateConstructorUsedError;
   ScrollController get followersScrollController =>
@@ -49,8 +51,10 @@ abstract class $ArtistCommunityStateCopyWith<$Res> {
       bool isFailed,
       bool isSuccessful,
       int artistId,
+      String artistName,
       int page,
       ArtistRepository artistRepository,
+      UserRepository userRepository,
       CommunityDto? artistFollowers,
       CommunityDto? artistFriends,
       ScrollController followersScrollController,
@@ -81,8 +85,10 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
     Object? isFailed = null,
     Object? isSuccessful = null,
     Object? artistId = null,
+    Object? artistName = null,
     Object? page = null,
     Object? artistRepository = null,
+    Object? userRepository = null,
     Object? artistFollowers = freezed,
     Object? artistFriends = freezed,
     Object? followersScrollController = null,
@@ -111,6 +117,10 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as int,
+      artistName: null == artistName
+          ? _value.artistName
+          : artistName // ignore: cast_nullable_to_non_nullable
+              as String,
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -119,6 +129,10 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
               as ArtistRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       artistFollowers: freezed == artistFollowers
           ? _value.artistFollowers
           : artistFollowers // ignore: cast_nullable_to_non_nullable
@@ -185,8 +199,10 @@ abstract class _$$ArtistCommunityStateImplCopyWith<$Res>
       bool isFailed,
       bool isSuccessful,
       int artistId,
+      String artistName,
       int page,
       ArtistRepository artistRepository,
+      UserRepository userRepository,
       CommunityDto? artistFollowers,
       CommunityDto? artistFriends,
       ScrollController followersScrollController,
@@ -216,8 +232,10 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? isSuccessful = null,
     Object? artistId = null,
+    Object? artistName = null,
     Object? page = null,
     Object? artistRepository = null,
+    Object? userRepository = null,
     Object? artistFollowers = freezed,
     Object? artistFriends = freezed,
     Object? followersScrollController = null,
@@ -246,6 +264,10 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as int,
+      artistName: null == artistName
+          ? _value.artistName
+          : artistName // ignore: cast_nullable_to_non_nullable
+              as String,
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -254,6 +276,10 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
               as ArtistRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       artistFollowers: freezed == artistFollowers
           ? _value.artistFollowers
           : artistFollowers // ignore: cast_nullable_to_non_nullable
@@ -291,8 +317,10 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       required this.isFailed,
       required this.isSuccessful,
       required this.artistId,
+      required this.artistName,
       required this.page,
       required this.artistRepository,
+      required this.userRepository,
       this.artistFollowers,
       this.artistFriends,
       required this.followersScrollController,
@@ -311,9 +339,13 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
   @override
   final int artistId;
   @override
+  final String artistName;
+  @override
   final int page;
   @override
   final ArtistRepository artistRepository;
+  @override
+  final UserRepository userRepository;
   @override
   final CommunityDto? artistFollowers;
   @override
@@ -329,7 +361,7 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
 
   @override
   String toString() {
-    return 'ArtistCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, artistId: $artistId, page: $page, artistRepository: $artistRepository, artistFollowers: $artistFollowers, artistFriends: $artistFriends, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
+    return 'ArtistCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, artistId: $artistId, artistName: $artistName, page: $page, artistRepository: $artistRepository, userRepository: $userRepository, artistFollowers: $artistFollowers, artistFriends: $artistFriends, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
   }
 
   @override
@@ -347,9 +379,13 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
                 other.isSuccessful == isSuccessful) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
+            (identical(other.artistName, artistName) ||
+                other.artistName == artistName) &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.artistRepository, artistRepository) ||
                 other.artistRepository == artistRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.artistFollowers, artistFollowers) ||
                 other.artistFollowers == artistFollowers) &&
             (identical(other.artistFriends, artistFriends) ||
@@ -374,8 +410,10 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       isFailed,
       isSuccessful,
       artistId,
+      artistName,
       page,
       artistRepository,
+      userRepository,
       artistFollowers,
       artistFriends,
       followersScrollController,
@@ -399,8 +437,10 @@ abstract class _ArtistCommunityState implements ArtistCommunityState {
       required final bool isFailed,
       required final bool isSuccessful,
       required final int artistId,
+      required final String artistName,
       required final int page,
       required final ArtistRepository artistRepository,
+      required final UserRepository userRepository,
       final CommunityDto? artistFollowers,
       final CommunityDto? artistFriends,
       required final ScrollController followersScrollController,
@@ -419,9 +459,13 @@ abstract class _ArtistCommunityState implements ArtistCommunityState {
   @override
   int get artistId;
   @override
+  String get artistName;
+  @override
   int get page;
   @override
   ArtistRepository get artistRepository;
+  @override
+  UserRepository get userRepository;
   @override
   CommunityDto? get artistFollowers;
   @override

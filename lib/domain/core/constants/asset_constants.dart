@@ -128,6 +128,9 @@ class AssetConstants {
   static const pinnedIcon = '${vectorsFolder}pinned-icon.svg';
   static const playButtonIcon = '${vectorsFolder}play-button-icon.svg';
 
+  static const defaultAvatarImage = '${imageFolder}default-avatar.png';
+
+
 
 // eventIconConstants
   static const Map<String, String> extras = {

@@ -21,6 +21,12 @@ class AppConstants {
   static String rupees = '₹';
   static String search = 'Search';
   static int otpTimer = 30;
+
+  static String dynamicUrl='https://festaworld.page.link/?link=https://www.festa.world/<category>/<id>&apn=com.festaworld.app&isi=6478425501&ibi=com.festaworld.app';
+  static String pub = 'pub';
+  static String artist = 'artist';
+  static String event = 'event';
+  static String user = 'user';
 }
 
 class BasicProfileScreenConstants {
@@ -180,6 +186,7 @@ class CartScreenConstants {
 }
 
 class EventScreenConstants {
+  static String event = 'event';
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
   static String viewOnMaps = 'View on maps';
   static String bookTheTickets = 'Book the tickets';
@@ -374,6 +381,7 @@ class UsernameSettingsScreenConstants {
   static String cancel = 'Cancel';
   static String userNameIsntAvailable =
       "This username isn't available, please try another.";
+  static String userNameUpdated = 'Username updated successfully';
 }
 
 class DateOfBirthSettingsScreenConstants {

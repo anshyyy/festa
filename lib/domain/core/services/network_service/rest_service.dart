@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 class RESTService {
   static Future<http.Response> performPOSTRequest({
@@ -32,7 +35,7 @@ class RESTService {
 
     http.StreamedResponse response = await request.send();
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       final resultResponse = await http.Response.fromStream(response);
       return resultResponse;
     } else {
@@ -80,7 +83,6 @@ class RESTService {
       throw resultResponse;
     }
   }
-
 
   static Future<http.Response> performPUTRequest({
     required String httpUrl,
@@ -193,6 +195,61 @@ class RESTService {
       final resultResponse = await http.Response.fromStream(response);
       throw resultResponse;
     }
+  }
+
+  static Future<http.Response> performPOSTMediaRequest({
+    required String httpUrl,
+    required File file,
+  }) async {
+    try {
+      final request = http.MultipartRequest('POST', Uri.parse(httpUrl));
+      final Map<String, String> headers = {
+        "Content-Type": "multipart/form-data",
+      };
+      // request.files.add(await http.MultipartFile.fromPath('file', file.path));
+      request.files.add(
+        await http.MultipartFile(
+          'file',
+          file.readAsBytes().asStream(),
+          file.lengthSync(),
+          filename: 'file_path.png',
+          contentType: MediaType("image", "jpeg"),
+        ),
+      );
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final resultResponse = await http.Response.fromStream(response);
+        return resultResponse;
+      } else {
+        final resultResponse = await http.Response.fromStream(response);
+        throw resultResponse;
+      }
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+
+  //  try {
+  //     final dio = Dio();
+  //  dio.options.contentType = "multipart/form-data";
+  //  final multiPartFile = await MultipartFile.fromFile(
+  //    file.path,
+  //    filename: file.path.split('/').last,
+  //  );
+  //  FormData formData = FormData.fromMap({
+  //    "file": multiPartFile,
+  //  });
+  //  final response = await dio.post(
+  //    httpUrl,
+  //    data: formData,
+  //  );
+  //  return response.data;
+  //  } catch (e) {
+  //    print(e);
+  //    throw e;
+  //  }
   }
 
   static String paramParser({required Map<String, String> param}) {

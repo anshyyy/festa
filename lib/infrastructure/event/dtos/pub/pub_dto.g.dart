@@ -20,7 +20,7 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
           [],
       tag: json['tag'] == null
           ? null
-          : PubTagDto.fromJson(json['tag'] as Map<String, dynamic>),
+          : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
       location: json['address'] == null
           ? null
           : PubLocationDto.fromJson(json['address'] as Map<String, dynamic>),

@@ -75,6 +75,10 @@ static String formatDateTimeNormal(DateTime dateTime) {
     return formatter.format(dateTime);
   }
 
+static String formatDateTimeWithDash(DateTime dateTime) {
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dateTime);
+  }
   static String formatDateTimeLong(DateTime dateTime) {
     DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
     return formatter.format(dateTime);

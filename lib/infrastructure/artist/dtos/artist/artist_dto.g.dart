@@ -19,7 +19,7 @@ _$ArtistDtoImpl _$$ArtistDtoImplFromJson(Map<String, dynamic> json) =>
       city: json['city'] as String? ?? '',
       tag: json['tag'] == null
           ? null
-          : ArtistTagDto.fromJson(json['tag'] as Map<String, dynamic>),
+          : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
       extraDetailsDto: json['extraDetails'] == null
           ? null
           : ArtistExtraDetailsDto.fromJson(

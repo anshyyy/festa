@@ -1,3 +1,7 @@
+class CoreApiConstants {
+  static const UPLOAD = '/upload';
+}
+
 class EventApiConstants {
   static const EVENTS = '/events';
   static const USERS = '/users';
@@ -11,6 +15,11 @@ class EventApiConstants {
 class UserApiConstants {
   static const USERS = '/users';
   static const GET_USER_DETAILS = '$USERS/details';
+  static const FRIENDS = 'friends';
+  static const FOLLOWERS = 'followers';
+  static const DETAILS = 'details';
+  static const PERSONALIZE = '/personalize';
+  static const PERSONALIZE_LIST = '$PERSONALIZE/list';
 }
 
 class AuthApiConstants {
@@ -26,6 +35,8 @@ class ArtistApiConstants {
   static const ARTIST = '/artist';
   static const FOLLOW_ARTIST = '$ARTIST/follow';
   static const UNFOLLOW_ARTIST = '$ARTIST/unfollow';
+  static const LIKE_MUSIC = '$ARTIST/music/like';
+  static const UNLIKE_MUSIC = '$ARTIST/music/unlike';
 }
 
 class NotificationConstants {

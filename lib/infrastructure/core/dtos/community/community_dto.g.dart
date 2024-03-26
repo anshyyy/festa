@@ -8,7 +8,7 @@ part of 'community_dto.dart';
 
 _$CommunityDtoImpl _$$CommunityDtoImplFromJson(Map<String, dynamic> json) =>
     _$CommunityDtoImpl(
-      totalCount: json['count'] as int? ?? 0,
+      totalCount: json['totalCount'] as int? ?? 0,
       users: (json['users'] as List<dynamic>?)
               ?.map((e) => CommunityUserDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -17,6 +17,6 @@ _$CommunityDtoImpl _$$CommunityDtoImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$CommunityDtoImplToJson(_$CommunityDtoImpl instance) =>
     <String, dynamic>{
-      'count': instance.totalCount,
+      'totalCount': instance.totalCount,
       'users': instance.users,
     };

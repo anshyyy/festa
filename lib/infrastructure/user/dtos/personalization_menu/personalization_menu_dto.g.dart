@@ -9,15 +9,17 @@ part of 'personalization_menu_dto.dart';
 _$PersonalizationMenuDtoImpl _$$PersonalizationMenuDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$PersonalizationMenuDtoImpl(
-      icon: json['icon'] as String? ?? '',
       title: json['title'] as String? ?? '',
-      description: json['description'] as String? ?? '',
+      list: (json['list'] as List<dynamic>?)
+              ?.map((e) =>
+                  PersonalizationOptionDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$$PersonalizationMenuDtoImplToJson(
         _$PersonalizationMenuDtoImpl instance) =>
     <String, dynamic>{
-      'icon': instance.icon,
       'title': instance.title,
-      'description': instance.description,
+      'list': instance.list,
     };

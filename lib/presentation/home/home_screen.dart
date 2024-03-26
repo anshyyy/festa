@@ -74,7 +74,7 @@ class HomeScreenConsumer extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             controller: state.scrollController,
                             child: Padding(
-                              padding: EdgeInsets.all(5.w),
+                              padding: EdgeInsets.all(3.w),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:

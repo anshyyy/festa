@@ -10,9 +10,8 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
-import '../../widgets/custom_outlined_button.dart';
+import '../../../domain/core/utils/dynamic_link.dart';
 import '../../widgets/gradient_button.dart';
-import 'mutual_followers.dart';
 import 'social_reach.dart';
 
 class ClubProfile extends StatelessWidget {
@@ -22,7 +21,6 @@ class ClubProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
-    final textTheme = themeData.textTheme;
 
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
@@ -152,9 +150,9 @@ class ClubProfile extends StatelessWidget {
                     thickness: .1.w,
                     // color: Colors.white,
                   ),
-                  state.pub!.extraDetailsDto!.followedBy.isNotEmpty
-                      ? MutualFollowers()
-                      : const SizedBox(),
+                  // state.pub!.extraDetailsDto!.followedBy.isNotEmpty
+                  //     ? MutualFollowers()
+                  //     : const SizedBox(),
                   SizedBox(
                     height: 1.h,
                   ),
@@ -255,18 +253,20 @@ class ClubProfile extends StatelessWidget {
                       ),
                     )),
             Positioned(
-              top: 1.h,
+              top: 1.5.h,
               left: 2.w,
               child: SizedBox(
                 height: 15.h,
                 width: 15.w,
                 child: QrImageView(
-                  data: '1234567890',
+                  data: DynamicLinkUtil.generateLink(AppConstants.pub, state.clubId.toString()),
                   eyeStyle: QrEyeStyle(
                       color: Theme.of(context).colorScheme.secondaryContainer,
                       eyeShape: QrEyeShape.square),
                   dataModuleStyle: QrDataModuleStyle(
-                      color: Theme.of(context).colorScheme.secondaryContainer),
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      dataModuleShape: QrDataModuleShape.square,
+                      ),
                 ),
               ),
             )

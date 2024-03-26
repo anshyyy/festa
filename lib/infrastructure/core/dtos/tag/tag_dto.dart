@@ -2,17 +2,17 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'pub_tag_dto.freezed.dart';
-part 'pub_tag_dto.g.dart';
+part 'tag_dto.freezed.dart';
+part 'tag_dto.g.dart';
 
 @Freezed(makeCollectionsUnmodifiable: false)
-class PubTagDto with _$PubTagDto {
-  const factory PubTagDto({
+class TagDto with _$TagDto {
+  const factory TagDto({
     @JsonKey(name: 'id', defaultValue: 0)
     required int id,
     @JsonKey(name: 'tag', defaultValue: '') required String tag,
-  }) = _PubTagDto;
+  }) = _TagDto;
 
-  factory PubTagDto.fromJson(Map<String, dynamic> json) =>
-      _$PubTagDtoFromJson(json);
+  factory TagDto.fromJson(Map<String, dynamic> json) =>
+      _$TagDtoFromJson(json);
 }

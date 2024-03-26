@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -6,11 +5,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget leading;
   final List<Widget> actions;
-  const CustomAppBar({
+  Color? scaffoldBackgroundColor;
+
+  CustomAppBar({
     super.key,
     required this.title,
     required this.leading,
     required this.actions,
+    this.scaffoldBackgroundColor,
   });
 
   @override
@@ -19,14 +21,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: scaffoldBackgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       leading: leading,
       title: Text(
         title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
-          fontSize: 16.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: Theme.of(context).colorScheme.background,
             ),

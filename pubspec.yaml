@@ -94,6 +94,10 @@ dependencies:
   geolocator: 11.0.0
   device_info_plus: ^9.1.2
   easy_debounce: ^2.0.3
+  share_plus: ^7.2.2
+  firebase_dynamic_links: ^5.4.9
+  dio: ^5.4.2
+  http_parser: ^4.0.2
 
 dev_dependencies:
   flutter_test:

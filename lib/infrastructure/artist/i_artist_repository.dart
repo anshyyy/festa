@@ -9,6 +9,7 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
 import '../core/dtos/community/community_dto.dart';
 import 'dtos/artist/artist_dto.dart';
+import 'dtos/music/music_dto.dart';
 
 class IArtistRepository extends ArtistRepository {
   final String serverUrl;
@@ -95,6 +96,50 @@ class IArtistRepository extends ArtistRepository {
       return right(artistFriends);
     } catch (e) {
       return left(null);
+    }
+  }
+
+  @override
+  Future<List<MusicDto>> fetchMusicByArtistId({required int id}) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${ArtistApiConstants.ARTIST}/$id/music';
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, isAuth: true, token: token!);
+      if (response.statusCode != 200) {
+        return [];
+      }
+      final body = response.body;
+      final artistMusic = jsonDecode(body) as List;
+      final updatedList =
+          List<MusicDto>.from(artistMusic.map((e) => MusicDto.fromJson(e)));
+      return updatedList;
+    } catch (e) {
+      return [] as List<MusicDto>;
+    }
+  }
+
+  @override
+  void likeMusicById({required int musicId}) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${ArtistApiConstants.LIKE_MUSIC}/$musicId';
+      await RESTService.performPOSTRequest(
+          httpUrl: url, isAuth: true, token: token!);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void unLikeMusicById({required int musicId}) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${ArtistApiConstants.UNLIKE_MUSIC}/$musicId';
+      await RESTService.performPOSTRequest(
+          httpUrl: url, isAuth: true, token: token!);
+    } catch (e) {
+      print(e);
     }
   }
 }

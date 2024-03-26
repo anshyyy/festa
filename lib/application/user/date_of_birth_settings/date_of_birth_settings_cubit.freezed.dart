@@ -19,6 +19,10 @@ mixin _$DateOfBirthSettingsState {
   bool get openDatePicker => throw _privateConstructorUsedError;
   DateTime get selectedDate => throw _privateConstructorUsedError;
   DateTime get updatedDate => throw _privateConstructorUsedError;
+  String get currentDob => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DateOfBirthSettingsStateCopyWith<DateOfBirthSettingsState> get copyWith =>
@@ -31,7 +35,16 @@ abstract class $DateOfBirthSettingsStateCopyWith<$Res> {
           $Res Function(DateOfBirthSettingsState) then) =
       _$DateOfBirthSettingsStateCopyWithImpl<$Res, DateOfBirthSettingsState>;
   @useResult
-  $Res call({bool openDatePicker, DateTime selectedDate, DateTime updatedDate});
+  $Res call(
+      {bool openDatePicker,
+      DateTime selectedDate,
+      DateTime updatedDate,
+      String currentDob,
+      UserRepository userRepository,
+      UserDto? user,
+      bool isLoading});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -51,6 +64,10 @@ class _$DateOfBirthSettingsStateCopyWithImpl<$Res,
     Object? openDatePicker = null,
     Object? selectedDate = null,
     Object? updatedDate = null,
+    Object? currentDob = null,
+    Object? userRepository = null,
+    Object? user = freezed,
+    Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
       openDatePicker: null == openDatePicker
@@ -65,7 +82,35 @@ class _$DateOfBirthSettingsStateCopyWithImpl<$Res,
           ? _value.updatedDate
           : updatedDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      currentDob: null == currentDob
+          ? _value.currentDob
+          : currentDob // ignore: cast_nullable_to_non_nullable
+              as String,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -78,7 +123,17 @@ abstract class _$$DateOfBirthSettingsStateImplCopyWith<$Res>
       __$$DateOfBirthSettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool openDatePicker, DateTime selectedDate, DateTime updatedDate});
+  $Res call(
+      {bool openDatePicker,
+      DateTime selectedDate,
+      DateTime updatedDate,
+      String currentDob,
+      UserRepository userRepository,
+      UserDto? user,
+      bool isLoading});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -97,6 +152,10 @@ class __$$DateOfBirthSettingsStateImplCopyWithImpl<$Res>
     Object? openDatePicker = null,
     Object? selectedDate = null,
     Object? updatedDate = null,
+    Object? currentDob = null,
+    Object? userRepository = null,
+    Object? user = freezed,
+    Object? isLoading = null,
   }) {
     return _then(_$DateOfBirthSettingsStateImpl(
       openDatePicker: null == openDatePicker
@@ -111,6 +170,22 @@ class __$$DateOfBirthSettingsStateImplCopyWithImpl<$Res>
           ? _value.updatedDate
           : updatedDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      currentDob: null == currentDob
+          ? _value.currentDob
+          : currentDob // ignore: cast_nullable_to_non_nullable
+              as String,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -121,7 +196,11 @@ class _$DateOfBirthSettingsStateImpl implements _DateOfBirthSettingsState {
   const _$DateOfBirthSettingsStateImpl(
       {required this.openDatePicker,
       required this.selectedDate,
-      required this.updatedDate});
+      required this.updatedDate,
+      required this.currentDob,
+      required this.userRepository,
+      this.user,
+      required this.isLoading});
 
   @override
   final bool openDatePicker;
@@ -129,10 +208,18 @@ class _$DateOfBirthSettingsStateImpl implements _DateOfBirthSettingsState {
   final DateTime selectedDate;
   @override
   final DateTime updatedDate;
+  @override
+  final String currentDob;
+  @override
+  final UserRepository userRepository;
+  @override
+  final UserDto? user;
+  @override
+  final bool isLoading;
 
   @override
   String toString() {
-    return 'DateOfBirthSettingsState(openDatePicker: $openDatePicker, selectedDate: $selectedDate, updatedDate: $updatedDate)';
+    return 'DateOfBirthSettingsState(openDatePicker: $openDatePicker, selectedDate: $selectedDate, updatedDate: $updatedDate, currentDob: $currentDob, userRepository: $userRepository, user: $user, isLoading: $isLoading)';
   }
 
   @override
@@ -145,12 +232,19 @@ class _$DateOfBirthSettingsStateImpl implements _DateOfBirthSettingsState {
             (identical(other.selectedDate, selectedDate) ||
                 other.selectedDate == selectedDate) &&
             (identical(other.updatedDate, updatedDate) ||
-                other.updatedDate == updatedDate));
+                other.updatedDate == updatedDate) &&
+            (identical(other.currentDob, currentDob) ||
+                other.currentDob == currentDob) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, openDatePicker, selectedDate, updatedDate);
+  int get hashCode => Object.hash(runtimeType, openDatePicker, selectedDate,
+      updatedDate, currentDob, userRepository, user, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -164,7 +258,11 @@ abstract class _DateOfBirthSettingsState implements DateOfBirthSettingsState {
   const factory _DateOfBirthSettingsState(
       {required final bool openDatePicker,
       required final DateTime selectedDate,
-      required final DateTime updatedDate}) = _$DateOfBirthSettingsStateImpl;
+      required final DateTime updatedDate,
+      required final String currentDob,
+      required final UserRepository userRepository,
+      final UserDto? user,
+      required final bool isLoading}) = _$DateOfBirthSettingsStateImpl;
 
   @override
   bool get openDatePicker;
@@ -172,6 +270,14 @@ abstract class _DateOfBirthSettingsState implements DateOfBirthSettingsState {
   DateTime get selectedDate;
   @override
   DateTime get updatedDate;
+  @override
+  String get currentDob;
+  @override
+  UserRepository get userRepository;
+  @override
+  UserDto? get user;
+  @override
+  bool get isLoading;
   @override
   @JsonKey(ignore: true)
   _$$DateOfBirthSettingsStateImplCopyWith<_$DateOfBirthSettingsStateImpl>

@@ -26,6 +26,10 @@ mixin _$CommunityUserDto {
   String get fullName => throw _privateConstructorUsedError;
   @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tag', defaultValue: null)
+  TagDto? get tag => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isFollowing', defaultValue: false)
+  bool get isFollowing => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +46,11 @@ abstract class $CommunityUserDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
-      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage});
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false) bool isFollowing});
+
+  $TagDtoCopyWith<$Res>? get tag;
 }
 
 /// @nodoc
@@ -61,6 +69,8 @@ class _$CommunityUserDtoCopyWithImpl<$Res, $Val extends CommunityUserDto>
     Object? id = null,
     Object? fullName = null,
     Object? profileImage = null,
+    Object? tag = freezed,
+    Object? isFollowing = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -75,7 +85,27 @@ class _$CommunityUserDtoCopyWithImpl<$Res, $Val extends CommunityUserDto>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagDto?,
+      isFollowing: null == isFollowing
+          ? _value.isFollowing
+          : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TagDtoCopyWith<$Res>? get tag {
+    if (_value.tag == null) {
+      return null;
+    }
+
+    return $TagDtoCopyWith<$Res>(_value.tag!, (value) {
+      return _then(_value.copyWith(tag: value) as $Val);
+    });
   }
 }
 
@@ -90,7 +120,12 @@ abstract class _$$CommunityUserDtoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
-      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage});
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false) bool isFollowing});
+
+  @override
+  $TagDtoCopyWith<$Res>? get tag;
 }
 
 /// @nodoc
@@ -107,6 +142,8 @@ class __$$CommunityUserDtoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? fullName = null,
     Object? profileImage = null,
+    Object? tag = freezed,
+    Object? isFollowing = null,
   }) {
     return _then(_$CommunityUserDtoImpl(
       id: null == id
@@ -121,6 +158,14 @@ class __$$CommunityUserDtoImplCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagDto?,
+      isFollowing: null == isFollowing
+          ? _value.isFollowing
+          : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -132,7 +177,10 @@ class _$CommunityUserDtoImpl implements _CommunityUserDto {
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
       @JsonKey(name: 'profileImage', defaultValue: '')
-      required this.profileImage});
+      required this.profileImage,
+      @JsonKey(name: 'tag', defaultValue: null) this.tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false)
+      required this.isFollowing});
 
   factory _$CommunityUserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommunityUserDtoImplFromJson(json);
@@ -146,10 +194,16 @@ class _$CommunityUserDtoImpl implements _CommunityUserDto {
   @override
   @JsonKey(name: 'profileImage', defaultValue: '')
   final String profileImage;
+  @override
+  @JsonKey(name: 'tag', defaultValue: null)
+  final TagDto? tag;
+  @override
+  @JsonKey(name: 'isFollowing', defaultValue: false)
+  final bool isFollowing;
 
   @override
   String toString() {
-    return 'CommunityUserDto(id: $id, fullName: $fullName, profileImage: $profileImage)';
+    return 'CommunityUserDto(id: $id, fullName: $fullName, profileImage: $profileImage, tag: $tag, isFollowing: $isFollowing)';
   }
 
   @override
@@ -161,12 +215,16 @@ class _$CommunityUserDtoImpl implements _CommunityUserDto {
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.profileImage, profileImage) ||
-                other.profileImage == profileImage));
+                other.profileImage == profileImage) &&
+            (identical(other.tag, tag) || other.tag == tag) &&
+            (identical(other.isFollowing, isFollowing) ||
+                other.isFollowing == isFollowing));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, fullName, profileImage);
+  int get hashCode =>
+      Object.hash(runtimeType, id, fullName, profileImage, tag, isFollowing);
 
   @JsonKey(ignore: true)
   @override
@@ -189,7 +247,10 @@ abstract class _CommunityUserDto implements CommunityUserDto {
       @JsonKey(name: 'fullName', defaultValue: '')
       required final String fullName,
       @JsonKey(name: 'profileImage', defaultValue: '')
-      required final String profileImage}) = _$CommunityUserDtoImpl;
+      required final String profileImage,
+      @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false)
+      required final bool isFollowing}) = _$CommunityUserDtoImpl;
 
   factory _CommunityUserDto.fromJson(Map<String, dynamic> json) =
       _$CommunityUserDtoImpl.fromJson;
@@ -203,6 +264,12 @@ abstract class _CommunityUserDto implements CommunityUserDto {
   @override
   @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage;
+  @override
+  @JsonKey(name: 'tag', defaultValue: null)
+  TagDto? get tag;
+  @override
+  @JsonKey(name: 'isFollowing', defaultValue: false)
+  bool get isFollowing;
   @override
   @JsonKey(ignore: true)
   _$$CommunityUserDtoImplCopyWith<_$CommunityUserDtoImpl> get copyWith =>

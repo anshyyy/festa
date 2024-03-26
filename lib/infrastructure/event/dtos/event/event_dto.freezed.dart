@@ -68,7 +68,7 @@ mixin _$EventDto {
   PubDto? get pub => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get isApplied => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: false)
+  @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked => throw _privateConstructorUsedError;
   @JsonKey(name: 'categories', defaultValue: [])
   List<CategoryDto> get categories => throw _privateConstructorUsedError;
@@ -112,7 +112,7 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
-      @JsonKey(defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories});
 
@@ -329,7 +329,7 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
-      @JsonKey(defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories});
 
@@ -520,7 +520,7 @@ class _$EventDtoImpl implements _EventDto {
       @JsonKey(name: 'address') this.address,
       @JsonKey(name: 'pub') this.pub,
       @JsonKey(defaultValue: false) required this.isApplied,
-      @JsonKey(defaultValue: false) required this.isLiked,
+      @JsonKey(name: 'isLiked', defaultValue: false) required this.isLiked,
       @JsonKey(name: 'categories', defaultValue: []) required this.categories});
 
   factory _$EventDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -599,7 +599,7 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(defaultValue: false)
   final bool isApplied;
   @override
-  @JsonKey(defaultValue: false)
+  @JsonKey(name: 'isLiked', defaultValue: false)
   final bool isLiked;
   @override
   @JsonKey(name: 'categories', defaultValue: [])
@@ -745,7 +745,8 @@ abstract class _EventDto implements EventDto {
       @JsonKey(name: 'address') final AddressDto? address,
       @JsonKey(name: 'pub') final PubDto? pub,
       @JsonKey(defaultValue: false) required final bool isApplied,
-      @JsonKey(defaultValue: false) required final bool isLiked,
+      @JsonKey(name: 'isLiked', defaultValue: false)
+      required final bool isLiked,
       @JsonKey(name: 'categories', defaultValue: [])
       required final List<CategoryDto> categories}) = _$EventDtoImpl;
 
@@ -825,7 +826,7 @@ abstract class _EventDto implements EventDto {
   @JsonKey(defaultValue: false)
   bool get isApplied;
   @override
-  @JsonKey(defaultValue: false)
+  @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked;
   @override
   @JsonKey(name: 'categories', defaultValue: [])

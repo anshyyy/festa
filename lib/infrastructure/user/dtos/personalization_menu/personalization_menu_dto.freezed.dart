@@ -21,12 +21,10 @@ PersonalizationMenuDto _$PersonalizationMenuDtoFromJson(
 
 /// @nodoc
 mixin _$PersonalizationMenuDto {
-  @JsonKey(name: 'icon', defaultValue: '')
-  String get icon => throw _privateConstructorUsedError;
   @JsonKey(name: 'title', defaultValue: '')
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'description', defaultValue: '')
-  String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'list', defaultValue: [])
+  List<PersonalizationOptionDto> get list => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,9 +39,9 @@ abstract class $PersonalizationMenuDtoCopyWith<$Res> {
       _$PersonalizationMenuDtoCopyWithImpl<$Res, PersonalizationMenuDto>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'icon', defaultValue: '') String icon,
-      @JsonKey(name: 'title', defaultValue: '') String title,
-      @JsonKey(name: 'description', defaultValue: '') String description});
+      {@JsonKey(name: 'title', defaultValue: '') String title,
+      @JsonKey(name: 'list', defaultValue: [])
+      List<PersonalizationOptionDto> list});
 }
 
 /// @nodoc
@@ -60,23 +58,18 @@ class _$PersonalizationMenuDtoCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? icon = null,
     Object? title = null,
-    Object? description = null,
+    Object? list = null,
   }) {
     return _then(_value.copyWith(
-      icon: null == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
+      list: null == list
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<PersonalizationOptionDto>,
     ) as $Val);
   }
 }
@@ -91,9 +84,9 @@ abstract class _$$PersonalizationMenuDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'icon', defaultValue: '') String icon,
-      @JsonKey(name: 'title', defaultValue: '') String title,
-      @JsonKey(name: 'description', defaultValue: '') String description});
+      {@JsonKey(name: 'title', defaultValue: '') String title,
+      @JsonKey(name: 'list', defaultValue: [])
+      List<PersonalizationOptionDto> list});
 }
 
 /// @nodoc
@@ -109,23 +102,18 @@ class __$$PersonalizationMenuDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? icon = null,
     Object? title = null,
-    Object? description = null,
+    Object? list = null,
   }) {
     return _then(_$PersonalizationMenuDtoImpl(
-      icon: null == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
+      list: null == list
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<PersonalizationOptionDto>,
     ));
   }
 }
@@ -134,27 +122,22 @@ class __$$PersonalizationMenuDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PersonalizationMenuDtoImpl implements _PersonalizationMenuDto {
   const _$PersonalizationMenuDtoImpl(
-      {@JsonKey(name: 'icon', defaultValue: '') required this.icon,
-      @JsonKey(name: 'title', defaultValue: '') required this.title,
-      @JsonKey(name: 'description', defaultValue: '')
-      required this.description});
+      {@JsonKey(name: 'title', defaultValue: '') required this.title,
+      @JsonKey(name: 'list', defaultValue: []) required this.list});
 
   factory _$PersonalizationMenuDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PersonalizationMenuDtoImplFromJson(json);
 
   @override
-  @JsonKey(name: 'icon', defaultValue: '')
-  final String icon;
-  @override
   @JsonKey(name: 'title', defaultValue: '')
   final String title;
   @override
-  @JsonKey(name: 'description', defaultValue: '')
-  final String description;
+  @JsonKey(name: 'list', defaultValue: [])
+  final List<PersonalizationOptionDto> list;
 
   @override
   String toString() {
-    return 'PersonalizationMenuDto(icon: $icon, title: $title, description: $description)';
+    return 'PersonalizationMenuDto(title: $title, list: $list)';
   }
 
   @override
@@ -162,15 +145,14 @@ class _$PersonalizationMenuDtoImpl implements _PersonalizationMenuDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PersonalizationMenuDtoImpl &&
-            (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description));
+            const DeepCollectionEquality().equals(other.list, list));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, icon, title, description);
+  int get hashCode => Object.hash(
+      runtimeType, title, const DeepCollectionEquality().hash(list));
 
   @JsonKey(ignore: true)
   @override
@@ -189,23 +171,20 @@ class _$PersonalizationMenuDtoImpl implements _PersonalizationMenuDto {
 
 abstract class _PersonalizationMenuDto implements PersonalizationMenuDto {
   const factory _PersonalizationMenuDto(
-      {@JsonKey(name: 'icon', defaultValue: '') required final String icon,
-      @JsonKey(name: 'title', defaultValue: '') required final String title,
-      @JsonKey(name: 'description', defaultValue: '')
-      required final String description}) = _$PersonalizationMenuDtoImpl;
+      {@JsonKey(name: 'title', defaultValue: '') required final String title,
+      @JsonKey(name: 'list', defaultValue: [])
+      required final List<PersonalizationOptionDto>
+          list}) = _$PersonalizationMenuDtoImpl;
 
   factory _PersonalizationMenuDto.fromJson(Map<String, dynamic> json) =
       _$PersonalizationMenuDtoImpl.fromJson;
 
   @override
-  @JsonKey(name: 'icon', defaultValue: '')
-  String get icon;
-  @override
   @JsonKey(name: 'title', defaultValue: '')
   String get title;
   @override
-  @JsonKey(name: 'description', defaultValue: '')
-  String get description;
+  @JsonKey(name: 'list', defaultValue: [])
+  List<PersonalizationOptionDto> get list;
   @override
   @JsonKey(ignore: true)
   _$$PersonalizationMenuDtoImplCopyWith<_$PersonalizationMenuDtoImpl>

@@ -52,14 +52,18 @@ class EventDetailsScreenConsumer extends StatelessWidget {
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
                 bottomNavigationBar: TicketBookingWidget(
+                  startDate: event!.startDate,
+                  priceRangeStart: event.priceRangeStart,
+                  priceRangeEnd: event.priceRangeEnd!,
                   onClick: () {
-                    navigator<NavigationService>().navigateTo(1 == 2
-                        ? UserRoutes.bookingRoute
-                        : UserRoutes.freeBookingRoute);
+                    navigator<NavigationService>()
+                        .navigateTo(UserRoutes.bookingRoute, queryParams: {
+                      'eventId': state.event!.id.toString(),
+                    });
                   },
                 ),
                 appBar: CustomAppBar(
-                    title: event!.name,
+                    title: event.name,
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
@@ -87,7 +91,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       children: [
                         EventCard(
                           event: event,
-                          isLiked:state.isEventLiked,
+                          isLiked: state.isEventLiked,
                           onLike: () {
                             context
                                 .read<EventDetailsCubit>()

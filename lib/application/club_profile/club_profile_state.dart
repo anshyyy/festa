@@ -21,6 +21,7 @@ class ClubProfileState with _$ClubProfileState {
     required List<AssetDto> assets,
     PubDto? pub,
     required bool isFollowing,
+    required bool openPhotoViewer,
   }) = _ClubProfileState;
 
   factory ClubProfileState.initial(
@@ -43,5 +44,6 @@ class ClubProfileState with _$ClubProfileState {
         isFollowing: false,
         page:1,
         assets: [],
+        openPhotoViewer:false,
       );
 }

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../application/club_profile/club_profile_cubit.dart';
 import 'events_calendar_builder.dart';
 import 'media_grid_widget.dart';
@@ -44,16 +44,7 @@ class MediaViewerTabs extends StatelessWidget {
                 ),
                 Expanded(
                   child: TabBarView(children: [
-                    MediaGridViewer(
-                        images: [],
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 2.5.w,
-                        crossAxisSpacing: 1.h,
-                        quiltedPattern: const [
-                          QuiltedGridTile(2, 2),
-                          QuiltedGridTile(1, 1),
-                          QuiltedGridTile(1, 1),
-                        ]),
+                    const MediaGridViewer(),
                     EventsCalendarBuilder(
                       clubId: state.clubId,
                     )

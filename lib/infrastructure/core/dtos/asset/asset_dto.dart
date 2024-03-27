@@ -10,6 +10,7 @@ class AssetDto with _$AssetDto {
   const factory AssetDto({
     @JsonKey(name: 'type', defaultValue: '') required String type,
     @JsonKey(name: 'url', defaultValue: '') required String url,
+    @JsonKey(name: 'thumbnail', defaultValue: '') required String thumbnail,
   }) = _AssetDto;
 
   factory AssetDto.fromJson(Map<String, dynamic> json) =>

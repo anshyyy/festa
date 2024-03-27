@@ -62,6 +62,11 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => CategoryDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      eventTicketCategories: (json['eventTicketCategories'] as List<dynamic>?)
+              ?.map((e) =>
+                  EventTicketCategory.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
@@ -92,4 +97,5 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'isApplied': instance.isApplied,
       'isLiked': instance.isLiked,
       'categories': instance.categories,
+      'eventTicketCategories': instance.eventTicketCategories,
     };

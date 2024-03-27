@@ -15,6 +15,7 @@ import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 import '../../../../../presentation/basic_profile/set_your_location.dart';
 import '../../../../../presentation/basic_profile/username_screen.dart';
 import '../../../../../presentation/club_profile/widgets/club_community_screen.dart';
+import '../../../../../presentation/club_profile/widgets/media_viewer_widget.dart';
 import '../../../../../presentation/event/booking/book_ticket_screen.dart';
 import '../../../../../presentation/event/booking/booking_details_screen.dart';
 import '../../../../../presentation/event/booking/free_booking_screen.dart';
@@ -172,7 +173,12 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const TicketScreen(), settings);
 
     case UserRoutes.bookingRoute:
-      return _getPageRoute(const BookTicketScreen(), settings);
+      final String eventId = routingData.queryParameters['eventId'] ?? '';
+      return _getPageRoute(
+          BookTicketScreen(
+            eventId: int.parse(eventId),
+          ),
+          settings);
 
     case UserRoutes.freeBookingRoute:
       return _getPageRoute(const FreeBookingScreen(), settings);
@@ -193,9 +199,11 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.clubCommunityScreenRoute:
       final clubId = routingData.queryParameters['clubId'] ?? '0';
+      final clubName = routingData.queryParameters['clubName'] ?? '';
       return _getPageRoute(
           ClubCommunity(
             clubId: int.parse(clubId),
+            clubName: clubName,
           ),
           settings);
 
@@ -226,6 +234,18 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.notificationsRoute:
       return _getPageRoute(const NotificationsScreen(), settings);
+
+    case UserRoutes.mediaViewerWidgetScreen:
+      final type = routingData.queryParameters['type'] ?? 'image';
+      final url = routingData.queryParameters['url'] ?? '';
+      final pubId = routingData.queryParameters['pubId'] ?? '';
+      return _getPageRoute(
+          MediaViewerWidget(
+            type: type,
+            url: url,
+            pubId: int.parse(pubId),
+          ),
+          settings);
 
     default:
       return commonNavigation(settings);

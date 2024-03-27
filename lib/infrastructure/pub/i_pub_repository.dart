@@ -114,7 +114,7 @@ class IPubRepository extends PubRepository {
       final body = response.body;
       final pubAssetsRaw = jsonDecode(body) as Map;
       // final totalFollowers = pubfollowersRaw['count'];
-      final assets = pubAssetsRaw['users'] as List;
+      final assets = pubAssetsRaw['assets'] as List;
       final pubAssets = assets.map((e) => AssetDto.fromJson(e)).toList();
       return pubAssets;
     } catch (e) {

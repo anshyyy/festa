@@ -49,4 +49,6 @@ class UserRoutes {
   static const String notificationsRoute = 'notifications';
   static const String artistProfileScreenRoute = 'artistProfileScreen';
   static const String artistCommunityScreenRoute = 'artistCommunityRoute';
+  
+  static const String mediaViewerWidgetScreen = 'mediaViewerWidgetRoute';
 }

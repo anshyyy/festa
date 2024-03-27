@@ -20,11 +20,13 @@ class ClubCommunityState with _$ClubCommunityState {
     required ScrollController friendsScrollController,
     required bool hasMoreFollowers,
     required bool hasMoreFriends,
+    required String clubName,
   }) = _ClubCommunityState;
 
   factory ClubCommunityState.initial({
     required int clubId,
     required String serverUrl,
+    required String clubName,
   }) =>
       ClubCommunityState(
         isFailed: false,
@@ -44,5 +46,6 @@ class ClubCommunityState with _$ClubCommunityState {
         pubFriends: const CommunityDto(totalCount: 0, users: []),
         followersScrollController: ScrollController(),
         friendsScrollController: ScrollController(),
+        clubName:clubName,
       );
 }

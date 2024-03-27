@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../application/booking/booking_cubit.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
 import '../../../widgets/gradient_button.dart';
 
@@ -22,82 +24,91 @@ class TicketCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Theme.of(context).colorScheme.surface,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                categoryName,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: Theme.of(context).colorScheme.background,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15.5.sp
-                    ),
-              ),
-              SizedBox(
-                height: .5.h,
-              ),
-              Text(
-                '₹$price',
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(),
-              ),
-            ],
+    return BlocConsumer<BookingCubit, BookingState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Theme.of(context).colorScheme.surface,
           ),
-          categoryItems == 0
-              ? GradientButton(
-                  text: 'Add',
-                  onTap: onAdd,
-                  height: 4.h,
-                  width: 27.w,
-                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    categoryName,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Theme.of(context).colorScheme.background,
                         fontWeight: FontWeight.w600,
-                      ),
-                )
-              : Row(
-                  children: [
-                    GestureDetector(
-                      onTap: onRemove,
-                      child: SvgPicture.asset(
-                        AssetConstants.removeTicketIcon,
-                        height: 3.h,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 9.w,
-                      child: Center(
-                        child: Text(
-                          categoryItems.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
+                        fontSize: 15.5.sp),
+                  ),
+                  SizedBox(
+                    height: .5.h,
+                  ),
+                  Text(
+                    '₹$price',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(),
+                  ),
+                ],
+              ),
+              categoryItems == 0
+                  ? GradientButton(
+                      text: 'Add',
+                      onTap: onAdd,
+                      height: 4.h,
+                      width: 27.w,
+                      textStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
                                 color: Theme.of(context).colorScheme.background,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
                               ),
+                    )
+                  : Row(
+                      children: [
+                        GestureDetector(
+                          onTap: onRemove,
+                          child: SvgPicture.asset(
+                            AssetConstants.removeTicketIcon,
+                            height: 3.h,
+                          ),
                         ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: onAdd,
-                      child: SvgPicture.asset(
-                        AssetConstants.addTicketIcon,
-                        height: 3.h,
-                      ),
-                    ),
-                  ],
-                )
-        ],
-      ),
+                        SizedBox(
+                          width: 9.w,
+                          child: Center(
+                            child: Text(
+                              categoryItems.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.sp,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: onAdd,
+                          child: SvgPicture.asset(
+                            AssetConstants.addTicketIcon,
+                            height: 3.h,
+                          ),
+                        ),
+                      ],
+                    )
+            ],
+          ),
+        );
+      },
     );
   }
 }

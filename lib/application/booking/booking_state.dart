@@ -5,7 +5,23 @@ class BookingState with _$BookingState {
   const factory BookingState({
     required int standardTicketCount,
     required int earlyBirdTicketCount,
-  })= $BookingState;
-  
-  factory BookingState.initial() => const BookingState(standardTicketCount: 0, earlyBirdTicketCount: 0);
+    required bool isLoading,
+    required bool isSuccess,
+    required bool isFailure,
+    required bool noUse,
+    required EventRepository eventRepository,
+    EventDto? event,
+  }) = $BookingState;
+
+  factory BookingState.initial({
+    required String serverUrl,
+  }) => BookingState(
+        standardTicketCount: 0,
+        earlyBirdTicketCount: 0,
+         noUse: false,
+        isLoading: false,
+        isFailure: false,
+        isSuccess: false,
+        eventRepository: IEventRepository(serverUrl: serverUrl)
+      );
 }

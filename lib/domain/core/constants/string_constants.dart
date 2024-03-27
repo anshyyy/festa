@@ -22,11 +22,17 @@ class AppConstants {
   static String search = 'Search';
   static int otpTimer = 30;
 
-  static String dynamicUrl='https://festaworld.page.link/?link=https://www.festa.world/<category>/<id>&apn=com.festaworld.app&isi=6478425501&ibi=com.festaworld.app';
+  static String dynamicUrl =
+      'https://festaworld.page.link/?link=https://www.festa.world/<category>/<id>&apn=com.festaworld.app&isi=6478425501&ibi=com.festaworld.app';
   static String pub = 'pub';
   static String artist = 'artist';
   static String event = 'event';
   static String user = 'user';
+}
+
+class MediaType {
+  static String IMAGE = 'image';
+  static String VIDEO = 'video';
 }
 
 class BasicProfileScreenConstants {
@@ -240,16 +246,15 @@ class EventDetailsScreenConstants {
 
 class ClubProfileScreenConstants {
   static String parties = 'Parties';
-  static String followers= 'Followers';
-  static String friends='Friends';
+  static String followers = 'Followers';
+  static String friends = 'Friends';
   static String follow = 'Follow';
   static String following = 'Following';
   static String am = 'AM';
   static String pm = 'PM';
-  
 }
 
-class UserProfileScreenConstants{
+class UserProfileScreenConstants {
   static String uploadYourHighlight = 'Upload your highlight';
   static String follow = 'Follow';
   static String following = 'Following';
@@ -259,7 +264,7 @@ class UserProfileScreenConstants{
   static String friends = 'Friends';
 }
 
-class ProfileAndSettingsScreenConstants{
+class ProfileAndSettingsScreenConstants {
   static String personalizeYourExperience = 'Personalise your experience';
   static String profileAndSettings = 'Profile and settings';
   static String accountSettings = 'Account Settings';
@@ -286,7 +291,8 @@ class PersonalizeExperienceScreenConstants {
       'Let’s take your profile from good to great 😍 The details matter!';
   static String changePersonlize =
       'You are free to change the personalisation anytime.';
-  static String totallyUptoYouMessage = 'This is totally up to you and whether you’re comfortable.';
+  static String totallyUptoYouMessage =
+      'This is totally up to you and whether you’re comfortable.';
 }
 
 class EditProfileScreenConstants {

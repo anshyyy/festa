@@ -88,6 +88,11 @@ static String formatDateTimeWithDash(DateTime dateTime) {
     DateFormat formatter = DateFormat('MMM dd, hh:mma');
     return formatter.format(dateTime);
   }
+
+  static String formatDateTimeShort(DateTime dateTime) {
+    DateFormat formatter = DateFormat('dd MMM, hh:mma');
+    return formatter.format(dateTime);
+  }
 }
 
 class CapitalizeText extends TextInputFormatter {

@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_community/club_community_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
+import '../../../domain/core/configs/injection.dart';
+import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../widgets/custom_appbar.dart';
 import '../../widgets/custom_textfield.dart';
 import 'club_followers.dart';
 import 'club_friends.dart';
 
 class ClubCommunity extends StatelessWidget {
   final int clubId;
-  const ClubCommunity({super.key, required this.clubId});
+  final String clubName;
+  const ClubCommunity(
+      {super.key, required this.clubId, required this.clubName});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +26,10 @@ class ClubCommunity extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => ClubCommunityCubit(ClubCommunityState.initial(
-          clubId: clubId, serverUrl: appConfig.serverUrl))
+        clubId: clubId,
+        serverUrl: appConfig.serverUrl,
+        clubName: clubName,
+      ))
         ..init(),
       child: const ClubCommunityConsumer(),
     );
@@ -40,9 +50,19 @@ class ClubCommunityConsumer extends StatelessWidget {
     return BlocConsumer<ClubCommunityCubit, ClubCommunityState>(
       listener: (context, state) {
         // TODO: implement listener
-      },
+      }, 
       builder: (context, state) {
         return Scaffold(
+          appBar: CustomAppBar(
+              title: state.clubName,
+              scaffoldBackgroundColor: colorScheme.surface,
+              leading: GestureDetector(
+                  onTap: () {
+                    navigator<NavigationService>().goBack();
+                  },
+                  child: Center(
+                      child: SvgPicture.asset(AssetConstants.arrowLeft))),
+              actions: []),
           backgroundColor: colorScheme.surface,
           body: SafeArea(
             child: Padding(
@@ -107,4 +127,3 @@ class ClubCommunityConsumer extends StatelessWidget {
     );
   }
 }
-

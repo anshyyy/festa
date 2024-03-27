@@ -154,6 +154,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
+                                        fontSize: 15.5.sp,
                                         fontWeight: FontWeight.w400,
                                         color: Theme.of(context)
                                             .colorScheme

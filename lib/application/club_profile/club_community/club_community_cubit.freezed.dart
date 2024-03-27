@@ -35,6 +35,7 @@ mixin _$ClubCommunityState {
       throw _privateConstructorUsedError;
   bool get hasMoreFollowers => throw _privateConstructorUsedError;
   bool get hasMoreFriends => throw _privateConstructorUsedError;
+  String get clubName => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ClubCommunityStateCopyWith<ClubCommunityState> get copyWith =>
@@ -64,7 +65,8 @@ abstract class $ClubCommunityStateCopyWith<$Res> {
       ScrollController followersScrollController,
       ScrollController friendsScrollController,
       bool hasMoreFollowers,
-      bool hasMoreFriends});
+      bool hasMoreFriends,
+      String clubName});
 
   $CommunityDtoCopyWith<$Res> get pubFollowers;
   $CommunityDtoCopyWith<$Res> get pubFriends;
@@ -100,6 +102,7 @@ class _$ClubCommunityStateCopyWithImpl<$Res, $Val extends ClubCommunityState>
     Object? friendsScrollController = null,
     Object? hasMoreFollowers = null,
     Object? hasMoreFriends = null,
+    Object? clubName = null,
   }) {
     return _then(_value.copyWith(
       isFollowersFetching: null == isFollowersFetching
@@ -170,6 +173,10 @@ class _$ClubCommunityStateCopyWithImpl<$Res, $Val extends ClubCommunityState>
           ? _value.hasMoreFriends
           : hasMoreFriends // ignore: cast_nullable_to_non_nullable
               as bool,
+      clubName: null == clubName
+          ? _value.clubName
+          : clubName // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -215,7 +222,8 @@ abstract class _$$ClubCommunityStateImplCopyWith<$Res>
       ScrollController followersScrollController,
       ScrollController friendsScrollController,
       bool hasMoreFollowers,
-      bool hasMoreFriends});
+      bool hasMoreFriends,
+      String clubName});
 
   @override
   $CommunityDtoCopyWith<$Res> get pubFollowers;
@@ -251,6 +259,7 @@ class __$$ClubCommunityStateImplCopyWithImpl<$Res>
     Object? friendsScrollController = null,
     Object? hasMoreFollowers = null,
     Object? hasMoreFriends = null,
+    Object? clubName = null,
   }) {
     return _then(_$ClubCommunityStateImpl(
       isFollowersFetching: null == isFollowersFetching
@@ -321,6 +330,10 @@ class __$$ClubCommunityStateImplCopyWithImpl<$Res>
           ? _value.hasMoreFriends
           : hasMoreFriends // ignore: cast_nullable_to_non_nullable
               as bool,
+      clubName: null == clubName
+          ? _value.clubName
+          : clubName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -345,7 +358,8 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
       required this.followersScrollController,
       required this.friendsScrollController,
       required this.hasMoreFollowers,
-      required this.hasMoreFriends});
+      required this.hasMoreFriends,
+      required this.clubName});
 
   @override
   final bool isFollowersFetching;
@@ -381,10 +395,12 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
   final bool hasMoreFollowers;
   @override
   final bool hasMoreFriends;
+  @override
+  final String clubName;
 
   @override
   String toString() {
-    return 'ClubCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, clubId: $clubId, followersPage: $followersPage, friendsPage: $friendsPage, pubRepository: $pubRepository, userRepository: $userRepository, pubFollowers: $pubFollowers, pubFriends: $pubFriends, pubFollowersCount: $pubFollowersCount, scrollController: $scrollController, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
+    return 'ClubCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, clubId: $clubId, followersPage: $followersPage, friendsPage: $friendsPage, pubRepository: $pubRepository, userRepository: $userRepository, pubFollowers: $pubFollowers, pubFriends: $pubFriends, pubFollowersCount: $pubFollowersCount, scrollController: $scrollController, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends, clubName: $clubName)';
   }
 
   @override
@@ -426,7 +442,9 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
             (identical(other.hasMoreFollowers, hasMoreFollowers) ||
                 other.hasMoreFollowers == hasMoreFollowers) &&
             (identical(other.hasMoreFriends, hasMoreFriends) ||
-                other.hasMoreFriends == hasMoreFriends));
+                other.hasMoreFriends == hasMoreFriends) &&
+            (identical(other.clubName, clubName) ||
+                other.clubName == clubName));
   }
 
   @override
@@ -448,7 +466,8 @@ class _$ClubCommunityStateImpl implements _ClubCommunityState {
       followersScrollController,
       friendsScrollController,
       hasMoreFollowers,
-      hasMoreFriends);
+      hasMoreFriends,
+      clubName);
 
   @JsonKey(ignore: true)
   @override
@@ -476,7 +495,8 @@ abstract class _ClubCommunityState implements ClubCommunityState {
       required final ScrollController followersScrollController,
       required final ScrollController friendsScrollController,
       required final bool hasMoreFollowers,
-      required final bool hasMoreFriends}) = _$ClubCommunityStateImpl;
+      required final bool hasMoreFriends,
+      required final String clubName}) = _$ClubCommunityStateImpl;
 
   @override
   bool get isFollowersFetching;
@@ -512,6 +532,8 @@ abstract class _ClubCommunityState implements ClubCommunityState {
   bool get hasMoreFollowers;
   @override
   bool get hasMoreFriends;
+  @override
+  String get clubName;
   @override
   @JsonKey(ignore: true)
   _$$ClubCommunityStateImplCopyWith<_$ClubCommunityStateImpl> get copyWith =>

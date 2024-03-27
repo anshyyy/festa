@@ -2,17 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/extensions/number_extension.dart';
+import '../../../domain/core/extensions/string_extension.dart';
 import '../../widgets/gradient_button.dart';
 
 class TicketBookingWidget extends StatelessWidget {
   final void Function()? onClick;
-  const TicketBookingWidget({super.key, this.onClick});
+  final String startDate;
+  final double priceRangeStart;
+  final double priceRangeEnd;
+  const TicketBookingWidget(
+      {super.key,
+      this.onClick,
+      required this.startDate,
+      required this.priceRangeStart,
+      required this.priceRangeEnd});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 14.h,
-      padding: EdgeInsets.only(left: 4.w,right: 4.w, bottom: 1.h),
+      width: 100.w,
+      padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
       color: Theme.of(context).colorScheme.surface,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,26 +36,28 @@ class TicketBookingWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    // StringExtension.formatDateTimeMedium(
-                    //     DateTime.parse(event!.startDate)),
-                    'Dec 25, 08:00 PM',
+                    StringExtension.formatDateTimeShort(
+                        DateTime.parse(startDate)),
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background,
-                        fontSize: 16.5.sp
-                       )),
-                       SizedBox(height: 1.h,),
+                        fontSize: 16.5.sp)),
+                SizedBox(
+                  height: 1.h,
+                ),
                 Row(
                   children: [
                     Text(
                         // '${event.priceRangeStart.toIndianRupeeString()} ',
-                        '4999',
+                        priceRangeStart.toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.background,
                             fontSize: 15.sp)),
-                            SizedBox(width: 1.w,),
-                    Text('5999',
+                    SizedBox(
+                      width: 1.w,
+                    ),
+                    Text(priceRangeEnd.toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600, fontSize: 15.sp)),
                   ],
@@ -53,15 +66,15 @@ class TicketBookingWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 4,
+              flex: 4,
               child: GradientButton(
-            text: EventDetailsScreenConstants.bookTheTickets,
-            onTap:onClick,
-            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                  fontWeight: FontWeight.w600,
-                ),
-          ))
+                text: EventDetailsScreenConstants.bookTheTickets,
+                onTap: onClick,
+                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: Theme.of(context).colorScheme.background,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ))
         ],
       ),
     );

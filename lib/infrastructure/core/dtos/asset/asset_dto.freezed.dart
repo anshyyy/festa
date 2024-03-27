@@ -24,6 +24,8 @@ mixin _$AssetDto {
   String get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'url', defaultValue: '')
   String get url => throw _privateConstructorUsedError;
+  @JsonKey(name: 'thumbnail', defaultValue: '')
+  String get thumbnail => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +40,8 @@ abstract class $AssetDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'type', defaultValue: '') String type,
-      @JsonKey(name: 'url', defaultValue: '') String url});
+      @JsonKey(name: 'url', defaultValue: '') String url,
+      @JsonKey(name: 'thumbnail', defaultValue: '') String thumbnail});
 }
 
 /// @nodoc
@@ -56,6 +59,7 @@ class _$AssetDtoCopyWithImpl<$Res, $Val extends AssetDto>
   $Res call({
     Object? type = null,
     Object? url = null,
+    Object? thumbnail = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
@@ -65,6 +69,10 @@ class _$AssetDtoCopyWithImpl<$Res, $Val extends AssetDto>
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      thumbnail: null == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -80,7 +88,8 @@ abstract class _$$AssetDtoImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'type', defaultValue: '') String type,
-      @JsonKey(name: 'url', defaultValue: '') String url});
+      @JsonKey(name: 'url', defaultValue: '') String url,
+      @JsonKey(name: 'thumbnail', defaultValue: '') String thumbnail});
 }
 
 /// @nodoc
@@ -96,6 +105,7 @@ class __$$AssetDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? type = null,
     Object? url = null,
+    Object? thumbnail = null,
   }) {
     return _then(_$AssetDtoImpl(
       type: null == type
@@ -106,6 +116,10 @@ class __$$AssetDtoImplCopyWithImpl<$Res>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
+      thumbnail: null == thumbnail
+          ? _value.thumbnail
+          : thumbnail // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -115,7 +129,8 @@ class __$$AssetDtoImplCopyWithImpl<$Res>
 class _$AssetDtoImpl implements _AssetDto {
   const _$AssetDtoImpl(
       {@JsonKey(name: 'type', defaultValue: '') required this.type,
-      @JsonKey(name: 'url', defaultValue: '') required this.url});
+      @JsonKey(name: 'url', defaultValue: '') required this.url,
+      @JsonKey(name: 'thumbnail', defaultValue: '') required this.thumbnail});
 
   factory _$AssetDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AssetDtoImplFromJson(json);
@@ -126,10 +141,13 @@ class _$AssetDtoImpl implements _AssetDto {
   @override
   @JsonKey(name: 'url', defaultValue: '')
   final String url;
+  @override
+  @JsonKey(name: 'thumbnail', defaultValue: '')
+  final String thumbnail;
 
   @override
   String toString() {
-    return 'AssetDto(type: $type, url: $url)';
+    return 'AssetDto(type: $type, url: $url, thumbnail: $thumbnail)';
   }
 
   @override
@@ -138,12 +156,14 @@ class _$AssetDtoImpl implements _AssetDto {
         (other.runtimeType == runtimeType &&
             other is _$AssetDtoImpl &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.url, url) || other.url == url));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.thumbnail, thumbnail) ||
+                other.thumbnail == thumbnail));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, url);
+  int get hashCode => Object.hash(runtimeType, type, url, thumbnail);
 
   @JsonKey(ignore: true)
   @override
@@ -161,9 +181,10 @@ class _$AssetDtoImpl implements _AssetDto {
 
 abstract class _AssetDto implements AssetDto {
   const factory _AssetDto(
-          {@JsonKey(name: 'type', defaultValue: '') required final String type,
-          @JsonKey(name: 'url', defaultValue: '') required final String url}) =
-      _$AssetDtoImpl;
+      {@JsonKey(name: 'type', defaultValue: '') required final String type,
+      @JsonKey(name: 'url', defaultValue: '') required final String url,
+      @JsonKey(name: 'thumbnail', defaultValue: '')
+      required final String thumbnail}) = _$AssetDtoImpl;
 
   factory _AssetDto.fromJson(Map<String, dynamic> json) =
       _$AssetDtoImpl.fromJson;
@@ -174,6 +195,9 @@ abstract class _AssetDto implements AssetDto {
   @override
   @JsonKey(name: 'url', defaultValue: '')
   String get url;
+  @override
+  @JsonKey(name: 'thumbnail', defaultValue: '')
+  String get thumbnail;
   @override
   @JsonKey(ignore: true)
   _$$AssetDtoImplCopyWith<_$AssetDtoImpl> get copyWith =>

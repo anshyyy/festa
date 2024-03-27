@@ -7,8 +7,8 @@ import '../../infrastructure/core/dtos/asset/asset_dto.dart';
 import '../../infrastructure/event/dtos/pub/pub_dto.dart';
 import '../../infrastructure/pub/i_pub_repository.dart';
 
-part 'club_profile_state.dart';
 part 'club_profile_cubit.freezed.dart';
+part 'club_profile_state.dart';
 
 class ClubProfileCubit extends Cubit<ClubProfileState> {
   ClubProfileCubit(super.initialState) {
@@ -41,7 +41,8 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
           assets: assets));
     }, (r) {
       if (r.coverImageUrl.isNotEmpty) {
-        final coverImageAsset = AssetDto(type: 'image', url: r.coverImageUrl);
+        final coverImageAsset =
+            AssetDto(type: 'image', url: r.coverImageUrl, thumbnail: '');
         r.assets.insert(0, coverImageAsset);
       }
       emit(state.copyWith(
@@ -66,4 +67,5 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     emit(state.copyWith(isLoading: true));
     emit(state.copyWith(isLoading: false, isFollowing: !state.isFollowing));
   }
-}
+
+  }

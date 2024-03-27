@@ -6,21 +6,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
+import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 
 class MediaGridViewer extends StatelessWidget {
-  final List<String> images;
-  final int crossAxisCount;
-  final double? mainAxisSpacing;
-  final double? crossAxisSpacing;
-  final List<QuiltedGridTile> quiltedPattern;
+  
   const MediaGridViewer(
-      {super.key,
-      required this.images,
-      required this.crossAxisCount,
-      required this.mainAxisSpacing,
-      required this.crossAxisSpacing,
-      required this.quiltedPattern});
+      {super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -57,28 +52,45 @@ class MediaGridViewer extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   // physics:  const NeverScrollableScrollPhysics() ,
                   gridDelegate: SliverQuiltedGridDelegate(
-                    crossAxisCount: crossAxisCount,
-                    mainAxisSpacing: mainAxisSpacing ?? 0,
-                    crossAxisSpacing: crossAxisSpacing ?? 0,
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 2.5.w,
+                    crossAxisSpacing: 1.h,
                     repeatPattern: QuiltedGridRepeatPattern.inverted,
-                    pattern: quiltedPattern,
+                    pattern: const [
+                          QuiltedGridTile(2, 2),
+                          QuiltedGridTile(1, 1),
+                          QuiltedGridTile(1, 1),
+                        ],
                   ),
                   childrenDelegate: SliverChildBuilderDelegate(
-                    childCount: state.assets.length,
-                    (context, index) => Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      state.assets[index].url),
-                                  fit: BoxFit.cover)),
-                        ),
-                       
-                      ],
-                    ),
-                  ),
+                      childCount: state.assets.length,
+                      (context, index) =>
+                          GestureDetector(
+                            onTap: () {
+                                    navigator<NavigationService>().navigateTo(
+                                        UserRoutes.mediaViewerWidgetScreen,
+                                        queryParams: {
+                                          'type': state.assets[index].type,
+                                          'url': state.assets[index].url,
+                                          'pubId':state.clubId.toString(),
+                                        });
+                                  },
+                            child: state.assets[index].type != MediaType.VIDEO
+                                ? Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image: CachedNetworkImageProvider(
+                                              state.assets[index].url),
+                                          fit: BoxFit.cover)),
+                                )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      state.assets[index].thumbnail,
+                                      fit: BoxFit.cover,
+                                    )),
+                          )),
                 ),
               );
       },

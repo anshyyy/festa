@@ -28,11 +28,11 @@ class PaymentDetailsConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: TicketBookingWidget(
-        onClick: (){
-          navigator<NavigationService>().navigateTo(UserRoutes.bookingDetailsRoute);
-        },
-      ),
+      // bottomNavigationBar: TicketBookingWidget(
+      //   onClick: (){
+      //     navigator<NavigationService>().navigateTo(UserRoutes.bookingDetailsRoute);
+      //   },
+      // ),
       appBar: CustomAppBar(
           title: 'Payment Details',
           leading: GestureDetector(

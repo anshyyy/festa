@@ -8,6 +8,7 @@ import '../../../core/dtos/bullet/bullet_dto.dart';
 import '../../../core/dtos/faq/faq_dto.dart';
 import '../artist/artist_dto.dart';
 import '../category/category_dto.dart';
+import '../event_ticket_category/event_ticket_category_dto.dart';
 import '../pub/pub_dto.dart';
 
 part 'event_dto.freezed.dart';
@@ -52,6 +53,7 @@ class EventDto with _$EventDto {
     @JsonKey(defaultValue: false) required bool isApplied,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,
     @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
+    @JsonKey(name: 'eventTicketCategories', defaultValue: [])required List<EventTicketCategory> eventTicketCategories,
   }) = _EventDto;
 
   factory EventDto.fromJson(Map<String, dynamic> json) =>

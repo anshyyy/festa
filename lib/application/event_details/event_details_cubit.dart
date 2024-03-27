@@ -15,7 +15,7 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
     emit(state.copyWith(isLoading: true));
     await Future.delayed(const Duration(milliseconds: 300));
     Either<dynamic, EventDto> res =
-        await state.eventRepository.getEventDetails(eventId: id);
+        await state.eventRepository.getEventDetails(eventId:id);
     res.fold(
       (l) => emit(state.copyWith(
         isLoading: false,

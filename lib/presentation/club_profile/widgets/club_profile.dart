@@ -162,6 +162,7 @@ class ClubProfile extends StatelessWidget {
                           UserRoutes.clubCommunityScreenRoute,
                           queryParams: {
                             'clubId': state.clubId.toString(),
+                            'clubName': state.pub!.fullName,
                           });
                     },
                     child: SocialReach(

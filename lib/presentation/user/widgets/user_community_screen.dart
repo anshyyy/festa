@@ -7,10 +7,8 @@ import '../../../application/user/user_community/user_community_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
-import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../widgets/custom_appbar.dart';
-import '../../widgets/custom_textfield.dart';
 import 'user_followers.dart';
 import 'user_friends.dart';
 
@@ -72,6 +70,9 @@ class UserCommunityConsumer extends StatelessWidget {
                     indicatorPadding: EdgeInsets.symmetric(vertical: 2.w),
                     labelColor: colorScheme.background,
                     indicatorSize: TabBarIndicatorSize.label,
+                    onTap: (value){
+                      context.read<UserCommunityCubit>().clearSearch();
+                    },
                     tabs: [
                       Tab(
                         child: Text(
@@ -94,18 +95,7 @@ class UserCommunityConsumer extends StatelessWidget {
                   SizedBox(
                     height: 2.w,
                   ),
-                  CustomTextField(
-                    isFill: true,
-                    fillColor:
-                        themeData.scaffoldBackgroundColor.withOpacity(.4),
-                    hintText: AppConstants.search,
-                    hintTextStyle: textTheme.bodySmall!.copyWith(
-                        fontSize: 1.sp, color: colorScheme.background),
-                    textStyle: textTheme.bodySmall!.copyWith(
-                        fontSize: 15.sp, color: colorScheme.background),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.5.w),
-                  ),
+                  
                   const Expanded(
                       child: TabBarView(
                     children: [

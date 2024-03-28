@@ -31,6 +31,6 @@ class VideoPlayerCubit extends Cubit<VideoPlayerState> {
 
   void pause() {
     state.videoPlayerController.pause();
-    // emit(state.copyWith(isPlaying: false));
+    emit(state.copyWith(isPlaying: false));
   }
 }

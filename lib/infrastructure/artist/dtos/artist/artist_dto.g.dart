@@ -11,6 +11,7 @@ _$ArtistDtoImpl _$$ArtistDtoImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int? ?? 0,
       fullName: json['fullName'] as String? ?? '',
       description: json['description'] as String? ?? '',
+      profileImage: json['profileImage'] as String? ?? '',
       categories: (json['category'] as List<dynamic>?)
               ?.map(
                   (e) => ArtistCategoryDto.fromJson(e as Map<String, dynamic>))
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$ArtistDtoImplToJson(_$ArtistDtoImpl instance) =>
       'id': instance.id,
       'fullName': instance.fullName,
       'description': instance.description,
+      'profileImage': instance.profileImage,
       'category': instance.categories,
       'city': instance.city,
       'tag': instance.tag,

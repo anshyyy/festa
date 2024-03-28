@@ -11,11 +11,13 @@ abstract class PubRepository {
     required int pubId,
     required int page,
     required int limit,
+    required String searchQuery,
   });
   Future<CommunityDto> getPubFriends({
     required int pubId,
     required int page,
     required int limit,
+    required String searchQuery,
   });
   Future<List<AssetDto>> getPubAssets({
     required int pubId,

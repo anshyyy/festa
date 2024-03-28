@@ -48,7 +48,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'assets', defaultValue: []) required List<AssetDto> assets,
     @JsonKey(name: 'artists', defaultValue: [])
     required List<ArtistDto> artists,
-    @JsonKey(name: 'address') AddressDto? address,
+    @JsonKey(name: 'address') AddressDto? address,    
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,

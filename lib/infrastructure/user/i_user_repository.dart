@@ -39,6 +39,7 @@ class IUserRepository extends UserRepository {
     required int userId,
     required int page,
     required int limit,
+    required String searchQuery,
   }) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
@@ -47,6 +48,7 @@ class IUserRepository extends UserRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
+        'search':searchQuery,
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
@@ -68,6 +70,7 @@ class IUserRepository extends UserRepository {
     required int userId,
     required int page,
     required int limit,
+    required String searchQuery,
   }) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
@@ -76,6 +79,7 @@ class IUserRepository extends UserRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
+        'search':searchQuery,
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);

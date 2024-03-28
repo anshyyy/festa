@@ -12,11 +12,14 @@ abstract class UserRepository {
     required int userId,
     required int page,
     required int limit,
+    required String searchQuery,
   });
   Future<CommunityDto> getUserFriends({
     required int userId,
     required int page,
     required int limit,
+    required String searchQuery,
+
   });
 
   Future<Either<dynamic, UserDto>> fetchUserDetails({

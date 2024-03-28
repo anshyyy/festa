@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -32,7 +31,7 @@ class MediaViewerTabsConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height:90.h,
+      height: 90.h,
       child: DefaultTabController(
         length: 1,
         child: Column(
@@ -58,7 +57,7 @@ class MediaViewerTabsConsumer extends StatelessWidget {
             Expanded(
               child: TabBarView(children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w),
+                  padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0),
                   child: const ArtistMusicCollectionWidget(),
                 ),
                 // Padding(
@@ -93,11 +92,12 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
       builder: (context, state) {
         return ListView.builder(
             // physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.only(top: 3.w),
             shrinkWrap: true,
             itemCount: state.musicList.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.w),
+                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.5.w),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.w),
@@ -118,8 +118,9 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4.w),
                                   image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                          state.musicList[index].imageUrl),
+                                      image: NetworkImage(
+                                        state.musicList[index].imageUrl,
+                                      ),
                                       fit: BoxFit.cover)),
                             ),
                             SizedBox(

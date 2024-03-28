@@ -20,6 +20,7 @@ mixin _$UserCommunityState {
   bool get isFriendsFetching => throw _privateConstructorUsedError;
   bool get isFailed => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
+  bool get noUse => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   int get followersPage => throw _privateConstructorUsedError;
@@ -35,6 +36,10 @@ mixin _$UserCommunityState {
       throw _privateConstructorUsedError;
   bool get hasMoreFollowers => throw _privateConstructorUsedError;
   bool get hasMoreFriends => throw _privateConstructorUsedError;
+  TextEditingController get followersSearchController =>
+      throw _privateConstructorUsedError;
+  TextEditingController get friendsSearchController =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserCommunityStateCopyWith<UserCommunityState> get copyWith =>
@@ -52,6 +57,7 @@ abstract class $UserCommunityStateCopyWith<$Res> {
       bool isFriendsFetching,
       bool isFailed,
       bool isSuccessful,
+      bool noUse,
       int userId,
       String username,
       int followersPage,
@@ -64,7 +70,9 @@ abstract class $UserCommunityStateCopyWith<$Res> {
       ScrollController followersScrollController,
       ScrollController friendsScrollController,
       bool hasMoreFollowers,
-      bool hasMoreFriends});
+      bool hasMoreFriends,
+      TextEditingController followersSearchController,
+      TextEditingController friendsSearchController});
 
   $CommunityDtoCopyWith<$Res> get userFollowers;
   $CommunityDtoCopyWith<$Res> get userFriends;
@@ -87,6 +95,7 @@ class _$UserCommunityStateCopyWithImpl<$Res, $Val extends UserCommunityState>
     Object? isFriendsFetching = null,
     Object? isFailed = null,
     Object? isSuccessful = null,
+    Object? noUse = null,
     Object? userId = null,
     Object? username = null,
     Object? followersPage = null,
@@ -100,6 +109,8 @@ class _$UserCommunityStateCopyWithImpl<$Res, $Val extends UserCommunityState>
     Object? friendsScrollController = null,
     Object? hasMoreFollowers = null,
     Object? hasMoreFriends = null,
+    Object? followersSearchController = null,
+    Object? friendsSearchController = null,
   }) {
     return _then(_value.copyWith(
       isFollowersFetching: null == isFollowersFetching
@@ -117,6 +128,10 @@ class _$UserCommunityStateCopyWithImpl<$Res, $Val extends UserCommunityState>
       isSuccessful: null == isSuccessful
           ? _value.isSuccessful
           : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noUse: null == noUse
+          ? _value.noUse
+          : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
       userId: null == userId
           ? _value.userId
@@ -170,6 +185,14 @@ class _$UserCommunityStateCopyWithImpl<$Res, $Val extends UserCommunityState>
           ? _value.hasMoreFriends
           : hasMoreFriends // ignore: cast_nullable_to_non_nullable
               as bool,
+      followersSearchController: null == followersSearchController
+          ? _value.followersSearchController
+          : followersSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      friendsSearchController: null == friendsSearchController
+          ? _value.friendsSearchController
+          : friendsSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
     ) as $Val);
   }
 
@@ -203,6 +226,7 @@ abstract class _$$UserCommunityStateImplCopyWith<$Res>
       bool isFriendsFetching,
       bool isFailed,
       bool isSuccessful,
+      bool noUse,
       int userId,
       String username,
       int followersPage,
@@ -215,7 +239,9 @@ abstract class _$$UserCommunityStateImplCopyWith<$Res>
       ScrollController followersScrollController,
       ScrollController friendsScrollController,
       bool hasMoreFollowers,
-      bool hasMoreFriends});
+      bool hasMoreFriends,
+      TextEditingController followersSearchController,
+      TextEditingController friendsSearchController});
 
   @override
   $CommunityDtoCopyWith<$Res> get userFollowers;
@@ -238,6 +264,7 @@ class __$$UserCommunityStateImplCopyWithImpl<$Res>
     Object? isFriendsFetching = null,
     Object? isFailed = null,
     Object? isSuccessful = null,
+    Object? noUse = null,
     Object? userId = null,
     Object? username = null,
     Object? followersPage = null,
@@ -251,6 +278,8 @@ class __$$UserCommunityStateImplCopyWithImpl<$Res>
     Object? friendsScrollController = null,
     Object? hasMoreFollowers = null,
     Object? hasMoreFriends = null,
+    Object? followersSearchController = null,
+    Object? friendsSearchController = null,
   }) {
     return _then(_$UserCommunityStateImpl(
       isFollowersFetching: null == isFollowersFetching
@@ -268,6 +297,10 @@ class __$$UserCommunityStateImplCopyWithImpl<$Res>
       isSuccessful: null == isSuccessful
           ? _value.isSuccessful
           : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noUse: null == noUse
+          ? _value.noUse
+          : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
       userId: null == userId
           ? _value.userId
@@ -321,6 +354,14 @@ class __$$UserCommunityStateImplCopyWithImpl<$Res>
           ? _value.hasMoreFriends
           : hasMoreFriends // ignore: cast_nullable_to_non_nullable
               as bool,
+      followersSearchController: null == followersSearchController
+          ? _value.followersSearchController
+          : followersSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      friendsSearchController: null == friendsSearchController
+          ? _value.friendsSearchController
+          : friendsSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
     ));
   }
 }
@@ -333,6 +374,7 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
       required this.isFriendsFetching,
       required this.isFailed,
       required this.isSuccessful,
+      required this.noUse,
       required this.userId,
       required this.username,
       required this.followersPage,
@@ -345,7 +387,9 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
       required this.followersScrollController,
       required this.friendsScrollController,
       required this.hasMoreFollowers,
-      required this.hasMoreFriends});
+      required this.hasMoreFriends,
+      required this.followersSearchController,
+      required this.friendsSearchController});
 
   @override
   final bool isFollowersFetching;
@@ -355,6 +399,8 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
   final bool isFailed;
   @override
   final bool isSuccessful;
+  @override
+  final bool noUse;
   @override
   final int userId;
   @override
@@ -381,10 +427,14 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
   final bool hasMoreFollowers;
   @override
   final bool hasMoreFriends;
+  @override
+  final TextEditingController followersSearchController;
+  @override
+  final TextEditingController friendsSearchController;
 
   @override
   String toString() {
-    return 'UserCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, userId: $userId, username: $username, followersPage: $followersPage, friendsPage: $friendsPage, userRepository: $userRepository, userFollowers: $userFollowers, userFriends: $userFriends, pubFollowersCount: $pubFollowersCount, scrollController: $scrollController, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
+    return 'UserCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, noUse: $noUse, userId: $userId, username: $username, followersPage: $followersPage, friendsPage: $friendsPage, userRepository: $userRepository, userFollowers: $userFollowers, userFriends: $userFriends, pubFollowersCount: $pubFollowersCount, scrollController: $scrollController, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends, followersSearchController: $followersSearchController, friendsSearchController: $friendsSearchController)';
   }
 
   @override
@@ -400,6 +450,7 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
                 other.isFailed == isFailed) &&
             (identical(other.isSuccessful, isSuccessful) ||
                 other.isSuccessful == isSuccessful) &&
+            (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.username, username) ||
                 other.username == username) &&
@@ -426,29 +477,39 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
             (identical(other.hasMoreFollowers, hasMoreFollowers) ||
                 other.hasMoreFollowers == hasMoreFollowers) &&
             (identical(other.hasMoreFriends, hasMoreFriends) ||
-                other.hasMoreFriends == hasMoreFriends));
+                other.hasMoreFriends == hasMoreFriends) &&
+            (identical(other.followersSearchController,
+                    followersSearchController) ||
+                other.followersSearchController == followersSearchController) &&
+            (identical(
+                    other.friendsSearchController, friendsSearchController) ||
+                other.friendsSearchController == friendsSearchController));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isFollowersFetching,
-      isFriendsFetching,
-      isFailed,
-      isSuccessful,
-      userId,
-      username,
-      followersPage,
-      friendsPage,
-      userRepository,
-      userFollowers,
-      userFriends,
-      pubFollowersCount,
-      scrollController,
-      followersScrollController,
-      friendsScrollController,
-      hasMoreFollowers,
-      hasMoreFriends);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isFollowersFetching,
+        isFriendsFetching,
+        isFailed,
+        isSuccessful,
+        noUse,
+        userId,
+        username,
+        followersPage,
+        friendsPage,
+        userRepository,
+        userFollowers,
+        userFriends,
+        pubFollowersCount,
+        scrollController,
+        followersScrollController,
+        friendsScrollController,
+        hasMoreFollowers,
+        hasMoreFriends,
+        followersSearchController,
+        friendsSearchController
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -460,23 +521,27 @@ class _$UserCommunityStateImpl implements _UserCommunityState {
 
 abstract class _UserCommunityState implements UserCommunityState {
   const factory _UserCommunityState(
-      {required final bool isFollowersFetching,
-      required final bool isFriendsFetching,
-      required final bool isFailed,
-      required final bool isSuccessful,
-      required final int userId,
-      required final String username,
-      required final int followersPage,
-      required final int friendsPage,
-      required final UserRepository userRepository,
-      required final CommunityDto userFollowers,
-      required final CommunityDto userFriends,
-      required final int pubFollowersCount,
-      required final ScrollController scrollController,
-      required final ScrollController followersScrollController,
-      required final ScrollController friendsScrollController,
-      required final bool hasMoreFollowers,
-      required final bool hasMoreFriends}) = _$UserCommunityStateImpl;
+          {required final bool isFollowersFetching,
+          required final bool isFriendsFetching,
+          required final bool isFailed,
+          required final bool isSuccessful,
+          required final bool noUse,
+          required final int userId,
+          required final String username,
+          required final int followersPage,
+          required final int friendsPage,
+          required final UserRepository userRepository,
+          required final CommunityDto userFollowers,
+          required final CommunityDto userFriends,
+          required final int pubFollowersCount,
+          required final ScrollController scrollController,
+          required final ScrollController followersScrollController,
+          required final ScrollController friendsScrollController,
+          required final bool hasMoreFollowers,
+          required final bool hasMoreFriends,
+          required final TextEditingController followersSearchController,
+          required final TextEditingController friendsSearchController}) =
+      _$UserCommunityStateImpl;
 
   @override
   bool get isFollowersFetching;
@@ -486,6 +551,8 @@ abstract class _UserCommunityState implements UserCommunityState {
   bool get isFailed;
   @override
   bool get isSuccessful;
+  @override
+  bool get noUse;
   @override
   int get userId;
   @override
@@ -512,6 +579,10 @@ abstract class _UserCommunityState implements UserCommunityState {
   bool get hasMoreFollowers;
   @override
   bool get hasMoreFriends;
+  @override
+  TextEditingController get followersSearchController;
+  @override
+  TextEditingController get friendsSearchController;
   @override
   @JsonKey(ignore: true)
   _$$UserCommunityStateImplCopyWith<_$UserCommunityStateImpl> get copyWith =>

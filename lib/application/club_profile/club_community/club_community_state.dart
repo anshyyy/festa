@@ -7,6 +7,7 @@ class ClubCommunityState with _$ClubCommunityState {
     required bool isFriendsFetching,
     required bool isFailed,
     required bool isSuccessful,
+    required bool noUse,
     required int clubId,
     required int followersPage,
     required int friendsPage,
@@ -21,6 +22,8 @@ class ClubCommunityState with _$ClubCommunityState {
     required bool hasMoreFollowers,
     required bool hasMoreFriends,
     required String clubName,
+    required TextEditingController followersSearchController,
+    required TextEditingController friendsSearchController,
   }) = _ClubCommunityState;
 
   factory ClubCommunityState.initial({
@@ -31,6 +34,7 @@ class ClubCommunityState with _$ClubCommunityState {
       ClubCommunityState(
         isFailed: false,
         isSuccessful: false,
+        noUse: false,
         clubId: clubId,
         followersPage: 1,
         friendsPage: 1,
@@ -47,5 +51,7 @@ class ClubCommunityState with _$ClubCommunityState {
         followersScrollController: ScrollController(),
         friendsScrollController: ScrollController(),
         clubName:clubName,
+        followersSearchController: TextEditingController(),
+        friendsSearchController: TextEditingController(),
       );
 }

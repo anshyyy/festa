@@ -44,6 +44,7 @@ class EventsCalendarBuilderConsumer extends StatelessWidget {
             : ListView.builder(
                 shrinkWrap: true,
                 // physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
                 itemCount: state.pubEventsClubbed!.eventMonths.length,
                 itemBuilder: (context, index) {

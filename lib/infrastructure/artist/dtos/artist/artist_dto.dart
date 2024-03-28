@@ -16,6 +16,7 @@ class ArtistDto with _$ArtistDto {
     @JsonKey(name: 'id', defaultValue: 0) required int id,
     @JsonKey(name: 'fullName', defaultValue: '') required String fullName,
     @JsonKey(name: 'description', defaultValue: '') required String description,
+    @JsonKey(name: 'profileImage', defaultValue: '') required String profileImage,
     @JsonKey(name: 'category', defaultValue: []) required List<ArtistCategoryDto> categories,
     @JsonKey(name: 'city', defaultValue: '') required String city,
     @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,

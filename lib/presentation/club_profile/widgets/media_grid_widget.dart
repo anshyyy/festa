@@ -47,6 +47,7 @@ class MediaGridViewer extends StatelessWidget {
             : Padding(
                 padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                 child: GridView.custom(
+                  padding: EdgeInsets.zero,
                   // shrinkWrap: true,
                   controller: state.scrollController,
                   scrollDirection: Axis.vertical,

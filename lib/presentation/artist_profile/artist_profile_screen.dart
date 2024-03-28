@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/artist/artist_cubit.dart';
@@ -37,45 +38,48 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return Scaffold(
-          body: Stack(
-            children: [
-              // const ImageCarousel(),
-
-              SizedBox.expand(
-                child: DraggableScrollableSheet(
-                  initialChildSize: .5,
-                  minChildSize: .5,
-                  builder: (context, scrollController) {
-                    return SingleChildScrollView(
-                      controller: scrollController,
-                      child: Container(
-                        margin: EdgeInsets.only(top: 5.h),
-                        child: Column(
-                          children: [
-                            const ArtistProfile(),
-                            // MediaGrid(),
-                            MediaViewerTabs(
-                              artistId: state.artistId,
-                            ),
-                          ],
+        return ModalProgressHUD(
+          inAsyncCall: state.isLoading,
+          child: state.isLoading ? 
+          SizedBox()
+          : Scaffold(
+            body: Stack(
+              children: [
+                SizedBox.expand(
+                  child: DraggableScrollableSheet(
+                    initialChildSize: .5,
+                    minChildSize: .5,
+                    builder: (context, scrollController) {
+                      return SingleChildScrollView(
+                        controller: scrollController,
+                        child: Container(
+                          margin: EdgeInsets.only(top: 5.h),
+                          child: Column(
+                            children: [
+                              const ArtistProfile(),
+                              // MediaGrid(),
+                              MediaViewerTabs(
+                                artistId: state.artistId,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Positioned(
-                top: 15.w,
-                left: 1.w,
-                child: GestureDetector(
-                    onTap: () {
-                      navigator<NavigationService>().goBack();
+                      );
                     },
-                    child: Center(
-                        child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              ),
-            ],
+                  ),
+                ),
+                Positioned(
+                  top: 15.w,
+                  left: 1.w,
+                  child: GestureDetector(
+                      onTap: () {
+                        navigator<NavigationService>().goBack();
+                      },
+                      child: Center(
+                          child: SvgPicture.asset(AssetConstants.arrowLeft))),
+                ),
+              ],
+            ),
           ),
         );
       },

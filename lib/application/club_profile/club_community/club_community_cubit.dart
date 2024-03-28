@@ -30,7 +30,7 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
         if (state.hasMoreFollowers) {
           if (!isFollowersFetching) {
             isFollowersFetching = true;
-            getPubFollowers();
+            getPubFollowers(page: state.followersPage);
           }
         }
       }
@@ -46,33 +46,33 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
         if (state.hasMoreFriends) {
           if (!isFriendsFetching) {
             isFriendsFetching = true;
-            getPubFriends();
+            getPubFriends(page: state.friendsPage);
           }
         }
       }
     });
 
-    getPubFollowers();
-    getPubFriends();
+    getPubFollowers(page: state.followersPage);
+    getPubFriends(page: state.friendsPage);
   }
 
-  Future getPubFollowers() async {
+  Future searchPubFollowers({
+    required int page,
+  }) async {
     try {
       emit(state.copyWith(isFollowersFetching: true));
       final followers = await state.pubRepository.getPubFollowers(
-        pubId: state.clubId,
-        page: state.followersPage,
-        limit: limit,
-      );
-      List<CommunityUserDto> temp =
-          state.pubFollowers.users.map((e) => e).toList();
-      temp.addAll(followers.users);
+          pubId: state.clubId,
+          page: page,
+          limit: limit,
+          searchQuery: state.followersSearchController.text);
+      List<CommunityUserDto> temp = followers.users;
       isFollowersFetching = false;
       // isFollowersFetching = false;
       emit(
         state.copyWith(
             isFollowersFetching: false,
-            followersPage: state.followersPage + 1,
+            followersPage: page + 1,
             hasMoreFollowers: followers.users.length == limit,
             pubFollowers:
                 CommunityDto(totalCount: followers.totalCount, users: temp)),
@@ -82,14 +82,66 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
     }
   }
 
-  Future getPubFriends() async {
+  Future getPubFollowers({
+    required int page,
+  }) async {
+    try {
+      emit(state.copyWith(isFollowersFetching: true));
+      final followers = await state.pubRepository.getPubFollowers(
+          pubId: state.clubId,
+          page: page,
+          limit: limit,
+          searchQuery: state.followersSearchController.text);
+      List<CommunityUserDto> temp =
+          state.pubFollowers.users.map((e) => e).toList();
+      temp.addAll(followers.users);
+      isFollowersFetching = false;
+      // isFollowersFetching = false;
+      emit(
+        state.copyWith(
+            isFollowersFetching: false,
+            followersPage: page + 1,
+            hasMoreFollowers: followers.users.length == limit,
+            pubFollowers:
+                CommunityDto(totalCount: followers.totalCount, users: temp)),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future searchPubFriends({
+    required int page,
+  }) async {
     try {
       emit(state.copyWith(isFriendsFetching: true));
       final friends = await state.pubRepository.getPubFriends(
-        pubId: state.clubId,
-        page: state.friendsPage,
-        limit: limit,
+          pubId: state.clubId,
+          page: page,
+          limit: limit,
+          searchQuery: state.friendsSearchController.text);
+      List<CommunityUserDto> temp = friends.users;
+      isFriendsFetching = false;
+      emit(
+        state.copyWith(
+            isFriendsFetching: false,
+            friendsPage: page + 1,
+            hasMoreFriends: friends.users.length == limit,
+            pubFriends:
+                CommunityDto(totalCount: friends.totalCount, users: temp)),
       );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future getPubFriends({
+    required int page,
+  }) async {
+    try {
+      emit(state.copyWith(isFriendsFetching: true));
+      final friends = await state.pubRepository.getPubFriends(
+          pubId: state.clubId, page: page, limit: limit, searchQuery: state.friendsSearchController.text);
       List<CommunityUserDto> temp =
           state.pubFriends.users.map((e) => e).toList();
       temp.addAll(friends.users);
@@ -97,7 +149,7 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
       emit(
         state.copyWith(
             isFriendsFetching: false,
-            friendsPage: state.friendsPage + 1,
+            friendsPage: page + 1,
             hasMoreFriends: friends.users.length == limit,
             pubFriends:
                 CommunityDto(totalCount: friends.totalCount, users: temp)),
@@ -173,5 +225,11 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
         pubFollowers: CommunityDto(
             totalCount: state.pubFollowers.totalCount,
             users: listOfFollowers)));
+  }
+
+  void clearSearch() {
+    state.followersSearchController.clear();
+    state.friendsSearchController.clear();
+    emit(state.copyWith(noUse: !state.noUse));
   }
 }

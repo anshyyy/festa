@@ -26,6 +26,8 @@ mixin _$ArtistDto {
   String get fullName => throw _privateConstructorUsedError;
   @JsonKey(name: 'description', defaultValue: '')
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'profileImage', defaultValue: '')
+  String get profileImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'category', defaultValue: [])
   List<ArtistCategoryDto> get categories => throw _privateConstructorUsedError;
   @JsonKey(name: 'city', defaultValue: '')
@@ -51,6 +53,7 @@ abstract class $ArtistDtoCopyWith<$Res> {
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'description', defaultValue: '') String description,
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
       @JsonKey(name: 'category', defaultValue: [])
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
@@ -78,6 +81,7 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
     Object? id = null,
     Object? fullName = null,
     Object? description = null,
+    Object? profileImage = null,
     Object? categories = null,
     Object? city = null,
     Object? tag = freezed,
@@ -95,6 +99,10 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileImage: null == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
       categories: null == categories
           ? _value.categories
@@ -153,6 +161,7 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'description', defaultValue: '') String description,
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
       @JsonKey(name: 'category', defaultValue: [])
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
@@ -180,6 +189,7 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? fullName = null,
     Object? description = null,
+    Object? profileImage = null,
     Object? categories = null,
     Object? city = null,
     Object? tag = freezed,
@@ -197,6 +207,10 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileImage: null == profileImage
+          ? _value.profileImage
+          : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
       categories: null == categories
           ? _value.categories
@@ -225,6 +239,8 @@ class _$ArtistDtoImpl implements _ArtistDto {
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
+      @JsonKey(name: 'profileImage', defaultValue: '')
+      required this.profileImage,
       @JsonKey(name: 'category', defaultValue: []) required this.categories,
       @JsonKey(name: 'city', defaultValue: '') required this.city,
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
@@ -243,6 +259,9 @@ class _$ArtistDtoImpl implements _ArtistDto {
   @JsonKey(name: 'description', defaultValue: '')
   final String description;
   @override
+  @JsonKey(name: 'profileImage', defaultValue: '')
+  final String profileImage;
+  @override
   @JsonKey(name: 'category', defaultValue: [])
   final List<ArtistCategoryDto> categories;
   @override
@@ -257,7 +276,7 @@ class _$ArtistDtoImpl implements _ArtistDto {
 
   @override
   String toString() {
-    return 'ArtistDto(id: $id, fullName: $fullName, description: $description, categories: $categories, city: $city, tag: $tag, extraDetailsDto: $extraDetailsDto)';
+    return 'ArtistDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, categories: $categories, city: $city, tag: $tag, extraDetailsDto: $extraDetailsDto)';
   }
 
   @override
@@ -270,6 +289,8 @@ class _$ArtistDtoImpl implements _ArtistDto {
                 other.fullName == fullName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.profileImage, profileImage) ||
+                other.profileImage == profileImage) &&
             const DeepCollectionEquality()
                 .equals(other.categories, categories) &&
             (identical(other.city, city) || other.city == city) &&
@@ -285,6 +306,7 @@ class _$ArtistDtoImpl implements _ArtistDto {
       id,
       fullName,
       description,
+      profileImage,
       const DeepCollectionEquality().hash(categories),
       city,
       tag,
@@ -311,6 +333,8 @@ abstract class _ArtistDto implements ArtistDto {
       required final String fullName,
       @JsonKey(name: 'description', defaultValue: '')
       required final String description,
+      @JsonKey(name: 'profileImage', defaultValue: '')
+      required final String profileImage,
       @JsonKey(name: 'category', defaultValue: [])
       required final List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') required final String city,
@@ -330,6 +354,9 @@ abstract class _ArtistDto implements ArtistDto {
   @override
   @JsonKey(name: 'description', defaultValue: '')
   String get description;
+  @override
+  @JsonKey(name: 'profileImage', defaultValue: '')
+  String get profileImage;
   @override
   @JsonKey(name: 'category', defaultValue: [])
   List<ArtistCategoryDto> get categories;

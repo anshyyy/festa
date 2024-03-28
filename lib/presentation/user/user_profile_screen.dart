@@ -20,8 +20,7 @@ import 'widgets/user_profile_widget.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final int userId;
-  const UserProfileScreen(
-      {super.key, required this.userId});
+  const UserProfileScreen({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,8 @@ class UserProfileScreenConsumer extends StatelessWidget {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
     final textTheme = themeData.textTheme;
-    final AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
+    final AppStateNotifier appStateNotifier =
+        Provider.of<AppStateNotifier>(context);
 
     return BlocConsumer<UserProfileCubit, UserProfileState>(
       listener: (context, state) {
@@ -97,30 +97,43 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                           height: 4.h,
                                         ),
                                       ),
-                            appStateNotifier.user!.id != state.userId
-                                ? SizedBox()
-                                : SafeArea(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        navigator<NavigationService>()
-                                            .navigateTo(
-                                          UserRoutes.profileAndSettingsRoute,
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 5.w, top: 1.h),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            SvgPicture.asset(
-                                                AssetConstants.hamBurgerMenu),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                            SafeArea(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                        onTap: () {
+                                          navigator<NavigationService>()
+                                              .navigateTo(UserRoutes.mainNavRoute);
+                                        },
+                                        child: SvgPicture.asset(
+                                            AssetConstants.arrowLeft)),
+                                    appStateNotifier.user!.id != state.userId
+                                        ? SizedBox()
+                                        : GestureDetector(
+                                            onTap: () {
+                                              navigator<NavigationService>()
+                                                  .navigateTo(
+                                                UserRoutes
+                                                    .profileAndSettingsRoute,
+                                              );
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                SvgPicture.asset(AssetConstants
+                                                    .hamBurgerMenu),
+                                              ],
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         )),
                     const Column(
@@ -130,7 +143,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                       ],
                     ),
                     // state.qrExpandedView
-                    1==2
+                    1 == 2
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

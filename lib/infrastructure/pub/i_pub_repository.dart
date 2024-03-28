@@ -40,6 +40,7 @@ class IPubRepository extends PubRepository {
     required int pubId,
     required int page,
     required int limit,
+    required String searchQuery,
   }) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
@@ -48,6 +49,7 @@ class IPubRepository extends PubRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
+        'search':searchQuery.toLowerCase(),
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
@@ -69,6 +71,8 @@ class IPubRepository extends PubRepository {
     required int pubId,
     required int page,
     required int limit,
+    required String searchQuery,
+
   }) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
@@ -77,6 +81,7 @@ class IPubRepository extends PubRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
+        'search':searchQuery.toLowerCase(),
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);

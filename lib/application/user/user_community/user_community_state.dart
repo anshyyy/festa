@@ -7,6 +7,7 @@ class UserCommunityState with _$UserCommunityState {
     required bool isFriendsFetching,
     required bool isFailed,
     required bool isSuccessful,
+    required bool noUse,
     required int userId,
     required String username,
     required int followersPage,
@@ -20,6 +21,8 @@ class UserCommunityState with _$UserCommunityState {
     required ScrollController friendsScrollController,
     required bool hasMoreFollowers,
     required bool hasMoreFriends,
+    required TextEditingController followersSearchController,
+    required TextEditingController friendsSearchController,
   }) = _UserCommunityState;
 
   factory UserCommunityState.initial({
@@ -30,6 +33,7 @@ class UserCommunityState with _$UserCommunityState {
       UserCommunityState(
         isFailed: false,
         isSuccessful: false,
+        noUse: false,
         userId: userId,
         username: username,
         followersPage: 1,
@@ -45,5 +49,7 @@ class UserCommunityState with _$UserCommunityState {
         userFriends: const CommunityDto(totalCount: 0, users: []),
         followersScrollController: ScrollController(),
         friendsScrollController: ScrollController(),
+        followersSearchController: TextEditingController(),
+        friendsSearchController: TextEditingController(),
       );
 }

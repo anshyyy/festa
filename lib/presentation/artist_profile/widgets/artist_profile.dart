@@ -23,9 +23,7 @@ class ArtistProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ArtistCubit, ArtistState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final themeData = Theme.of(context);
         final colorScheme = themeData.colorScheme;
@@ -58,7 +56,7 @@ class ArtistProfile extends StatelessWidget {
                           height: 3.h,
                         ),
                         Text(
-                          state.artistProfile!.fullName,
+                          state.artistProfile?.fullName ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -67,38 +65,16 @@ class ArtistProfile extends StatelessWidget {
                                   color:
                                       Theme.of(context).colorScheme.background),
                         ),
-                        Text('@${state.artistProfile!.tag!.tag}',
+                        Text('@${state.artistProfile?.tag?.tag ?? ''}',
                             style: Theme.of(context).textTheme.bodySmall!),
                         SizedBox(
                           height: 1.h,
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     SvgPicture.asset(
-                        //       AssetConstants.locationIcon,
-                        //       height: 2.h,
-                        //     ),
-                        //     SizedBox(
-                        //       width: 2.w,
-                        //     ),
-                        //     Text(state.artistProfile!.city,
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .bodySmall!
-                        //             .copyWith(
-                        //               color: Theme.of(context)
-                        //                   .colorScheme
-                        //                   .background,
-                        //               fontSize: 15.sp,
-                        //             )),
-                        //   ],
-                        // ),
                         SizedBox(
                           height: 1.h,
                         ),
                         Text(
-                          state.artistProfile!.description,
+                          state.artistProfile?.description ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -112,7 +88,6 @@ class ArtistProfile extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:
@@ -151,31 +126,35 @@ class ArtistProfile extends StatelessWidget {
                           thickness: .1.w,
                           // color: Colors.white,
                         ),
-                        MutualFollowers(
-                          artistCommunityDto:
-                              state.artistProfile!.extraDetailsDto!.followedBy,
-                        ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
                         GestureDetector(
-                          onTap: () {
+                           onTap: () {
                             navigator<NavigationService>().navigateTo(
                                 UserRoutes.artistCommunityScreenRoute,
                                 queryParams: {
                                   'artistId': state.artistId.toString(),
-                                  'artistName':state.artistProfile!.fullName,
+                                  'artistName': state.artistProfile!.fullName,
                                 });
                           },
-                          child: SocialReach(
-                            totalParties: state
-                                .artistProfile!.extraDetailsDto!.totalParties,
-                            totalFollowers: state
-                                .artistProfile!.extraDetailsDto!.totalFollowers,
-                            totalFriends: state
-                                .artistProfile!.extraDetailsDto!.totalFriends,
-                            totalFootFall: state
-                                .artistProfile!.extraDetailsDto!.totalFootFall,
+                          child: Column(
+                            children: [
+                              MutualFollowers(
+                                artistCommunityDto:
+                                    state.artistProfile!.extraDetailsDto!.followedBy,
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              SocialReach(
+                                totalParties: state
+                                    .artistProfile!.extraDetailsDto!.totalParties,
+                                totalFollowers: state
+                                    .artistProfile!.extraDetailsDto!.totalFollowers,
+                                totalFriends: state
+                                    .artistProfile!.extraDetailsDto!.totalFriends,
+                                totalFootFall: state
+                                    .artistProfile!.extraDetailsDto!.totalFootFall,
+                              ),
+                            ],
                           ),
                         )
                       ],
@@ -190,11 +169,16 @@ class ArtistProfile extends StatelessWidget {
                           width: 20.w,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
+                              color: colorScheme.primaryContainer.withOpacity(1),
                               border: Border.all(width: 1, color: Colors.white),
-                              image: const DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      'https://i.pinimg.com/736x/0c/c2/74/0cc2740f7cc70dd14f2dbf80076d26df.jpg'))),
+                              image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: state.artistProfile?.profileImage != null &&
+                                      state.artistProfile!.profileImage.isNotEmpty
+                                  ? NetworkImage(state.artistProfile!.profileImage)
+                                  : Image.asset(
+                                          AssetConstants.defaultAvatarImage)
+                                      .image)),
                         ),
                       ],
                     ),
@@ -281,7 +265,7 @@ class ArtistProfile extends StatelessWidget {
                             color: Theme.of(context)
                                 .colorScheme
                                 .secondaryContainer,
-                                dataModuleShape: QrDataModuleShape.square),
+                            dataModuleShape: QrDataModuleShape.square),
                       ),
                     ),
                   )

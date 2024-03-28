@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,7 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../widgets/custom_textfield.dart';
 
 class ClubFollowers extends StatelessWidget {
   const ClubFollowers({
@@ -32,6 +34,26 @@ class ClubFollowers extends StatelessWidget {
       builder: (context, state) {
         return Column(
           children: [
+            CustomTextField(
+              controller: state.followersSearchController,
+              isFill: true,
+              fillColor: themeData.scaffoldBackgroundColor.withOpacity(.4),
+              hintText: AppConstants.search,
+              hintTextStyle: textTheme.bodySmall!
+                  .copyWith(fontSize: 1.sp, color: colorScheme.background),
+              textStyle: textTheme.bodySmall!
+                  .copyWith(fontSize: 15.sp, color: colorScheme.background),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.5.w),
+              onChanged: (value) {
+                EasyDebounce.debounce('club-followers-search', 
+                const Duration(milliseconds: 500),
+                 () {
+                  context.read<ClubCommunityCubit>().searchPubFollowers(page: 1);
+                 });
+              },
+              
+            ),
             state.pubFollowers.users.isNotEmpty
                 ? Expanded(
                     child: ListView.builder(

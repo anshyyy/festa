@@ -41,7 +41,7 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state.isSuccessful) {
           navigator<NavigationService>()
-              .navigateTo(UserRoutes.mainNavRoute, isClearStack: true);
+              .navigateTo(AuthRoutes.usernameRoute, isClearStack: true);
         } else if (state.isFailed) {
           CustomScaffoldMessenger.clearSnackBars(context);
           CustomScaffoldMessenger.showSnackBar(

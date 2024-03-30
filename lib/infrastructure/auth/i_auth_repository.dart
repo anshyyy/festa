@@ -133,9 +133,10 @@ class IAuthRepository extends AuthRepository {
   @override
   Future<UserDto?> authentication() async {
     try {
-      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
       print(token);
       if (token == null) {
+
         return null;
       }
       final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
@@ -174,7 +175,7 @@ class IAuthRepository extends AuthRepository {
   Future<bool> deleteProfile({required int id}) async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      final url = '$serverUrl${EventApiConstants.USERS}/$id';
+      final url = '$serverUrl${AuthApiConstants.USERS}';
       final response = await RESTService.performDELETERequest(
         httpUrl: url,
         isAuth: true,

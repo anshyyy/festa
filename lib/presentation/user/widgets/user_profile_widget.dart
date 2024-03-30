@@ -108,18 +108,18 @@ class UserProfile extends StatelessWidget {
                           ),
                           MutualFollowers(
                                 artistCommunityDto:
-                                    state.user!.extraDetailsDto!.followedBy,
+                                    state.user?.extraDetailsDto?.followedBy,
                               ),
                           SizedBox(
                             height: 1.h,
                           ),
                           SocialReach(
                               totalParties:
-                                  state.user!.extraDetailsDto!.totalParties,
+                                  state.user?.extraDetailsDto?.totalParties,
                               totalFollowers:
-                                  state.user!.extraDetailsDto!.totalFollowers,
+                                  state.user?.extraDetailsDto?.totalFollowers,
                               totalFriends:
-                                  state.user!.extraDetailsDto!.totalFriends)
+                                  state.user?.extraDetailsDto?.totalFriends)
                         ],
                       ),
                     ),

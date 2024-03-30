@@ -24,7 +24,8 @@ mixin _$PersonalizationMenuDto {
   @JsonKey(name: 'title', defaultValue: '')
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'list', defaultValue: [])
-  List<PersonalizationOptionDto> get list => throw _privateConstructorUsedError;
+  List<PersonalizationOptionDto>? get list =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,7 @@ abstract class $PersonalizationMenuDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'title', defaultValue: '') String title,
       @JsonKey(name: 'list', defaultValue: [])
-      List<PersonalizationOptionDto> list});
+      List<PersonalizationOptionDto>? list});
 }
 
 /// @nodoc
@@ -59,17 +60,17 @@ class _$PersonalizationMenuDtoCopyWithImpl<$Res,
   @override
   $Res call({
     Object? title = null,
-    Object? list = null,
+    Object? list = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      list: null == list
+      list: freezed == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
-              as List<PersonalizationOptionDto>,
+              as List<PersonalizationOptionDto>?,
     ) as $Val);
   }
 }
@@ -86,7 +87,7 @@ abstract class _$$PersonalizationMenuDtoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'title', defaultValue: '') String title,
       @JsonKey(name: 'list', defaultValue: [])
-      List<PersonalizationOptionDto> list});
+      List<PersonalizationOptionDto>? list});
 }
 
 /// @nodoc
@@ -103,17 +104,17 @@ class __$$PersonalizationMenuDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
-    Object? list = null,
+    Object? list = freezed,
   }) {
     return _then(_$PersonalizationMenuDtoImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      list: null == list
+      list: freezed == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
-              as List<PersonalizationOptionDto>,
+              as List<PersonalizationOptionDto>?,
     ));
   }
 }
@@ -123,7 +124,7 @@ class __$$PersonalizationMenuDtoImplCopyWithImpl<$Res>
 class _$PersonalizationMenuDtoImpl implements _PersonalizationMenuDto {
   const _$PersonalizationMenuDtoImpl(
       {@JsonKey(name: 'title', defaultValue: '') required this.title,
-      @JsonKey(name: 'list', defaultValue: []) required this.list});
+      @JsonKey(name: 'list', defaultValue: []) this.list});
 
   factory _$PersonalizationMenuDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PersonalizationMenuDtoImplFromJson(json);
@@ -133,7 +134,7 @@ class _$PersonalizationMenuDtoImpl implements _PersonalizationMenuDto {
   final String title;
   @override
   @JsonKey(name: 'list', defaultValue: [])
-  final List<PersonalizationOptionDto> list;
+  final List<PersonalizationOptionDto>? list;
 
   @override
   String toString() {
@@ -173,7 +174,7 @@ abstract class _PersonalizationMenuDto implements PersonalizationMenuDto {
   const factory _PersonalizationMenuDto(
       {@JsonKey(name: 'title', defaultValue: '') required final String title,
       @JsonKey(name: 'list', defaultValue: [])
-      required final List<PersonalizationOptionDto>
+      final List<PersonalizationOptionDto>?
           list}) = _$PersonalizationMenuDtoImpl;
 
   factory _PersonalizationMenuDto.fromJson(Map<String, dynamic> json) =
@@ -184,7 +185,7 @@ abstract class _PersonalizationMenuDto implements PersonalizationMenuDto {
   String get title;
   @override
   @JsonKey(name: 'list', defaultValue: [])
-  List<PersonalizationOptionDto> get list;
+  List<PersonalizationOptionDto>? get list;
   @override
   @JsonKey(ignore: true)
   _$$PersonalizationMenuDtoImplCopyWith<_$PersonalizationMenuDtoImpl>

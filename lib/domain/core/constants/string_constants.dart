@@ -284,6 +284,7 @@ class ProfileAndSettingsScreenConstants {
   static String accountDeleted = 'Account deleted successfully!';
   static String accountDeletionFailed = 'Failed to delete account!';
   static String logoutSuccess = 'Logout successfully!';
+  static String logoutFailure = 'Something went wrong, contact admin';
 }
 
 class PersonalizeExperienceScreenConstants {
@@ -293,6 +294,7 @@ class PersonalizeExperienceScreenConstants {
       'You are free to change the personalisation anytime.';
   static String totallyUptoYouMessage =
       'This is totally up to you and whether you’re comfortable.';
+  static String genderSettingChange = 'This is totally up to you and whether you’re comfortable.';
 }
 
 class EditProfileScreenConstants {

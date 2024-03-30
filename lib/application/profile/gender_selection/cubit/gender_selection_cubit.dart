@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../domain/auth/auth_repository.dart';
 import '../../../../domain/core/configs/app_config.dart';
 import '../../../../domain/user/user_repository.dart';
+import '../../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../../infrastructure/auth/i_auth_repository.dart';
 import '../../../../infrastructure/user/i_user_repository.dart';
 
@@ -15,6 +16,12 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
   //emit from anywhere
   void emitFromAnywhere({required GenderSelectionState state}) {
     emit(state);
+  }
+
+  void init({String? gender}) {
+    emit(state.copyWith(
+        selectedSex:
+            state.lsOFSexValue.indexWhere((element) => element == gender)));
   }
 
   // on add patient
@@ -40,7 +47,30 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
     }));
   }
 
-  void onSexSelect(int selectedSex) {
-    emit(state.copyWith(selectedSex: selectedSex, isSaveDetailsEnable: true));
+  void onSexSelect(int selectedSex) async {
+    emit(state.copyWith(
+      selectedSex: selectedSex,
+    ));
+    final response = await state.userRepository.patchProfile(input: {
+      'gender': state.lsOFSexValue[state.selectedSex!].trim().toLowerCase()
+    });
+
+    response.fold((l) {
+      emit(state.copyWith(
+        // selectedSex: selectedSex,
+        genderUpdateSuccess: false,
+        genderUpdateFailure: true,
+        // isSaveDetailsEnable:true,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        selectedSex: selectedSex,
+        genderUpdateSuccess: true,
+        genderUpdateFailure: false,
+        user: r,
+        isSaveDetailsEnable:true,
+      ));
+    });
+    ;
   }
 }

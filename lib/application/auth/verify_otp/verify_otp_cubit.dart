@@ -36,6 +36,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   }
 
   void resendOtp() async {
+    state.otpController.clear();
     emit(state.copyWith(
       isVerifyEnabled: false,
       showResendButton: false,

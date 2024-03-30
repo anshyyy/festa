@@ -58,7 +58,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-              title: ProfileAndSettingsScreenConstants.profileAndSettings,
+              title: AccountSettingScreenConstants.username,
               leading: GestureDetector(
                   onTap: () {
                     navigator<NavigationService>().goBack();

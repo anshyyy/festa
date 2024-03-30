@@ -59,7 +59,7 @@ class DateOfBirthSettingsScreenConsumer extends StatelessWidget {
           inAsyncCall: state.isLoading,
           child: Scaffold(
             appBar: CustomAppBar(
-                title: DateOfBirthSettingsScreenConstants.title,
+                title: AccountSettingScreenConstants.dateOfBirth,
                 leading: GestureDetector(
                     onTap: () {
                       navigator<NavigationService>().goBack();

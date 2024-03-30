@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
-import '../../../infrastructure/user/dtos/personalization_menu/personalization_menu_dto.dart';
 import '../../../infrastructure/user/dtos/settings_menu/settings_menu_dto.dart';
 import '../services/navigation_services/routers/route_name.dart';
 import 'asset_constants.dart';

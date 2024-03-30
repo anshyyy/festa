@@ -7,13 +7,16 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../application/user/delete_account/delete_account_cubit.dart';
 import '../../../../../application/user/delete_account/delete_confirmation/delete_confirmation_cubit.dart';
+import '../../../../../domain/core/configs/app_config.dart';
 import '../../../../../domain/core/configs/injection.dart';
 import '../../../../../domain/core/constants/asset_constants.dart';
 import '../../../../../domain/core/constants/string_constants.dart';
 import '../../../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../../widgets/custom_appbar.dart';
 import '../../../../widgets/custom_textfield.dart';
 import '../../../../widgets/gradient_button.dart';
+import '../../../../widgets/snackbar_alert.dart';
 
 class DeleteAccountScreen extends StatelessWidget {
   const DeleteAccountScreen({super.key});
@@ -175,27 +178,27 @@ class AccountDeleteModalSheet extends StatelessWidget {
               height: 3.5.h,
             ),
             Stack(
-                children: [
-                  Center(
-                    child: Text(
-                      DeleteAccountScreenConstants.accountDeletion,
-                      style: textTheme.bodyMedium!.copyWith(
-                        color: colorScheme.error,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18.sp,
-                      ),
+              children: [
+                Center(
+                  child: Text(
+                    DeleteAccountScreenConstants.accountDeletion,
+                    style: textTheme.bodyMedium!.copyWith(
+                      color: colorScheme.error,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18.sp,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                        onTap: () {
-                          navigator<NavigationService>().goBack();
-                        },
-                        child: SvgPicture.asset(AssetConstants.closeIcon)),
-                  )
-                ],
-              ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                      onTap: () {
+                        navigator<NavigationService>().goBack();
+                      },
+                      child: SvgPicture.asset(AssetConstants.closeIcon)),
+                )
+              ],
+            ),
             SizedBox(
               height: 3.h,
             ),
@@ -258,8 +261,15 @@ class ConfirmDeleteModalSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppConfig appConfig = AppConfig.of(context)!;
+    final AppStateNotifier appStateNotifier =
+        Provider.of<AppStateNotifier>(context);
     return BlocProvider(
-      create: (context) => DeleteConfirmationCubit(),
+      create: (context) =>
+          DeleteConfirmationCubit(DeleteConfirmationState.initial(
+        serverUrl: appConfig.serverUrl,
+        userId: appStateNotifier.user!.id,
+      )),
       child: ConfirmDeleteModalSheetConsumer(),
     );
   }
@@ -277,7 +287,24 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
     return BlocConsumer<DeleteConfirmationCubit, DeleteConfirmationState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state.deleteSuccess && !state.deleteFailure) {
+          Provider.of<AppStateNotifier>(context, listen: false)
+              .updateAfterAuthChange(
+            isAuthorized: false,
+            user: null,
+          );
+          navigator<NavigationService>().navigateTo(
+            AuthRoutes.loginWithPhoneRoute,
+            isClearStack: true,
+          );
+        }
+        if (!state.deleteSuccess && state.deleteFailure) {
+          CustomScaffoldMessenger.clearSnackBars(context);
+          CustomScaffoldMessenger.showSnackBar(
+            context,
+            message: ProfileAndSettingsScreenConstants.logoutFailure,
+          );
+        }
       },
       builder: (context, state) {
         return Container(
@@ -374,7 +401,7 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
               GradientButton(
                 text: DeleteAccountScreenConstants.title,
                 onTap: () {
-                  navigator<NavigationService>().goBack();
+                  context.read<DeleteConfirmationCubit>().deleteAccount();
                 },
                 isEnabled: state.deleteEnabled,
                 textStyle: textTheme.bodySmall!.copyWith(

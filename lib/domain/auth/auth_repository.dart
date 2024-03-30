@@ -35,5 +35,6 @@ abstract class AuthRepository {
     required String fcmToken,
     required bool isRemove,
   });
+
   
 }

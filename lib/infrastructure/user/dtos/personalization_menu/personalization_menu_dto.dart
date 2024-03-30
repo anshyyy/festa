@@ -12,7 +12,7 @@ class PersonalizationMenuDto with _$PersonalizationMenuDto {
   const factory PersonalizationMenuDto({
     @JsonKey(name: 'title', defaultValue: '') required String title,
     @JsonKey(name: 'list', defaultValue: [])
-    required List<PersonalizationOptionDto> list,
+    List<PersonalizationOptionDto>? list,
   }) = _PersonalizationMenuDto;
 
   factory PersonalizationMenuDto.fromJson(Map<String, dynamic> json) =>

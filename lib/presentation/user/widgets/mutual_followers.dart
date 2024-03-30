@@ -4,12 +4,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../infrastructure/core/dtos/community/community_dto.dart';
 
 class MutualFollowers extends StatelessWidget {
-  const MutualFollowers({super.key, required this.artistCommunityDto});
-  final CommunityDto artistCommunityDto;
+  const MutualFollowers({super.key, this.artistCommunityDto});
+  final CommunityDto? artistCommunityDto;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return artistCommunityDto==null? SizedBox():Padding(
       padding: EdgeInsets.symmetric(horizontal: 2.w),
       child: SizedBox(
         height: 5.h,
@@ -17,7 +17,7 @@ class MutualFollowers extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ...List.generate(
-                artistCommunityDto.users.length,
+                artistCommunityDto!.users.length,
                 (index) => Align(
                       widthFactor: .4,
                       child: CircleAvatar(
@@ -26,9 +26,9 @@ class MutualFollowers extends StatelessWidget {
                         child: CircleAvatar(
                             radius: 3.5.w,
                             backgroundImage: NetworkImage(
-                                artistCommunityDto.users[index].profileImage)),
+                                artistCommunityDto!.users[index].profileImage)),
                       ),
-                    )),
+                    ),),
             SizedBox(
               width: 5.w,
             ),
@@ -40,10 +40,10 @@ class MutualFollowers extends StatelessWidget {
                   const TextSpan(text: 'Followed By '),
                   TextSpan(children: [
                     ...List.generate(
-                      artistCommunityDto.users.length,
+                      artistCommunityDto!.users.length,
                       (index) => TextSpan(
                           text:
-                              '${artistCommunityDto.users[index].fullName}${index == artistCommunityDto.users.length - 1 ? ' ' : ', '}',
+                              '${artistCommunityDto!.users[index].fullName}${index == artistCommunityDto!.users.length - 1 ? ' ' : ', '}',
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -56,7 +56,7 @@ class MutualFollowers extends StatelessWidget {
                   ]),
                   TextSpan(
                       text:
-                          artistCommunityDto.totalCount > 0 ?'& ${artistCommunityDto.totalCount - artistCommunityDto.users.length} Others':'')
+                          artistCommunityDto!.totalCount > 0 ?'& ${artistCommunityDto!.totalCount - artistCommunityDto!.users.length} Others':'')
                 ]),
               ),
             )

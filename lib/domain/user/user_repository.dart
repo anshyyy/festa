@@ -46,4 +46,5 @@ abstract class UserRepository {
   Future<List<PersonalizationMenuDto>> fetchPersonalizeMenu();
 
   void updatePersonalizedMenu({required String title, required List<String> list});
+  Future<bool> deleteProfile({required int id});
 }

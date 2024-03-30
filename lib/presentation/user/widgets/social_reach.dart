@@ -5,10 +5,10 @@ import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/extensions/string_extension.dart';
 
 class SocialReach extends StatelessWidget {
-    final int totalParties;
-  final int totalFollowers;
-  final int totalFriends;
-  const SocialReach({super.key, required this.totalParties, required this.totalFollowers, required this.totalFriends});
+    final int? totalParties;
+  final int? totalFollowers;
+  final int? totalFriends;
+  const SocialReach({super.key, this.totalParties, this.totalFollowers, this.totalFriends});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class SocialReach extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text:  StringExtension.formatAmount(totalParties),
+                      text:  StringExtension.formatAmount(totalParties ?? 0),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 17.sp,
@@ -51,7 +51,7 @@ class SocialReach extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: StringExtension.formatAmount(totalFollowers),
+                      text: StringExtension.formatAmount(totalFollowers ?? 0),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 17.sp,
@@ -71,7 +71,7 @@ class SocialReach extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: StringExtension.formatAmount(totalFriends),
+                      text: StringExtension.formatAmount(totalFriends ?? 0),
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: 17.sp,

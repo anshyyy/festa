@@ -28,6 +28,9 @@ mixin _$GenderSelectionState {
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
   int? get selectedSex => throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
+  bool get genderUpdateSuccess => throw _privateConstructorUsedError;
+  bool get genderUpdateFailure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GenderSelectionStateCopyWith<GenderSelectionState> get copyWith =>
@@ -52,7 +55,12 @@ abstract class $GenderSelectionStateCopyWith<$Res> {
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
       UserRepository userRepository,
-      int? selectedSex});
+      int? selectedSex,
+      UserDto? user,
+      bool genderUpdateSuccess,
+      bool genderUpdateFailure});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -81,6 +89,9 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
     Object? authRepository = null,
     Object? userRepository = null,
     Object? selectedSex = freezed,
+    Object? user = freezed,
+    Object? genderUpdateSuccess = null,
+    Object? genderUpdateFailure = null,
   }) {
     return _then(_value.copyWith(
       isFailed: null == isFailed
@@ -131,7 +142,31 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
           ? _value.selectedSex
           : selectedSex // ignore: cast_nullable_to_non_nullable
               as int?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
+      genderUpdateSuccess: null == genderUpdateSuccess
+          ? _value.genderUpdateSuccess
+          : genderUpdateSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      genderUpdateFailure: null == genderUpdateFailure
+          ? _value.genderUpdateFailure
+          : genderUpdateFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -155,7 +190,13 @@ abstract class _$$GenderSelectionStateImplCopyWith<$Res>
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
       UserRepository userRepository,
-      int? selectedSex});
+      int? selectedSex,
+      UserDto? user,
+      bool genderUpdateSuccess,
+      bool genderUpdateFailure});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -181,6 +222,9 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
     Object? authRepository = null,
     Object? userRepository = null,
     Object? selectedSex = freezed,
+    Object? user = freezed,
+    Object? genderUpdateSuccess = null,
+    Object? genderUpdateFailure = null,
   }) {
     return _then(_$GenderSelectionStateImpl(
       isFailed: null == isFailed
@@ -231,6 +275,18 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
           ? _value.selectedSex
           : selectedSex // ignore: cast_nullable_to_non_nullable
               as int?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
+      genderUpdateSuccess: null == genderUpdateSuccess
+          ? _value.genderUpdateSuccess
+          : genderUpdateSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      genderUpdateFailure: null == genderUpdateFailure
+          ? _value.genderUpdateFailure
+          : genderUpdateFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -250,7 +306,10 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       required this.appStateNotifier,
       required this.authRepository,
       required this.userRepository,
-      this.selectedSex})
+      this.selectedSex,
+      this.user,
+      required this.genderUpdateSuccess,
+      required this.genderUpdateFailure})
       : _lsOFSex = lsOFSex,
         _lsOFSexValue = lsOFSexValue;
 
@@ -290,10 +349,16 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
   final UserRepository userRepository;
   @override
   final int? selectedSex;
+  @override
+  final UserDto? user;
+  @override
+  final bool genderUpdateSuccess;
+  @override
+  final bool genderUpdateFailure;
 
   @override
   String toString() {
-    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository, selectedSex: $selectedSex)';
+    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository, selectedSex: $selectedSex, user: $user, genderUpdateSuccess: $genderUpdateSuccess, genderUpdateFailure: $genderUpdateFailure)';
   }
 
   @override
@@ -323,7 +388,12 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
             (identical(other.userRepository, userRepository) ||
                 other.userRepository == userRepository) &&
             (identical(other.selectedSex, selectedSex) ||
-                other.selectedSex == selectedSex));
+                other.selectedSex == selectedSex) &&
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.genderUpdateSuccess, genderUpdateSuccess) ||
+                other.genderUpdateSuccess == genderUpdateSuccess) &&
+            (identical(other.genderUpdateFailure, genderUpdateFailure) ||
+                other.genderUpdateFailure == genderUpdateFailure));
   }
 
   @override
@@ -340,7 +410,10 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       appStateNotifier,
       authRepository,
       userRepository,
-      selectedSex);
+      selectedSex,
+      user,
+      genderUpdateSuccess,
+      genderUpdateFailure);
 
   @JsonKey(ignore: true)
   @override
@@ -364,7 +437,10 @@ abstract class _GenderSelectionState implements GenderSelectionState {
       required final AppStateNotifier appStateNotifier,
       required final AuthRepository authRepository,
       required final UserRepository userRepository,
-      final int? selectedSex}) = _$GenderSelectionStateImpl;
+      final int? selectedSex,
+      final UserDto? user,
+      required final bool genderUpdateSuccess,
+      required final bool genderUpdateFailure}) = _$GenderSelectionStateImpl;
 
   @override
   bool get isFailed;
@@ -390,6 +466,12 @@ abstract class _GenderSelectionState implements GenderSelectionState {
   UserRepository get userRepository;
   @override
   int? get selectedSex;
+  @override
+  UserDto? get user;
+  @override
+  bool get genderUpdateSuccess;
+  @override
+  bool get genderUpdateFailure;
   @override
   @JsonKey(ignore: true)
   _$$GenderSelectionStateImplCopyWith<_$GenderSelectionStateImpl>

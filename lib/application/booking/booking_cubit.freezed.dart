@@ -24,6 +24,12 @@ mixin _$BookingState {
   bool get noUse => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
+  double get totalPrice => throw _privateConstructorUsedError;
+  bool get isBookingEnabled => throw _privateConstructorUsedError;
+  EventBookingDetailsDto? get bookingDetails =>
+      throw _privateConstructorUsedError;
+  bool get isBookingSuccess => throw _privateConstructorUsedError;
+  bool get isBookingFailure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BookingStateCopyWith<BookingState> get copyWith =>
@@ -44,9 +50,15 @@ abstract class $BookingStateCopyWith<$Res> {
       bool isFailure,
       bool noUse,
       EventRepository eventRepository,
-      EventDto? event});
+      EventDto? event,
+      double totalPrice,
+      bool isBookingEnabled,
+      EventBookingDetailsDto? bookingDetails,
+      bool isBookingSuccess,
+      bool isBookingFailure});
 
   $EventDtoCopyWith<$Res>? get event;
+  $EventBookingDetailsDtoCopyWith<$Res>? get bookingDetails;
 }
 
 /// @nodoc
@@ -70,6 +82,11 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
     Object? noUse = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? totalPrice = null,
+    Object? isBookingEnabled = null,
+    Object? bookingDetails = freezed,
+    Object? isBookingSuccess = null,
+    Object? isBookingFailure = null,
   }) {
     return _then(_value.copyWith(
       standardTicketCount: null == standardTicketCount
@@ -104,6 +121,26 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      isBookingEnabled: null == isBookingEnabled
+          ? _value.isBookingEnabled
+          : isBookingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bookingDetails: freezed == bookingDetails
+          ? _value.bookingDetails
+          : bookingDetails // ignore: cast_nullable_to_non_nullable
+              as EventBookingDetailsDto?,
+      isBookingSuccess: null == isBookingSuccess
+          ? _value.isBookingSuccess
+          : isBookingSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBookingFailure: null == isBookingFailure
+          ? _value.isBookingFailure
+          : isBookingFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -116,6 +153,19 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
 
     return $EventDtoCopyWith<$Res>(_value.event!, (value) {
       return _then(_value.copyWith(event: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $EventBookingDetailsDtoCopyWith<$Res>? get bookingDetails {
+    if (_value.bookingDetails == null) {
+      return null;
+    }
+
+    return $EventBookingDetailsDtoCopyWith<$Res>(_value.bookingDetails!,
+        (value) {
+      return _then(_value.copyWith(bookingDetails: value) as $Val);
     });
   }
 }
@@ -136,10 +186,17 @@ abstract class _$$$BookingStateImplCopyWith<$Res>
       bool isFailure,
       bool noUse,
       EventRepository eventRepository,
-      EventDto? event});
+      EventDto? event,
+      double totalPrice,
+      bool isBookingEnabled,
+      EventBookingDetailsDto? bookingDetails,
+      bool isBookingSuccess,
+      bool isBookingFailure});
 
   @override
   $EventDtoCopyWith<$Res>? get event;
+  @override
+  $EventBookingDetailsDtoCopyWith<$Res>? get bookingDetails;
 }
 
 /// @nodoc
@@ -161,6 +218,11 @@ class __$$$BookingStateImplCopyWithImpl<$Res>
     Object? noUse = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? totalPrice = null,
+    Object? isBookingEnabled = null,
+    Object? bookingDetails = freezed,
+    Object? isBookingSuccess = null,
+    Object? isBookingFailure = null,
   }) {
     return _then(_$$BookingStateImpl(
       standardTicketCount: null == standardTicketCount
@@ -195,6 +257,26 @@ class __$$$BookingStateImplCopyWithImpl<$Res>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      isBookingEnabled: null == isBookingEnabled
+          ? _value.isBookingEnabled
+          : isBookingEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bookingDetails: freezed == bookingDetails
+          ? _value.bookingDetails
+          : bookingDetails // ignore: cast_nullable_to_non_nullable
+              as EventBookingDetailsDto?,
+      isBookingSuccess: null == isBookingSuccess
+          ? _value.isBookingSuccess
+          : isBookingSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBookingFailure: null == isBookingFailure
+          ? _value.isBookingFailure
+          : isBookingFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -210,7 +292,12 @@ class _$$BookingStateImpl implements $BookingState {
       required this.isFailure,
       required this.noUse,
       required this.eventRepository,
-      this.event});
+      this.event,
+      required this.totalPrice,
+      required this.isBookingEnabled,
+      this.bookingDetails,
+      required this.isBookingSuccess,
+      required this.isBookingFailure});
 
   @override
   final int standardTicketCount;
@@ -228,10 +315,20 @@ class _$$BookingStateImpl implements $BookingState {
   final EventRepository eventRepository;
   @override
   final EventDto? event;
+  @override
+  final double totalPrice;
+  @override
+  final bool isBookingEnabled;
+  @override
+  final EventBookingDetailsDto? bookingDetails;
+  @override
+  final bool isBookingSuccess;
+  @override
+  final bool isBookingFailure;
 
   @override
   String toString() {
-    return 'BookingState(standardTicketCount: $standardTicketCount, earlyBirdTicketCount: $earlyBirdTicketCount, isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventRepository: $eventRepository, event: $event)';
+    return 'BookingState(standardTicketCount: $standardTicketCount, earlyBirdTicketCount: $earlyBirdTicketCount, isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventRepository: $eventRepository, event: $event, totalPrice: $totalPrice, isBookingEnabled: $isBookingEnabled, bookingDetails: $bookingDetails, isBookingSuccess: $isBookingSuccess, isBookingFailure: $isBookingFailure)';
   }
 
   @override
@@ -252,7 +349,17 @@ class _$$BookingStateImpl implements $BookingState {
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository) &&
-            (identical(other.event, event) || other.event == event));
+            (identical(other.event, event) || other.event == event) &&
+            (identical(other.totalPrice, totalPrice) ||
+                other.totalPrice == totalPrice) &&
+            (identical(other.isBookingEnabled, isBookingEnabled) ||
+                other.isBookingEnabled == isBookingEnabled) &&
+            (identical(other.bookingDetails, bookingDetails) ||
+                other.bookingDetails == bookingDetails) &&
+            (identical(other.isBookingSuccess, isBookingSuccess) ||
+                other.isBookingSuccess == isBookingSuccess) &&
+            (identical(other.isBookingFailure, isBookingFailure) ||
+                other.isBookingFailure == isBookingFailure));
   }
 
   @override
@@ -265,7 +372,12 @@ class _$$BookingStateImpl implements $BookingState {
       isFailure,
       noUse,
       eventRepository,
-      event);
+      event,
+      totalPrice,
+      isBookingEnabled,
+      bookingDetails,
+      isBookingSuccess,
+      isBookingFailure);
 
   @JsonKey(ignore: true)
   @override
@@ -283,7 +395,12 @@ abstract class $BookingState implements BookingState {
       required final bool isFailure,
       required final bool noUse,
       required final EventRepository eventRepository,
-      final EventDto? event}) = _$$BookingStateImpl;
+      final EventDto? event,
+      required final double totalPrice,
+      required final bool isBookingEnabled,
+      final EventBookingDetailsDto? bookingDetails,
+      required final bool isBookingSuccess,
+      required final bool isBookingFailure}) = _$$BookingStateImpl;
 
   @override
   int get standardTicketCount;
@@ -301,6 +418,16 @@ abstract class $BookingState implements BookingState {
   EventRepository get eventRepository;
   @override
   EventDto? get event;
+  @override
+  double get totalPrice;
+  @override
+  bool get isBookingEnabled;
+  @override
+  EventBookingDetailsDto? get bookingDetails;
+  @override
+  bool get isBookingSuccess;
+  @override
+  bool get isBookingFailure;
   @override
   @JsonKey(ignore: true)
   _$$$BookingStateImplCopyWith<_$$BookingStateImpl> get copyWith =>

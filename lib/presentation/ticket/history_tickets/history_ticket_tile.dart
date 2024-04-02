@@ -8,17 +8,11 @@ import '../../../domain/core/constants/asset_constants.dart';
 class TicketHistoryTile extends StatelessWidget {
   final String eventPoster;
   final String eventTitle;
-  final String artist;
-  final String duration;
-  final Color? dominantColor;
 
   const TicketHistoryTile({
     super.key,
     required this.eventPoster,
     required this.eventTitle,
-    required this.artist,
-    required this.duration,
-    this.dominantColor,
   });
 
   @override
@@ -29,7 +23,7 @@ class TicketHistoryTile extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-              color: dominantColor ?? Theme.of(context).primaryColor,
+              color: Theme.of(context).primaryColor,
               width: .4.w),
           gradient: LinearGradient(colors: [
             Theme.of(context).colorScheme.primaryContainer,
@@ -68,21 +62,21 @@ class TicketHistoryTile extends StatelessWidget {
                             fontSize: 15.5.sp,
                             color: Theme.of(context).colorScheme.background),
                       ),
-                      Text(
-                        artist,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 14.5.sp),
-                      ),
-                      SizedBox(height: .5.h,),
-                      Text(
-                        duration,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 14.5.sp),
-                      ),
+                      // Text(
+                      //   artist,
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .bodySmall!
+                      //       .copyWith(fontSize: 14.5.sp),
+                      // ),
+                      // SizedBox(height: .5.h,),
+                      // Text(
+                      //   duration,
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .bodySmall!
+                      //       .copyWith(fontSize: 14.5.sp),
+                      // ),
                     ],
                   ),
                 ),

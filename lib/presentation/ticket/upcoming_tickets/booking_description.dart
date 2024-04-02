@@ -5,12 +5,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/ticket/ticket_cubit.dart';
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
 import 'qr_viewer.dart';
 import 'transaction_details.dart';
 
 class BookingDescription extends StatelessWidget {
+  final BookedTicketDetailsDto ticketDetails;
   const BookingDescription({
-    super.key,
+    super.key, required this.ticketDetails,
   });
 
   @override
@@ -26,7 +28,7 @@ class BookingDescription extends StatelessWidget {
               AnimatedSwitcher(
                 duration: const Duration(seconds: 1),
                 child: state.showTicketDetails
-                    ? const TransactionDetails()
+                    ?  TransactionDetails(ticketDetails: ticketDetails,)
                     : const QrViewer(),
               ),
               Positioned(
@@ -49,7 +51,7 @@ class BookingDescription extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => context
                             .read<TicketCubit>()
-                            .showTransactionDetails(),
+                            .showTransactionDetails(id: ticketDetails.id),
                         child: Container(
                           height: 10.w,
                           width: 10.w,

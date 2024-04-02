@@ -73,7 +73,7 @@ mixin _$EventDto {
   @JsonKey(name: 'categories', defaultValue: [])
   List<CategoryDto> get categories => throw _privateConstructorUsedError;
   @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-  List<EventTicketCategory> get eventTicketCategories =>
+  List<EventTicketCategoryDto> get eventTicketCategories =>
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -119,7 +119,7 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      List<EventTicketCategory> eventTicketCategories});
+      List<EventTicketCategoryDto> eventTicketCategories});
 
   $AddressDtoCopyWith<$Res>? get address;
   $PubDtoCopyWith<$Res>? get pub;
@@ -274,7 +274,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
       eventTicketCategories: null == eventTicketCategories
           ? _value.eventTicketCategories
           : eventTicketCategories // ignore: cast_nullable_to_non_nullable
-              as List<EventTicketCategory>,
+              as List<EventTicketCategoryDto>,
     ) as $Val);
   }
 
@@ -343,7 +343,7 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      List<EventTicketCategory> eventTicketCategories});
+      List<EventTicketCategoryDto> eventTicketCategories});
 
   @override
   $AddressDtoCopyWith<$Res>? get address;
@@ -498,7 +498,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
       eventTicketCategories: null == eventTicketCategories
           ? _value.eventTicketCategories
           : eventTicketCategories // ignore: cast_nullable_to_non_nullable
-              as List<EventTicketCategory>,
+              as List<EventTicketCategoryDto>,
     ));
   }
 }
@@ -625,7 +625,7 @@ class _$EventDtoImpl implements _EventDto {
   final List<CategoryDto> categories;
   @override
   @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-  final List<EventTicketCategory> eventTicketCategories;
+  final List<EventTicketCategoryDto> eventTicketCategories;
 
   @override
   String toString() {
@@ -775,7 +775,7 @@ abstract class _EventDto implements EventDto {
       @JsonKey(name: 'categories', defaultValue: [])
       required final List<CategoryDto> categories,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      required final List<EventTicketCategory>
+      required final List<EventTicketCategoryDto>
           eventTicketCategories}) = _$EventDtoImpl;
 
   factory _EventDto.fromJson(Map<String, dynamic> json) =
@@ -861,7 +861,7 @@ abstract class _EventDto implements EventDto {
   List<CategoryDto> get categories;
   @override
   @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-  List<EventTicketCategory> get eventTicketCategories;
+  List<EventTicketCategoryDto> get eventTicketCategories;
   @override
   @JsonKey(ignore: true)
   _$$EventDtoImplCopyWith<_$EventDtoImpl> get copyWith =>

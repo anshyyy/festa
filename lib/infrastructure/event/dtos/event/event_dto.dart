@@ -53,7 +53,7 @@ class EventDto with _$EventDto {
     @JsonKey(defaultValue: false) required bool isApplied,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,
     @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
-    @JsonKey(name: 'eventTicketCategories', defaultValue: [])required List<EventTicketCategory> eventTicketCategories,
+    @JsonKey(name: 'eventTicketCategories', defaultValue: [])required List<EventTicketCategoryDto> eventTicketCategories,
   }) = _EventDto;
 
   factory EventDto.fromJson(Map<String, dynamic> json) =>

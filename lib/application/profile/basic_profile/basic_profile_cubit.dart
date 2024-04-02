@@ -29,16 +29,8 @@ class BasicProfileCubit extends Cubit<BasicProfileState> {
     emit(state.copyWith(
       isLoading: true,
     ));
-    final res = await state.coreRepository.uploadFileToUserLocation(file: file);
-    emit(res.fold(
-        (l) => state.copyWith(
-              isLoading: false,
-            ), (r) {
-      return state.copyWith(
-        profileImage: r,
-        isLoading: false,
-      );
-    }));
+    final res = await state.coreRepository.uploadFile(file: file);
+    emit(state.copyWith(profileImage: res, isLoading: false,));
   }
 
   Future<void> onContinue() async {

@@ -50,6 +50,7 @@ class AppConfig extends InheritedWidget {
   final String buildFlavor;
   final String serverUrl;
   final String googleMapsApiKey;
+  final String razorPayApiKey;
   @override
   // ignore: overridden_fields
   final Widget child;
@@ -61,6 +62,7 @@ class AppConfig extends InheritedWidget {
     required this.child,
     required this.serverUrl,
     required this.googleMapsApiKey,
+    required this.razorPayApiKey
   }) : super(child: child);
 
   static AppConfig? of(BuildContext context) {

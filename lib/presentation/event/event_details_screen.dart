@@ -51,8 +51,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
         return state.isLoading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
-                bottomNavigationBar: TicketBookingWidget(
-                  startDate: event!.startDate,
+                bottomNavigationBar: event!.eventTicketCategories.isEmpty ? SizedBox(): TicketBookingWidget(
+                  startDate: event.startDate,
                   priceRangeStart: event.priceRangeStart,
                   priceRangeEnd: event.priceRangeEnd!,
                   onClick: () {

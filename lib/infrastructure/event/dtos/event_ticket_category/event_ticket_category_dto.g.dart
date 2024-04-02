@@ -6,27 +6,31 @@ part of 'event_ticket_category_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$EventTicketCategoryImpl _$$EventTicketCategoryImplFromJson(
+_$EventTicketCategoryDtoImpl _$$EventTicketCategoryDtoImplFromJson(
         Map<String, dynamic> json) =>
-    _$EventTicketCategoryImpl(
+    _$EventTicketCategoryDtoImpl(
       id: json['id'] as int? ?? 0,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0,
       bookedSeats: json['bookedSeats'] as int? ?? 0,
+      totalCapacity: json['totalCapacity'] as int? ?? 0,
+      currentTicketsCount: json['currentTicketsCount'] as int? ?? 0,
       isPaid: json['isPaid'] as bool? ?? false,
       priceCurrency: json['priceCurrency'] as String? ?? '',
       maxTicketsToBook: json['maxTicketsToBook'] as int? ?? 0,
     );
 
-Map<String, dynamic> _$$EventTicketCategoryImplToJson(
-        _$EventTicketCategoryImpl instance) =>
+Map<String, dynamic> _$$EventTicketCategoryDtoImplToJson(
+        _$EventTicketCategoryDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
       'price': instance.price,
       'bookedSeats': instance.bookedSeats,
+      'totalCapacity': instance.totalCapacity,
+      'currentTicketsCount': instance.currentTicketsCount,
       'isPaid': instance.isPaid,
       'priceCurrency': instance.priceCurrency,
       'maxTicketsToBook': instance.maxTicketsToBook,

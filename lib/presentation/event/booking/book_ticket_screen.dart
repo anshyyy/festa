@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/booking/booking_cubit.dart';
@@ -10,8 +11,12 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../widgets/custom_appbar.dart';
-import '../core/book_tickets.dart';
 import 'widgets/ticket_category_tile.dart';
+
+import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/extensions/number_extension.dart';
+import '../../../domain/core/extensions/string_extension.dart';
+import '../../widgets/gradient_button.dart';
 
 class BookTicketScreen extends StatelessWidget {
   final int eventId;
@@ -37,86 +42,157 @@ class BookTicketScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BookingCubit, BookingState>(
-      listener: (context, state) {
-        // TODO: implement listener
+      listener: (context, state) async {
+        if (state.isBookingSuccess && !state.isBookingFailure) {
+          await navigator<NavigationService>().navigateTo(
+              UserRoutes.paymentDetailsRoute,
+              arguments: state.bookingDetails);
+          context.read<BookingCubit>().emitFromAnywhere(
+                  state: state.copyWith(
+                isBookingSuccess: false,
+              ));
+        }
       },
       builder: (context, state) {
-        return state.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Scaffold(
-                bottomNavigationBar: TicketBookingWidget(
-                  startDate: state.event!.startDate,
-                  priceRangeStart: state.event!.priceRangeStart,
-                  priceRangeEnd: state.event!.priceRangeEnd!,
-                  onClick: () {
-                    navigator<NavigationService>()
-                        .navigateTo(UserRoutes.paymentDetailsRoute);
-                  },
-                ),
-                appBar: CustomAppBar(
-                    title: 'Select Tickets',
-                    leading: GestureDetector(
-                        onTap: () {
-                          navigator<NavigationService>().goBack();
-                        },
-                        child: Center(
-                            child: SvgPicture.asset(AssetConstants.arrowLeft))),
-                    actions: []),
-                body: SafeArea(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 1.w),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          ...state.event!.eventTicketCategories.map((e) {
-                            return TicketCategory(
-                              categoryName: e.name,
-                              categoryItems: state.earlyBirdTicketCount,
-                              price: e.price,
-                              onAdd: () => context
-                                  .read<BookingCubit>()
-                                  .addTickets(id: e.id, maxTickets: e.maxTicketsToBook),
-                              onRemove: () => context
-                                  .read<BookingCubit>()
-                                  .removeEarlyBirdTicket(),
-                            );
-                          })
-                          // TicketCategory(
-                          //   categoryName: 'Early Bird',
-                          //   categoryItems: state.earlyBirdTicketCount,
-                          //   price: 4999.00,
-                          //   onAdd: () => context
-                          //       .read<BookingCubit>()
-                          //       .addEarlyBirdTicket(),
-                          //   onRemove: () => context
-                          //       .read<BookingCubit>()
-                          //       .removeEarlyBirdTicket(),
-                          // ),
-                          // SizedBox(
-                          //   height: .5.h,
-                          // ),
-                          // TicketCategory(
-                          //   categoryName: 'Standard',
-                          //   categoryItems: state.standardTicketCount,
-                          //   price: 4999.00,
-                          //   onAdd: () => context
-                          //       .read<BookingCubit>()
-                          //       .addStandardTicket(),
-                          //   onRemove: () => context
-                          //       .read<BookingCubit>()
-                          //       .removeStandardTicket(),
-                          // ),
-                        ],
+        return ModalProgressHUD(
+          inAsyncCall: state.isLoading,
+          child: state.isLoading
+              ? SizedBox()
+              : Scaffold(
+                  bottomNavigationBar: BottomBookingBar(
+                    startDate: state.event!.startDate,
+                    priceRangeStart: state.event!.priceRangeStart,
+                    onClick: () {
+                      context.read<BookingCubit>().createBooking();
+                    },
+                  ),
+                  appBar: CustomAppBar(
+                      title: 'Select Tickets',
+                      leading: GestureDetector(
+                          onTap: () {
+                            navigator<NavigationService>().goBack();
+                          },
+                          child: Center(
+                              child:
+                                  SvgPicture.asset(AssetConstants.arrowLeft))),
+                      actions: []),
+                  body: SafeArea(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 1.w),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            ...state.event!.eventTicketCategories.map((e) {
+                              return TicketCategory(
+                                eventTicketCategory: e,
+                              );
+                            })
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              );
+        );
+      },
+    );
+  }
+}
+
+class BottomBookingBar extends StatelessWidget {
+  final void Function()? onClick;
+  final String startDate;
+  final double priceRangeStart;
+  final double? priceRangeEnd;
+  const BottomBookingBar(
+      {super.key,
+      this.onClick,
+      required this.startDate,
+      required this.priceRangeStart,
+       this.priceRangeEnd});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<BookingCubit, BookingState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Container(
+          height: 14.h,
+          width: 100.w,
+          padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
+          color: Theme.of(context).colorScheme.surface,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        StringExtension.formatDateTimeShort(
+                            DateTime.parse(startDate)),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 16.5.sp)),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                            // '${event.priceRangeStart.toIndianRupeeString()} ',
+                            state.totalPrice==0 ? 'Free': state.totalPrice.toIndianRupeeString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontSize: 16.sp)),
+                        SizedBox(
+                          width: 1.w,
+                        ),
+                        Text(priceRangeEnd?.toIndianRupeeString() ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationThickness: .5.w,
+                                    decorationColor:
+                                        Theme.of(context).colorScheme.surface,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.5.sp)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                  flex: 4,
+                  child: GradientButton(
+                    text: EventDetailsScreenConstants.bookTheTickets,
+                    onTap: onClick,
+                    isEnabled: state.isBookingEnabled,
+                    textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: state.isBookingEnabled ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.background.withOpacity(.5),
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ))
+            ],
+          ),
+        );
       },
     );
   }

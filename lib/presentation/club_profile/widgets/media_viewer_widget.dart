@@ -66,11 +66,16 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                   type == MediaType.IMAGE
                       ? PhotoView(
                           imageProvider: CachedNetworkImageProvider(url))
-                      :!state.isLoading && state.videoPlayerController != null && state.videoPlayerController!.value.isInitialized
+                      : !state.isLoading &&
+                              state.videoPlayerController != null &&
+                              state.videoPlayerController!.value.isInitialized
                           ? GestureDetector(
-                              // onLongPress: (){
-                              //   context.read<VideoPlayerCubit>().pause();
-                              // },
+                              onLongPress: () {
+                                context.read<MediaViewerCubit>().pause();
+                              },
+                              onLongPressEnd: (details) {
+                                context.read<MediaViewerCubit>().play();
+                              },
                               child: Center(
                                 child: AspectRatio(
                                     aspectRatio: state.videoPlayerController!
@@ -91,8 +96,11 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                             children: [
                               GestureDetector(
                                   onTap: () {
-                                    context.read<MediaViewerCubit>().closePlayer();
+                                  
                                     navigator<NavigationService>().goBack();
+                                      context
+                                        .read<MediaViewerCubit>()
+                                        .closePlayer();
                                   },
                                   child: SvgPicture.asset(
                                       AssetConstants.arrowLeft)),

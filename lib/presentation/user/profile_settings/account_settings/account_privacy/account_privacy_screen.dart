@@ -51,7 +51,7 @@ class AccountPrivacyScreenConsumer extends StatelessWidget {
     return BlocConsumer<AccountPrivacyCubit, AccountPrivacyState>(
       listener: (context, state) {
         // TODO: implement listener
-        if (state.user != null) {
+        if (state.isSuccess && !state.isFailure) {
           Provider.of<AppStateNotifier>(context, listen: false)
               .updateAfterAuthChange(
             isAuthorized: true,

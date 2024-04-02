@@ -12,6 +12,12 @@ class EventApiConstants {
   static const UNLIKE_EVENT = '$EVENTS/unlike';
 }
 
+class BookingApiConstants {
+  static const BOOKING = '/booking';
+  static const BOOKING_CREATE = '$BOOKING/event';
+  static const BOOKING_STATUS = '$BOOKING/payment/status';
+}
+
 class UserApiConstants {
   static const USERS = '/users';
   static const GET_USER_DETAILS = '$USERS/details';
@@ -20,6 +26,8 @@ class UserApiConstants {
   static const DETAILS = 'details';
   static const PERSONALIZE = '/personalize';
   static const PERSONALIZE_LIST = '$PERSONALIZE/list';
+  static const GET_USER_TICKETS = '/booking/user';
+  static const DELETE_REASON = '/feedback/delete/user';
 }
 
 class AuthApiConstants {

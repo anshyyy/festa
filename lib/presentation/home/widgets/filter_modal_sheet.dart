@@ -43,88 +43,122 @@ class FilterModalSheetConsumer extends StatelessWidget {
     return BlocConsumer<FilterCubit, FilterState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(10),
+        return SafeArea(
+          child: Container(
+            height: 65.h,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(50),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 3.w),
             child: state.isLoading
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : Column(
+                    // mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 3.w,
                           vertical: 2.h,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Filter',
-                              style: themeData.textTheme.bodyMedium!.copyWith(
-                                color: themeData.colorScheme.background,
-                                fontWeight: FontWeight.w600,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Filter',
+                                style: themeData.textTheme.bodyMedium!.copyWith(
+                                  color: themeData.colorScheme.background,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                navigator<NavigationService>().goBack();
-                              },
-                              child: SvgPicture.asset(
-                                AssetConstants.closeIcon,
+                              GestureDetector(
+                                onTap: () {
+                                  navigator<NavigationService>().goBack();
+                                },
+                                child: SvgPicture.asset(
+                                  AssetConstants.closeIcon,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                      Divider(
-                        thickness: .05.w,
-                      ),
                       Padding(
-                        padding:
-                            EdgeInsets.only(left: 0.w, top: 1.2.h, right: 0.w),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.vertical,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        ...state.filters.map((e) => Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 2.h),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  context
-                                                      .read<FilterCubit>()
-                                                      .onFilterChanged(
-                                                          filterValue: e.name);
-                                                },
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                      height: 1.5.w,
-                                                      width: 1.5.w,
-                                                      decoration: e.isApplied
-                                                          ? BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              gradient:
-                                                                  LinearGradient(
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        child: Divider(
+                          thickness: .05.w,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.vertical,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ...state.filters.map((e) => Padding(
+                                                padding: EdgeInsets.only(
+                                                    bottom: 3.h),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    context
+                                                        .read<FilterCubit>()
+                                                        .onFilterChanged(
+                                                            filterValue:
+                                                                e.name);
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 1.5.w,
+                                                        width: 1.5.w,
+                                                        decoration: e.isApplied
+                                                            ? BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                gradient:
+                                                                    LinearGradient(
+                                                                  colors: [
+                                                                    themeData
+                                                                        .colorScheme
+                                                                        .primary,
+                                                                    themeData
+                                                                        .colorScheme
+                                                                        .secondary
+                                                                  ],
+                                                                  begin: Alignment
+                                                                      .topCenter,
+                                                                  end: Alignment
+                                                                      .bottomCenter,
+                                                                ))
+                                                            : null,
+                                                      ),
+                                                      SizedBox(
+                                                        width: 1.5.w,
+                                                      ),
+                                                      Expanded(
+                                                        child: e.name ==
+                                                                state
+                                                                    .currentActive
+                                                            ? GradientText(
+                                                                text: e
+                                                                    .displayName,
                                                                 colors: [
                                                                   themeData
                                                                       .colorScheme
@@ -133,101 +167,74 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                       .colorScheme
                                                                       .secondary
                                                                 ],
-                                                                begin: Alignment
-                                                                    .topCenter,
-                                                                end: Alignment
-                                                                    .bottomCenter,
-                                                              ))
-                                                          : null,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 1.5.w,
-                                                    ),
-                                                    Expanded(
-                                                      child: e.name ==
-                                                              state
-                                                                  .currentActive
-                                                          ? GradientText(
-                                                              text:
-                                                                  e.displayName,
-                                                              colors: [
-                                                                themeData
-                                                                    .colorScheme
-                                                                    .primary,
-                                                                themeData
-                                                                    .colorScheme
-                                                                    .secondary
-                                                              ],
-                                                              textStyle: themeData
-                                                                  .textTheme
-                                                                  .bodyMedium!
-                                                                  .copyWith(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w800,
-                                                                      fontSize:
-                                                                          16.sp))
-                                                          : Text(
-                                                              e.displayName,
-                                                              maxLines: 2,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: themeData
-                                                                  .textTheme
-                                                                  .bodyMedium!
-                                                                  .copyWith(
-                                                                      color: themeData
-                                                                          .colorScheme
-                                                                          .background,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          16.sp),
-                                                            ),
-                                                    )
-                                                  ],
+                                                                textStyle: themeData
+                                                                    .textTheme
+                                                                    .bodyMedium!
+                                                                    .copyWith(
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w800,
+                                                                        fontSize:
+                                                                            16.sp))
+                                                            : Text(
+                                                                e.displayName,
+                                                                maxLines: 2,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: themeData
+                                                                    .textTheme
+                                                                    .bodyMedium!
+                                                                    .copyWith(
+                                                                        color: themeData
+                                                                            .colorScheme
+                                                                            .background,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        fontSize:
+                                                                            16.sp),
+                                                              ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 2.w, vertical: 3.h),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 30.h,
-                                    width: .05.w,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 3.w),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'FILTER BY',
-                                      style: themeData.textTheme.bodySmall!
-                                          .copyWith(
-                                        fontSize: 15.sp,
-                                        color: themeData.colorScheme.background,
+                                              ))
+                                        ],
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 30.h,
-                                      child: SingleChildScrollView(
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 3.h, right: 2.w, left: 2.w),
+                                child: Container(
+                                  height: 100.h,
+                                  width: .05.w,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 3.w,
+                                    top: 1.w,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'FILTER BY',
+                                        style: themeData.textTheme.bodySmall!
+                                            .copyWith(
+                                          fontSize: 13.5.sp,
+                                          color:
+                                              themeData.colorScheme.background,
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
                                         scrollDirection: Axis.vertical,
                                         child: Column(
                                           crossAxisAlignment:
@@ -271,7 +278,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                   .isApplied
                                                               ? FontWeight.w700
                                                               : FontWeight.w400,
-                                                          fontSize: 15.sp,
+                                                          fontSize: 16.sp,
                                                           color: themeData
                                                               .colorScheme
                                                               .background,
@@ -285,63 +292,72 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                    ),
 
-                                    // Expanded(
-                                    //   child: Container(
-                                    //     child: ListView.builder(
-                                    //       shrinkWrap: true,
-                                    //       itemCount: state.filterOptions.length,
-                                    //       itemBuilder: (context, index) {
-                                    //         return Text(state.filterOptions[index]['displayName']);
-                                    //       },
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
+                                      // Expanded(
+                                      //   child: Container(
+                                      //     child: ListView.builder(
+                                      //       shrinkWrap: true,
+                                      //       itemCount: state.filterOptions.length,
+                                      //       itemBuilder: (context, index) {
+                                      //         return Text(state.filterOptions[index]['displayName']);
+                                      //       },
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                      Divider(
-                        thickness: .05.w,
+                      // Spacer(),
+                      Container(
+                        height: .05.h,
+                        width: 100.w,
+                        color: Colors.white,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: MaterialButton(
-                            onPressed: () {
-                              context.read<FilterCubit>().clearFilters();
-                              Fluttertoast.showToast(
-                                  msg: 'All the filters are cleared');
-                            },
-                            child: Text(
-                              'Clear All',
-                              style: themeData.textTheme.bodySmall!.copyWith(
-                                color: themeData.colorScheme.background,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          )),
-                          Expanded(
-                            child: GradientButton(
-                                textStyle:
-                                    themeData.textTheme.bodySmall!.copyWith(
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: MaterialButton(
+                              onPressed: () {
+                                context.read<FilterCubit>().clearFilters();
+                                Fluttertoast.showToast(
+                                    msg: 'All the filters are cleared');
+                              },
+                              child: Text(
+                                'Clear All',
+                                style: themeData.textTheme.bodySmall!.copyWith(
                                   color: themeData.colorScheme.background,
                                   fontWeight: FontWeight.w600,
                                 ),
-                                width: 100.w,
-                                height: 6.h,
-                                text: 'Apply filters',
-                                onTap: () {
-                                  navigator<NavigationService>().goBack(
-                                    responseObject: state.filters,
-                                  );
-                                }),
-                          )
-                        ],
+                              ),
+                            )),
+                            Expanded(
+                              child: GradientButton(
+                                  textStyle:
+                                      themeData.textTheme.bodySmall!.copyWith(
+                                    color: themeData.colorScheme.background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  width: 100.w,
+                                  height: 6.h,
+                                  text: 'Apply filters',
+                                  onTap: () {
+                                    navigator<NavigationService>().goBack(
+                                      responseObject: state.filters,
+                                    );
+                                  }),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),

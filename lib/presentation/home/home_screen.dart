@@ -336,6 +336,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       'filter') {
                                                     showModalBottomSheet(
                                                         context: context,
+                                                        isScrollControlled: true,
                                                         builder: (context) {
                                                           return FilterModalSheet(
                                                             filters: List.from(state
@@ -440,9 +441,9 @@ class HomeScreenConsumer extends StatelessWidget {
                               ),
                             ),
                           ),
-                          state.isSearchOpen
-                              ? const HomeSearch()
-                              : const SizedBox(),
+                          // state.isSearchOpen
+                          //     ? const HomeSearch()
+                          //     : const SizedBox(),
                           state.showLocationDialog
                               ? const LocationDialog()
                               : const SizedBox()

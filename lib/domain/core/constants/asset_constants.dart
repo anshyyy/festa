@@ -130,6 +130,8 @@ class AssetConstants {
 
   static const defaultAvatarImage = '${imageFolder}default-avatar.png';
 
+  static const alertIcon = '${vectorsFolder}alert-icon.svg';
+
 
 
 // eventIconConstants

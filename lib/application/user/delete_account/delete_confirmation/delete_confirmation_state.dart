@@ -9,10 +9,12 @@ class DeleteConfirmationState with _$DeleteConfirmationState {
     required bool deleteFailure,
     required int userId,
     required AuthRepository authRepository,
+    required String deleteReason,
   }) = _DeleteConfirmationState;
   factory DeleteConfirmationState.initial({
     required String serverUrl,
     required int userId,
+    required String deleteReason,
   }) => DeleteConfirmationState(
         noUse: false,
         deleteEnabled: false,
@@ -20,5 +22,6 @@ class DeleteConfirmationState with _$DeleteConfirmationState {
         deleteSuccess: false,
         authRepository: IAuthRepository(serverUrl: serverUrl),
         userId: userId,
+        deleteReason: deleteReason,
       );
 }

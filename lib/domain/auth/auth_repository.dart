@@ -24,7 +24,7 @@ abstract class AuthRepository {
   //   required Map<String, dynamic> input,
   // });
 
-  Future<bool> deleteProfile({required int id});
+  Future<bool> deleteProfile({required int id,required String reason});
 
   Future<bool> logout({bool skipFCMToken});
 

@@ -16,20 +16,6 @@ part 'profile_cubit.freezed.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(super.initialState);
 
-  void deleteAccount() async {
-    emit(state.copyWith(isLoading: true));
-    final isDelete =
-        await state.authRepository.deleteProfile(id: state.user!.id);
-    emit(state.copyWith(
-      isLoading: false,
-      isAccountDelete: isDelete,
-      isFailure: !isDelete,
-      responseMsg: isDelete
-          ? ProfileAndSettingsScreenConstants.accountDeleted
-          : ProfileAndSettingsScreenConstants.accountDeletionFailed,
-    ));
-  }
-
   void logout() async {
     emit(state.copyWith(isLoading: true));
 

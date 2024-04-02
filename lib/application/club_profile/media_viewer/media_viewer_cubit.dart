@@ -26,13 +26,13 @@ class MediaViewerCubit extends Cubit<MediaViewerState> {
     fetchPubDetails();
   }
 
-   void onVideoTap() {
-    if (state.isPlaying) {
-      pause();
-    } else {
-      play();
-    }
-  }
+  //  void onLongPress(){
+  //   pause();
+  //  }
+
+  //  void onLongPressEnd(){
+  //   play();
+  //  }
 
   void play() {
     state.videoPlayerController!.play();

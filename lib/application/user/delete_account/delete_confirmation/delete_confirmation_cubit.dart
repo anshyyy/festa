@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../domain/auth/auth_repository.dart';
@@ -20,9 +21,12 @@ class DeleteConfirmationCubit extends Cubit<DeleteConfirmationState> {
   }
 
   void deleteAccount() async {
-    final response = await state.authRepository.deleteProfile(id: state.userId);
+    final response = await state.authRepository.deleteProfile(id: state.userId, reason: state.deleteReason,);
     if(response){
       await state.authRepository.logout();
+    }else{
+      Fluttertoast.showToast(
+                      msg: 'Something went wrong. Please try again later.');
     }
     emit(state.copyWith(
       deleteSuccess: response,

@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../infrastructure/auth/dtos/user_dto.dart';
 import '../../infrastructure/core/dtos/community/community_dto.dart';
 import '../../infrastructure/user/dtos/personalization_menu/personalization_menu_dto.dart';
+import '../../infrastructure/user/dtos/user_tickets/user_tickets_dto.dart';
 
 abstract class UserRepository {
   Future<Either<String, UserDto>> patchProfile({
@@ -46,5 +47,9 @@ abstract class UserRepository {
   Future<List<PersonalizationMenuDto>> fetchPersonalizeMenu();
 
   void updatePersonalizedMenu({required String title, required List<String> list});
-  Future<bool> deleteProfile({required int id});
+  Future<bool> deleteProfile({required int id, required String reason});
+
+  Future<Either<dynamic,UserTicketsDto>> fetchAllUserTickets(); 
+  
+  Future<UserDto?> fetchUserByToken();
 }

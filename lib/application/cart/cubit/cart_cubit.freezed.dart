@@ -17,8 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CartState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isSuccessful => throw _privateConstructorUsedError;
-  bool get isFailed => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
+  bool get isFailure => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $CartStateCopyWith<$Res> {
   factory $CartStateCopyWith(CartState value, $Res Function(CartState) then) =
       _$CartStateCopyWithImpl<$Res, CartState>;
   @useResult
-  $Res call({bool isLoading, bool isSuccessful, bool isFailed, bool noUse});
+  $Res call({bool isLoading, bool isSuccess, bool isFailure, bool noUse});
 }
 
 /// @nodoc
@@ -48,8 +48,8 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isSuccessful = null,
-    Object? isFailed = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
     Object? noUse = null,
   }) {
     return _then(_value.copyWith(
@@ -57,13 +57,13 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSuccessful: null == isSuccessful
-          ? _value.isSuccessful
-          : isSuccessful // ignore: cast_nullable_to_non_nullable
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFailed: null == isFailed
-          ? _value.isFailed
-          : isFailed // ignore: cast_nullable_to_non_nullable
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
       noUse: null == noUse
           ? _value.noUse
@@ -81,7 +81,7 @@ abstract class _$$CartStateImplCopyWith<$Res>
       __$$CartStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, bool isSuccessful, bool isFailed, bool noUse});
+  $Res call({bool isLoading, bool isSuccess, bool isFailure, bool noUse});
 }
 
 /// @nodoc
@@ -96,8 +96,8 @@ class __$$CartStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isSuccessful = null,
-    Object? isFailed = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
     Object? noUse = null,
   }) {
     return _then(_$CartStateImpl(
@@ -105,13 +105,13 @@ class __$$CartStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      isSuccessful: null == isSuccessful
-          ? _value.isSuccessful
-          : isSuccessful // ignore: cast_nullable_to_non_nullable
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
               as bool,
-      isFailed: null == isFailed
-          ? _value.isFailed
-          : isFailed // ignore: cast_nullable_to_non_nullable
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
       noUse: null == noUse
           ? _value.noUse
@@ -126,22 +126,22 @@ class __$$CartStateImplCopyWithImpl<$Res>
 class _$CartStateImpl implements _CartState {
   const _$CartStateImpl(
       {required this.isLoading,
-      required this.isSuccessful,
-      required this.isFailed,
+      required this.isSuccess,
+      required this.isFailure,
       required this.noUse});
 
   @override
   final bool isLoading;
   @override
-  final bool isSuccessful;
+  final bool isSuccess;
   @override
-  final bool isFailed;
+  final bool isFailure;
   @override
   final bool noUse;
 
   @override
   String toString() {
-    return 'CartState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse)';
+    return 'CartState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse)';
   }
 
   @override
@@ -151,16 +151,16 @@ class _$CartStateImpl implements _CartState {
             other is _$CartStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.isSuccessful, isSuccessful) ||
-                other.isSuccessful == isSuccessful) &&
-            (identical(other.isFailed, isFailed) ||
-                other.isFailed == isFailed) &&
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess) &&
+            (identical(other.isFailure, isFailure) ||
+                other.isFailure == isFailure) &&
             (identical(other.noUse, noUse) || other.noUse == noUse));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, isLoading, isSuccessful, isFailed, noUse);
+      Object.hash(runtimeType, isLoading, isSuccess, isFailure, noUse);
 
   @JsonKey(ignore: true)
   @override
@@ -172,16 +172,16 @@ class _$CartStateImpl implements _CartState {
 abstract class _CartState implements CartState {
   const factory _CartState(
       {required final bool isLoading,
-      required final bool isSuccessful,
-      required final bool isFailed,
+      required final bool isSuccess,
+      required final bool isFailure,
       required final bool noUse}) = _$CartStateImpl;
 
   @override
   bool get isLoading;
   @override
-  bool get isSuccessful;
+  bool get isSuccess;
   @override
-  bool get isFailed;
+  bool get isFailure;
   @override
   bool get noUse;
   @override

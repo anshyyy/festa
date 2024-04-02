@@ -11,6 +11,7 @@ import '../auth/dtos/user_dto.dart';
 import '../core/dtos/community/community_dto.dart';
 import 'dtos/personalization_menu/personalization_menu_dto.dart';
 import 'dtos/personalize_option/personalize_option_dto.dart';
+import 'dtos/user_tickets/user_tickets_dto.dart';
 
 class IUserRepository extends UserRepository {
   final String serverUrl;
@@ -48,7 +49,7 @@ class IUserRepository extends UserRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
-        'search':searchQuery,
+        'search': searchQuery,
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
@@ -79,7 +80,7 @@ class IUserRepository extends UserRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
-        'search':searchQuery,
+        'search': searchQuery,
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
@@ -215,7 +216,7 @@ class IUserRepository extends UserRepository {
       final response = await RESTService.performGETRequest(
           httpUrl: url, isAuth: true, token: token!);
       if (response.statusCode != 200) {
-        return [] as List<PersonalizationMenuDto>;
+        return [];
       }
       final body = response.body;
       final menuRaw = jsonDecode(body) as Map<String, dynamic>;
@@ -228,7 +229,7 @@ class IUserRepository extends UserRepository {
       }).toList();
       return personalizedList;
     } catch (e) {
-      return [] as List<PersonalizationMenuDto>;
+      return [];
       // print(e);
     }
   }
@@ -251,12 +252,13 @@ class IUserRepository extends UserRepository {
       print(e);
     }
   }
-  
+
   @override
-  Future<bool> deleteProfile({required int id}) async{
+  Future<bool> deleteProfile({required int id, required String reason}) async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      final url = '$serverUrl${EventApiConstants.USERS}/$id';
+      final url = '$serverUrl${UserApiConstants.USERS}/$id';
+      final feedbackUrl = '$serverUrl${UserApiConstants.DELETE_REASON}';
       final response = await RESTService.performDELETERequest(
         httpUrl: url,
         isAuth: true,
@@ -265,9 +267,52 @@ class IUserRepository extends UserRepository {
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
+      await RESTService.performPOSTRequest(
+          httpUrl: feedbackUrl, isAuth: true, token: token);
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  @override
+  Future<Either<dynamic, UserTicketsDto>> fetchAllUserTickets() async {
+    try {
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+      final url = '$serverUrl${UserApiConstants.GET_USER_TICKETS}';
+
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, isAuth: true, token: token!);
+      if (response.statusCode != 200) {
+        return left(null);
+      }
+      final body = response.body;
+      final ticketsRaw = jsonDecode(body) as Map<String, dynamic>;
+      final allTickets = UserTicketsDto.fromJson(ticketsRaw);
+      return right(allTickets);
+    } catch (e) {
+      return left(null);
+    }
+  }
+
+  @override
+  Future<UserDto?> fetchUserByToken() async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      print(token);
+      if (token == null) {
+        return null;
+      }
+      final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, isAuth: true, token: token);
+      if (response.statusCode != 200) {
+        throw ErrorConstants.unknownNetworkError;
+      }
+      final data = jsonDecode(response.body);
+      return UserDto.fromJson(data);
+    } catch (error) {
+      return null;
     }
   }
 }

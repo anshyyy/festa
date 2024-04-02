@@ -22,6 +22,7 @@ mixin _$DeleteConfirmationState {
   bool get deleteFailure => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
+  String get deleteReason => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DeleteConfirmationStateCopyWith<DeleteConfirmationState> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $DeleteConfirmationStateCopyWith<$Res> {
       bool deleteSuccess,
       bool deleteFailure,
       int userId,
-      AuthRepository authRepository});
+      AuthRepository authRepository,
+      String deleteReason});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$DeleteConfirmationStateCopyWithImpl<$Res,
     Object? deleteFailure = null,
     Object? userId = null,
     Object? authRepository = null,
+    Object? deleteReason = null,
   }) {
     return _then(_value.copyWith(
       noUse: null == noUse
@@ -89,6 +92,10 @@ class _$DeleteConfirmationStateCopyWithImpl<$Res,
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      deleteReason: null == deleteReason
+          ? _value.deleteReason
+          : deleteReason // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -108,7 +115,8 @@ abstract class _$$DeleteConfirmationStateImplCopyWith<$Res>
       bool deleteSuccess,
       bool deleteFailure,
       int userId,
-      AuthRepository authRepository});
+      AuthRepository authRepository,
+      String deleteReason});
 }
 
 /// @nodoc
@@ -130,6 +138,7 @@ class __$$DeleteConfirmationStateImplCopyWithImpl<$Res>
     Object? deleteFailure = null,
     Object? userId = null,
     Object? authRepository = null,
+    Object? deleteReason = null,
   }) {
     return _then(_$DeleteConfirmationStateImpl(
       noUse: null == noUse
@@ -156,6 +165,10 @@ class __$$DeleteConfirmationStateImplCopyWithImpl<$Res>
           ? _value.authRepository
           : authRepository // ignore: cast_nullable_to_non_nullable
               as AuthRepository,
+      deleteReason: null == deleteReason
+          ? _value.deleteReason
+          : deleteReason // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -169,7 +182,8 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
       required this.deleteSuccess,
       required this.deleteFailure,
       required this.userId,
-      required this.authRepository});
+      required this.authRepository,
+      required this.deleteReason});
 
   @override
   final bool noUse;
@@ -183,10 +197,12 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
   final int userId;
   @override
   final AuthRepository authRepository;
+  @override
+  final String deleteReason;
 
   @override
   String toString() {
-    return 'DeleteConfirmationState(noUse: $noUse, deleteEnabled: $deleteEnabled, deleteSuccess: $deleteSuccess, deleteFailure: $deleteFailure, userId: $userId, authRepository: $authRepository)';
+    return 'DeleteConfirmationState(noUse: $noUse, deleteEnabled: $deleteEnabled, deleteSuccess: $deleteSuccess, deleteFailure: $deleteFailure, userId: $userId, authRepository: $authRepository, deleteReason: $deleteReason)';
   }
 
   @override
@@ -203,12 +219,14 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
                 other.deleteFailure == deleteFailure) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.authRepository, authRepository) ||
-                other.authRepository == authRepository));
+                other.authRepository == authRepository) &&
+            (identical(other.deleteReason, deleteReason) ||
+                other.deleteReason == deleteReason));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, noUse, deleteEnabled,
-      deleteSuccess, deleteFailure, userId, authRepository);
+      deleteSuccess, deleteFailure, userId, authRepository, deleteReason);
 
   @JsonKey(ignore: true)
   @override
@@ -220,13 +238,13 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
 
 abstract class _DeleteConfirmationState implements DeleteConfirmationState {
   const factory _DeleteConfirmationState(
-          {required final bool noUse,
-          required final bool deleteEnabled,
-          required final bool deleteSuccess,
-          required final bool deleteFailure,
-          required final int userId,
-          required final AuthRepository authRepository}) =
-      _$DeleteConfirmationStateImpl;
+      {required final bool noUse,
+      required final bool deleteEnabled,
+      required final bool deleteSuccess,
+      required final bool deleteFailure,
+      required final int userId,
+      required final AuthRepository authRepository,
+      required final String deleteReason}) = _$DeleteConfirmationStateImpl;
 
   @override
   bool get noUse;
@@ -240,6 +258,8 @@ abstract class _DeleteConfirmationState implements DeleteConfirmationState {
   int get userId;
   @override
   AuthRepository get authRepository;
+  @override
+  String get deleteReason;
   @override
   @JsonKey(ignore: true)
   _$$DeleteConfirmationStateImplCopyWith<_$DeleteConfirmationStateImpl>

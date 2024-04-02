@@ -35,12 +35,13 @@ class DateOfBirthSettingsCubit extends Cubit<DateOfBirthSettingsState> {
         openDatePicker: false,
         isLoading: false,
       ));
-    }, (r) {
+    }, (r) async {
+      final user = await state.userRepository.fetchUserByToken();
       emit(state.copyWith(
         updatedDate: state.selectedDate,
         openDatePicker: false,
         isLoading: false,
-        user: r,
+        user: user,
       ));
     });
   }

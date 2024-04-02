@@ -410,8 +410,8 @@ class _EventCardState extends State<EventCard> {
                               widget.isLiked
                                   ? AssetConstants.heartFilledIcon
                                   : AssetConstants.heartOutlinedIcon,
-                              width: 5.w,
-                              height: 5.w,
+                              width: 7.w,
+                              height: 7.w,
                             ),
                           ),
                         ],

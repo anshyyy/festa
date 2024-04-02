@@ -21,16 +21,16 @@ extension StringExtension on String {
   }
 
   static String formatAmount(int amount) {
-  if (amount < 1000) {
-    return amount.toString();
-  } else if (amount < 1000000) {
-    double result = amount / 1000.0;
-    return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}k';
-  } else {
-    double result = amount / 1000000.0;
-    return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}M';
+    if (amount < 1000) {
+      return amount.toString();
+    } else if (amount < 1000000) {
+      double result = amount / 1000.0;
+      return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}k';
+    } else {
+      double result = amount / 1000000.0;
+      return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}M';
+    }
   }
-}
 
   String get capitalizeCamel {
     if (isNotEmpty) {
@@ -69,16 +69,17 @@ extension StringExtension on String {
     }
     return location.city;
   }
-  
-static String formatDateTimeNormal(DateTime dateTime) {
+
+  static String formatDateTimeNormal(DateTime dateTime) {
     DateFormat formatter = DateFormat('dd MMM yyyy');
     return formatter.format(dateTime);
   }
 
-static String formatDateTimeWithDash(DateTime dateTime) {
+  static String formatDateTimeWithDash(DateTime dateTime) {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(dateTime);
   }
+
   static String formatDateTimeLong(DateTime dateTime) {
     DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
     return formatter.format(dateTime);
@@ -91,6 +92,11 @@ static String formatDateTimeWithDash(DateTime dateTime) {
 
   static String formatDateTimeShort(DateTime dateTime) {
     DateFormat formatter = DateFormat('dd MMM, hh:mma');
+    return formatter.format(dateTime);
+  }
+
+  static String formatDateTimeWithDay(DateTime dateTime) {
+    DateFormat formatter = DateFormat('EEE dd MMM, yyyy   hh:mm a');
     return formatter.format(dateTime);
   }
 }

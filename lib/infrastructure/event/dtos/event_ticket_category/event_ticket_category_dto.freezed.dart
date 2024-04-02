@@ -14,12 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-EventTicketCategory _$EventTicketCategoryFromJson(Map<String, dynamic> json) {
-  return _EventTicketCategory.fromJson(json);
+EventTicketCategoryDto _$EventTicketCategoryDtoFromJson(
+    Map<String, dynamic> json) {
+  return _EventTicketCategoryDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$EventTicketCategory {
+mixin _$EventTicketCategoryDto {
   @JsonKey(name: 'id', defaultValue: 0)
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name', defaultValue: '')
@@ -30,6 +31,10 @@ mixin _$EventTicketCategory {
   double get price => throw _privateConstructorUsedError;
   @JsonKey(name: 'bookedSeats', defaultValue: 0)
   int get bookedSeats => throw _privateConstructorUsedError;
+  @JsonKey(name: 'totalCapacity', defaultValue: 0)
+  int get totalCapacity => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
+  int get currentTicketsCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'isPaid', defaultValue: false)
   bool get isPaid => throw _privateConstructorUsedError;
   @JsonKey(name: 'priceCurrency', defaultValue: '')
@@ -39,15 +44,15 @@ mixin _$EventTicketCategory {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $EventTicketCategoryCopyWith<EventTicketCategory> get copyWith =>
+  $EventTicketCategoryDtoCopyWith<EventTicketCategoryDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EventTicketCategoryCopyWith<$Res> {
-  factory $EventTicketCategoryCopyWith(
-          EventTicketCategory value, $Res Function(EventTicketCategory) then) =
-      _$EventTicketCategoryCopyWithImpl<$Res, EventTicketCategory>;
+abstract class $EventTicketCategoryDtoCopyWith<$Res> {
+  factory $EventTicketCategoryDtoCopyWith(EventTicketCategoryDto value,
+          $Res Function(EventTicketCategoryDto) then) =
+      _$EventTicketCategoryDtoCopyWithImpl<$Res, EventTicketCategoryDto>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
@@ -55,6 +60,8 @@ abstract class $EventTicketCategoryCopyWith<$Res> {
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'price', defaultValue: 0) double price,
       @JsonKey(name: 'bookedSeats', defaultValue: 0) int bookedSeats,
+      @JsonKey(name: 'totalCapacity', defaultValue: 0) int totalCapacity,
+      @JsonKey(defaultValue: 0) int currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) bool isPaid,
       @JsonKey(name: 'priceCurrency', defaultValue: '') String priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
@@ -62,9 +69,10 @@ abstract class $EventTicketCategoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$EventTicketCategoryCopyWithImpl<$Res, $Val extends EventTicketCategory>
-    implements $EventTicketCategoryCopyWith<$Res> {
-  _$EventTicketCategoryCopyWithImpl(this._value, this._then);
+class _$EventTicketCategoryDtoCopyWithImpl<$Res,
+        $Val extends EventTicketCategoryDto>
+    implements $EventTicketCategoryDtoCopyWith<$Res> {
+  _$EventTicketCategoryDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -79,6 +87,8 @@ class _$EventTicketCategoryCopyWithImpl<$Res, $Val extends EventTicketCategory>
     Object? description = null,
     Object? price = null,
     Object? bookedSeats = null,
+    Object? totalCapacity = null,
+    Object? currentTicketsCount = null,
     Object? isPaid = null,
     Object? priceCurrency = null,
     Object? maxTicketsToBook = null,
@@ -104,6 +114,14 @@ class _$EventTicketCategoryCopyWithImpl<$Res, $Val extends EventTicketCategory>
           ? _value.bookedSeats
           : bookedSeats // ignore: cast_nullable_to_non_nullable
               as int,
+      totalCapacity: null == totalCapacity
+          ? _value.totalCapacity
+          : totalCapacity // ignore: cast_nullable_to_non_nullable
+              as int,
+      currentTicketsCount: null == currentTicketsCount
+          ? _value.currentTicketsCount
+          : currentTicketsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       isPaid: null == isPaid
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
@@ -121,11 +139,12 @@ class _$EventTicketCategoryCopyWithImpl<$Res, $Val extends EventTicketCategory>
 }
 
 /// @nodoc
-abstract class _$$EventTicketCategoryImplCopyWith<$Res>
-    implements $EventTicketCategoryCopyWith<$Res> {
-  factory _$$EventTicketCategoryImplCopyWith(_$EventTicketCategoryImpl value,
-          $Res Function(_$EventTicketCategoryImpl) then) =
-      __$$EventTicketCategoryImplCopyWithImpl<$Res>;
+abstract class _$$EventTicketCategoryDtoImplCopyWith<$Res>
+    implements $EventTicketCategoryDtoCopyWith<$Res> {
+  factory _$$EventTicketCategoryDtoImplCopyWith(
+          _$EventTicketCategoryDtoImpl value,
+          $Res Function(_$EventTicketCategoryDtoImpl) then) =
+      __$$EventTicketCategoryDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -134,6 +153,8 @@ abstract class _$$EventTicketCategoryImplCopyWith<$Res>
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'price', defaultValue: 0) double price,
       @JsonKey(name: 'bookedSeats', defaultValue: 0) int bookedSeats,
+      @JsonKey(name: 'totalCapacity', defaultValue: 0) int totalCapacity,
+      @JsonKey(defaultValue: 0) int currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) bool isPaid,
       @JsonKey(name: 'priceCurrency', defaultValue: '') String priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
@@ -141,11 +162,13 @@ abstract class _$$EventTicketCategoryImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$EventTicketCategoryImplCopyWithImpl<$Res>
-    extends _$EventTicketCategoryCopyWithImpl<$Res, _$EventTicketCategoryImpl>
-    implements _$$EventTicketCategoryImplCopyWith<$Res> {
-  __$$EventTicketCategoryImplCopyWithImpl(_$EventTicketCategoryImpl _value,
-      $Res Function(_$EventTicketCategoryImpl) _then)
+class __$$EventTicketCategoryDtoImplCopyWithImpl<$Res>
+    extends _$EventTicketCategoryDtoCopyWithImpl<$Res,
+        _$EventTicketCategoryDtoImpl>
+    implements _$$EventTicketCategoryDtoImplCopyWith<$Res> {
+  __$$EventTicketCategoryDtoImplCopyWithImpl(
+      _$EventTicketCategoryDtoImpl _value,
+      $Res Function(_$EventTicketCategoryDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -156,11 +179,13 @@ class __$$EventTicketCategoryImplCopyWithImpl<$Res>
     Object? description = null,
     Object? price = null,
     Object? bookedSeats = null,
+    Object? totalCapacity = null,
+    Object? currentTicketsCount = null,
     Object? isPaid = null,
     Object? priceCurrency = null,
     Object? maxTicketsToBook = null,
   }) {
-    return _then(_$EventTicketCategoryImpl(
+    return _then(_$EventTicketCategoryDtoImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -181,6 +206,14 @@ class __$$EventTicketCategoryImplCopyWithImpl<$Res>
           ? _value.bookedSeats
           : bookedSeats // ignore: cast_nullable_to_non_nullable
               as int,
+      totalCapacity: null == totalCapacity
+          ? _value.totalCapacity
+          : totalCapacity // ignore: cast_nullable_to_non_nullable
+              as int,
+      currentTicketsCount: null == currentTicketsCount
+          ? _value.currentTicketsCount
+          : currentTicketsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       isPaid: null == isPaid
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
@@ -199,21 +232,24 @@ class __$$EventTicketCategoryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EventTicketCategoryImpl implements _EventTicketCategory {
-  const _$EventTicketCategoryImpl(
+class _$EventTicketCategoryDtoImpl implements _EventTicketCategoryDto {
+  const _$EventTicketCategoryDtoImpl(
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'name', defaultValue: '') required this.name,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
       @JsonKey(name: 'price', defaultValue: 0) required this.price,
       @JsonKey(name: 'bookedSeats', defaultValue: 0) required this.bookedSeats,
+      @JsonKey(name: 'totalCapacity', defaultValue: 0)
+      required this.totalCapacity,
+      @JsonKey(defaultValue: 0) required this.currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) required this.isPaid,
       @JsonKey(name: 'priceCurrency', defaultValue: '')
       required this.priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
       required this.maxTicketsToBook});
 
-  factory _$EventTicketCategoryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EventTicketCategoryImplFromJson(json);
+  factory _$EventTicketCategoryDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EventTicketCategoryDtoImplFromJson(json);
 
   @override
   @JsonKey(name: 'id', defaultValue: 0)
@@ -231,6 +267,12 @@ class _$EventTicketCategoryImpl implements _EventTicketCategory {
   @JsonKey(name: 'bookedSeats', defaultValue: 0)
   final int bookedSeats;
   @override
+  @JsonKey(name: 'totalCapacity', defaultValue: 0)
+  final int totalCapacity;
+  @override
+  @JsonKey(defaultValue: 0)
+  final int currentTicketsCount;
+  @override
   @JsonKey(name: 'isPaid', defaultValue: false)
   final bool isPaid;
   @override
@@ -242,14 +284,14 @@ class _$EventTicketCategoryImpl implements _EventTicketCategory {
 
   @override
   String toString() {
-    return 'EventTicketCategory(id: $id, name: $name, description: $description, price: $price, bookedSeats: $bookedSeats, isPaid: $isPaid, priceCurrency: $priceCurrency, maxTicketsToBook: $maxTicketsToBook)';
+    return 'EventTicketCategoryDto(id: $id, name: $name, description: $description, price: $price, bookedSeats: $bookedSeats, totalCapacity: $totalCapacity, currentTicketsCount: $currentTicketsCount, isPaid: $isPaid, priceCurrency: $priceCurrency, maxTicketsToBook: $maxTicketsToBook)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EventTicketCategoryImpl &&
+            other is _$EventTicketCategoryDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
@@ -257,6 +299,10 @@ class _$EventTicketCategoryImpl implements _EventTicketCategory {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.bookedSeats, bookedSeats) ||
                 other.bookedSeats == bookedSeats) &&
+            (identical(other.totalCapacity, totalCapacity) ||
+                other.totalCapacity == totalCapacity) &&
+            (identical(other.currentTicketsCount, currentTicketsCount) ||
+                other.currentTicketsCount == currentTicketsCount) &&
             (identical(other.isPaid, isPaid) || other.isPaid == isPaid) &&
             (identical(other.priceCurrency, priceCurrency) ||
                 other.priceCurrency == priceCurrency) &&
@@ -266,26 +312,36 @@ class _$EventTicketCategoryImpl implements _EventTicketCategory {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, description, price,
-      bookedSeats, isPaid, priceCurrency, maxTicketsToBook);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      description,
+      price,
+      bookedSeats,
+      totalCapacity,
+      currentTicketsCount,
+      isPaid,
+      priceCurrency,
+      maxTicketsToBook);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$EventTicketCategoryImplCopyWith<_$EventTicketCategoryImpl> get copyWith =>
-      __$$EventTicketCategoryImplCopyWithImpl<_$EventTicketCategoryImpl>(
-          this, _$identity);
+  _$$EventTicketCategoryDtoImplCopyWith<_$EventTicketCategoryDtoImpl>
+      get copyWith => __$$EventTicketCategoryDtoImplCopyWithImpl<
+          _$EventTicketCategoryDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EventTicketCategoryImplToJson(
+    return _$$EventTicketCategoryDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _EventTicketCategory implements EventTicketCategory {
-  const factory _EventTicketCategory(
+abstract class _EventTicketCategoryDto implements EventTicketCategoryDto {
+  const factory _EventTicketCategoryDto(
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
       @JsonKey(name: 'name', defaultValue: '') required final String name,
       @JsonKey(name: 'description', defaultValue: '')
@@ -293,14 +349,17 @@ abstract class _EventTicketCategory implements EventTicketCategory {
       @JsonKey(name: 'price', defaultValue: 0) required final double price,
       @JsonKey(name: 'bookedSeats', defaultValue: 0)
       required final int bookedSeats,
+      @JsonKey(name: 'totalCapacity', defaultValue: 0)
+      required final int totalCapacity,
+      @JsonKey(defaultValue: 0) required final int currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) required final bool isPaid,
       @JsonKey(name: 'priceCurrency', defaultValue: '')
       required final String priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
-      required final int maxTicketsToBook}) = _$EventTicketCategoryImpl;
+      required final int maxTicketsToBook}) = _$EventTicketCategoryDtoImpl;
 
-  factory _EventTicketCategory.fromJson(Map<String, dynamic> json) =
-      _$EventTicketCategoryImpl.fromJson;
+  factory _EventTicketCategoryDto.fromJson(Map<String, dynamic> json) =
+      _$EventTicketCategoryDtoImpl.fromJson;
 
   @override
   @JsonKey(name: 'id', defaultValue: 0)
@@ -318,6 +377,12 @@ abstract class _EventTicketCategory implements EventTicketCategory {
   @JsonKey(name: 'bookedSeats', defaultValue: 0)
   int get bookedSeats;
   @override
+  @JsonKey(name: 'totalCapacity', defaultValue: 0)
+  int get totalCapacity;
+  @override
+  @JsonKey(defaultValue: 0)
+  int get currentTicketsCount;
+  @override
   @JsonKey(name: 'isPaid', defaultValue: false)
   bool get isPaid;
   @override
@@ -328,6 +393,6 @@ abstract class _EventTicketCategory implements EventTicketCategory {
   int get maxTicketsToBook;
   @override
   @JsonKey(ignore: true)
-  _$$EventTicketCategoryImplCopyWith<_$EventTicketCategoryImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$EventTicketCategoryDtoImplCopyWith<_$EventTicketCategoryDtoImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

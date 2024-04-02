@@ -41,7 +41,8 @@ class UsernameSettingsCubit extends Cubit<UsernameSettingsState> {
   }
 
   void onUsernameChange({required String text}) {
-    emit(state.copyWith(isUpdateEnabled: text.length > 2 && text!=state.currentUsername));
+    emit(state.copyWith(
+        isUpdateEnabled: text.length > 2 && text != state.currentUsername));
   }
 
   void onUpdateUsername() async {
@@ -58,10 +59,11 @@ class UsernameSettingsCubit extends Cubit<UsernameSettingsState> {
         isUsernameUpdateSuccess: false,
       ));
       showUsernameErrorToast();
-    }, (r) {
+    }, (r) async {
+      final user = await state.userRepository.fetchUserByToken();
       emit(state.copyWith(
         isLoading: false,
-        user: r,
+        user: user,
         isUsernameUpdateFailure: false,
         isUsernameUpdateSuccess: true,
       ));

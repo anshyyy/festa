@@ -8,7 +8,9 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
 import '../../domain/event/event_repository.dart';
 import 'dtos/event/event_dto.dart';
+import 'dtos/event_booking_details/event_booking_details_dto.dart';
 import 'dtos/filter/filter_dto.dart';
+import 'dtos/payment_status/payment_status_dto.dart';
 
 class IEventRepository extends EventRepository {
   final String serverUrl;
@@ -91,8 +93,8 @@ class IEventRepository extends EventRepository {
       }
       final body = response.body;
       final eventRaw = jsonDecode(body);
-
-      return right(EventDto.fromJson(eventRaw));
+      final eventDetails = EventDto.fromJson(eventRaw);
+      return right(eventDetails);
     } catch (e) {
       return left(null);
     }
@@ -100,16 +102,68 @@ class IEventRepository extends EventRepository {
 
   @override
   void likeUnlikeEvent({required int eventId, required bool isLiked}) async {
-   try {
+    try {
       final url = isLiked
-        ? '$serverUrl${EventApiConstants.UNLIKE_EVENT}/$eventId'
-        : '$serverUrl${EventApiConstants.LIKE_EVENT}/$eventId';
-    String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
-    await RESTService.performPOSTRequest(
-        httpUrl: url, token: token!, isAuth: true);
-   } catch (e) {
-     print(e);
-   }
+          ? '$serverUrl${EventApiConstants.UNLIKE_EVENT}/$eventId'
+          : '$serverUrl${EventApiConstants.LIKE_EVENT}/$eventId';
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+      await RESTService.performPOSTRequest(
+          httpUrl: url, token: token!, isAuth: true);
+    } catch (e) {
+      print(e);
+    }
   }
 
+  @override
+  Future<Either<dynamic, EventBookingDetailsDto>> createBooking(
+      {required int eventId,
+      required List<Map<String, dynamic>> tickets}) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${BookingApiConstants.BOOKING_CREATE}';
+
+      final bodyObj = {
+        'eventId': eventId,
+        'tickets': tickets,
+      };
+
+      final response = await RESTService.performPOSTRequest(
+        httpUrl: url,
+        isAuth: true,
+        token: token!,
+        body: jsonEncode(bodyObj),
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        return left(null);
+      }
+      final body = response.body;
+      final bookingDetailsRaw = jsonDecode(body);
+      final bookingDetails = EventBookingDetailsDto.fromJson(bookingDetailsRaw);
+      return right(bookingDetails);
+    } catch (e) {
+      return left(null);
+    }
+  }
+
+  @override
+  Future<PaymentStatusDto> fetchPaymentStatusById(
+      {required int bookingId}) async {
+    try {
+      final url = '$serverUrl${BookingApiConstants.BOOKING_STATUS}/$bookingId';
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, token: token!, isAuth: true);
+
+      if (response.statusCode != 200) {
+        return const PaymentStatusDto(isDone: false, reason: '');
+      }
+      final body = response.body;
+      final paymentStatusRaw = jsonDecode(body);
+      final paymentStatus = PaymentStatusDto.fromJson(paymentStatusRaw);
+      return paymentStatus;
+    } catch (e) {
+      return const PaymentStatusDto(isDone: false, reason: '');
+    }
+  }
 }

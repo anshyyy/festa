@@ -7,16 +7,16 @@ import '../../../domain/core/extensions/string_extension.dart';
 import '../../widgets/gradient_button.dart';
 
 class TicketBookingWidget extends StatelessWidget {
-  final void Function()? onClick;
+  final void Function() onClick;
   final String startDate;
   final double priceRangeStart;
-  final double priceRangeEnd;
+  final double? priceRangeEnd;
   const TicketBookingWidget(
       {super.key,
-      this.onClick,
+      required this.onClick,
       required this.startDate,
       required this.priceRangeStart,
-      required this.priceRangeEnd});
+      this.priceRangeEnd});
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +49,20 @@ class TicketBookingWidget extends StatelessWidget {
                   children: [
                     Text(
                         // '${event.priceRangeStart.toIndianRupeeString()} ',
-                        priceRangeStart.toIndianRupeeString(),
+                        priceRangeStart == 0 ?'Free' : priceRangeStart.toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.background,
-                            fontSize: 15.sp)),
+                            fontSize: 16.sp)),
                     SizedBox(
                       width: 1.w,
                     ),
-                    Text(priceRangeEnd.toIndianRupeeString(),
+                    Text(priceRangeEnd?.toIndianRupeeString() ?? '',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600, fontSize: 15.sp)),
+                          decoration: TextDecoration.lineThrough,
+                          decorationThickness: .5.w,
+                          decorationColor: Theme.of(context).colorScheme.surface,
+                            fontWeight: FontWeight.w600, fontSize: 14.5.sp)),
                   ],
                 ),
               ],

@@ -48,7 +48,7 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-              title: ProfileAndSettingsScreenConstants.profileAndSettings,
+              title: ProfileAndSettingsScreenConstants.deleteAccount,
               leading: GestureDetector(
                   onTap: () {
                     navigator<NavigationService>().goBack();
@@ -88,7 +88,10 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
                           showModalBottomSheet(
                               context: context,
                               builder: (context) {
-                                return AccountDeleteModalSheet();
+                                return AccountDeleteModalSheet(
+                                  deleteReason: DeleteAccountScreenConstants
+                                      .deleteReasons[index],
+                                );
                               });
                         },
                         child: Padding(
@@ -147,8 +150,10 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
 }
 
 class AccountDeleteModalSheet extends StatelessWidget {
+  final String deleteReason;
   const AccountDeleteModalSheet({
     super.key,
+    required this.deleteReason,
   });
 
   @override
@@ -219,7 +224,9 @@ class AccountDeleteModalSheet extends StatelessWidget {
                     context: context,
                     isScrollControlled: true,
                     builder: (context) {
-                      return ConfirmDeleteModalSheet();
+                      return ConfirmDeleteModalSheet(
+                        deleteReason: deleteReason,
+                      );
                     });
               },
               textStyle: textTheme.bodySmall!.copyWith(
@@ -255,8 +262,10 @@ class AccountDeleteModalSheet extends StatelessWidget {
 }
 
 class ConfirmDeleteModalSheet extends StatelessWidget {
+  final String deleteReason;
   const ConfirmDeleteModalSheet({
     super.key,
+    required this.deleteReason,
   });
 
   @override
@@ -269,6 +278,7 @@ class ConfirmDeleteModalSheet extends StatelessWidget {
           DeleteConfirmationCubit(DeleteConfirmationState.initial(
         serverUrl: appConfig.serverUrl,
         userId: appStateNotifier.user!.id,
+        deleteReason: deleteReason,
       )),
       child: ConfirmDeleteModalSheetConsumer(),
     );

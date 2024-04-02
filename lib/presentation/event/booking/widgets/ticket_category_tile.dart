@@ -5,22 +5,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../application/booking/booking_cubit.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
+import '../../../../infrastructure/event/dtos/event_ticket_category/event_ticket_category_dto.dart';
 import '../../../widgets/gradient_button.dart';
 
 class TicketCategory extends StatelessWidget {
-  final String categoryName;
-  final int categoryItems;
-  final double price;
-  final void Function()? onAdd;
-  final void Function()? onRemove;
+  final EventTicketCategoryDto eventTicketCategory;
 
   const TicketCategory(
-      {super.key,
-      required this.categoryName,
-      required this.categoryItems,
-      this.onAdd,
-      this.onRemove,
-      required this.price});
+      {super.key, required this.eventTicketCategory,});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +34,7 @@ class TicketCategory extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    categoryName,
+                    eventTicketCategory.name,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Theme.of(context).colorScheme.background,
                         fontWeight: FontWeight.w600,
@@ -52,15 +44,19 @@ class TicketCategory extends StatelessWidget {
                     height: .5.h,
                   ),
                   Text(
-                    '₹$price',
+                    '₹${eventTicketCategory.price}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(),
                   ),
                 ],
               ),
-              categoryItems == 0
+              eventTicketCategory.currentTicketsCount == 0
                   ? GradientButton(
                       text: 'Add',
-                      onTap: onAdd,
+                      onTap: (){
+                        context
+                                  .read<BookingCubit>()
+                                  .addTickets(id: eventTicketCategory.id);
+                      },
                       height: 4.h,
                       width: 27.w,
                       textStyle:
@@ -72,7 +68,11 @@ class TicketCategory extends StatelessWidget {
                   : Row(
                       children: [
                         GestureDetector(
-                          onTap: onRemove,
+                          onTap: (){
+                            context
+                                  .read<BookingCubit>()
+                                  .removeTickets(id: eventTicketCategory.id);
+                          },
                           child: SvgPicture.asset(
                             AssetConstants.removeTicketIcon,
                             height: 3.h,
@@ -82,7 +82,7 @@ class TicketCategory extends StatelessWidget {
                           width: 9.w,
                           child: Center(
                             child: Text(
-                              categoryItems.toString(),
+                              eventTicketCategory.currentTicketsCount.toString(),
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -97,7 +97,11 @@ class TicketCategory extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: onAdd,
+                          onTap: (){
+                            context
+                                  .read<BookingCubit>()
+                                  .addTickets(id: eventTicketCategory.id);
+                          },
                           child: SvgPicture.asset(
                             AssetConstants.addTicketIcon,
                             height: 3.h,

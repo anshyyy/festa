@@ -396,39 +396,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                 SizedBox(
                                   height: 2.h,
                                 ),
-                                Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 3.3.w),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return const DeleteAccountModal();
-                                        },
-                                      ).then((value) {
-                                        if (value) {
-                                          context
-                                              .read<ProfileCubit>()
-                                              .deleteAccount();
-                                        }
-                                      });
-                                    },
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          AssetConstants.trash,
-                                          height: 2.2.h,
-                                        ),
-                                        SizedBox(
-                                          width: 2.w,
-                                        ),
-                                        Text(ProfileAndSettingsScreenConstants
-                                            .deleteAccount)
-                                      ],
-                                    ),
-                                  ),
-                                )
+                                
                               ],
                             ),
                             SizedBox(

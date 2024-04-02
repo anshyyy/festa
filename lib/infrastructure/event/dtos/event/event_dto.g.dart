@@ -64,7 +64,7 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
           [],
       eventTicketCategories: (json['eventTicketCategories'] as List<dynamic>?)
               ?.map((e) =>
-                  EventTicketCategory.fromJson(e as Map<String, dynamic>))
+                  EventTicketCategoryDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
     );

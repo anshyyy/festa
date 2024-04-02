@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
 
 class SetYourLocation extends StatelessWidget {
   const SetYourLocation({super.key});
@@ -38,30 +40,35 @@ class SetYourLocation extends StatelessWidget {
               SizedBox(
                 height: 5.h,
               ),
-              Container(
-                width: 50.w,
-                height: 5.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).colorScheme.background),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      AssetConstants.setupLocation,
-                      color: Theme.of(context).colorScheme.surface,
-                    ),
-                    SizedBox(
-                      width: 2.w,
-                    ),
-                    Text(SetupLocationScreenConstants.useMyLocation,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 16.sp,
-                      color: Theme.of(context).colorScheme.surface,
-                      fontWeight: FontWeight.w400
-                    ),
-                    ),
-                  ],
+              GestureDetector(
+                onTap: (){
+                  navigator<NavigationService>().goBack();
+                },
+                child: Container(
+                  width: 50.w,
+                  height: 5.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Theme.of(context).colorScheme.background),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AssetConstants.setupLocation,
+                        color: Theme.of(context).colorScheme.surface,
+                      ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Text(SetupLocationScreenConstants.useMyLocation,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 16.sp,
+                        color: Theme.of(context).colorScheme.surface,
+                        fontWeight: FontWeight.w400
+                      ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

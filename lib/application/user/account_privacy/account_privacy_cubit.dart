@@ -12,11 +12,16 @@ class AccountPrivacyCubit extends Cubit<AccountPrivacyState> {
   AccountPrivacyCubit(super.initialState);
 
   void switchAccount({required bool isPrivate}) async {
-    emit(state.copyWith(isPrivate: isPrivate));
-    final response = await state.userRepository
+    emit(state.copyWith(isPrivate: isPrivate, isLoading: true));
+    await state.userRepository
         .patchProfile(input: {'isPrivateAccount': isPrivate});
-    response.fold((l) => null, (r) {
-      emit(state.copyWith(user: r));
-    });
+
+    final user = await state.userRepository.fetchUserByToken();
+    emit(state.copyWith(
+      isLoading: false,
+      isSuccess: true,
+      isFailure: false,
+      user: user,
+    ));
   }
 }

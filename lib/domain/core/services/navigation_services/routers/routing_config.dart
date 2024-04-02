@@ -14,15 +14,15 @@ import '../../../../../presentation/basic_profile/birthday_selection_screen.dart
 import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
 import '../../../../../presentation/basic_profile/set_your_location.dart';
 import '../../../../../presentation/basic_profile/username_screen.dart';
+import '../../../../../presentation/club_profile/club_profile_screen.dart';
 import '../../../../../presentation/club_profile/widgets/club_community_screen.dart';
 import '../../../../../presentation/club_profile/widgets/media_viewer_widget.dart';
-import '../../../../../presentation/event/booking/book_ticket_screen.dart';
-import '../../../../../presentation/event/booking/booking_details_screen.dart';
-import '../../../../../presentation/event/booking/free_booking_screen.dart';
-import '../../../../../presentation/event/booking/payment_details_screen.dart';
-import '../../../../../presentation/club_profile/club_profile_screen.dart';
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
+import '../../../../../presentation/event/booking/book_ticket_screen.dart';
+import '../../../../../presentation/event/booking/free_booking_screen.dart';
+import '../../../../../presentation/event/booking/payment_details_screen.dart';
+import '../../../../../presentation/event/booking/payment_status_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
@@ -184,10 +184,34 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const FreeBookingScreen(), settings);
 
     case UserRoutes.paymentDetailsRoute:
-      return _getPageRoute(const PaymentDetails(), settings);
+      return _getPageRoute(
+          PaymentDetails(
+            arguments: settings.arguments,
+          ),
+          settings);
 
-    case UserRoutes.bookingDetailsRoute:
-      return _getPageRoute(const BookingDetails(), settings);
+    case UserRoutes.paymentStatusScreenRoute:
+      final String eventId = routingData.queryParameters['eventId'] ?? '0';
+      final bool isPaymentSuccess =
+          routingData.queryParameters['isPaymentSuccess'] == 'true';
+          final bool isPaymentPending =
+          routingData.queryParameters['isPaymentPending'] == 'true';
+      final String numberOfTickets =
+          routingData.queryParameters['numberOfTickets'] ?? '0';
+      final String totalAmount =
+          routingData.queryParameters['totalAmount'] ?? '0';
+
+      return _getPageRoute(
+          PaymentStatusScreen(
+            isPaymentSuccess: isPaymentSuccess,
+            isPaymentPending: isPaymentPending,
+            numberOfTickets: int.parse(numberOfTickets),
+            eventId: int.parse(
+              eventId,
+            ),
+            totalAmount: double.parse(totalAmount),
+          ),
+          settings);
 
     case UserRoutes.clubProfileRoute:
       final clubId = routingData.queryParameters['clubId'] ?? '0';

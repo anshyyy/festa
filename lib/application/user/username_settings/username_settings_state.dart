@@ -3,7 +3,7 @@ part of 'username_settings_cubit.dart';
 @freezed
 class UsernameSettingsState with _$UsernameSettingsState {
   factory UsernameSettingsState({
-        required bool isLoading,
+    required bool isLoading,
     required bool isFailure,
     required bool isSuccess,
     required TextEditingController usernameInputController,
@@ -19,8 +19,9 @@ class UsernameSettingsState with _$UsernameSettingsState {
   factory UsernameSettingsState.initial({
     required String serverUrl,
     required String username,
-  }) => UsernameSettingsState(
-     isLoading: false,
+  }) =>
+      UsernameSettingsState(
+        isLoading: false,
         isFailure: false,
         isSuccess: false,
         usernameInputController: TextEditingController(text: username),

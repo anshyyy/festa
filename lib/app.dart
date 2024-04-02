@@ -87,7 +87,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
                       : Provider.of<AppStateNotifier>(context).profileState ==
                               ProfileStateEnum.basic
                           ? AuthRoutes.birthdayRoute
-                          : AuthRoutes.locationSetupRoute
+                          : AuthRoutes.basicInfoRoute
               : AuthRoutes.startRoute,
     );
   }
@@ -155,6 +155,7 @@ Future appInitializer(AppConfig appConfig) async {
     buildFlavor: appConfig.buildFlavor,
     serverUrl: appConfig.serverUrl,
     googleMapsApiKey: appConfig.googleMapsApiKey,
+    razorPayApiKey: appConfig.razorPayApiKey,
     child: ChangeNotifierProvider<AppStateNotifier>(
       create: (context) {
         return appStateNotifier;

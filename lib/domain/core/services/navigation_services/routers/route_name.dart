@@ -24,7 +24,7 @@ class UserRoutes {
   static const String bookingRoute = 'booking';
   static const String freeBookingRoute = 'freeBooking';
   static const String paymentDetailsRoute = 'paymentDetails';
-  static const String bookingDetailsRoute = 'bookingDetails';
+  static const String paymentStatusScreenRoute = 'paymentStatus';
   static const String clubProfileRoute = 'clubProfile';
   static const String clubCommunityScreenRoute= 'clubCommunity';
   static const String homeScreenRoute = 'homeScreen';

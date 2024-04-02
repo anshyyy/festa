@@ -136,7 +136,6 @@ class IAuthRepository extends AuthRepository {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken();
       print(token);
       if (token == null) {
-
         return null;
       }
       final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
@@ -170,20 +169,26 @@ class IAuthRepository extends AuthRepository {
   //     return left(ErrorConstants.networkUnavailable);
   //   }
   // }
-
   @override
-  Future<bool> deleteProfile({required int id}) async {
+  Future<bool> deleteProfile({required int id, required String reason}) async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      final url = '$serverUrl${AuthApiConstants.USERS}';
+      final url = '$serverUrl${UserApiConstants.USERS}';
+      final feedbackUrl = '$serverUrl${UserApiConstants.DELETE_REASON}';
+      await RESTService.performPOSTRequest(
+          httpUrl: feedbackUrl, isAuth: true, token: token!, body: jsonEncode({
+            'reason':reason
+          }));
+
       final response = await RESTService.performDELETERequest(
         httpUrl: url,
         isAuth: true,
-        token: token!,
+        token: token,
       );
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
+      
       return true;
     } catch (e) {
       return false;

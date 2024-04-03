@@ -214,7 +214,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           settings);
 
     case UserRoutes.clubProfileRoute:
-      final clubId = routingData.queryParameters['clubId'] ?? '0';
+      final clubId = routingData.queryParameters['id'] ?? '0';
       return _getPageRoute(
           ClubProfileScreen(
             clubId: int.parse(clubId),
@@ -232,7 +232,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           settings);
 
     case UserRoutes.artistProfileScreenRoute:
-      final artistId = routingData.queryParameters['artistId'] ?? '0';
+      final artistId = routingData.queryParameters['id'] ?? '0';
       return _getPageRoute(
           ArtistProfileScreen(
             artistId: int.parse(artistId),

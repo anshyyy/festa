@@ -75,6 +75,10 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
           );
 
           DynamicLinkStorageService.getStoredDynamicLink().then((value) {
+            Map<String, String> pathSegments = value;
+            String category = pathSegments['category']!;
+            String id = pathSegments['id']!;
+
             final profileState = user.fullName.isNotEmpty &&
                     user.dob.isNotEmpty &&
                     user.gender.isNotEmpty
@@ -86,26 +90,23 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                         : ProfileStateEnum.started;
 
             final route = profileState == ProfileStateEnum.completed
-                ? UserRoutes.mainNavRoute
+                ? value != null
+                    ? DynamicLinkUtil.getDynamicRoute(category, id)
+                    : UserRoutes.mainNavRoute
                 : profileState == ProfileStateEnum.birthday
                     ? AuthRoutes.genderRoute
                     : profileState == ProfileStateEnum.basic
                         ? AuthRoutes.birthdayRoute
                         : AuthRoutes.basicInfoRoute;
 
-            if (value != null) {
-              Map pathSegments = jsonDecode(value);
-              String category = pathSegments['category'];
-              String id = pathSegments['id'];
-
-              DynamicLinkUtil.dynamicNavigation(category, id);
-            } else {
-              Future.delayed(const Duration(milliseconds: 100))
-                  .then((value) async {
-                navigator<NavigationService>()
-                    .navigateTo(route, isClearStack: true);
+            Future.delayed(const Duration(milliseconds: 100))
+                .then((value) async {
+              navigator<NavigationService>()
+                  .navigateTo(route, isClearStack: true, queryParams: {
+                'id': id,
               });
-            }
+            });
+
             context.read<VerifyOtpCubit>().emitFromAnywhere(
                   state: state.copyWith(isOTPVerificationSuccessful: false),
                 );

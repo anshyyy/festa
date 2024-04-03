@@ -179,20 +179,6 @@ Future appInitializer(AppConfig appConfig) async {
   return runApp(configuredApp);
 }
 
-// void initDynamicLink(GlobalKey<NavigatorState> navKey) async {
-//   FirebaseDynamicLinks.instance.getInitialLink().then((dynamicLinkData) {
-//     if (dynamicLinkData != null) {
-//       handleDynamicLink(navKey: navKey, url: dynamicLinkData.link);
-//     }
-//   });
-// }
-
-// handleDynamicLink(
-//     {required Uri url, required GlobalKey<NavigatorState> navKey}) {
-//   if (url.queryParameters.isNotEmpty) {
-//     print('deeplink ${url.queryParameters}');
-//   }
-// }
 
 Future<Map<String, dynamic>> getRemoteConfigs() async {
   Map<String, dynamic> configs = {};

@@ -8,6 +8,7 @@ import '../services/storage_service/dynamic_link_storage_service.dart';
 
 class DynamicLinkUtil {
   static FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
   static String generateLink(String category, String id) {
     return AppConstants.dynamicUrl
         .replaceAll('<category>', category)
@@ -44,32 +45,25 @@ class DynamicLinkUtil {
         DynamicLinkStorageService.storeDynamicAppLink(
             category: category, id: id);
       } else {
-        dynamicNavigation(category, id);
+        String route = getDynamicRoute(category, id);
+        navigator<NavigationService>().navigateTo(route, queryParams: {
+          'id': id,
+        });
       }
     }
   }
 
-  static void dynamicNavigation(String category, String id) {
+  static String getDynamicRoute(String category, String id) {
     switch (category) {
       case 'event':
-        navigator<NavigationService>()
-            .navigateTo(UserRoutes.eventDetailsRoute, queryParams: {
-          'id': id,
-        });
+        return UserRoutes.eventDetailsRoute;
       case 'artist':
-        navigator<NavigationService>()
-            .navigateTo(UserRoutes.artistProfileScreenRoute, queryParams: {
-          'artistId': id,
-        });
+        return UserRoutes.artistProfileScreenRoute;
       case 'pub':
-        navigator<NavigationService>()
-            .navigateTo(UserRoutes.clubProfileRoute, queryParams: {
-          'clubId': id,
-        });
+        return UserRoutes.clubProfileRoute;
       default:
-        navigator<NavigationService>().navigateTo(
-          UserRoutes.homeScreenRoute,
-        );
+        UserRoutes.mainNavRoute;
     }
+    return UserRoutes.mainNavRoute;
   }
 }

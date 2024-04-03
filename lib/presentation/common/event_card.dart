@@ -304,7 +304,7 @@ class _EventCardState extends State<EventCard> {
                                             .navigateTo(
                                                 UserRoutes.clubProfileRoute,
                                                 queryParams: {
-                                              'clubId': widget.event.pub!.id
+                                              'id': widget.event.pub!.id
                                                   .toString()
                                             });
                                       },

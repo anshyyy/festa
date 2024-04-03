@@ -445,7 +445,7 @@ class PaymentStatusConsumer extends StatelessWidget {
                                   navigator<NavigationService>().navigateTo(
                                       UserRoutes.clubProfileRoute,
                                       queryParams: {
-                                        'clubId':
+                                        'id':
                                             state.event!.pub!.id.toString(),
                                       });
                                 },

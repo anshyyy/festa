@@ -25,7 +25,7 @@ class CustomBottomNav extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          height: Platform.isAndroid ? 10.h : 10.2.h,
+          height: Platform.isAndroid ? 9.5.h : 10.2.h,
           color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.4),
           child: SafeArea(
             child: Container(

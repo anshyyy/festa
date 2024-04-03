@@ -87,7 +87,7 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
 
     return BlocConsumer<ArtistMusicCubit, ArtistMusicState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return ListView.builder(

@@ -78,7 +78,7 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
                 CommunityDto(totalCount: followers.totalCount, users: temp)),
       );
     } catch (e) {
-      print(e);
+        debugPrint(e.toString());
     }
   }
 
@@ -106,7 +106,7 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
                 CommunityDto(totalCount: followers.totalCount, users: temp)),
       );
     } catch (e) {
-      print(e);
+        debugPrint(e.toString());
     }
   }
 

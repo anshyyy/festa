@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -65,7 +66,7 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
       try {
         state.razorpay.open(options);
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     } else {
       emit(state.copyWith(
@@ -86,7 +87,6 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
         isPaymentPending: false,
         isLoading: false,
       ));
-      
     } else {
       emit(state.copyWith(
         // isPaymentSuccess: true,

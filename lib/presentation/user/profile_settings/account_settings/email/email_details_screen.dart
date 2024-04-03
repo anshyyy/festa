@@ -38,7 +38,7 @@ class ExmailDetailsScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<EmailDetailsCubit, EmailDetailsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Scaffold(

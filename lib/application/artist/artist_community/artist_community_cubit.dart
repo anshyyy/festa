@@ -95,7 +95,7 @@ class ArtistCommunityCubit extends Cubit<ArtistCommunityState> {
         },
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -137,7 +137,7 @@ class ArtistCommunityCubit extends Cubit<ArtistCommunityState> {
         },
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 

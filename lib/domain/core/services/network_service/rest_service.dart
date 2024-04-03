@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
@@ -227,29 +228,29 @@ class RESTService {
         throw resultResponse;
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       rethrow;
     }
 
-  //  try {
-  //     final dio = Dio();
-  //  dio.options.contentType = "multipart/form-data";
-  //  final multiPartFile = await MultipartFile.fromFile(
-  //    file.path,
-  //    filename: file.path.split('/').last,
-  //  );
-  //  FormData formData = FormData.fromMap({
-  //    "file": multiPartFile,
-  //  });
-  //  final response = await dio.post(
-  //    httpUrl,
-  //    data: formData,
-  //  );
-  //  return response.data;
-  //  } catch (e) {
-  //    print(e);
-  //    throw e;
-  //  }
+    //  try {
+    //     final dio = Dio();
+    //  dio.options.contentType = "multipart/form-data";
+    //  final multiPartFile = await MultipartFile.fromFile(
+    //    file.path,
+    //    filename: file.path.split('/').last,
+    //  );
+    //  FormData formData = FormData.fromMap({
+    //    "file": multiPartFile,
+    //  });
+    //  final response = await dio.post(
+    //    httpUrl,
+    //    data: formData,
+    //  );
+    //  return response.data;
+    //  } catch (e) {
+    //    print(e);
+    //    throw e;
+    //  }
   }
 
   static String paramParser({required Map<String, String> param}) {

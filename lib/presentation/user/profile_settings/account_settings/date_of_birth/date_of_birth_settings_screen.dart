@@ -48,7 +48,7 @@ class DateOfBirthSettingsScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<DateOfBirthSettingsCubit, DateOfBirthSettingsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
         if (state.user != null && !state.isLoading) {
           appStateNotifier.updateAfterAuthChange(
               isAuthorized: true, user: state.user);

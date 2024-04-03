@@ -50,7 +50,7 @@ class ArtistCommunityConsumer extends StatelessWidget {
 
     return BlocConsumer<ArtistCommunityCubit, ArtistCommunityState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Scaffold(

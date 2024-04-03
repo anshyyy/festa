@@ -54,7 +54,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
 
     return BlocConsumer<MediaViewerCubit, MediaViewerState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return state.isLoading
@@ -251,7 +251,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
 //   Widget build(BuildContext context) {
 //     return BlocConsumer<VideoPlayerCubit, VideoPlayerState>(
 //       listener: (context, state) {
-//         // TODO: implement listener
+//         
 //       },
 //       builder: (context, state) {
 //         return state.videoPlayerController.value.isInitialized

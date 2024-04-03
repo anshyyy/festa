@@ -29,7 +29,7 @@ class ClubFriends extends StatelessWidget {
         Provider.of<AppStateNotifier>(context);
     return BlocConsumer<ClubCommunityCubit, ClubCommunityState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Column(

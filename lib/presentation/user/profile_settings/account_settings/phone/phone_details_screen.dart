@@ -39,7 +39,7 @@ class PhoneDetailsScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<PhoneDetailsCubit, PhoneDetailsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Scaffold(

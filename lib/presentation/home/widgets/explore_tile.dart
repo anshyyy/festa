@@ -25,7 +25,7 @@ class ExploreTile extends StatelessWidget {
     final themeData = Theme.of(context);
     final child = BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Container(

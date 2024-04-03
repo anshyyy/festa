@@ -42,7 +42,7 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<DeleteAccountCubit, DeleteAccountState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Scaffold(

@@ -34,7 +34,7 @@ class MainNavigatorConsumer extends StatelessWidget {
         Provider.of<AppStateNotifier>(context);
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Scaffold(

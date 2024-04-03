@@ -24,7 +24,7 @@ class ClubProfile extends StatelessWidget {
 
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Stack(

@@ -29,7 +29,7 @@ class UserProfile extends StatelessWidget {
 
     return BlocConsumer<UserProfileCubit, UserProfileState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return ModalProgressHUD(

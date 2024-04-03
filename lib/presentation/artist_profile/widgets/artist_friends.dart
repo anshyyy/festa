@@ -27,7 +27,7 @@ class ArtistFriends extends StatelessWidget {
         Provider.of<AppStateNotifier>(context);
     return BlocConsumer<ArtistCommunityCubit, ArtistCommunityState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return ListView.builder(

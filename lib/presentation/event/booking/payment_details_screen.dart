@@ -237,7 +237,7 @@ class EventDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PaymentDetailsCubit, PaymentDetailsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         final event = state.event;
@@ -343,7 +343,7 @@ class PaymentDestributionDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PaymentDetailsCubit, PaymentDetailsState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         final themeData = Theme.of(context);

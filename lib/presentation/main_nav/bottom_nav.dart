@@ -21,7 +21,7 @@ class CustomBottomNav extends StatelessWidget {
     final AppStateNotifier appStateNotifier = Provider.of(context);
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Container(

@@ -48,7 +48,7 @@ class EmailOtpVerificationScreen extends StatelessWidget {
 
     return BlocConsumer<EmailOtpVerificationCubit, OtpVerificationState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
         if (state.isOTPVerificationSuccessful &&
             !state.isOTPVerificationFailed) {
           navigator<NavigationService>()

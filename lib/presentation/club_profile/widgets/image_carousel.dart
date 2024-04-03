@@ -12,7 +12,7 @@ class ImageCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
-        // TODO: implement listener
+        
       },
       builder: (context, state) {
         return Stack(

@@ -115,7 +115,6 @@ class IAuthRepository extends AuthRepository {
 
   @override
   Future loginWithGoogle() async {
-    try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
@@ -127,13 +126,13 @@ class IAuthRepository extends AuthRepository {
       );
 
       await _firebaseAuth.signInWithCredential(credential);
-    } on Exception {}
   }
 
   @override
   Future<UserDto?> authentication() async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      // ignore: avoid_print
       print(token);
       if (token == null) {
         return null;
@@ -214,7 +213,11 @@ class IAuthRepository extends AuthRepository {
 
   @override
   Future<String?> getFCMToken() async {
-    return await FirebaseMessaging.instance.getToken();
+    try {
+      return await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      return e.toString();
+    }
   }
 
   @override

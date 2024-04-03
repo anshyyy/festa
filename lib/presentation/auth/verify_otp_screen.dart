@@ -74,9 +74,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
           );
 
           DynamicLinkStorageService.getStoredDynamicLink().then((value) {
-            Map<String, String> pathSegments = value;
-            String category = pathSegments['category']!;
-            String id = pathSegments['id']!;
+            Map<String, String> pathSegments = value ?? {};
 
             final profileState = user.fullName.isNotEmpty &&
                     user.dob.isNotEmpty &&
@@ -90,7 +88,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
 
             final route = profileState == ProfileStateEnum.completed
                 ? value != null
-                    ? DynamicLinkUtil.getDynamicRoute(category, id)
+                    ? DynamicLinkUtil.getDynamicRoute(pathSegments['category']!, pathSegments['id']!)
                     : UserRoutes.mainNavRoute
                 : profileState == ProfileStateEnum.birthday
                     ? AuthRoutes.genderRoute
@@ -102,7 +100,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 .then((value) async {
               navigator<NavigationService>()
                   .navigateTo(route, isClearStack: true, queryParams: {
-                'id': id,
+                'id': pathSegments['id'] ?? '0',
               });
             });
 

@@ -33,7 +33,7 @@ class SocialReach extends StatelessWidget {
                       text:  StringExtension.formatAmount(totalParties ?? 0),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 17.sp,
+                          fontSize: 16.sp,
                           color: Theme.of(context).colorScheme.background)),
                   TextSpan(
                       text: ' ${UserProfileScreenConstants.parties}',
@@ -54,7 +54,7 @@ class SocialReach extends StatelessWidget {
                       text: StringExtension.formatAmount(totalFollowers ?? 0),
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 17.sp,
+                          fontSize: 16.sp,
                           color: Theme.of(context).colorScheme.background)),
                   TextSpan(
                       text: ' ${UserProfileScreenConstants.followers}',
@@ -74,7 +74,7 @@ class SocialReach extends StatelessWidget {
                       text: StringExtension.formatAmount(totalFriends ?? 0),
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 17.sp,
+                          fontSize: 16.sp,
                           color: Theme.of(context).colorScheme.background)),
                   TextSpan(
                       text: ' ${UserProfileScreenConstants.friends}',

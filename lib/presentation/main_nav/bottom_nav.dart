@@ -20,12 +20,10 @@ class CustomBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppStateNotifier appStateNotifier = Provider.of(context);
     return BlocConsumer<MainNavCubit, MainNavState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          height: Platform.isAndroid ? 9.5.h : 10.2.h,
+          height: Platform.isAndroid ? 9.5.h : 12.h,
           color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.4),
           child: SafeArea(
             child: Container(
@@ -55,13 +53,15 @@ class CustomBottomNav extends StatelessWidget {
                       child: Stack(
                         children: [
                           Center(
-                            child: SvgPicture.asset(
-                              AssetConstants.homeFilled,
-                              color: state.currentIndex == 0
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.background,
-                              height: 27,
-                            ),
+                            child: SvgPicture.asset(AssetConstants.homeFilled,
+                                height: 27,
+                                colorFilter: ColorFilter.mode(
+                                    state.currentIndex == 0
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
+                                    BlendMode.srcIn)),
                           ),
                           Positioned(
                             bottom: 0,
@@ -128,12 +128,14 @@ class CustomBottomNav extends StatelessWidget {
                       child: Stack(
                         children: [
                           Center(
-                            child: SvgPicture.asset(
-                              AssetConstants.ticketsIcon,
-                              color: state.currentIndex == 2
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.onSecondary,
-                            ),
+                            child: SvgPicture.asset(AssetConstants.ticketsIcon,
+                                colorFilter: ColorFilter.mode(
+                                    state.currentIndex == 2
+                                        ? Theme.of(context).primaryColor
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
+                                    BlendMode.srcIn)),
                           ),
                           Positioned(
                             bottom: 0,
@@ -166,17 +168,24 @@ class CustomBottomNav extends StatelessWidget {
                         children: [
                           Center(
                             child: Container(
-                              height: 2.5.h,
-                              width: 2.5.h,
+                              height: 3.h,
+                              width: 3.h,
                               decoration: BoxDecoration(
-                                border: Border.all(color: state.currentIndex == 3 ?Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondaryContainer),
-                              borderRadius: BorderRadius.circular(50.w),
-                              image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      appStateNotifier.user!.profileImage))),
-                              ),
+                                  border: Border.all(
+                                      color: state.currentIndex == 3
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .secondaryContainer),
+                                  borderRadius: BorderRadius.circular(50.w),
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          appStateNotifier
+                                              .user!.profileImage))),
+                            ),
                           ),
-                          
                           Positioned(
                             bottom: 0,
                             child: AnimatedContainer(

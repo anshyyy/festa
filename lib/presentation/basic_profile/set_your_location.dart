@@ -55,7 +55,7 @@ class SetYourLocation extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         AssetConstants.setupLocation,
-                        color: Theme.of(context).colorScheme.surface,
+                        colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.surface, BlendMode.srcIn)
                       ),
                       SizedBox(
                         width: 2.w,

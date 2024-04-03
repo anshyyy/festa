@@ -33,12 +33,13 @@ class SocialReach extends StatelessWidget {
                 TextSpan(
                     text: StringExtension.formatAmount(totalParties),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background)),
                 TextSpan(
                     text: ' Parties',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 12.sp,
+                        fontSize: 13.sp,
                         color: Theme.of(context).colorScheme.background))
               ],
             ),
@@ -49,6 +50,7 @@ class SocialReach extends StatelessWidget {
                 TextSpan(
                     text: StringExtension.formatAmount(totalFollowers),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background)),
                 TextSpan(
@@ -65,6 +67,7 @@ class SocialReach extends StatelessWidget {
                 TextSpan(
                     text: StringExtension.formatAmount(totalFriends),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.background)),
                 TextSpan(

@@ -11,7 +11,7 @@ class TransactionDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 100.w,
-      padding: EdgeInsets.only(top: 4.h, left: 2.w, bottom: .5.h),
+      padding: EdgeInsets.only(top: 5.h, left: 2.w, bottom: .5.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,7 +45,7 @@ class TransactionDetails extends StatelessWidget {
                     ),
               ),
               Text(
-                ticketDetails.paymentMethod,
+                ticketDetails.paymentMethod.isEmpty ? '-' : ticketDetails.paymentMethod,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.background),
@@ -63,7 +63,7 @@ class TransactionDetails extends StatelessWidget {
                     ),
               ),
               Text(
-                ticketDetails.bookingReference,
+                ticketDetails.bookingReference.isEmpty ? '-' : ticketDetails.bookingReference,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.background),

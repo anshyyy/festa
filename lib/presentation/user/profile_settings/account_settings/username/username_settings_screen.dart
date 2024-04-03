@@ -79,27 +79,27 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                   borderLess: true,
                   suffixIcon: state.isLoading
                       ? Image.asset(
-                        AssetConstants.bubbleLoader,
-                        height: 3.5.h,
-                      )
+                          AssetConstants.bubbleLoader,
+                          height: 3.5.h,
+                        )
                       : state.isUsernameUpdateSuccess
-                          ? SvgPicture.asset(
-                              AssetConstants.circledTick,
+                          ? SvgPicture.asset(AssetConstants.circledTick,
                               height: 3.h,
-                              color: colorScheme.inversePrimary,
-                            )
-                          : state.isUsernameUpdateFailure ? SvgPicture.asset(
-                              AssetConstants.stopIcon,
-                              height: 3.h,
-                              color: colorScheme.error,
-                            ): GestureDetector(
-                              onTap: () {
-                                context
-                                    .read<UsernameSettingsCubit>()
-                                    .clearTextField();
-                              },
-                              child:
-                                  SvgPicture.asset(AssetConstants.closeIcon)),
+                              colorFilter: ColorFilter.mode(
+                                  colorScheme.inversePrimary, BlendMode.srcIn))
+                          : state.isUsernameUpdateFailure
+                              ? SvgPicture.asset(AssetConstants.stopIcon,
+                                  height: 3.h,
+                                  colorFilter: ColorFilter.mode(
+                                      colorScheme.error, BlendMode.srcIn))
+                              : GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<UsernameSettingsCubit>()
+                                        .clearTextField();
+                                  },
+                                  child: SvgPicture.asset(
+                                      AssetConstants.closeIcon)),
                   hintText: UsernameScreenConstants.typeHere,
                   hintTextStyle: textTheme.bodyLarge!.copyWith(
                       color: colorScheme.secondaryContainer.withOpacity(.5)),
@@ -151,7 +151,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                 ),
                 const Spacer(),
                 GradientButton(
-                  isEnabled: state.isUpdateEnabled ,
+                  isEnabled: state.isUpdateEnabled,
                   text: UsernameSettingsScreenConstants.updateUsername,
                   onTap: () {
                     context.read<UsernameSettingsCubit>().onUpdateUsername();

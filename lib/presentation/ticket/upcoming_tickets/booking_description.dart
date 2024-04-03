@@ -27,7 +27,7 @@ class BookingDescription extends StatelessWidget {
             children: [
               AnimatedSwitcher(
                 duration: const Duration(seconds: 1),
-                child: state.showTicketDetails
+                child: ticketDetails.showTicketDetails
                     ?  TransactionDetails(ticketDetails: ticketDetails,)
                     : const QrViewer(),
               ),
@@ -45,38 +45,33 @@ class BookingDescription extends StatelessWidget {
                       height: 3.h,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        // context.read<TicketCubi>().showTicketDetails()
-                      },
-                      child: GestureDetector(
-                        onTap: () => context
-                            .read<TicketCubit>()
-                            .showTransactionDetails(id: ticketDetails.id),
-                        child: Container(
-                          height: 10.w,
-                          width: 10.w,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: .8,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer),
-                            borderRadius: BorderRadius.circular(7),
+                      onTap: () => context
+                          .read<TicketCubit>()
+                          .showTransactionDetails(id: ticketDetails.id),
+                      child: Container(
+                        height: 10.w,
+                        width: 10.w,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: .8,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer),
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        child: AnimatedSwitcher(
+                          duration: const Duration(
+                            milliseconds: 500,
                           ),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(
-                              seconds: 1,
-                            ),
-                            child: !state.showTicketDetails
-                                ? SvgPicture.asset(
-                                    AssetConstants.arrowRight,
-                                    height: 4.5.w,
-                                  )
-                                : SvgPicture.asset(
-                                    AssetConstants.arrowLeft,
-                                    height: 4.5.w,
-                                  ),
-                          ),
+                          child: !ticketDetails.showTicketDetails
+                              ? SvgPicture.asset(
+                                  AssetConstants.arrowRight,
+                                  height: 4.5.w,
+                                )
+                              : SvgPicture.asset(
+                                  AssetConstants.arrowLeft,
+                                  height: 4.5.w,
+                                ),
                         ),
                       ),
                     )

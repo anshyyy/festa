@@ -37,15 +37,21 @@ class UsernameScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AddUsernameCubit, AddUsernameState>(
       listener: (context, state) {
-        if(state.isSuccess && !state.isFailure){
-          navigator<NavigationService>().navigateTo(UserRoutes.mainNavRoute, isClearStack: true,);
+        if (state.isSuccess && !state.isFailure) {
+          navigator<NavigationService>().navigateTo(
+            UserRoutes.mainNavRoute,
+            isClearStack: true,
+          );
         }
       },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h,),
+              padding: EdgeInsets.symmetric(
+                horizontal: 2.h,
+                vertical: 2.h,
+              ),
               child: Column(
                 children: [
                   SizedBox(
@@ -84,16 +90,16 @@ class UsernameScreenConsumer extends StatelessWidget {
                             height: 8.w,
                           )
                         : state.isFailure
-                            ? SvgPicture.asset(
-                                AssetConstants.stopIcon,
-                                color: Theme.of(context).colorScheme.error,
-                              )
-                            : SvgPicture.asset(
-                                AssetConstants.circledTick,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary,
-                              ),
+                            ? SvgPicture.asset(AssetConstants.stopIcon,
+                                colorFilter: ColorFilter.mode(
+                                    Theme.of(context).colorScheme.error,
+                                    BlendMode.srcIn))
+                            : SvgPicture.asset(AssetConstants.circledTick,
+                                colorFilter: ColorFilter.mode(
+                                    Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary,
+                                    BlendMode.srcIn)),
                   ),
                   const Spacer(),
                   Align(

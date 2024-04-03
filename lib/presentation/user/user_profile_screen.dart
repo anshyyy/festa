@@ -75,7 +75,8 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                     child: CachedNetworkImage(
                                       imageUrl: state.coverImage ?? '',
                                       fit: BoxFit.cover,
-                                    ))
+                                    ),
+                                    )
                                 : appStateNotifier.user!.id != state.userId
                                     ? const SizedBox()
                                     : Center(

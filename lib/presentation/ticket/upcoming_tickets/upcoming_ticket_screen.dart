@@ -21,7 +21,7 @@ class UpcomingTicketsScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: 61.3.h,
+              height: 64.h,
               child: PageView.builder(
                 onPageChanged: (value) {
                   context.read<TicketCubit>().onPageChanged(value);

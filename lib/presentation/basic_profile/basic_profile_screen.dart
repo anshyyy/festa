@@ -136,12 +136,14 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                               child: state.profileImage == null
                                   ? Center(
                                       child: SvgPicture.asset(
-                                          AssetConstants.editIcon,
-                                          height: 4.h,
-                                          color: Theme.of(context)
+                                      AssetConstants.editIcon,
+                                      height: 4.h,
+                                      colorFilter: ColorFilter.mode(
+                                          Theme.of(context)
                                               .colorScheme
-                                              .secondaryContainer),
-                                    )
+                                              .secondaryContainer,
+                                          BlendMode.srcIn),
+                                    ))
                                   : GestureDetector(
                                       onTap: () {
                                         context
@@ -159,9 +161,12 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                                                   .background),
                                           child: SvgPicture.asset(
                                             AssetConstants.editIcon,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondaryContainer,
+                                            colorFilter: ColorFilter.mode(
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .secondaryContainer,
+                                                BlendMode.srcIn),
+
                                             height: 4.h,
                                             // color:
                                           ),

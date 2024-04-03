@@ -94,7 +94,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         final themeData = Theme.of(context);
-        // final colorScheme = themeData.colorScheme;
+        final colorScheme = themeData.colorScheme;
         // final textTheme = themeData.textTheme;
 
         return Scaffold(
@@ -122,12 +122,11 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                       child: CustomTextField(
                         controller: state.menuSearchController,
                         width: 90.w,
-                        prefixIcon: SvgPicture.asset(
-                          AssetConstants.searchIcon,
-                          height: 3.5.h,
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                        ),
+                        prefixIcon: SvgPicture.asset(AssetConstants.searchIcon,
+                            height: 3.5.h,
+                            colorFilter: ColorFilter.mode(
+                                colorScheme.secondaryContainer,
+                                BlendMode.srcIn)),
                         keyboardType: TextInputType.text,
                         // height: 8.5.h,
                         contentPadding: EdgeInsets.symmetric(
@@ -146,7 +145,6 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                             .textTheme
                             .bodyMedium!
                             .copyWith(
-                                // fontSize: 17.sp,
                                 color:
                                     Theme.of(context).colorScheme.background),
                         errorStyle:
@@ -211,10 +209,15 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                 ),
                                           ),
                                           GestureDetector(
-                                            // onTap: () {
-                                            //   navigator<NavigationService>().navigateTo(
-                                            //       UserRoutes.editProfileRoute);
-                                            // },
+                                            onTap: () {
+                                              navigator<NavigationService>()
+                                                  .navigateTo(UserRoutes
+                                                      .editProfileRoute,
+                                                      queryParams: {
+                                                        'userId':state.user!.id.toString()
+                                                      }
+                                                      );
+                                            },
                                             child: Row(
                                               children: [
                                                 Text(
@@ -349,13 +352,13 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                             ? null
                                             : () {
                                                 navigator<NavigationService>()
-                                                    .navigateTo(currentMenu
-                                                        .navigationRoute,
-                                                         queryParams: {
-                                                    'userId': state.user!.id
-                                                        .toString()
-                                                  }
-                                                        );
+                                                    .navigateTo(
+                                                        currentMenu
+                                                            .navigationRoute,
+                                                        queryParams: {
+                                                      'userId': state.user!.id
+                                                          .toString()
+                                                    });
                                               });
                                   },
                                 ),
@@ -395,7 +398,6 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                 SizedBox(
                                   height: 2.h,
                                 ),
-                                
                               ],
                             ),
                             SizedBox(

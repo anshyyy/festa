@@ -16,7 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$EditProfileState {
-  AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isSuccess => throw _privateConstructorUsedError;
+  bool get isFailure => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +34,13 @@ abstract class $EditProfileStateCopyWith<$Res> {
           EditProfileState value, $Res Function(EditProfileState) then) =
       _$EditProfileStateCopyWithImpl<$Res, EditProfileState>;
   @useResult
-  $Res call({AppStateNotifier appStateNotifier, UserDto? user});
+  $Res call(
+      {bool isLoading,
+      bool isSuccess,
+      bool isFailure,
+      int userId,
+      UserRepository userRepository,
+      UserDto? user});
 
   $UserDtoCopyWith<$Res>? get user;
 }
@@ -48,14 +58,34 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? appStateNotifier = null,
+    Object? isLoading = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
+    Object? userId = null,
+    Object? userRepository = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
-      appStateNotifier: null == appStateNotifier
-          ? _value.appStateNotifier
-          : appStateNotifier // ignore: cast_nullable_to_non_nullable
-              as AppStateNotifier,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -84,7 +114,13 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       __$$EditProfileStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AppStateNotifier appStateNotifier, UserDto? user});
+  $Res call(
+      {bool isLoading,
+      bool isSuccess,
+      bool isFailure,
+      int userId,
+      UserRepository userRepository,
+      UserDto? user});
 
   @override
   $UserDtoCopyWith<$Res>? get user;
@@ -101,14 +137,34 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? appStateNotifier = null,
+    Object? isLoading = null,
+    Object? isSuccess = null,
+    Object? isFailure = null,
+    Object? userId = null,
+    Object? userRepository = null,
     Object? user = freezed,
   }) {
     return _then(_$EditProfileStateImpl(
-      appStateNotifier: null == appStateNotifier
-          ? _value.appStateNotifier
-          : appStateNotifier // ignore: cast_nullable_to_non_nullable
-              as AppStateNotifier,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSuccess: null == isSuccess
+          ? _value.isSuccess
+          : isSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFailure: null == isFailure
+          ? _value.isFailure
+          : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -120,16 +176,30 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$EditProfileStateImpl implements _EditProfileState {
-  const _$EditProfileStateImpl({required this.appStateNotifier, this.user});
+  const _$EditProfileStateImpl(
+      {required this.isLoading,
+      required this.isSuccess,
+      required this.isFailure,
+      required this.userId,
+      required this.userRepository,
+      this.user});
 
   @override
-  final AppStateNotifier appStateNotifier;
+  final bool isLoading;
+  @override
+  final bool isSuccess;
+  @override
+  final bool isFailure;
+  @override
+  final int userId;
+  @override
+  final UserRepository userRepository;
   @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'EditProfileState(appStateNotifier: $appStateNotifier, user: $user)';
+    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, user: $user)';
   }
 
   @override
@@ -137,13 +207,21 @@ class _$EditProfileStateImpl implements _EditProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EditProfileStateImpl &&
-            (identical(other.appStateNotifier, appStateNotifier) ||
-                other.appStateNotifier == appStateNotifier) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isSuccess, isSuccess) ||
+                other.isSuccess == isSuccess) &&
+            (identical(other.isFailure, isFailure) ||
+                other.isFailure == isFailure) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, appStateNotifier, user);
+  int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
+      userId, userRepository, user);
 
   @JsonKey(ignore: true)
   @override
@@ -155,11 +233,23 @@ class _$EditProfileStateImpl implements _EditProfileState {
 
 abstract class _EditProfileState implements EditProfileState {
   const factory _EditProfileState(
-      {required final AppStateNotifier appStateNotifier,
+      {required final bool isLoading,
+      required final bool isSuccess,
+      required final bool isFailure,
+      required final int userId,
+      required final UserRepository userRepository,
       final UserDto? user}) = _$EditProfileStateImpl;
 
   @override
-  AppStateNotifier get appStateNotifier;
+  bool get isLoading;
+  @override
+  bool get isSuccess;
+  @override
+  bool get isFailure;
+  @override
+  int get userId;
+  @override
+  UserRepository get userRepository;
   @override
   UserDto? get user;
   @override

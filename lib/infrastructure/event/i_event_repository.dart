@@ -102,16 +102,13 @@ class IEventRepository extends EventRepository {
 
   @override
   void likeUnlikeEvent({required int eventId, required bool isLiked}) async {
-    try {
       final url = isLiked
           ? '$serverUrl${EventApiConstants.UNLIKE_EVENT}/$eventId'
           : '$serverUrl${EventApiConstants.LIKE_EVENT}/$eventId';
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
       await RESTService.performPOSTRequest(
           httpUrl: url, token: token!, isAuth: true);
-    } catch (e) {
-      print(e);
-    }
+    
   }
 
   @override

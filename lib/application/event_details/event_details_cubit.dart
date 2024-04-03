@@ -31,19 +31,19 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
     );
   }
 
-  void toggle_lsd() {
+  void toggleLsd() {
     emit(state.copyWith(lsdExpanded: !state.lsdExpanded));
   }
 
-  void toggle_amb() {
+  void toggleAmb() {
     emit(state.copyWith(ambExpanded: !state.ambExpanded));
   }
 
-  void toggle_fnb() {
+  void toggleFnb() {
     emit(state.copyWith(fnbExpanded: !state.fnbExpanded));
   }
 
-  void toggle_faq() {
+  void toggleFaq() {
     emit(state.copyWith(faqExpanded: !state.faqExpanded));
   }
 

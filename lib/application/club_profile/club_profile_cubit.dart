@@ -13,7 +13,6 @@ part 'club_profile_state.dart';
 class ClubProfileCubit extends Cubit<ClubProfileState> {
   ClubProfileCubit(super.initialState) {
     state.parentController.addListener(() {
-      print(state.parentController.position.extentAfter);
     });
 
     state.scrollController.addListener(() {

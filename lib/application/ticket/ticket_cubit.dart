@@ -12,12 +12,16 @@ class TicketCubit extends Cubit<TicketState> {
   TicketCubit(super.initialState);
 
   void showTransactionDetails({required int id}) {
-    state.userTickets!.upcomingTickets.map((e) {
+    final updated = state.userTickets!.upcomingTickets.map((e) {
       if (e.id == id) {
-        return e.copyWith(showTicketDetails: true);
+        return e.copyWith(showTicketDetails: !e.showTicketDetails);
       }
       return e;
     }).toList();
+    emit(state.copyWith(
+        userTickets: UserTicketsDto(
+            bookedTicketsHistory: state.userTickets!.bookedTicketsHistory,
+            upcomingTickets: updated)));
   }
 
   void showTicketHistory({required bool flag}) {

@@ -39,16 +39,13 @@ class IArtistRepository extends ArtistRepository {
   @override
   void followUnfollowArtist(
       {required int artistId, required bool isFollowing}) async {
-    try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       final url = isFollowing
           ? '$serverUrl${ArtistApiConstants.UNFOLLOW_ARTIST}/$artistId'
           : '$serverUrl${ArtistApiConstants.FOLLOW_ARTIST}/$artistId';
       await RESTService.performPOSTRequest(
           httpUrl: url, isAuth: true, token: token!);
-    } catch (e) {
-      print(e);
-    }
+    
   }
 
   @override
@@ -121,25 +118,19 @@ class IArtistRepository extends ArtistRepository {
 
   @override
   void likeMusicById({required int musicId}) async {
-    try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       final url = '$serverUrl${ArtistApiConstants.LIKE_MUSIC}/$musicId';
       await RESTService.performPOSTRequest(
           httpUrl: url, isAuth: true, token: token!);
-    } catch (e) {
-      print(e);
-    }
+   
   }
 
   @override
   void unLikeMusicById({required int musicId}) async {
-    try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       final url = '$serverUrl${ArtistApiConstants.UNLIKE_MUSIC}/$musicId';
       await RESTService.performPOSTRequest(
           httpUrl: url, isAuth: true, token: token!);
-    } catch (e) {
-      print(e);
-    }
+    
   }
 }

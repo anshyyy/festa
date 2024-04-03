@@ -230,7 +230,7 @@ class _EventCardState extends State<EventCard> {
                     children: [
                       SvgPicture.asset(
                         AssetConstants.durationIcon,
-                        color: Colors.green,
+                        colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn)
                       ),
                       SizedBox(
                         width: 1.w,
@@ -249,7 +249,7 @@ class _EventCardState extends State<EventCard> {
                       children: [
                         SvgPicture.asset(
                           AssetConstants.startIcon,
-                          color: Colors.yellow[800],
+                          colorFilter: ColorFilter.mode(themeData.colorScheme.surfaceTint, BlendMode.srcIn)
                         ),
                         SizedBox(
                           width: 1.w,

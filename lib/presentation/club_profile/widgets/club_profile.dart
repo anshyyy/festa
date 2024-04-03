@@ -106,7 +106,7 @@ class ClubProfile extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             AssetConstants.durationIcon,
-                            color: Colors.green,
+                           colorFilter: ColorFilter.mode(colorScheme.inversePrimary, BlendMode.srcIn)
                           ),
                           SizedBox(
                             width: 1.w,
@@ -127,7 +127,7 @@ class ClubProfile extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             AssetConstants.startIcon,
-                            color: Colors.yellow[800],
+                            colorFilter: ColorFilter.mode(colorScheme.surfaceTint, BlendMode.srcIn)
                           ),
                           SizedBox(
                             width: 1.w,

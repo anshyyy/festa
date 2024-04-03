@@ -113,7 +113,6 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
   Future searchPubFriends({
     required int page,
   }) async {
-    try {
       emit(state.copyWith(isFriendsFetching: true));
       final friends = await state.pubRepository.getPubFriends(
           pubId: state.clubId,
@@ -130,15 +129,11 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
             pubFriends:
                 CommunityDto(totalCount: friends.totalCount, users: temp)),
       );
-    } catch (e) {
-      print(e);
-    }
   }
 
   Future getPubFriends({
     required int page,
   }) async {
-    try {
       emit(state.copyWith(isFriendsFetching: true));
       final friends = await state.pubRepository.getPubFriends(
           pubId: state.clubId, page: page, limit: limit, searchQuery: state.friendsSearchController.text);
@@ -154,9 +149,7 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
             pubFriends:
                 CommunityDto(totalCount: friends.totalCount, users: temp)),
       );
-    } catch (e) {
-      print(e);
-    }
+    
   }
 
   void followFollower({required int id}) {

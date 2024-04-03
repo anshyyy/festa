@@ -57,6 +57,8 @@ class EmailOtpVerificationScreen extends StatelessWidget {
                     'emailAddress': state.emailAddress,
                   },
                   isClearStack: true);
+
+            
         }
 
         if (!state.isOTPVerificationSuccessful &&

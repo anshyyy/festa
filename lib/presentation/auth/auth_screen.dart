@@ -136,7 +136,7 @@ class AuthOptionTile extends StatelessWidget {
                 ? const SizedBox()
                 : SvgPicture.asset(
                     authServiceIcon,
-                    color: color,
+                    colorFilter: ColorFilter.mode(color!, BlendMode.srcIn),
                     width: 22,
                     height: 24,
                   ),

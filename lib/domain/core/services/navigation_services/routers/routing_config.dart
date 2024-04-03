@@ -92,7 +92,13 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const PersonalizeYourExperienceScreen(), settings);
 
     case UserRoutes.editProfileRoute:
-      return _getPageRoute(const EditProfileScreen(), settings);
+      final userId = routingData.queryParameters['userId'] ?? '0';
+
+      return _getPageRoute(
+          EditProfileScreen(
+            userId: int.parse(userId),
+          ),
+          settings);
 
     case UserRoutes.accountSettingsRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
@@ -194,7 +200,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       final String eventId = routingData.queryParameters['eventId'] ?? '0';
       final bool isPaymentSuccess =
           routingData.queryParameters['isPaymentSuccess'] == 'true';
-          final bool isPaymentPending =
+      final bool isPaymentPending =
           routingData.queryParameters['isPaymentPending'] == 'true';
       final String numberOfTickets =
           routingData.queryParameters['numberOfTickets'] ?? '0';

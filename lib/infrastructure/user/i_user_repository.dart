@@ -122,34 +122,19 @@ class IUserRepository extends UserRepository {
 
   @override
   void followUser({required int userId}) async {
-    try {
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final url = '$serverUrl${UserApiConstants.USERS}/follow/$userId';
+    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = '$serverUrl${UserApiConstants.USERS}/follow/$userId';
 
-      final response = await RESTService.performPOSTRequest(
-          httpUrl: url, isAuth: true, token: token!);
-      if (response.statusCode != 200 || response.statusCode != 201) {
-        print('Error occured');
-      }
-    } catch (e) {
-      print(e);
-    }
+    await RESTService.performPOSTRequest(
+        httpUrl: url, isAuth: true, token: token!);
   }
 
   @override
   void unFollowUser({required int userId}) async {
-    try {
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final url = '$serverUrl${UserApiConstants.USERS}/unfollow/$userId';
-
-      final response = await RESTService.performPOSTRequest(
-          httpUrl: url, isAuth: true, token: token!);
-      if (response.statusCode != 200 || response.statusCode != 201) {
-        print('Error occured');
-      }
-    } catch (e) {
-      print(e);
-    }
+    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = '$serverUrl${UserApiConstants.USERS}/unfollow/$userId';
+    await RESTService.performPOSTRequest(
+        httpUrl: url, isAuth: true, token: token!);
   }
 
   @override
@@ -174,7 +159,6 @@ class IUserRepository extends UserRepository {
       }
       return true;
     } catch (e) {
-      print('error');
       return false;
     }
   }
@@ -202,7 +186,6 @@ class IUserRepository extends UserRepository {
       }
       return true;
     } catch (e) {
-      print('error');
       return false;
     }
   }
@@ -237,7 +220,6 @@ class IUserRepository extends UserRepository {
   @override
   void updatePersonalizedMenu(
       {required String title, required List<String> list}) async {
-    try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
       final url = '$serverUrl${UserApiConstants.PERSONALIZE}';
       final response = await RESTService.performPATCHRequest(
@@ -248,9 +230,7 @@ class IUserRepository extends UserRepository {
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
-    } catch (e) {
-      print(e);
-    }
+    
   }
 
   @override
@@ -299,7 +279,6 @@ class IUserRepository extends UserRepository {
   Future<UserDto?> fetchUserByToken() async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken();
-      print(token);
       if (token == null) {
         return null;
       }

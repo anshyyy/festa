@@ -122,7 +122,7 @@ Future appInitializer(AppConfig appConfig) async {
                 : ProfileStateEnum.started;
   }
 
-  LocationDto? location;
+  
   try {
     final permission = await Geolocator.checkPermission();
     if (permission != LocationPermission.always &&
@@ -131,7 +131,7 @@ Future appInitializer(AppConfig appConfig) async {
     }
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    location = LocationDto(
+    LocationDto(
         latitude: position.latitude,
         longitude: position.longitude,
         area: 'Bengaluru',
@@ -240,8 +240,8 @@ Future checkForAppUpdate(GlobalKey<NavigatorState> navKey) async {
       showDialog(
           context: navKey.currentContext!,
           builder: (BuildContext ctx) {
-            return WillPopScope(
-              onWillPop: () async => false,
+            return PopScope(
+              onPopInvoked: (didPop) async => false,
               child: ForceUpdateWidget(
                 downloadLink: appLink,
               ),

@@ -20,19 +20,16 @@ class DynamicLinkUtil {
       final url = event.link;
       handleDynamicLink(url: url, isAuthorized: isAuthorized);
     }).onError((error) {
-      print(error);
     });
     onInitialLinkHandler(isAuthorized: isAuthorized);
   }
 
   static void onInitialLinkHandler({required bool isAuthorized}) {
-    try {
       dynamicLinks.getInitialLink().then((dynamicLinkData) {
         if (dynamicLinkData != null) return;
         handleDynamicLink(
             url: dynamicLinkData!.link, isAuthorized: isAuthorized);
       });
-    } catch (e) {}
   }
 
   static void handleDynamicLink(

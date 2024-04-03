@@ -36,7 +36,7 @@ class RoundedArrowButton extends StatelessWidget {
           child: contentIcon != null
               ? SvgPicture.asset(
                   contentIcon.toString(),
-                  color: Colors.black,
+                  colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   height: 5.h,
                 )
               : const SizedBox(),

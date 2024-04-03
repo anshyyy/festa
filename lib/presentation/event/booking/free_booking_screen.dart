@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -45,7 +44,7 @@ class FreeBookingScreen extends StatelessWidget {
                 navigator<NavigationService>().goBack();
               },
               child: Center(child: SvgPicture.asset(AssetConstants.arrowLeft))),
-          actions: []),
+          actions: const []),
       body: Column(
         children: [
           Container(
@@ -111,7 +110,7 @@ class FreeBookingScreen extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

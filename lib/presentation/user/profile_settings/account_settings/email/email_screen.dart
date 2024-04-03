@@ -64,7 +64,7 @@ class EmailScreenConsumer extends StatelessWidget {
                   child: SvgPicture.asset(AssetConstants.arrowLeft),
                 ),
               ),
-              actions: [],
+              actions: const [],
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 6.w),
@@ -110,7 +110,7 @@ class EmailScreenConsumer extends StatelessWidget {
                       return hasError ? ErrorConstants.invalidEmail : '';
                     },
                   ),
-                  Spacer(),
+                  const Spacer(),
                   GradientButton(
                     text: AccountEmailScreenConstants.addEmail,
                     onTap: () {

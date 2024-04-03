@@ -213,7 +213,7 @@ class ClubFollowers extends StatelessWidget {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(
               height: 5.h,
             ),

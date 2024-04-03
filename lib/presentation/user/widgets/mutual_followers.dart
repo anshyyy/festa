@@ -9,7 +9,7 @@ class MutualFollowers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return artistCommunityDto==null? SizedBox():Padding(
+    return artistCommunityDto==null? const SizedBox():Padding(
       padding: EdgeInsets.symmetric(horizontal: 2.w),
       child: SizedBox(
         height: 5.h,

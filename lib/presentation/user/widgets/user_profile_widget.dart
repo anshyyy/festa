@@ -214,7 +214,7 @@ class UserProfile extends StatelessWidget {
                               ),
                             ),
                           ))
-                  : SizedBox(),
+                  : const SizedBox(),
               Positioned(
                 top: 1.h,
                 left: 2.w,

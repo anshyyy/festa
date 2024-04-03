@@ -40,10 +40,10 @@ class TicketScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? SizedBox()
+              ? const SizedBox()
               : Scaffold(
                   body: SingleChildScrollView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -190,12 +190,12 @@ class TicketScreenConsumer extends StatelessWidget {
                           height: .7.h,
                         ),
                         state.userTickets == null
-                            ? SizedBox()
+                            ? const SizedBox()
                             : AnimatedSwitcher(
                                 duration: const Duration(milliseconds: 500),
                                 child: !state.showTicketHistory
                                     ? const UpcomingTicketsScreen()
-                                    : HistoryTicketScreen(),
+                                    : const HistoryTicketScreen(),
                               ),
                         SizedBox(
                           height: 4.h,

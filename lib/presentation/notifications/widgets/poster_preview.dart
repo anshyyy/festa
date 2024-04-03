@@ -10,7 +10,7 @@ class PosterPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: 9.w,
         width: 9.w,
         child: CachedNetworkImage(

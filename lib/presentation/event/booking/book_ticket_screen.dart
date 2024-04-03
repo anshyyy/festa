@@ -57,7 +57,7 @@ class BookTicketScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? SizedBox()
+              ? const SizedBox()
               : Scaffold(
                   bottomNavigationBar: BottomBookingBar(
                     startDate: state.event!.startDate,
@@ -75,7 +75,7 @@ class BookTicketScreenConsumer extends StatelessWidget {
                           child: Center(
                               child:
                                   SvgPicture.asset(AssetConstants.arrowLeft))),
-                      actions: []),
+                      actions: const []),
                   body: SafeArea(
                     child: SingleChildScrollView(
                       child: Padding(

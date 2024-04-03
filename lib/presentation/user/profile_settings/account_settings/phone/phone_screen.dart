@@ -53,7 +53,7 @@ class PhoneScreenConsumer extends StatelessWidget {
                 child: SvgPicture.asset(AssetConstants.arrowLeft),
               ),
             ),
-            actions: [],
+            actions: const [],
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 6.w),
@@ -74,7 +74,7 @@ class PhoneScreenConsumer extends StatelessWidget {
                 ),
                 CustomTextField(
                   controller: state.phoneNumberController,
-                  prefixIcon: Text('+91',),
+                  prefixIcon: const Text('+91',),
                   isFill: true,
                   fillColor: colorScheme.surface,
                   contentPadding:
@@ -99,7 +99,7 @@ class PhoneScreenConsumer extends StatelessWidget {
                     return hasError ? ErrorConstants.invalidMobileNumberError:'';
                   },
                 ),
-                Spacer(),
+                const Spacer(),
                 GradientButton(
                   text: PhoneScreenConstants.addNumber,
                   onTap: () {

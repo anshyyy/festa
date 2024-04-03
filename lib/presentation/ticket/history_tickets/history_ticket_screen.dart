@@ -6,7 +6,7 @@ import '../../../application/ticket/ticket_cubit.dart';
 import 'history_ticket_tile.dart';
 
 class HistoryTicketScreen extends StatelessWidget {
-  HistoryTicketScreen({super.key});
+  const HistoryTicketScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

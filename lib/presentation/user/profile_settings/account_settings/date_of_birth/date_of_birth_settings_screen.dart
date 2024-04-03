@@ -66,7 +66,7 @@ class DateOfBirthSettingsScreenConsumer extends StatelessWidget {
                     },
                     child: Center(
                         child: SvgPicture.asset(AssetConstants.arrowLeft))),
-                actions: []),
+                actions: const []),
             body: Stack(
               children: [
                 Padding(
@@ -140,7 +140,7 @@ class DateOfBirthSettingsScreenConsumer extends StatelessWidget {
                 state.openDatePicker
                     ? Column(
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5.w),
                             child: GradientButton(

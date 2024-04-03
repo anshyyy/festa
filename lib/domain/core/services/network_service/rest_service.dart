@@ -204,7 +204,7 @@ class RESTService {
     try {
       final request = http.MultipartRequest('POST', Uri.parse(httpUrl));
       final Map<String, String> headers = {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       };
       // request.files.add(await http.MultipartFile.fromPath('file', file.path));
       request.files.add(
@@ -213,7 +213,7 @@ class RESTService {
           file.readAsBytes().asStream(),
           file.lengthSync(),
           filename: 'file_path.png',
-          contentType: MediaType("image", "jpeg"),
+          contentType: MediaType('image', 'jpeg'),
         ),
       );
       request.headers.addAll(headers);
@@ -228,7 +228,7 @@ class RESTService {
       }
     } catch (e) {
       print(e);
-      throw e;
+      rethrow;
     }
 
   //  try {

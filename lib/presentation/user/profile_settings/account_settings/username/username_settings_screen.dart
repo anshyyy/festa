@@ -65,7 +65,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
+              actions: const []),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Column(

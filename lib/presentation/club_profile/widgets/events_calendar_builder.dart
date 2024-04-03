@@ -20,7 +20,7 @@ class EventsCalendarBuilder extends StatelessWidget {
           serverUrl: appConfig.serverUrl,
         ),
       )..init(),
-      child: EventsCalendarBuilderConsumer(),
+      child: const EventsCalendarBuilderConsumer(),
     );
   }
 }

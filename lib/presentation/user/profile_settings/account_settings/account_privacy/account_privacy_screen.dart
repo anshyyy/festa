@@ -71,7 +71,7 @@ class AccountPrivacyScreenConsumer extends StatelessWidget {
                 child: SvgPicture.asset(AssetConstants.arrowLeft),
               ),
             ),
-            actions: [],
+            actions: const [],
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),

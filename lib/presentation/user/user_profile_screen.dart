@@ -77,7 +77,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ))
                                 : appStateNotifier.user!.id != state.userId
-                                    ? SizedBox()
+                                    ? const SizedBox()
                                     : Center(
                                         child: CustomOutlinedButton(
                                           onTap: () {
@@ -112,7 +112,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                         child: SvgPicture.asset(
                                             AssetConstants.arrowLeft)),
                                     appStateNotifier.user!.id != state.userId
-                                        ? SizedBox()
+                                        ? const SizedBox()
                                         : GestureDetector(
                                             onTap: () {
                                               navigator<NavigationService>()
@@ -184,7 +184,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                               ),
                             ],
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
         );

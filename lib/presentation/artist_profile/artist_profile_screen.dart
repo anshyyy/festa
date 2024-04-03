@@ -41,7 +41,7 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading ? 
-          SizedBox()
+          const SizedBox()
           : Scaffold(
             body: Stack(
               children: [

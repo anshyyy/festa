@@ -60,7 +60,7 @@ class ClubCommunityConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
+              actions: const []),
           backgroundColor: colorScheme.surface,
           body: SafeArea(
             child: Padding(

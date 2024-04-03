@@ -54,7 +54,7 @@ class PhoneOtpVerificationScreen extends StatelessWidget {
                 child: SvgPicture.asset(AssetConstants.arrowLeft),
               ),
             ),
-            actions: [],
+            actions: const [],
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -107,7 +107,7 @@ class PhoneOtpVerificationScreen extends StatelessWidget {
                     decorationColor: colorScheme.background,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 GradientButton(
                   text: PhoneScreenConstants.submit,
                   onTap: () {

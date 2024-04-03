@@ -71,6 +71,5 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
         isSaveDetailsEnable:true,
       ));
     });
-    ;
   }
 }

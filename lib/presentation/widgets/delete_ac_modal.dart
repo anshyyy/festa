@@ -7,8 +7,8 @@ import '../../../domain/core/services/navigation_services/navigation_service.dar
 
 class DeleteAccountModal extends StatelessWidget {
   const DeleteAccountModal({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

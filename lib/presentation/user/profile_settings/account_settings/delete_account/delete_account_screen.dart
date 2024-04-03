@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,7 +24,7 @@ class DeleteAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DeleteAccountCubit(),
-      child: DeleteAccountScreenConsumer(),
+      child: const DeleteAccountScreenConsumer(),
     );
   }
 }
@@ -55,7 +54,7 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
+              actions: const []),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Column(
@@ -280,7 +279,7 @@ class ConfirmDeleteModalSheet extends StatelessWidget {
         userId: appStateNotifier.user!.id,
         deleteReason: deleteReason,
       )),
-      child: ConfirmDeleteModalSheetConsumer(),
+      child: const ConfirmDeleteModalSheetConsumer(),
     );
   }
 }

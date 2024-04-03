@@ -22,7 +22,7 @@ class EditProfileScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => EditProfileCubit(
           EditProfileState.initial(appStateNotifier: appStateNotifier)),
-      child: EditProfileScreenConsumer(),
+      child: const EditProfileScreenConsumer(),
     );
   }
 }
@@ -45,7 +45,7 @@ class EditProfileScreenConsumer extends StatelessWidget {
                   navigator<NavigationService>().goBack();
                 },
                 child:
-                    Center(child: SvgPicture.asset(AssetConstants.arrowLeft))), actions: []),
+                    Center(child: SvgPicture.asset(AssetConstants.arrowLeft))), actions: const []),
           body: SafeArea(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,7 +71,7 @@ class EditProfileScreenConsumer extends StatelessWidget {
                   ),
                 ),
               ),
-              Center()
+              const Center()
             ],
           )),
         );

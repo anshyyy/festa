@@ -128,7 +128,7 @@ class _EventCardState extends State<EventCard> {
                   },
                   onPageChanged: (value) {
                     setState(() {
-                      this.index = value;
+                      index = value;
                     });
                   },
                 ),

@@ -20,7 +20,7 @@ class EmailDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => EmailDetailsCubit(
           EmailDetailsState.initial(emailAddress: emailAddress)),
-      child: ExmailDetailsScreenConsumer(),
+      child: const ExmailDetailsScreenConsumer(),
     );
   }
 }
@@ -134,7 +134,7 @@ class DeleteEmailModalSheet extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
       decoration: BoxDecoration(
           color: colorScheme.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20))),
       child: SingleChildScrollView(
         child: Column(
           children: [

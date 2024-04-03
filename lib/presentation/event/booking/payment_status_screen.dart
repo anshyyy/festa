@@ -44,7 +44,7 @@ class PaymentStatusScreen extends StatelessWidget {
         isPaymentPending: isPaymentPending,
       ))
         ..init(),
-      child: PaymentStatusConsumer(),
+      child: const PaymentStatusConsumer(),
     );
   }
 }
@@ -66,7 +66,7 @@ class PaymentStatusConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? SizedBox()
+              ? const SizedBox()
               : Scaffold(
                   body: SingleChildScrollView(
                     child: Column(

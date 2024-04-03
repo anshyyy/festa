@@ -82,7 +82,7 @@ class EmailOtpVerificationScreen extends StatelessWidget {
                   child: SvgPicture.asset(AssetConstants.arrowLeft),
                 ),
               ),
-              actions: [],
+              actions: const [],
             ),
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -179,7 +179,7 @@ class EmailOtpVerificationScreen extends StatelessWidget {
                                 .coundownFinished();
                           },
                         ),
-                  Spacer(),
+                  const Spacer(),
                   GradientButton(
                     text: AccountEmailScreenConstants.submit,
                     onTap: () {

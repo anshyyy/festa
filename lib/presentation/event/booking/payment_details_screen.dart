@@ -69,7 +69,7 @@ class PaymentDetailsConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? SizedBox()
+              ? const SizedBox()
               : Scaffold(
                   bottomNavigationBar: TicketBookingWidget(
                     startDate: state.event!.startDate,
@@ -87,7 +87,7 @@ class PaymentDetailsConsumer extends StatelessWidget {
                           child: Center(
                               child:
                                   SvgPicture.asset(AssetConstants.arrowLeft))),
-                      actions: []),
+                      actions: const []),
                   body: SafeArea(
                       child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5.w),

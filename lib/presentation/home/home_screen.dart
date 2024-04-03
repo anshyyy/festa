@@ -21,7 +21,6 @@ import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
 import 'widgets/location_dialog.dart';
-import 'widgets/search/search_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -145,7 +144,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                   ),
                                   if (!state.hasMoreEvents &&
                                       state.events.isEmpty)
-                                    EmptyEvents()
+                                    const EmptyEvents()
                                   else ...[
                                     SizedBox(
                                       height: 2.h,
@@ -366,10 +365,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     context
                                                         .read<HomeCubit>()
                                                         .getChipPosition(
-                                                            key: state.sortKey
-                                                                as GlobalKey<
-                                                                    State<
-                                                                        StatefulWidget>>,
+                                                            key: state.sortKey,
                                                             overlayState:
                                                                 Overlay.of(
                                                                     context));

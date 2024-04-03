@@ -24,7 +24,7 @@ class AccountSettingScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AccountSettingsCubit(AccountSettingsState.initial(
           serverUrl: appConfig.serverUrl, userId: userId)),
-      child: AccountSettingScreenConsumer(),
+      child: const AccountSettingScreenConsumer(),
     );
   }
 }
@@ -59,7 +59,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                       child: SvgPicture.asset(AssetConstants.arrowLeft),
                     ),
                   ),
-                  actions: [],
+                  actions: const [],
                 ),
                 body: Column(
                   children: [

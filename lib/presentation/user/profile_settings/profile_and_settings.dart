@@ -16,7 +16,6 @@ import '../../../domain/core/services/navigation_services/navigation_service.dar
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/custom_textfield.dart';
-import '../../widgets/delete_ac_modal.dart';
 import '../../widgets/snackbar_alert.dart';
 import 'widgets/setting_tile.dart';
 
@@ -107,7 +106,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
+              actions: const []),
           body: SafeArea(
             child: ModalProgressHUD(
               inAsyncCall: state.isLoading,
@@ -439,7 +438,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                   },
                                 ),
                               )
-                            : SizedBox()
+                            : const SizedBox()
                       ],
                     ),
                   ],

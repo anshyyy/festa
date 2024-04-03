@@ -59,7 +59,7 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
+              actions: const []),
           body: SafeArea(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -177,7 +177,7 @@ class GenderUpdationModalSheet extends StatelessWidget {
           // selectedSex: appStateNotifier.user!.gender
         ),
       )..init(gender: appStateNotifier.user!.gender),
-      child: GenderUpdationConsumer(),
+      child: const GenderUpdationConsumer(),
     );
   }
 }

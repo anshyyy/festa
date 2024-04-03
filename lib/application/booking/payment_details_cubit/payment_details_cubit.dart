@@ -25,9 +25,9 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
 
   void calculateTotalAmount() {
     double totalAmount = 0;
-    state.eventBookingDetails.eventTicketDetails.forEach((element) {
+    for (var element in state.eventBookingDetails.eventTicketDetails) {
       totalAmount += element.noOfTickets * element.price;
-    });
+    }
     emit(state.copyWith(totalAmount: totalAmount));
   }
 

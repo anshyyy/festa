@@ -57,7 +57,7 @@ class UserCommunityConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: []),
+              actions: const []),
           backgroundColor: colorScheme.surface,
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 3.w),

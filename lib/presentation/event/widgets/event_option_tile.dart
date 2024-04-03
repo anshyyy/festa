@@ -26,7 +26,7 @@ class EventOptionsTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                prefixIcon ?? SizedBox(),
+                prefixIcon ?? const SizedBox(),
                 SizedBox(
                   width: 2.w,
                 ),
@@ -39,7 +39,7 @@ class EventOptionsTile extends StatelessWidget {
                 ),
               ],
             ),
-            suffixIcon ?? SizedBox(),
+            suffixIcon ?? const SizedBox(),
           ],
         ),
       ),

@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class ImageCarousel extends StatelessWidget {
   const ImageCarousel({super.key});
@@ -24,8 +27,8 @@ class ImageCarousel extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                          state.pub!.assets[imageIndex].url,
+                        image: CachedNetworkImageProvider(
+                          CustomImageProvider.getImageUrl(state.pub!.assets[imageIndex].url, ImageType.other),
                         ),
                       ),
                     ),

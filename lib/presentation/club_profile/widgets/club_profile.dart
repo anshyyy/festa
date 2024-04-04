@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +12,8 @@ import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/gradient_button.dart';
 import 'social_reach.dart';
 
@@ -112,7 +115,7 @@ class ClubProfile extends StatelessWidget {
                             width: 1.w,
                           ),
                           Text(
-                            '10:00 AM - 12:30 PM',
+                            state.pub!.openingHours!.openNow ? 'Open' : 'Closed',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -187,7 +190,7 @@ class ClubProfile extends StatelessWidget {
                         border: Border.all(width: 1, color: Colors.white),
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: NetworkImage(state.pub?.logo ?? ''))),
+                            image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.pub?.logo ?? '', ImageType.profile)))),
                   ),
                 ],
               ),

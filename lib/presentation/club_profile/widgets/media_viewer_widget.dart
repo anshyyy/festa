@@ -12,6 +12,8 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class MediaViewerWidget extends StatelessWidget {
   final String type;
@@ -65,7 +67,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                 body: Stack(children: [
                   type == MediaType.IMAGE
                       ? PhotoView(
-                          imageProvider: CachedNetworkImageProvider(url))
+                          imageProvider: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(url, ImageType.other)))
                       : !state.isLoading &&
                               state.videoPlayerController != null &&
                               state.videoPlayerController!.value.isInitialized
@@ -126,7 +128,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                       CircleAvatar(
                                         radius: 3.w,
                                         foregroundImage:
-                                            NetworkImage(state.pub?.logo ?? ''),
+                                            CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.pub?.logo, ImageType.other)),
                                       ),
                                       SizedBox(width: 2.w),
                                       Column(

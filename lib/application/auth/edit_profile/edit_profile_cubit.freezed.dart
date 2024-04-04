@@ -21,6 +21,11 @@ mixin _$EditProfileState {
   bool get isFailure => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
+  CoreRepository get coreRepository => throw _privateConstructorUsedError;
+  String? get coverImageUrl => throw _privateConstructorUsedError;
+  String? get profileImageUrl => throw _privateConstructorUsedError;
+  TextEditingController get bioTextController =>
+      throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,6 +45,10 @@ abstract class $EditProfileStateCopyWith<$Res> {
       bool isFailure,
       int userId,
       UserRepository userRepository,
+      CoreRepository coreRepository,
+      String? coverImageUrl,
+      String? profileImageUrl,
+      TextEditingController bioTextController,
       UserDto? user});
 
   $UserDtoCopyWith<$Res>? get user;
@@ -63,6 +72,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? isFailure = null,
     Object? userId = null,
     Object? userRepository = null,
+    Object? coreRepository = null,
+    Object? coverImageUrl = freezed,
+    Object? profileImageUrl = freezed,
+    Object? bioTextController = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -86,6 +99,22 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      coreRepository: null == coreRepository
+          ? _value.coreRepository
+          : coreRepository // ignore: cast_nullable_to_non_nullable
+              as CoreRepository,
+      coverImageUrl: freezed == coverImageUrl
+          ? _value.coverImageUrl
+          : coverImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bioTextController: null == bioTextController
+          ? _value.bioTextController
+          : bioTextController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -120,6 +149,10 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       bool isFailure,
       int userId,
       UserRepository userRepository,
+      CoreRepository coreRepository,
+      String? coverImageUrl,
+      String? profileImageUrl,
+      TextEditingController bioTextController,
       UserDto? user});
 
   @override
@@ -142,6 +175,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
     Object? isFailure = null,
     Object? userId = null,
     Object? userRepository = null,
+    Object? coreRepository = null,
+    Object? coverImageUrl = freezed,
+    Object? profileImageUrl = freezed,
+    Object? bioTextController = null,
     Object? user = freezed,
   }) {
     return _then(_$EditProfileStateImpl(
@@ -165,6 +202,22 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      coreRepository: null == coreRepository
+          ? _value.coreRepository
+          : coreRepository // ignore: cast_nullable_to_non_nullable
+              as CoreRepository,
+      coverImageUrl: freezed == coverImageUrl
+          ? _value.coverImageUrl
+          : coverImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bioTextController: null == bioTextController
+          ? _value.bioTextController
+          : bioTextController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -182,6 +235,10 @@ class _$EditProfileStateImpl implements _EditProfileState {
       required this.isFailure,
       required this.userId,
       required this.userRepository,
+      required this.coreRepository,
+      this.coverImageUrl,
+      this.profileImageUrl,
+      required this.bioTextController,
       this.user});
 
   @override
@@ -195,11 +252,19 @@ class _$EditProfileStateImpl implements _EditProfileState {
   @override
   final UserRepository userRepository;
   @override
+  final CoreRepository coreRepository;
+  @override
+  final String? coverImageUrl;
+  @override
+  final String? profileImageUrl;
+  @override
+  final TextEditingController bioTextController;
+  @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, user: $user)';
+    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, bioTextController: $bioTextController, user: $user)';
   }
 
   @override
@@ -216,12 +281,30 @@ class _$EditProfileStateImpl implements _EditProfileState {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.userRepository, userRepository) ||
                 other.userRepository == userRepository) &&
+            (identical(other.coreRepository, coreRepository) ||
+                other.coreRepository == coreRepository) &&
+            (identical(other.coverImageUrl, coverImageUrl) ||
+                other.coverImageUrl == coverImageUrl) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl) &&
+            (identical(other.bioTextController, bioTextController) ||
+                other.bioTextController == bioTextController) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
-      userId, userRepository, user);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      isSuccess,
+      isFailure,
+      userId,
+      userRepository,
+      coreRepository,
+      coverImageUrl,
+      profileImageUrl,
+      bioTextController,
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -238,6 +321,10 @@ abstract class _EditProfileState implements EditProfileState {
       required final bool isFailure,
       required final int userId,
       required final UserRepository userRepository,
+      required final CoreRepository coreRepository,
+      final String? coverImageUrl,
+      final String? profileImageUrl,
+      required final TextEditingController bioTextController,
       final UserDto? user}) = _$EditProfileStateImpl;
 
   @override
@@ -250,6 +337,14 @@ abstract class _EditProfileState implements EditProfileState {
   int get userId;
   @override
   UserRepository get userRepository;
+  @override
+  CoreRepository get coreRepository;
+  @override
+  String? get coverImageUrl;
+  @override
+  String? get profileImageUrl;
+  @override
+  TextEditingController get bioTextController;
   @override
   UserDto? get user;
   @override

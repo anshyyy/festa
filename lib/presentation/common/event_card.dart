@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -13,6 +12,8 @@ import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/helpers/generic_helpers.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/enum/image_type.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import 'show_profile_tile.dart';
 
@@ -116,11 +117,11 @@ class _EventCardState extends State<EventCard> {
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
+                          image: CachedNetworkImageProvider(
                             imageIndex == 0 &&
                                     widget.event.coverImage.isNotEmpty
-                                ? widget.event.coverImage
-                                : widget.event.assets[index].url,
+                                ? CustomImageProvider.getImageUrl(widget.event.coverImage, ImageType.other)
+                                : CustomImageProvider.getImageUrl(widget.event.assets[index].url, ImageType.other),
                           ),
                         ),
                       ),
@@ -289,7 +290,8 @@ class _EventCardState extends State<EventCard> {
                               CircleAvatar(
                                 radius: 4.5.w,
                                 backgroundImage: CachedNetworkImageProvider(
-                                    widget.event.pub?.coverImageUrl ?? ''),
+                                    CustomImageProvider.getImageUrl(widget.event.pub?.coverImageUrl ?? '', ImageType.profile))
+                                  ,
                               ),
                               SizedBox(
                                 width: 2.w,
@@ -456,55 +458,55 @@ class _EventCardState extends State<EventCard> {
   }
 }
 
-class EventCardShimmer extends StatelessWidget {
-  const EventCardShimmer({super.key});
+// class EventCardShimmer extends StatelessWidget {
+//   const EventCardShimmer({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-    return Padding(
-      padding: EdgeInsets.only(bottom: 1.h),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              CarouselSlider.builder(
-                  itemCount: 2,
-                  itemBuilder: (context, imageIndex, realIndex) {
-                    return Container(
-                      color: Colors.white,
-                    );
-                  },
-                  options: CarouselOptions(
-                    autoPlay: false,
-                    height: 100.w,
-                    enlargeCenterPage: true,
-                    autoPlayCurve: Curves.easeInOutBack,
-                    viewportFraction: 1,
-                    enableInfiniteScroll: false,
-                    onPageChanged: (index, reason) {},
-                  )),
-              SizedBox(
-                height: 1.h,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ShortProfileTileShimmer(themeData: themeData),
-                    ShortProfileTileShimmer(themeData: themeData),
-                    ShortProfileTileShimmer(themeData: themeData),
-                    ShortProfileTileShimmer(themeData: themeData),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final themeData = Theme.of(context);
+//     return Padding(
+//       padding: EdgeInsets.only(bottom: 1.h),
+//       child: Stack(
+//         children: [
+//           Column(
+//             children: [
+//               CarouselSlider.builder(
+//                   itemCount: 2,
+//                   itemBuilder: (context, imageIndex, realIndex) {
+//                     return Container(
+//                       color: Colors.white,
+//                     );
+//                   },
+//                   options: CarouselOptions(
+//                     autoPlay: false,
+//                     height: 100.w,
+//                     enlargeCenterPage: true,
+//                     autoPlayCurve: Curves.easeInOutBack,
+//                     viewportFraction: 1,
+//                     enableInfiniteScroll: false,
+//                     onPageChanged: (index, reason) {},
+//                   )),
+//               SizedBox(
+//                 height: 1.h,
+//               ),
+//               SingleChildScrollView(
+//                 scrollDirection: Axis.horizontal,
+//                 child: Row(
+//                   children: [
+//                     ShortProfileTileShimmer(themeData: themeData),
+//                     ShortProfileTileShimmer(themeData: themeData),
+//                     ShortProfileTileShimmer(themeData: themeData),
+//                     ShortProfileTileShimmer(themeData: themeData),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 1.h,
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

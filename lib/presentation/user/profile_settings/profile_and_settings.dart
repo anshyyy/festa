@@ -14,6 +14,8 @@ import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/custom_textfield.dart';
 import '../../widgets/snackbar_alert.dart';
@@ -185,8 +187,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                             ),
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
-                                              image: CachedNetworkImageProvider(
-                                                  state.user!.profileImage),
+                                              image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.user!.profileImage, ImageType.profile)),
                                             )),
                                       ),
                                       SizedBox(

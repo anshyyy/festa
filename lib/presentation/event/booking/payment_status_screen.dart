@@ -13,6 +13,8 @@ import '../../../domain/core/extensions/number_extension.dart';
 import '../../../domain/core/extensions/string_extension.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
 
@@ -94,8 +96,7 @@ class PaymentStatusConsumer extends StatelessWidget {
                                             child: CachedNetworkImage(
                                                 fit: BoxFit.cover,
                                                 imageUrl:
-                                                    state.event?.coverImage ??
-                                                        ''))),
+                                                     CustomImageProvider.getImageUrl(state.event?.coverImage, ImageType.other)))),
                                     SizedBox(
                                       width: 4.w,
                                     ),
@@ -473,8 +474,7 @@ class PaymentStatusConsumer extends StatelessWidget {
                                               radius: 5.5.w,
                                               backgroundImage:
                                                   CachedNetworkImageProvider(
-                                                      state.event?.pub?.logo ??
-                                                          ''),
+                                                       CustomImageProvider.getImageUrl(state.event?.pub?.logo, ImageType.profile)),
                                             ),
                                             SizedBox(
                                               width: 2.w,

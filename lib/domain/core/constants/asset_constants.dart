@@ -132,6 +132,8 @@ class AssetConstants {
 
   static const alertIcon = '${vectorsFolder}alert-icon.svg';
 
+  static const mediaPlayIcon = '${vectorsFolder}media-play.svg';
+  static const mediaPauseIcon = '${vectorsFolder}media-pause.svg';
 
 
 // eventIconConstants

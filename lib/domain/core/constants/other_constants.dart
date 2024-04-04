@@ -58,53 +58,10 @@ class OtherConstants {
       title: ProfileAndSettingsScreenConstants.accountSettings,
       navigationRoute: UserRoutes.accountSettingsRoute,
     ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.notificationSettings,
-    //   title: ProfileAndSettingsScreenConstants.notifications,
-    //   navigationRoute: '',
+   
 
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.activitiesSettings,
-    //   title: ProfileAndSettingsScreenConstants.yourActivities,
-    //   navigationRoute: '',
-
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.privacySettings,
-    //   title: ProfileAndSettingsScreenConstants.privacy,
-    //   navigationRoute: '',
-
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.blockedSettings,
-    //   title: ProfileAndSettingsScreenConstants.blockedUsers,
-    //   navigationRoute: '',
-
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.heartSettings,
-    //   title: ProfileAndSettingsScreenConstants.tellAFriend,
-    //   navigationRoute: '',
-
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.helpSettings,
-    //   title: ProfileAndSettingsScreenConstants.help,
-    //   navigationRoute: '',
-
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.feedbackSettings,
-    //   title: ProfileAndSettingsScreenConstants.feedback,
-    //   navigationRoute: '',
-
-    // ),
-    // SettingsMenuDto(
-    //   icon: AssetConstants.starSettings,
-    //   title: ProfileAndSettingsScreenConstants.rateInPlayStore,
-    //   navigationRoute: '',
-
-    // ),
   ];
+
+  static String defaultImage = 'https://images.unsplash.com/photo-1527467779599-34448b3fa6a7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+  static String profileImage = 'https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
 }

@@ -13,6 +13,8 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/enum/image_type.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../common/event_card.dart';
 import '../core/primary_button.dart';
@@ -270,7 +272,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   child: EventTypeTile(
                                                     isSelected:
                                                         categoryValue.isApplied,
-                                                    image: categoryValue.icon,
+                                                    image: CustomImageProvider.getImageUrl(categoryValue.icon, ImageType.profile),
                                                     title: categoryValue
                                                         .displayName,
                                                   ),
@@ -642,10 +644,9 @@ class EventWidget extends StatelessWidget {
             margin: EdgeInsets.only(right: 3.w),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
+                image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(
-                        'https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))),
+                    image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl('https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',ImageType.other)))),
           ),
           SizedBox(
             height: 1.h,

@@ -15,6 +15,8 @@ import '../../../domain/core/extensions/number_extension.dart';
 import '../../../domain/core/extensions/string_extension.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/gradient_button.dart';
 import '../core/book_tickets.dart';
@@ -260,7 +262,7 @@ class EventDetails extends StatelessWidget {
                       width: 22.5.w,
                       child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          imageUrl: event?.coverImage ?? ''))),
+                          imageUrl: CustomImageProvider.getImageUrl(event?.coverImage, ImageType.other) ))),
               SizedBox(
                 width: 4.w,
               ),

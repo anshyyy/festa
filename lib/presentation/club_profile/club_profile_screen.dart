@@ -34,9 +34,7 @@ class ClubProfileScreen extends StatelessWidget {
 class ClubProfileScreenConsumer extends StatelessWidget {
   const ClubProfileScreenConsumer({super.key});
 
-  final String clubBg =
-      'https://images.unsplash.com/photo-1570872626485-d8ffea69f463?q=80&w=2535&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
-
+  
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class ArtistTile extends StatelessWidget {
   final String artistName;
@@ -30,7 +31,7 @@ class ArtistTile extends StatelessWidget {
                 CircleAvatar(
                   radius: 5.w,
                   backgroundColor: Colors.white,
-                  foregroundImage: profilePhoto==null ? Image.asset(AssetConstants.defaultProfileImage, fit: BoxFit.cover,).image : CachedNetworkImageProvider(profilePhoto!),
+                  foregroundImage:CachedNetworkImageProvider(CustomImageProvider.getImageUrl(profilePhoto, ImageType.profile)),
                 ),
                 SizedBox(
                   width: 2.w,

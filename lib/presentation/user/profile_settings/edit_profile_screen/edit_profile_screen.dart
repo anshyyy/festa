@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../application/auth/edit_profile/edit_profile_cubit.dart';
@@ -11,6 +12,8 @@ import '../../../../domain/core/configs/injection.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
 import '../../../../domain/core/constants/string_constants.dart';
 import '../../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../../domain/core/utils/image_provider.dart';
+import '../../../../infrastructure/core/enum/image_type.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_textfield.dart';
 
@@ -41,7 +44,11 @@ class EditProfileScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EditProfileCubit, EditProfileState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.isSuccess && !state.isFailure) {
+          Provider.of<AppStateNotifier>(context,listen: false).updateUser(user: state.user);
+        }
+      },
       builder: (context, state) {
         final themeData = Theme.of(context);
         final colorScheme = themeData.colorScheme;
@@ -72,14 +79,16 @@ class EditProfileScreenConsumer extends StatelessWidget {
                         Stack(
                           children: [
                             Container(
-                              width: 60.w,
-                              height: 45.h,
+                              width: 52.w,
+                              height: 36.h,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                          state.user!.coverImage),
+                                          CustomImageProvider.getImageUrl(
+                                              state.user!.coverImage,
+                                              ImageType.other)),
                                       fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(5.w),
                                   border: Border.all(
                                     width: .1.w,
                                     color:
@@ -87,11 +96,11 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                   )),
                             ),
                             Container(
-                              width: 60.w,
-                              height: 45.h,
+                              width: 52.w,
+                              height: 36.h,
                               decoration: BoxDecoration(
                                   color: colorScheme.surface.withOpacity(.5),
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(5.w),
                                   border: Border.all(
                                     width: .1.w,
                                     color: Theme.of(context)
@@ -99,17 +108,24 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                         .background
                                         .withOpacity(.5),
                                   )),
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  AssetConstants.editIcon,
-                                  height: 4.h,
+                              child: GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<EditProfileCubit>()
+                                      .onSelectCoverImage();
+                                },
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    AssetConstants.editIcon,
+                                    height: 3.5.h,
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 2.h,
+                          height: 1.h,
                         ),
                         SizedBox(
                           width: 35.w,
@@ -126,50 +142,95 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                       color: colorScheme.surface,
                                       image: DecorationImage(
                                           fit: BoxFit.cover,
-                                          image: state.user?.profileImage !=
-                                                      null &&
-                                                  state.user!.profileImage
-                                                      .isNotEmpty
-                                              ? CachedNetworkImageProvider(
-                                                  state.user!.profileImage)
-                                              : Image.asset(AssetConstants
-                                                      .defaultAvatarImage)
-                                                  .image)),
+                                          image: CachedNetworkImageProvider(
+                                              CustomImageProvider.getImageUrl(
+                                                  state.user!.profileImage,
+                                                  ImageType.profile)))),
                                 ),
                               ),
                               Positioned(
                                 bottom: 0,
                                 right: 0,
-                                child: SvgPicture.asset(
-                                  AssetConstants.editIcon,
-                                  height: 3.h,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<EditProfileCubit>()
+                                        .onProfileImageChange();
+                                  },
+                                  child: SvgPicture.asset(
+                                    AssetConstants.editIcon,
+                                    height: 3.h,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: 1.5.h,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('PROFILE'),
-                              SizedBox(height: 1.h,),
+                              Text(
+                                'PROFILE',
+                                style: textTheme.bodySmall!.copyWith(),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Row(
                                 children: [
-                                  Text('Name'),
+                                  Text(
+                                    'Name',
+                                    style: textTheme.bodyMedium!.copyWith(
+                                      color: colorScheme.background,
+                                    ),
+                                  ),
                                   SizedBox(
                                     width: 20.w,
                                   ),
-                                  Text(state.user!.fullName)
+                                  Text(
+                                    state.user?.fullName ?? '',
+                                    style: textTheme.bodyMedium!.copyWith(),
+                                  )
                                 ],
                               ),
-                              SizedBox(height: 1.h,),
-                              Text('BIO'),
-                              CustomTextField()
+                              SizedBox(
+                                height: 2.h,
+                              ),
+                              Text(
+                                'BIO',
+                                style: textTheme.bodySmall!.copyWith(),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              CustomTextField(
+                                maxLines: 2,
+                                textStyle: textTheme.bodyMedium!.copyWith(),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 3.w, vertical: 2.w),
+                                borderColor: colorScheme.background,
+                              ),
                             ],
                           ),
                         ),
+                        const Spacer(),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              text: 'You can edit your username in ',
+                              style: textTheme.bodySmall!.copyWith()),
+                          TextSpan(
+                              text: 'Account Settings',
+                              style: textTheme.bodySmall!.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      colorScheme.background.withOpacity(.9))),
+                        ]))
                       ],
                     ),
                   )),

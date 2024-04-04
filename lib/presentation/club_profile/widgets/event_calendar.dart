@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../application/club_profile/events_calendar/events_calendar_cubit.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class EventCalender extends StatelessWidget {
   final DateTime startDate;
@@ -65,8 +68,8 @@ class EventCalender extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
-                            imageUrl,
+                          image: CachedNetworkImageProvider(
+                            CustomImageProvider.getImageUrl(imageUrl, ImageType.other),
                           ),
                         )),
                     child: Center(

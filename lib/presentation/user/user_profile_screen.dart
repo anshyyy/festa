@@ -15,6 +15,8 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/dynamic_link.dart';
+import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/enum/image_type.dart';
 import '../widgets/custom_outlined_button.dart';
 import 'widgets/user_profile_widget.dart';
 
@@ -73,7 +75,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                 ? SizedBox(
                                     height: 100.h,
                                     child: CachedNetworkImage(
-                                      imageUrl: state.coverImage ?? '',
+                                      imageUrl: CustomImageProvider.getImageUrl(state.coverImage, ImageType.other),
                                       fit: BoxFit.cover,
                                     ),
                                     )
@@ -116,11 +118,13 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                         ? const SizedBox()
                                         : GestureDetector(
                                             onTap: () {
-                                              navigator<NavigationService>()
+                                               navigator<NavigationService>()
                                                   .navigateTo(
                                                 UserRoutes
                                                     .profileAndSettingsRoute,
-                                              );
+                                              ).then((value){
+                                                context.read<UserProfileCubit>().fetchUserDetails(id: state.userId);
+                                              });
                                             },
                                             child: Row(
                                               mainAxisAlignment:

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +12,8 @@ import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/gradient_button.dart';
 import 'mutual_followers.dart';
 import 'social_reach.dart';
@@ -173,12 +176,8 @@ class ArtistProfile extends StatelessWidget {
                               border: Border.all(width: 1, color: Colors.white),
                               image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: state.artistProfile?.profileImage != null &&
-                                      state.artistProfile!.profileImage.isNotEmpty
-                                  ? NetworkImage(state.artistProfile!.profileImage)
-                                  : Image.asset(
-                                          AssetConstants.defaultAvatarImage)
-                                      .image)),
+                              image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.artistProfile!.profileImage, ImageType.profile))
+                                  )),
                         ),
                       ],
                     ),

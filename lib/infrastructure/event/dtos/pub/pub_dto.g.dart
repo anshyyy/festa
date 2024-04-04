@@ -28,6 +28,10 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
           ? null
           : PubExtraDetailsDto.fromJson(
               json['extraDetails'] as Map<String, dynamic>),
+      openingHours: json['openingHours'] == null
+          ? null
+          : PubOpeningHours.fromJson(
+              json['openingHours'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
@@ -43,4 +47,5 @@ Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
       'tag': instance.tag,
       'address': instance.location,
       'extraDetails': instance.extraDetailsDto,
+      'openingHours': instance.openingHours,
     };

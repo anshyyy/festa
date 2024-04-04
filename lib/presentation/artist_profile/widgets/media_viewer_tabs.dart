@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../application/artist/artist_music/artist_music_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class MediaViewerTabs extends StatelessWidget {
   final int artistId;
@@ -60,11 +63,6 @@ class MediaViewerTabsConsumer extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0),
                   child: const ArtistMusicCollectionWidget(),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                //   child: VideoMediaGrid(images: [],),
-                // ),
-                // Container()
               ]),
             )
           ],
@@ -118,8 +116,8 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4.w),
                                   image: DecorationImage(
-                                      image: NetworkImage(
-                                        state.musicList[index].imageUrl,
+                                      image: CachedNetworkImageProvider(
+                                        CustomImageProvider.getImageUrl(state.musicList[index].imageUrl, ImageType.other)
                                       ),
                                       fit: BoxFit.cover)),
                             ),
@@ -164,6 +162,7 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                             )
                           ],
                         ),
+                        SvgPicture.asset(AssetConstants.mediaPlayIcon),
                         state.musicList[index].isLiked
                             ? GestureDetector(
                                 onTap: () {

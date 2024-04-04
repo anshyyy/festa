@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
+
 class EventTypeTile extends StatelessWidget {
   final bool isSelected;
   final String title;
@@ -17,7 +20,7 @@ class EventTypeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: image,
+      imageUrl: CustomImageProvider.getImageUrl(image, ImageType.other),
       imageBuilder: (context, imageProvider) => Container(
         height: 22.w,
         width: 22.w,

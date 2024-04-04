@@ -10,6 +10,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../application/main_nav/main_nav_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/asset_constants.dart';
+import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/enum/image_type.dart';
 
 class CustomBottomNav extends StatelessWidget {
   const CustomBottomNav({
@@ -182,8 +184,8 @@ class CustomBottomNav extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50.w),
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                          appStateNotifier
-                                              .user!.profileImage))),
+                                          CustomImageProvider.getImageUrl(appStateNotifier
+                                              .user!.profileImage, ImageType.profile)))),
                             ),
                           ),
                           Positioned(

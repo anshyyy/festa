@@ -42,6 +42,8 @@ mixin _$PubDto {
   PubLocationDto? get location => throw _privateConstructorUsedError;
   @JsonKey(name: 'extraDetails', defaultValue: null)
   PubExtraDetailsDto? get extraDetailsDto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'openingHours', defaultValue: null)
+  PubOpeningHours? get openingHours => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,11 +67,14 @@ abstract class $PubDtoCopyWith<$Res> {
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
-      PubExtraDetailsDto? extraDetailsDto});
+      PubExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'openingHours', defaultValue: null)
+      PubOpeningHours? openingHours});
 
   $TagDtoCopyWith<$Res>? get tag;
   $PubLocationDtoCopyWith<$Res>? get location;
   $PubExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
+  $PubOpeningHoursCopyWith<$Res>? get openingHours;
 }
 
 /// @nodoc
@@ -96,6 +101,7 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
     Object? tag = freezed,
     Object? location = freezed,
     Object? extraDetailsDto = freezed,
+    Object? openingHours = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -142,6 +148,10 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
               as PubExtraDetailsDto?,
+      openingHours: freezed == openingHours
+          ? _value.openingHours
+          : openingHours // ignore: cast_nullable_to_non_nullable
+              as PubOpeningHours?,
     ) as $Val);
   }
 
@@ -180,6 +190,18 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
       return _then(_value.copyWith(extraDetailsDto: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PubOpeningHoursCopyWith<$Res>? get openingHours {
+    if (_value.openingHours == null) {
+      return null;
+    }
+
+    return $PubOpeningHoursCopyWith<$Res>(_value.openingHours!, (value) {
+      return _then(_value.copyWith(openingHours: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -201,7 +223,9 @@ abstract class _$$PubDtoImplCopyWith<$Res> implements $PubDtoCopyWith<$Res> {
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
-      PubExtraDetailsDto? extraDetailsDto});
+      PubExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'openingHours', defaultValue: null)
+      PubOpeningHours? openingHours});
 
   @override
   $TagDtoCopyWith<$Res>? get tag;
@@ -209,6 +233,8 @@ abstract class _$$PubDtoImplCopyWith<$Res> implements $PubDtoCopyWith<$Res> {
   $PubLocationDtoCopyWith<$Res>? get location;
   @override
   $PubExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto;
+  @override
+  $PubOpeningHoursCopyWith<$Res>? get openingHours;
 }
 
 /// @nodoc
@@ -233,6 +259,7 @@ class __$$PubDtoImplCopyWithImpl<$Res>
     Object? tag = freezed,
     Object? location = freezed,
     Object? extraDetailsDto = freezed,
+    Object? openingHours = freezed,
   }) {
     return _then(_$PubDtoImpl(
       id: null == id
@@ -279,6 +306,10 @@ class __$$PubDtoImplCopyWithImpl<$Res>
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
               as PubExtraDetailsDto?,
+      openingHours: freezed == openingHours
+          ? _value.openingHours
+          : openingHours // ignore: cast_nullable_to_non_nullable
+              as PubOpeningHours?,
     ));
   }
 }
@@ -299,7 +330,8 @@ class _$PubDtoImpl implements _PubDto {
       @JsonKey(name: 'assets', defaultValue: []) required this.assets,
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
       @JsonKey(name: 'address', defaultValue: null) this.location,
-      @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto});
+      @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto,
+      @JsonKey(name: 'openingHours', defaultValue: null) this.openingHours});
 
   factory _$PubDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PubDtoImplFromJson(json);
@@ -337,10 +369,13 @@ class _$PubDtoImpl implements _PubDto {
   @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   final PubExtraDetailsDto? extraDetailsDto;
+  @override
+  @JsonKey(name: 'openingHours', defaultValue: null)
+  final PubOpeningHours? openingHours;
 
   @override
   String toString() {
-    return 'PubDto(id: $id, fullName: $fullName, description: $description, userName: $userName, logo: $logo, averageRating: $averageRating, coverImageUrl: $coverImageUrl, assets: $assets, tag: $tag, location: $location, extraDetailsDto: $extraDetailsDto)';
+    return 'PubDto(id: $id, fullName: $fullName, description: $description, userName: $userName, logo: $logo, averageRating: $averageRating, coverImageUrl: $coverImageUrl, assets: $assets, tag: $tag, location: $location, extraDetailsDto: $extraDetailsDto, openingHours: $openingHours)';
   }
 
   @override
@@ -365,7 +400,9 @@ class _$PubDtoImpl implements _PubDto {
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.extraDetailsDto, extraDetailsDto) ||
-                other.extraDetailsDto == extraDetailsDto));
+                other.extraDetailsDto == extraDetailsDto) &&
+            (identical(other.openingHours, openingHours) ||
+                other.openingHours == openingHours));
   }
 
   @JsonKey(ignore: true)
@@ -382,7 +419,8 @@ class _$PubDtoImpl implements _PubDto {
       const DeepCollectionEquality().hash(assets),
       tag,
       location,
-      extraDetailsDto);
+      extraDetailsDto,
+      openingHours);
 
   @JsonKey(ignore: true)
   @override
@@ -418,7 +456,9 @@ abstract class _PubDto implements PubDto {
       @JsonKey(name: 'address', defaultValue: null)
       final PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
-      final PubExtraDetailsDto? extraDetailsDto}) = _$PubDtoImpl;
+      final PubExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'openingHours', defaultValue: null)
+      final PubOpeningHours? openingHours}) = _$PubDtoImpl;
 
   factory _PubDto.fromJson(Map<String, dynamic> json) = _$PubDtoImpl.fromJson;
 
@@ -455,6 +495,9 @@ abstract class _PubDto implements PubDto {
   @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   PubExtraDetailsDto? get extraDetailsDto;
+  @override
+  @JsonKey(name: 'openingHours', defaultValue: null)
+  PubOpeningHours? get openingHours;
   @override
   @JsonKey(ignore: true)
   _$$PubDtoImplCopyWith<_$PubDtoImpl> get copyWith =>

@@ -5,6 +5,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/enum/image_type.dart';
 import '../../infrastructure/event/dtos/artist/artist_dto.dart';
 
 class ShortProfileTile extends StatelessWidget {
@@ -32,7 +34,7 @@ class ShortProfileTile extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 4.w,
-              backgroundImage: CachedNetworkImageProvider(artist.profileImage),
+              backgroundImage: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(artist.profileImage, ImageType.profile)),
             ),
             SizedBox(
               width: 2.w,

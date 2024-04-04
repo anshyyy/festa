@@ -12,6 +12,8 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class ArtistFollowers extends StatelessWidget {
   const ArtistFollowers({
@@ -58,10 +60,7 @@ class ArtistFollowers extends StatelessWidget {
                                   color: colorScheme.background, width: .5.w),
                               borderRadius: BorderRadius.circular(50.w),
                               image: DecorationImage(
-                                  image: CachedNetworkImageProvider(currentUser
-                                          .profileImage.isEmpty
-                                      ? 'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'
-                                      : currentUser.profileImage),
+                                  image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(currentUser.profileImage, ImageType.profile)),
                                   fit: BoxFit.cover)),
                         ),
                         SizedBox(

@@ -26,9 +26,9 @@ class DynamicLinkUtil {
 
   static void onInitialLinkHandler({required bool isAuthorized}) {
       dynamicLinks.getInitialLink().then((dynamicLinkData) {
-        if (dynamicLinkData != null) return;
+        if (dynamicLinkData == null) return;
         handleDynamicLink(
-            url: dynamicLinkData!.link, isAuthorized: isAuthorized);
+            url: dynamicLinkData.link, isAuthorized: isAuthorized);
       });
   }
 

@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/dtos/community/community_dto.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class MutualFollowers extends StatelessWidget {
   const MutualFollowers({super.key, this.artistCommunityDto});
@@ -25,8 +28,9 @@ class MutualFollowers extends StatelessWidget {
                         backgroundColor: Colors.white,
                         child: CircleAvatar(
                             radius: 3.5.w,
-                            backgroundImage: NetworkImage(
-                                artistCommunityDto!.users[index].profileImage)),
+                            backgroundImage: 
+                            CachedNetworkImageProvider(
+                                CustomImageProvider.getImageUrl(artistCommunityDto!.users[index].profileImage, ImageType.profile))),
                       ),
                     ),),
             SizedBox(

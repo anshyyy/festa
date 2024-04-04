@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
     this.cursorColor,
     this.textStyle,
     this.errorStyle,
-    this.helperText,
+    this.helperText, this.borderColor,
   });
 
   final TextCapitalization? textCapitalization;
@@ -90,6 +90,7 @@ class CustomTextField extends StatelessWidget {
   final Color? cursorColor;
   final double? borderRadius;
   final String? helperText;
+  final Color? borderColor;
 
 
   @override
@@ -98,7 +99,7 @@ class CustomTextField extends StatelessWidget {
       gapPadding: 0,
       borderRadius: BorderRadius.circular(borderRadius ?? 10),
       borderSide: BorderSide(
-        color: Theme.of(context).colorScheme.primaryContainer,
+        color: borderColor ??  Theme.of(context).colorScheme.primaryContainer,
         width: 0.5,
       ),
     );

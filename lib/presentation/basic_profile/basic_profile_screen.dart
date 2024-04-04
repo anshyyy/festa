@@ -13,6 +13,8 @@ import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/enum/image_type.dart';
 import '../widgets/custom_textfield.dart';
 import '../widgets/gradient_button.dart';
 import '../widgets/snackbar_alert.dart';
@@ -128,8 +130,8 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                                 image: state.profileImage != null
                                     ? DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: CachedNetworkImageProvider(
-                                            state.profileImage!),
+                                        image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(
+                                            state.profileImage, ImageType.profile)),
                                       )
                                     : null,
                               ),

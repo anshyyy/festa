@@ -89,7 +89,7 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
       ));
     } else {
       emit(state.copyWith(
-        // isPaymentSuccess: true,
+        isPaymentSuccess: true,
         isPaymentFailure: false,
         isPaymentPending: true,
         isLoading: false,

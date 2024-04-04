@@ -39,6 +39,12 @@ class AppStateNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateUser({
+    UserDto? user,
+  }) {
+    this.user = user;
+  }
+
   Future<void> updateAfterNetworkChange({required bool isOffline}) async {
     this.isOffline = isOffline;
     notifyListeners();
@@ -55,15 +61,15 @@ class AppConfig extends InheritedWidget {
   // ignore: overridden_fields
   final Widget child;
 
-  const AppConfig({
-    super.key,
-    required this.appTitle,
-    required this.buildFlavor,
-    required this.child,
-    required this.serverUrl,
-    required this.googleMapsApiKey,
-    required this.razorPayApiKey
-  }) : super(child: child);
+  const AppConfig(
+      {super.key,
+      required this.appTitle,
+      required this.buildFlavor,
+      required this.child,
+      required this.serverUrl,
+      required this.googleMapsApiKey,
+      required this.razorPayApiKey})
+      : super(child: child);
 
   static AppConfig? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<AppConfig>();

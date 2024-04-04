@@ -11,6 +11,8 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 
 class MediaGridViewer extends StatelessWidget {
   
@@ -82,7 +84,7 @@ class MediaGridViewer extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       image: DecorationImage(
                                           image: CachedNetworkImageProvider(
-                                              state.assets[index].url),
+                                              CustomImageProvider.getImageUrl(state.assets[index].url, ImageType.other)),
                                           fit: BoxFit.cover)),
                                 )
                                 : ClipRRect(

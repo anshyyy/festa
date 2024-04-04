@@ -15,6 +15,8 @@ import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
+import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/gradient_button.dart';
 import 'mutual_followers.dart';
 import 'social_reach.dart';
@@ -140,12 +142,8 @@ class UserProfile extends StatelessWidget {
                           color: colorScheme.surface,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: state.profileImage != null &&
-                                      state.profileImage!.isNotEmpty
-                                  ? CachedNetworkImageProvider(state.user!.profileImage)
-                                  : Image.asset(
-                                          AssetConstants.defaultAvatarImage)
-                                      .image)),
+                              image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.user!.profileImage, ImageType.profile))
+                                  )),
                     )
                   ],
                 ),

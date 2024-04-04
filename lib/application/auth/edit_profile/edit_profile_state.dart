@@ -8,6 +8,10 @@ class EditProfileState with _$EditProfileState {
     required bool isFailure,
     required int userId,
     required UserRepository userRepository,
+    required CoreRepository coreRepository,
+    String? coverImageUrl,
+    String? profileImageUrl,
+    required TextEditingController bioTextController,
     UserDto? user,
   })= _EditProfileState;
 
@@ -20,5 +24,7 @@ class EditProfileState with _$EditProfileState {
     isLoading: false,
     userId: userId,
     userRepository: IUserRepository(serverUrl: serverUrl),
+    coreRepository: ICoreRepository(serverUrl: serverUrl),
+    bioTextController: TextEditingController(),
   );
 }

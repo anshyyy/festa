@@ -181,10 +181,16 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
                                     // ),
                                     GestureDetector(
                                       onTap: () {
+                                        final menuAt =
+                                            appStateNotifier.menuIndex ?? 1 + 0;
                                         appStateNotifier.menuIndex != 2
                                             ? navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes.ticketsRoute)
+                                                .then((value) =>
+                                                    appStateNotifier
+                                                        .onMenuChange(
+                                                            index: menuAt))
                                             : null;
                                         appStateNotifier.onMenuChange(index: 2);
                                       },
@@ -237,6 +243,8 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
 
                                     GestureDetector(
                                       onTap: () {
+                                        final menuAt =
+                                            appStateNotifier.menuIndex ?? 1 + 0;
                                         appStateNotifier.menuIndex != 3
                                             ? navigator<NavigationService>()
                                                 .navigateTo(
@@ -245,7 +253,10 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
                                                     'userId': appStateNotifier
                                                         .user!.id
                                                         .toString(),
-                                                  })
+                                                  }).then((value) {
+                                                appStateNotifier.onMenuChange(
+                                                    index: menuAt);
+                                              })
                                             : null;
                                         appStateNotifier.onMenuChange(index: 3);
                                       },

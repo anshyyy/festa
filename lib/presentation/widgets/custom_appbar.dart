@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget leading;
   final List<Widget> actions;
   Color? scaffoldBackgroundColor;
+  Color? surfaceTintColor;
 
   CustomAppBar({
     super.key,
@@ -14,6 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.leading,
     required this.actions,
     this.scaffoldBackgroundColor,
+    this.surfaceTintColor,
   });
 
   @override
@@ -24,6 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: scaffoldBackgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       leading: leading,
+    surfaceTintColor: surfaceTintColor,
       title: Text(
         title,
         maxLines: 1,

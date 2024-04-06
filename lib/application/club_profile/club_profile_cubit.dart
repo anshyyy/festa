@@ -54,6 +54,12 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     });
   }
 
+    void emitFromAnywhere({
+    required ClubProfileState state,
+  }) {
+    emit(state);
+  }
+
   void onCarouselChange({required int index}) {
     emit(state.copyWith(currentImageIndex: index));
   }

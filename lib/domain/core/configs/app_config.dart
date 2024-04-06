@@ -26,7 +26,6 @@ class AppStateNotifier extends ChangeNotifier {
   void onMenuChange({required int index}) {
     menuIndex = index;
     notifyListeners();
-
   }
 
   void toggleBottomNav({required bool showBottomNav}) {
@@ -51,11 +50,14 @@ class AppStateNotifier extends ChangeNotifier {
                   ? ProfileStateEnum.basic
                   : ProfileStateEnum.started;
 
-      if(profileState == ProfileStateEnum.completed){
+      if (profileState == ProfileStateEnum.completed) {
         showBottomNav = true;
-      }else{
+      } else {
         showBottomNav = false;
       }
+    }
+    if (!isAuthorized) {
+      menuIndex = 1;
     }
     notifyListeners();
   }

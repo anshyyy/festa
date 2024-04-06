@@ -33,4 +33,12 @@ class VideoPlayerCubit extends Cubit<VideoPlayerState> {
     state.videoPlayerController.pause();
     emit(state.copyWith(isPlaying: false));
   }
+
+  @override
+  Future<void> close() {
+    // Stop the video playback and dispose of the video player controller.
+    state.videoPlayerController.pause(); // Ensure the video is paused first.
+    state.videoPlayerController.dispose(); // Release the controller resources.
+    return super.close(); // Don't forget to call super.close() at the end.
+  }
 }

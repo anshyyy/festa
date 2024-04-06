@@ -46,9 +46,7 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
 
     return BlocConsumer<PersonalisationCubit, PersonalisationState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
@@ -101,7 +99,7 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
                           children: [
                             PersonalizedMenuCard(
                                 currentMenu: const PersonalizationMenuDto(
-                                    title: 'Gender'),
+                                    title: 'gender'),
                                 onTap: () {
                                   showModalBottomSheet(
                                     isScrollControlled: true,
@@ -296,18 +294,22 @@ class GenderUpdationConsumer extends StatelessWidget {
                 },
                 itemCount: state.lsOFSex.length,
               ),
-              SizedBox(height: 2.h,),
+              SizedBox(
+                height: 2.h,
+              ),
               GradientButton(
-                width: 30.w,
-                height: 12.w,
-                textStyle: textTheme.bodySmall!.copyWith(
-                  color: colorScheme.background,
-                  fontWeight: FontWeight.w600
-                ),
-                text: 'Save', onTap: (){
-                  context.read<GenderSelectionCubit>().onContinue();
-                }),
-              SizedBox(height: 2.h,),
+                  width: 30.w,
+                  height: 12.w,
+                  textStyle: textTheme.bodySmall!.copyWith(
+                      color: colorScheme.background,
+                      fontWeight: FontWeight.w600),
+                  text: 'Save',
+                  onTap: () {
+                    context.read<GenderSelectionCubit>().onContinue();
+                  }),
+              SizedBox(
+                height: 2.h,
+              ),
               Center(
                 child: Text(
                   PersonalizeExperienceScreenConstants.changePersonlize,
@@ -316,7 +318,6 @@ class GenderUpdationConsumer extends StatelessWidget {
                       fontSize: 14.sp),
                 ),
               ),
-              
             ],
           ),
         );
@@ -351,8 +352,8 @@ class PersonalizedMenuCard extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            // SvgPicture.asset(currentMenu.icon),
-            // const Spacer(),
+            SvgPicture.asset(getIcon(currentMenu.title)),
+            const Spacer(),
             Text(
               currentMenu.title,
               style: textTheme.bodyMedium!.copyWith(
@@ -365,5 +366,22 @@ class PersonalizedMenuCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getIcon(String title) {
+    switch (title.toLowerCase()) {
+      case 'party':
+        return AssetConstants.partiesIcon;
+      case 'music':
+        return AssetConstants.musicIcon;
+      case 'crowd':
+        return AssetConstants.crowdIcon;
+      case 'cuisine':
+        return AssetConstants.cuisineIcon;
+      case 'drinks':
+        return AssetConstants.drinkPersonalizeIcon;
+      default:
+        return AssetConstants.genderIcon;
+    }
   }
 }

@@ -89,14 +89,14 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 ? value != null
                     ? DynamicLinkUtil.getDynamicRoute(
                         pathSegments['category']!, pathSegments['id']!)
-                    : profileState == ProfileStateEnum.gender
-                        ? UserRoutes.mainNavRoute
-                        : AuthRoutes.usernameRoute
-                : profileState == ProfileStateEnum.birthday
-                    ? AuthRoutes.genderRoute
-                    : profileState == ProfileStateEnum.basic
-                        ? AuthRoutes.birthdayRoute
-                        : AuthRoutes.basicInfoRoute;
+                    : UserRoutes.mainNavRoute
+                : profileState == ProfileStateEnum.gender
+                    ? AuthRoutes.usernameRoute
+                    : profileState == ProfileStateEnum.birthday
+                        ? AuthRoutes.genderRoute
+                        : profileState == ProfileStateEnum.basic
+                            ? AuthRoutes.birthdayRoute
+                            : AuthRoutes.basicInfoRoute;
 
             Future.delayed(const Duration(milliseconds: 100))
                 .then((value) async {
@@ -215,7 +215,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                         hintCharacter: '-',
                         keyboardType: TextInputType.number,
                         hintStyle: themeData.textTheme.bodyLarge!.copyWith(
-                          fontSize: 30.sp,
+                          fontSize: 22.sp,
                           fontWeight: FontWeight.bold,
                           color: themeData.colorScheme.background,
                         ),
@@ -232,14 +232,14 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                             activeBorderWidth: 0,
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(40),
-                            fieldHeight: 7.5.h,
+                            fieldHeight: 8.h,
                             fieldWidth: 13.5.w,
                             selectedFillColor:
                                 themeData.colorScheme.primaryContainer,
                             inactiveFillColor:
                                 themeData.colorScheme.primaryContainer,
                             activeFillColor: themeData.colorScheme.background,
-                            selectedBorderWidth: 0,
+                            selectedBorderWidth: 0.6,
                             selectedColor: themeData.colorScheme.primary),
                         onChanged: (value) {
                           context.read<VerifyOtpCubit>().onOtpChange();

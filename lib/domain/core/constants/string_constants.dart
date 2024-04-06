@@ -291,7 +291,7 @@ class ProfileAndSettingsScreenConstants {
 
 class PersonalizeExperienceScreenConstants {
   static String profilePrompt =
-      'Let’s take your profile from good to great 😍 The details matter!';
+      'Let’s take your profile from good to great 😍\nThe details matter!';
   static String changePersonlize =
       'You are free to change the personalisation anytime.';
   static String totallyUptoYouMessage =
@@ -337,7 +337,7 @@ class AccountPrivacyScreenConstants {
 class AccountEmailScreenConstants {
   static String title = 'Email Address';
   static String youHaveNotAddedEmail =
-      'You have not added your email address yet. You can add the email address below.';
+      'You have not added your email address yet.\nYou can add the email address below.';
   static String typeNewEmail = 'Type new email address...';
   static String addEmail = 'Add Email';
   static String otpSent = 'We have sent OTP to ';
@@ -359,7 +359,7 @@ class AccountEmailScreenConstants {
 class PhoneScreenConstants {
   static String title = 'Mobile Settings';
   static String youHaveNotAddedContact =
-      'You have not added your contact number yet. You can add the number below.';
+      'You have not added your contact number yet.\nYou can add the number below.';
   static String typeHere = 'Type here';
   static String addNumber = 'Add number';
   static String otpSent = 'We have sent OTP to ';

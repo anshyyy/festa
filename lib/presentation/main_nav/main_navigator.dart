@@ -7,7 +7,6 @@ import '../../domain/core/configs/app_config.dart';
 import '../home/home_screen.dart';
 import '../ticket/tickets_screen.dart';
 import '../user/user_profile_screen.dart';
-import 'bottom_nav.dart';
 
 class MainNavigator extends StatelessWidget {
   final String routeIndex;
@@ -38,7 +37,7 @@ class MainNavigatorConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          bottomNavigationBar: const CustomBottomNav(),
+          // bottomNavigationBar: const CustomBottomNav(),
           body: state.currentIndex == 0
               ? const HomeScreen()
               : state.currentIndex == 2

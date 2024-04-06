@@ -21,7 +21,7 @@ class BirthdaySelectionCubit extends Cubit<BirthdaySelectionState> {
 
   //select date
   void selectedDate(DateTime newDateTime) {
-    emit(state.copyWith(selectedDate: newDateTime));
+    emit(state.copyWith(selectedDate: newDateTime, isContinueEnabled: true));
   }
 
   //continue

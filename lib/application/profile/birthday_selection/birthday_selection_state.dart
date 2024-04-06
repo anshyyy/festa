@@ -13,6 +13,7 @@ class BirthdaySelectionState with _$BirthdaySelectionState {
     required AppStateNotifier appStateNotifier,
     required AuthRepository authRepository,
     required UserRepository userRepository,
+    required bool isContinueEnabled,
   }) = _BirthdaySelectionState;
 
   factory BirthdaySelectionState.initial({
@@ -34,5 +35,6 @@ class BirthdaySelectionState with _$BirthdaySelectionState {
           DateTime.now().month,
           DateTime.now().day,
         ),
+        isContinueEnabled: false,
       );
 }

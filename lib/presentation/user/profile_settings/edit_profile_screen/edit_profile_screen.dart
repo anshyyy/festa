@@ -16,6 +16,7 @@ import '../../../../domain/core/utils/image_provider.dart';
 import '../../../../infrastructure/core/enum/image_type.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_textfield.dart';
+import '../../../widgets/gradient_button.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final int userId;
@@ -46,7 +47,8 @@ class EditProfileScreenConsumer extends StatelessWidget {
     return BlocConsumer<EditProfileCubit, EditProfileState>(
       listener: (context, state) {
         if (state.isSuccess && !state.isFailure) {
-          Provider.of<AppStateNotifier>(context,listen: false).updateUser(user: state.user);
+          Provider.of<AppStateNotifier>(context, listen: false)
+              .updateUser(user: state.user);
         }
       },
       builder: (context, state) {
@@ -133,8 +135,8 @@ class EditProfileScreenConsumer extends StatelessWidget {
                             children: [
                               Center(
                                 child: Container(
-                                  height: 25.w,
-                                  width: 25.w,
+                                  height: 23.w,
+                                  width: 23.w,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
@@ -190,11 +192,19 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 20.w,
+                                    width: 15.w,
                                   ),
-                                  Text(
-                                    state.user?.fullName ?? '',
-                                    style: textTheme.bodyMedium!.copyWith(),
+                                  // Text(
+                                  //   state.user?.fullName ?? '',
+                                  //   style: textTheme.bodyMedium!.copyWith(),
+                                  // )
+                                  Expanded(
+                                    child: CustomTextField(
+                                      borderLess: true,
+                                      controller: state.nameEditingController,
+                                      textStyle: textTheme.bodyMedium!.copyWith(
+                                          color: colorScheme.background),
+                                    ),
                                   )
                                 ],
                               ),
@@ -210,13 +220,26 @@ class EditProfileScreenConsumer extends StatelessWidget {
                               ),
                               CustomTextField(
                                 maxLines: 2,
-                                textStyle: textTheme.bodyMedium!.copyWith(),
+                                textStyle: textTheme.bodyMedium!
+                                    .copyWith(color: colorScheme.background),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 3.w, vertical: 2.w),
                                 borderColor: colorScheme.background,
                               ),
                             ],
                           ),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          child: GradientButton(
+                              height: 10.w,
+                              width: 25.w,
+                              text: 'Save',
+                              textStyle: textTheme.bodySmall!.copyWith(
+                                  color: colorScheme.background,
+                                  fontWeight: FontWeight.w600),
+                              onTap: () {}),
                         ),
                         const Spacer(),
                         RichText(
@@ -230,7 +253,8 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   color:
                                       colorScheme.background.withOpacity(.9))),
-                        ]))
+                        ])),
+                        // SizedBox(height: 5.h,)
                       ],
                     ),
                   )),

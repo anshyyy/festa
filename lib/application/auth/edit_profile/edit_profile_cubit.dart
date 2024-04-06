@@ -8,8 +8,8 @@ import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/i_core_repository.dart';
 import '../../../infrastructure/user/i_user_repository.dart';
 
-part 'edit_profile_state.dart';
 part 'edit_profile_cubit.freezed.dart';
+part 'edit_profile_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit(super.initialState);
@@ -28,10 +28,14 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         ),
       );
     }, (r) {
+      state.nameEditingController.text = r.fullName;
+      state.bioTextController.text = r.description;
       emit(
         state.copyWith(
           isLoading: false,
           user: r,
+          coverImageUrl: r.coverImage,
+          profileImageUrl: r.profileImage,
         ),
       );
     });
@@ -44,55 +48,59 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
     // final res = await state.coreRepository.uploadFileToUserLocation(file: file);
     final res = await state.coreRepository.uploadFile(file: file);
-    final response =
-        await state.userRepository.patchProfile(input: {'coverImage': res});
 
-    fetchUserDetails(id: state.userId);
-
-    response.fold((l) {
-      emit(state.copyWith(
+    emit(
+      state.copyWith(
         isLoading: false,
-        isSuccess: false,
-        isFailure: true,
-        coverImageUrl: res,
-      ));
-    }, (r) {
-      emit(state.copyWith(
-        isLoading: false,
-        coverImageUrl: res,
         isSuccess: true,
         isFailure: false,
-      ));
-    });
+        coverImageUrl: res,
+      ),
+    );
   }
 
-    void onProfileImageChange() async {
+  void onProfileImageChange() async {
     emit(state.copyWith(isLoading: true));
     final file = await state.coreRepository.selectImage();
     if (file == null) return;
 
     // final res = await state.coreRepository.uploadFileToUserLocation(file: file);
     final res = await state.coreRepository.uploadFile(file: file);
-    final response =
-        await state.userRepository.patchProfile(input: {'profileImage': res});
+    // final response =
+    //     await state.userRepository.patchProfile(input: {'profileImage': res});
+
+    emit(state.copyWith(
+      isLoading: false,
+      isSuccess: true,
+      isFailure: false,
+      profileImageUrl: res,
+    ));
+  }
+
+  void onSave() async {
+    emit(state.copyWith(isLoading: true));
+    Map<String, dynamic> patchObj = {
+      'profileImage': state.profileImageUrl,
+      'coverImage': state.coverImageUrl,
+      'description': state.bioTextController.text,
+      'fullName': state.nameEditingController.text,
+    };
+
+    final response = await state.userRepository.patchProfile(input: patchObj);
 
     response.fold((l) {
       emit(state.copyWith(
         isLoading: false,
         isSuccess: false,
         isFailure: true,
-        profileImageUrl: res,
       ));
     }, (r) {
       emit(state.copyWith(
         isLoading: false,
-        profileImageUrl: res,
         isSuccess: true,
         isFailure: false,
         user: r,
       ));
     });
   }
-
-
 }

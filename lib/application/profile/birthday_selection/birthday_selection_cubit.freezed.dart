@@ -26,6 +26,7 @@ mixin _$BirthdaySelectionState {
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
+  bool get isContinueEnabled => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BirthdaySelectionStateCopyWith<BirthdaySelectionState> get copyWith =>
@@ -48,7 +49,8 @@ abstract class $BirthdaySelectionStateCopyWith<$Res> {
       String errorMessage,
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
-      UserRepository userRepository});
+      UserRepository userRepository,
+      bool isContinueEnabled});
 }
 
 /// @nodoc
@@ -75,6 +77,7 @@ class _$BirthdaySelectionStateCopyWithImpl<$Res,
     Object? appStateNotifier = null,
     Object? authRepository = null,
     Object? userRepository = null,
+    Object? isContinueEnabled = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -117,6 +120,10 @@ class _$BirthdaySelectionStateCopyWithImpl<$Res,
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      isContinueEnabled: null == isContinueEnabled
+          ? _value.isContinueEnabled
+          : isContinueEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -140,7 +147,8 @@ abstract class _$$BirthdaySelectionStateImplCopyWith<$Res>
       String errorMessage,
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
-      UserRepository userRepository});
+      UserRepository userRepository,
+      bool isContinueEnabled});
 }
 
 /// @nodoc
@@ -166,6 +174,7 @@ class __$$BirthdaySelectionStateImplCopyWithImpl<$Res>
     Object? appStateNotifier = null,
     Object? authRepository = null,
     Object? userRepository = null,
+    Object? isContinueEnabled = null,
   }) {
     return _then(_$BirthdaySelectionStateImpl(
       isLoading: null == isLoading
@@ -208,6 +217,10 @@ class __$$BirthdaySelectionStateImplCopyWithImpl<$Res>
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      isContinueEnabled: null == isContinueEnabled
+          ? _value.isContinueEnabled
+          : isContinueEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -225,7 +238,8 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
       required this.errorMessage,
       required this.appStateNotifier,
       required this.authRepository,
-      required this.userRepository});
+      required this.userRepository,
+      required this.isContinueEnabled});
 
   @override
   final bool isLoading;
@@ -247,10 +261,12 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
   final AuthRepository authRepository;
   @override
   final UserRepository userRepository;
+  @override
+  final bool isContinueEnabled;
 
   @override
   String toString() {
-    return 'BirthdaySelectionState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, selectedDate: $selectedDate, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository)';
+    return 'BirthdaySelectionState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, selectedDate: $selectedDate, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository, isContinueEnabled: $isContinueEnabled)';
   }
 
   @override
@@ -276,7 +292,9 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
             (identical(other.authRepository, authRepository) ||
                 other.authRepository == authRepository) &&
             (identical(other.userRepository, userRepository) ||
-                other.userRepository == userRepository));
+                other.userRepository == userRepository) &&
+            (identical(other.isContinueEnabled, isContinueEnabled) ||
+                other.isContinueEnabled == isContinueEnabled));
   }
 
   @override
@@ -291,7 +309,8 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
       errorMessage,
       appStateNotifier,
       authRepository,
-      userRepository);
+      userRepository,
+      isContinueEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -303,17 +322,17 @@ class _$BirthdaySelectionStateImpl implements _BirthdaySelectionState {
 
 abstract class _BirthdaySelectionState implements BirthdaySelectionState {
   const factory _BirthdaySelectionState(
-          {required final bool isLoading,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          required final bool isSaveDetailsEnable,
-          required final DateTime selectedDate,
-          required final String errorMessage,
-          required final AppStateNotifier appStateNotifier,
-          required final AuthRepository authRepository,
-          required final UserRepository userRepository}) =
-      _$BirthdaySelectionStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      required final bool isSaveDetailsEnable,
+      required final DateTime selectedDate,
+      required final String errorMessage,
+      required final AppStateNotifier appStateNotifier,
+      required final AuthRepository authRepository,
+      required final UserRepository userRepository,
+      required final bool isContinueEnabled}) = _$BirthdaySelectionStateImpl;
 
   @override
   bool get isLoading;
@@ -335,6 +354,8 @@ abstract class _BirthdaySelectionState implements BirthdaySelectionState {
   AuthRepository get authRepository;
   @override
   UserRepository get userRepository;
+  @override
+  bool get isContinueEnabled;
   @override
   @JsonKey(ignore: true)
   _$$BirthdaySelectionStateImplCopyWith<_$BirthdaySelectionStateImpl>

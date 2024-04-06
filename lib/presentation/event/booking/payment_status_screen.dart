@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/booking/payment_status_cubit/payment_status_cubit.dart';
@@ -61,9 +62,7 @@ class PaymentStatusConsumer extends StatelessWidget {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
     return BlocConsumer<PaymentStatusCubit, PaymentStatusState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
@@ -95,8 +94,10 @@ class PaymentStatusConsumer extends StatelessWidget {
                                             width: 15.5.w,
                                             child: CachedNetworkImage(
                                                 fit: BoxFit.cover,
-                                                imageUrl:
-                                                     CustomImageProvider.getImageUrl(state.event?.coverImage, ImageType.other)))),
+                                                imageUrl: CustomImageProvider
+                                                    .getImageUrl(
+                                                        state.event?.coverImage,
+                                                        ImageType.other)))),
                                     SizedBox(
                                       width: 4.w,
                                     ),
@@ -258,7 +259,7 @@ class PaymentStatusConsumer extends StatelessWidget {
                                     SizedBox(
                                       height: 3.h,
                                     ),
-                                     Column(
+                                    Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -379,6 +380,11 @@ class PaymentStatusConsumer extends StatelessWidget {
                                           width: 27.w,
                                           height: 4.h,
                                           onTap: () {
+                                            Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: true);
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes.mainNavRoute,
@@ -394,6 +400,12 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         GradientButton(
                                           text: 'Home',
                                           onTap: () {
+                                            Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: true);
+
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes.mainNavRoute,
@@ -443,11 +455,15 @@ class PaymentStatusConsumer extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: true);
                                   navigator<NavigationService>().navigateTo(
                                       UserRoutes.clubProfileRoute,
                                       queryParams: {
-                                        'id':
-                                            state.event!.pub!.id.toString(),
+                                        'id': state.event!.pub!.id.toString(),
                                       });
                                 },
                                 child: Container(
@@ -474,7 +490,12 @@ class PaymentStatusConsumer extends StatelessWidget {
                                               radius: 5.5.w,
                                               backgroundImage:
                                                   CachedNetworkImageProvider(
-                                                       CustomImageProvider.getImageUrl(state.event?.pub?.logo, ImageType.profile)),
+                                                      CustomImageProvider
+                                                          .getImageUrl(
+                                                              state.event?.pub
+                                                                  ?.logo,
+                                                              ImageType
+                                                                  .profile)),
                                             ),
                                             SizedBox(
                                               width: 2.w,

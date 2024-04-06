@@ -39,7 +39,6 @@ class AuthState with _$AuthState {
         isOTPSentFailed: false,
         isOTPSentSuccessful: false,
         isLoginSuccess: false,
-
         errorMessage: '',
         verificationCode: null,
       );

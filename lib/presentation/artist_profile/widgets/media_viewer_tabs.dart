@@ -34,7 +34,7 @@ class MediaViewerTabsConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90.h,
+      height: 80.h,
       child: DefaultTabController(
         length: 1,
         child: Column(
@@ -84,9 +84,7 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
     final textTheme = themeData.textTheme;
 
     return BlocConsumer<ArtistMusicCubit, ArtistMusicState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ListView.builder(
             // physics: const NeverScrollableScrollPhysics(),
@@ -117,8 +115,9 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4.w),
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                        CustomImageProvider.getImageUrl(state.musicList[index].imageUrl, ImageType.other)
-                                      ),
+                                          CustomImageProvider.getImageUrl(
+                                              state.musicList[index].imageUrl,
+                                              ImageType.other)),
                                       fit: BoxFit.cover)),
                             ),
                             SizedBox(
@@ -158,11 +157,31 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                                     color: colorScheme.background,
                                   ),
                                 ),
+
+                                
                               ],
                             )
                           ],
                         ),
-                        SvgPicture.asset(AssetConstants.mediaPlayIcon),
+                        !state.musicList[index].isPlaying
+                            ? GestureDetector(
+                                onTap: () {
+                                  // play
+                                  context.read<ArtistMusicCubit>().playMusic(
+                                      id: state.musicList[index].id,
+                                      audioUrl:
+                                          state.musicList[index].audioUrl);
+                                },
+                                child: SvgPicture.asset(
+                                    AssetConstants.mediaPlayIcon))
+                            : GestureDetector(
+                                onTap: () {
+                                  // pause
+                                     context.read<ArtistMusicCubit>().pauseMusic(
+                                      id: state.musicList[index].id,);
+                                },
+                                child: SvgPicture.asset(
+                                    AssetConstants.mediaPauseIcon)),
                         state.musicList[index].isLiked
                             ? GestureDetector(
                                 onTap: () {
@@ -200,3 +219,6 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
     );
   }
 }
+
+
+

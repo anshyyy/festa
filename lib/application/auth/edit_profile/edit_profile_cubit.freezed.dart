@@ -26,6 +26,8 @@ mixin _$EditProfileState {
   String? get profileImageUrl => throw _privateConstructorUsedError;
   TextEditingController get bioTextController =>
       throw _privateConstructorUsedError;
+  TextEditingController get nameEditingController =>
+      throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -49,6 +51,7 @@ abstract class $EditProfileStateCopyWith<$Res> {
       String? coverImageUrl,
       String? profileImageUrl,
       TextEditingController bioTextController,
+      TextEditingController nameEditingController,
       UserDto? user});
 
   $UserDtoCopyWith<$Res>? get user;
@@ -76,6 +79,7 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? coverImageUrl = freezed,
     Object? profileImageUrl = freezed,
     Object? bioTextController = null,
+    Object? nameEditingController = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -115,6 +119,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.bioTextController
           : bioTextController // ignore: cast_nullable_to_non_nullable
               as TextEditingController,
+      nameEditingController: null == nameEditingController
+          ? _value.nameEditingController
+          : nameEditingController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -153,6 +161,7 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       String? coverImageUrl,
       String? profileImageUrl,
       TextEditingController bioTextController,
+      TextEditingController nameEditingController,
       UserDto? user});
 
   @override
@@ -179,6 +188,7 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
     Object? coverImageUrl = freezed,
     Object? profileImageUrl = freezed,
     Object? bioTextController = null,
+    Object? nameEditingController = null,
     Object? user = freezed,
   }) {
     return _then(_$EditProfileStateImpl(
@@ -218,6 +228,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.bioTextController
           : bioTextController // ignore: cast_nullable_to_non_nullable
               as TextEditingController,
+      nameEditingController: null == nameEditingController
+          ? _value.nameEditingController
+          : nameEditingController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -239,6 +253,7 @@ class _$EditProfileStateImpl implements _EditProfileState {
       this.coverImageUrl,
       this.profileImageUrl,
       required this.bioTextController,
+      required this.nameEditingController,
       this.user});
 
   @override
@@ -260,11 +275,13 @@ class _$EditProfileStateImpl implements _EditProfileState {
   @override
   final TextEditingController bioTextController;
   @override
+  final TextEditingController nameEditingController;
+  @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, bioTextController: $bioTextController, user: $user)';
+    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user)';
   }
 
   @override
@@ -289,6 +306,8 @@ class _$EditProfileStateImpl implements _EditProfileState {
                 other.profileImageUrl == profileImageUrl) &&
             (identical(other.bioTextController, bioTextController) ||
                 other.bioTextController == bioTextController) &&
+            (identical(other.nameEditingController, nameEditingController) ||
+                other.nameEditingController == nameEditingController) &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -304,6 +323,7 @@ class _$EditProfileStateImpl implements _EditProfileState {
       coverImageUrl,
       profileImageUrl,
       bioTextController,
+      nameEditingController,
       user);
 
   @JsonKey(ignore: true)
@@ -325,6 +345,7 @@ abstract class _EditProfileState implements EditProfileState {
       final String? coverImageUrl,
       final String? profileImageUrl,
       required final TextEditingController bioTextController,
+      required final TextEditingController nameEditingController,
       final UserDto? user}) = _$EditProfileStateImpl;
 
   @override
@@ -345,6 +366,8 @@ abstract class _EditProfileState implements EditProfileState {
   String? get profileImageUrl;
   @override
   TextEditingController get bioTextController;
+  @override
+  TextEditingController get nameEditingController;
   @override
   UserDto? get user;
   @override

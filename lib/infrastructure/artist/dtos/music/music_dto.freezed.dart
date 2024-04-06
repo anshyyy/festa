@@ -28,6 +28,8 @@ mixin _$MusicDto {
   String get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isPlaying', defaultValue: false)
+  bool get isPlaying => throw _privateConstructorUsedError;
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'length', defaultValue: 0)
@@ -49,6 +51,7 @@ abstract class $MusicDtoCopyWith<$Res> {
       @JsonKey(name: 'audioUrl', defaultValue: '') String audioUrl,
       @JsonKey(name: 'imageUrl', defaultValue: '') String imageUrl,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isPlaying', defaultValue: false) bool isPlaying,
       @JsonKey(name: 'name', defaultValue: '') String name,
       @JsonKey(name: 'length', defaultValue: 0) int length});
 }
@@ -70,6 +73,7 @@ class _$MusicDtoCopyWithImpl<$Res, $Val extends MusicDto>
     Object? audioUrl = null,
     Object? imageUrl = null,
     Object? isLiked = null,
+    Object? isPlaying = null,
     Object? name = null,
     Object? length = null,
   }) {
@@ -89,6 +93,10 @@ class _$MusicDtoCopyWithImpl<$Res, $Val extends MusicDto>
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPlaying: null == isPlaying
+          ? _value.isPlaying
+          : isPlaying // ignore: cast_nullable_to_non_nullable
               as bool,
       name: null == name
           ? _value.name
@@ -115,6 +123,7 @@ abstract class _$$MusicDtoImplCopyWith<$Res>
       @JsonKey(name: 'audioUrl', defaultValue: '') String audioUrl,
       @JsonKey(name: 'imageUrl', defaultValue: '') String imageUrl,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isPlaying', defaultValue: false) bool isPlaying,
       @JsonKey(name: 'name', defaultValue: '') String name,
       @JsonKey(name: 'length', defaultValue: 0) int length});
 }
@@ -134,6 +143,7 @@ class __$$MusicDtoImplCopyWithImpl<$Res>
     Object? audioUrl = null,
     Object? imageUrl = null,
     Object? isLiked = null,
+    Object? isPlaying = null,
     Object? name = null,
     Object? length = null,
   }) {
@@ -153,6 +163,10 @@ class __$$MusicDtoImplCopyWithImpl<$Res>
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPlaying: null == isPlaying
+          ? _value.isPlaying
+          : isPlaying // ignore: cast_nullable_to_non_nullable
               as bool,
       name: null == name
           ? _value.name
@@ -174,6 +188,7 @@ class _$MusicDtoImpl implements _MusicDto {
       @JsonKey(name: 'audioUrl', defaultValue: '') required this.audioUrl,
       @JsonKey(name: 'imageUrl', defaultValue: '') required this.imageUrl,
       @JsonKey(name: 'isLiked', defaultValue: false) required this.isLiked,
+      @JsonKey(name: 'isPlaying', defaultValue: false) required this.isPlaying,
       @JsonKey(name: 'name', defaultValue: '') required this.name,
       @JsonKey(name: 'length', defaultValue: 0) required this.length});
 
@@ -193,6 +208,9 @@ class _$MusicDtoImpl implements _MusicDto {
   @JsonKey(name: 'isLiked', defaultValue: false)
   final bool isLiked;
   @override
+  @JsonKey(name: 'isPlaying', defaultValue: false)
+  final bool isPlaying;
+  @override
   @JsonKey(name: 'name', defaultValue: '')
   final String name;
   @override
@@ -201,7 +219,7 @@ class _$MusicDtoImpl implements _MusicDto {
 
   @override
   String toString() {
-    return 'MusicDto(id: $id, audioUrl: $audioUrl, imageUrl: $imageUrl, isLiked: $isLiked, name: $name, length: $length)';
+    return 'MusicDto(id: $id, audioUrl: $audioUrl, imageUrl: $imageUrl, isLiked: $isLiked, isPlaying: $isPlaying, name: $name, length: $length)';
   }
 
   @override
@@ -215,14 +233,16 @@ class _$MusicDtoImpl implements _MusicDto {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.isPlaying, isPlaying) ||
+                other.isPlaying == isPlaying) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.length, length) || other.length == length));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, audioUrl, imageUrl, isLiked, name, length);
+  int get hashCode => Object.hash(
+      runtimeType, id, audioUrl, imageUrl, isLiked, isPlaying, name, length);
 
   @JsonKey(ignore: true)
   @override
@@ -247,6 +267,8 @@ abstract class _MusicDto implements MusicDto {
       required final String imageUrl,
       @JsonKey(name: 'isLiked', defaultValue: false)
       required final bool isLiked,
+      @JsonKey(name: 'isPlaying', defaultValue: false)
+      required final bool isPlaying,
       @JsonKey(name: 'name', defaultValue: '') required final String name,
       @JsonKey(name: 'length', defaultValue: 0)
       required final int length}) = _$MusicDtoImpl;
@@ -266,6 +288,9 @@ abstract class _MusicDto implements MusicDto {
   @override
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked;
+  @override
+  @JsonKey(name: 'isPlaying', defaultValue: false)
+  bool get isPlaying;
   @override
   @JsonKey(name: 'name', defaultValue: '')
   String get name;

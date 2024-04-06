@@ -37,6 +37,9 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+final colorScheme = themeData.colorScheme;
+final textTheme = themeData.textTheme;
     return BlocConsumer<GenderSelectionCubit, GenderSelectionState>(
       listener: (context, state) {
         if (state.isSuccessful) {
@@ -58,98 +61,109 @@ class GenderSelectionScreenConsumer extends StatelessWidget {
           inAsyncCall: state.isLoading,
           color: Colors.black.withOpacity(1),
           child: Scaffold(
-            body: Stack(
-              children: [
-                SizedBox(
-                  height: 50.h,
-                  width: 100.w,
-                  child: Image.asset(
-                    AssetConstants.scaffoldBcg,
-                    fit: BoxFit.cover,
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 10.h,
                   ),
-                ),
-                SafeArea(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        Text(
-                          GenderSelectionScreenConstants.addGenderText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                fontSize: 24.sp,
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                        ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        Text(
-                          GenderSelectionScreenConstants.addText,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        // const Spacer(flex: 1,),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                context
-                                    .read<GenderSelectionCubit>()
-                                    .onSexSelect(index);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 1.h),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(2.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(state.lsOFSex[index],
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium),
-                                      index == state.selectedSex
-                                          ? SvgPicture.asset(
-                                              AssetConstants.selectedRadio)
-                                          : SvgPicture.asset(
-                                              AssetConstants.unSelectedRadio),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          itemCount: state.lsOFSex.length,
-                        ),
-                        const Spacer(),
-                        GradientButton(
-                            isEnabled: state.isSaveDetailsEnable,
-                            text: BasicProfileScreenConstants.continueText,
-                            onTap: () {
-                              context.read<GenderSelectionCubit>().onContinue();
-                            })
-                      ],
+                  Padding(
+                      padding:
+                    EdgeInsets.symmetric(horizontal: 2.h),
+                    child: Text(
+                      GenderSelectionScreenConstants.addGenderText,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(
+                            fontSize: 24.sp,
+                            color: Theme.of(context).colorScheme.background,
+                          ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 2.h),
+                    child: Text(
+                      GenderSelectionScreenConstants.addText,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  // const Spacer(flex: 1,),
+                  SizedBox(
+                    height: 7.h,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 2.h),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          context
+                              .read<GenderSelectionCubit>()
+                              .onSexSelect(index);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: .5.h),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primaryContainer,
+                            borderRadius: BorderRadius.circular(3.w),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(2.h),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(state.lsOFSex[index],
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!.copyWith(
+                                          color: colorScheme.background
+                                        )),
+                                index == state.selectedSex
+                                    ? SvgPicture.asset(
+                                        AssetConstants.selectedRadio,
+                                        height: 6.5.w,)
+                                    : SvgPicture.asset(
+                                        AssetConstants.unSelectedRadio,
+                                         height: 6.5.w
+                                        ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: state.lsOFSex.length,
+                  ),
+                  const Spacer(),
+                  Container(
+                                height: 13.5.h,
+                                color: colorScheme.surface,
+                                padding: EdgeInsets.only(
+                top: 3.h, bottom: 5.h, left: 4.w, right: 4.w),
+                                child: GradientButton(
+              text: BasicProfileScreenConstants.continueText,
+              isEnabled: state.isSaveDetailsEnable,
+              textStyle: textTheme.bodySmall!.copyWith(
+                  color: state.isSaveDetailsEnable
+                      ? colorScheme.background
+                      : colorScheme.background.withOpacity(.5),
+                  fontWeight: FontWeight.w600),
+              onTap: () {
+                context.read<GenderSelectionCubit>().onContinue();
+              },
+                                ),
+                              ),
+                ],
+              ),
             ),
           ),
         );

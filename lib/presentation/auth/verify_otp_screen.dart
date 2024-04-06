@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -88,8 +87,11 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
 
             final route = profileState == ProfileStateEnum.completed
                 ? value != null
-                    ? DynamicLinkUtil.getDynamicRoute(pathSegments['category']!, pathSegments['id']!)
-                    : UserRoutes.mainNavRoute
+                    ? DynamicLinkUtil.getDynamicRoute(
+                        pathSegments['category']!, pathSegments['id']!)
+                    : profileState == ProfileStateEnum.gender
+                        ? UserRoutes.mainNavRoute
+                        : AuthRoutes.usernameRoute
                 : profileState == ProfileStateEnum.birthday
                     ? AuthRoutes.genderRoute
                     : profileState == ProfileStateEnum.basic

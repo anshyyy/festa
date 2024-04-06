@@ -74,6 +74,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                     state.coverImage!.isNotEmpty
                                 ? SizedBox(
                                     height: 100.h,
+                                    width: 100.w,
                                     child: CachedNetworkImage(
                                       imageUrl: CustomImageProvider.getImageUrl(state.coverImage, ImageType.other),
                                       fit: BoxFit.cover,
@@ -105,24 +106,28 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(horizontal: 2.w),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.end,
                                   children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          navigator<NavigationService>()
-                                              .navigateTo(UserRoutes.mainNavRoute);
-                                        },
-                                        child: SvgPicture.asset(
-                                            AssetConstants.arrowLeft)),
+                                   
                                     appStateNotifier.user!.id != state.userId
                                         ? const SizedBox()
                                         : GestureDetector(
                                             onTap: () {
+                                              Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: false);
                                                navigator<NavigationService>()
                                                   .navigateTo(
                                                 UserRoutes
                                                     .profileAndSettingsRoute,
                                               ).then((value){
+                                                Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: true);
                                                 context.read<UserProfileCubit>().fetchUserDetails(id: state.userId);
                                               });
                                             },

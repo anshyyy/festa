@@ -358,7 +358,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             )
                           ],
                         ),
-                      )
+                      ),
+                      SizedBox(height: 5.h,)
                     ],
                   ),
           ),

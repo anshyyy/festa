@@ -12,6 +12,7 @@ class EditProfileState with _$EditProfileState {
     String? coverImageUrl,
     String? profileImageUrl,
     required TextEditingController bioTextController,
+    required TextEditingController nameEditingController,
     UserDto? user,
   })= _EditProfileState;
 
@@ -26,5 +27,6 @@ class EditProfileState with _$EditProfileState {
     userRepository: IUserRepository(serverUrl: serverUrl),
     coreRepository: ICoreRepository(serverUrl: serverUrl),
     bioTextController: TextEditingController(),
+    nameEditingController:TextEditingController(),
   );
 }

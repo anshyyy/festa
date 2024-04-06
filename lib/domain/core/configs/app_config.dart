@@ -10,6 +10,8 @@ class AppStateNotifier extends ChangeNotifier {
   ProfileStateEnum? profileState;
   LocationDto? location;
   UserDto? user;
+  bool showBottomNav;
+  int? menuIndex;
 
   AppStateNotifier({
     required this.isAuthorized,
@@ -17,7 +19,20 @@ class AppStateNotifier extends ChangeNotifier {
     this.profileState,
     this.location,
     this.user,
+    required this.showBottomNav,
+    this.menuIndex,
   });
+
+  void onMenuChange({required int index}) {
+    menuIndex = index;
+    notifyListeners();
+
+  }
+
+  void toggleBottomNav({required bool showBottomNav}) {
+    this.showBottomNav = showBottomNav;
+    notifyListeners();
+  }
 
   Future<void> updateAfterAuthChange({
     required bool isAuthorized,
@@ -35,6 +50,12 @@ class AppStateNotifier extends ChangeNotifier {
               : user.fullName.isNotEmpty
                   ? ProfileStateEnum.basic
                   : ProfileStateEnum.started;
+
+      if(profileState == ProfileStateEnum.completed){
+        showBottomNav = true;
+      }else{
+        showBottomNav = false;
+      }
     }
     notifyListeners();
   }

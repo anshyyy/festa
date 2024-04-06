@@ -18,8 +18,9 @@ class IUserRepository extends UserRepository {
   IUserRepository({required this.serverUrl});
 
   @override
-  Future<Either<String, UserDto>> patchProfile(
-      {required Map<String, dynamic> input}) async {
+  Future<Either<String, UserDto>> patchProfile({
+    required Map<String, dynamic> input,
+  }) async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
       final url = '$serverUrl${EventApiConstants.USERS}';
@@ -28,7 +29,14 @@ class IUserRepository extends UserRepository {
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
-      final data = jsonDecode(response.body);
+      final userFetchUrl = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
+      final userResponse = await RESTService.performGETRequest(
+          httpUrl: userFetchUrl, isAuth: true, token: token);
+          
+      if (userResponse.statusCode != 200) {
+        throw ErrorConstants.unknownNetworkError;
+      }
+      final data = jsonDecode(userResponse.body);
       return right(UserDto.fromJson(data));
     } catch (error) {
       return left(ErrorConstants.networkUnavailable);
@@ -220,17 +228,16 @@ class IUserRepository extends UserRepository {
   @override
   void updatePersonalizedMenu(
       {required String title, required List<String> list}) async {
-      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      final url = '$serverUrl${UserApiConstants.PERSONALIZE}';
-      final response = await RESTService.performPATCHRequest(
-          httpUrl: url,
-          isAuth: true,
-          token: token!,
-          body: jsonEncode({title: list}));
-      if (response.statusCode != 200) {
-        throw ErrorConstants.unknownNetworkError;
-      }
-    
+    final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+    final url = '$serverUrl${UserApiConstants.PERSONALIZE}';
+    final response = await RESTService.performPATCHRequest(
+        httpUrl: url,
+        isAuth: true,
+        token: token!,
+        body: jsonEncode({title: list}));
+    if (response.statusCode != 200) {
+      throw ErrorConstants.unknownNetworkError;
+    }
   }
 
   @override

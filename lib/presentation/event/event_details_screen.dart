@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/event_details/event_details_cubit.dart';
@@ -51,17 +52,26 @@ class EventDetailsScreenConsumer extends StatelessWidget {
         return state.isLoading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
-                bottomNavigationBar: event!.eventTicketCategories.isEmpty ? const SizedBox(): TicketBookingWidget(
-                  startDate: event.startDate,
-                  priceRangeStart: event.priceRangeStart,
-                  priceRangeEnd: event.priceRangeEnd!,
-                  onClick: () {
-                    navigator<NavigationService>()
-                        .navigateTo(UserRoutes.bookingRoute, queryParams: {
-                      'eventId': state.event!.id.toString(),
-                    });
-                  },
-                ),
+                bottomNavigationBar: event!.eventTicketCategories.isEmpty
+                    ? const SizedBox()
+                    : TicketBookingWidget(
+                        startDate: event.startDate,
+                        priceRangeStart: event.priceRangeStart,
+                        priceRangeEnd: event.priceRangeEnd!,
+                        onClick: () {
+                          Provider.of<AppStateNotifier>(context, listen: false)
+                              .toggleBottomNav(showBottomNav: false);
+                          navigator<NavigationService>().navigateTo(
+                              UserRoutes.bookingRoute,
+                              queryParams: {
+                                'eventId': state.event!.id.toString(),
+                              }).then((value) {
+                            Provider.of<AppStateNotifier>(context,
+                                    listen: false)
+                                .toggleBottomNav(showBottomNav: true);
+                          });
+                        },
+                      ),
                 appBar: CustomAppBar(
                     title: event.name,
                     leading: GestureDetector(

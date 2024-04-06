@@ -23,6 +23,7 @@ mixin _$ArtistMusicState {
   int get artistId => throw _privateConstructorUsedError;
   List<MusicDto> get musicList => throw _privateConstructorUsedError;
   ArtistRepository get artistRepository => throw _privateConstructorUsedError;
+  AudioPlayer get audioPlayer => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArtistMusicStateCopyWith<ArtistMusicState> get copyWith =>
@@ -42,7 +43,8 @@ abstract class $ArtistMusicStateCopyWith<$Res> {
       bool noUse,
       int artistId,
       List<MusicDto> musicList,
-      ArtistRepository artistRepository});
+      ArtistRepository artistRepository,
+      AudioPlayer audioPlayer});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$ArtistMusicStateCopyWithImpl<$Res, $Val extends ArtistMusicState>
     Object? artistId = null,
     Object? musicList = null,
     Object? artistRepository = null,
+    Object? audioPlayer = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -95,6 +98,10 @@ class _$ArtistMusicStateCopyWithImpl<$Res, $Val extends ArtistMusicState>
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
               as ArtistRepository,
+      audioPlayer: null == audioPlayer
+          ? _value.audioPlayer
+          : audioPlayer // ignore: cast_nullable_to_non_nullable
+              as AudioPlayer,
     ) as $Val);
   }
 }
@@ -114,7 +121,8 @@ abstract class _$$ArtistMusicStateImplCopyWith<$Res>
       bool noUse,
       int artistId,
       List<MusicDto> musicList,
-      ArtistRepository artistRepository});
+      ArtistRepository artistRepository,
+      AudioPlayer audioPlayer});
 }
 
 /// @nodoc
@@ -135,6 +143,7 @@ class __$$ArtistMusicStateImplCopyWithImpl<$Res>
     Object? artistId = null,
     Object? musicList = null,
     Object? artistRepository = null,
+    Object? audioPlayer = null,
   }) {
     return _then(_$ArtistMusicStateImpl(
       isLoading: null == isLoading
@@ -165,6 +174,10 @@ class __$$ArtistMusicStateImplCopyWithImpl<$Res>
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
               as ArtistRepository,
+      audioPlayer: null == audioPlayer
+          ? _value.audioPlayer
+          : audioPlayer // ignore: cast_nullable_to_non_nullable
+              as AudioPlayer,
     ));
   }
 }
@@ -179,7 +192,8 @@ class _$ArtistMusicStateImpl implements _ArtistMusicState {
       required this.noUse,
       required this.artistId,
       required final List<MusicDto> musicList,
-      required this.artistRepository})
+      required this.artistRepository,
+      required this.audioPlayer})
       : _musicList = musicList;
 
   @override
@@ -202,10 +216,12 @@ class _$ArtistMusicStateImpl implements _ArtistMusicState {
 
   @override
   final ArtistRepository artistRepository;
+  @override
+  final AudioPlayer audioPlayer;
 
   @override
   String toString() {
-    return 'ArtistMusicState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, artistId: $artistId, musicList: $musicList, artistRepository: $artistRepository)';
+    return 'ArtistMusicState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, artistId: $artistId, musicList: $musicList, artistRepository: $artistRepository, audioPlayer: $audioPlayer)';
   }
 
   @override
@@ -225,7 +241,9 @@ class _$ArtistMusicStateImpl implements _ArtistMusicState {
             const DeepCollectionEquality()
                 .equals(other._musicList, _musicList) &&
             (identical(other.artistRepository, artistRepository) ||
-                other.artistRepository == artistRepository));
+                other.artistRepository == artistRepository) &&
+            (identical(other.audioPlayer, audioPlayer) ||
+                other.audioPlayer == audioPlayer));
   }
 
   @override
@@ -237,7 +255,8 @@ class _$ArtistMusicStateImpl implements _ArtistMusicState {
       noUse,
       artistId,
       const DeepCollectionEquality().hash(_musicList),
-      artistRepository);
+      artistRepository,
+      audioPlayer);
 
   @JsonKey(ignore: true)
   @override
@@ -249,14 +268,14 @@ class _$ArtistMusicStateImpl implements _ArtistMusicState {
 
 abstract class _ArtistMusicState implements ArtistMusicState {
   const factory _ArtistMusicState(
-          {required final bool isLoading,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          required final int artistId,
-          required final List<MusicDto> musicList,
-          required final ArtistRepository artistRepository}) =
-      _$ArtistMusicStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      required final int artistId,
+      required final List<MusicDto> musicList,
+      required final ArtistRepository artistRepository,
+      required final AudioPlayer audioPlayer}) = _$ArtistMusicStateImpl;
 
   @override
   bool get isLoading;
@@ -272,6 +291,8 @@ abstract class _ArtistMusicState implements ArtistMusicState {
   List<MusicDto> get musicList;
   @override
   ArtistRepository get artistRepository;
+  @override
+  AudioPlayer get audioPlayer;
   @override
   @JsonKey(ignore: true)
   _$$ArtistMusicStateImplCopyWith<_$ArtistMusicStateImpl> get copyWith =>

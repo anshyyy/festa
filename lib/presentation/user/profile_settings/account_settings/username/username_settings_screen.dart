@@ -46,9 +46,8 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
       listener: (context, state) {
         if (!state.isUsernameUpdateFailure && state.isUsernameUpdateSuccess) {
           if (state.user != null) {
-            appStateNotifier.updateAfterAuthChange(
+            appStateNotifier.updateUser(
               user: state.user,
-              isAuthorized: true,
             );
           }
 

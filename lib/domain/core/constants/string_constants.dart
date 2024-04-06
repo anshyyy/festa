@@ -48,7 +48,7 @@ class BasicProfileScreenConstants {
 }
 
 class BirthdayScreenConstants {
-  static String addBirthday = 'When\'s your birthday?';
+  static String addBirthday = 'When\'s your\nbirthday?';
 }
 
 class GenderSelectionScreenConstants {

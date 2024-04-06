@@ -13,6 +13,7 @@ class MusicDto with _$MusicDto {
     @JsonKey(name: 'audioUrl', defaultValue: '') required String audioUrl,
     @JsonKey(name: 'imageUrl', defaultValue: '') required String imageUrl,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,
+    @JsonKey(name: 'isPlaying', defaultValue: false) required bool isPlaying,
     @JsonKey(name: 'name', defaultValue: '') required String name,
     @JsonKey(name: 'length', defaultValue: 0) required int length,
   }) = _MusicDto;

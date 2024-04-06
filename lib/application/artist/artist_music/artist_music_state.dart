@@ -10,6 +10,7 @@ class ArtistMusicState with _$ArtistMusicState {
     required int artistId,
     required List<MusicDto> musicList,
     required ArtistRepository artistRepository,
+    required AudioPlayer audioPlayer,
   }) = _ArtistMusicState;
 
   factory ArtistMusicState.initial({
@@ -24,5 +25,6 @@ class ArtistMusicState with _$ArtistMusicState {
         artistId: artistId,
         musicList: [],
         artistRepository: IArtistRepository(serverUrl: serverUrl),
+        audioPlayer: AudioPlayer()
       );
 }

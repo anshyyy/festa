@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$StarterState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isTermsAndConditionChecked => throw _privateConstructorUsedError;
   bool get isOnboardingComplete => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,10 @@ abstract class $StarterStateCopyWith<$Res> {
           StarterState value, $Res Function(StarterState) then) =
       _$StarterStateCopyWithImpl<$Res, StarterState>;
   @useResult
-  $Res call({bool isLoading, bool isOnboardingComplete});
+  $Res call(
+      {bool isLoading,
+      bool isTermsAndConditionChecked,
+      bool isOnboardingComplete});
 }
 
 /// @nodoc
@@ -47,12 +51,17 @@ class _$StarterStateCopyWithImpl<$Res, $Val extends StarterState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? isTermsAndConditionChecked = null,
     Object? isOnboardingComplete = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTermsAndConditionChecked: null == isTermsAndConditionChecked
+          ? _value.isTermsAndConditionChecked
+          : isTermsAndConditionChecked // ignore: cast_nullable_to_non_nullable
               as bool,
       isOnboardingComplete: null == isOnboardingComplete
           ? _value.isOnboardingComplete
@@ -70,7 +79,10 @@ abstract class _$$StarterStateImplCopyWith<$Res>
       __$$StarterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, bool isOnboardingComplete});
+  $Res call(
+      {bool isLoading,
+      bool isTermsAndConditionChecked,
+      bool isOnboardingComplete});
 }
 
 /// @nodoc
@@ -85,12 +97,17 @@ class __$$StarterStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? isTermsAndConditionChecked = null,
     Object? isOnboardingComplete = null,
   }) {
     return _then(_$StarterStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTermsAndConditionChecked: null == isTermsAndConditionChecked
+          ? _value.isTermsAndConditionChecked
+          : isTermsAndConditionChecked // ignore: cast_nullable_to_non_nullable
               as bool,
       isOnboardingComplete: null == isOnboardingComplete
           ? _value.isOnboardingComplete
@@ -104,16 +121,20 @@ class __$$StarterStateImplCopyWithImpl<$Res>
 
 class _$StarterStateImpl with DiagnosticableTreeMixin implements _StarterState {
   const _$StarterStateImpl(
-      {required this.isLoading, required this.isOnboardingComplete});
+      {required this.isLoading,
+      required this.isTermsAndConditionChecked,
+      required this.isOnboardingComplete});
 
   @override
   final bool isLoading;
+  @override
+  final bool isTermsAndConditionChecked;
   @override
   final bool isOnboardingComplete;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'StarterState(isLoading: $isLoading, isOnboardingComplete: $isOnboardingComplete)';
+    return 'StarterState(isLoading: $isLoading, isTermsAndConditionChecked: $isTermsAndConditionChecked, isOnboardingComplete: $isOnboardingComplete)';
   }
 
   @override
@@ -122,6 +143,8 @@ class _$StarterStateImpl with DiagnosticableTreeMixin implements _StarterState {
     properties
       ..add(DiagnosticsProperty('type', 'StarterState'))
       ..add(DiagnosticsProperty('isLoading', isLoading))
+      ..add(DiagnosticsProperty(
+          'isTermsAndConditionChecked', isTermsAndConditionChecked))
       ..add(DiagnosticsProperty('isOnboardingComplete', isOnboardingComplete));
   }
 
@@ -132,12 +155,17 @@ class _$StarterStateImpl with DiagnosticableTreeMixin implements _StarterState {
             other is _$StarterStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.isTermsAndConditionChecked,
+                    isTermsAndConditionChecked) ||
+                other.isTermsAndConditionChecked ==
+                    isTermsAndConditionChecked) &&
             (identical(other.isOnboardingComplete, isOnboardingComplete) ||
                 other.isOnboardingComplete == isOnboardingComplete));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isOnboardingComplete);
+  int get hashCode => Object.hash(
+      runtimeType, isLoading, isTermsAndConditionChecked, isOnboardingComplete);
 
   @JsonKey(ignore: true)
   @override
@@ -149,10 +177,13 @@ class _$StarterStateImpl with DiagnosticableTreeMixin implements _StarterState {
 abstract class _StarterState implements StarterState {
   const factory _StarterState(
       {required final bool isLoading,
+      required final bool isTermsAndConditionChecked,
       required final bool isOnboardingComplete}) = _$StarterStateImpl;
 
   @override
   bool get isLoading;
+  @override
+  bool get isTermsAndConditionChecked;
   @override
   bool get isOnboardingComplete;
   @override

@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -12,14 +14,17 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'domain/auth/auth_repository.dart';
 import 'domain/core/configs/app_config.dart';
 import 'domain/core/configs/injection.dart';
+import 'domain/core/constants/asset_constants.dart';
 import 'domain/core/services/app_update_service/app_update_service.dart';
 import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
 import 'domain/core/themes/app_theme.dart';
 import 'domain/core/utils/dynamic_link.dart';
+import 'domain/core/utils/image_provider.dart';
 import 'infrastructure/auth/i_auth_repository.dart';
 import 'infrastructure/core/dtos/location/location_dto.dart';
+import 'infrastructure/core/enum/image_type.dart';
 import 'infrastructure/core/enum/profile_state.enum.dart';
 import 'presentation/common/app_update.dart';
 
@@ -38,6 +43,8 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    final AppStateNotifier appStateNotifier =
+        Provider.of(context, listen: false);
     return MaterialApp(
       title: AppConfig.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,
@@ -45,7 +52,272 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       builder: (context, child) {
         return Column(
           children: [
-            Expanded(child: child!),
+            Expanded(
+                child: Scaffold(
+                    bottomNavigationBar: !Provider.of<AppStateNotifier>(context)
+                            .showBottomNav
+                        ? const SizedBox()
+                        : Container(
+                            height: Platform.isAndroid ? 9.5.h : 12.h,
+                            color: Colors.transparent,
+                            // color: Theme.of(context)
+                            //     .colorScheme
+                            //     .primaryContainer
+                            //     .withOpacity(.4),
+                            child: SafeArea(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50.h),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer
+                                        .withOpacity(.5)),
+                                margin: EdgeInsets.only(
+                                  left: 8.w,
+                                  top: 2.h,
+                                  right: 8.w,
+                                  bottom: Platform.isAndroid ? 2.h : 0,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5.w, vertical: 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        // context.read<MainNavCubit>().onIndexChange(index: 0);
+                                        // appStateNotifier.menuIndex != 0
+                                        //     ?
+                                        navigator<NavigationService>()
+                                            .navigateTo(
+                                                UserRoutes.homeScreenRoute,
+                                                isClearStack: true);
+                                        // : null;
+                                        appStateNotifier.onMenuChange(index: 0);
+                                      },
+                                      child: SizedBox(
+                                        width: 8.w,
+                                        height: 100.h,
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                              child: SvgPicture.asset(
+                                                  AssetConstants.homeFilled,
+                                                  height: 27,
+                                                  colorFilter: ColorFilter.mode(
+                                                      appStateNotifier
+                                                                  .menuIndex ==
+                                                              0
+                                                          ? Theme.of(context)
+                                                              .primaryColor
+                                                          : Theme.of(context)
+                                                              .colorScheme
+                                                              .onSecondary,
+                                                      BlendMode.srcIn)),
+                                            ),
+                                            Positioned(
+                                              bottom: 0,
+                                              child: AnimatedContainer(
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                width: 8.w,
+                                                height: .3.h,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius
+                                                            .vertical(
+                                                      top: Radius.circular(10),
+                                                    ),
+                                                    color:
+                                                        appStateNotifier
+                                                                    .menuIndex ==
+                                                                0
+                                                            ? Theme.of(context)
+                                                                .primaryColor
+                                                            : Colors
+                                                                .transparent),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // GestureDetector(
+                                    //   // onTap: () {
+                                    //   //   context.read<MainNavCubit>().onIndexChange(index: 1);
+                                    //   // },
+                                    //   child: SizedBox(
+                                    //     width: 8.w,
+                                    //     height: 100.h,
+                                    //     child: Stack(
+                                    //       children: [
+                                    //         Center(
+                                    //           child: SvgPicture.asset(
+                                    //             AssetConstants.communityIcon,
+                                    //             color: state.currentIndex == 1
+                                    //                 ? Theme.of(context).primaryColor
+                                    //                 : Theme.of(context).colorScheme.onSecondary,
+                                    //           ),
+                                    //         ),
+                                    //         Positioned(
+                                    //           bottom: 0,
+                                    //           child: AnimatedContainer(
+                                    //             duration: const Duration(milliseconds: 200),
+                                    //             width: 8.w,
+                                    //             height: .3.h,
+                                    //             decoration: BoxDecoration(
+                                    //                 borderRadius: const BorderRadius.vertical(
+                                    //                   top: Radius.circular(10),
+                                    //                 ),
+                                    //                 color: state.currentIndex == 1
+                                    //                     ? Theme.of(context).primaryColor
+                                    //                     : Colors.transparent),
+                                    //           ),
+                                    //         )
+                                    //       ],
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        appStateNotifier.menuIndex != 2
+                                            ? navigator<NavigationService>()
+                                                .navigateTo(
+                                                    UserRoutes.ticketsRoute)
+                                            : null;
+                                        appStateNotifier.onMenuChange(index: 2);
+                                      },
+                                      child: SizedBox(
+                                        width: 8.w,
+                                        height: 100.h,
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                              child: SvgPicture.asset(
+                                                  AssetConstants.ticketsIcon,
+                                                  colorFilter: ColorFilter.mode(
+                                                      appStateNotifier
+                                                                  .menuIndex ==
+                                                              2
+                                                          ? Theme.of(context)
+                                                              .primaryColor
+                                                          : Theme.of(context)
+                                                              .colorScheme
+                                                              .onSecondary,
+                                                      BlendMode.srcIn)),
+                                            ),
+                                            Positioned(
+                                              bottom: 0,
+                                              child: AnimatedContainer(
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                width: 8.w,
+                                                height: .3.h,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius
+                                                            .vertical(
+                                                      top: Radius.circular(10),
+                                                    ),
+                                                    color:
+                                                        appStateNotifier
+                                                                    .menuIndex ==
+                                                                2
+                                                            ? Theme.of(context)
+                                                                .primaryColor
+                                                            : Colors
+                                                                .transparent),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    GestureDetector(
+                                      onTap: () {
+                                        appStateNotifier.menuIndex != 3
+                                            ? navigator<NavigationService>()
+                                                .navigateTo(
+                                                    UserRoutes.userProfileRoute,
+                                                    queryParams: {
+                                                    'userId': appStateNotifier
+                                                        .user!.id
+                                                        .toString(),
+                                                  })
+                                            : null;
+                                        appStateNotifier.onMenuChange(index: 3);
+                                      },
+                                      child: SizedBox(
+                                        width: 7.w,
+                                        height: 100.h,
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                              child: Container(
+                                                height: 3.h,
+                                                width: 3.h,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: appStateNotifier
+                                                                  .menuIndex ==
+                                                              3
+                                                          ? Theme.of(context)
+                                                              .colorScheme
+                                                              .primary
+                                                          : Theme.of(context)
+                                                              .colorScheme
+                                                              .secondaryContainer),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50.w),
+                                                  image: DecorationImage(
+                                                    image: CachedNetworkImageProvider(
+                                                        CustomImageProvider
+                                                            .getImageUrl(
+                                                                appStateNotifier
+                                                                    .user
+                                                                    ?.profileImage,
+                                                                ImageType
+                                                                    .profile)),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              bottom: 0,
+                                              child: AnimatedContainer(
+                                                duration: const Duration(
+                                                    milliseconds: 200),
+                                                width: 8.w,
+                                                height: .3.h,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius
+                                                            .vertical(
+                                                      top: Radius.circular(10),
+                                                    ),
+                                                    color:
+                                                        appStateNotifier
+                                                                    .menuIndex ==
+                                                                3
+                                                            ? Theme.of(context)
+                                                                .primaryColor
+                                                            : Colors
+                                                                .transparent),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                    body: child!)),
             if (Provider.of<AppStateNotifier>(context).isOffline)
               Material(
                 color: Theme.of(context).colorScheme.error,
@@ -80,14 +352,18 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           : Provider.of<AppStateNotifier>(context).isAuthorized
               ? Provider.of<AppStateNotifier>(context).profileState ==
                       ProfileStateEnum.completed
-                  ? UserRoutes.mainNavRoute
+                  ? UserRoutes.homeScreenRoute
                   : Provider.of<AppStateNotifier>(context).profileState ==
-                          ProfileStateEnum.birthday
-                      ? AuthRoutes.genderRoute
+                          ProfileStateEnum.gender
+                      ? AuthRoutes.usernameRoute
                       : Provider.of<AppStateNotifier>(context).profileState ==
-                              ProfileStateEnum.basic
-                          ? AuthRoutes.birthdayRoute
-                          : AuthRoutes.basicInfoRoute
+                              ProfileStateEnum.birthday
+                          ? AuthRoutes.genderRoute
+                          : Provider.of<AppStateNotifier>(context)
+                                      .profileState ==
+                                  ProfileStateEnum.basic
+                              ? AuthRoutes.birthdayRoute
+                              : AuthRoutes.basicInfoRoute
               : AuthRoutes.startRoute,
     );
   }
@@ -113,16 +389,20 @@ Future appInitializer(AppConfig appConfig) async {
   if (isAuthorized && !isOffline) {
     profileState = user.fullName.isNotEmpty &&
             user.dob.isNotEmpty &&
-            user.gender.isNotEmpty
+            user.gender.isNotEmpty &&
+            user.tag != null
         ? ProfileStateEnum.completed
-        : user.fullName.isNotEmpty && user.dob.isNotEmpty
-            ? ProfileStateEnum.birthday
-            : user.fullName.isNotEmpty
-                ? ProfileStateEnum.basic
-                : ProfileStateEnum.started;
+        : user.fullName.isNotEmpty &&
+                user.dob.isNotEmpty &&
+                user.gender.isNotEmpty
+            ? ProfileStateEnum.gender
+            : user.fullName.isNotEmpty && user.dob.isNotEmpty
+                ? ProfileStateEnum.birthday
+                : user.fullName.isNotEmpty
+                    ? ProfileStateEnum.basic
+                    : ProfileStateEnum.started;
   }
 
-  
   try {
     final permission = await Geolocator.checkPermission();
     if (permission != LocationPermission.always &&
@@ -148,6 +428,8 @@ Future appInitializer(AppConfig appConfig) async {
     isOffline: isOffline,
     profileState: profileState,
     user: user,
+    showBottomNav: profileState == ProfileStateEnum.completed,
+    menuIndex: 0,
   );
 
   final AppConfig configuredApp = AppConfig(
@@ -178,7 +460,6 @@ Future appInitializer(AppConfig appConfig) async {
   });
   return runApp(configuredApp);
 }
-
 
 Future<Map<String, dynamic>> getRemoteConfigs() async {
   Map<String, dynamic> configs = {};

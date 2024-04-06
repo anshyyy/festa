@@ -49,7 +49,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     final res = await state.coreRepository.uploadFile(file: file);
     final response =
         await state.userRepository.patchProfile(input: {'coverImage': res});
-
+    
     response.fold((l) {
       emit(state.copyWith(
         isLoading: false,

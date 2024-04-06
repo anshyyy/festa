@@ -46,56 +46,59 @@ class MediaGridViewer extends StatelessWidget {
                   ],
                 ),
               )
-            : Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-                child: GridView.custom(
-                  padding: EdgeInsets.zero,
-                  // shrinkWrap: true,
-                  controller: state.scrollController,
-                  scrollDirection: Axis.vertical,
-                  // physics:  const NeverScrollableScrollPhysics() ,
-                  gridDelegate: SliverQuiltedGridDelegate(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 2.5.w,
-                    crossAxisSpacing: 1.h,
-                    repeatPattern: QuiltedGridRepeatPattern.inverted,
-                    pattern: const [
-                          QuiltedGridTile(2, 2),
-                          QuiltedGridTile(1, 1),
-                          QuiltedGridTile(1, 1),
-                        ],
-                  ),
-                  childrenDelegate: SliverChildBuilderDelegate(
-                      childCount: state.assets.length,
-                      (context, index) =>
-                          GestureDetector(
-                            onTap: () {
-                                    navigator<NavigationService>().navigateTo(
-                                        UserRoutes.mediaViewerWidgetScreen,
-                                        queryParams: {
-                                          'type': state.assets[index].type,
-                                          'url': state.assets[index].url,
-                                          'pubId':state.clubId.toString(),
-                                        });
-                                  },
-                            child: state.assets[index].type != MediaType.VIDEO
-                                ? Container(
-                                  decoration: BoxDecoration(
+            : Container(
+                  color: Theme.of(context).colorScheme.surface,
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                  child: GridView.custom(
+                    padding: EdgeInsets.zero,
+                    // shrinkWrap: true,
+                    controller: state.scrollController,
+                    scrollDirection: Axis.vertical,
+                    // physics:  const NeverScrollableScrollPhysics() ,
+                    gridDelegate: SliverQuiltedGridDelegate(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 2.5.w,
+                      crossAxisSpacing: 1.h,
+                      repeatPattern: QuiltedGridRepeatPattern.inverted,
+                      pattern: const [
+                            QuiltedGridTile(2, 2),
+                            QuiltedGridTile(1, 1),
+                            QuiltedGridTile(1, 1),
+                          ],
+                    ),
+                    childrenDelegate: SliverChildBuilderDelegate(
+                        childCount: state.assets.length,
+                        (context, index) =>
+                            GestureDetector(
+                              onTap: () {
+                                      navigator<NavigationService>().navigateTo(
+                                          UserRoutes.mediaViewerWidgetScreen,
+                                          queryParams: {
+                                            'type': state.assets[index].type,
+                                            'url': state.assets[index].url,
+                                            'pubId':state.clubId.toString(),
+                                          });
+                                    },
+                              child: state.assets[index].type != MediaType.VIDEO
+                                  ? Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                                CustomImageProvider.getImageUrl(state.assets[index].url, ImageType.other)),
+                                            fit: BoxFit.cover)),
+                                  )
+                                  : ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                              CustomImageProvider.getImageUrl(state.assets[index].url, ImageType.other)),
-                                          fit: BoxFit.cover)),
-                                )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      state.assets[index].thumbnail,
-                                      fit: BoxFit.cover,
-                                    )),
-                          )),
+                                      child: Image.network(
+                                        state.assets[index].thumbnail,
+                                        fit: BoxFit.cover,
+                                      )),
+                            )),
+                  ),
                 ),
-              );
+            );
       },
     );
   }

@@ -135,6 +135,9 @@ class AssetConstants {
   static const mediaPlayIcon = '${vectorsFolder}media-play.svg';
   static const mediaPauseIcon = '${vectorsFolder}media-pause.svg';
 
+  static const checkboxUnticked = '${vectorsFolder}checkbox-unchecked.svg';
+  static const checkboxTicked = '${vectorsFolder}checkbox-checked.svg';
+
 
 // eventIconConstants
   static const Map<String, String> extras = {

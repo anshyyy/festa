@@ -112,7 +112,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                         ),
                       )),
                   Positioned(
-                      bottom: 5.h,
+                      bottom: 2.h,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
                         width: 100.w,

@@ -187,7 +187,12 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                             ),
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
-                                              image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.user!.profileImage, ImageType.profile)),
+                                              image: CachedNetworkImageProvider(
+                                                  CustomImageProvider
+                                                      .getImageUrl(
+                                                          state.user!
+                                                              .profileImage,
+                                                          ImageType.profile)),
                                             )),
                                       ),
                                       SizedBox(
@@ -211,13 +216,25 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              Provider.of<AppStateNotifier>(
+                                                      context,
+                                                      listen: false)
+                                                  .toggleBottomNav(
+                                                      showBottomNav: false);
+                                                      
                                               navigator<NavigationService>()
-                                                  .navigateTo(UserRoutes
-                                                      .editProfileRoute,
+                                                  .navigateTo(
+                                                      UserRoutes
+                                                          .editProfileRoute,
                                                       queryParams: {
-                                                        'userId':state.user!.id.toString()
-                                                      }
-                                                      );
+                                                    'userId': state.user!.id
+                                                        .toString()
+                                                  }).then((value) => Provider
+                                                          .of<AppStateNotifier>(
+                                                              context,
+                                                              listen: false)
+                                                      .toggleBottomNav(
+                                                          showBottomNav: true));
                                             },
                                             child: Row(
                                               children: [
@@ -379,6 +396,10 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       EdgeInsets.symmetric(horizontal: 3.w),
                                   child: GestureDetector(
                                     onTap: () {
+                                      Provider.of<AppStateNotifier>(context,
+                                              listen: false)
+                                          .toggleBottomNav(
+                                              showBottomNav: false);
                                       context.read<ProfileCubit>().logout();
                                     },
                                     child: Row(

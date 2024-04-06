@@ -14,6 +14,7 @@ import '../../../../domain/core/services/navigation_services/navigation_service.
 import '../../../../infrastructure/user/dtos/personalization_menu/personalization_menu_dto.dart';
 import '../../../../infrastructure/user/dtos/personalize_option/personalize_option_dto.dart';
 import '../../../widgets/custom_appbar.dart';
+import '../../../widgets/gradient_button.dart';
 import 'widgets/personalized_menu_drawer.dart';
 
 class PersonalizeYourExperienceScreen extends StatelessWidget {
@@ -103,6 +104,7 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
                                     title: 'Gender'),
                                 onTap: () {
                                   showModalBottomSheet(
+                                    isScrollControlled: true,
                                     context: context,
                                     builder: (context) {
                                       return const GenderUpdationModalSheet();
@@ -147,9 +149,9 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
                     fontSize: 14.sp,
                   ),
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
+                // SizedBox(
+                //   height: 8.h,
+                // ),
               ],
             ),
           )),
@@ -210,6 +212,7 @@ class GenderUpdationConsumer extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
@@ -293,6 +296,18 @@ class GenderUpdationConsumer extends StatelessWidget {
                 },
                 itemCount: state.lsOFSex.length,
               ),
+              SizedBox(height: 2.h,),
+              GradientButton(
+                width: 30.w,
+                height: 12.w,
+                textStyle: textTheme.bodySmall!.copyWith(
+                  color: colorScheme.background,
+                  fontWeight: FontWeight.w600
+                ),
+                text: 'Save', onTap: (){
+                  context.read<GenderSelectionCubit>().onContinue();
+                }),
+              SizedBox(height: 2.h,),
               Center(
                 child: Text(
                   PersonalizeExperienceScreenConstants.changePersonlize,
@@ -301,9 +316,7 @@ class GenderUpdationConsumer extends StatelessWidget {
                       fontSize: 14.sp),
                 ),
               ),
-              SizedBox(
-                height: 4.h,
-              ),
+              
             ],
           ),
         );

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/club_profile/club_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
-import '../../domain/core/configs/injection.dart';
-import '../../domain/core/constants/asset_constants.dart';
-import '../../domain/core/services/navigation_services/navigation_service.dart';
 import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
 import 'widgets/media_viewer_tabs.dart';
@@ -54,8 +50,8 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                         const ImageCarousel(),
                         SizedBox.expand(
                           child: DraggableScrollableSheet(
-                            initialChildSize: .5,
-                            minChildSize: .5,
+                            initialChildSize: .47,
+                            minChildSize: .47,
                             builder: (context, scrollController) {
                               return SingleChildScrollView(
                                 controller: scrollController,
@@ -73,17 +69,7 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                             },
                           ),
                         ),
-                        Positioned(
-                          top: 15.w,
-                          left: 1.w,
-                          child: GestureDetector(
-                              onTap: () {
-                                navigator<NavigationService>().goBack();
-                              },
-                              child: Center(
-                                  child: SvgPicture.asset(
-                                      AssetConstants.arrowLeft))),
-                        ),
+                       
                       ],
                     ),
         );

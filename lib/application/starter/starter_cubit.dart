@@ -8,7 +8,7 @@ part 'starter_cubit.freezed.dart';
 class StarterCubit extends Cubit<StarterState> {
   StarterCubit(super.initialState);
 
-  void emitFromAnywhere({required StarterState state}){
+  void emitFromAnywhere({required StarterState state}) {
     emit(state);
   }
 
@@ -19,4 +19,7 @@ class StarterCubit extends Cubit<StarterState> {
       ),
     );
   }
+
+  void onTermsAndConditionChecked() => emit(state.copyWith(
+      isTermsAndConditionChecked: !state.isTermsAndConditionChecked));
 }

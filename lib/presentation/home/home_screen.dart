@@ -132,9 +132,16 @@ class HomeScreenConsumer extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: () {
+                                              appStateNotifier.toggleBottomNav(
+                                                  showBottomNav: false);
                                               navigator<NavigationService>()
                                                   .navigateTo(UserRoutes
-                                                      .notificationsRoute);
+                                                      .notificationsRoute)
+                                                  .then((value) =>
+                                                      appStateNotifier
+                                                          .toggleBottomNav(
+                                                              showBottomNav:
+                                                                  true));
                                             },
                                             child: SvgPicture.asset(
                                                 AssetConstants
@@ -272,7 +279,10 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   child: EventTypeTile(
                                                     isSelected:
                                                         categoryValue.isApplied,
-                                                    image: CustomImageProvider.getImageUrl(categoryValue.icon, ImageType.profile),
+                                                    image: CustomImageProvider
+                                                        .getImageUrl(
+                                                            categoryValue.icon,
+                                                            ImageType.profile),
                                                     title: categoryValue
                                                         .displayName,
                                                   ),
@@ -329,6 +339,9 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     ? state.sortKey
                                                     : Key(item['label']),
                                                 onTap: () async {
+                                                  appStateNotifier
+                                                      .toggleBottomNav(
+                                                          showBottomNav: false);
                                                   final builderContext =
                                                       context;
                                                   if (item['label']
@@ -337,7 +350,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       'filter') {
                                                     showModalBottomSheet(
                                                         context: context,
-                                                        isScrollControlled: true,
+                                                        isScrollControlled:
+                                                            true,
                                                         builder: (context) {
                                                           return FilterModalSheet(
                                                             filters: List.from(state
@@ -349,6 +363,10 @@ class HomeScreenConsumer extends StatelessWidget {
                                                                 .toList()),
                                                           );
                                                         }).then((value) {
+                                                      appStateNotifier
+                                                          .toggleBottomNav(
+                                                              showBottomNav:
+                                                                  true);
                                                       if (value != null) {
                                                         if (value is List<
                                                             FilterDto>) {
@@ -402,6 +420,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                         }
                                         return GestureDetector(
                                           onTap: () {
+                                            appStateNotifier.toggleBottomNav(
+                                                showBottomNav: true);
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes
@@ -409,7 +429,11 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     queryParams: {
                                                   'id': state.events[index].id
                                                       .toString(),
-                                                });
+                                                }).then((value) =>
+                                                    appStateNotifier
+                                                        .toggleBottomNav(
+                                                            showBottomNav:
+                                                                true));
                                           },
                                           onDoubleTap: () {
                                             context
@@ -419,7 +443,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                           },
                                           child: EventCard(
                                             event: state.events[index],
-                                            isLiked: state.events[index].isLiked,
+                                            isLiked:
+                                                state.events[index].isLiked,
                                             onLike: () {
                                               context
                                                   .read<HomeCubit>()
@@ -464,9 +489,7 @@ class EmptyEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -646,7 +669,10 @@ class EventWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl('https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',ImageType.other)))),
+                    image: CachedNetworkImageProvider(
+                        CustomImageProvider.getImageUrl(
+                            'https://plus.unsplash.com/premium_photo-1682265676364-5838a427dee2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                            ImageType.other)))),
           ),
           SizedBox(
             height: 1.h,

@@ -39,6 +39,9 @@ class BasicProfileScreenConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
+    final textTheme = themeData.textTheme;
     return BlocConsumer<BasicProfileCubit, BasicProfileState>(
         listener: (context, state) {
       if (state.isSuccessful) {
@@ -59,212 +62,196 @@ class BasicProfileScreenConsumer extends StatelessWidget {
         inAsyncCall: state.isLoading,
         color: Colors.black.withOpacity(1),
         child: Scaffold(
-          body: Stack(
-            children: [
-              SizedBox(
-                height: 50.h,
-                width: 100.w,
-                child: Image.asset(
-                  AssetConstants.scaffoldBcg,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 2.h,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Text(
+                      state.profileImage != null
+                          ? BasicProfileScreenConstants.addProfilePicture
+                          : BasicProfileScreenConstants.addNameProfile,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 24.sp,
+                            letterSpacing: -1,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Text(
+                      BasicProfileScreenConstants.addText,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(fontSize: 14.5.sp, letterSpacing: -1),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          context
+                              .read<BasicProfileCubit>()
+                              .onSelectProfileImage();
+                        },
+                        child: Container(
+                          height: 53.w,
+                          width: 53.w,
+                          decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: state.profileImage != null
+                                  ? Theme.of(context).colorScheme.background
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                              width: state.profileImage != null ? 1.w : 0.w,
+                            ),
+                            image: state.profileImage != null
+                                ? DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: CachedNetworkImageProvider(
+                                        CustomImageProvider.getImageUrl(
+                                            state.profileImage,
+                                            ImageType.profile)),
+                                  )
+                                : null,
+                          ),
+                          child: state.profileImage == null
+                              ? Center(
+                                  child: SvgPicture.asset(
+                                  AssetConstants.editIcon,
+                                  height: 4.h,
+                                  colorFilter: ColorFilter.mode(
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .background.withOpacity(.3),
+                                      BlendMode.srcIn),
+                                ))
+                              : GestureDetector(
+                                  onTap: () {
+                                    context
+                                        .read<BasicProfileCubit>()
+                                        .onSelectProfileImage();
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(2.w),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background),
+                                      child: SvgPicture.asset(
+                                        AssetConstants.editIcon,
+                                        colorFilter: ColorFilter.mode(
+                                            Theme.of(context)
+                                                .colorScheme
+                                                .primaryContainer.withOpacity(.7),
+                                            BlendMode.srcIn),
+
+                                        height: 4.h,
+                                        // color:
+                                      ),
+                                    ),
+                                  ),
+                                ),
                         ),
+                      ),
+                    ),
+                    SizedBox(height: 4.h,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Text(
-                          state.profileImage != null
-                              ? BasicProfileScreenConstants.addProfilePicture
-                              : BasicProfileScreenConstants.addNameProfile,
+                          BasicProfileScreenConstants.enterYourName,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyLarge!
+                              .bodyMedium!
                               .copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 17.sp,
+                                  color:
+                                      Theme.of(context).colorScheme.background),
                         ),
                         SizedBox(
                           height: 1.h,
                         ),
-                        Text(
-                          BasicProfileScreenConstants.addText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(fontSize: 14.5.sp),
-                        ),
                         SizedBox(
-                          height: 10.h,
-                        ),
-                        Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<BasicProfileCubit>()
-                                  .onSelectProfileImage();
-                            },
-                            child: Container(
-                              height: 50.w,
-                              width: 50.w,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: state.profileImage != null
-                                      ? Theme.of(context).colorScheme.background
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                  width: state.profileImage != null ? 1.w : 0.w,
+                          height: 100,
+                          child: CustomTextField(
+                            controller: state.fullNameController,
+                            keyboardType: TextInputType.text,
+                            maxLines: 1,
+                            isFill: true,
+                            inputWithLabel: false,
+                            fillColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            hintText: 'Type here',
+                            hintTextStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    // fontSize: 17.sp,
+                                    ),
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background),
+                            errorStyle: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: Theme.of(context).colorScheme.error,
                                 ),
-                                image: state.profileImage != null
-                                    ? DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(
-                                            state.profileImage, ImageType.profile)),
-                                      )
-                                    : null,
-                              ),
-                              child: state.profileImage == null
-                                  ? Center(
-                                      child: SvgPicture.asset(
-                                      AssetConstants.editIcon,
-                                      height: 4.h,
-                                      colorFilter: ColorFilter.mode(
-                                          Theme.of(context)
-                                              .colorScheme
-                                              .secondaryContainer,
-                                          BlendMode.srcIn),
-                                    ))
-                                  : GestureDetector(
-                                      onTap: () {
-                                        context
-                                            .read<BasicProfileCubit>()
-                                            .onSelectProfileImage();
-                                      },
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(2.w),
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background),
-                                          child: SvgPicture.asset(
-                                            AssetConstants.editIcon,
-                                            colorFilter: ColorFilter.mode(
-                                                Theme.of(context)
-                                                    .colorScheme
-                                                    .secondaryContainer,
-                                                BlendMode.srcIn),
-
-                                            height: 4.h,
-                                            // color:
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                            ),
+                            validator: (value) {
+                              if (value!.length < 3 && state.startValidation) {
+                                return ErrorConstants.invalidFullNameError;
+                              }
+                              return null;
+                            },
+                            onChanged: (p0) {
+                              if (p0.length < 3 && state.isSaveDetailsEnable) {
+                                context
+                                    .read<BasicProfileCubit>()
+                                    .emitFromAnywhere(
+                                        state: state.copyWith(
+                                      isSaveDetailsEnable: false,
+                                    ));
+                              } else if (p0.length >= 3 &&
+                                  !state.isSaveDetailsEnable) {
+                                context
+                                    .read<BasicProfileCubit>()
+                                    .emitFromAnywhere(
+                                        state: state.copyWith(
+                                      startValidation: true,
+                                      isSaveDetailsEnable: true,
+                                    ));
+                              }
+                            },
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              BasicProfileScreenConstants.enterYourName,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 17.sp,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background),
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            SizedBox(
-                              height: 100,
-                              child: CustomTextField(
-                                controller: state.fullNameController,
-                                keyboardType: TextInputType.text,
-                                maxLines: 1,
-                                isFill: true,
-                                inputWithLabel: false,
-                                fillColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer,
-                                hintText: 'Type here',
-                                hintTextStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        // fontSize: 17.sp,
-                                        ),
-                                textStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background),
-                                errorStyle: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
-                                validator: (value) {
-                                  if (value!.length < 3 &&
-                                      state.startValidation) {
-                                    return ErrorConstants.invalidFullNameError;
-                                  }
-                                  return null;
-                                },
-                                onChanged: (p0) {
-                                  if (p0.length < 3 &&
-                                      state.isSaveDetailsEnable) {
-                                    context
-                                        .read<BasicProfileCubit>()
-                                        .emitFromAnywhere(
-                                            state: state.copyWith(
-                                          isSaveDetailsEnable: false,
-                                        ));
-                                  } else if (p0.length >= 3 &&
-                                      !state.isSaveDetailsEnable) {
-                                    context
-                                        .read<BasicProfileCubit>()
-                                        .emitFromAnywhere(
-                                            state: state.copyWith(
-                                          startValidation: true,
-                                          isSaveDetailsEnable: true,
-                                        ));
-                                  }
-                                },
-                              ),
-                            )
-                          ],
-                        ),
+                        )
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
           bottomNavigationBar: SafeArea(
               child: Padding(
@@ -273,11 +260,20 @@ class BasicProfileScreenConsumer extends StatelessWidget {
             ),
             child: Wrap(
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
+                Container(
+                  height: 13.5.h,
+                  color: Theme.of(context).colorScheme.surface,
+                  padding: EdgeInsets.only(
+                      bottom: 5.h, top: 3.h, left: 6.w, right: 6.w),
                   child: GradientButton(
                       text: BasicProfileScreenConstants.continueText,
                       isEnabled: state.isSaveDetailsEnable,
+                      textStyle: textTheme.bodySmall!.copyWith(
+                        color: state.isSaveDetailsEnable
+                            ? colorScheme.background
+                            : colorScheme.background.withOpacity(.5),
+                        fontWeight: FontWeight.w600,
+                      ),
                       onTap: () {
                         context.read<BasicProfileCubit>().onContinue();
                       }),

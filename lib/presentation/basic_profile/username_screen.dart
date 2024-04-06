@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/profile/add_username/add_username_cubit.dart';
@@ -35,11 +36,16 @@ class UsernameScreenConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
+// final textTheme = themeData.textTheme;
     return BlocConsumer<AddUsernameCubit, AddUsernameState>(
       listener: (context, state) {
         if (state.isSuccess && !state.isFailure) {
+          Provider.of<AppStateNotifier>(context, listen: false)
+              .toggleBottomNav(showBottomNav: true);
           navigator<NavigationService>().navigateTo(
-            UserRoutes.mainNavRoute,
+            UserRoutes.homeScreenRoute,
             isClearStack: true,
           );
         }
@@ -87,19 +93,27 @@ class UsernameScreenConsumer extends StatelessWidget {
                     suffixIcon: state.isLoading
                         ? Image.asset(
                             AssetConstants.bubbleLoader,
-                            height: 8.w,
+                            height: 3.5.h,
                           )
-                        : state.isFailure
-                            ? SvgPicture.asset(AssetConstants.stopIcon,
+                        : state.isSuccess
+                            ? SvgPicture.asset(AssetConstants.circledTick,
+                                height: 3.h,
                                 colorFilter: ColorFilter.mode(
-                                    Theme.of(context).colorScheme.error,
+                                    colorScheme.inversePrimary,
                                     BlendMode.srcIn))
-                            : SvgPicture.asset(AssetConstants.circledTick,
-                                colorFilter: ColorFilter.mode(
-                                    Theme.of(context)
-                                        .colorScheme
-                                        .inversePrimary,
-                                    BlendMode.srcIn)),
+                            : state.isFailure
+                                ? SvgPicture.asset(AssetConstants.stopIcon,
+                                    height: 3.h,
+                                    colorFilter: ColorFilter.mode(
+                                        colorScheme.error, BlendMode.srcIn))
+                                : GestureDetector(
+                                    onTap: () {
+                                      context
+                                          .read<AddUsernameCubit>()
+                                          .clearTextField();
+                                    },
+                                    child: SvgPicture.asset(
+                                        AssetConstants.closeIcon)),
                   ),
                   const Spacer(),
                   Align(

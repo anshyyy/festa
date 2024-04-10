@@ -10,6 +10,12 @@ part 'filter_cubit.freezed.dart';
 class FilterCubit extends Cubit<FilterState> {
   FilterCubit(super.initialState);
 
+  void init(){
+    final anyFilterSelected = state.filters.any((element) => element.isApplied);
+    emit(state.copyWith(isFilterSelected: anyFilterSelected));
+    onFilterChanged(filterValue: 'sort');
+  }
+
   void onFilterChanged({required String filterValue}) {
     final filter = state.filters
         .firstWhere((filter) => filter.name == filterValue.toLowerCase());
@@ -42,7 +48,7 @@ class FilterCubit extends Cubit<FilterState> {
 
   
   void clearFilters() {
-    emit(state.copyWith(isFilterOptionSelected: false));
+    emit(state.copyWith(isFilterSelected: false));
     List<FilterDto> filters = List.from(state.filters.map((e) => e.copyWith(
         isApplied: false,
         values: e.values

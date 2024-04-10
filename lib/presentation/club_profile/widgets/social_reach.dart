@@ -23,7 +23,7 @@ class SocialReach extends StatelessWidget {
           color:
               Theme.of(context).colorScheme.secondaryContainer.withOpacity(.1),
           border: Border.all(
-              color: Theme.of(context).colorScheme.background, width: .1.w)),
+              color: Theme.of(context).colorScheme.background.withOpacity(.5), width: .05.w)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

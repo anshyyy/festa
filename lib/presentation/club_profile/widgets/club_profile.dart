@@ -24,11 +24,9 @@ class ClubProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
-
+    final textTheme = themeData.textTheme;
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Stack(
           clipBehavior: Clip.none,
@@ -50,13 +48,17 @@ class ClubProfile extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 5.h,
+                    height: 2.5.h,
                   ),
-                  Text(
-                    state.pub!.fullName,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.background),
+                  SizedBox(
+                    width: 65.w,
+                    child: Text(
+                      state.pub!.fullName,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background),
+                    ),
                   ),
                   Text('@${state.pub!.tag!.tag}',
                       style: Theme.of(context).textTheme.bodySmall!),
@@ -107,15 +109,16 @@ class ClubProfile extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            AssetConstants.durationIcon,
-                           colorFilter: ColorFilter.mode(colorScheme.inversePrimary, BlendMode.srcIn)
-                          ),
+                          SvgPicture.asset(AssetConstants.durationIcon,
+                              colorFilter: ColorFilter.mode(
+                                  colorScheme.inversePrimary, BlendMode.srcIn)),
                           SizedBox(
                             width: 1.w,
                           ),
                           Text(
-                            state.pub!.openingHours!.openNow ? 'Open' : 'Closed',
+                            state.pub!.openingHours!.openNow
+                                ? 'Open'
+                                : 'Closed',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -128,10 +131,9 @@ class ClubProfile extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            AssetConstants.startIcon,
-                            colorFilter: ColorFilter.mode(colorScheme.surfaceTint, BlendMode.srcIn)
-                          ),
+                          SvgPicture.asset(AssetConstants.startIcon,
+                              colorFilter: ColorFilter.mode(
+                                  colorScheme.surfaceTint, BlendMode.srcIn)),
                           SizedBox(
                             width: 1.w,
                           ),
@@ -150,7 +152,7 @@ class ClubProfile extends StatelessWidget {
                     ],
                   ),
                   Divider(
-                    thickness: .1.w,
+                    thickness: .05.w,
                     // color: Colors.white,
                   ),
                   // state.pub!.extraDetailsDto!.followedBy.isNotEmpty
@@ -190,7 +192,10 @@ class ClubProfile extends StatelessWidget {
                         border: Border.all(width: 1, color: Colors.white),
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.pub?.logo ?? '', ImageType.profile)))),
+                            image: CachedNetworkImageProvider(
+                                CustomImageProvider.getImageUrl(
+                                    state.pub?.logo ?? '',
+                                    ImageType.profile)))),
                   ),
                 ],
               ),
@@ -259,18 +264,150 @@ class ClubProfile extends StatelessWidget {
             Positioned(
               top: 1.5.h,
               left: 2.w,
-              child: SizedBox(
-                height: 15.h,
-                width: 15.w,
-                child: QrImageView(
-                  data: DynamicLinkUtil.generateLink(AppConstants.pub, state.clubId.toString()),
-                  eyeStyle: QrEyeStyle(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                      eyeShape: QrEyeShape.square),
-                  dataModuleStyle: QrDataModuleStyle(
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return SizedBox(
+                        width: 100.w,
+                        height: 100.h,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 12.w,
+                                height: .5.h,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text('Scan the QR code',
+                                  style: textTheme.bodyLarge!
+                                      .copyWith(color: colorScheme.background)),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+
+                              SizedBox(
+                                width: 50.w,
+                                height: 50.w,
+                                child: QrImageView(
+                                  data: DynamicLinkUtil.generateLink(
+                                      AppConstants.pub,
+                                      state.clubId.toString()),
+                                  eyeStyle: QrEyeStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
+                                      eyeShape: QrEyeShape.square),
+                                  dataModuleStyle: QrDataModuleStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondaryContainer,
+                                    dataModuleShape: QrDataModuleShape.square,
+                                  ),
+                                ),
+                              ),
+
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(color: colorScheme.background, width: .1.w),
+                              //     borderRadius: BorderRadius.circular(10.w)
+                              //   ),
+                              //   child: Row(),
+                              // )
+                              SizedBox(height: 2.h,),
+                              Container(
+                                width: 60.w,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: colorScheme.background,
+                                        width: .1.w),
+                                       borderRadius: BorderRadius.circular(10) 
+                                        ),
+                                        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 3.w),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 5.5.w,
+                                      backgroundImage:
+                                          CachedNetworkImageProvider(
+                                              CustomImageProvider.getImageUrl(
+                                                  state.pub?.logo,
+                                                  ImageType.profile)),
+                                    ),
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            state.pub?.fullName ?? '',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: themeData
+                                                .textTheme.bodyMedium!
+                                                .copyWith(
+                                              color: colorScheme.background,
+                                              fontSize: 16.5.sp,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: .5.h,
+                                          ),
+                                          Text(
+                                            state.pub?.tag!=null ? '@${state.pub?.tag?.tag}' : '',
+                                            style: themeData.textTheme.bodySmall!
+                                                .copyWith(
+                                                    color: colorScheme.background
+                                                        .withOpacity(.7),
+                                                    fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 3.h,)
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: SizedBox(
+                  height: 15.h,
+                  width: 15.w,
+                  child: QrImageView(
+                    data: DynamicLinkUtil.generateLink(
+                        AppConstants.pub, state.clubId.toString()),
+                    eyeStyle: QrEyeStyle(
+                        color: Theme.of(context).colorScheme.secondaryContainer,
+                        eyeShape: QrEyeShape.square),
+                    dataModuleStyle: QrDataModuleStyle(
                       color: Theme.of(context).colorScheme.secondaryContainer,
                       dataModuleShape: QrDataModuleShape.square,
-                      ),
+                    ),
+                  ),
                 ),
               ),
             )

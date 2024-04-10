@@ -22,6 +22,7 @@ mixin _$FilterState {
   List<FilterValueDto> get filterValues => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   bool get isFilterOptionSelected => throw _privateConstructorUsedError;
+  bool get isFilterSelected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FilterStateCopyWith<FilterState> get copyWith =>
@@ -40,7 +41,8 @@ abstract class $FilterStateCopyWith<$Res> {
       List<FilterDto> filters,
       List<FilterValueDto> filterValues,
       bool noUse,
-      bool isFilterOptionSelected});
+      bool isFilterOptionSelected,
+      bool isFilterSelected});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
     Object? filterValues = null,
     Object? noUse = null,
     Object? isFilterOptionSelected = null,
+    Object? isFilterSelected = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -88,6 +91,10 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
           ? _value.isFilterOptionSelected
           : isFilterOptionSelected // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFilterSelected: null == isFilterSelected
+          ? _value.isFilterSelected
+          : isFilterSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -106,7 +113,8 @@ abstract class _$$FilterStateImplCopyWith<$Res>
       List<FilterDto> filters,
       List<FilterValueDto> filterValues,
       bool noUse,
-      bool isFilterOptionSelected});
+      bool isFilterOptionSelected,
+      bool isFilterSelected});
 }
 
 /// @nodoc
@@ -126,6 +134,7 @@ class __$$FilterStateImplCopyWithImpl<$Res>
     Object? filterValues = null,
     Object? noUse = null,
     Object? isFilterOptionSelected = null,
+    Object? isFilterSelected = null,
   }) {
     return _then(_$FilterStateImpl(
       isLoading: null == isLoading
@@ -152,6 +161,10 @@ class __$$FilterStateImplCopyWithImpl<$Res>
           ? _value.isFilterOptionSelected
           : isFilterOptionSelected // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFilterSelected: null == isFilterSelected
+          ? _value.isFilterSelected
+          : isFilterSelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -165,7 +178,8 @@ class _$FilterStateImpl implements _FilterState {
       required this.filters,
       required this.filterValues,
       required this.noUse,
-      required this.isFilterOptionSelected});
+      required this.isFilterOptionSelected,
+      required this.isFilterSelected});
 
   @override
   final bool isLoading;
@@ -179,10 +193,12 @@ class _$FilterStateImpl implements _FilterState {
   final bool noUse;
   @override
   final bool isFilterOptionSelected;
+  @override
+  final bool isFilterSelected;
 
   @override
   String toString() {
-    return 'FilterState(isLoading: $isLoading, currentActive: $currentActive, filters: $filters, filterValues: $filterValues, noUse: $noUse, isFilterOptionSelected: $isFilterOptionSelected)';
+    return 'FilterState(isLoading: $isLoading, currentActive: $currentActive, filters: $filters, filterValues: $filterValues, noUse: $noUse, isFilterOptionSelected: $isFilterOptionSelected, isFilterSelected: $isFilterSelected)';
   }
 
   @override
@@ -199,7 +215,9 @@ class _$FilterStateImpl implements _FilterState {
                 .equals(other.filterValues, filterValues) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.isFilterOptionSelected, isFilterOptionSelected) ||
-                other.isFilterOptionSelected == isFilterOptionSelected));
+                other.isFilterOptionSelected == isFilterOptionSelected) &&
+            (identical(other.isFilterSelected, isFilterSelected) ||
+                other.isFilterSelected == isFilterSelected));
   }
 
   @override
@@ -210,7 +228,8 @@ class _$FilterStateImpl implements _FilterState {
       const DeepCollectionEquality().hash(filters),
       const DeepCollectionEquality().hash(filterValues),
       noUse,
-      isFilterOptionSelected);
+      isFilterOptionSelected,
+      isFilterSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -226,7 +245,8 @@ abstract class _FilterState implements FilterState {
       required final List<FilterDto> filters,
       required final List<FilterValueDto> filterValues,
       required final bool noUse,
-      required final bool isFilterOptionSelected}) = _$FilterStateImpl;
+      required final bool isFilterOptionSelected,
+      required final bool isFilterSelected}) = _$FilterStateImpl;
 
   @override
   bool get isLoading;
@@ -240,6 +260,8 @@ abstract class _FilterState implements FilterState {
   bool get noUse;
   @override
   bool get isFilterOptionSelected;
+  @override
+  bool get isFilterSelected;
   @override
   @JsonKey(ignore: true)
   _$$FilterStateImplCopyWith<_$FilterStateImpl> get copyWith =>

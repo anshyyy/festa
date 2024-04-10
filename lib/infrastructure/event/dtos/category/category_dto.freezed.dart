@@ -22,6 +22,8 @@ CategoryDto _$CategoryDtoFromJson(Map<String, dynamic> json) {
 mixin _$CategoryDto {
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'type', defaultValue: '')
+  String get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,9 @@ abstract class $CategoryDtoCopyWith<$Res> {
           CategoryDto value, $Res Function(CategoryDto) then) =
       _$CategoryDtoCopyWithImpl<$Res, CategoryDto>;
   @useResult
-  $Res call({@JsonKey(name: 'name', defaultValue: '') String name});
+  $Res call(
+      {@JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'type', defaultValue: '') String type});
 }
 
 /// @nodoc
@@ -52,11 +56,16 @@ class _$CategoryDtoCopyWithImpl<$Res, $Val extends CategoryDto>
   @override
   $Res call({
     Object? name = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -70,7 +79,9 @@ abstract class _$$CategoryDtoImplCopyWith<$Res>
       __$$CategoryDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'name', defaultValue: '') String name});
+  $Res call(
+      {@JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'type', defaultValue: '') String type});
 }
 
 /// @nodoc
@@ -85,11 +96,16 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? type = null,
   }) {
     return _then(_$CategoryDtoImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -99,7 +115,8 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CategoryDtoImpl implements _CategoryDto {
   const _$CategoryDtoImpl(
-      {@JsonKey(name: 'name', defaultValue: '') required this.name});
+      {@JsonKey(name: 'name', defaultValue: '') required this.name,
+      @JsonKey(name: 'type', defaultValue: '') required this.type});
 
   factory _$CategoryDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryDtoImplFromJson(json);
@@ -107,10 +124,13 @@ class _$CategoryDtoImpl implements _CategoryDto {
   @override
   @JsonKey(name: 'name', defaultValue: '')
   final String name;
+  @override
+  @JsonKey(name: 'type', defaultValue: '')
+  final String type;
 
   @override
   String toString() {
-    return 'CategoryDto(name: $name)';
+    return 'CategoryDto(name: $name, type: $type)';
   }
 
   @override
@@ -118,12 +138,13 @@ class _$CategoryDtoImpl implements _CategoryDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CategoryDtoImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, name, type);
 
   @JsonKey(ignore: true)
   @override
@@ -141,8 +162,9 @@ class _$CategoryDtoImpl implements _CategoryDto {
 
 abstract class _CategoryDto implements CategoryDto {
   const factory _CategoryDto(
-      {@JsonKey(name: 'name', defaultValue: '')
-      required final String name}) = _$CategoryDtoImpl;
+      {@JsonKey(name: 'name', defaultValue: '') required final String name,
+      @JsonKey(name: 'type', defaultValue: '')
+      required final String type}) = _$CategoryDtoImpl;
 
   factory _CategoryDto.fromJson(Map<String, dynamic> json) =
       _$CategoryDtoImpl.fromJson;
@@ -150,6 +172,9 @@ abstract class _CategoryDto implements CategoryDto {
   @override
   @JsonKey(name: 'name', defaultValue: '')
   String get name;
+  @override
+  @JsonKey(name: 'type', defaultValue: '')
+  String get type;
   @override
   @JsonKey(ignore: true)
   _$$CategoryDtoImplCopyWith<_$CategoryDtoImpl> get copyWith =>

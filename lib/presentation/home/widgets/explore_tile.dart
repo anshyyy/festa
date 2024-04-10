@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/home/cubit/home_cubit.dart';
+import '../../../domain/core/constants/asset_constants.dart';
 
 class ExploreTile extends StatelessWidget {
   const ExploreTile({
@@ -63,7 +64,9 @@ class ExploreTile extends StatelessWidget {
                       icon!,
                       height: 2.1.h,
                     )
-                  : Container()
+                  : SvgPicture.asset(AssetConstants.closeIcon,
+                    height: 4.w,
+                  )
             ],
           ),
         );

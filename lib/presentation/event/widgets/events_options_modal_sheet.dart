@@ -7,12 +7,14 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../infrastructure/artist/dtos/artist/artist_dto.dart';
 import 'event_option_tile.dart';
 import 'follow_artist_modalsheet.dart';
 
 class EventOptionsModalSheet extends StatelessWidget {
+  final List<ArtistProfileDto> artists;
   const EventOptionsModalSheet({
-    super.key,
+    super.key, required this.artists,
   });
 
   @override
@@ -46,7 +48,7 @@ class EventOptionsModalSheet extends StatelessWidget {
                 navigator<NavigationService>().goBack();
                 showModalBottomSheet(
                     context: context,
-                    builder: (context) => const FollowArtistsModalSheet());
+                    builder: (context) =>  FollowArtistsModalSheet(artists: artists,));
               },
               title: EventDetailsScreenConstants.followArtists,
               suffixIcon: SvgPicture.asset(

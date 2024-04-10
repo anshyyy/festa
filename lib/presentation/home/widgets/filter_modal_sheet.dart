@@ -26,7 +26,7 @@ class FilterModalSheet extends StatelessWidget {
         FilterState.initial(
           filters: filters,
         ),
-      )..onFilterChanged(filterValue: 'sort'),
+      )..init(),
       child: const FilterModalSheetConsumer(),
     );
   }
@@ -45,11 +45,11 @@ class FilterModalSheetConsumer extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Container(
-            height: 65.h,
+            height: 70.h,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(50),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(7.w),
               ),
             ),
             child: state.isLoading
@@ -91,12 +91,12 @@ class FilterModalSheetConsumer extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: Divider(
-                          thickness: .05.w,
+                          thickness: .035.w,
                         ),
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +114,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                         children: [
                                           ...state.filters.map((e) => Padding(
                                                 padding: EdgeInsets.only(
-                                                    bottom: 3.h),
+                                                    bottom: 2.7.h),
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     context
@@ -126,8 +126,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                   child: Row(
                                                     children: [
                                                       Container(
-                                                        height: 1.5.w,
-                                                        width: 1.5.w,
+                                                        height: 1.3.w,
+                                                        width: 1.3.w,
                                                         decoration: e.isApplied
                                                             ? BoxDecoration(
                                                                 shape: BoxShape
@@ -173,9 +173,9 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                     .copyWith(
                                                                         fontWeight:
                                                                             FontWeight
-                                                                                .w800,
+                                                                                .w700,
                                                                         fontSize:
-                                                                            16.sp))
+                                                                            16.5.sp))
                                                             : Text(
                                                                 e.displayName,
                                                                 maxLines: 2,
@@ -193,7 +193,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                                             FontWeight
                                                                                 .w600,
                                                                         fontSize:
-                                                                            16.sp),
+                                                                            16.5.sp),
                                                               ),
                                                       )
                                                     ],
@@ -210,7 +210,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                 padding: EdgeInsets.only(top: 3.h, right: 2.w, left: 2.w),
                                 child: Container(
                                   height: 100.h,
-                                  width: .05.w,
+                                  width: .03.w,
                                   color: Colors.white,
                                 ),
                               ),
@@ -229,81 +229,130 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                         'FILTER BY',
                                         style: themeData.textTheme.bodySmall!
                                             .copyWith(
-                                          fontSize: 13.5.sp,
+                                          fontSize: 14.5.sp,
                                           color:
-                                              themeData.colorScheme.background,
+                                              themeData.colorScheme.onTertiary.withOpacity(.7),
+                                              fontWeight: FontWeight.w500
                                         ),
                                       ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            ...state.filterValues.map((e) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  context
-                                                      .read<FilterCubit>()
-                                                      .onOptionChange(
-                                                          optionId:
-                                                              e.displayName);
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 1.h,
-                                                      horizontal: 0.w),
-                                                  child: Row(
-                                                    children: [
-                                                      SvgPicture.asset(e
-                                                              .isApplied
-                                                          ? AssetConstants
-                                                              .selectedRadio
-                                                          : AssetConstants
-                                                              .unSelectedRadio),
-                                                      SizedBox(
-                                                        width: 3.w,
-                                                      ),
-                                                      Expanded(
-                                                          child: Text(
-                                                        e.displayName,
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: themeData
-                                                            .textTheme
-                                                            .bodyMedium!
-                                                            .copyWith(
-                                                          fontWeight: e
-                                                                  .isApplied
-                                                              ? FontWeight.w700
-                                                              : FontWeight.w400,
-                                                          fontSize: 16.sp,
-                                                          color: themeData
-                                                              .colorScheme
-                                                              .background,
-                                                        ),
-                                                      ))
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            })
-                                          ],
-                                        ),
-                                      ),
-
-                                      // Expanded(
-                                      //   child: Container(
-                                      //     child: ListView.builder(
-                                      //       shrinkWrap: true,
-                                      //       itemCount: state.filterOptions.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return Text(state.filterOptions[index]['displayName']);
-                                      //       },
-                                      //     ),
+                                      SizedBox(height: 1.h,),
+                                      // SingleChildScrollView(
+                                      //   scrollDirection: Axis.vertical,
+                                      //   child: Column(
+                                      //     crossAxisAlignment:
+                                      //         CrossAxisAlignment.start,
+                                      //     children: [
+                                      //       ...state.filterValues.map((e) {
+                                      //         return GestureDetector(
+                                      //           onTap: () {
+                                      //             context
+                                      //                 .read<FilterCubit>()
+                                      //                 .onOptionChange(
+                                      //                     optionId:
+                                      //                         e.displayName);
+                                      //           },
+                                      //           child: Padding(
+                                      //             padding: EdgeInsets.symmetric(
+                                      //                 vertical: 1.h,
+                                      //                 horizontal: 0.w),
+                                      //             child: Row(
+                                      //               children: [
+                                      //                 SvgPicture.asset(e
+                                      //                         .isApplied
+                                      //                     ? AssetConstants
+                                      //                         .selectedRadio
+                                      //                     : AssetConstants
+                                      //                         .unSelectedRadio,
+                                      //                         height: 6.5.w,
+                                      //                         ),
+                                      //                 SizedBox(
+                                      //                   width: 2.5.w,
+                                      //                 ),
+                                      //                 Expanded(
+                                      //                     child: Text(
+                                      //                   e.displayName,
+                                      //                   maxLines: 1,
+                                      //                   overflow: TextOverflow
+                                      //                       .ellipsis,
+                                      //                   style: themeData
+                                      //                       .textTheme
+                                      //                       .bodyMedium!
+                                      //                       .copyWith(
+                                      //                     fontWeight: e
+                                      //                             .isApplied
+                                      //                         ? FontWeight.w700
+                                      //                         : FontWeight.w400,
+                                      //                     fontSize: 16.5.sp,
+                                      //                     color: themeData
+                                      //                         .colorScheme
+                                      //                         .background,
+                                      //                   ),
+                                      //                 ))
+                                      //               ],
+                                      //             ),
+                                      //           ),
+                                      //         );
+                                      //       })
+                                      //     ],
                                       //   ),
                                       // ),
+
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: state.filterValues.length,
+                                        itemBuilder: (context, index) {
+                                          final e = state.filterValues[index];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<FilterCubit>()
+                                                  .onOptionChange(
+                                                      optionId:
+                                                          e.displayName);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 1.h,
+                                                  horizontal: 0.w),
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(e
+                                                          .isApplied
+                                                      ? AssetConstants
+                                                          .selectedRadio
+                                                      : AssetConstants
+                                                          .unSelectedRadio,
+                                                          height: 6.5.w,
+                                                          ),
+                                                  SizedBox(
+                                                    width: 2.5.w,
+                                                  ),
+                                                  Expanded(
+                                                      child: Text(
+                                                    e.displayName,
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow
+                                                        .ellipsis,
+                                                    style: themeData
+                                                        .textTheme
+                                                        .bodyMedium!
+                                                        .copyWith(
+                                                      fontWeight: e
+                                                              .isApplied
+                                                          ? FontWeight.w700
+                                                          : FontWeight.w400,
+                                                      fontSize: 16.5.sp,
+                                                      color: themeData
+                                                          .colorScheme
+                                                          .background,
+                                                    ),
+                                                  ))
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -314,14 +363,14 @@ class FilterModalSheetConsumer extends StatelessWidget {
                       ),
                       // Spacer(),
                       Container(
-                        height: .05.h,
+                        height: .005.h,
                         width: 100.w,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.background,
                       ),
                       SizedBox(
                         height: 1.h,
                       ),
-                      Padding(
+                      state.isFilterSelected || state.isFilterOptionSelected ?Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: Row(
                           children: [
@@ -344,11 +393,13 @@ class FilterModalSheetConsumer extends StatelessWidget {
                               child: GradientButton(
                                   textStyle:
                                       themeData.textTheme.bodySmall!.copyWith(
-                                    color: themeData.colorScheme.background,
+                                    color: state.isFilterOptionSelected ? themeData.colorScheme.background : themeData.colorScheme.background.withOpacity(.5),
                                     fontWeight: FontWeight.w600,
+                                    fontSize: 3.5.w
                                   ),
+                                  isEnabled: state.isFilterOptionSelected,
                                   width: 100.w,
-                                  height: 6.h,
+                                  height: 5.5.h,
                                   text: 'Apply filters',
                                   onTap: () {
                                     navigator<NavigationService>().goBack(
@@ -358,8 +409,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             )
                           ],
                         ),
-                      ),
-                      SizedBox(height: 5.h,)
+                      ):const SizedBox() ,
+                      SizedBox(height: 3.h,)
                     ],
                   ),
           ),

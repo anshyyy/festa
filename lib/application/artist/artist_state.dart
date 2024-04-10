@@ -9,7 +9,7 @@ class ArtistState with _$ArtistState {
     required bool isFailed,
     required bool noUse,
     required int artistId,
-    ArtistDto? artistProfile,
+    ArtistProfileDto? artistProfile,
     required IArtistRepository artistRepository,
     required bool isFollowing,
   }) = _ArtistState;

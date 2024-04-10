@@ -37,7 +37,9 @@ class HomeState with _$HomeState {
   }) = _HomeState;
 
   factory HomeState.initial(
-          {required AppStateNotifier appStateNotifier ,required String serverUrl, required String mapsApiKey}) =>
+          {required AppStateNotifier appStateNotifier,
+          required String serverUrl,
+          required String mapsApiKey}) =>
       HomeState(
         page: 1,
         noUse: false,

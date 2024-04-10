@@ -21,7 +21,7 @@ mixin _$ArtistState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   int get artistId => throw _privateConstructorUsedError;
-  ArtistDto? get artistProfile => throw _privateConstructorUsedError;
+  ArtistProfileDto? get artistProfile => throw _privateConstructorUsedError;
   IArtistRepository get artistRepository => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
 
@@ -42,11 +42,11 @@ abstract class $ArtistStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       int artistId,
-      ArtistDto? artistProfile,
+      ArtistProfileDto? artistProfile,
       IArtistRepository artistRepository,
       bool isFollowing});
 
-  $ArtistDtoCopyWith<$Res>? get artistProfile;
+  $ArtistProfileDtoCopyWith<$Res>? get artistProfile;
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
       artistProfile: freezed == artistProfile
           ? _value.artistProfile
           : artistProfile // ignore: cast_nullable_to_non_nullable
-              as ArtistDto?,
+              as ArtistProfileDto?,
       artistRepository: null == artistRepository
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
@@ -109,12 +109,12 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
 
   @override
   @pragma('vm:prefer-inline')
-  $ArtistDtoCopyWith<$Res>? get artistProfile {
+  $ArtistProfileDtoCopyWith<$Res>? get artistProfile {
     if (_value.artistProfile == null) {
       return null;
     }
 
-    return $ArtistDtoCopyWith<$Res>(_value.artistProfile!, (value) {
+    return $ArtistProfileDtoCopyWith<$Res>(_value.artistProfile!, (value) {
       return _then(_value.copyWith(artistProfile: value) as $Val);
     });
   }
@@ -134,12 +134,12 @@ abstract class _$$ArtistStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       int artistId,
-      ArtistDto? artistProfile,
+      ArtistProfileDto? artistProfile,
       IArtistRepository artistRepository,
       bool isFollowing});
 
   @override
-  $ArtistDtoCopyWith<$Res>? get artistProfile;
+  $ArtistProfileDtoCopyWith<$Res>? get artistProfile;
 }
 
 /// @nodoc
@@ -186,7 +186,7 @@ class __$$ArtistStateImplCopyWithImpl<$Res>
       artistProfile: freezed == artistProfile
           ? _value.artistProfile
           : artistProfile // ignore: cast_nullable_to_non_nullable
-              as ArtistDto?,
+              as ArtistProfileDto?,
       artistRepository: null == artistRepository
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
@@ -223,7 +223,7 @@ class _$ArtistStateImpl implements _ArtistState {
   @override
   final int artistId;
   @override
-  final ArtistDto? artistProfile;
+  final ArtistProfileDto? artistProfile;
   @override
   final IArtistRepository artistRepository;
   @override
@@ -274,7 +274,7 @@ abstract class _ArtistState implements ArtistState {
       required final bool isFailed,
       required final bool noUse,
       required final int artistId,
-      final ArtistDto? artistProfile,
+      final ArtistProfileDto? artistProfile,
       required final IArtistRepository artistRepository,
       required final bool isFollowing}) = _$ArtistStateImpl;
 
@@ -289,7 +289,7 @@ abstract class _ArtistState implements ArtistState {
   @override
   int get artistId;
   @override
-  ArtistDto? get artistProfile;
+  ArtistProfileDto? get artistProfile;
   @override
   IArtistRepository get artistRepository;
   @override

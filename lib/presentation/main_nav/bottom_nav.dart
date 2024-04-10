@@ -51,12 +51,11 @@ class CustomBottomNav extends StatelessWidget {
                     },
                     child: SizedBox(
                       width: 8.w,
-                      height: 100.h,
+                      // height: 100.h,
                       child: Stack(
                         children: [
                           Center(
                             child: SvgPicture.asset(AssetConstants.homeFilled,
-                                height: 27,
                                 colorFilter: ColorFilter.mode(
                                     state.currentIndex == 0
                                         ? Theme.of(context).primaryColor
@@ -126,7 +125,7 @@ class CustomBottomNav extends StatelessWidget {
                     },
                     child: SizedBox(
                       width: 8.w,
-                      height: 100.h,
+                      // height: 100.h,
                       child: Stack(
                         children: [
                           Center(

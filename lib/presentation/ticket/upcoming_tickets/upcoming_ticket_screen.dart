@@ -61,9 +61,9 @@ class UpcomingTicketsScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              height: 1.h,
-            ),
+            // SizedBox(
+            //   height: 0.h,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(

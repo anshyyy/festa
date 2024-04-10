@@ -16,7 +16,7 @@ class IArtistRepository extends ArtistRepository {
   IArtistRepository({required this.serverUrl});
 
   @override
-  Future<Either<String, ArtistDto>> getArtistById(
+  Future<Either<String, ArtistProfileDto>> getArtistById(
       {required int artistId}) async {
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
@@ -29,7 +29,7 @@ class IArtistRepository extends ArtistRepository {
       }
 
       final parsedBody = jsonDecode(response.body) as Map<String, dynamic>;
-      ArtistDto artist = ArtistDto.fromJson(parsedBody);
+      ArtistProfileDto artist = ArtistProfileDto.fromJson(parsedBody);
       return right(artist);
     } catch (e) {
       return left(e.toString());

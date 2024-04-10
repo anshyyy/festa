@@ -46,8 +46,7 @@ class ImageCarousel extends StatelessWidget {
                         .onCarouselChange(index: index);
                   },
                 )),
-            Padding(
-              padding: EdgeInsets.only(top: 3.h),
+            SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

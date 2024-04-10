@@ -47,7 +47,7 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       artists: (json['artists'] as List<dynamic>?)
-              ?.map((e) => ArtistDto.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ArtistProfileDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       address: json['address'] == null

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/auth/profile/profile_cubit.dart';
@@ -14,6 +15,7 @@ import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.dart';
 import '../../widgets/custom_appbar.dart';
@@ -221,7 +223,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                       listen: false)
                                                   .toggleBottomNav(
                                                       showBottomNav: false);
-                                                      
+
                                               navigator<NavigationService>()
                                                   .navigateTo(
                                                       UserRoutes
@@ -255,25 +257,209 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  // Container(
-                                  //   height: 15.w,
-                                  //   width: 15.w,
-                                  //   decoration: BoxDecoration(
-                                  //       color: Theme.of(context)
-                                  //           .colorScheme
-                                  //           .primaryContainer,
-                                  //       borderRadius: BorderRadius.circular(20)),
-                                  //   child: QrImageView(
-                                  //     data: '76118762418',
-                                  //     eyeStyle: QrEyeStyle(
-                                  //         color:
-                                  //             Theme.of(context).colorScheme.background,
-                                  //         eyeShape: QrEyeShape.square),
-                                  //     dataModuleStyle: QrDataModuleStyle(
-                                  //         color:
-                                  //             Theme.of(context).colorScheme.background),
-                                  //   ),
-                                  // )
+                                  GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return SizedBox(
+                                            width: 100.w,
+                                            height: 100.h,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    width: 12.w,
+                                                    height: .5.h,
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .secondaryContainer,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 1.h,
+                                                  ),
+                                                  Text('Scan the QR code',
+                                                      style: themeData
+                                                          .textTheme.bodyLarge!
+                                                          .copyWith(
+                                                              color: colorScheme
+                                                                  .background)),
+                                                  SizedBox(
+                                                    height: 1.h,
+                                                  ),
+
+                                                  SizedBox(
+                                                    width: 50.w,
+                                                    height: 50.w,
+                                                    child: QrImageView(
+                                                      data: DynamicLinkUtil
+                                                          .generateLink(
+                                                              AppConstants.user,
+                                                              state.user!.id
+                                                                  .toString()),
+                                                      eyeStyle: QrEyeStyle(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .secondaryContainer,
+                                                          eyeShape: QrEyeShape
+                                                              .square),
+                                                      dataModuleStyle:
+                                                          QrDataModuleStyle(
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .secondaryContainer,
+                                                        dataModuleShape:
+                                                            QrDataModuleShape
+                                                                .square,
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  // Container(
+                                                  //   decoration: BoxDecoration(
+                                                  //     border: Border.all(color: colorScheme.background, width: .1.w),
+                                                  //     borderRadius: BorderRadius.circular(10.w)
+                                                  //   ),
+                                                  //   child: Row(),
+                                                  // )
+                                                  SizedBox(
+                                                    height: 2.h,
+                                                  ),
+                                                  Container(
+                                                    width: 60.w,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: colorScheme
+                                                                .background,
+                                                            width: .1.w),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 1.h,
+                                                            horizontal: 3.w),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        CircleAvatar(
+                                                          radius: 5.5.w,
+                                                          backgroundImage: CachedNetworkImageProvider(
+                                                              CustomImageProvider
+                                                                  .getImageUrl(
+                                                                      state.user
+                                                                          ?.profileImage,
+                                                                      ImageType
+                                                                          .profile)),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 2.w,
+                                                        ),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                state.user
+                                                                        ?.fullName ??
+                                                                    '',
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                style: themeData
+                                                                    .textTheme
+                                                                    .bodyMedium!
+                                                                    .copyWith(
+                                                                  color: colorScheme
+                                                                      .background,
+                                                                  fontSize:
+                                                                      16.5.sp,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: .5.h,
+                                                              ),
+                                                              Text(
+                                                                state.user?.tag !=
+                                                                        null
+                                                                    ? '@${state.user?.tag?.tag}'
+                                                                    : '',
+                                                                style: themeData
+                                                                    .textTheme
+                                                                    .bodySmall!
+                                                                    .copyWith(
+                                                                        color: colorScheme
+                                                                            .background
+                                                                            .withOpacity(
+                                                                                .7),
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 3.h,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 15.w,
+                                      width: 15.w,
+                                      padding: EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primaryContainer,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: QrImageView(
+                                        data: DynamicLinkUtil.generateLink(
+                                            AppConstants.user,
+                                            state.user!.id.toString()),
+                                        eyeStyle: QrEyeStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            eyeShape: QrEyeShape.square),
+                                        dataModuleStyle: QrDataModuleStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

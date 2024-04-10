@@ -6,11 +6,11 @@ import '../../domain/core/configs/injection.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/artist/dtos/artist/artist_dto.dart';
 import '../../infrastructure/core/enum/image_type.dart';
-import '../../infrastructure/event/dtos/artist/artist_dto.dart';
 
 class ShortProfileTile extends StatelessWidget {
-  final ArtistDto artist;
+  final ArtistProfileDto artist;
   const ShortProfileTile({
     super.key,
     required this.artist,
@@ -33,6 +33,7 @@ class ShortProfileTile extends StatelessWidget {
             border: Border.all(width: 1, color: const Color(0xff323232))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 4.w,
@@ -42,7 +43,7 @@ class ShortProfileTile extends StatelessWidget {
               width: 2.w,
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   artist.fullName,
@@ -50,10 +51,6 @@ class ShortProfileTile extends StatelessWidget {
                       color: themeData.colorScheme.background,
                       fontWeight: FontWeight.w600,
                       fontSize: 15.5.sp),
-                ),
-                Text(
-                  '1M+ Followers',
-                  style: themeData.textTheme.bodySmall!.copyWith(),
                 ),
               ],
             )

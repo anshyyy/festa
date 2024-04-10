@@ -39,7 +39,7 @@ class TicketPainter extends CustomPainter {
     // ..color = bgColor;
 
     final paintBorder = Paint()
-      ..strokeWidth = 1.5
+      ..strokeWidth = 1.2
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..color = borderColor;

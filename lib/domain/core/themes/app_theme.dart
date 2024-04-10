@@ -17,6 +17,7 @@ final appThemeData = {
           primaryContainer: const Color(0xFF1F1F1F),
           secondaryContainer: const Color(0xFF9A9A9A),
           onSecondary: const Color(0XFF696969),
+          onTertiary: const Color(0xFF9E9E9E),
           onSecondaryContainer: const Color(0XFF323232),
           onSurface: const Color(0XFF000000),
           onPrimary: const Color(0xffCBCBCB),

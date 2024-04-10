@@ -9,6 +9,7 @@ class FilterState with _$FilterState {
     required List<FilterValueDto> filterValues,
     required bool noUse,
     required bool isFilterOptionSelected,
+    required bool isFilterSelected,
   }) = _FilterState;
 
   factory FilterState.initial({required List<FilterDto> filters}) =>
@@ -19,5 +20,6 @@ class FilterState with _$FilterState {
         filters: filters,
         filterValues: [],
         isFilterOptionSelected: false,
+        isFilterSelected: false,
       );
 }

@@ -162,7 +162,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                       '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
                                       style: themeData.textTheme.bodySmall!
                                           .copyWith(
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w700,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSecondary,
@@ -339,15 +339,16 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     ? state.sortKey
                                                     : Key(item['label']),
                                                 onTap: () async {
-                                                  appStateNotifier
-                                                      .toggleBottomNav(
-                                                          showBottomNav: false);
+                                                  
                                                   final builderContext =
                                                       context;
                                                   if (item['label']
                                                           .toString()
                                                           .toLowerCase() ==
                                                       'filter') {
+                                                        appStateNotifier
+                                                      .toggleBottomNav(
+                                                          showBottomNav: false);
                                                     showModalBottomSheet(
                                                         context: context,
                                                         isScrollControlled:
@@ -421,7 +422,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                         return GestureDetector(
                                           onTap: () {
                                             appStateNotifier.toggleBottomNav(
-                                                showBottomNav: true);
+                                                showBottomNav: false);
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes
@@ -512,6 +513,11 @@ class EmptyEvents extends StatelessWidget {
                         text: HomeScreenConstants.editFilters,
                         function: () {
                           final builderContext = context;
+                          Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: false);
                           showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
@@ -523,6 +529,11 @@ class EmptyEvents extends StatelessWidget {
                                       .toList()),
                                 );
                               }).then((value) {
+                                Provider.of<AppStateNotifier>(
+                                                    context,
+                                                    listen: false)
+                                                .toggleBottomNav(
+                                                    showBottomNav: true);
                             if (value != null) {
                               if (value is List<FilterDto>) {
                                 builderContext

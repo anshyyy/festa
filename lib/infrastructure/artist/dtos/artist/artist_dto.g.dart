@@ -6,8 +6,9 @@ part of 'artist_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ArtistDtoImpl _$$ArtistDtoImplFromJson(Map<String, dynamic> json) =>
-    _$ArtistDtoImpl(
+_$ArtistProfileDtoImpl _$$ArtistProfileDtoImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ArtistProfileDtoImpl(
       id: json['id'] as int? ?? 0,
       fullName: json['fullName'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -27,7 +28,8 @@ _$ArtistDtoImpl _$$ArtistDtoImplFromJson(Map<String, dynamic> json) =>
               json['extraDetails'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$ArtistDtoImplToJson(_$ArtistDtoImpl instance) =>
+Map<String, dynamic> _$$ArtistProfileDtoImplToJson(
+        _$ArtistProfileDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'fullName': instance.fullName,

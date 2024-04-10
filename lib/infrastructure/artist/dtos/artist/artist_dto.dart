@@ -11,8 +11,8 @@ part 'artist_dto.freezed.dart';
 part 'artist_dto.g.dart';
 
 @Freezed(makeCollectionsUnmodifiable: false)
-class ArtistDto with _$ArtistDto {
-  const factory ArtistDto({
+class ArtistProfileDto with _$ArtistProfileDto {
+  const factory ArtistProfileDto({
     @JsonKey(name: 'id', defaultValue: 0) required int id,
     @JsonKey(name: 'fullName', defaultValue: '') required String fullName,
     @JsonKey(name: 'description', defaultValue: '') required String description,
@@ -21,7 +21,7 @@ class ArtistDto with _$ArtistDto {
     @JsonKey(name: 'city', defaultValue: '') required String city,
     @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
     @JsonKey(name: 'extraDetails', defaultValue: null) ArtistExtraDetailsDto? extraDetailsDto,
-  }) = _ArtistDto;
+  }) = _ArtistProfileDto;
 
-  factory ArtistDto.fromJson(Map<String, dynamic> json) => _$ArtistDtoFromJson(json);
+  factory ArtistProfileDto.fromJson(Map<String, dynamic> json) => _$ArtistProfileDtoFromJson(json);
 }

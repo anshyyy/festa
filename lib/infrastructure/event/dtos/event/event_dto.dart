@@ -2,11 +2,11 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../artist/dtos/artist/artist_dto.dart';
 import '../../../core/dtos/address/address_dto.dart';
 import '../../../core/dtos/asset/asset_dto.dart';
 import '../../../core/dtos/bullet/bullet_dto.dart';
 import '../../../core/dtos/faq/faq_dto.dart';
-import '../artist/artist_dto.dart';
 import '../category/category_dto.dart';
 import '../event_ticket_category/event_ticket_category_dto.dart';
 import '../pub/pub_dto.dart';
@@ -47,7 +47,7 @@ class EventDto with _$EventDto {
     required String eventStatus,
     @JsonKey(name: 'assets', defaultValue: []) required List<AssetDto> assets,
     @JsonKey(name: 'artists', defaultValue: [])
-    required List<ArtistDto> artists,
+    required List<ArtistProfileDto> artists,
     @JsonKey(name: 'address') AddressDto? address,    
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,

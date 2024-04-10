@@ -61,7 +61,7 @@ mixin _$EventDto {
   @JsonKey(name: 'assets', defaultValue: [])
   List<AssetDto> get assets => throw _privateConstructorUsedError;
   @JsonKey(name: 'artists', defaultValue: [])
-  List<ArtistDto> get artists => throw _privateConstructorUsedError;
+  List<ArtistProfileDto> get artists => throw _privateConstructorUsedError;
   @JsonKey(name: 'address')
   AddressDto? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'pub')
@@ -111,7 +111,8 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'bookedSeats', defaultValue: 0) int bookedSeats,
       @JsonKey(name: 'eventStatus', defaultValue: 'ACTIVE') String eventStatus,
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
-      @JsonKey(name: 'artists', defaultValue: []) List<ArtistDto> artists,
+      @JsonKey(name: 'artists', defaultValue: [])
+      List<ArtistProfileDto> artists,
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
@@ -250,7 +251,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<ArtistDto>,
+              as List<ArtistProfileDto>,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -335,7 +336,8 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'bookedSeats', defaultValue: 0) int bookedSeats,
       @JsonKey(name: 'eventStatus', defaultValue: 'ACTIVE') String eventStatus,
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
-      @JsonKey(name: 'artists', defaultValue: []) List<ArtistDto> artists,
+      @JsonKey(name: 'artists', defaultValue: [])
+      List<ArtistProfileDto> artists,
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
@@ -474,7 +476,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<ArtistDto>,
+              as List<ArtistProfileDto>,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -607,7 +609,7 @@ class _$EventDtoImpl implements _EventDto {
   final List<AssetDto> assets;
   @override
   @JsonKey(name: 'artists', defaultValue: [])
-  final List<ArtistDto> artists;
+  final List<ArtistProfileDto> artists;
   @override
   @JsonKey(name: 'address')
   final AddressDto? address;
@@ -766,7 +768,7 @@ abstract class _EventDto implements EventDto {
       @JsonKey(name: 'assets', defaultValue: [])
       required final List<AssetDto> assets,
       @JsonKey(name: 'artists', defaultValue: [])
-      required final List<ArtistDto> artists,
+      required final List<ArtistProfileDto> artists,
       @JsonKey(name: 'address') final AddressDto? address,
       @JsonKey(name: 'pub') final PubDto? pub,
       @JsonKey(defaultValue: false) required final bool isApplied,
@@ -843,7 +845,7 @@ abstract class _EventDto implements EventDto {
   List<AssetDto> get assets;
   @override
   @JsonKey(name: 'artists', defaultValue: [])
-  List<ArtistDto> get artists;
+  List<ArtistProfileDto> get artists;
   @override
   @JsonKey(name: 'address')
   AddressDto? get address;

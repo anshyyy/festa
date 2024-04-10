@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ArtistDto _$ArtistDtoFromJson(Map<String, dynamic> json) {
-  return _ArtistDto.fromJson(json);
+ArtistProfileDto _$ArtistProfileDtoFromJson(Map<String, dynamic> json) {
+  return _ArtistProfileDto.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ArtistDto {
+mixin _$ArtistProfileDto {
   @JsonKey(name: 'id', defaultValue: 0)
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'fullName', defaultValue: '')
@@ -40,14 +40,15 @@ mixin _$ArtistDto {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ArtistDtoCopyWith<ArtistDto> get copyWith =>
+  $ArtistProfileDtoCopyWith<ArtistProfileDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ArtistDtoCopyWith<$Res> {
-  factory $ArtistDtoCopyWith(ArtistDto value, $Res Function(ArtistDto) then) =
-      _$ArtistDtoCopyWithImpl<$Res, ArtistDto>;
+abstract class $ArtistProfileDtoCopyWith<$Res> {
+  factory $ArtistProfileDtoCopyWith(
+          ArtistProfileDto value, $Res Function(ArtistProfileDto) then) =
+      _$ArtistProfileDtoCopyWithImpl<$Res, ArtistProfileDto>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
@@ -66,9 +67,9 @@ abstract class $ArtistDtoCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
-    implements $ArtistDtoCopyWith<$Res> {
-  _$ArtistDtoCopyWithImpl(this._value, this._then);
+class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
+    implements $ArtistProfileDtoCopyWith<$Res> {
+  _$ArtistProfileDtoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -150,11 +151,11 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
 }
 
 /// @nodoc
-abstract class _$$ArtistDtoImplCopyWith<$Res>
-    implements $ArtistDtoCopyWith<$Res> {
-  factory _$$ArtistDtoImplCopyWith(
-          _$ArtistDtoImpl value, $Res Function(_$ArtistDtoImpl) then) =
-      __$$ArtistDtoImplCopyWithImpl<$Res>;
+abstract class _$$ArtistProfileDtoImplCopyWith<$Res>
+    implements $ArtistProfileDtoCopyWith<$Res> {
+  factory _$$ArtistProfileDtoImplCopyWith(_$ArtistProfileDtoImpl value,
+          $Res Function(_$ArtistProfileDtoImpl) then) =
+      __$$ArtistProfileDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -176,11 +177,11 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ArtistDtoImplCopyWithImpl<$Res>
-    extends _$ArtistDtoCopyWithImpl<$Res, _$ArtistDtoImpl>
-    implements _$$ArtistDtoImplCopyWith<$Res> {
-  __$$ArtistDtoImplCopyWithImpl(
-      _$ArtistDtoImpl _value, $Res Function(_$ArtistDtoImpl) _then)
+class __$$ArtistProfileDtoImplCopyWithImpl<$Res>
+    extends _$ArtistProfileDtoCopyWithImpl<$Res, _$ArtistProfileDtoImpl>
+    implements _$$ArtistProfileDtoImplCopyWith<$Res> {
+  __$$ArtistProfileDtoImplCopyWithImpl(_$ArtistProfileDtoImpl _value,
+      $Res Function(_$ArtistProfileDtoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -195,7 +196,7 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
     Object? tag = freezed,
     Object? extraDetailsDto = freezed,
   }) {
-    return _then(_$ArtistDtoImpl(
+    return _then(_$ArtistProfileDtoImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -234,8 +235,8 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ArtistDtoImpl implements _ArtistDto {
-  const _$ArtistDtoImpl(
+class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
+  const _$ArtistProfileDtoImpl(
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'fullName', defaultValue: '') required this.fullName,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
@@ -246,8 +247,8 @@ class _$ArtistDtoImpl implements _ArtistDto {
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
       @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto});
 
-  factory _$ArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ArtistDtoImplFromJson(json);
+  factory _$ArtistProfileDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ArtistProfileDtoImplFromJson(json);
 
   @override
   @JsonKey(name: 'id', defaultValue: 0)
@@ -276,14 +277,14 @@ class _$ArtistDtoImpl implements _ArtistDto {
 
   @override
   String toString() {
-    return 'ArtistDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, categories: $categories, city: $city, tag: $tag, extraDetailsDto: $extraDetailsDto)';
+    return 'ArtistProfileDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, categories: $categories, city: $city, tag: $tag, extraDetailsDto: $extraDetailsDto)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ArtistDtoImpl &&
+            other is _$ArtistProfileDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
@@ -315,19 +316,20 @@ class _$ArtistDtoImpl implements _ArtistDto {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ArtistDtoImplCopyWith<_$ArtistDtoImpl> get copyWith =>
-      __$$ArtistDtoImplCopyWithImpl<_$ArtistDtoImpl>(this, _$identity);
+  _$$ArtistProfileDtoImplCopyWith<_$ArtistProfileDtoImpl> get copyWith =>
+      __$$ArtistProfileDtoImplCopyWithImpl<_$ArtistProfileDtoImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ArtistDtoImplToJson(
+    return _$$ArtistProfileDtoImplToJson(
       this,
     );
   }
 }
 
-abstract class _ArtistDto implements ArtistDto {
-  const factory _ArtistDto(
+abstract class _ArtistProfileDto implements ArtistProfileDto {
+  const factory _ArtistProfileDto(
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
       @JsonKey(name: 'fullName', defaultValue: '')
       required final String fullName,
@@ -340,10 +342,10 @@ abstract class _ArtistDto implements ArtistDto {
       @JsonKey(name: 'city', defaultValue: '') required final String city,
       @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
-      final ArtistExtraDetailsDto? extraDetailsDto}) = _$ArtistDtoImpl;
+      final ArtistExtraDetailsDto? extraDetailsDto}) = _$ArtistProfileDtoImpl;
 
-  factory _ArtistDto.fromJson(Map<String, dynamic> json) =
-      _$ArtistDtoImpl.fromJson;
+  factory _ArtistProfileDto.fromJson(Map<String, dynamic> json) =
+      _$ArtistProfileDtoImpl.fromJson;
 
   @override
   @JsonKey(name: 'id', defaultValue: 0)
@@ -371,6 +373,6 @@ abstract class _ArtistDto implements ArtistDto {
   ArtistExtraDetailsDto? get extraDetailsDto;
   @override
   @JsonKey(ignore: true)
-  _$$ArtistDtoImplCopyWith<_$ArtistDtoImpl> get copyWith =>
+  _$$ArtistProfileDtoImplCopyWith<_$ArtistProfileDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

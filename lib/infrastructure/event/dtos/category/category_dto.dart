@@ -11,6 +11,7 @@ part 'category_dto.g.dart';
 class CategoryDto with _$CategoryDto {
   const factory CategoryDto({
     @JsonKey(name: 'name', defaultValue: '') required String name,
+    @JsonKey(name: 'type', defaultValue: '') required String type,
   }) = _CategoryDto;
 
   factory CategoryDto.fromJson(Map<String, dynamic> json) =>

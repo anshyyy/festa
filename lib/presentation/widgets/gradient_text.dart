@@ -14,12 +14,13 @@ class GradientText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
+      blendMode: BlendMode.srcIn,
         shaderCallback: (bounds) => LinearGradient(
               colors: colors,
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ).createShader(
-              Rect.fromLTWH(0, 50, bounds.width, bounds.height),
+              Rect.fromLTWH(0, 1, bounds.width, bounds.height),
             ),
             child: Text(text, style: textStyle,),
             );

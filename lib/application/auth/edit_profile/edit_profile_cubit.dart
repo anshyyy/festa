@@ -55,6 +55,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         isSuccess: true,
         isFailure: false,
         coverImageUrl: res,
+        isSaveEnabled: true,
       ),
     );
   }
@@ -74,7 +75,20 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       isSuccess: true,
       isFailure: false,
       profileImageUrl: res,
+      isSaveEnabled: true,
     ));
+  }
+
+  void onNameChange() {
+    if (!state.isSaveEnabled) {
+      emit(state.copyWith(isSaveEnabled: true));
+    }
+  }
+
+  void onBioChange() {
+    if (!state.isSaveEnabled) {
+      emit(state.copyWith(isSaveEnabled: true));
+    }
   }
 
   void onSave() async {
@@ -100,6 +114,9 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         isSuccess: true,
         isFailure: false,
         user: r,
+        coverImageUrl: r.coverImage,
+        profileImageUrl: r.profileImage,
+        isSaveEnabled: false,
       ));
     });
   }

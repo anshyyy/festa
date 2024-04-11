@@ -29,6 +29,7 @@ mixin _$EditProfileState {
   TextEditingController get nameEditingController =>
       throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
+  bool get isSaveEnabled => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditProfileStateCopyWith<EditProfileState> get copyWith =>
@@ -52,7 +53,8 @@ abstract class $EditProfileStateCopyWith<$Res> {
       String? profileImageUrl,
       TextEditingController bioTextController,
       TextEditingController nameEditingController,
-      UserDto? user});
+      UserDto? user,
+      bool isSaveEnabled});
 
   $UserDtoCopyWith<$Res>? get user;
 }
@@ -81,6 +83,7 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? bioTextController = null,
     Object? nameEditingController = null,
     Object? user = freezed,
+    Object? isSaveEnabled = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -127,6 +130,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserDto?,
+      isSaveEnabled: null == isSaveEnabled
+          ? _value.isSaveEnabled
+          : isSaveEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -162,7 +169,8 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       String? profileImageUrl,
       TextEditingController bioTextController,
       TextEditingController nameEditingController,
-      UserDto? user});
+      UserDto? user,
+      bool isSaveEnabled});
 
   @override
   $UserDtoCopyWith<$Res>? get user;
@@ -190,6 +198,7 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
     Object? bioTextController = null,
     Object? nameEditingController = null,
     Object? user = freezed,
+    Object? isSaveEnabled = null,
   }) {
     return _then(_$EditProfileStateImpl(
       isLoading: null == isLoading
@@ -236,6 +245,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserDto?,
+      isSaveEnabled: null == isSaveEnabled
+          ? _value.isSaveEnabled
+          : isSaveEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -254,7 +267,8 @@ class _$EditProfileStateImpl implements _EditProfileState {
       this.profileImageUrl,
       required this.bioTextController,
       required this.nameEditingController,
-      this.user});
+      this.user,
+      required this.isSaveEnabled});
 
   @override
   final bool isLoading;
@@ -278,10 +292,12 @@ class _$EditProfileStateImpl implements _EditProfileState {
   final TextEditingController nameEditingController;
   @override
   final UserDto? user;
+  @override
+  final bool isSaveEnabled;
 
   @override
   String toString() {
-    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user)';
+    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user, isSaveEnabled: $isSaveEnabled)';
   }
 
   @override
@@ -308,7 +324,9 @@ class _$EditProfileStateImpl implements _EditProfileState {
                 other.bioTextController == bioTextController) &&
             (identical(other.nameEditingController, nameEditingController) ||
                 other.nameEditingController == nameEditingController) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.isSaveEnabled, isSaveEnabled) ||
+                other.isSaveEnabled == isSaveEnabled));
   }
 
   @override
@@ -324,7 +342,8 @@ class _$EditProfileStateImpl implements _EditProfileState {
       profileImageUrl,
       bioTextController,
       nameEditingController,
-      user);
+      user,
+      isSaveEnabled);
 
   @JsonKey(ignore: true)
   @override
@@ -346,7 +365,8 @@ abstract class _EditProfileState implements EditProfileState {
       final String? profileImageUrl,
       required final TextEditingController bioTextController,
       required final TextEditingController nameEditingController,
-      final UserDto? user}) = _$EditProfileStateImpl;
+      final UserDto? user,
+      required final bool isSaveEnabled}) = _$EditProfileStateImpl;
 
   @override
   bool get isLoading;
@@ -370,6 +390,8 @@ abstract class _EditProfileState implements EditProfileState {
   TextEditingController get nameEditingController;
   @override
   UserDto? get user;
+  @override
+  bool get isSaveEnabled;
   @override
   @JsonKey(ignore: true)
   _$$EditProfileStateImplCopyWith<_$EditProfileStateImpl> get copyWith =>

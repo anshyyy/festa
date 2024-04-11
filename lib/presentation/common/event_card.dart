@@ -33,8 +33,8 @@ class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final colorScheme = themeData.colorScheme;
-    final textTheme = themeData.textTheme;
+    // final colorScheme = themeData.colorScheme;
+    // final textTheme = themeData.textTheme;
     return Padding(
       padding: EdgeInsets.only(bottom: 1.h),
       child: Stack(
@@ -150,6 +150,7 @@ class _EventCardState extends State<EventCard> {
                       widget.event.name,
                       style: themeData.textTheme.bodyMedium!.copyWith(
                         color: themeData.colorScheme.background,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -181,9 +182,9 @@ class _EventCardState extends State<EventCard> {
                 ),
               ),
               // if (widget.event.address != null)
-                SizedBox(
-                  height: 1.h,
-                ),
+              SizedBox(
+                height: 1.h,
+              ),
               // if (widget.event.address != null)
               //   Row(
               //     children: [
@@ -207,27 +208,27 @@ class _EventCardState extends State<EventCard> {
               // SizedBox(
               //   height: 1.h,
               // ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
+                      SvgPicture.asset(AssetConstants.durationIcon,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.inversePrimary,
+                              BlendMode.srcIn)),
                       SizedBox(
                         width: 1.w,
                       ),
-                      SvgPicture.asset(
-                        AssetConstants.ticketIcon,
-                      ),
-                      SizedBox(
-                        width: 2.w,
-                      ),
                       Text(
-                        '${widget.event.priceRangeStart.toIndianRupeeString()}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
-                        style: themeData.textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                      )
+                        StringExtension.formatDateTimeLong(
+                            DateTime.parse(widget.event.startDate)),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Theme.of(context).colorScheme.background,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                     ],
                   ),
                   if (widget.event.pub != null)
@@ -261,25 +262,28 @@ class _EventCardState extends State<EventCard> {
                 children: [
                   Row(
                     children: [
-                      SvgPicture.asset(AssetConstants.durationIcon,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).colorScheme.inversePrimary,
-                              BlendMode.srcIn)),
                       SizedBox(
                         width: 1.w,
                       ),
-                      Text(
-                        StringExtension.formatDateTimeLong(
-                            DateTime.parse(widget.event.startDate)),
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: Theme.of(context).colorScheme.background,
-                            ),
+                      SvgPicture.asset(
+                        AssetConstants.ticketIcon,
                       ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Text(
+                        '${widget.event.priceRangeStart.toIndianRupeeString()}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
+                        style: themeData.textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                      )
                     ],
                   ),
-                  
+                  getExpenseRating(rating: widget.event.id)
                 ],
               ),
+
               SizedBox(
                 height: 1.h,
               ),
@@ -375,11 +379,11 @@ class _EventCardState extends State<EventCard> {
                                               'id': widget.event.pub!.id
                                                   .toString()
                                             });
-                                            // .then((value) => Provider.of<AppStateNotifier>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .toggleBottomNav(
-                                            //         showBottomNav: true));
+                                        // .then((value) => Provider.of<AppStateNotifier>(
+                                        //         context,
+                                        //         listen: false)
+                                        //     .toggleBottomNav(
+                                        //         showBottomNav: true));
                                       },
                                       child: Text(
                                         widget.event.pub!.fullName,
@@ -469,7 +473,7 @@ class _EventCardState extends State<EventCard> {
                           //     ),
                           //   )
                           // else
-                            const SizedBox(),
+                          const SizedBox(),
                           // GestureDetector(
                           //   onTap: widget.onLike,
                           //   child: SvgPicture.asset(
@@ -520,6 +524,23 @@ class _EventCardState extends State<EventCard> {
         ],
       ),
     );
+  }
+
+  SvgPicture getExpenseRating({required int rating}) {
+    switch (rating) {
+      case 1:
+        return SvgPicture.asset(AssetConstants.expenseRating1, height: 2.5.w,);
+      case 2:
+        return SvgPicture.asset(AssetConstants.expenseRating2, height: 2.5.w,);
+      case 3:
+        return SvgPicture.asset(AssetConstants.expenseRating3, height: 2.5.w,);
+      case 4:
+        return SvgPicture.asset(AssetConstants.expenseRating4, height: 2.5.w,);
+      case 5:
+        return SvgPicture.asset(AssetConstants.expenseRating5, height: 2.5.w,);
+      default:
+        return SvgPicture.asset(AssetConstants.expenseRating1, height: 2.5.w,);
+    }
   }
 }
 

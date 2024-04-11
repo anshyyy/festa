@@ -37,14 +37,20 @@ class BookingDescription extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(
-                      AssetConstants.shareIcon,
-                      height: 6.5.w,
-                    ),
+                    state.isShareEnabled ? GestureDetector(
+                      onTap: (){
+                        context.read<TicketCubit>().shareTicket();
+                        
+                      },
+                      child: SvgPicture.asset(
+                        AssetConstants.shareIcon,
+                        height: 6.5.w,
+                      ),
+                    ) : const SizedBox(),
                     SizedBox(
                       height: 3.h,
                     ),
-                    GestureDetector(
+                    state.isShareEnabled ?  GestureDetector(
                       onTap: () => context
                           .read<TicketCubit>()
                           .showTransactionDetails(id: ticketDetails.id),
@@ -74,7 +80,7 @@ class BookingDescription extends StatelessWidget {
                                 ),
                         ),
                       ),
-                    )
+                    ) : const SizedBox()
                   ],
                 ),
               )

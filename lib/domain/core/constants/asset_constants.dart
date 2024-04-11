@@ -104,11 +104,14 @@ class AssetConstants {
 
   static const stopIcon = '${vectorsFolder}stop-icon.svg';
   static const circledTick = '${vectorsFolder}circled-tick.svg';
-  static const circledTickFilledGreen = '${vectorsFolder}circled-tick-filled-green.svg';
-  static const circledCloseFilledRed = '${vectorsFolder}circled-close-filled-red.svg';
+  static const circledTickFilledGreen =
+      '${vectorsFolder}circled-tick-filled-green.svg';
+  static const circledCloseFilledRed =
+      '${vectorsFolder}circled-close-filled-red.svg';
 
   static const upiIcon = '${vectorsFolder}upi-icon.svg';
-  static const debitCreditWalletIcon = '${vectorsFolder}debit-credit-wallet-icon.svg';
+  static const debitCreditWalletIcon =
+      '${vectorsFolder}debit-credit-wallet-icon.svg';
 
   static const emailIcon = '${vectorsFolder}mail-icon.svg';
   static const mobileIcon = '${vectorsFolder}mobile-icon.svg';
@@ -138,6 +141,11 @@ class AssetConstants {
   static const checkboxUnticked = '${vectorsFolder}checkbox-unchecked.svg';
   static const checkboxTicked = '${vectorsFolder}checkbox-checked.svg';
 
+static const expenseRating1 = '${vectorsFolder}expense-rating-1.svg';
+static const expenseRating2 = '${vectorsFolder}expense-rating-2.svg';
+static const expenseRating3 = '${vectorsFolder}expense-rating-3.svg';
+static const expenseRating4 = '${vectorsFolder}expense-rating-4.svg';
+static const expenseRating5 = '${vectorsFolder}expense-rating-5.svg';
 
 // eventIconConstants
   static const Map<String, String> extras = {

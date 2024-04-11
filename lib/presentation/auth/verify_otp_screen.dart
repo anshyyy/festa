@@ -77,26 +77,31 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
 
             final profileState = user.fullName.isNotEmpty &&
                     user.dob.isNotEmpty &&
-                    user.gender.isNotEmpty
+                    user.gender.isNotEmpty &&
+                    user.tag != null
                 ? ProfileStateEnum.completed
-                : user.fullName.isNotEmpty && user.dob.isNotEmpty
-                    ? ProfileStateEnum.birthday
-                    : user.fullName.isNotEmpty
-                        ? ProfileStateEnum.basic
-                        : ProfileStateEnum.started;
+                : user.fullName.isNotEmpty &&
+                        user.dob.isNotEmpty &&
+                        user.gender.isNotEmpty
+                    ? ProfileStateEnum.gender
+                    : user.fullName.isNotEmpty && user.dob.isNotEmpty
+                        ? ProfileStateEnum.birthday
+                        : user.fullName.isNotEmpty
+                            ? ProfileStateEnum.basic
+                            : ProfileStateEnum.started;
 
             final route = profileState == ProfileStateEnum.completed
                 ? value != null
                     ? DynamicLinkUtil.getDynamicRoute(
                         pathSegments['category']!, pathSegments['id']!)
-                    : profileState == ProfileStateEnum.gender
-                        ? UserRoutes.mainNavRoute
-                        : AuthRoutes.usernameRoute
-                : profileState == ProfileStateEnum.birthday
-                    ? AuthRoutes.genderRoute
-                    : profileState == ProfileStateEnum.basic
-                        ? AuthRoutes.birthdayRoute
-                        : AuthRoutes.basicInfoRoute;
+                    : UserRoutes.homeScreenRoute
+                : profileState == ProfileStateEnum.gender
+                    ? AuthRoutes.usernameRoute
+                    : profileState == ProfileStateEnum.birthday
+                        ? AuthRoutes.genderRoute
+                        : profileState == ProfileStateEnum.basic
+                            ? AuthRoutes.birthdayRoute
+                            : AuthRoutes.basicInfoRoute;
 
             Future.delayed(const Duration(milliseconds: 100))
                 .then((value) async {

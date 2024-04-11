@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -84,8 +86,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         onTap: () {
                           showModalBottomSheet(
                             context: context,
-                            builder: (context) =>
-                              EventOptionsModalSheet(artists: event.artists,),
+                            builder: (context) => EventOptionsModalSheet(
+                              artists: event.artists,
+                            ),
                           );
                         },
                         child: Padding(
@@ -99,7 +102,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: EventCard(
                           event: event,
                           isLiked: state.isEventLiked,
@@ -110,21 +113,31 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
-                      Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 3.w),
-                        child: GradientText(
-                          text: EventDetailsScreenConstants.viewOnMaps,
-                          colors: [
-                            Theme.of(context).colorScheme.primary,
-                            Theme.of(context).colorScheme.secondary
-                          ],
-                          textStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<EventDetailsCubit>().viewOnMaps(
+                              lat: state.event?.address?.lat ?? 0,
+                              long: state.event?.address?.lng ?? 0,
+                              isAndroid: Platform.isAndroid,
+                              eventTitle: state.event?.name ?? ''
+                              );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 3.w),
+                          child: GradientText(
+                            text: EventDetailsScreenConstants.viewOnMaps,
+                            colors: [
+                              Theme.of(context).colorScheme.primary,
+                              Theme.of(context).colorScheme.secondary
+                            ],
+                            textStyle:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
                         ),
                       ),
-                
+
                       SizedBox(
                         height: 2.h,
                       ),
@@ -134,16 +147,13 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         child: ListTileTheme(
                           dense: true,
                           child: ExpansionTile(
-                            iconColor:
-                                Theme.of(context).colorScheme.background,
+                            iconColor: Theme.of(context).colorScheme.background,
                             collapsedIconColor:
                                 Theme.of(context).colorScheme.background,
-                            collapsedBackgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primaryContainer,
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primaryContainer,
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
                             title: Text(
                               EventScreenConstants.description,
                               style: Theme.of(context)
@@ -157,9 +167,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                             ),
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 3.5.w)
-                                        .copyWith(bottom: 1.h),
+                                padding: EdgeInsets.symmetric(horizontal: 3.5.w)
+                                    .copyWith(bottom: 1.h),
                                 child: Text(
                                   event.description,
                                   style: Theme.of(context)
@@ -205,12 +214,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           children: [
                             ...event.lsd.map((e) {
                               return Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 3.5.w)
-                                        .copyWith(bottom: 1.h),
+                                padding: EdgeInsets.symmetric(horizontal: 3.5.w)
+                                    .copyWith(bottom: 1.h),
                                 child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset(
                                       AssetConstants.extras[e.type]!,
@@ -242,7 +249,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                
+
                       // Ambience
                       Theme(
                         data: Theme.of(context)
@@ -297,7 +304,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                
+
                       // Food
                       Theme(
                         data: Theme.of(context)
@@ -359,7 +366,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                
+
                       // Food
                       Theme(
                         data: Theme.of(context)
@@ -395,8 +402,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                     horizontal: 3.5.w,
                                   ).copyWith(bottom: 1.h),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -427,8 +433,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .background,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                             ),
                                             Row(
@@ -441,10 +446,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                         .textTheme
                                                         .bodySmall!
                                                         .copyWith(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .background,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .background,
                                                         ),
                                                   ),
                                                 ),

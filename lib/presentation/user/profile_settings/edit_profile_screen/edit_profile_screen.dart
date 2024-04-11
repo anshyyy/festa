@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +13,7 @@ import '../../../../domain/core/configs/injection.dart';
 import '../../../../domain/core/constants/asset_constants.dart';
 import '../../../../domain/core/constants/string_constants.dart';
 import '../../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../../domain/core/utils/image_provider.dart';
 import '../../../../infrastructure/core/enum/image_type.dart';
 import '../../../widgets/custom_appbar.dart';
@@ -89,7 +91,7 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                     image: DecorationImage(
                                         image: CachedNetworkImageProvider(
                                             CustomImageProvider.getImageUrl(
-                                                state.user!.coverImage,
+                                                state.coverImageUrl,
                                                 ImageType.other)),
                                         fit: BoxFit.cover),
                                     borderRadius: BorderRadius.circular(5.w),
@@ -148,7 +150,7 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                             fit: BoxFit.cover,
                                             image: CachedNetworkImageProvider(
                                                 CustomImageProvider.getImageUrl(
-                                                    state.user!.profileImage,
+                                                    state.profileImageUrl,
                                                     ImageType.profile)))),
                                   ),
                                 ),
@@ -207,6 +209,11 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                         textStyle: textTheme.bodyMedium!
                                             .copyWith(
                                                 color: colorScheme.background),
+                                        onChanged: (val) {
+                                          context
+                                              .read<EditProfileCubit>()
+                                              .onNameChange();
+                                        },
                                       ),
                                     )
                                   ],
@@ -223,11 +230,17 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                 ),
                                 CustomTextField(
                                   maxLines: 2,
+                                  controller: state.bioTextController,
                                   textStyle: textTheme.bodyMedium!
                                       .copyWith(color: colorScheme.background),
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal: 3.w, vertical: 2.w),
                                   borderColor: colorScheme.background,
+                                  onChanged: (val) {
+                                    context
+                                        .read<EditProfileCubit>()
+                                        .onBioChange();
+                                  },
                                 ),
                               ],
                             ),
@@ -241,10 +254,16 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                 height: 10.w,
                                 width: 25.w,
                                 text: 'Save',
+                                isEnabled: state.isSaveEnabled,
                                 textStyle: textTheme.bodySmall!.copyWith(
-                                    color: colorScheme.background,
+                                    color: state.isSaveEnabled
+                                        ? colorScheme.background
+                                        : colorScheme.background
+                                            .withOpacity(.5),
                                     fontWeight: FontWeight.w600),
-                                onTap: () {}),
+                                onTap: () {
+                                  context.read<EditProfileCubit>().onSave();
+                                }),
                           ),
                           SizedBox(
                             height: 3.h,
@@ -256,6 +275,12 @@ class EditProfileScreenConsumer extends StatelessWidget {
                                 style: textTheme.bodySmall!.copyWith()),
                             TextSpan(
                                 text: 'Account Settings',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    navigator<NavigationService>().goBack();
+                                    navigator<NavigationService>().navigateTo(
+                                        UserRoutes.accountSettingsRoute);
+                                  },
                                 style: textTheme.bodySmall!.copyWith(
                                     fontWeight: FontWeight.w500,
                                     color: colorScheme.background

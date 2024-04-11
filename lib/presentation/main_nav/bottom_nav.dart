@@ -47,7 +47,9 @@ class CustomBottomNav extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      context.read<MainNavCubit>().onIndexChange(index: 0);
+                      if (appStateNotifier.menuIndex != 0) {
+                        context.read<MainNavCubit>().onIndexChange(index: 0);
+                      }
                     },
                     child: SizedBox(
                       width: 8.w,
@@ -183,8 +185,10 @@ class CustomBottomNav extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50.w),
                                   image: DecorationImage(
                                       image: CachedNetworkImageProvider(
-                                          CustomImageProvider.getImageUrl(appStateNotifier
-                                              .user!.profileImage, ImageType.profile)))),
+                                          CustomImageProvider.getImageUrl(
+                                              appStateNotifier
+                                                  .user!.profileImage,
+                                              ImageType.profile)))),
                             ),
                           ),
                           Positioned(

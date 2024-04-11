@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -20,9 +21,16 @@ import 'show_profile_tile.dart';
 class EventCard extends StatefulWidget {
   final EventDto event;
   final bool isLiked;
+  final bool isInListing;
+  final String distance;
   final void Function()? onLike;
   const EventCard(
-      {super.key, required this.event, this.onLike, required this.isLiked});
+      {super.key,
+      required this.event,
+      this.distance = '',
+      this.onLike,
+      this.isInListing = false,
+      required this.isLiked});
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -35,6 +43,16 @@ class _EventCardState extends State<EventCard> {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
     final textTheme = themeData.textTheme;
+    final eventFullName = widget.event.name;
+    final words = eventFullName.split(' ');
+    final eventTitle = words.isEmpty
+        ? 'Unknown'
+        : words.length >= 2
+            ? words.length == 2
+                ? '${words[0]} ${words[1]}'
+                : '${words[0]} ${words[1]} ...'
+            : words[0];
+
     return Padding(
       padding: EdgeInsets.only(bottom: 1.h),
       child: Stack(
@@ -147,7 +165,9 @@ class _EventCardState extends State<EventCard> {
                 children: [
                   Expanded(
                     child: Text(
-                      widget.event.name,
+                      widget.isInListing ? eventTitle : eventFullName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: themeData.textTheme.bodyMedium!.copyWith(
                         color: themeData.colorScheme.background,
                         fontWeight: FontWeight.w600,
@@ -181,9 +201,9 @@ class _EventCardState extends State<EventCard> {
                 ),
               ),
               // if (widget.event.address != null)
-                SizedBox(
-                  height: 1.h,
-                ),
+              SizedBox(
+                height: 1.h,
+              ),
               // if (widget.event.address != null)
               //   Row(
               //     children: [
@@ -277,7 +297,6 @@ class _EventCardState extends State<EventCard> {
                       ),
                     ],
                   ),
-                  
                 ],
               ),
               SizedBox(
@@ -375,11 +394,11 @@ class _EventCardState extends State<EventCard> {
                                               'id': widget.event.pub!.id
                                                   .toString()
                                             });
-                                            // .then((value) => Provider.of<AppStateNotifier>(
-                                            //         context,
-                                            //         listen: false)
-                                            //     .toggleBottomNav(
-                                            //         showBottomNav: true));
+                                        // .then((value) => Provider.of<AppStateNotifier>(
+                                        //         context,
+                                        //         listen: false)
+                                        //     .toggleBottomNav(
+                                        //         showBottomNav: true));
                                       },
                                       child: Text(
                                         widget.event.pub!.fullName,
@@ -428,7 +447,10 @@ class _EventCardState extends State<EventCard> {
                           child: Row(
                             children: [
                               Text(
-                                '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
+                                // widget.distance,
+                                widget.event.distance <= 0
+                                    ? widget.distance
+                                    : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
                                 style: themeData.textTheme.bodySmall!.copyWith(
                                   color: themeData.colorScheme.background,
                                   fontWeight: FontWeight.w600,
@@ -469,7 +491,7 @@ class _EventCardState extends State<EventCard> {
                           //     ),
                           //   )
                           // else
-                            const SizedBox(),
+                          const SizedBox(),
                           // GestureDetector(
                           //   onTap: widget.onLike,
                           //   child: SvgPicture.asset(

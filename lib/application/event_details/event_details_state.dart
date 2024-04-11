@@ -9,6 +9,7 @@ class EventDetailsState with _$EventDetailsState {
     required String apiBaseUrl,
     required EventRepository eventRepository,
     required EventDto? event,
+    required String eventDistance,
     required bool lsdExpanded,
     required bool ambExpanded,
     required bool fnbExpanded,
@@ -18,6 +19,7 @@ class EventDetailsState with _$EventDetailsState {
 
   factory EventDetailsState.initial({
     required String apiBaseUrl,
+    required String eventDistance,
   }) =>
       EventDetailsState(
         isLoading: false,
@@ -28,10 +30,11 @@ class EventDetailsState with _$EventDetailsState {
           serverUrl: apiBaseUrl,
         ),
         event: null,
+        eventDistance: eventDistance,
         lsdExpanded: false,
         ambExpanded: false,
         fnbExpanded: false,
         faqExpanded: false,
-        isEventLiked:false,
+        isEventLiked: false,
       );
 }

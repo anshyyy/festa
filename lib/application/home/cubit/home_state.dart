@@ -33,7 +33,9 @@ class HomeState with _$HomeState {
     required bool noLocatedEvents,
     required LocationRepository locationRepository,
     required List<SuggestionDto> suggestions,
+    required TextEditingController searchController,
     required AppStateNotifier appStateNotifier,
+    required GlobalKey homeKey,
   }) = _HomeState;
 
   factory HomeState.initial(
@@ -42,8 +44,10 @@ class HomeState with _$HomeState {
           required String mapsApiKey}) =>
       HomeState(
         page: 1,
+        homeKey: GlobalKey(),
         noUse: false,
         hasMoreEvents: true,
+        searchController: TextEditingController(),
         scrollController: ScrollController(),
         filters: [],
         events: [],

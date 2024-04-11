@@ -45,6 +45,7 @@ class IEventRepository extends EventRepository {
       required double long,
       int? range,
       String? sort,
+      String search = '',
       String? otherFilters}) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
@@ -55,6 +56,9 @@ class IEventRepository extends EventRepository {
         'lat': lat.toString(),
         'long': long.toString(),
       };
+      if (search.isNotEmpty) {
+        param['search'] = search;
+      }
       if (sort != null) {
         param['sort'] = sort;
       }
@@ -102,13 +106,12 @@ class IEventRepository extends EventRepository {
 
   @override
   void likeUnlikeEvent({required int eventId, required bool isLiked}) async {
-      final url = isLiked
-          ? '$serverUrl${EventApiConstants.UNLIKE_EVENT}/$eventId'
-          : '$serverUrl${EventApiConstants.LIKE_EVENT}/$eventId';
-      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
-      await RESTService.performPOSTRequest(
-          httpUrl: url, token: token!, isAuth: true);
-    
+    final url = isLiked
+        ? '$serverUrl${EventApiConstants.UNLIKE_EVENT}/$eventId'
+        : '$serverUrl${EventApiConstants.LIKE_EVENT}/$eventId';
+    String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+    await RESTService.performPOSTRequest(
+        httpUrl: url, token: token!, isAuth: true);
   }
 
   @override

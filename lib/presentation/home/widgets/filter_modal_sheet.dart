@@ -207,7 +207,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 3.h, right: 2.w, left: 2.w),
+                                padding: EdgeInsets.only(
+                                    top: 3.h, right: 2.w, left: 2.w),
                                 child: Container(
                                   height: 100.h,
                                   width: .03.w,
@@ -229,13 +230,15 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                         'FILTER BY',
                                         style: themeData.textTheme.bodySmall!
                                             .copyWith(
-                                          fontSize: 14.5.sp,
-                                          color:
-                                              themeData.colorScheme.onTertiary.withOpacity(.7),
-                                              fontWeight: FontWeight.w500
-                                        ),
+                                                fontSize: 14.5.sp,
+                                                color: themeData
+                                                    .colorScheme.onTertiary
+                                                    .withOpacity(.7),
+                                                fontWeight: FontWeight.w500),
                                       ),
-                                      SizedBox(height: 1.h,),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
                                       // SingleChildScrollView(
                                       //   scrollDirection: Axis.vertical,
                                       //   child: Column(
@@ -307,8 +310,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                               context
                                                   .read<FilterCubit>()
                                                   .onOptionChange(
-                                                      optionId:
-                                                          e.displayName);
+                                                      optionId: e.displayName);
                                             },
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
@@ -316,14 +318,14 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                   horizontal: 0.w),
                                               child: Row(
                                                 children: [
-                                                  SvgPicture.asset(e
-                                                          .isApplied
-                                                      ? AssetConstants
-                                                          .selectedRadio
-                                                      : AssetConstants
-                                                          .unSelectedRadio,
-                                                          height: 6.5.w,
-                                                          ),
+                                                  SvgPicture.asset(
+                                                    e.isApplied
+                                                        ? AssetConstants
+                                                            .selectedRadio
+                                                        : AssetConstants
+                                                            .unSelectedRadio,
+                                                    height: 6.5.w,
+                                                  ),
                                                   SizedBox(
                                                     width: 2.5.w,
                                                   ),
@@ -331,14 +333,12 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                       child: Text(
                                                     e.displayName,
                                                     maxLines: 1,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: themeData
-                                                        .textTheme
-                                                        .bodyMedium!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
-                                                      fontWeight: e
-                                                              .isApplied
+                                                      fontWeight: e.isApplied
                                                           ? FontWeight.w700
                                                           : FontWeight.w400,
                                                       fontSize: 16.5.sp,
@@ -370,52 +370,109 @@ class FilterModalSheetConsumer extends StatelessWidget {
                       SizedBox(
                         height: 1.h,
                       ),
-                      state.isFilterSelected || state.isFilterOptionSelected ?Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: MaterialButton(
-                              onPressed: () {
-                                context.read<FilterCubit>().clearFilters();
-                                Fluttertoast.showToast(
-                                    msg: 'All the filters are cleared');
-                              },
-                              child: Text(
-                                'Clear All',
-                                style: themeData.textTheme.bodySmall!.copyWith(
-                                  color: themeData.colorScheme.background,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                      state.isFilterSelected || state.isFilterOptionSelected
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 3.w),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: MaterialButton(
+                                    onPressed: () {
+                                      CustomToast.show(context,
+                                          'All the filters are cleared');
+
+                                      // context
+                                      //     .read<FilterCubit>()
+                                      //     .clearFilters();
+                                      // Fluttertoast.showToast(
+                                      //   textColor: Theme.of(context)
+                                      //       .colorScheme
+                                      //       .background,
+                                      //   gravity: ToastGravity.BOTTOM,
+                                      //   msg: 'All the filters are cleared',
+                                      // );
+                                    },
+                                    child: Text(
+                                      'Clear All',
+                                      style: themeData.textTheme.bodySmall!
+                                          .copyWith(
+                                        color: themeData.colorScheme.background,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  )),
+                                  Expanded(
+                                    child: GradientButton(
+                                        textStyle: themeData
+                                            .textTheme.bodySmall!
+                                            .copyWith(
+                                                color:
+                                                    state.isFilterOptionSelected
+                                                        ? themeData.colorScheme
+                                                            .background
+                                                        : themeData.colorScheme
+                                                            .background
+                                                            .withOpacity(.5),
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 3.5.w),
+                                        isEnabled: state.isFilterOptionSelected,
+                                        width: 100.w,
+                                        height: 5.5.h,
+                                        text: 'Apply filters',
+                                        onTap: () {
+                                          navigator<NavigationService>().goBack(
+                                            responseObject: state.filters,
+                                          );
+                                        }),
+                                  )
+                                ],
                               ),
-                            )),
-                            Expanded(
-                              child: GradientButton(
-                                  textStyle:
-                                      themeData.textTheme.bodySmall!.copyWith(
-                                    color: state.isFilterOptionSelected ? themeData.colorScheme.background : themeData.colorScheme.background.withOpacity(.5),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 3.5.w
-                                  ),
-                                  isEnabled: state.isFilterOptionSelected,
-                                  width: 100.w,
-                                  height: 5.5.h,
-                                  text: 'Apply filters',
-                                  onTap: () {
-                                    navigator<NavigationService>().goBack(
-                                      responseObject: state.filters,
-                                    );
-                                  }),
                             )
-                          ],
-                        ),
-                      ):const SizedBox() ,
-                      SizedBox(height: 3.h,)
+                          : const SizedBox(),
+                      SizedBox(
+                        height: 3.h,
+                      )
                     ],
                   ),
           ),
         );
       },
     );
+  }
+}
+
+class CustomToast {
+  static void show(BuildContext context, String message) {
+    final overlay = Overlay.of(context)!;
+    OverlayEntry overlayEntry;
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: 12.h,
+        left: MediaQuery.of(context).size.width * 0.25,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.2.h),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              message,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 16.sp,
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+            ),
+          ),
+        ),
+      ),
+    );
+    overlay.insert(overlayEntry);
+
+    // Remove the toast after a delay
+    Future.delayed(const Duration(seconds: 2), () {
+      overlayEntry.remove();
+    });
   }
 }

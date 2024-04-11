@@ -14,6 +14,7 @@ abstract class EventRepository {
       required double long,
       int? range,
       String? sort,
+      String search = '',
       String? otherFilters});
 
   Future<Either<dynamic, EventDto>> getEventDetails({required int eventId});

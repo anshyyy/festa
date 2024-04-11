@@ -21,7 +21,7 @@ class TicketBookingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 14.h,
+      height: 10.5.h,
       width: 100.w,
       padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
       color: Theme.of(context).colorScheme.surface,
@@ -40,10 +40,11 @@ class TicketBookingWidget extends StatelessWidget {
                         DateTime.parse(startDate)),
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w600,
+                        height: 1,
                         color: Theme.of(context).colorScheme.background,
                         fontSize: 16.5.sp)),
                 SizedBox(
-                  height: 1.h,
+                  height: 1.5.h,
                 ),
                 Row(
                   children: [
@@ -52,6 +53,7 @@ class TicketBookingWidget extends StatelessWidget {
                         priceRangeStart == 0 ?'Free' : priceRangeStart.toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
+                            height: 1,
                             color: Theme.of(context).colorScheme.background,
                             fontSize: 16.sp)),
                     SizedBox(
@@ -59,8 +61,8 @@ class TicketBookingWidget extends StatelessWidget {
                     ),
                     Text(priceRangeEnd?.toIndianRupeeString() ?? '',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          decoration: TextDecoration.lineThrough,
                           decorationThickness: .5.w,
+                          height: 1,
                           decorationColor: Theme.of(context).colorScheme.surface,
                             fontWeight: FontWeight.w600, fontSize: 14.5.sp)),
                   ],
@@ -70,6 +72,7 @@ class TicketBookingWidget extends StatelessWidget {
           ),
           Expanded(
               flex: 4,
+              
               child: GradientButton(
                 text: EventDetailsScreenConstants.bookTheTickets,
                 onTap: onClick,

@@ -19,9 +19,12 @@ import 'widgets/events_options_modal_sheet.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final String id;
+  final String distance;
+
   const EventDetailsScreen({
     super.key,
     required this.id,
+    required this.distance,
   });
 
   @override
@@ -32,6 +35,7 @@ class EventDetailsScreen extends StatelessWidget {
       create: (context) => EventDetailsCubit(
         EventDetailsState.initial(
           apiBaseUrl: appConfig.serverUrl,
+          eventDistance: distance,
         ),
       )..fetchEventDetails(id: int.parse(id)),
       child: const EventDetailsScreenConsumer(),
@@ -84,8 +88,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         onTap: () {
                           showModalBottomSheet(
                             context: context,
-                            builder: (context) =>
-                              EventOptionsModalSheet(artists: event.artists,),
+                            builder: (context) => EventOptionsModalSheet(
+                              artists: event.artists,
+                            ),
                           );
                         },
                         child: Padding(
@@ -99,8 +104,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: EventCard(
+                          distance: state.eventDistance,
                           event: event,
                           isLiked: state.isEventLiked,
                           onLike: () {
@@ -111,7 +117,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: GradientText(
                           text: EventDetailsScreenConstants.viewOnMaps,
                           colors: [
@@ -124,7 +130,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                   ),
                         ),
                       ),
-                
+
                       SizedBox(
                         height: 2.h,
                       ),
@@ -134,16 +140,13 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         child: ListTileTheme(
                           dense: true,
                           child: ExpansionTile(
-                            iconColor:
-                                Theme.of(context).colorScheme.background,
+                            iconColor: Theme.of(context).colorScheme.background,
                             collapsedIconColor:
                                 Theme.of(context).colorScheme.background,
-                            collapsedBackgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primaryContainer,
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primaryContainer,
+                            collapsedBackgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
                             title: Text(
                               EventScreenConstants.description,
                               style: Theme.of(context)
@@ -157,9 +160,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                             ),
                             children: [
                               Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 3.5.w)
-                                        .copyWith(bottom: 1.h),
+                                padding: EdgeInsets.symmetric(horizontal: 3.5.w)
+                                    .copyWith(bottom: 1.h),
                                 child: Text(
                                   event.description,
                                   style: Theme.of(context)
@@ -205,12 +207,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           children: [
                             ...event.lsd.map((e) {
                               return Padding(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 3.5.w)
-                                        .copyWith(bottom: 1.h),
+                                padding: EdgeInsets.symmetric(horizontal: 3.5.w)
+                                    .copyWith(bottom: 1.h),
                                 child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset(
                                       AssetConstants.extras[e.type]!,
@@ -242,7 +242,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                
+
                       // Ambience
                       Theme(
                         data: Theme.of(context)
@@ -297,7 +297,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                
+
                       // Food
                       Theme(
                         data: Theme.of(context)
@@ -359,7 +359,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                
+
                       // Food
                       Theme(
                         data: Theme.of(context)
@@ -395,8 +395,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                     horizontal: 3.5.w,
                                   ).copyWith(bottom: 1.h),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -427,8 +426,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .background,
-                                                    fontWeight:
-                                                        FontWeight.w600,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                             ),
                                             Row(
@@ -441,10 +439,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                         .textTheme
                                                         .bodySmall!
                                                         .copyWith(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .background,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .background,
                                                         ),
                                                   ),
                                                 ),

@@ -172,6 +172,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(
           EventDetailsScreen(
             id: routingData.queryParameters['id'] ?? '',
+            distance: routingData.queryParameters['distance'] ?? '',
           ),
           settings);
 

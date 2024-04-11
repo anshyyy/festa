@@ -22,6 +22,7 @@ mixin _$EventDetailsState {
   String get apiBaseUrl => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
+  String get eventDistance => throw _privateConstructorUsedError;
   bool get lsdExpanded => throw _privateConstructorUsedError;
   bool get ambExpanded => throw _privateConstructorUsedError;
   bool get fnbExpanded => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $EventDetailsStateCopyWith<$Res> {
       String apiBaseUrl,
       EventRepository eventRepository,
       EventDto? event,
+      String eventDistance,
       bool lsdExpanded,
       bool ambExpanded,
       bool fnbExpanded,
@@ -74,6 +76,7 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
     Object? apiBaseUrl = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? eventDistance = null,
     Object? lsdExpanded = null,
     Object? ambExpanded = null,
     Object? fnbExpanded = null,
@@ -105,6 +108,10 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      eventDistance: null == eventDistance
+          ? _value.eventDistance
+          : eventDistance // ignore: cast_nullable_to_non_nullable
+              as String,
       lsdExpanded: null == lsdExpanded
           ? _value.lsdExpanded
           : lsdExpanded // ignore: cast_nullable_to_non_nullable
@@ -156,6 +163,7 @@ abstract class _$$EventDetailsStateImplCopyWith<$Res>
       String apiBaseUrl,
       EventRepository eventRepository,
       EventDto? event,
+      String eventDistance,
       bool lsdExpanded,
       bool ambExpanded,
       bool fnbExpanded,
@@ -183,6 +191,7 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
     Object? apiBaseUrl = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? eventDistance = null,
     Object? lsdExpanded = null,
     Object? ambExpanded = null,
     Object? fnbExpanded = null,
@@ -214,6 +223,10 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      eventDistance: null == eventDistance
+          ? _value.eventDistance
+          : eventDistance // ignore: cast_nullable_to_non_nullable
+              as String,
       lsdExpanded: null == lsdExpanded
           ? _value.lsdExpanded
           : lsdExpanded // ignore: cast_nullable_to_non_nullable
@@ -248,6 +261,7 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       required this.apiBaseUrl,
       required this.eventRepository,
       required this.event,
+      required this.eventDistance,
       required this.lsdExpanded,
       required this.ambExpanded,
       required this.fnbExpanded,
@@ -267,6 +281,8 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
   @override
   final EventDto? event;
   @override
+  final String eventDistance;
+  @override
   final bool lsdExpanded;
   @override
   final bool ambExpanded;
@@ -279,7 +295,7 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
 
   @override
   String toString() {
-    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked)';
+    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, eventDistance: $eventDistance, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked)';
   }
 
   @override
@@ -298,6 +314,8 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository) &&
             (identical(other.event, event) || other.event == event) &&
+            (identical(other.eventDistance, eventDistance) ||
+                other.eventDistance == eventDistance) &&
             (identical(other.lsdExpanded, lsdExpanded) ||
                 other.lsdExpanded == lsdExpanded) &&
             (identical(other.ambExpanded, ambExpanded) ||
@@ -319,6 +337,7 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       apiBaseUrl,
       eventRepository,
       event,
+      eventDistance,
       lsdExpanded,
       ambExpanded,
       fnbExpanded,
@@ -341,6 +360,7 @@ abstract class _EventDetailsState implements EventDetailsState {
       required final String apiBaseUrl,
       required final EventRepository eventRepository,
       required final EventDto? event,
+      required final String eventDistance,
       required final bool lsdExpanded,
       required final bool ambExpanded,
       required final bool fnbExpanded,
@@ -359,6 +379,8 @@ abstract class _EventDetailsState implements EventDetailsState {
   EventRepository get eventRepository;
   @override
   EventDto? get event;
+  @override
+  String get eventDistance;
   @override
   bool get lsdExpanded;
   @override

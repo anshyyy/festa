@@ -46,7 +46,6 @@ class HomeSearch extends StatelessWidget{
                     isFill: true,
                     textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(),
                     onChanged:(p0) {
-                      context.read<HomeCubit>().onSearchChange(query: p0);
                     },
                   ),
                   // ListView.builder(

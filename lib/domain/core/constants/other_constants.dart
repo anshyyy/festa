@@ -13,7 +13,7 @@ class OtherConstants {
   static const LocationDto defaultLocation = LocationDto(
     latitude: 12.9784,
     longitude: 77.6408,
-    area: 'Indira Nagar',
+    area: 'Bangalore',
     city: 'Bangalore',
     state: 'Karnataka',
     country: 'India',
@@ -23,7 +23,7 @@ class OtherConstants {
   static const LocationDto mumbai = LocationDto(
     latitude: 19.0524,
     longitude: 72.8216,
-    area: 'Bandra Bandstand',
+    area: 'Mumbai',
     city: 'Mumbai',
     state: 'Maharashtra',
     country: 'India',
@@ -32,7 +32,7 @@ class OtherConstants {
   static const LocationDto delhi = LocationDto(
     latitude: 28.6818,
     longitude: 77.2290,
-    area: 'Central Delhi',
+    area: 'Delhi',
     city: 'Delhi',
     state: 'Delhi',
     country: 'India',
@@ -41,7 +41,7 @@ class OtherConstants {
   static const LocationDto hyderabad = LocationDto(
     latitude: 28.6818,
     longitude: 77.2290,
-    area: 'Central Hyderabad',
+    area: 'Hyderabad',
     city: 'Hyderabad',
     state: 'Hyderabad',
     country: 'India',

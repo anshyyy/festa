@@ -51,11 +51,21 @@ class HomeCubit extends Cubit<HomeState> {
     getEvents();
   }
 
+  Future onPullToRefresh() async {
+    emit(state.copyWith(isLoading: true));
+
+  await  getEvents();
+
+    emit(state.copyWith(isLoading: false));
+
+  }
+
   Future getEvents({String? eventsFrom}) async {
     String? sort;
     int? range;
     String? otherFilters;
     final filters = state.filters;
+    final searchQuery = state.searchController.text.trim();
     final sortFilter = filters.firstWhere((element) => element.name == 'sort');
     final sortApplied = sortFilter.isApplied;
     if (sortApplied) {
@@ -103,6 +113,7 @@ class HomeCubit extends Cubit<HomeState> {
       limit: limit,
       page: state.page,
       sort: sort,
+      search: searchQuery,
       range: range,
       otherFilters: otherFilters,
     );
@@ -277,8 +288,15 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(isSearchOpen: flag));
   }
 
-  void onSearchChange({required String query}) {
-    emit(state.copyWith(isSearchChanged: query.isNotEmpty));
+  void onSearchChange({bool isSearchOn = true}) {
+    emit(state.copyWith(page: 1));
+    if (isSearchOn) {
+      getEvents();
+    } else {
+      state.searchController.clear();
+      toggleSearch(flag: false);
+      getEvents();
+    }
   }
 
   void onLocationSearchChange({required String query}) async {

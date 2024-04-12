@@ -144,7 +144,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? sortDisplayName = null,
     Object? sortDropdownOpen = null,
     Object? sortKey = null,
-    Object? chipPosition = freezed,
+    Object? chipPosition = null,
     Object? overlayEntry = freezed,
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
@@ -243,7 +243,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.sortKey
           : sortKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
-      chipPosition: freezed == chipPosition
+      chipPosition: null == chipPosition
           ? _value.chipPosition
           : chipPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
@@ -415,7 +415,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? sortDisplayName = null,
     Object? sortDropdownOpen = null,
     Object? sortKey = null,
-    Object? chipPosition = freezed,
+    Object? chipPosition = null,
     Object? overlayEntry = freezed,
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
@@ -514,7 +514,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.sortKey
           : sortKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
-      chipPosition: freezed == chipPosition
+      chipPosition: null == chipPosition
           ? _value.chipPosition
           : chipPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
@@ -725,8 +725,8 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.sortDropdownOpen, sortDropdownOpen) ||
                 other.sortDropdownOpen == sortDropdownOpen) &&
             (identical(other.sortKey, sortKey) || other.sortKey == sortKey) &&
-            const DeepCollectionEquality()
-                .equals(other.chipPosition, chipPosition) &&
+            (identical(other.chipPosition, chipPosition) ||
+                other.chipPosition == chipPosition) &&
             (identical(other.overlayEntry, overlayEntry) ||
                 other.overlayEntry == overlayEntry) &&
             (identical(other.isSearchOpen, isSearchOpen) ||
@@ -776,7 +776,7 @@ class _$HomeStateImpl implements _HomeState {
         sortDisplayName,
         sortDropdownOpen,
         sortKey,
-        const DeepCollectionEquality().hash(chipPosition),
+        chipPosition,
         overlayEntry,
         isSearchOpen,
         isSearchChanged,

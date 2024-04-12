@@ -28,7 +28,16 @@ class HomeCubit extends Cubit<HomeState> {
   bool isFetching = false;
   HomeCubit(super.initialState);
 
-  void init() async {
+  void init({
+    bool isGoToTop = false,
+  }) async {
+    if (isGoToTop) {
+      state.scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.bounceInOut);
+      return;
+    }
+
     List<FilterDto> filters = await state.eventRepository.getFilter();
     emit(state.copyWith(
       isLoading: false,

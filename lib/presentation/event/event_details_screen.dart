@@ -93,6 +93,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                             context: context,
                             builder: (context) => EventOptionsModalSheet(
                               artists: event.artists,
+                              eventDetails: event,
                             ),
                           );
                         },

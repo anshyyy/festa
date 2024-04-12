@@ -46,7 +46,11 @@ class MainNavigatorConsumer extends StatelessWidget {
             bottomNavigationBar: CustomBottomNav(
               currentIndex: state.currentIndex,
               onTabChange: (i) {
-                context.read<MainNavCubit>().onIndexChange(index: i);
+                if (state.currentIndex == i) {
+                  if (i == 0) {}
+                } else {
+                  context.read<MainNavCubit>().onIndexChange(index: i);
+                }
               },
             ),
             body: AnimatedSwitcher(

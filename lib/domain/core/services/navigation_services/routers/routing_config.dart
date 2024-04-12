@@ -67,7 +67,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const SetYourLocation(), settings);
 
     case UserRoutes.homeScreenRoute:
-      return _getPageRoute(const HomeScreen(), settings);
+      return _getPageRoute( HomeScreen(), settings);
 
     case UserRoutes.userProfileRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';

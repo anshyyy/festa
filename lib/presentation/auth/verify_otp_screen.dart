@@ -94,7 +94,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 ? value != null
                     ? DynamicLinkUtil.getDynamicRoute(
                         pathSegments['category']!, pathSegments['id']!)
-                    : UserRoutes.homeScreenRoute
+                    : UserRoutes.mainNavRoute
                 : profileState == ProfileStateEnum.gender
                     ? AuthRoutes.usernameRoute
                     : profileState == ProfileStateEnum.birthday

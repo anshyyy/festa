@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MainNavState {
   int get currentIndex => throw _privateConstructorUsedError;
   bool get isTabLoading => throw _privateConstructorUsedError;
+  bool get isGoToTop => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainNavStateCopyWith<MainNavState> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $MainNavStateCopyWith<$Res> {
           MainNavState value, $Res Function(MainNavState) then) =
       _$MainNavStateCopyWithImpl<$Res, MainNavState>;
   @useResult
-  $Res call({int currentIndex, bool isTabLoading});
+  $Res call({int currentIndex, bool isTabLoading, bool isGoToTop});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$MainNavStateCopyWithImpl<$Res, $Val extends MainNavState>
   $Res call({
     Object? currentIndex = null,
     Object? isTabLoading = null,
+    Object? isGoToTop = null,
   }) {
     return _then(_value.copyWith(
       currentIndex: null == currentIndex
@@ -57,6 +59,10 @@ class _$MainNavStateCopyWithImpl<$Res, $Val extends MainNavState>
       isTabLoading: null == isTabLoading
           ? _value.isTabLoading
           : isTabLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isGoToTop: null == isGoToTop
+          ? _value.isGoToTop
+          : isGoToTop // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -70,7 +76,7 @@ abstract class _$$MainNavStateImplCopyWith<$Res>
       __$$MainNavStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int currentIndex, bool isTabLoading});
+  $Res call({int currentIndex, bool isTabLoading, bool isGoToTop});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
   $Res call({
     Object? currentIndex = null,
     Object? isTabLoading = null,
+    Object? isGoToTop = null,
   }) {
     return _then(_$MainNavStateImpl(
       currentIndex: null == currentIndex
@@ -96,6 +103,10 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
           ? _value.isTabLoading
           : isTabLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isGoToTop: null == isGoToTop
+          ? _value.isGoToTop
+          : isGoToTop // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -104,16 +115,20 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
 
 class _$MainNavStateImpl implements _MainNavState {
   const _$MainNavStateImpl(
-      {required this.currentIndex, required this.isTabLoading});
+      {required this.currentIndex,
+      required this.isTabLoading,
+      required this.isGoToTop});
 
   @override
   final int currentIndex;
   @override
   final bool isTabLoading;
+  @override
+  final bool isGoToTop;
 
   @override
   String toString() {
-    return 'MainNavState(currentIndex: $currentIndex, isTabLoading: $isTabLoading)';
+    return 'MainNavState(currentIndex: $currentIndex, isTabLoading: $isTabLoading, isGoToTop: $isGoToTop)';
   }
 
   @override
@@ -124,11 +139,14 @@ class _$MainNavStateImpl implements _MainNavState {
             (identical(other.currentIndex, currentIndex) ||
                 other.currentIndex == currentIndex) &&
             (identical(other.isTabLoading, isTabLoading) ||
-                other.isTabLoading == isTabLoading));
+                other.isTabLoading == isTabLoading) &&
+            (identical(other.isGoToTop, isGoToTop) ||
+                other.isGoToTop == isGoToTop));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentIndex, isTabLoading);
+  int get hashCode =>
+      Object.hash(runtimeType, currentIndex, isTabLoading, isGoToTop);
 
   @JsonKey(ignore: true)
   @override
@@ -140,12 +158,15 @@ class _$MainNavStateImpl implements _MainNavState {
 abstract class _MainNavState implements MainNavState {
   const factory _MainNavState(
       {required final int currentIndex,
-      required final bool isTabLoading}) = _$MainNavStateImpl;
+      required final bool isTabLoading,
+      required final bool isGoToTop}) = _$MainNavStateImpl;
 
   @override
   int get currentIndex;
   @override
   bool get isTabLoading;
+  @override
+  bool get isGoToTop;
   @override
   @JsonKey(ignore: true)
   _$$MainNavStateImplCopyWith<_$MainNavStateImpl> get copyWith =>

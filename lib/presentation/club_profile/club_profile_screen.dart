@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/club_profile/club_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
-import '../../domain/core/configs/injection.dart';
-import '../../domain/core/constants/asset_constants.dart';
-import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../main_nav/bottom_nav.dart';
-import '../widgets/custom_appbar.dart';
 import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
 import 'widgets/media_viewer_tabs.dart';
@@ -72,7 +67,7 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                       },
                       child: Stack(
                         children: [
-                          if (!state.showHeader) const ImageCarousel(),
+                         const ImageCarousel(),
                           SizedBox.expand(
                             child: DraggableScrollableSheet(
                               initialChildSize: .47,
@@ -82,33 +77,12 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                                 return SingleChildScrollView(
                                   controller: scrollController,
                                   child: Container(
+                                    color: Colors.transparent,
                                     margin: EdgeInsets.only(top: 5.h),
-                                    child: Column(
+                                    child: const Column(
                                       children: [
-                                        const ClubProfile(),
-                                        if (state.showHeader)
-                                          SizedBox(
-                                            height: 10.h,
-                                            child: SafeArea(
-                                                child: CustomAppBar(
-                                                    title: state.pub!.fullName,
-                                                    scaffoldBackgroundColor:
-                                                        Colors.transparent,
-                                                    surfaceTintColor:
-                                                        Colors.transparent,
-                                                    leading: GestureDetector(
-                                                        onTap: () {
-                                                          navigator<
-                                                                  NavigationService>()
-                                                              .goBack();
-                                                        },
-                                                        child: Center(
-                                                            child: SvgPicture.asset(
-                                                                AssetConstants
-                                                                    .arrowLeft))),
-                                                    actions: const [])),
-                                          ),
-                                        const MediaViewerTabs(),
+                                         ClubProfile(),
+                                         MediaViewerTabs(),
                                       ],
                                     ),
                                   ),

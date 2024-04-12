@@ -49,6 +49,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeScreenConsumer extends StatelessWidget {
+
   const HomeScreenConsumer({
     super.key,
   });
@@ -91,7 +92,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                     onChanged: (val) {
                                       EasyDebounce.debounce(
                                           'home-search-events',
-                                          const Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 500),
                                           () {
                                         context
                                             .read<HomeCubit>()
@@ -228,14 +229,12 @@ class HomeScreenConsumer extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    HomeScreenConstants.pickYourExperience,
-                                    style: themeData.textTheme.bodyMedium!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: themeData.colorScheme.background,
-                                    )
-                                  ),
+                                  Text(HomeScreenConstants.pickYourExperience,
+                                      style: themeData.textTheme.bodyMedium!
+                                          .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: themeData.colorScheme.background,
+                                      )),
                                   SizedBox(
                                     height: 2.h,
                                   ),
@@ -396,7 +395,6 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     .toString()
                                                     .toLowerCase() ==
                                                 'filter') {
-
                                               showModalBottomSheet(
                                                   context: context,
                                                   isScrollControlled: true,
@@ -462,7 +460,6 @@ class HomeScreenConsumer extends StatelessWidget {
                                       ? const EventCardShimmer()
                                       : GestureDetector(
                                           onTap: () {
-
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes
@@ -472,7 +469,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       .toString(),
                                                   'distance':
                                                       '${state.events[index].distance > 1000 ? (state.events[index].distance / 1000).toStringAsFixed(1) : state.events[index].distance.toStringAsFixed(0)}km',
-                                                }).then((value){});
+                                                }).then((value) {});
                                           },
                                           onDoubleTap: () {
                                             context
@@ -563,7 +560,6 @@ class EmptyEvents extends StatelessWidget {
                                       .toList()),
                                 );
                               }).then((value) {
-
                             if (value != null) {
                               if (value is List<FilterDto>) {
                                 builderContext

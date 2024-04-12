@@ -1,4 +1,4 @@
-
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -8,13 +8,17 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../infrastructure/artist/dtos/artist/artist_dto.dart';
+import '../../../infrastructure/event/dtos/event/event_dto.dart';
 import 'event_option_tile.dart';
 import 'follow_artist_modalsheet.dart';
 
 class EventOptionsModalSheet extends StatelessWidget {
   final List<ArtistProfileDto> artists;
+  final EventDto eventDetails;
   const EventOptionsModalSheet({
-    super.key, required this.artists,
+    super.key,
+    required this.eventDetails,
+    required this.artists,
   });
 
   @override
@@ -48,7 +52,9 @@ class EventOptionsModalSheet extends StatelessWidget {
                 navigator<NavigationService>().goBack();
                 showModalBottomSheet(
                     context: context,
-                    builder: (context) =>  FollowArtistsModalSheet(artists: artists,));
+                    builder: (context) => FollowArtistsModalSheet(
+                          artists: artists,
+                        ));
               },
               title: EventDetailsScreenConstants.followArtists,
               suffixIcon: SvgPicture.asset(
@@ -56,6 +62,23 @@ class EventOptionsModalSheet extends StatelessWidget {
               ),
             ),
             EventOptionsTile(
+                onTap: () {
+                  final Event event = Event(
+                    title: eventDetails.name,
+                    description: eventDetails.description,
+                    location: eventDetails.address!.completeAddress,
+                    startDate: DateTime.parse(eventDetails.startDate).toLocal(),
+                    endDate: DateTime.parse(eventDetails.endDate!).toLocal(),
+                    iosParams: const IOSParams(
+                      reminder: Duration(hours: 1),
+                      url: 'https://www.festa.com',
+                    ),
+                    androidParams: const AndroidParams(
+                      emailInvites: [],
+                    ),
+                  );
+                  Add2Calendar.addEvent2Cal(event);
+                },
                 prefixIcon: SvgPicture.asset(
                   AssetConstants.addToCalendar,
                   height: 5.w,

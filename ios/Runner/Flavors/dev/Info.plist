@@ -65,5 +65,7 @@
 		<key>YourPurposeKey</key>
 		<string>The Festa App requires temporary access to the device&apos;s precise location.</string>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>INSERT_REASON_HERE</string>
 </dict>
 </plist>

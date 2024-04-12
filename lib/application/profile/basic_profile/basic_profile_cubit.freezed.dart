@@ -31,6 +31,7 @@ mixin _$BasicProfileState {
   TextEditingController get fullNameController =>
       throw _privateConstructorUsedError;
   String get errorFullName => throw _privateConstructorUsedError;
+  bool get showPermissionDialog => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $BasicProfileStateCopyWith<BasicProfileState> get copyWith =>
@@ -57,7 +58,8 @@ abstract class $BasicProfileStateCopyWith<$Res> {
       AuthRepository authRepository,
       UserRepository userRepository,
       TextEditingController fullNameController,
-      String errorFullName});
+      String errorFullName,
+      bool showPermissionDialog});
 }
 
 /// @nodoc
@@ -87,6 +89,7 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
     Object? userRepository = null,
     Object? fullNameController = null,
     Object? errorFullName = null,
+    Object? showPermissionDialog = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -145,6 +148,10 @@ class _$BasicProfileStateCopyWithImpl<$Res, $Val extends BasicProfileState>
           ? _value.errorFullName
           : errorFullName // ignore: cast_nullable_to_non_nullable
               as String,
+      showPermissionDialog: null == showPermissionDialog
+          ? _value.showPermissionDialog
+          : showPermissionDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -171,7 +178,8 @@ abstract class _$$BasicProfileStateImplCopyWith<$Res>
       AuthRepository authRepository,
       UserRepository userRepository,
       TextEditingController fullNameController,
-      String errorFullName});
+      String errorFullName,
+      bool showPermissionDialog});
 }
 
 /// @nodoc
@@ -199,6 +207,7 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
     Object? userRepository = null,
     Object? fullNameController = null,
     Object? errorFullName = null,
+    Object? showPermissionDialog = null,
   }) {
     return _then(_$BasicProfileStateImpl(
       isLoading: null == isLoading
@@ -257,6 +266,10 @@ class __$$BasicProfileStateImplCopyWithImpl<$Res>
           ? _value.errorFullName
           : errorFullName // ignore: cast_nullable_to_non_nullable
               as String,
+      showPermissionDialog: null == showPermissionDialog
+          ? _value.showPermissionDialog
+          : showPermissionDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -278,7 +291,8 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       required this.authRepository,
       required this.userRepository,
       required this.fullNameController,
-      required this.errorFullName});
+      required this.errorFullName,
+      required this.showPermissionDialog});
 
   @override
   final bool isLoading;
@@ -308,10 +322,12 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
   final TextEditingController fullNameController;
   @override
   final String errorFullName;
+  @override
+  final bool showPermissionDialog;
 
   @override
   String toString() {
-    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, startValidation: $startValidation, errorMessage: $errorMessage, profileImage: $profileImage, appStateNotifier: $appStateNotifier, coreRepository: $coreRepository, authRepository: $authRepository, userRepository: $userRepository, fullNameController: $fullNameController, errorFullName: $errorFullName)';
+    return 'BasicProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, isSaveDetailsEnable: $isSaveDetailsEnable, startValidation: $startValidation, errorMessage: $errorMessage, profileImage: $profileImage, appStateNotifier: $appStateNotifier, coreRepository: $coreRepository, authRepository: $authRepository, userRepository: $userRepository, fullNameController: $fullNameController, errorFullName: $errorFullName, showPermissionDialog: $showPermissionDialog)';
   }
 
   @override
@@ -345,7 +361,9 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
             (identical(other.fullNameController, fullNameController) ||
                 other.fullNameController == fullNameController) &&
             (identical(other.errorFullName, errorFullName) ||
-                other.errorFullName == errorFullName));
+                other.errorFullName == errorFullName) &&
+            (identical(other.showPermissionDialog, showPermissionDialog) ||
+                other.showPermissionDialog == showPermissionDialog));
   }
 
   @override
@@ -364,7 +382,8 @@ class _$BasicProfileStateImpl implements _BasicProfileState {
       authRepository,
       userRepository,
       fullNameController,
-      errorFullName);
+      errorFullName,
+      showPermissionDialog);
 
   @JsonKey(ignore: true)
   @override
@@ -389,7 +408,8 @@ abstract class _BasicProfileState implements BasicProfileState {
       required final AuthRepository authRepository,
       required final UserRepository userRepository,
       required final TextEditingController fullNameController,
-      required final String errorFullName}) = _$BasicProfileStateImpl;
+      required final String errorFullName,
+      required final bool showPermissionDialog}) = _$BasicProfileStateImpl;
 
   @override
   bool get isLoading;
@@ -419,6 +439,8 @@ abstract class _BasicProfileState implements BasicProfileState {
   TextEditingController get fullNameController;
   @override
   String get errorFullName;
+  @override
+  bool get showPermissionDialog;
   @override
   @JsonKey(ignore: true)
   _$$BasicProfileStateImplCopyWith<_$BasicProfileStateImpl> get copyWith =>

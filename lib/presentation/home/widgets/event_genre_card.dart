@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class EventTypeTile extends StatelessWidget {
   final bool isSelected;

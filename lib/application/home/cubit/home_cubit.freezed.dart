@@ -57,6 +57,7 @@ mixin _$HomeState {
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   GlobalKey<State<StatefulWidget>> get homeKey =>
       throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -101,10 +102,12 @@ abstract class $HomeStateCopyWith<$Res> {
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
       AppStateNotifier appStateNotifier,
-      GlobalKey<State<StatefulWidget>> homeKey});
+      GlobalKey<State<StatefulWidget>> homeKey,
+      UserDto? user});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -141,7 +144,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? sortDisplayName = null,
     Object? sortDropdownOpen = null,
     Object? sortKey = null,
-    Object? chipPosition = null,
+    Object? chipPosition = freezed,
     Object? overlayEntry = freezed,
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
@@ -153,6 +156,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? searchController = null,
     Object? appStateNotifier = null,
     Object? homeKey = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -239,7 +243,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.sortKey
           : sortKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
-      chipPosition: null == chipPosition
+      chipPosition: freezed == chipPosition
           ? _value.chipPosition
           : chipPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
@@ -287,6 +291,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.homeKey
           : homeKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ) as $Val);
   }
 
@@ -307,6 +315,18 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $LocationDtoCopyWith<$Res> get location {
     return $LocationDtoCopyWith<$Res>(_value.location, (value) {
       return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
     });
   }
 }
@@ -352,12 +372,15 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
       AppStateNotifier appStateNotifier,
-      GlobalKey<State<StatefulWidget>> homeKey});
+      GlobalKey<State<StatefulWidget>> homeKey,
+      UserDto? user});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   @override
   $LocationDtoCopyWith<$Res> get location;
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -392,7 +415,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? sortDisplayName = null,
     Object? sortDropdownOpen = null,
     Object? sortKey = null,
-    Object? chipPosition = null,
+    Object? chipPosition = freezed,
     Object? overlayEntry = freezed,
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
@@ -404,6 +427,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? searchController = null,
     Object? appStateNotifier = null,
     Object? homeKey = null,
+    Object? user = freezed,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -490,7 +514,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.sortKey
           : sortKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
-      chipPosition: null == chipPosition
+      chipPosition: freezed == chipPosition
           ? _value.chipPosition
           : chipPosition // ignore: cast_nullable_to_non_nullable
               as Offset,
@@ -538,6 +562,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.homeKey
           : homeKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ));
   }
 }
@@ -578,7 +606,8 @@ class _$HomeStateImpl implements _HomeState {
       required this.suggestions,
       required this.searchController,
       required this.appStateNotifier,
-      required this.homeKey});
+      required this.homeKey,
+      this.user});
 
   @override
   final bool isLoading;
@@ -646,10 +675,12 @@ class _$HomeStateImpl implements _HomeState {
   final AppStateNotifier appStateNotifier;
   @override
   final GlobalKey<State<StatefulWidget>> homeKey;
+  @override
+  final UserDto? user;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey, user: $user)';
   }
 
   @override
@@ -694,8 +725,8 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.sortDropdownOpen, sortDropdownOpen) ||
                 other.sortDropdownOpen == sortDropdownOpen) &&
             (identical(other.sortKey, sortKey) || other.sortKey == sortKey) &&
-            (identical(other.chipPosition, chipPosition) ||
-                other.chipPosition == chipPosition) &&
+            const DeepCollectionEquality()
+                .equals(other.chipPosition, chipPosition) &&
             (identical(other.overlayEntry, overlayEntry) ||
                 other.overlayEntry == overlayEntry) &&
             (identical(other.isSearchOpen, isSearchOpen) ||
@@ -717,7 +748,8 @@ class _$HomeStateImpl implements _HomeState {
                 other.searchController == searchController) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
-            (identical(other.homeKey, homeKey) || other.homeKey == homeKey));
+            (identical(other.homeKey, homeKey) || other.homeKey == homeKey) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
@@ -744,7 +776,7 @@ class _$HomeStateImpl implements _HomeState {
         sortDisplayName,
         sortDropdownOpen,
         sortKey,
-        chipPosition,
+        const DeepCollectionEquality().hash(chipPosition),
         overlayEntry,
         isSearchOpen,
         isSearchChanged,
@@ -755,7 +787,8 @@ class _$HomeStateImpl implements _HomeState {
         const DeepCollectionEquality().hash(suggestions),
         searchController,
         appStateNotifier,
-        homeKey
+        homeKey,
+        user
       ]);
 
   @JsonKey(ignore: true)
@@ -767,40 +800,40 @@ class _$HomeStateImpl implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-          {required final bool isLoading,
-          required final bool hasMoreEvents,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          final FilterDto? categoryFilter,
-          required final int page,
-          required final List<EventDto> events,
-          required final List<FilterDto> filters,
-          required final List<Map<String, dynamic>> exploreList,
-          required final List<Map<String, dynamic>> mainExploreList,
-          required final PageController pageController,
-          required final bool showLocationDialog,
-          required final List<Map<String, dynamic>> filterOptions,
-          required final List<Map<String, dynamic>> locationSuggestions,
-          required final LocationDto location,
-          required final EventRepository eventRepository,
-          required final ScrollController scrollController,
-          required final String sortDisplayName,
-          required final bool sortDropdownOpen,
-          required final GlobalKey<State<StatefulWidget>> sortKey,
-          required final Offset chipPosition,
-          final OverlayEntry? overlayEntry,
-          required final bool isSearchOpen,
-          required final bool isSearchChanged,
-          required final bool isLocationSearchChanged,
-          required final bool noFilteredEvents,
-          required final bool noLocatedEvents,
-          required final LocationRepository locationRepository,
-          required final List<SuggestionDto> suggestions,
-          required final TextEditingController searchController,
-          required final AppStateNotifier appStateNotifier,
-          required final GlobalKey<State<StatefulWidget>> homeKey}) =
-      _$HomeStateImpl;
+      {required final bool isLoading,
+      required final bool hasMoreEvents,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      final FilterDto? categoryFilter,
+      required final int page,
+      required final List<EventDto> events,
+      required final List<FilterDto> filters,
+      required final List<Map<String, dynamic>> exploreList,
+      required final List<Map<String, dynamic>> mainExploreList,
+      required final PageController pageController,
+      required final bool showLocationDialog,
+      required final List<Map<String, dynamic>> filterOptions,
+      required final List<Map<String, dynamic>> locationSuggestions,
+      required final LocationDto location,
+      required final EventRepository eventRepository,
+      required final ScrollController scrollController,
+      required final String sortDisplayName,
+      required final bool sortDropdownOpen,
+      required final GlobalKey<State<StatefulWidget>> sortKey,
+      required final Offset chipPosition,
+      final OverlayEntry? overlayEntry,
+      required final bool isSearchOpen,
+      required final bool isSearchChanged,
+      required final bool isLocationSearchChanged,
+      required final bool noFilteredEvents,
+      required final bool noLocatedEvents,
+      required final LocationRepository locationRepository,
+      required final List<SuggestionDto> suggestions,
+      required final TextEditingController searchController,
+      required final AppStateNotifier appStateNotifier,
+      required final GlobalKey<State<StatefulWidget>> homeKey,
+      final UserDto? user}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -868,6 +901,8 @@ abstract class _HomeState implements HomeState {
   AppStateNotifier get appStateNotifier;
   @override
   GlobalKey<State<StatefulWidget>> get homeKey;
+  @override
+  UserDto? get user;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

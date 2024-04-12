@@ -36,6 +36,7 @@ class HomeState with _$HomeState {
     required TextEditingController searchController,
     required AppStateNotifier appStateNotifier,
     required GlobalKey homeKey,
+    UserDto? user,
   }) = _HomeState;
 
   factory HomeState.initial(
@@ -50,6 +51,7 @@ class HomeState with _$HomeState {
         searchController: TextEditingController(),
         scrollController: ScrollController(),
         filters: [],
+        user: appStateNotifier.user,
         events: [],
         eventRepository: IEventRepository(
           serverUrl: serverUrl,

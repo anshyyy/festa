@@ -9,6 +9,7 @@ import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/event/event_repository.dart';
 import '../../../domain/location/location_repository.dart';
+import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../../infrastructure/event/dtos/filter/filter_dto.dart';

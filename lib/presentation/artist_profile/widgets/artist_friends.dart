@@ -13,7 +13,7 @@ import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class ArtistFriends extends StatelessWidget {
   const ArtistFriends({

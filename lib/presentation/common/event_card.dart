@@ -14,7 +14,7 @@ import '../../domain/core/helpers/generic_helpers.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
-import '../../infrastructure/core/enum/image_type.dart';
+import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import 'show_profile_tile.dart';
 

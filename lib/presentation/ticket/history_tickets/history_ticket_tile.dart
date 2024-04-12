@@ -5,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class TicketHistoryTile extends StatelessWidget {
   final String eventPoster;

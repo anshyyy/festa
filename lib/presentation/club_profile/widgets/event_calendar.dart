@@ -6,7 +6,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../application/club_profile/events_calendar/events_calendar_cubit.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class EventCalender extends StatelessWidget {
   final DateTime startDate;

@@ -17,6 +17,7 @@ class BasicProfileState with _$BasicProfileState {
     required UserRepository userRepository,
     required TextEditingController fullNameController,
     required String errorFullName,
+    required bool showPermissionDialog,
   }) = _BasicProfileState;
 
   factory BasicProfileState.initial({
@@ -37,5 +38,7 @@ class BasicProfileState with _$BasicProfileState {
           errorMessage: '',
           profileImage: null,
           fullNameController: TextEditingController(),
-          errorFullName: '');
+          errorFullName: '',
+          showPermissionDialog: false,
+          );
 }

@@ -26,7 +26,7 @@ class EmailOtpVerification extends StatelessWidget {
     final AppConfig appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) =>
-          EmailOtpVerificationCubit(OtpVerificationState.initial(
+          EmailOtpVerificationCubit(EmailOtpVerificationState.initial(
         emailAddress: emailAddress,
         serverUrl: appConfig.serverUrl,
       )),
@@ -46,9 +46,8 @@ class EmailOtpVerificationScreen extends StatelessWidget {
     final colorScheme = themeData.colorScheme;
     final textTheme = themeData.textTheme;
 
-    return BlocConsumer<EmailOtpVerificationCubit, OtpVerificationState>(
+    return BlocConsumer<EmailOtpVerificationCubit, EmailOtpVerificationState>(
       listener: (context, state) {
-        
         if (state.isOTPVerificationSuccessful &&
             !state.isOTPVerificationFailed) {
           navigator<NavigationService>()
@@ -57,8 +56,6 @@ class EmailOtpVerificationScreen extends StatelessWidget {
                     'emailAddress': state.emailAddress,
                   },
                   isClearStack: true);
-
-            
         }
 
         if (!state.isOTPVerificationSuccessful &&
@@ -69,6 +66,12 @@ class EmailOtpVerificationScreen extends StatelessWidget {
             message: 'Otp Verification Failed',
           );
         }
+
+        context.read<EmailOtpVerificationCubit>().emitFromAnywhere(
+                state: state.copyWith(
+              isOTPVerificationFailed: false,
+              isOTPVerificationSuccessful: false,
+            ));
       },
       builder: (context, state) {
         return ModalProgressHUD(

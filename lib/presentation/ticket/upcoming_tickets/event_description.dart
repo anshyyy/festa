@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../application/ticket/ticket_cubit.dart';
 import '../../../domain/core/extensions/string_extension.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
 
 class EventDescription extends StatelessWidget {

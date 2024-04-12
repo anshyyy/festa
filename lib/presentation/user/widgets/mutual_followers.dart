@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/dtos/community/community_dto.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class MutualFollowers extends StatelessWidget {
   const MutualFollowers({super.key, this.artistCommunityDto});

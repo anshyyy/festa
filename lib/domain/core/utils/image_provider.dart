@@ -1,4 +1,4 @@
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../constants/other_constants.dart';
 
 class CustomImageProvider {

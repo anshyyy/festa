@@ -104,6 +104,7 @@ dependencies:
   just_audio: ^0.9.37
   map_launcher: ^3.3.0
   widgets_to_image: ^0.0.2
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:

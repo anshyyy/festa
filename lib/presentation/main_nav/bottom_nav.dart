@@ -11,7 +11,7 @@ import '../../application/main_nav/main_nav_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/utils/image_provider.dart';
-import '../../infrastructure/core/enum/image_type.dart';
+import '../../infrastructure/core/enum/image_type.enum.dart';
 
 class CustomBottomNav extends StatelessWidget {
   const CustomBottomNav({

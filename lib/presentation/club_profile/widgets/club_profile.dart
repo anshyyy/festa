@@ -13,7 +13,7 @@ import '../../../domain/core/services/navigation_services/navigation_service.dar
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/gradient_button.dart';
 import 'social_reach.dart';
 

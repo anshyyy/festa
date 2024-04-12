@@ -7,7 +7,7 @@ import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
 import '../../infrastructure/artist/dtos/artist/artist_dto.dart';
-import '../../infrastructure/core/enum/image_type.dart';
+import '../../infrastructure/core/enum/image_type.enum.dart';
 
 class ShortProfileTile extends StatelessWidget {
   final ArtistProfileDto artist;

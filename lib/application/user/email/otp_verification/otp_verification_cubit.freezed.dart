@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$OtpVerificationState {
+mixin _$EmailOtpVerificationState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
@@ -27,15 +27,15 @@ mixin _$OtpVerificationState {
   TextEditingController get otpController => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $OtpVerificationStateCopyWith<OtpVerificationState> get copyWith =>
+  $EmailOtpVerificationStateCopyWith<EmailOtpVerificationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OtpVerificationStateCopyWith<$Res> {
-  factory $OtpVerificationStateCopyWith(OtpVerificationState value,
-          $Res Function(OtpVerificationState) then) =
-      _$OtpVerificationStateCopyWithImpl<$Res, OtpVerificationState>;
+abstract class $EmailOtpVerificationStateCopyWith<$Res> {
+  factory $EmailOtpVerificationStateCopyWith(EmailOtpVerificationState value,
+          $Res Function(EmailOtpVerificationState) then) =
+      _$EmailOtpVerificationStateCopyWithImpl<$Res, EmailOtpVerificationState>;
   @useResult
   $Res call(
       {bool isLoading,
@@ -50,10 +50,10 @@ abstract class $OtpVerificationStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$OtpVerificationStateCopyWithImpl<$Res,
-        $Val extends OtpVerificationState>
-    implements $OtpVerificationStateCopyWith<$Res> {
-  _$OtpVerificationStateCopyWithImpl(this._value, this._then);
+class _$EmailOtpVerificationStateCopyWithImpl<$Res,
+        $Val extends EmailOtpVerificationState>
+    implements $EmailOtpVerificationStateCopyWith<$Res> {
+  _$EmailOtpVerificationStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -115,11 +115,12 @@ class _$OtpVerificationStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$OtpVerificationStateImplCopyWith<$Res>
-    implements $OtpVerificationStateCopyWith<$Res> {
-  factory _$$OtpVerificationStateImplCopyWith(_$OtpVerificationStateImpl value,
-          $Res Function(_$OtpVerificationStateImpl) then) =
-      __$$OtpVerificationStateImplCopyWithImpl<$Res>;
+abstract class _$$EmailOtpVerificationStateImplCopyWith<$Res>
+    implements $EmailOtpVerificationStateCopyWith<$Res> {
+  factory _$$EmailOtpVerificationStateImplCopyWith(
+          _$EmailOtpVerificationStateImpl value,
+          $Res Function(_$EmailOtpVerificationStateImpl) then) =
+      __$$EmailOtpVerificationStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -135,11 +136,13 @@ abstract class _$$OtpVerificationStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$OtpVerificationStateImplCopyWithImpl<$Res>
-    extends _$OtpVerificationStateCopyWithImpl<$Res, _$OtpVerificationStateImpl>
-    implements _$$OtpVerificationStateImplCopyWith<$Res> {
-  __$$OtpVerificationStateImplCopyWithImpl(_$OtpVerificationStateImpl _value,
-      $Res Function(_$OtpVerificationStateImpl) _then)
+class __$$EmailOtpVerificationStateImplCopyWithImpl<$Res>
+    extends _$EmailOtpVerificationStateCopyWithImpl<$Res,
+        _$EmailOtpVerificationStateImpl>
+    implements _$$EmailOtpVerificationStateImplCopyWith<$Res> {
+  __$$EmailOtpVerificationStateImplCopyWithImpl(
+      _$EmailOtpVerificationStateImpl _value,
+      $Res Function(_$EmailOtpVerificationStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -155,7 +158,7 @@ class __$$OtpVerificationStateImplCopyWithImpl<$Res>
     Object? userRepository = null,
     Object? otpController = null,
   }) {
-    return _then(_$OtpVerificationStateImpl(
+    return _then(_$EmailOtpVerificationStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -198,8 +201,8 @@ class __$$OtpVerificationStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$OtpVerificationStateImpl implements _OtpVerificationState {
-  const _$OtpVerificationStateImpl(
+class _$EmailOtpVerificationStateImpl implements _EmailOtpVerificationState {
+  const _$EmailOtpVerificationStateImpl(
       {required this.isLoading,
       required this.isFailure,
       required this.isSuccess,
@@ -231,14 +234,14 @@ class _$OtpVerificationStateImpl implements _OtpVerificationState {
 
   @override
   String toString() {
-    return 'OtpVerificationState(isLoading: $isLoading, isFailure: $isFailure, isSuccess: $isSuccess, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, isOTPVerificationFailed: $isOTPVerificationFailed, showResendOtp: $showResendOtp, emailAddress: $emailAddress, userRepository: $userRepository, otpController: $otpController)';
+    return 'EmailOtpVerificationState(isLoading: $isLoading, isFailure: $isFailure, isSuccess: $isSuccess, isOTPVerificationSuccessful: $isOTPVerificationSuccessful, isOTPVerificationFailed: $isOTPVerificationFailed, showResendOtp: $showResendOtp, emailAddress: $emailAddress, userRepository: $userRepository, otpController: $otpController)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OtpVerificationStateImpl &&
+            other is _$EmailOtpVerificationStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isFailure, isFailure) ||
@@ -278,14 +281,13 @@ class _$OtpVerificationStateImpl implements _OtpVerificationState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OtpVerificationStateImplCopyWith<_$OtpVerificationStateImpl>
-      get copyWith =>
-          __$$OtpVerificationStateImplCopyWithImpl<_$OtpVerificationStateImpl>(
-              this, _$identity);
+  _$$EmailOtpVerificationStateImplCopyWith<_$EmailOtpVerificationStateImpl>
+      get copyWith => __$$EmailOtpVerificationStateImplCopyWithImpl<
+          _$EmailOtpVerificationStateImpl>(this, _$identity);
 }
 
-abstract class _OtpVerificationState implements OtpVerificationState {
-  const factory _OtpVerificationState(
+abstract class _EmailOtpVerificationState implements EmailOtpVerificationState {
+  const factory _EmailOtpVerificationState(
           {required final bool isLoading,
           required final bool isFailure,
           required final bool isSuccess,
@@ -295,7 +297,7 @@ abstract class _OtpVerificationState implements OtpVerificationState {
           required final String emailAddress,
           required final UserRepository userRepository,
           required final TextEditingController otpController}) =
-      _$OtpVerificationStateImpl;
+      _$EmailOtpVerificationStateImpl;
 
   @override
   bool get isLoading;
@@ -317,6 +319,6 @@ abstract class _OtpVerificationState implements OtpVerificationState {
   TextEditingController get otpController;
   @override
   @JsonKey(ignore: true)
-  _$$OtpVerificationStateImplCopyWith<_$OtpVerificationStateImpl>
+  _$$EmailOtpVerificationStateImplCopyWith<_$EmailOtpVerificationStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

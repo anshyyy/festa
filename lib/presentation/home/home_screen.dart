@@ -15,7 +15,7 @@ import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
-import '../../infrastructure/core/enum/image_type.dart';
+import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../common/event_card.dart';
 import '../core/primary_button.dart';

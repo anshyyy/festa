@@ -24,7 +24,7 @@ import 'domain/core/utils/dynamic_link.dart';
 import 'domain/core/utils/image_provider.dart';
 import 'infrastructure/auth/i_auth_repository.dart';
 import 'infrastructure/core/dtos/location/location_dto.dart';
-import 'infrastructure/core/enum/image_type.dart';
+import 'infrastructure/core/enum/image_type.enum.dart';
 import 'infrastructure/core/enum/profile_state.enum.dart';
 import 'presentation/common/app_update.dart';
 

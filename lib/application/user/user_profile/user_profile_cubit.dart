@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../domain/core/core_repository.dart';
 import '../../../domain/user/user_repository.dart';
@@ -42,30 +43,35 @@ class UserProfileCubit extends Cubit<UserProfileState> {
 
   void onSelectCoverImage() async {
     emit(state.copyWith(isLoading: true));
-    final file = await state.coreRepository.selectImage();
-    if (file == null) return;
+    final fileReponse = await state.coreRepository.selectImage();
+    fileReponse.fold((l) {
+      if (l == PermissionStatus.permanentlyDenied) {
+        // showpopup
+      }
+    }, (r) async {
+      if (r == null) return;
+      final res = await state.coreRepository.uploadFile(file: r);
+      final response =
+          await state.userRepository.patchProfile(input: {'coverImage': res});
 
-    // final res = await state.coreRepository.uploadFileToUserLocation(file: file);
-    final res = await state.coreRepository.uploadFile(file: file);
-    final response =
-        await state.userRepository.patchProfile(input: {'coverImage': res});
-    
-    response.fold((l) {
-      emit(state.copyWith(
-        isLoading: false,
-        isSuccessful: false,
-        isFailed: true,
-        coverImage: res,
-      ));
-    }, (r) {
-      emit(state.copyWith(
-        isLoading: false,
-        coverImage: res,
-        isSuccessful: true,
-        isFailed: false,
-        user: r,
-      ));
+      response.fold((l) {
+        emit(state.copyWith(
+          isLoading: false,
+          isSuccessful: false,
+          isFailed: true,
+          coverImage: res,
+        ));
+      }, (r) {
+        emit(state.copyWith(
+          isLoading: false,
+          coverImage: res,
+          isSuccessful: true,
+          isFailed: false,
+          user: r,
+        ));
+      });
     });
+    // final res = await state.coreRepository.uploadFileToUserLocation(file: file);
   }
 
   void expandQrView() {

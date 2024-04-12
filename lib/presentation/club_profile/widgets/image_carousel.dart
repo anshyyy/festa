@@ -6,7 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class ImageCarousel extends StatelessWidget {
   const ImageCarousel({super.key});

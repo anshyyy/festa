@@ -15,7 +15,7 @@ import '../../../domain/core/extensions/string_extension.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
 

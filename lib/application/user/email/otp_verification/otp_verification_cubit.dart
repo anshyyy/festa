@@ -8,7 +8,7 @@ import '../../../../infrastructure/user/i_user_repository.dart';
 part 'otp_verification_cubit.freezed.dart';
 part 'otp_verification_state.dart';
 
-class EmailOtpVerificationCubit extends Cubit<OtpVerificationState> {
+class EmailOtpVerificationCubit extends Cubit<EmailOtpVerificationState> {
   EmailOtpVerificationCubit(super.initialState);
 
   void verifyOtp() async {
@@ -44,4 +44,11 @@ class EmailOtpVerificationCubit extends Cubit<OtpVerificationState> {
   void coundownFinished() {
     emit(state.copyWith(showResendOtp: true));
   }
+
+ void emitFromAnywhere({
+    required EmailOtpVerificationState state,
+  }) {
+    emit(state);
+  }
+
 }

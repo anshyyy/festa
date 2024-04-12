@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/core_repository.dart';
@@ -17,16 +18,33 @@ class ICoreRepository extends CoreRepository {
   final String serverUrl;
 
   ICoreRepository({required this.serverUrl});
+
   @override
-  Future<File?> selectImage() async {
+  Future<PermissionStatus> permissionStatus() async {
+    final permissionStatus = await Permission.photos.status;
+    if (permissionStatus.isGranted) {
+      return PermissionStatus.granted;
+    }
+    if (permissionStatus.isPermanentlyDenied) {
+      return PermissionStatus.permanentlyDenied;
+    }
+    return PermissionStatus.denied;
+  }
+
+  @override
+  Future<Either<PermissionStatus, File?>> selectImage() async {
+    final permission = await permissionStatus();
+    if (permission.isPermanentlyDenied) {
+      return left(PermissionStatus.permanentlyDenied);
+    }
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    if (image == null) return null;
+    if (image == null) return right(null);
 
     final path = image.path;
     final file = File(path);
 
-    return file;
+    return right(file);
   }
 
   @override

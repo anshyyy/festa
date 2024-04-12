@@ -1,8 +1,8 @@
 part of 'otp_verification_cubit.dart';
 
 @freezed
-class OtpVerificationState with _$OtpVerificationState {
-  const factory OtpVerificationState({
+class EmailOtpVerificationState with _$EmailOtpVerificationState {
+  const factory EmailOtpVerificationState({
     required bool isLoading,
     required bool isFailure,
     required bool isSuccess,
@@ -12,12 +12,12 @@ class OtpVerificationState with _$OtpVerificationState {
     required String emailAddress,
     required UserRepository userRepository,
     required TextEditingController otpController,
-  }) = _OtpVerificationState;
-  factory OtpVerificationState.initial({
+  }) = _EmailOtpVerificationState;
+  factory EmailOtpVerificationState.initial({
     required String emailAddress,
     required String serverUrl,
   }) =>
-      OtpVerificationState(
+      EmailOtpVerificationState(
         isLoading: false,
         isFailure: false,
         isSuccess: false,

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../domain/core/core_repository.dart';
 import '../../../domain/user/user_repository.dart';
@@ -43,40 +44,51 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   void onSelectCoverImage() async {
     emit(state.copyWith(isLoading: true));
-    final file = await state.coreRepository.selectImage();
-    if (file == null) return;
-
-    // final res = await state.coreRepository.uploadFileToUserLocation(file: file);
-    final res = await state.coreRepository.uploadFile(file: file);
-
-    emit(
-      state.copyWith(
-        isLoading: false,
-        isSuccess: true,
-        isFailure: false,
-        coverImageUrl: res,
-        isSaveEnabled: true,
-      ),
-    );
+    final response = await state.coreRepository.selectImage();
+    response.fold((l) {
+      if (l == PermissionStatus.permanentlyDenied) {
+        // showpopup
+      }
+    }, (r) async {
+      if (r == null) return;
+      emit(state.copyWith(
+        isLoading: true,
+      ));
+      final res = await state.coreRepository.uploadFile(file: r);
+      emit(
+        state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          isFailure: false,
+          coverImageUrl: res,
+          isSaveEnabled: true,
+        ),
+      );
+    });
   }
 
   void onProfileImageChange() async {
     emit(state.copyWith(isLoading: true));
-    final file = await state.coreRepository.selectImage();
-    if (file == null) return;
+    final response = await state.coreRepository.selectImage();
 
-    // final res = await state.coreRepository.uploadFileToUserLocation(file: file);
-    final res = await state.coreRepository.uploadFile(file: file);
-    // final response =
-    //     await state.userRepository.patchProfile(input: {'profileImage': res});
-
-    emit(state.copyWith(
-      isLoading: false,
-      isSuccess: true,
-      isFailure: false,
-      profileImageUrl: res,
-      isSaveEnabled: true,
-    ));
+    response.fold((l) {
+      if (l == PermissionStatus.permanentlyDenied) {
+        // showpopup
+      }
+    }, (r) async {
+      if (r == null) return;
+      emit(state.copyWith(
+        isLoading: true,
+      ));
+      final res = await state.coreRepository.uploadFile(file: r);
+      emit(state.copyWith(
+        isLoading: false,
+        isSuccess: true,
+        isFailure: false,
+        profileImageUrl: res,
+        isSaveEnabled: true,
+      ));
+    });
   }
 
   void onNameChange() {

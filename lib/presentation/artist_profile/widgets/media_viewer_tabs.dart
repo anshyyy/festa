@@ -8,7 +8,7 @@ import '../../../application/artist/artist_music/artist_music_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.dart';
+import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class MediaViewerTabs extends StatelessWidget {
   final int artistId;

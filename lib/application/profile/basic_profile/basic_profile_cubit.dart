@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/configs/app_config.dart';
@@ -22,15 +23,30 @@ class BasicProfileCubit extends Cubit<BasicProfileState> {
 
   //selectProfileImage
   Future<void> onSelectProfileImage() async {
-    final file = await state.coreRepository.selectImage();
+    final response = await state.coreRepository.selectImage();
+
+    response.fold((l) {
+      if (l == PermissionStatus.permanentlyDenied) {
+        // showpopup
+        emit(state.copyWith(
+        showPermissionDialog: true,
+        noUse: !state.noUse,
+      ));
+      }
+    }, (r) async {
+      if (r == null) return;
+      emit(state.copyWith(
+        isLoading: true,
+      ));
+      final res = await state.coreRepository.uploadFile(file: r);
+      emit(state.copyWith(
+        profileImage: res,
+        isLoading: false,
+        showPermissionDialog: false,
+      ));
+    });
 
     // Error needs here
-    if (file == null) return;
-    emit(state.copyWith(
-      isLoading: true,
-    ));
-    final res = await state.coreRepository.uploadFile(file: file);
-    emit(state.copyWith(profileImage: res, isLoading: false,));
   }
 
   Future<void> onContinue() async {

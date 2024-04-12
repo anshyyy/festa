@@ -170,6 +170,7 @@ class _EventCardState extends State<EventCard> {
                       overflow: TextOverflow.ellipsis,
                       style: themeData.textTheme.bodyMedium!.copyWith(
                         color: themeData.colorScheme.background,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -227,27 +228,27 @@ class _EventCardState extends State<EventCard> {
               // SizedBox(
               //   height: 1.h,
               // ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
+                      SvgPicture.asset(AssetConstants.durationIcon,
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.inversePrimary,
+                              BlendMode.srcIn)),
                       SizedBox(
                         width: 1.w,
                       ),
-                      SvgPicture.asset(
-                        AssetConstants.ticketIcon,
-                      ),
-                      SizedBox(
-                        width: 2.w,
-                      ),
                       Text(
-                        '${widget.event.priceRangeStart.toIndianRupeeString()}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
-                        style: themeData.textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                      )
+                        StringExtension.formatDateTimeLong(
+                            DateTime.parse(widget.event.startDate)),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Theme.of(context).colorScheme.background,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
                     ],
                   ),
                   if (widget.event.pub != null)
@@ -281,24 +282,28 @@ class _EventCardState extends State<EventCard> {
                 children: [
                   Row(
                     children: [
-                      SvgPicture.asset(AssetConstants.durationIcon,
-                          colorFilter: ColorFilter.mode(
-                              Theme.of(context).colorScheme.inversePrimary,
-                              BlendMode.srcIn)),
                       SizedBox(
                         width: 1.w,
                       ),
-                      Text(
-                        StringExtension.formatDateTimeLong(
-                            DateTime.parse(widget.event.startDate)),
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              color: Theme.of(context).colorScheme.background,
-                            ),
+                      SvgPicture.asset(
+                        AssetConstants.ticketIcon,
                       ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Text(
+                        '${widget.event.priceRangeStart.toIndianRupeeString()}${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
+                        style: themeData.textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background,
+                        ),
+                      )
                     ],
                   ),
+                  getExpenseRating(rating: widget.event.id)
                 ],
               ),
+
               SizedBox(
                 height: 1.h,
               ),
@@ -542,6 +547,23 @@ class _EventCardState extends State<EventCard> {
         ],
       ),
     );
+  }
+
+  SvgPicture getExpenseRating({required int rating}) {
+    switch (rating) {
+      case 1:
+        return SvgPicture.asset(AssetConstants.expenseRating1, height: 2.5.w,);
+      case 2:
+        return SvgPicture.asset(AssetConstants.expenseRating2, height: 2.5.w,);
+      case 3:
+        return SvgPicture.asset(AssetConstants.expenseRating3, height: 2.5.w,);
+      case 4:
+        return SvgPicture.asset(AssetConstants.expenseRating4, height: 2.5.w,);
+      case 5:
+        return SvgPicture.asset(AssetConstants.expenseRating5, height: 2.5.w,);
+      default:
+        return SvgPicture.asset(AssetConstants.expenseRating1, height: 2.5.w,);
+    }
   }
 }
 

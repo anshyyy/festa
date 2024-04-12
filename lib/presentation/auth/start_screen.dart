@@ -43,6 +43,7 @@ final textTheme = themeData.textTheme;
 
           navigator<NavigationService>().navigateTo(
             AuthRoutes.loginWithPhoneRoute,
+            isClearStack: true,
           );
 
           context.read<StarterCubit>().emitFromAnywhere(

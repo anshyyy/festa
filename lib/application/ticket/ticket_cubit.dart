@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../domain/user/user_repository.dart';
 import '../../infrastructure/user/dtos/user_tickets/user_tickets_dto.dart';
@@ -22,6 +27,20 @@ class TicketCubit extends Cubit<TicketState> {
         userTickets: UserTicketsDto(
             bookedTicketsHistory: state.userTickets!.bookedTicketsHistory,
             upcomingTickets: updated)));
+  }
+
+  void shareTicket() async {
+    emit(state.copyWith(isShareEnabled: false));
+    await Future.delayed(Duration(milliseconds: 10));
+    final image = await state.widgetsToImageController.capture();
+    if (image != null) {
+      final directory = await getTemporaryDirectory();
+      final imagePath = '${directory.path}/widget_image.png';
+      await File(imagePath).writeAsBytes(image);
+
+      await Share.shareXFiles([XFile(imagePath)]);
+    }
+    emit(state.copyWith(isShareEnabled: true));
   }
 
   void showTicketHistory({required bool flag}) {

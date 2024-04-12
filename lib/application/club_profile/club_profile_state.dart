@@ -22,6 +22,7 @@ class ClubProfileState with _$ClubProfileState {
     PubDto? pub,
     required bool isFollowing,
     required bool openPhotoViewer,
+    required bool showHeader,
   }) = _ClubProfileState;
 
   factory ClubProfileState.initial(
@@ -29,6 +30,7 @@ class ClubProfileState with _$ClubProfileState {
       ClubProfileState(
         key: GlobalKey(),
         viewPortHeight: 274,
+        showHeader: false,
         currentImageIndex: 0,
         scrollController: ScrollController(),
         parentController: ScrollController(),
@@ -42,8 +44,8 @@ class ClubProfileState with _$ClubProfileState {
         isSuccessful: false,
         responseMsg: '',
         isFollowing: false,
-        page:1,
+        page: 1,
         assets: [],
-        openPhotoViewer:false,
+        openPhotoViewer: false,
       );
 }

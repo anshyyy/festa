@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -116,18 +118,28 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.w),
-                        child: GradientText(
-                          text: EventDetailsScreenConstants.viewOnMaps,
-                          colors: [
-                            Theme.of(context).colorScheme.primary,
-                            Theme.of(context).colorScheme.secondary
-                          ],
-                          textStyle:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<EventDetailsCubit>().viewOnMaps(
+                              lat: state.event?.address?.lat ?? 0,
+                              long: state.event?.address?.lng ?? 0,
+                              isAndroid: Platform.isAndroid,
+                              eventTitle: state.event?.name ?? ''
+                              );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 3.w),
+                          child: GradientText(
+                            text: EventDetailsScreenConstants.viewOnMaps,
+                            colors: [
+                              Theme.of(context).colorScheme.primary,
+                              Theme.of(context).colorScheme.secondary
+                            ],
+                            textStyle:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                          ),
                         ),
                       ),
 

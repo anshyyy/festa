@@ -36,6 +36,7 @@ mixin _$ClubProfileState {
   PubDto? get pub => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
   bool get openPhotoViewer => throw _privateConstructorUsedError;
+  bool get showHeader => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ClubProfileStateCopyWith<ClubProfileState> get copyWith =>
@@ -67,7 +68,8 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       List<AssetDto> assets,
       PubDto? pub,
       bool isFollowing,
-      bool openPhotoViewer});
+      bool openPhotoViewer,
+      bool showHeader});
 
   $PubDtoCopyWith<$Res>? get pub;
 }
@@ -104,6 +106,7 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     Object? pub = freezed,
     Object? isFollowing = null,
     Object? openPhotoViewer = null,
+    Object? showHeader = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -182,6 +185,10 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.openPhotoViewer
           : openPhotoViewer // ignore: cast_nullable_to_non_nullable
               as bool,
+      showHeader: null == showHeader
+          ? _value.showHeader
+          : showHeader // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -225,7 +232,8 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
       List<AssetDto> assets,
       PubDto? pub,
       bool isFollowing,
-      bool openPhotoViewer});
+      bool openPhotoViewer,
+      bool showHeader});
 
   @override
   $PubDtoCopyWith<$Res>? get pub;
@@ -261,6 +269,7 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
     Object? pub = freezed,
     Object? isFollowing = null,
     Object? openPhotoViewer = null,
+    Object? showHeader = null,
   }) {
     return _then(_$ClubProfileStateImpl(
       isLoading: null == isLoading
@@ -339,6 +348,10 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.openPhotoViewer
           : openPhotoViewer // ignore: cast_nullable_to_non_nullable
               as bool,
+      showHeader: null == showHeader
+          ? _value.showHeader
+          : showHeader // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -365,7 +378,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       required this.assets,
       this.pub,
       required this.isFollowing,
-      required this.openPhotoViewer});
+      required this.openPhotoViewer,
+      required this.showHeader});
 
   @override
   final bool isLoading;
@@ -405,10 +419,12 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   final bool isFollowing;
   @override
   final bool openPhotoViewer;
+  @override
+  final bool showHeader;
 
   @override
   String toString() {
-    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, assets: $assets, pub: $pub, isFollowing: $isFollowing, openPhotoViewer: $openPhotoViewer)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, assets: $assets, pub: $pub, isFollowing: $isFollowing, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
   }
 
   @override
@@ -446,7 +462,9 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
             (identical(other.isFollowing, isFollowing) ||
                 other.isFollowing == isFollowing) &&
             (identical(other.openPhotoViewer, openPhotoViewer) ||
-                other.openPhotoViewer == openPhotoViewer));
+                other.openPhotoViewer == openPhotoViewer) &&
+            (identical(other.showHeader, showHeader) ||
+                other.showHeader == showHeader));
   }
 
   @override
@@ -470,7 +488,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
         const DeepCollectionEquality().hash(assets),
         pub,
         isFollowing,
-        openPhotoViewer
+        openPhotoViewer,
+        showHeader
       ]);
 
   @JsonKey(ignore: true)
@@ -501,7 +520,8 @@ abstract class _ClubProfileState implements ClubProfileState {
       required final List<AssetDto> assets,
       final PubDto? pub,
       required final bool isFollowing,
-      required final bool openPhotoViewer}) = _$ClubProfileStateImpl;
+      required final bool openPhotoViewer,
+      required final bool showHeader}) = _$ClubProfileStateImpl;
 
   @override
   bool get isLoading;
@@ -541,6 +561,8 @@ abstract class _ClubProfileState implements ClubProfileState {
   bool get isFollowing;
   @override
   bool get openPhotoViewer;
+  @override
+  bool get showHeader;
   @override
   @JsonKey(ignore: true)
   _$$ClubProfileStateImplCopyWith<_$ClubProfileStateImpl> get copyWith =>

@@ -14,6 +14,7 @@ class EditProfileState with _$EditProfileState {
     required TextEditingController bioTextController,
     required TextEditingController nameEditingController,
     UserDto? user,
+    required bool isSaveEnabled,
   })= _EditProfileState;
 
    factory EditProfileState.initial({
@@ -28,5 +29,6 @@ class EditProfileState with _$EditProfileState {
     coreRepository: ICoreRepository(serverUrl: serverUrl),
     bioTextController: TextEditingController(),
     nameEditingController:TextEditingController(),
+    isSaveEnabled: false,
   );
 }

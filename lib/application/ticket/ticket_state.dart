@@ -12,6 +12,8 @@ class TicketState with _$TicketState {
     required UserRepository userRepository,
     UserTicketsDto? userTickets,
     required int currentPage,
+    required WidgetsToImageController widgetsToImageController,
+    required bool isShareEnabled,
   }) = _TicketState;
   factory TicketState.initial({
     required String serverUrl,
@@ -24,6 +26,8 @@ class TicketState with _$TicketState {
         showTicketHistory: false,
         userRepository: IUserRepository(serverUrl: serverUrl),
         currentPage: 0,
+        widgetsToImageController: WidgetsToImageController(),
+        isShareEnabled: true,
       );
 }
 

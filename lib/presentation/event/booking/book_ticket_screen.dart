@@ -122,7 +122,7 @@ class BottomBookingBar extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          height: 14.h,
+          height: 11.5.h,
           width: 100.w,
           padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
           color: Theme.of(context).colorScheme.surface,
@@ -182,6 +182,7 @@ class BottomBookingBar extends StatelessWidget {
               Expanded(
                   flex: 4,
                   child: GradientButton(
+
                     text: EventDetailsScreenConstants.bookTheTickets,
                     onTap: onClick,
                     isEnabled: state.isBookingEnabled,

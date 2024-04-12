@@ -31,7 +31,7 @@ class TicketCubit extends Cubit<TicketState> {
 
   void shareTicket() async {
     emit(state.copyWith(isShareEnabled: false));
-    await Future.delayed(Duration(milliseconds: 10));
+    await Future.delayed(const Duration(milliseconds: 10));
     final image = await state.widgetsToImageController.capture();
     if (image != null) {
       final directory = await getTemporaryDirectory();

@@ -218,12 +218,6 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              Provider.of<AppStateNotifier>(
-                                                      context,
-                                                      listen: false)
-                                                  .toggleBottomNav(
-                                                      showBottomNav: false);
-
                                               navigator<NavigationService>()
                                                   .navigateTo(
                                                       UserRoutes
@@ -231,12 +225,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                       queryParams: {
                                                     'userId': state.user!.id
                                                         .toString()
-                                                  }).then((value) => Provider
-                                                          .of<AppStateNotifier>(
-                                                              context,
-                                                              listen: false)
-                                                      .toggleBottomNav(
-                                                          showBottomNav: true));
+                                                  }).then((value) {});
                                             },
                                             child: Row(
                                               children: [
@@ -582,10 +571,6 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       EdgeInsets.symmetric(horizontal: 3.w),
                                   child: GestureDetector(
                                     onTap: () {
-                                      Provider.of<AppStateNotifier>(context,
-                                              listen: false)
-                                          .toggleBottomNav(
-                                              showBottomNav: false);
                                       context.read<ProfileCubit>().logout();
                                     },
                                     child: Row(

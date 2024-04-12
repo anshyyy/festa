@@ -107,6 +107,7 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: textFieldKey,
+      autofocus: autofocus,
       controller: controller,
       initialValue: initialVal,
       cursorColor: cursorColor ?? Theme.of(context).primaryColor,

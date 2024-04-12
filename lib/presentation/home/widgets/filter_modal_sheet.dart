@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/filter/filter_cubit.dart';
@@ -78,7 +77,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  navigator<NavigationService>().goBack();
+                                  navigator<NavigationService>().goBack(responseObject: state.filters);
                                 },
                                 child: SvgPicture.asset(
                                   AssetConstants.closeIcon,
@@ -378,19 +377,12 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                   Expanded(
                                       child: MaterialButton(
                                     onPressed: () {
+                                      context
+                                          .read<FilterCubit>()
+                                          .clearFilters();
+
                                       CustomToast.show(context,
                                           'All the filters are cleared');
-
-                                      // context
-                                      //     .read<FilterCubit>()
-                                      //     .clearFilters();
-                                      // Fluttertoast.showToast(
-                                      //   textColor: Theme.of(context)
-                                      //       .colorScheme
-                                      //       .background,
-                                      //   gravity: ToastGravity.BOTTOM,
-                                      //   msg: 'All the filters are cleared',
-                                      // );
                                     },
                                     child: Text(
                                       'Clear All',
@@ -401,30 +393,34 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                       ),
                                     ),
                                   )),
-                                  Expanded(
-                                    child: GradientButton(
-                                        textStyle: themeData
-                                            .textTheme.bodySmall!
-                                            .copyWith(
-                                                color:
-                                                    state.isFilterOptionSelected
-                                                        ? themeData.colorScheme
-                                                            .background
-                                                        : themeData.colorScheme
-                                                            .background
-                                                            .withOpacity(.5),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 3.5.w),
-                                        isEnabled: state.isFilterOptionSelected,
-                                        width: 100.w,
-                                        height: 5.5.h,
-                                        text: 'Apply filters',
-                                        onTap: () {
-                                          navigator<NavigationService>().goBack(
-                                            responseObject: state.filters,
-                                          );
-                                        }),
-                                  )
+                                    Expanded(
+                                      child: GradientButton(
+                                          textStyle: themeData
+                                              .textTheme.bodySmall!
+                                              .copyWith(
+                                                  color:
+                                                      state.isFilterOptionSelected
+                                                          ? themeData
+                                                              .colorScheme
+                                                              .background
+                                                          : themeData
+                                                              .colorScheme
+                                                              .background
+                                                              .withOpacity(.5),
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 3.5.w),
+                                          isEnabled:
+                                              state.isFilterOptionSelected,
+                                          width: 100.w,
+                                          height: 5.5.h,
+                                          text: 'Apply filters',
+                                          onTap: () {
+                                            navigator<NavigationService>()
+                                                .goBack(
+                                              responseObject: state.filters,
+                                            );
+                                          }),
+                                    )
                                 ],
                               ),
                             )
@@ -443,7 +439,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
 
 class CustomToast {
   static void show(BuildContext context, String message) {
-    final overlay = Overlay.of(context)!;
+    final overlay = Overlay.of(context);
     OverlayEntry overlayEntry;
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(

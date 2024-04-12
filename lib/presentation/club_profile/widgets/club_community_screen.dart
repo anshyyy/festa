@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_community/club_community_cubit.dart';
@@ -8,6 +9,7 @@ import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../main_nav/bottom_nav.dart';
 import '../../widgets/custom_appbar.dart';
 import 'club_followers.dart';
 import 'club_friends.dart';
@@ -46,11 +48,16 @@ class ClubCommunityConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
 
     return BlocConsumer<ClubCommunityCubit, ClubCommunityState>(
-      listener: (context, state) {
-        
-      }, 
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          bottomNavigationBar: CustomBottomNav(
+              onTabChange: (v) {},
+              isTabScreen: false,
+              currentIndex:
+                  Provider.of<AppStateNotifier>(context, listen: false)
+                          .menuIndex ??
+                      0),
           appBar: CustomAppBar(
               title: state.clubName,
               scaffoldBackgroundColor: colorScheme.surface,
@@ -67,7 +74,6 @@ class ClubCommunityConsumer extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 3.w),
               child: DefaultTabController(
                 length: 2,
-                
                 child: Column(
                   children: [
                     TabBar(
@@ -75,8 +81,8 @@ class ClubCommunityConsumer extends StatelessWidget {
                       indicatorPadding: EdgeInsets.symmetric(vertical: 2.w),
                       labelColor: colorScheme.background,
                       indicatorSize: TabBarIndicatorSize.label,
-                      onTap: (value){
-context.read<ClubCommunityCubit>().clearSearch();
+                      onTap: (value) {
+                        context.read<ClubCommunityCubit>().clearSearch();
                       },
                       tabs: [
                         Tab(
@@ -100,9 +106,9 @@ context.read<ClubCommunityCubit>().clearSearch();
                     SizedBox(
                       height: 2.w,
                     ),
-                    
                     const Expanded(
                         child: TabBarView(
+                          
                       children: [
                         ClubFollowers(),
                         ClubFriends(),

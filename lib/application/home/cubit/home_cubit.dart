@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
+import '../../../domain/core/constants/home_cache_storage.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/event/event_repository.dart';
@@ -32,10 +33,17 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(
       isLoading: false,
       filters: filters,
-      categoryFilter: filters.firstWhere((element) {
-        return element.name == 'music';
-      }),
+      categoryFilter: CacheStorageHome.homeCategoryFilter ??
+          filters.firstWhere((element) {
+            return element.name == 'music';
+          }),
     ));
+
+    if (CacheStorageHome.homeCategoryFilter == null) {
+      CacheStorageHome.updateHomeCategoryFilter(
+          filterDto: state.categoryFilter);
+    }
+
     state.scrollController.addListener(() {
       final double maxScroll = state.scrollController.position.maxScrollExtent;
       final double currentScroll = state.scrollController.position.pixels;
@@ -55,10 +63,9 @@ class HomeCubit extends Cubit<HomeState> {
   Future onPullToRefresh() async {
     emit(state.copyWith(isLoading: true));
 
-  await  getEvents();
+    await getEvents();
 
     emit(state.copyWith(isLoading: false));
-
   }
 
   Future getEvents({String? eventsFrom}) async {
@@ -289,15 +296,20 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(isSearchOpen: flag));
   }
 
-  void onSearchChange({bool isSearchOn = true}) {
-    emit(state.copyWith(page: 1));
+  void onSearchChange({bool isSearchOn = true}) async {
+    emit(state.copyWith(page: 1, isLoading: true));
     if (isSearchOn) {
-      getEvents();
+      await getEvents();
     } else {
-      state.searchController.clear();
-      toggleSearch(flag: false);
-      getEvents();
+      if (state.searchController.text.trim().isEmpty) {
+        toggleSearch(flag: false);
+      } else {
+        state.searchController.clear();
+        toggleSearch(flag: false);
+        await getEvents();
+      }
     }
+    emit(state.copyWith(isLoading: false));
   }
 
   void onLocationSearchChange({required String query}) async {

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -387,11 +386,6 @@ class _EventCardState extends State<EventCard> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        // Provider.of<AppStateNotifier>(
-                                        //             context,
-                                        //             listen: false)
-                                        //         .toggleBottomNav(
-                                        //             showBottomNav: false);
                                         navigator<NavigationService>()
                                             .navigateTo(
                                                 UserRoutes.clubProfileRoute,
@@ -399,11 +393,6 @@ class _EventCardState extends State<EventCard> {
                                               'id': widget.event.pub!.id
                                                   .toString()
                                             });
-                                        // .then((value) => Provider.of<AppStateNotifier>(
-                                        //         context,
-                                        //         listen: false)
-                                        //     .toggleBottomNav(
-                                        //         showBottomNav: true));
                                       },
                                       child: Text(
                                         widget.event.pub!.fullName,

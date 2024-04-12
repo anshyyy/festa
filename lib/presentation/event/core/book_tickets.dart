@@ -21,7 +21,7 @@ class TicketBookingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 10.5.h,
+      height: 11.5.h,
       width: 100.w,
       padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
       color: Theme.of(context).colorScheme.surface,
@@ -74,6 +74,7 @@ class TicketBookingWidget extends StatelessWidget {
               flex: 4,
               
               child: GradientButton(
+                
                 text: EventDetailsScreenConstants.bookTheTickets,
                 onTap: onClick,
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(

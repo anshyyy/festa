@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/booking/payment_status_cubit/payment_status_cubit.dart';
@@ -380,11 +379,6 @@ class PaymentStatusConsumer extends StatelessWidget {
                                           width: 27.w,
                                           height: 4.h,
                                           onTap: () {
-                                            Provider.of<AppStateNotifier>(
-                                                    context,
-                                                    listen: false)
-                                                .toggleBottomNav(
-                                                    showBottomNav: true);
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes.mainNavRoute,
@@ -400,12 +394,6 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         GradientButton(
                                           text: 'Home',
                                           onTap: () {
-                                            Provider.of<AppStateNotifier>(
-                                                    context,
-                                                    listen: false)
-                                                .toggleBottomNav(
-                                                    showBottomNav: true);
-
                                             navigator<NavigationService>()
                                                 .navigateTo(
                                                     UserRoutes.mainNavRoute,
@@ -455,11 +443,6 @@ class PaymentStatusConsumer extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Provider.of<AppStateNotifier>(
-                                                    context,
-                                                    listen: false)
-                                                .toggleBottomNav(
-                                                    showBottomNav: true);
                                   navigator<NavigationService>().navigateTo(
                                       UserRoutes.clubProfileRoute,
                                       queryParams: {

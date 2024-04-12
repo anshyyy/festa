@@ -33,28 +33,29 @@ class EventsCalendarBuilderConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EventsCalendarCubit, EventsCalendarState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
-        return state.isLoading
+        return state.isLoading 
             ? Container(
-              color: Theme.of(context).colorScheme.surface,
-              child: const Center(child: CircularProgressIndicator()))
-            : ListView.builder(
+                color: Theme.of(context).colorScheme.surface,
+                child: const Center(child: CircularProgressIndicator()))
+            :   ListView.builder(
                 shrinkWrap: true,
                 // physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
-                itemCount: state.pubEventsClubbed!.eventMonths.length,
+                itemCount: state.pubEventsClubbed == null ? 0  : state.pubEventsClubbed!.eventMonths.length,
                 itemBuilder: (context, index) {
                   final currentMonth =
                       state.pubEventsClubbed!.eventMonths[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: .5.h),
                     child: EventCalender(
-                        startDate: DateTime.utc(DateTime.now().year,
-                            currentMonth + 1, 1),
+                        eventId: state.pubEventsClubbed!.events.isNotEmpty
+                            ? state.pubEventsClubbed!.events[0].id
+                            : null,
+                        startDate: DateTime.utc(
+                            DateTime.now().year, currentMonth + 1, 1),
                         endDate: DateTime.utc(
                             DateTime.now().year, currentMonth + 1 + index, 31)),
                   );

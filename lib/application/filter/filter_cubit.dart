@@ -54,7 +54,7 @@ class FilterCubit extends Cubit<FilterState> {
         values: e.values
             .map((e) => e.copyWith(isApplied: false))
             .toList()))).map((e) => e as FilterDto).toList();
-    emit(state.copyWith(filters: filters, noUse: !state.noUse));
-    onFilterChanged(filterValue: 'sort');
+    emit(state.copyWith(filters: filters, noUse: !state.noUse,));
+    onFilterChanged(filterValue: 'sort',);
   }
 }

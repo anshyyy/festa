@@ -53,9 +53,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
         Provider.of<AppStateNotifier>(context);
 
     return BlocConsumer<UserProfileCubit, UserProfileState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
@@ -76,10 +74,11 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                     height: 100.h,
                                     width: 100.w,
                                     child: CachedNetworkImage(
-                                      imageUrl: CustomImageProvider.getImageUrl(state.coverImage, ImageType.other),
+                                      imageUrl: CustomImageProvider.getImageUrl(
+                                          state.coverImage, ImageType.other),
                                       fit: BoxFit.cover,
                                     ),
-                                    )
+                                  )
                                 : appStateNotifier.user!.id != state.userId
                                     ? const SizedBox()
                                     : Center(
@@ -105,30 +104,22 @@ class UserProfileScreenConsumer extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 2.w),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                   
                                     appStateNotifier.user!.id != state.userId
                                         ? const SizedBox()
                                         : GestureDetector(
                                             onTap: () {
-                                              Provider.of<AppStateNotifier>(
-                                                    context,
-                                                    listen: false)
-                                                .toggleBottomNav(
-                                                    showBottomNav: false);
-                                               navigator<NavigationService>()
+                                              navigator<NavigationService>()
                                                   .navigateTo(
                                                 UserRoutes
                                                     .profileAndSettingsRoute,
-                                              ).then((value){
-                                                Provider.of<AppStateNotifier>(
-                                                    context,
-                                                    listen: false)
-                                                .toggleBottomNav(
-                                                    showBottomNav: true);
-                                                context.read<UserProfileCubit>().fetchUserDetails(id: state.userId);
+                                              )
+                                                  .then((value) {
+                                                context
+                                                    .read<UserProfileCubit>()
+                                                    .fetchUserDetails(
+                                                        id: state.userId);
                                               });
                                             },
                                             child: Row(

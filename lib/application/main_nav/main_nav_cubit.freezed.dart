@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$MainNavState {
   int get currentIndex => throw _privateConstructorUsedError;
+  bool get isTabLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MainNavStateCopyWith<MainNavState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $MainNavStateCopyWith<$Res> {
           MainNavState value, $Res Function(MainNavState) then) =
       _$MainNavStateCopyWithImpl<$Res, MainNavState>;
   @useResult
-  $Res call({int currentIndex});
+  $Res call({int currentIndex, bool isTabLoading});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$MainNavStateCopyWithImpl<$Res, $Val extends MainNavState>
   @override
   $Res call({
     Object? currentIndex = null,
+    Object? isTabLoading = null,
   }) {
     return _then(_value.copyWith(
       currentIndex: null == currentIndex
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isTabLoading: null == isTabLoading
+          ? _value.isTabLoading
+          : isTabLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$MainNavStateImplCopyWith<$Res>
       __$$MainNavStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int currentIndex});
+  $Res call({int currentIndex, bool isTabLoading});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? currentIndex = null,
+    Object? isTabLoading = null,
   }) {
     return _then(_$MainNavStateImpl(
       currentIndex: null == currentIndex
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isTabLoading: null == isTabLoading
+          ? _value.isTabLoading
+          : isTabLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -92,14 +103,17 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MainNavStateImpl implements _MainNavState {
-  const _$MainNavStateImpl({required this.currentIndex});
+  const _$MainNavStateImpl(
+      {required this.currentIndex, required this.isTabLoading});
 
   @override
   final int currentIndex;
+  @override
+  final bool isTabLoading;
 
   @override
   String toString() {
-    return 'MainNavState(currentIndex: $currentIndex)';
+    return 'MainNavState(currentIndex: $currentIndex, isTabLoading: $isTabLoading)';
   }
 
   @override
@@ -108,11 +122,13 @@ class _$MainNavStateImpl implements _MainNavState {
         (other.runtimeType == runtimeType &&
             other is _$MainNavStateImpl &&
             (identical(other.currentIndex, currentIndex) ||
-                other.currentIndex == currentIndex));
+                other.currentIndex == currentIndex) &&
+            (identical(other.isTabLoading, isTabLoading) ||
+                other.isTabLoading == isTabLoading));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentIndex);
+  int get hashCode => Object.hash(runtimeType, currentIndex, isTabLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +138,14 @@ class _$MainNavStateImpl implements _MainNavState {
 }
 
 abstract class _MainNavState implements MainNavState {
-  const factory _MainNavState({required final int currentIndex}) =
-      _$MainNavStateImpl;
+  const factory _MainNavState(
+      {required final int currentIndex,
+      required final bool isTabLoading}) = _$MainNavStateImpl;
 
   @override
   int get currentIndex;
+  @override
+  bool get isTabLoading;
   @override
   @JsonKey(ignore: true)
   _$$MainNavStateImplCopyWith<_$MainNavStateImpl> get copyWith =>

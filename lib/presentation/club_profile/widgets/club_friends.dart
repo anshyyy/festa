@@ -210,9 +210,6 @@ class ClubFriends extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   )
                 : const SizedBox(),
-            SizedBox(
-              height: 5.h,
-            ),
           ],
         );
       },

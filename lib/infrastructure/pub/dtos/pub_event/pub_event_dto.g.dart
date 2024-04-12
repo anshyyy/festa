@@ -8,6 +8,7 @@ part of 'pub_event_dto.dart';
 
 _$PubEventDtoImpl _$$PubEventDtoImplFromJson(Map<String, dynamic> json) =>
     _$PubEventDtoImpl(
+      id: json['id'] as int? ?? 0,
       fullName: json['fullName'] as String,
       coverImageUrl: json['coverImageUrl'] as String? ?? '',
       startDate: DateTime.parse(json['startDate'] as String),
@@ -15,6 +16,7 @@ _$PubEventDtoImpl _$$PubEventDtoImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PubEventDtoImplToJson(_$PubEventDtoImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'fullName': instance.fullName,
       'coverImageUrl': instance.coverImageUrl,
       'startDate': instance.startDate.toIso8601String(),

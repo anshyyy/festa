@@ -55,9 +55,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
 
     return BlocConsumer<MediaViewerCubit, MediaViewerState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return state.isLoading
             ? const Center(
@@ -67,16 +65,19 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                 body: Stack(children: [
                   type == MediaType.IMAGE
                       ? PhotoView(
-                          imageProvider: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(url, ImageType.other)))
+                          imageProvider: CachedNetworkImageProvider(
+                              CustomImageProvider.getImageUrl(
+                                  url, ImageType.other)))
                       : !state.isLoading &&
                               state.videoPlayerController != null &&
                               state.videoPlayerController!.value.isInitialized
                           ? GestureDetector(
-                              onLongPress: () {
-                                context.read<MediaViewerCubit>().pause();
-                              },
-                              onLongPressEnd: (details) {
-                                context.read<MediaViewerCubit>().play();
+                              onTap: () {
+                                if (state.isPlaying) {
+                                  context.read<MediaViewerCubit>().pause();
+                                } else {
+                                  context.read<MediaViewerCubit>().play();
+                                }
                               },
                               child: Center(
                                 child: AspectRatio(
@@ -87,6 +88,21 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                               ),
                             )
                           : const Center(child: CircularProgressIndicator()),
+                  if (type != MediaType.IMAGE &&
+                      !state.isPlaying)
+                    Positioned(
+                      top: MediaQuery.of(context).size.height * 0.48,
+                      left: MediaQuery.of(context).size.width * 0.45,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<MediaViewerCubit>().play();
+                        },
+                        child: SvgPicture.asset(
+                          AssetConstants.mediaPlayIcon,
+                          width: 10.w,
+                        ),
+                      ),
+                    ),
                   Positioned(
                       top: 16.w,
                       child: SizedBox(
@@ -98,9 +114,8 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                             children: [
                               GestureDetector(
                                   onTap: () {
-                                  
                                     navigator<NavigationService>().goBack();
-                                      context
+                                    context
                                         .read<MediaViewerCubit>()
                                         .closePlayer();
                                   },
@@ -128,7 +143,10 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                       CircleAvatar(
                                         radius: 3.w,
                                         foregroundImage:
-                                            CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.pub?.logo, ImageType.other)),
+                                            CachedNetworkImageProvider(
+                                                CustomImageProvider.getImageUrl(
+                                                    state.pub?.logo,
+                                                    ImageType.other)),
                                       ),
                                       SizedBox(width: 2.w),
                                       Column(

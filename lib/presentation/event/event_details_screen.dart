@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/event_details/event_details_cubit.dart';
@@ -56,6 +55,14 @@ class EventDetailsScreenConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final event = state.event;
+        final List<GlobalKey> tileKeys = [
+          GlobalKey(),
+          GlobalKey(),
+          GlobalKey(),
+          GlobalKey(),
+          GlobalKey(),
+          GlobalKey(),
+        ];
         return state.isLoading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
@@ -66,17 +73,11 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         priceRangeStart: event.priceRangeStart,
                         priceRangeEnd: event.priceRangeEnd!,
                         onClick: () {
-                          Provider.of<AppStateNotifier>(context, listen: false)
-                              .toggleBottomNav(showBottomNav: false);
                           navigator<NavigationService>().navigateTo(
                               UserRoutes.bookingRoute,
                               queryParams: {
                                 'eventId': state.event!.id.toString(),
-                              }).then((value) {
-                            Provider.of<AppStateNotifier>(context,
-                                    listen: false)
-                                .toggleBottomNav(showBottomNav: true);
-                          });
+                              });
                         },
                       ),
                 appBar: CustomAppBar(
@@ -124,8 +125,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               lat: state.event?.address?.lat ?? 0,
                               long: state.event?.address?.lng ?? 0,
                               isAndroid: Platform.isAndroid,
-                              eventTitle: state.event?.name ?? ''
-                              );
+                              eventTitle: state.event?.name ?? '');
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -152,6 +152,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         child: ListTileTheme(
                           dense: true,
                           child: ExpansionTile(
+                            onExpansionChanged: (value) {
+                              if (value) {
+                                Scrollable.ensureVisible(
+                                    tileKeys[0].currentContext!);
+                              }
+                            },
                             iconColor: Theme.of(context).colorScheme.background,
                             collapsedIconColor:
                                 Theme.of(context).colorScheme.background,
@@ -170,6 +176,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                           .background,
                                       fontWeight: FontWeight.w600),
                             ),
+                            key: tileKeys[0],
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.5.w)
@@ -198,6 +205,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              Scrollable.ensureVisible(
+                                  tileKeys[1].currentContext!);
+                            }
+                          },
                           iconColor: Theme.of(context).colorScheme.background,
                           collapsedIconColor:
                               Theme.of(context).colorScheme.background,
@@ -216,6 +229,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                         .background,
                                     fontWeight: FontWeight.w600),
                           ),
+                          key: tileKeys[1],
                           children: [
                             ...event.lsd.map((e) {
                               return Padding(
@@ -260,6 +274,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              Scrollable.ensureVisible(
+                                  tileKeys[2].currentContext!);
+                            }
+                          },
                           iconColor: Theme.of(context).colorScheme.background,
                           collapsedIconColor:
                               Theme.of(context).colorScheme.background,
@@ -267,6 +287,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               Theme.of(context).colorScheme.primaryContainer,
                           backgroundColor:
                               Theme.of(context).colorScheme.primaryContainer,
+                          key: tileKeys[2],
                           title: Text(
                             EventScreenConstants.ambience,
                             style: Theme.of(context)
@@ -315,6 +336,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              Scrollable.ensureVisible(
+                                  tileKeys[3].currentContext!);
+                            }
+                          },
                           iconColor: Theme.of(context).colorScheme.background,
                           collapsedIconColor:
                               Theme.of(context).colorScheme.background,
@@ -322,6 +349,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               Theme.of(context).colorScheme.primaryContainer,
                           backgroundColor:
                               Theme.of(context).colorScheme.primaryContainer,
+                          key: tileKeys[3],
                           title: Text(
                             EventScreenConstants.foodAndBeverages,
                             style: Theme.of(context)
@@ -377,6 +405,17 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          onExpansionChanged: (value) async {
+                            if (value) {
+                              Scrollable.ensureVisible(
+                                  tileKeys[4].currentContext!);
+                              await Future.delayed(
+                                  const Duration(milliseconds: 200));
+                              Scrollable.ensureVisible(
+                                tileKeys[5].currentContext!,
+                              );
+                            }
+                          },
                           iconColor: Theme.of(context).colorScheme.background,
                           collapsedIconColor:
                               Theme.of(context).colorScheme.background,
@@ -395,6 +434,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                         .background,
                                     fontWeight: FontWeight.w600),
                           ),
+                          key: tileKeys[4],
                           children: [
                             ListView.builder(
                               shrinkWrap: true,
@@ -403,6 +443,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final e = event.faqs[index];
                                 return Padding(
+                                  key: event.faqs.length - 1 == index
+                                      ? tileKeys[5]
+                                      : null,
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 3.5.w,
                                   ).copyWith(bottom: 1.h),

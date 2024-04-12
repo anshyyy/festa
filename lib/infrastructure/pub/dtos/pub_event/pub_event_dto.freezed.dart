@@ -20,6 +20,8 @@ PubEventDto _$PubEventDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PubEventDto {
+  @JsonKey(name: 'id', defaultValue: 0)
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'fullName')
   String get fullName => throw _privateConstructorUsedError;
   @JsonKey(name: 'coverImageUrl', defaultValue: '')
@@ -40,7 +42,8 @@ abstract class $PubEventDtoCopyWith<$Res> {
       _$PubEventDtoCopyWithImpl<$Res, PubEventDto>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'fullName') String fullName,
+      {@JsonKey(name: 'id', defaultValue: 0) int id,
+      @JsonKey(name: 'fullName') String fullName,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
       @JsonKey(name: 'startDate') DateTime startDate});
 }
@@ -58,11 +61,16 @@ class _$PubEventDtoCopyWithImpl<$Res, $Val extends PubEventDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? fullName = null,
     Object? coverImageUrl = null,
     Object? startDate = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -88,7 +96,8 @@ abstract class _$$PubEventDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'fullName') String fullName,
+      {@JsonKey(name: 'id', defaultValue: 0) int id,
+      @JsonKey(name: 'fullName') String fullName,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
       @JsonKey(name: 'startDate') DateTime startDate});
 }
@@ -104,11 +113,16 @@ class __$$PubEventDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? fullName = null,
     Object? coverImageUrl = null,
     Object? startDate = null,
   }) {
     return _then(_$PubEventDtoImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       fullName: null == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
@@ -129,7 +143,8 @@ class __$$PubEventDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PubEventDtoImpl implements _PubEventDto {
   const _$PubEventDtoImpl(
-      {@JsonKey(name: 'fullName') required this.fullName,
+      {@JsonKey(name: 'id', defaultValue: 0) required this.id,
+      @JsonKey(name: 'fullName') required this.fullName,
       @JsonKey(name: 'coverImageUrl', defaultValue: '')
       required this.coverImageUrl,
       @JsonKey(name: 'startDate') required this.startDate});
@@ -137,6 +152,9 @@ class _$PubEventDtoImpl implements _PubEventDto {
   factory _$PubEventDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PubEventDtoImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'id', defaultValue: 0)
+  final int id;
   @override
   @JsonKey(name: 'fullName')
   final String fullName;
@@ -149,7 +167,7 @@ class _$PubEventDtoImpl implements _PubEventDto {
 
   @override
   String toString() {
-    return 'PubEventDto(fullName: $fullName, coverImageUrl: $coverImageUrl, startDate: $startDate)';
+    return 'PubEventDto(id: $id, fullName: $fullName, coverImageUrl: $coverImageUrl, startDate: $startDate)';
   }
 
   @override
@@ -157,6 +175,7 @@ class _$PubEventDtoImpl implements _PubEventDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PubEventDtoImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.coverImageUrl, coverImageUrl) ||
@@ -168,7 +187,7 @@ class _$PubEventDtoImpl implements _PubEventDto {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, fullName, coverImageUrl, startDate);
+      Object.hash(runtimeType, id, fullName, coverImageUrl, startDate);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +205,8 @@ class _$PubEventDtoImpl implements _PubEventDto {
 
 abstract class _PubEventDto implements PubEventDto {
   const factory _PubEventDto(
-          {@JsonKey(name: 'fullName') required final String fullName,
+          {@JsonKey(name: 'id', defaultValue: 0) required final int id,
+          @JsonKey(name: 'fullName') required final String fullName,
           @JsonKey(name: 'coverImageUrl', defaultValue: '')
           required final String coverImageUrl,
           @JsonKey(name: 'startDate') required final DateTime startDate}) =
@@ -195,6 +215,9 @@ abstract class _PubEventDto implements PubEventDto {
   factory _PubEventDto.fromJson(Map<String, dynamic> json) =
       _$PubEventDtoImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'id', defaultValue: 0)
+  int get id;
   @override
   @JsonKey(name: 'fullName')
   String get fullName;

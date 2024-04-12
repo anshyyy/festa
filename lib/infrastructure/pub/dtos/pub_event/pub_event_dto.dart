@@ -8,6 +8,7 @@ part 'pub_event_dto.g.dart';
 @Freezed(makeCollectionsUnmodifiable: false)
 class PubEventDto with _$PubEventDto {
   const factory PubEventDto({
+    @JsonKey(name: 'id', defaultValue: 0) required int id,
     @JsonKey(name: 'fullName') required String fullName,
     @JsonKey(name: 'coverImageUrl', defaultValue: '') required String coverImageUrl,
     @JsonKey(name: 'startDate') required DateTime startDate,
@@ -15,4 +16,4 @@ class PubEventDto with _$PubEventDto {
 
   factory PubEventDto.fromJson(Map<String, dynamic> json) =>
       _$PubEventDtoFromJson(json);
-}
+}  

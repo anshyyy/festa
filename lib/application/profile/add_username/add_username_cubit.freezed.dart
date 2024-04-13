@@ -24,6 +24,7 @@ mixin _$AddUsernameState {
   TextEditingController get usernameInputController =>
       throw _privateConstructorUsedError;
   bool get isUpdateEnabled => throw _privateConstructorUsedError;
+  UserDto? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddUsernameStateCopyWith<AddUsernameState> get copyWith =>
@@ -43,7 +44,10 @@ abstract class $AddUsernameStateCopyWith<$Res> {
       bool noUse,
       UserRepository userRepository,
       TextEditingController usernameInputController,
-      bool isUpdateEnabled});
+      bool isUpdateEnabled,
+      UserDto? user});
+
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -66,6 +70,7 @@ class _$AddUsernameStateCopyWithImpl<$Res, $Val extends AddUsernameState>
     Object? userRepository = null,
     Object? usernameInputController = null,
     Object? isUpdateEnabled = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -96,7 +101,23 @@ class _$AddUsernameStateCopyWithImpl<$Res, $Val extends AddUsernameState>
           ? _value.isUpdateEnabled
           : isUpdateEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserDtoCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserDtoCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -115,7 +136,11 @@ abstract class _$$AddUsernameStateImplCopyWith<$Res>
       bool noUse,
       UserRepository userRepository,
       TextEditingController usernameInputController,
-      bool isUpdateEnabled});
+      bool isUpdateEnabled,
+      UserDto? user});
+
+  @override
+  $UserDtoCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -136,6 +161,7 @@ class __$$AddUsernameStateImplCopyWithImpl<$Res>
     Object? userRepository = null,
     Object? usernameInputController = null,
     Object? isUpdateEnabled = null,
+    Object? user = freezed,
   }) {
     return _then(_$AddUsernameStateImpl(
       isLoading: null == isLoading
@@ -166,6 +192,10 @@ class __$$AddUsernameStateImplCopyWithImpl<$Res>
           ? _value.isUpdateEnabled
           : isUpdateEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserDto?,
     ));
   }
 }
@@ -180,7 +210,8 @@ class _$AddUsernameStateImpl implements _AddUsernameState {
       required this.noUse,
       required this.userRepository,
       required this.usernameInputController,
-      required this.isUpdateEnabled});
+      required this.isUpdateEnabled,
+      this.user});
 
   @override
   final bool isLoading;
@@ -196,10 +227,12 @@ class _$AddUsernameStateImpl implements _AddUsernameState {
   final TextEditingController usernameInputController;
   @override
   final bool isUpdateEnabled;
+  @override
+  final UserDto? user;
 
   @override
   String toString() {
-    return 'AddUsernameState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, userRepository: $userRepository, usernameInputController: $usernameInputController, isUpdateEnabled: $isUpdateEnabled)';
+    return 'AddUsernameState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, userRepository: $userRepository, usernameInputController: $usernameInputController, isUpdateEnabled: $isUpdateEnabled, user: $user)';
   }
 
   @override
@@ -220,12 +253,13 @@ class _$AddUsernameStateImpl implements _AddUsernameState {
                     other.usernameInputController, usernameInputController) ||
                 other.usernameInputController == usernameInputController) &&
             (identical(other.isUpdateEnabled, isUpdateEnabled) ||
-                other.isUpdateEnabled == isUpdateEnabled));
+                other.isUpdateEnabled == isUpdateEnabled) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
-      noUse, userRepository, usernameInputController, isUpdateEnabled);
+      noUse, userRepository, usernameInputController, isUpdateEnabled, user);
 
   @JsonKey(ignore: true)
   @override
@@ -243,7 +277,8 @@ abstract class _AddUsernameState implements AddUsernameState {
       required final bool noUse,
       required final UserRepository userRepository,
       required final TextEditingController usernameInputController,
-      required final bool isUpdateEnabled}) = _$AddUsernameStateImpl;
+      required final bool isUpdateEnabled,
+      final UserDto? user}) = _$AddUsernameStateImpl;
 
   @override
   bool get isLoading;
@@ -259,6 +294,8 @@ abstract class _AddUsernameState implements AddUsernameState {
   TextEditingController get usernameInputController;
   @override
   bool get isUpdateEnabled;
+  @override
+  UserDto? get user;
   @override
   @JsonKey(ignore: true)
   _$$AddUsernameStateImplCopyWith<_$AddUsernameStateImpl> get copyWith =>

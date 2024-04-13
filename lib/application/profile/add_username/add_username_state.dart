@@ -10,6 +10,7 @@ class AddUsernameState with _$AddUsernameState {
     required UserRepository userRepository,
     required TextEditingController usernameInputController,
     required bool isUpdateEnabled,
+    UserDto? user,
   }) = _AddUsernameState;
 
   factory AddUsernameState.initial({

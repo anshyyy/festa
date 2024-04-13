@@ -6,6 +6,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/user/user_repository.dart';
+import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/user/i_user_repository.dart';
 
 part 'add_username_state.dart';
@@ -48,6 +49,7 @@ class AddUsernameCubit extends Cubit<AddUsernameState> {
         isLoading: false,
         isSuccess: true,
         isFailure: false,
+        user: r,
       ));
     });
   }

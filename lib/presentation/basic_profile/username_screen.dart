@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/profile/add_username/add_username_cubit.dart';
@@ -41,6 +42,7 @@ class UsernameScreenConsumer extends StatelessWidget {
     return BlocConsumer<AddUsernameCubit, AddUsernameState>(
       listener: (context, state) {
         if (state.isSuccess && !state.isFailure) {
+          Provider.of<AppStateNotifier>(context, listen: false).updateUser(user: state.user);
           navigator<NavigationService>().navigateTo(
             UserRoutes.mainNavRoute,
             queryParams: {
@@ -122,7 +124,7 @@ class UsernameScreenConsumer extends StatelessWidget {
                       height: 6.h,
                       width: 6.h,
                       contentIcon: AssetConstants.longArrowRight,
-                      isEnabled: state.isUpdateEnabled,
+                      isEnabled: state.isUpdateEnabled && !state.isLoading,
                       onTap: () {
                         context.read<AddUsernameCubit>().addUserName();
                       },

@@ -129,17 +129,8 @@ class _EventCardState extends State<EventCard> {
                     final index = imageIndex == 0 ? imageIndex : imageIndex -
                         (widget.event.coverImage.isNotEmpty ? 1 : 0);
 
-                    if (widget.event.assets[index].type == MediaType.VIDEO) {
-                      init(url: widget.event.assets[index].url);
-                    }
-                    return widget.event.assets[index].type == MediaType.VIDEO
-                        ? _controller.value.isInitialized? Center(
-                            child: AspectRatio(
-                              aspectRatio: _controller.value.aspectRatio,
-                              child: VideoPlayer(_controller),
-                            ),
-                          ) : Container()
-                        : Container(
+
+                    return Container(
                             foregroundDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               gradient: LinearGradient(

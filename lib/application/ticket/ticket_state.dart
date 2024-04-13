@@ -14,6 +14,8 @@ class TicketState with _$TicketState {
     required int currentPage,
     required WidgetsToImageController widgetsToImageController,
     required bool isShareEnabled,
+    BookedTicketDetailsDto? historyTicket,
+    required bool shoHistoryTicketDetails,
   }) = _TicketState;
   factory TicketState.initial({
     required String serverUrl,
@@ -28,6 +30,7 @@ class TicketState with _$TicketState {
         currentPage: 0,
         widgetsToImageController: WidgetsToImageController(),
         isShareEnabled: true,
+        shoHistoryTicketDetails:false,
       );
 }
 

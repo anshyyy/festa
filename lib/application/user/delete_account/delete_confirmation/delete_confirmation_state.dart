@@ -3,6 +3,7 @@ part of 'delete_confirmation_cubit.dart';
 @freezed
 class DeleteConfirmationState with _$DeleteConfirmationState {
   const factory DeleteConfirmationState({
+    required bool isLoading,
     required bool noUse,
     required bool deleteEnabled,
     required bool deleteSuccess,
@@ -23,5 +24,6 @@ class DeleteConfirmationState with _$DeleteConfirmationState {
         authRepository: IAuthRepository(serverUrl: serverUrl),
         userId: userId,
         deleteReason: deleteReason,
+        isLoading: false,
       );
 }

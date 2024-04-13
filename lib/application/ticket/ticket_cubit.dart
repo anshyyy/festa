@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../domain/user/user_repository.dart';
+import '../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
 import '../../infrastructure/user/dtos/user_tickets/user_tickets_dto.dart';
 import '../../infrastructure/user/i_user_repository.dart';
 
@@ -16,17 +17,30 @@ part 'ticket_state.dart';
 class TicketCubit extends Cubit<TicketState> {
   TicketCubit(super.initialState);
 
-  void showTransactionDetails({required int id}) {
-    final updated = state.userTickets!.upcomingTickets.map((e) {
-      if (e.id == id) {
-        return e.copyWith(showTicketDetails: !e.showTicketDetails);
-      }
-      return e;
-    }).toList();
-    emit(state.copyWith(
-        userTickets: UserTicketsDto(
-            bookedTicketsHistory: state.userTickets!.bookedTicketsHistory,
-            upcomingTickets: updated)));
+  void showTransactionDetails({required int id, bool isHistory = false}) {
+    if (isHistory) {
+      final updated = state.userTickets!.bookedTicketsHistory.map((e) {
+        if (e.id == id) {
+          return e.copyWith(showTicketDetails: !e.showTicketDetails);
+        }
+        return e;
+      }).toList();
+      emit(state.copyWith(
+          userTickets: UserTicketsDto(
+              bookedTicketsHistory: updated,
+              upcomingTickets: state.userTickets!.upcomingTickets)));
+    } else {
+      final updated = state.userTickets!.upcomingTickets.map((e) {
+        if (e.id == id) {
+          return e.copyWith(showTicketDetails: !e.showTicketDetails);
+        }
+        return e;
+      }).toList();
+      emit(state.copyWith(
+          userTickets: UserTicketsDto(
+              bookedTicketsHistory: state.userTickets!.bookedTicketsHistory,
+              upcomingTickets: updated)));
+    }
   }
 
   void shareTicket() async {
@@ -69,5 +83,9 @@ class TicketCubit extends Cubit<TicketState> {
 
   void onPageChanged(int index) {
     emit(state.copyWith(currentPage: index));
+  }
+
+  void showHistoryTicket({required BookedTicketDetailsDto ticket}) {
+    emit(state.copyWith(shoHistoryTicketDetails: true, historyTicket: ticket));
   }
 }

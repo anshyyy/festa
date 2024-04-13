@@ -6,6 +6,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../application/user/user_profile/user_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
@@ -58,7 +59,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? const SizedBox()
+              ? UserShimmer()
               : Stack(
                   children: [
                     Container(
@@ -190,6 +191,92 @@ class UserProfileScreenConsumer extends StatelessWidget {
                 ),
         );
       },
+    );
+  }
+}
+
+class UserShimmer extends StatelessWidget {
+  const UserShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+final colorScheme = themeData.colorScheme;
+final textTheme = themeData.textTheme;
+
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!.withOpacity(0.5),
+      highlightColor: Colors.grey[400]!.withOpacity(0.5),
+      child: SafeArea(
+        child: Column(
+          children: [
+            // SizedBox(
+            //   height: 1.h,
+            // ),
+            Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      height: .5.w,
+                      width: 3.w,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: .5.w,),
+                     Container(
+                      height: .5.w,
+                      width: 3.w,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: .5.w,),
+
+                     Container(
+                      height: .5.w,
+                      width: 3.w,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            
+                      Spacer(),
+            Stack(
+              clipBehavior: Clip.none,
+               alignment: Alignment.center,
+              children: [
+                Container(
+                  height: 35.h,
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(10.w)
+                  ),
+                ),
+                Positioned(
+                  top: -5.h,
+                  // left: 40.w,
+                  child: Center(
+                    child: Container(
+                    height: 20.w,
+                      width: 20.w,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      border: Border.all(width: 1, color: colorScheme.background),
+                      shape: BoxShape.circle
+                    ),
+                  ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

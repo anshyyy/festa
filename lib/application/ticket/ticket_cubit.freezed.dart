@@ -28,6 +28,9 @@ mixin _$TicketState {
   WidgetsToImageController get widgetsToImageController =>
       throw _privateConstructorUsedError;
   bool get isShareEnabled => throw _privateConstructorUsedError;
+  BookedTicketDetailsDto? get historyTicket =>
+      throw _privateConstructorUsedError;
+  bool get shoHistoryTicketDetails => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TicketStateCopyWith<TicketState> get copyWith =>
@@ -51,9 +54,12 @@ abstract class $TicketStateCopyWith<$Res> {
       UserTicketsDto? userTickets,
       int currentPage,
       WidgetsToImageController widgetsToImageController,
-      bool isShareEnabled});
+      bool isShareEnabled,
+      BookedTicketDetailsDto? historyTicket,
+      bool shoHistoryTicketDetails});
 
   $UserTicketsDtoCopyWith<$Res>? get userTickets;
+  $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket;
 }
 
 /// @nodoc
@@ -80,6 +86,8 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
     Object? currentPage = null,
     Object? widgetsToImageController = null,
     Object? isShareEnabled = null,
+    Object? historyTicket = freezed,
+    Object? shoHistoryTicketDetails = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -126,6 +134,14 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
           ? _value.isShareEnabled
           : isShareEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      historyTicket: freezed == historyTicket
+          ? _value.historyTicket
+          : historyTicket // ignore: cast_nullable_to_non_nullable
+              as BookedTicketDetailsDto?,
+      shoHistoryTicketDetails: null == shoHistoryTicketDetails
+          ? _value.shoHistoryTicketDetails
+          : shoHistoryTicketDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -138,6 +154,19 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
 
     return $UserTicketsDtoCopyWith<$Res>(_value.userTickets!, (value) {
       return _then(_value.copyWith(userTickets: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket {
+    if (_value.historyTicket == null) {
+      return null;
+    }
+
+    return $BookedTicketDetailsDtoCopyWith<$Res>(_value.historyTicket!,
+        (value) {
+      return _then(_value.copyWith(historyTicket: value) as $Val);
     });
   }
 }
@@ -161,10 +190,14 @@ abstract class _$$TicketStateImplCopyWith<$Res>
       UserTicketsDto? userTickets,
       int currentPage,
       WidgetsToImageController widgetsToImageController,
-      bool isShareEnabled});
+      bool isShareEnabled,
+      BookedTicketDetailsDto? historyTicket,
+      bool shoHistoryTicketDetails});
 
   @override
   $UserTicketsDtoCopyWith<$Res>? get userTickets;
+  @override
+  $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket;
 }
 
 /// @nodoc
@@ -189,6 +222,8 @@ class __$$TicketStateImplCopyWithImpl<$Res>
     Object? currentPage = null,
     Object? widgetsToImageController = null,
     Object? isShareEnabled = null,
+    Object? historyTicket = freezed,
+    Object? shoHistoryTicketDetails = null,
   }) {
     return _then(_$TicketStateImpl(
       isLoading: null == isLoading
@@ -235,6 +270,14 @@ class __$$TicketStateImplCopyWithImpl<$Res>
           ? _value.isShareEnabled
           : isShareEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      historyTicket: freezed == historyTicket
+          ? _value.historyTicket
+          : historyTicket // ignore: cast_nullable_to_non_nullable
+              as BookedTicketDetailsDto?,
+      shoHistoryTicketDetails: null == shoHistoryTicketDetails
+          ? _value.shoHistoryTicketDetails
+          : shoHistoryTicketDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -253,7 +296,9 @@ class _$TicketStateImpl implements _TicketState {
       this.userTickets,
       required this.currentPage,
       required this.widgetsToImageController,
-      required this.isShareEnabled});
+      required this.isShareEnabled,
+      this.historyTicket,
+      required this.shoHistoryTicketDetails});
 
   @override
   final bool isLoading;
@@ -277,10 +322,14 @@ class _$TicketStateImpl implements _TicketState {
   final WidgetsToImageController widgetsToImageController;
   @override
   final bool isShareEnabled;
+  @override
+  final BookedTicketDetailsDto? historyTicket;
+  @override
+  final bool shoHistoryTicketDetails;
 
   @override
   String toString() {
-    return 'TicketState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, showTicketDetails: $showTicketDetails, showTicketHistory: $showTicketHistory, userRepository: $userRepository, userTickets: $userTickets, currentPage: $currentPage, widgetsToImageController: $widgetsToImageController, isShareEnabled: $isShareEnabled)';
+    return 'TicketState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, showTicketDetails: $showTicketDetails, showTicketHistory: $showTicketHistory, userRepository: $userRepository, userTickets: $userTickets, currentPage: $currentPage, widgetsToImageController: $widgetsToImageController, isShareEnabled: $isShareEnabled, historyTicket: $historyTicket, shoHistoryTicketDetails: $shoHistoryTicketDetails)';
   }
 
   @override
@@ -309,7 +358,12 @@ class _$TicketStateImpl implements _TicketState {
                     other.widgetsToImageController, widgetsToImageController) ||
                 other.widgetsToImageController == widgetsToImageController) &&
             (identical(other.isShareEnabled, isShareEnabled) ||
-                other.isShareEnabled == isShareEnabled));
+                other.isShareEnabled == isShareEnabled) &&
+            (identical(other.historyTicket, historyTicket) ||
+                other.historyTicket == historyTicket) &&
+            (identical(
+                    other.shoHistoryTicketDetails, shoHistoryTicketDetails) ||
+                other.shoHistoryTicketDetails == shoHistoryTicketDetails));
   }
 
   @override
@@ -325,7 +379,9 @@ class _$TicketStateImpl implements _TicketState {
       userTickets,
       currentPage,
       widgetsToImageController,
-      isShareEnabled);
+      isShareEnabled,
+      historyTicket,
+      shoHistoryTicketDetails);
 
   @JsonKey(ignore: true)
   @override
@@ -346,7 +402,9 @@ abstract class _TicketState implements TicketState {
       final UserTicketsDto? userTickets,
       required final int currentPage,
       required final WidgetsToImageController widgetsToImageController,
-      required final bool isShareEnabled}) = _$TicketStateImpl;
+      required final bool isShareEnabled,
+      final BookedTicketDetailsDto? historyTicket,
+      required final bool shoHistoryTicketDetails}) = _$TicketStateImpl;
 
   @override
   bool get isLoading;
@@ -370,6 +428,10 @@ abstract class _TicketState implements TicketState {
   WidgetsToImageController get widgetsToImageController;
   @override
   bool get isShareEnabled;
+  @override
+  BookedTicketDetailsDto? get historyTicket;
+  @override
+  bool get shoHistoryTicketDetails;
   @override
   @JsonKey(ignore: true)
   _$$TicketStateImplCopyWith<_$TicketStateImpl> get copyWith =>

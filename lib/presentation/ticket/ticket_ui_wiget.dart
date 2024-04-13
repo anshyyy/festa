@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
-import 'booking_description.dart';
-import 'event_description.dart';
-import 'ticket_painter.dart';
+import '../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
+import 'upcoming_tickets/booking_description.dart';
+import 'upcoming_tickets/event_description.dart';
+import 'upcoming_tickets/ticket_painter.dart';
 
 class TicketUiWidgget extends StatelessWidget {
   const TicketUiWidgget({

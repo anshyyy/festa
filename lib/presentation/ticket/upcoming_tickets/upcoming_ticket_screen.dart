@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../../application/ticket/ticket_cubit.dart';
-import 'ticket_ui_wiget.dart';
+import '../ticket_ui_wiget.dart';
 
 class UpcomingTicketsScreen extends StatelessWidget {
   const UpcomingTicketsScreen({super.key});

@@ -412,10 +412,10 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
                 onTap: () {
                   context.read<DeleteConfirmationCubit>().deleteAccount();
                 },
-                isEnabled: state.deleteEnabled,
+                isEnabled: state.deleteEnabled && !state.isLoading,
                 textStyle: textTheme.bodySmall!.copyWith(
                   fontSize: 15.5.sp,
-                  color: !state.deleteEnabled
+                  color: !state.deleteEnabled && !state.isLoading
                       ? colorScheme.secondaryContainer
                       : colorScheme.background,
                   fontWeight: FontWeight.w600,

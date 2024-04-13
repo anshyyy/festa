@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../application/event_details/event_details_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
@@ -64,9 +65,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
         ];
         return state.isLoading
-            ? const Scaffold(body: Center(child: CircularProgressIndicator()))
+            ? EventDetailsShimmer()
             : Scaffold(
-              backgroundColor: Theme.of(context).colorScheme.surface,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
@@ -82,9 +83,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         },
                       ),
                 appBar: CustomAppBar(
-                  
                     title: event.name,
-                    scaffoldBackgroundColor: Theme.of(context).colorScheme.surface,
+                    scaffoldBackgroundColor:
+                        Theme.of(context).colorScheme.surface,
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
@@ -526,6 +527,173 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                 ),
               );
       },
+    );
+  }
+}
+
+class EventDetailsShimmer extends StatelessWidget {
+  const EventDetailsShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!.withOpacity(0.5),
+      highlightColor: Colors.grey[400]!.withOpacity(0.5),
+      child: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 2.h,
+            ),
+            Container(
+              height: 45.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(5.w)),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Container(
+              height: 3.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(2.w)),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            SingleChildScrollView(
+              child: Row(
+                children: [
+                  Container(
+                    height: 5.h,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(2.w)),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Container(
+                    height: 5.h,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(2.w)),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Container(
+                    height: 5.h,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(2.w)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 2.h,
+                  width: 45.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2.w)),
+                ),
+                Container(
+                  height: 2.h,
+                  width: 45.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2.w)),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 2.h,
+                  width: 65.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2.w)),
+                ),
+                Container(
+                  height: 2.h,
+                  width: 25.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2.w)),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 2.h,
+                  width: 65.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2.w)),
+                ),
+                Container(
+                  height: 2.h,
+                  width: 25.w,
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(2.w)),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Container(
+              height: 4.5.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(0.w)),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Container(
+              height: 4.5.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(0.w)),
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Container(
+              height: 4.5.h,
+              width: 100.w,
+              decoration: BoxDecoration(
+                  color: Colors.grey, borderRadius: BorderRadius.circular(0.w)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

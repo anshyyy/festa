@@ -53,7 +53,7 @@ class BookingDescription extends StatelessWidget {
                     state.isShareEnabled ?  GestureDetector(
                       onTap: () => context
                           .read<TicketCubit>()
-                          .showTransactionDetails(id: ticketDetails.id),
+                          .showTransactionDetails(id: ticketDetails.id, isHistory: state.shoHistoryTicketDetails),
                       child: Container(
                         height: 10.w,
                         width: 10.w,

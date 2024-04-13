@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -21,6 +22,7 @@ class DeleteConfirmationCubit extends Cubit<DeleteConfirmationState> {
   }
 
   void deleteAccount() async {
+    emit(state.copyWith(isLoading: true));
     final response = await state.authRepository.deleteProfile(id: state.userId, reason: state.deleteReason,);
     if(response){
       await state.authRepository.logout();
@@ -32,6 +34,7 @@ class DeleteConfirmationCubit extends Cubit<DeleteConfirmationState> {
       deleteSuccess: response,
       deleteFailure: !response,
       noUse: !state.noUse,
+      isLoading: true,
     ));
   }
 }

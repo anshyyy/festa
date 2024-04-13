@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DeleteConfirmationState {
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   bool get deleteEnabled => throw _privateConstructorUsedError;
   bool get deleteSuccess => throw _privateConstructorUsedError;
@@ -36,7 +37,8 @@ abstract class $DeleteConfirmationStateCopyWith<$Res> {
       _$DeleteConfirmationStateCopyWithImpl<$Res, DeleteConfirmationState>;
   @useResult
   $Res call(
-      {bool noUse,
+      {bool isLoading,
+      bool noUse,
       bool deleteEnabled,
       bool deleteSuccess,
       bool deleteFailure,
@@ -59,6 +61,7 @@ class _$DeleteConfirmationStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
     Object? noUse = null,
     Object? deleteEnabled = null,
     Object? deleteSuccess = null,
@@ -68,6 +71,10 @@ class _$DeleteConfirmationStateCopyWithImpl<$Res,
     Object? deleteReason = null,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       noUse: null == noUse
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
@@ -110,7 +117,8 @@ abstract class _$$DeleteConfirmationStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool noUse,
+      {bool isLoading,
+      bool noUse,
       bool deleteEnabled,
       bool deleteSuccess,
       bool deleteFailure,
@@ -132,6 +140,7 @@ class __$$DeleteConfirmationStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
     Object? noUse = null,
     Object? deleteEnabled = null,
     Object? deleteSuccess = null,
@@ -141,6 +150,10 @@ class __$$DeleteConfirmationStateImplCopyWithImpl<$Res>
     Object? deleteReason = null,
   }) {
     return _then(_$DeleteConfirmationStateImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       noUse: null == noUse
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
@@ -177,7 +190,8 @@ class __$$DeleteConfirmationStateImplCopyWithImpl<$Res>
 
 class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
   const _$DeleteConfirmationStateImpl(
-      {required this.noUse,
+      {required this.isLoading,
+      required this.noUse,
       required this.deleteEnabled,
       required this.deleteSuccess,
       required this.deleteFailure,
@@ -185,6 +199,8 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
       required this.authRepository,
       required this.deleteReason});
 
+  @override
+  final bool isLoading;
   @override
   final bool noUse;
   @override
@@ -202,7 +218,7 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
 
   @override
   String toString() {
-    return 'DeleteConfirmationState(noUse: $noUse, deleteEnabled: $deleteEnabled, deleteSuccess: $deleteSuccess, deleteFailure: $deleteFailure, userId: $userId, authRepository: $authRepository, deleteReason: $deleteReason)';
+    return 'DeleteConfirmationState(isLoading: $isLoading, noUse: $noUse, deleteEnabled: $deleteEnabled, deleteSuccess: $deleteSuccess, deleteFailure: $deleteFailure, userId: $userId, authRepository: $authRepository, deleteReason: $deleteReason)';
   }
 
   @override
@@ -210,6 +226,8 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeleteConfirmationStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.deleteEnabled, deleteEnabled) ||
                 other.deleteEnabled == deleteEnabled) &&
@@ -225,7 +243,7 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, noUse, deleteEnabled,
+  int get hashCode => Object.hash(runtimeType, isLoading, noUse, deleteEnabled,
       deleteSuccess, deleteFailure, userId, authRepository, deleteReason);
 
   @JsonKey(ignore: true)
@@ -238,7 +256,8 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
 
 abstract class _DeleteConfirmationState implements DeleteConfirmationState {
   const factory _DeleteConfirmationState(
-      {required final bool noUse,
+      {required final bool isLoading,
+      required final bool noUse,
       required final bool deleteEnabled,
       required final bool deleteSuccess,
       required final bool deleteFailure,
@@ -246,6 +265,8 @@ abstract class _DeleteConfirmationState implements DeleteConfirmationState {
       required final AuthRepository authRepository,
       required final String deleteReason}) = _$DeleteConfirmationStateImpl;
 
+  @override
+  bool get isLoading;
   @override
   bool get noUse;
   @override

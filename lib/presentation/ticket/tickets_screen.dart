@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../application/ticket/ticket_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import 'history_tickets/history_ticket_screen.dart';
 import 'upcoming_tickets/upcoming_ticket_screen.dart';
@@ -160,8 +163,35 @@ class TicketScreenConsumer extends StatelessWidget {
               SizedBox(
                 height: .7.h,
               ),
+              state.isLoading? 
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TicketShimmer(),
+              )
+              :
               state.userTickets == null
-                  ? const SizedBox()
+                  ? Container(
+                height: 65.h,
+                width: 100.w,
+                color: Theme.of(context).colorScheme.surface,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(AssetConstants.ticketIcon, 
+                    height: 10.h,),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      'No Tickets',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.background,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ],
+                ),
+              )
                   : AnimatedSwitcher(
                       duration: const Duration(milliseconds: 500),
                       child: !state.showTicketHistory
@@ -176,5 +206,26 @@ class TicketScreenConsumer extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class TicketShimmer extends StatelessWidget {
+  const TicketShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+final colorScheme = themeData.colorScheme;
+final textTheme = themeData.textTheme;
+
+    return Shimmer.fromColors(baseColor: Colors.grey[300]!.withOpacity(0.5),
+      highlightColor: Colors.grey[400]!.withOpacity(0.5),
+    child: Container(
+      height: 70.h,
+      width: 100.w,
+      color: Colors.grey,
+    ),);
   }
 }

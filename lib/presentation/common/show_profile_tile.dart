@@ -29,6 +29,7 @@ class ShortProfileTile extends StatelessWidget {
         padding: EdgeInsets.all(2.w),
         margin: EdgeInsets.only(right: 3.w),
         decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(width: 1, color: const Color(0xff323232))),
         child: Row(

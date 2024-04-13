@@ -33,7 +33,7 @@ mixin _$LocationDto {
   @JsonKey(name: 'country', defaultValue: '')
   String get country => throw _privateConstructorUsedError;
   @JsonKey(name: 'icon', defaultValue: '')
-  String get icon => throw _privateConstructorUsedError;
+  String? get icon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +54,7 @@ abstract class $LocationDtoCopyWith<$Res> {
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'state', defaultValue: '') String state,
       @JsonKey(name: 'country', defaultValue: '') String country,
-      @JsonKey(name: 'icon', defaultValue: '') String icon});
+      @JsonKey(name: 'icon', defaultValue: '') String? icon});
 }
 
 /// @nodoc
@@ -76,7 +76,7 @@ class _$LocationDtoCopyWithImpl<$Res, $Val extends LocationDto>
     Object? city = null,
     Object? state = null,
     Object? country = null,
-    Object? icon = null,
+    Object? icon = freezed,
   }) {
     return _then(_value.copyWith(
       latitude: null == latitude
@@ -103,10 +103,10 @@ class _$LocationDtoCopyWithImpl<$Res, $Val extends LocationDto>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
-      icon: null == icon
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -126,7 +126,7 @@ abstract class _$$LocationDtoImplCopyWith<$Res>
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'state', defaultValue: '') String state,
       @JsonKey(name: 'country', defaultValue: '') String country,
-      @JsonKey(name: 'icon', defaultValue: '') String icon});
+      @JsonKey(name: 'icon', defaultValue: '') String? icon});
 }
 
 /// @nodoc
@@ -146,7 +146,7 @@ class __$$LocationDtoImplCopyWithImpl<$Res>
     Object? city = null,
     Object? state = null,
     Object? country = null,
-    Object? icon = null,
+    Object? icon = freezed,
   }) {
     return _then(_$LocationDtoImpl(
       latitude: null == latitude
@@ -173,10 +173,10 @@ class __$$LocationDtoImplCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
-      icon: null == icon
+      icon: freezed == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -191,7 +191,7 @@ class _$LocationDtoImpl implements _LocationDto {
       @JsonKey(name: 'city', defaultValue: '') required this.city,
       @JsonKey(name: 'state', defaultValue: '') required this.state,
       @JsonKey(name: 'country', defaultValue: '') required this.country,
-      @JsonKey(name: 'icon', defaultValue: '') required this.icon});
+      @JsonKey(name: 'icon', defaultValue: '') this.icon});
 
   factory _$LocationDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationDtoImplFromJson(json);
@@ -216,7 +216,7 @@ class _$LocationDtoImpl implements _LocationDto {
   final String country;
   @override
   @JsonKey(name: 'icon', defaultValue: '')
-  final String icon;
+  final String? icon;
 
   @override
   String toString() {
@@ -269,7 +269,7 @@ abstract class _LocationDto implements LocationDto {
       @JsonKey(name: 'state', defaultValue: '') required final String state,
       @JsonKey(name: 'country', defaultValue: '') required final String country,
       @JsonKey(name: 'icon', defaultValue: '')
-      required final String icon}) = _$LocationDtoImpl;
+      final String? icon}) = _$LocationDtoImpl;
 
   factory _LocationDto.fromJson(Map<String, dynamic> json) =
       _$LocationDtoImpl.fromJson;
@@ -294,7 +294,7 @@ abstract class _LocationDto implements LocationDto {
   String get country;
   @override
   @JsonKey(name: 'icon', defaultValue: '')
-  String get icon;
+  String? get icon;
   @override
   @JsonKey(ignore: true)
   _$$LocationDtoImplCopyWith<_$LocationDtoImpl> get copyWith =>

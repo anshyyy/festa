@@ -14,7 +14,7 @@ class LocationDto with _$LocationDto {
     @JsonKey(name: 'city', defaultValue: '') required String city,
     @JsonKey(name: 'state', defaultValue: '') required String state,
     @JsonKey(name: 'country', defaultValue: '') required String country,
-    @JsonKey(name: 'icon', defaultValue: '') required String icon,
+    @JsonKey(name: 'icon', defaultValue: '') String? icon,
   }) = _LocationDto;
 
   factory LocationDto.fromJson(Map<String, dynamic> json) =>

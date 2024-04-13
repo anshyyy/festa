@@ -66,6 +66,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
         return state.isLoading
             ? const Scaffold(body: Center(child: CircularProgressIndicator()))
             : Scaffold(
+              backgroundColor: Theme.of(context).colorScheme.surface,
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
@@ -81,7 +82,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         },
                       ),
                 appBar: CustomAppBar(
+                  
                     title: event.name,
+                    scaffoldBackgroundColor: Theme.of(context).colorScheme.surface,
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(

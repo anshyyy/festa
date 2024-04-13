@@ -47,7 +47,7 @@ class LocationDialog extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween ,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
@@ -112,62 +112,59 @@ class LocationDialog extends StatelessWidget {
                       ),
                       state.isLocationSearchChanged
                           ? Expanded(
-                            child: SingleChildScrollView(
-                                child: 
-                                // state.suggestions.isEmpty
-                                //     ? Padding(
-                                //         padding: EdgeInsets.only(
-                                //             left: 1.w, bottom: 3.w),
-                                //         child: Text(
-                                //           'No suggestion',
-                                //           style: Theme.of(context)
-                                //               .textTheme
-                                //               .bodyMedium!
-                                //               .copyWith(
-                                //                   color: Theme.of(context)
-                                //                       .colorScheme
-                                //                       .background,
-                                //                   fontSize: 16.sp),
-                                //         ),
-                                //       )
-                                //     : 
+                              child: SingleChildScrollView(
+                                child:
+                                    // state.suggestions.isEmpty
+                                    //     ? Padding(
+                                    //         padding: EdgeInsets.only(
+                                    //             left: 1.w, bottom: 3.w),
+                                    //         child: Text(
+                                    //           'No suggestion',
+                                    //           style: Theme.of(context)
+                                    //               .textTheme
+                                    //               .bodyMedium!
+                                    //               .copyWith(
+                                    //                   color: Theme.of(context)
+                                    //                       .colorScheme
+                                    //                       .background,
+                                    //                   fontSize: 16.sp),
+                                    //         ),
+                                    //       )
+                                    //     :
                                     Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children:
-                                            state.suggestions.map((suggestion) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<HomeCubit>()
-                                                  .onLocationChange(
-                                                    placeId: suggestion.placeId,
-                                                    locationName:
-                                                        suggestion.mainText,
-                                                  );
-                                            },
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 1.w, bottom: 6.w),
-                                              child: Text(
-                                                suggestion.description,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium!
-                                                    .copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .background,
-                                                        fontSize: 16.sp),
-                                              ),
-                                            ),
-                                          );
-                                        }).toList(),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: state.suggestions.map((suggestion) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        context
+                                            .read<HomeCubit>()
+                                            .onLocationChange(
+                                              placeId: suggestion.placeId,
+                                              locationName: suggestion.mainText,
+                                            );
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: 1.w, bottom: 6.w),
+                                        child: Text(
+                                          suggestion.description,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .background,
+                                                  fontSize: 16.sp),
+                                        ),
                                       ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
-                          )
+                            )
                           : Column(
                               children: [
                                 Row(
@@ -177,17 +174,22 @@ class LocationDialog extends StatelessWidget {
                                     SizedBox(
                                       width: 2.w,
                                     ),
-                                    Text(
-                                      'Detect my location',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        context.read<HomeCubit>().onDetectMyLocation();
+                                      },
+                                      child: Text(
+                                        'Detect my location',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
                                     ),
                                   ],
                                 ),

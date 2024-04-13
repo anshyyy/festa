@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
@@ -326,6 +328,27 @@ class HomeCubit extends Cubit<HomeState> {
     final locationSuggestions =
         await state.locationRepository.getLocationSuggestions(query: query);
     emit(state.copyWith(suggestions: locationSuggestions));
+  }
+
+  void onDetectMyLocation() async {
+    await Geolocator.requestPermission();
+    final permission = await Geolocator.checkPermission();
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) {
+      throw Error();
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    Either<dynamic, LocationDto> response = await state.locationRepository
+        .getLocationByCoordinates(
+            lat: position.latitude, lng: position.longitude);
+            
+    response.fold((l) {
+      Fluttertoast.showToast(msg: 'Something went wrong');
+    }, (r) {
+      updateLocation(location: r);
+    });
   }
 
   void onLocationChange(

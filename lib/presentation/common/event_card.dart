@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
@@ -37,11 +38,19 @@ class EventCard extends StatefulWidget {
 
 class _EventCardState extends State<EventCard> {
   int index = 0;
+  late VideoPlayerController _controller;
+
+  void init({required String url}) async {
+    _controller = await VideoPlayerController.networkUrl(Uri.parse(url))
+      ..initialize();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    final colorScheme = themeData.colorScheme;
-    final textTheme = themeData.textTheme;
+    // final colorScheme = themeData.colorScheme;
+    // final textTheme = themeData.textTheme;
     final eventFullName = widget.event.name;
     final words = eventFullName.split(' ');
     final eventTitle = words.isEmpty
@@ -116,39 +125,52 @@ class _EventCardState extends State<EventCard> {
                   itemCount: widget.event.assets.length +
                       (widget.event.coverImage.isNotEmpty ? 1 : 0),
                   itemBuilder: (context, imageIndex) {
-                    final index = imageIndex -
+                    
+                    final index = imageIndex == 0 ? imageIndex : imageIndex -
                         (widget.event.coverImage.isNotEmpty ? 1 : 0);
-                    return Container(
-                      foregroundDecoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.black.withOpacity(.8),
-                            Colors.transparent,
-                            Colors.transparent,
-                            Colors.black.withOpacity(.8)
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: const [0, 0.4, 0.6, 1],
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: CachedNetworkImageProvider(
-                            imageIndex == 0 &&
-                                    widget.event.coverImage.isNotEmpty
-                                ? CustomImageProvider.getImageUrl(
-                                    widget.event.coverImage, ImageType.other)
-                                : CustomImageProvider.getImageUrl(
-                                    widget.event.assets[index].url,
-                                    ImageType.other),
-                          ),
-                        ),
-                      ),
-                    );
+
+                    if (widget.event.assets[index].type == MediaType.VIDEO) {
+                      init(url: widget.event.assets[index].url);
+                    }
+                    return widget.event.assets[index].type == MediaType.VIDEO
+                        ? _controller.value.isInitialized? Center(
+                            child: AspectRatio(
+                              aspectRatio: _controller.value.aspectRatio,
+                              child: VideoPlayer(_controller),
+                            ),
+                          ) : Container()
+                        : Container(
+                            foregroundDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.black.withOpacity(.8),
+                                  Colors.transparent,
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(.8)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: const [0, 0.4, 0.6, 1],
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: CachedNetworkImageProvider(
+                                  imageIndex == 0 &&
+                                          widget.event.coverImage.isNotEmpty
+                                      ? CustomImageProvider.getImageUrl(
+                                          widget.event.coverImage,
+                                          ImageType.other)
+                                      : CustomImageProvider.getImageUrl(
+                                          widget.event.assets[index].url,
+                                          ImageType.other),
+                                ),
+                              ),
+                            ),
+                          );
                   },
                   onPageChanged: (value) {
                     setState(() {
@@ -202,7 +224,7 @@ class _EventCardState extends State<EventCard> {
               ),
               // if (widget.event.address != null)
               SizedBox(
-                height: 1.h,
+                height: 1.5.h,
               ),
               // if (widget.event.address != null)
               //   Row(
@@ -274,7 +296,7 @@ class _EventCardState extends State<EventCard> {
                 ],
               ),
               SizedBox(
-                height: 1.h,
+                height: 1.5.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -304,7 +326,50 @@ class _EventCardState extends State<EventCard> {
               ),
 
               SizedBox(
-                height: 1.h,
+                height: 1.5.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset(
+                          AssetConstants.locationIcon,
+                        ),
+                        SizedBox(
+                          width: 1.w,
+                        ),
+                        Expanded(
+                          child: Text(
+                            widget.event.address!.vicinity,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: themeData.textTheme.bodySmall!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 1.w,
+                  ),
+                  Text(
+                    widget.event.distance <= 0
+                        ? widget.distance
+                        : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
+                    style: themeData.textTheme.bodySmall!.copyWith(
+                      color: themeData.colorScheme.background,
+                      fontWeight: FontWeight.w600,
+                      // fontSize: 14.sp,
+                    ),
+                  ),
+                ],
               ),
               // widget.event.categories.isNotEmpty
               //     ? Container(
@@ -432,28 +497,40 @@ class _EventCardState extends State<EventCard> {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 2.w, vertical: .35.h),
-                          decoration: BoxDecoration(
-                              color: themeData.colorScheme.primaryContainer,
-                              borderRadius: BorderRadius.circular(50.w)),
-                          child: Row(
-                            children: [
-                              Text(
-                                // widget.distance,
-                                widget.event.distance <= 0
-                                    ? widget.distance
-                                    : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
-                                style: themeData.textTheme.bodySmall!.copyWith(
-                                  color: themeData.colorScheme.background,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.sp,
+                        widget.isInListing
+                            ? Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 2.w, vertical: .35.h),
+                                decoration: BoxDecoration(
+                                    color:
+                                        themeData.colorScheme.primaryContainer,
+                                    borderRadius: BorderRadius.circular(50.w)),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      widget.event.distance <= 0
+                                          ? widget.distance
+                                          : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
+                                      style: themeData.textTheme.bodySmall!
+                                          .copyWith(
+                                        color: themeData.colorScheme.background,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )
-                            ],
-                          ),
-                        ),
+                            : GestureDetector(
+                                onTap: widget.onLike,
+                                child: SvgPicture.asset(
+                                  widget.isLiked
+                                      ? AssetConstants.heartFilledIcon
+                                      : AssetConstants.heartOutlinedIcon,
+                                  width: 6.w,
+                                  height: 6.w,
+                                ),
+                              ),
                       ],
                     ),
                   )
@@ -463,7 +540,7 @@ class _EventCardState extends State<EventCard> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -486,16 +563,16 @@ class _EventCardState extends State<EventCard> {
                           //   )
                           // else
                           const SizedBox(),
-                          // GestureDetector(
-                          //   onTap: widget.onLike,
-                          //   child: SvgPicture.asset(
-                          //     widget.isLiked
-                          //         ? AssetConstants.heartFilledIcon
-                          //         : AssetConstants.heartOutlinedIcon,
-                          //     width: 6.w,
-                          //     height: 6.w,
-                          //   ),
-                          // ),
+                          GestureDetector(
+                            onTap: widget.onLike,
+                            child: SvgPicture.asset(
+                              widget.isLiked
+                                  ? AssetConstants.accountSettings
+                                  : AssetConstants.muteIcon,
+                              width: 6.w,
+                              height: 6.w,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -541,17 +618,35 @@ class _EventCardState extends State<EventCard> {
   SvgPicture getExpenseRating({required int rating}) {
     switch (rating) {
       case 1:
-        return SvgPicture.asset(AssetConstants.expenseRating1, height: 2.5.w,);
+        return SvgPicture.asset(
+          AssetConstants.expenseRating1,
+          height: 2.5.w,
+        );
       case 2:
-        return SvgPicture.asset(AssetConstants.expenseRating2, height: 2.5.w,);
+        return SvgPicture.asset(
+          AssetConstants.expenseRating2,
+          height: 2.5.w,
+        );
       case 3:
-        return SvgPicture.asset(AssetConstants.expenseRating3, height: 2.5.w,);
+        return SvgPicture.asset(
+          AssetConstants.expenseRating3,
+          height: 2.5.w,
+        );
       case 4:
-        return SvgPicture.asset(AssetConstants.expenseRating4, height: 2.5.w,);
+        return SvgPicture.asset(
+          AssetConstants.expenseRating4,
+          height: 2.5.w,
+        );
       case 5:
-        return SvgPicture.asset(AssetConstants.expenseRating5, height: 2.5.w,);
+        return SvgPicture.asset(
+          AssetConstants.expenseRating5,
+          height: 2.5.w,
+        );
       default:
-        return SvgPicture.asset(AssetConstants.expenseRating1, height: 2.5.w,);
+        return SvgPicture.asset(
+          AssetConstants.expenseRating1,
+          height: 2.5.w,
+        );
     }
   }
 }

@@ -38,8 +38,6 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final AppStateNotifier appStateNotifier =
-        Provider.of(context, listen: false);
     return MaterialApp(
       title: AppConfig.of(context)!.appTitle,
       debugShowCheckedModeBanner: false,

@@ -26,7 +26,7 @@ class TicketHistoryTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
               color: Theme.of(context).primaryColor,
-              width: .4.w),
+              width: .3.w),
           gradient: LinearGradient(colors: [
             Theme.of(context).colorScheme.primaryContainer,
             Theme.of(context).scaffoldBackgroundColor,
@@ -40,13 +40,12 @@ class TicketHistoryTile extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                      height: 18.w,
-                      width: 18.w,
-                      child: CachedNetworkImage(
-                        imageUrl: CustomImageProvider.getImageUrl(eventPoster, ImageType.other),
-                        fit: BoxFit.cover,
-                      )),
+                  child: CachedNetworkImage(
+                    // width: 18.w,
+                    height: 20.w,
+                    imageUrl: CustomImageProvider.getImageUrl(eventPoster, ImageType.other),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(
                   width: 3.w,

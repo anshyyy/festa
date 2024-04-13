@@ -148,36 +148,44 @@ class HomeScreenConsumer extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          context
-                                              .read<HomeCubit>()
-                                              .toggleLocationDialog();
-                                        },
-                                        child: Row(
-                                          children: [
-                                            SvgPicture.asset(
-                                              AssetConstants.locationIconPink,
-                                            ),
-                                            SizedBox(
-                                              width: 3.w,
-                                            ),
-                                            Text(
-                                              StringExtension.displayAddress(
-                                                  state.location),
-                                              style: themeData
-                                                  .textTheme.bodySmall!
-                                                  .copyWith(
-                                                      color: themeData
-                                                          .colorScheme
-                                                          .background,
-                                                      fontSize: 14.sp,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                            )
-                                          ],
+                                      Expanded(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            context
+                                                .read<HomeCubit>()
+                                                .toggleLocationDialog();
+                                          },
+                                          child: Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                AssetConstants.locationIconPink,
+                                              ),
+                                              SizedBox(
+                                                width: 3.w,
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  StringExtension
+                                                      .displayAddress(
+                                                          state.location),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: themeData
+                                                      .textTheme.bodySmall!
+                                                      .copyWith(
+                                                          color: themeData
+                                                              .colorScheme
+                                                              .background,
+                                                          fontSize: 14.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                      SizedBox(width: 10.w,),
                                       Row(
                                         children: [
                                           GestureDetector(

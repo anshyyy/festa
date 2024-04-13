@@ -141,11 +141,14 @@ class AssetConstants {
   static const checkboxUnticked = '${vectorsFolder}checkbox-unchecked.svg';
   static const checkboxTicked = '${vectorsFolder}checkbox-checked.svg';
 
-static const expenseRating1 = '${vectorsFolder}expense-rating-1.svg';
-static const expenseRating2 = '${vectorsFolder}expense-rating-2.svg';
-static const expenseRating3 = '${vectorsFolder}expense-rating-3.svg';
-static const expenseRating4 = '${vectorsFolder}expense-rating-4.svg';
-static const expenseRating5 = '${vectorsFolder}expense-rating-5.svg';
+  static const expenseRating1 = '${vectorsFolder}expense-rating-1.svg';
+  static const expenseRating2 = '${vectorsFolder}expense-rating-2.svg';
+  static const expenseRating3 = '${vectorsFolder}expense-rating-3.svg';
+  static const expenseRating4 = '${vectorsFolder}expense-rating-4.svg';
+  static const expenseRating5 = '${vectorsFolder}expense-rating-5.svg';
+
+  static const muteIcon = '${vectorsFolder}mute-icon.svg';
+  static const unmuteIcon = '${vectorsFolder}unmute-icon.svg';
 
 // eventIconConstants
   static const Map<String, String> extras = {

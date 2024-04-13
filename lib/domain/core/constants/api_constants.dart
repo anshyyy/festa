@@ -57,4 +57,6 @@ class LocationApiConstants {
   static const GOOGLE_MAPS_API = 'https://maps.googleapis.com/maps/api';
   static const PLACE_AUTOCOMPLETE = '$GOOGLE_MAPS_API/place/autocomplete/json';
   static const PLACE_DETAILS = '$GOOGLE_MAPS_API/place/details/json';
+  static const LOCATION_BY_COORDINATES = '$GOOGLE_MAPS_API/geocode/json';
+  
 }

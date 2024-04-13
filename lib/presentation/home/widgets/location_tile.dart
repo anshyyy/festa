@@ -37,7 +37,7 @@ class LocationTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
-                  location.icon,
+                  location.icon ?? '',
                   height: 3.h,
                 ),
                 SizedBox(

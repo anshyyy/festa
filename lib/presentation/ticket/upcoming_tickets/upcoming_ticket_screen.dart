@@ -4,9 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:widgets_to_image/widgets_to_image.dart';
 
 import '../../../application/ticket/ticket_cubit.dart';
-import 'booking_description.dart';
-import 'event_description.dart';
-import 'ticket_painter.dart';
+import 'ticket_ui_wiget.dart';
 
 class UpcomingTicketsScreen extends StatelessWidget {
   const UpcomingTicketsScreen({super.key});
@@ -23,7 +21,8 @@ class UpcomingTicketsScreen extends StatelessWidget {
           children: [
             WidgetsToImage(
           controller: state.widgetsToImageController,
-              child: SizedBox(
+              child: Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
                 height: 64.h,
                 child: PageView.builder(
                   onPageChanged: (value) {
@@ -32,35 +31,7 @@ class UpcomingTicketsScreen extends StatelessWidget {
                   itemCount: state.userTickets!.upcomingTickets.length,
                   itemBuilder: (context, index) {
                     final current = state.userTickets!.upcomingTickets[index];
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.w),
-                      child: SizedBox(
-                        child: CustomPaint(
-                          painter: TicketPainter(
-                            gradientColor1:
-                                Theme.of(context).colorScheme.primaryContainer,
-                            borderColor: Theme.of(context).colorScheme.secondary,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 4.w, vertical: 4.w),
-                            child: Column(
-                              children: [
-                                EventDescription(
-                                  ticketDetails: current,
-                                ),
-                                SizedBox(
-                                  height: 2.5.h,
-                                ),
-                                 BookingDescription(
-                                  ticketDetails: current,
-                                 )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                    return TicketUiWidgget(ticket: current);
                   },
                 ),
               ),
@@ -93,3 +64,5 @@ class UpcomingTicketsScreen extends StatelessWidget {
     );
   }
 }
+
+

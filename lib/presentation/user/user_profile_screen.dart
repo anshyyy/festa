@@ -59,7 +59,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? UserShimmer()
+              ?  const UserShimmer()
               : Stack(
                   children: [
                     Container(
@@ -204,7 +204,7 @@ class UserShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
 final colorScheme = themeData.colorScheme;
-final textTheme = themeData.textTheme;
+// final textTheme = themeData.textTheme;
 
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!.withOpacity(0.5),
@@ -244,7 +244,7 @@ final textTheme = themeData.textTheme;
               ],
             ),
             
-                      Spacer(),
+                       const Spacer(),
             Stack(
               clipBehavior: Clip.none,
                alignment: Alignment.center,

@@ -65,9 +65,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
         ];
         return state.isLoading
-            ? EventDetailsShimmer()
+            ? const EventDetailsShimmer()
             : Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.surface,
+                backgroundColor: Theme.of(context).colorScheme.background.withOpacity(.02),
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
@@ -85,7 +85,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                 appBar: CustomAppBar(
                     title: event.name,
                     scaffoldBackgroundColor:
-                        Theme.of(context).colorScheme.surface,
+                        Theme.of(context).colorScheme.background.withOpacity(.02),
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
@@ -124,6 +124,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
+                      SizedBox(height: 2.h,),
                       GestureDetector(
                         onTap: () {
                           context.read<EventDetailsCubit>().viewOnMaps(

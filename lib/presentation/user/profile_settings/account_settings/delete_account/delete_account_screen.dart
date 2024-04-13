@@ -13,6 +13,7 @@ import '../../../../../domain/core/constants/string_constants.dart';
 import '../../../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../../widgets/custom_appbar.dart';
+import '../../../../widgets/custom_outlined_button.dart';
 import '../../../../widgets/custom_textfield.dart';
 import '../../../../widgets/gradient_button.dart';
 import '../../../../widgets/snackbar_alert.dart';
@@ -41,9 +42,7 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
 
     return BlocConsumer<DeleteAccountCubit, DeleteAccountState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
@@ -302,10 +301,106 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
             isAuthorized: false,
             user: null,
           );
-          navigator<NavigationService>().navigateTo(
-            AuthRoutes.loginWithPhoneRoute,
-            isClearStack: true,
+          navigator<NavigationService>().goBack();
+          showModalBottomSheet(
+            isDismissible:false,
+            context: context,
+            builder: (context) {
+              return Container(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 5.w,
+              right: 5.w),
+          // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 1.h,
+              ),
+              Center(
+                child: Container(
+                  width: 12.w,
+                  height: .5.h,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 3.5.h,
+              ),
+              Stack(
+                children: [
+                  Center(
+                    child: Text(
+                      DeleteAccountScreenConstants.sadToSeeYouGo,
+                      style: textTheme.bodyMedium!.copyWith(
+                        color: colorScheme.background,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18.sp,
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                        onTap: () {
+                          navigator<NavigationService>().goBack();
+                        },
+                        child: SvgPicture.asset(AssetConstants.closeIcon)),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              SvgPicture.asset(AssetConstants.successHexagon),
+              SizedBox(
+                height: 1.h,
+              ),
+              Text(
+                DeleteAccountScreenConstants.youWillLoggedOut,
+                style: textTheme.bodySmall!.copyWith(
+                    color: colorScheme.background,
+                    fontSize: 16.5.sp,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Text(
+                DeleteAccountScreenConstants.youCanAlwaysJoinMessage,
+                style: textTheme.bodySmall!.copyWith(
+                    color: colorScheme.background.withOpacity(.7),
+                    fontSize: 15.5.sp),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              CustomOutlinedButton(
+                onTap: () {
+                  navigator<NavigationService>().navigateTo(
+                    AuthRoutes.loginWithPhoneRoute,
+                    isClearStack: true,
+                  );
+                },
+                text: 'Close',
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+            ],
+          ),
+        );
+            },
           );
+          
         }
         if (!state.deleteSuccess && state.deleteFailure) {
           CustomScaffoldMessenger.clearSnackBars(context);
@@ -397,7 +492,7 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
                   color: colorScheme.background,
                 ),
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+                    EdgeInsets.symmetric(vertical: 2.3.h, horizontal: 4.w),
                 onChanged: (value) {
                   context
                       .read<DeleteConfirmationCubit>()
@@ -405,7 +500,7 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
                 },
               ),
               SizedBox(
-                height: 0.h,
+                height: 2.h,
               ),
               GradientButton(
                 text: DeleteAccountScreenConstants.title,
@@ -439,11 +534,12 @@ class ConfirmDeleteModalSheetConsumer extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 2.h,
+                height: 3.h,
               ),
             ],
           ),
         );
+
       },
     );
   }

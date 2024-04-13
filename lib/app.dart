@@ -82,7 +82,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           : Provider.of<AppStateNotifier>(context).isAuthorized
               ? Provider.of<AppStateNotifier>(context).profileState ==
                       ProfileStateEnum.completed
-                  ? UserRoutes.mainNavRoute
+                  ? AuthRoutes.usernameRoute
                   : Provider.of<AppStateNotifier>(context).profileState ==
                           ProfileStateEnum.gender
                       ? AuthRoutes.usernameRoute

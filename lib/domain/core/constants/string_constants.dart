@@ -48,7 +48,7 @@ class BasicProfileScreenConstants {
 }
 
 class BirthdayScreenConstants {
-  static String addBirthday = 'When\'s your\nbirthday?';
+  static String addBirthday = 'When’s your\nbirthday?';
 }
 
 class GenderSelectionScreenConstants {
@@ -92,6 +92,8 @@ class LoginScreenConstants {
 class UsernameScreenConstants {
   static String chooseYourUsername = 'Choose your username';
   static String typeHere = 'Type here';
+  static String usernameUnavailable = 'Username is already taken, try again';
+  static String usernameAvailable = 'Username is available';
 }
 
 class ErrorConstants {
@@ -437,6 +439,7 @@ class DeleteAccountScreenConstants {
     sendingMeTooManyNotifications,
     theAppIsNotWorking
   ];
+
 }
 
 class SetupLocationScreenConstants {

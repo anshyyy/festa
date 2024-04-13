@@ -426,7 +426,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                     child: Container(
                                       height: 15.w,
                                       width: 15.w,
-                                      padding: EdgeInsets.all(3),
+                                      padding:  const EdgeInsets.all(3),
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
                                               .colorScheme

@@ -130,7 +130,7 @@ class ArtistProfile extends StatelessWidget {
                           // color: Colors.white,
                         ),
                         GestureDetector(
-                           onTap: () {
+                          onTap: () {
                             navigator<NavigationService>().navigateTo(
                                 UserRoutes.artistCommunityScreenRoute,
                                 queryParams: {
@@ -141,21 +141,21 @@ class ArtistProfile extends StatelessWidget {
                           child: Column(
                             children: [
                               MutualFollowers(
-                                artistCommunityDto:
-                                    state.artistProfile!.extraDetailsDto!.followedBy,
+                                artistCommunityDto: state
+                                    .artistProfile!.extraDetailsDto!.followedBy,
                               ),
                               SizedBox(
                                 height: 1.h,
                               ),
                               SocialReach(
-                                totalParties: state
-                                    .artistProfile!.extraDetailsDto!.totalParties,
-                                totalFollowers: state
-                                    .artistProfile!.extraDetailsDto!.totalFollowers,
-                                totalFriends: state
-                                    .artistProfile!.extraDetailsDto!.totalFriends,
-                                totalFootFall: state
-                                    .artistProfile!.extraDetailsDto!.totalFootFall,
+                                totalParties: state.artistProfile!
+                                    .extraDetailsDto!.totalParties,
+                                totalFollowers: state.artistProfile!
+                                    .extraDetailsDto!.totalFollowers,
+                                totalFriends: state.artistProfile!
+                                    .extraDetailsDto!.totalFriends,
+                                totalFootFall: state.artistProfile!
+                                    .extraDetailsDto!.totalFootFall,
                               ),
                             ],
                           ),
@@ -172,12 +172,15 @@ class ArtistProfile extends StatelessWidget {
                           width: 20.w,
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: colorScheme.primaryContainer.withOpacity(1),
+                              color:
+                                  colorScheme.primaryContainer.withOpacity(1),
                               border: Border.all(width: 1, color: Colors.white),
                               image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(state.artistProfile!.profileImage, ImageType.profile))
-                                  )),
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
+                                      CustomImageProvider.getImageUrl(
+                                          state.artistProfile!.profileImage,
+                                          ImageType.profile)))),
                         ),
                       ],
                     ),
@@ -252,19 +255,180 @@ class ArtistProfile extends StatelessWidget {
                     child: SizedBox(
                       height: 15.h,
                       width: 15.w,
-                      child: QrImageView(
-                        data: DynamicLinkUtil.generateLink(
-                            AppConstants.artist, state.artistId.toString()),
-                        eyeStyle: QrEyeStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            eyeShape: QrEyeShape.square),
-                        dataModuleStyle: QrDataModuleStyle(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer,
-                            dataModuleShape: QrDataModuleShape.square),
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return SizedBox(
+                                width: 100.w,
+                                height: 100.h,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: 12.w,
+                                        height: .5.h,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondaryContainer,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
+                                      Text('Scan the QR code',
+                                          style: themeData.textTheme.bodyLarge!
+                                              .copyWith(
+                                                  color:
+                                                      colorScheme.background)),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
+
+                                      Container(
+                                        color: Colors.black,
+                                        width: 50.w,
+                                        height: 50.w,
+                                        child: QrImageView(
+                                          data: DynamicLinkUtil.generateLink(
+                                              AppConstants.user,
+                                              state.artistProfile!.id
+                                                  .toString()),
+                                          eyeStyle: QrEyeStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondaryContainer,
+                                              eyeShape: QrEyeShape.square),
+                                          dataModuleStyle: QrDataModuleStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondaryContainer,
+                                            dataModuleShape:
+                                                QrDataModuleShape.square,
+                                          ),
+                                        ),
+                                      ),
+
+                                      // Container(
+                                      //   decoration: BoxDecoration(
+                                      //     border: Border.all(color: colorScheme.background, width: .1.w),
+                                      //     borderRadius: BorderRadius.circular(10.w)
+                                      //   ),
+                                      //   child: Row(),
+                                      // )
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      Container(
+                                        width: 60.w,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: colorScheme.background,
+                                                width: .1.w),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 1.h, horizontal: 3.w),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 5.5.w,
+                                              backgroundImage:
+                                                  CachedNetworkImageProvider(
+                                                      CustomImageProvider
+                                                          .getImageUrl(
+                                                              state
+                                                                  .artistProfile
+                                                                  ?.profileImage,
+                                                              ImageType
+                                                                  .profile)),
+                                            ),
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    state.artistProfile
+                                                            ?.fullName ??
+                                                        '',
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: themeData
+                                                        .textTheme.bodyMedium!
+                                                        .copyWith(
+                                                      color: colorScheme
+                                                          .background,
+                                                      fontSize: 16.5.sp,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: .5.h,
+                                                  ),
+                                                  Text(
+                                                    state.artistProfile?.tag !=
+                                                            null
+                                                        ? '@${state.artistProfile?.tag?.tag}'
+                                                        : '',
+                                                    style: themeData
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                            color: colorScheme
+                                                                .background
+                                                                .withOpacity(
+                                                                    .7),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: QrImageView(
+                          data: DynamicLinkUtil.generateLink(
+                              AppConstants.artist, state.artistId.toString()),
+                          eyeStyle: QrEyeStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
+                              eyeShape: QrEyeShape.square),
+                          dataModuleStyle: QrDataModuleStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
+                              dataModuleShape: QrDataModuleShape.square),
+                        ),
                       ),
                     ),
                   )

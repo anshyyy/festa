@@ -11,25 +11,6 @@ import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
 import 'widgets/media_viewer_tabs.dart';
 
-import 'dart:ui';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../../application/club_profile/club_profile_cubit.dart';
-import '../../../domain/core/configs/injection.dart';
-import '../../../domain/core/constants/asset_constants.dart';
-import '../../../domain/core/constants/string_constants.dart';
-import '../../../domain/core/services/navigation_services/navigation_service.dart';
-import '../../../domain/core/services/navigation_services/routers/route_name.dart';
-import '../../../domain/core/utils/dynamic_link.dart';
-import '../../../domain/core/utils/image_provider.dart';
-import '../../../infrastructure/core/enum/image_type.enum.dart';
-
 class ClubProfileScreen extends StatelessWidget {
   final int clubId;
   const ClubProfileScreen({super.key, required this.clubId});
@@ -66,8 +47,8 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                     .menuIndex ??
                 0,
           ),
-          body: !state.isLoading
-              ? ClubShimmer()
+          body: state.isLoading
+              ? const ClubShimmer()
               : state.pub == null
                   ? const Center(
                       child: Text('Data not found'),
@@ -128,7 +109,7 @@ class ClubShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
-    final textTheme = themeData.textTheme;
+    // final textTheme = themeData.textTheme;
 
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!.withOpacity(0.5),
@@ -170,7 +151,7 @@ class ClubShimmer extends StatelessWidget {
               ],
             ),
 
-            Spacer(),
+            const Spacer(),
             Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.center,

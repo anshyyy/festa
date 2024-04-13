@@ -59,90 +59,89 @@ class BirthdayScreenConsumer extends StatelessWidget {
         inAsyncCall: state.isLoading,
         color: Colors.black.withOpacity(1),
         child: Scaffold(
-          body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w),
-                  child: Text(
-                    BirthdayScreenConstants.addBirthday,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 24.sp,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                  ),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w),
-                  child: Text(BasicProfileScreenConstants.addText,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(letterSpacing: -1)),
-                ),
-                const Spacer(
-                  flex: 1,
-                ),
-                CupertinoTheme(
-                  data: CupertinoTheme.of(context).copyWith(
-                    textTheme: CupertinoTheme.of(context).textTheme.copyWith(
-                          dateTimePickerTextStyle: TextStyle(
-                              color: Theme.of(context).colorScheme.background,
-                              fontSize: 17.sp),
-                        ),
-                  ),
-                  child: Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: Theme.of(context).colorScheme.primaryContainer,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 9.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                child: Text(
+                  BirthdayScreenConstants.addBirthday,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 24.sp,
+                        color: Theme.of(context).colorScheme.background,
                       ),
-                      height: 25.h,
-                      width: 75.w,
-                      child: CupertinoDatePicker(
-                        // minimumYear: 18,
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: state.selectedDate,
-                        maximumYear: DateTime.now().year - 7,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          context
-                              .read<BirthdaySelectionCubit>()
-                              .selectedDate(newDateTime);
-                        },
+                ),
+              ),
+              SizedBox(
+                height: .5.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 2.w),
+                child: Text(BasicProfileScreenConstants.addText,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(letterSpacing: -1)),
+              ),
+              // const Spacer(
+              //   flex: 1,
+              // ),
+              SizedBox(height: 5.h,),
+              CupertinoTheme(
+                data: CupertinoTheme.of(context).copyWith(
+                  textTheme: CupertinoTheme.of(context).textTheme.copyWith(
+                        dateTimePickerTextStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 18.sp),
                       ),
+                ),
+                child: Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.w),
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                    height: 26.h,
+                    width: 80.w,
+                    child: CupertinoDatePicker(
+                      // minimumYear: 18,
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: state.selectedDate,
+                      maximumYear: DateTime.now().year - 7,
+                      onDateTimeChanged: (DateTime newDateTime) {
+                        context
+                            .read<BirthdaySelectionCubit>()
+                            .selectedDate(newDateTime);
+                      },
                     ),
                   ),
                 ),
-                const Spacer(
-                  flex: 5,
+              ),
+              const Spacer(
+                flex: 5,
+              ),
+              Container(
+                height: 14.h,
+                color: colorScheme.surface,
+                padding: EdgeInsets.only(
+                    top: 2.5.h, bottom: 6.h, left: 4.w, right: 4.w),
+                child: GradientButton(
+                  text: BasicProfileScreenConstants.continueText,
+                  isEnabled: state.isContinueEnabled,
+                  textStyle: textTheme.bodySmall!.copyWith(
+                      color: state.isContinueEnabled
+                          ? colorScheme.background
+                          : colorScheme.background.withOpacity(.5),
+                      fontWeight: FontWeight.w600),
+                  onTap: () {
+                    context.read<BirthdaySelectionCubit>().onContinue();
+                  },
                 ),
-                Container(
-                  height: 13.5.h,
-                  color: colorScheme.surface,
-                  padding: EdgeInsets.only(
-                      top: 3.h, bottom: 5.h, left: 4.w, right: 4.w),
-                  child: GradientButton(
-                    text: BasicProfileScreenConstants.continueText,
-                    isEnabled: state.isContinueEnabled,
-                    textStyle: textTheme.bodySmall!.copyWith(
-                        color: state.isContinueEnabled
-                            ? colorScheme.background
-                            : colorScheme.background.withOpacity(.5),
-                        fontWeight: FontWeight.w600),
-                    onTap: () {
-                      context.read<BirthdaySelectionCubit>().onContinue();
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );

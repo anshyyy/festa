@@ -120,7 +120,7 @@ class _EventCardState extends State<EventCard> {
               //       },
               //     )),
               SizedBox(
-                height: 105.w,
+                height: 100.w,
                 child: PageView.builder(
                   itemCount: widget.event.assets.length +
                       (widget.event.coverImage.isNotEmpty ? 1 : 0),
@@ -568,7 +568,7 @@ class _EventCardState extends State<EventCard> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: 1.h),
+                      padding: EdgeInsets.only(bottom: 3.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,

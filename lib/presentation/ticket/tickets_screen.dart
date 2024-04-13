@@ -163,41 +163,17 @@ class TicketScreenConsumer extends StatelessWidget {
               SizedBox(
                 height: .7.h,
               ),
-              state.isLoading? 
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TicketShimmer(),
-              )
-              :
-              state.userTickets == null
-                  ? Container(
-                height: 65.h,
-                width: 100.w,
-                color: Theme.of(context).colorScheme.surface,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AssetConstants.ticketIcon, 
-                    height: 10.h,),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    Text(
-                      'No Tickets',
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            color: Theme.of(context).colorScheme.background,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                  ],
-                ),
-              )
-                  : AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 500),
-                      child: !state.showTicketHistory
-                          ? const UpcomingTicketsScreen()
-                          : const HistoryTicketScreen(),
-                    ),
+              state.isLoading
+                  ? const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TicketShimmer(),
+                    )
+                  :AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: !state.showTicketHistory
+                              ? const UpcomingTicketsScreen()
+                              : const HistoryTicketScreen(),
+                        ),
               SizedBox(
                 height: 4.h,
               ),
@@ -220,12 +196,14 @@ class TicketShimmer extends StatelessWidget {
 // final colorScheme = themeData.colorScheme;
 // final textTheme = themeData.textTheme;
 
-    return Shimmer.fromColors(baseColor: Colors.grey[300]!.withOpacity(0.5),
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!.withOpacity(0.5),
       highlightColor: Colors.grey[400]!.withOpacity(0.5),
-    child: Container(
-      height: 70.h,
-      width: 100.w,
-      color: Colors.grey,
-    ),);
+      child: Container(
+        height: 70.h,
+        width: 100.w,
+        color: Colors.grey,
+      ),
+    );
   }
 }

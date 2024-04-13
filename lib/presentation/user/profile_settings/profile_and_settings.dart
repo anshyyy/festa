@@ -161,6 +161,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                             .onMenuSearch(query: value),
                       ),
                     ),
+                    SizedBox(height: 1.h,),
                     Stack(
                       children: [
                         Column(

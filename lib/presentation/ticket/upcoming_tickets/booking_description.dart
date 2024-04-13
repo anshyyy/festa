@@ -29,7 +29,7 @@ class BookingDescription extends StatelessWidget {
                 duration: const Duration(seconds: 1),
                 child: ticketDetails.showTicketDetails
                     ?  TransactionDetails(ticketDetails: ticketDetails,)
-                    : const QrViewer(),
+                    : QrViewer(bookingReferenceId: ticketDetails.bookingReference,),
               ),
               Positioned(
                 bottom: 0,

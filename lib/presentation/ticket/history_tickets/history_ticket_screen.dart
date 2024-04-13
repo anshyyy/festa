@@ -5,7 +5,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/ticket/ticket_cubit.dart';
 import '../../../domain/core/constants/asset_constants.dart';
-import '../ticket_ui_wiget.dart';
+import '../upcoming_tickets/event_description.dart';
+import '../upcoming_tickets/ticket_painter.dart';
+import '../upcoming_tickets/transaction_details.dart';
 import 'history_ticket_tile.dart';
 
 class HistoryTicketScreen extends StatelessWidget {
@@ -20,7 +22,7 @@ class HistoryTicketScreen extends StatelessWidget {
             ? Container(
                 height: 65.h,
                 width: 100.w,
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.surface.withOpacity(0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -41,30 +43,80 @@ class HistoryTicketScreen extends StatelessWidget {
                   ],
                 ),
               )
-            : ListView.builder(
-                padding: EdgeInsets.only(top: 4.w),
-                shrinkWrap: true,
-                itemCount: state.userTickets!.bookedTicketsHistory.length,
-                itemBuilder: (context, index) {
-                  final ticket = state.userTickets!.bookedTicketsHistory[index];
-                  return GestureDetector(
-                    onTap: () {
-                      context
-                          .read<TicketCubit>()
-                          .showHistoryTicket(ticket: ticket);
+            : state.shoHistoryTicketDetails
+                ? Stack(
+                    children: [
+                      SizedBox(
+                        height: 65.h,
+                        width: 95.w,
+                        child: CustomPaint(
+                          painter: TicketPainter(
+                            gradientColor1:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            borderColor:
+                                Theme.of(context).colorScheme.secondary,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 4.w, vertical: 4.w),
+                            child: Column(
+                              children: [
+                                EventDescription(
+                                  ticketDetails: state.historyTicket!,
+                                ),
+                                SizedBox(
+                                  height: 2.5.h,
+                                ),
+                                Expanded(
+                                    child: TransactionDetails(
+                                  ticketDetails: state.historyTicket!,
+                                ))
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 2.w,
+                        right: 2.w,
+                        child: Container(
+                          height: 5.h,
+                          width: 5.h,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).colorScheme.surface,
+                          ),
+                          child: GestureDetector(
+                              onTap: () {
+                                context.read<TicketCubit>().hideHistoryTicket();
+                              },
+                              child: Center(
+                                  child: SvgPicture.asset(
+                                      AssetConstants.arrowLeft))),
+                        ),
+                      ),
+                    ],
+                  )
+                : ListView.builder(
+                    padding: EdgeInsets.only(top: 4.w),
+                    shrinkWrap: true,
+                    itemCount: state.userTickets!.bookedTicketsHistory.length,
+                    itemBuilder: (context, index) {
+                      final ticket =
+                          state.userTickets!.bookedTicketsHistory[index];
+                      return GestureDetector(
+                        onTap: () {
+                          context
+                              .read<TicketCubit>()
+                              .showHistoryTicket(ticket: ticket);
+                        },
+                        child: TicketHistoryTile(
+                          eventPoster: ticket.eventDetails.coverImage,
+                          eventTitle: ticket.eventDetails.name,
+                        ),
+                      );
                     },
-                    child: TicketHistoryTile(
-                      eventPoster: ticket.eventDetails.coverImage,
-                      eventTitle: ticket.eventDetails.name,
-                      // artist: ticket['artist'],
-                      // duration: ticket['duration'],
-                      // dominantColor: snapshot.hasData
-                      //     ? snapshot.data
-                      //     : Theme.of(context).primaryColor,
-                    ),
                   );
-                },
-              );
       },
     );
   }

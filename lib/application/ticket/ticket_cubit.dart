@@ -88,4 +88,9 @@ class TicketCubit extends Cubit<TicketState> {
   void showHistoryTicket({required BookedTicketDetailsDto ticket}) {
     emit(state.copyWith(shoHistoryTicketDetails: true, historyTicket: ticket));
   }
+
+  void hideHistoryTicket(){
+    emit(state.copyWith(shoHistoryTicketDetails: false, historyTicket: null));
+
+  }
 }

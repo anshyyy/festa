@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/ticket/ticket_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
-import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import 'history_tickets/history_ticket_screen.dart';
 import 'upcoming_tickets/upcoming_ticket_screen.dart';

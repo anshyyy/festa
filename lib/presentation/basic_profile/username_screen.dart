@@ -58,12 +58,11 @@ class UsernameScreenConsumer extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 2.h,
-                vertical: 2.h,
               ),
               child: Column(
                 children: [
                   SizedBox(
-                    height: 5.h,
+                    height: 3.h,
                   ),
                   Text(
                     UsernameScreenConstants.chooseYourUsername,
@@ -74,7 +73,7 @@ class UsernameScreenConsumer extends StatelessWidget {
                         ),
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 4.h,
                   ),
                   CustomTextField(
                     controller: state.usernameInputController,
@@ -86,12 +85,13 @@ class UsernameScreenConsumer extends StatelessWidget {
                     isFill: true,
                     fillColor: Theme.of(context).colorScheme.primaryContainer,
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.h),
+                        EdgeInsets.symmetric(vertical: 2.3.h, horizontal: 2.h),
                     onChanged: (value) {
                       context
                           .read<AddUsernameCubit>()
                           .onUsernameChange(username: value);
                     },
+                    helperText: state.isSuccess ? UsernameScreenConstants.usernameAvailable : state.isFailure? UsernameScreenConstants.usernameUnavailable : '',
                     suffixIcon: state.isLoading
                         ? Image.asset(
                             AssetConstants.bubbleLoader,

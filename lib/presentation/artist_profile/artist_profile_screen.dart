@@ -130,7 +130,7 @@ class UserShimmer extends StatelessWidget {
               ],
             ),
 
-            Spacer(),
+            const Spacer(),
             Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.center,

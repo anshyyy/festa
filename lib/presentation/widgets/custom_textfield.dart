@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -46,11 +45,14 @@ class CustomTextField extends StatelessWidget {
     this.cursorColor,
     this.textStyle,
     this.errorStyle,
-    this.helperText, this.borderColor,
+    this.helperText,
+    this.borderColor,
+    this.helperTextStyle,
   });
 
   final TextCapitalization? textCapitalization;
   final TextStyle? hintTextStyle;
+  final TextStyle? helperTextStyle;
   final TextStyle? textStyle;
   final TextStyle? errorStyle;
   final Function()? onTap;
@@ -92,14 +94,13 @@ class CustomTextField extends StatelessWidget {
   final String? helperText;
   final Color? borderColor;
 
-
   @override
   Widget build(BuildContext context) {
     OutlineInputBorder outlineInputBorder = OutlineInputBorder(
       gapPadding: 0,
       borderRadius: BorderRadius.circular(borderRadius ?? 10),
       borderSide: BorderSide(
-        color: borderColor ??  Theme.of(context).colorScheme.primaryContainer,
+        color: borderColor ?? Theme.of(context).colorScheme.primaryContainer,
         width: 0.5,
       ),
     );
@@ -126,12 +127,15 @@ class CustomTextField extends StatelessWidget {
         filled: isFill,
         isDense: true,
         helperText: helperText,
+        helperStyle: helperTextStyle,
+        helperMaxLines: 1,
         fillColor: isFill == true ? fillColor : null,
         counter: const Offstage(),
         border: borderLess == true ? InputBorder.none : outlineInputBorder,
         enabledBorder:
             borderLess == true ? InputBorder.none : outlineInputBorder,
-        focusedBorder: borderLess == true ? InputBorder.none : outlineInputBorder ,
+        focusedBorder:
+            borderLess == true ? InputBorder.none : outlineInputBorder,
         errorBorder: outlineInputBorder.copyWith(
           borderSide: const BorderSide(color: Color(0xFFEA4335)),
         ),

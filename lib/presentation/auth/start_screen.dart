@@ -54,127 +54,124 @@ final textTheme = themeData.textTheme;
       },
       builder: (context, state) {
         return Scaffold(
-          body: SafeArea(
-            top: false,
-            child: SizedBox(
-              height: 100.h,
-              child: Stack(
-                children: [
-                  SizedBox(
-                    width: 100.w,
-                    height: 100.h,
-                    child: Column(
-                      children: [
-                        const Expanded(flex: 5, child: SizedBox()),
-                        SvgPicture.asset(AssetConstants.festaIconSvg),
-                        const Expanded(flex: 6, child: SizedBox()),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          body: SizedBox(
+            height: 100.h,
+            child: Stack(
+              children: [
+                SizedBox(
+                  width: 100.w,
+                  height: 100.h,
+                  child: Column(
                     children: [
-                      Padding(
-                        padding:  EdgeInsets.symmetric(horizontal: 5.w),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                           GestureDetector(
-                            onTap: (){
-                              context.read<StarterCubit>().onTermsAndConditionChecked();
-                            },
-                            child: state.isTermsAndConditionChecked?  SvgPicture.asset(AssetConstants.checkboxTicked, height: 6.w,):SvgPicture.asset(AssetConstants.checkboxUnticked, height: 6.w,)),
-                            SizedBox(width: 1.5.w,),
-                            Expanded(
-                              child: RichText(
-                                // textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text:
-                                            '${TermsAndConditionConstants.privacyMessage} ',
-                                        style:
-                                            Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14.5.sp,
-                                            )),
-                                    TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          launchUrl(Uri.parse(
-                                              'https://www.festa.world/terms'));
-                                        },
-                                      text: TermsAndConditionConstants.termsText,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 14.5.sp,
-                                            color: colorScheme.background,
-                                            decoration: TextDecoration.underline,
-                                            decorationColor: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                        text: ' ${AppConstants.andText} ',
-                                        style: Theme.of(context).textTheme.bodySmall!
-                                        .copyWith(fontSize: 14.5.sp),
+                      const Expanded(flex: 5, child: SizedBox()),
+                      SvgPicture.asset(AssetConstants.festaIconSvg),
+                      const Expanded(flex: 6, child: SizedBox()),
+                    ],
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 5.w),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                         GestureDetector(
+                          onTap: (){
+                            context.read<StarterCubit>().onTermsAndConditionChecked();
+                          },
+                          child: state.isTermsAndConditionChecked?  SvgPicture.asset(AssetConstants.checkboxTicked, height: 6.w,):SvgPicture.asset(AssetConstants.checkboxUnticked, height: 6.w,)),
+                          SizedBox(width: 1.5.w,),
+                          Expanded(
+                            child: RichText(
+                              // textAlign: TextAlign.center,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          '${TermsAndConditionConstants.privacyMessage} ',
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14.5.sp,
+                                          )),
+                                  TextSpan(
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launchUrl(Uri.parse(
+                                            'https://www.festa.world/terms'));
+                                      },
+                                    text: TermsAndConditionConstants.termsText,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14.5.sp,
+                                          color: colorScheme.background,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: Theme.of(context)
+                                              .colorScheme
+                                              .background,
                                         ),
-                                    TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          launchUrl(Uri.parse(
-                                              'https://www.festa.world/privacy'));
-                                        },
-                                      text: TermsAndConditionConstants.privacyText,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            fontSize: 14.5.sp,
-                                            color: colorScheme.background,
-                                            decoration: TextDecoration.underline,
-                                            decorationColor: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    ),
-                                    TextSpan(
-                                      text: '.',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(fontSize: 14.sp),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  TextSpan(
+                                      text: ' ${AppConstants.andText} ',
+                                      style: Theme.of(context).textTheme.bodySmall!
+                                      .copyWith(fontSize: 14.5.sp),
+                                      ),
+                                  TextSpan(
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launchUrl(Uri.parse(
+                                            'https://www.festa.world/privacy'));
+                                      },
+                                    text: TermsAndConditionConstants.privacyText,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14.5.sp,
+                                          color: colorScheme.background,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                        ),
+                                  ),
+                                  TextSpan(
+                                    text: '.',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(fontSize: 14.sp),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                       SizedBox(
-                        height: 4.h,
+                    ),
+                     SizedBox(
+                      height: 4.h,
+                    ),
+                    Container(
+                      height: 13.5.h,
+                      color: Theme.of(context).colorScheme.surface,
+                      padding: EdgeInsets.only(bottom: 5.h, top: 3.h, left: 6.w, right: 6.w),
+                      child: GradientButton(
+                        isEnabled: state.isTermsAndConditionChecked,
+                        text: AppConstants.continueText,
+                        textStyle: state.isTermsAndConditionChecked ? 
+                        textTheme.bodySmall!.copyWith(color: colorScheme.background, fontWeight: FontWeight.w600)
+                        :textTheme.bodySmall!.copyWith(color: colorScheme.secondaryContainer, fontWeight: FontWeight.w600),
+                        onTap: () {
+                          context.read<StarterCubit>().completeOnboarding();
+                        },
                       ),
-                      Container(
-                        height: 13.5.h,
-                        color: Theme.of(context).colorScheme.surface,
-                        padding: EdgeInsets.only(bottom: 5.h, top: 3.h, left: 6.w, right: 6.w),
-                        child: GradientButton(
-                          isEnabled: state.isTermsAndConditionChecked,
-                          text: AppConstants.continueText,
-                          textStyle: state.isTermsAndConditionChecked ? 
-                          textTheme.bodySmall!.copyWith(color: colorScheme.background, fontWeight: FontWeight.w600)
-                          :textTheme.bodySmall!.copyWith(color: colorScheme.secondaryContainer, fontWeight: FontWeight.w600),
-                          onTap: () {
-                            context.read<StarterCubit>().completeOnboarding();
-                          },
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         );

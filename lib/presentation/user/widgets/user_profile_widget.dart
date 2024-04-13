@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+                                                                                             import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -223,6 +223,7 @@ class UserProfile extends StatelessWidget {
                                         context: context,
                                         builder: (context) {
                                           return SizedBox(
+                                            // color: colorS/cheme.surface,
                                             width: 100.w,
                                             height: 100.h,
                                             child: Padding(
@@ -260,7 +261,8 @@ class UserProfile extends StatelessWidget {
                                                     height: 1.h,
                                                   ),
 
-                                                  SizedBox(
+                                                  Container(
+                                                    color: themeData.scaffoldBackgroundColor,
                                                     width: 50.w,
                                                     height: 50.w,
                                                     child: QrImageView(

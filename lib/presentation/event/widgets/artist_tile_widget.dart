@@ -22,7 +22,6 @@ class ArtistTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ArtistProfileCubit, ArtistProfileState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         return GestureDetector(

@@ -25,7 +25,7 @@ class FollowArtistsModalSheet extends StatelessWidget {
     return BlocProvider(
       create: (context) => ArtistProfileCubit(ArtistProfileState.initial(
           serverUrl: appConfig.serverUrl, artists: artists)),
-      child: FollowArtistsModalSheetConsumer(),
+      child: const FollowArtistsModalSheetConsumer(),
     );
   }
 }
@@ -39,7 +39,6 @@ class FollowArtistsModalSheetConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ArtistProfileCubit, ArtistProfileState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         return Container(

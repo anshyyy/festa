@@ -249,7 +249,7 @@ class EventDetails extends StatelessWidget {
           padding: EdgeInsets.all(2.w),
           decoration: BoxDecoration(
             border: Border.all(
-                width: 1, color: Theme.of(context).colorScheme.primary),
+                width: .3.w, color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
@@ -383,7 +383,7 @@ class PaymentDestributionDetails extends StatelessWidget {
                         ),
                         PriceUnit(title: 'Quantity', detail: e.noOfTickets.toString()),
                         SizedBox(
-                          height: 1.h,
+                          height: 2.h,
                         ),
                         Divider(
                           thickness: .05.w,

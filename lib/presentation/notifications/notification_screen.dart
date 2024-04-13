@@ -68,7 +68,7 @@ class NotificationScreenConsumer extends StatelessWidget {
                     textStyle: Theme.of(context)
                         .textTheme
                         .bodySmall!
-                        .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                        .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w500),
                     colors: [
                       Theme.of(context).colorScheme.primary,
                       Theme.of(context).colorScheme.secondary
@@ -78,7 +78,7 @@ class NotificationScreenConsumer extends StatelessWidget {
               ]),
           body: SafeArea(
             child: state.isLoading
-                ? NotificationShimmer()
+                ? const NotificationShimmer()
                 : state.lsOfNotification.isNotEmpty
                     ? NotificationsWidget(
                         lsOfNotification: state.lsOfNotification,
@@ -102,7 +102,7 @@ class NotificationShimmer extends StatelessWidget {
       baseColor: Colors.grey[300]!.withOpacity(0.5),
       highlightColor: Colors.grey[400]!.withOpacity(0.5),
       child: ListView.builder(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         itemCount: 12,
         itemBuilder: (context, index) {
           return Container(
@@ -114,7 +114,7 @@ class NotificationShimmer extends StatelessWidget {
                 Container(
                   width: 13.w,
                   height: 13.w,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.grey,
                   ),

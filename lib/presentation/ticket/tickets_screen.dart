@@ -164,8 +164,8 @@ class TicketScreenConsumer extends StatelessWidget {
                 height: .7.h,
               ),
               state.isLoading? 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: TicketShimmer(),
               )
               :
@@ -216,9 +216,9 @@ class TicketShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
-final colorScheme = themeData.colorScheme;
-final textTheme = themeData.textTheme;
+    // final themeData = Theme.of(context);
+// final colorScheme = themeData.colorScheme;
+// final textTheme = themeData.textTheme;
 
     return Shimmer.fromColors(baseColor: Colors.grey[300]!.withOpacity(0.5),
       highlightColor: Colors.grey[400]!.withOpacity(0.5),

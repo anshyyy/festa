@@ -18,7 +18,7 @@ class HistoryTicketScreen extends StatelessWidget {
       builder: (context, state) {
         return 2==1? Column(
           children: [
-            Container(
+            SizedBox(
               height: 65.h,
               child: TicketUiWidgget(ticket: state.historyTicket!)),
           ],

@@ -12,7 +12,7 @@ part 'artist_music_state.dart';
 
 class ArtistMusicCubit extends Cubit<ArtistMusicState> {
   ArtistMusicCubit(super.initialState);
-  int currenPlaying = -1;
+  int currentPlaying = -1;
   void init() {
     fetchArtistMusic(artistId: state.artistId);
   }
@@ -52,10 +52,10 @@ class ArtistMusicCubit extends Cubit<ArtistMusicState> {
     required int id,
     required String audioUrl,
   }) async {
-    if (id != currenPlaying) {
-      initMusic(prev: currenPlaying, curr: id, audioUrl: audioUrl);
+    if (id != currentPlaying) {
+      initMusic(prev: currentPlaying, curr: id, audioUrl: audioUrl);
     }
-    currenPlaying = id;
+    currentPlaying = id;
 
     final updatedMusicList = state.musicList.map((e) {
       if (e.id == id) {
@@ -71,10 +71,15 @@ class ArtistMusicCubit extends Cubit<ArtistMusicState> {
       {required int prev, required int curr, required String audioUrl}) async {
     stopMusic(id: prev);
     state.audioPlayer.stop();
-    // await state.audioPlayer
-    //     .setUrl('https://samplelib.com/lib/preview/mp3/sample-15s.mp3');
+
     try {
+      // await state.audioPlayer.setAsset('assets/sample.mp3',initialPosition: Duration.zero);
+      // await state.audioPlayer.setUrl(
+      //   'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
+      // );
       await state.audioPlayer.setUrl(audioUrl);
+
+      state.audioPlayer.setLoopMode(LoopMode.all);
     } catch (e) {
       Fluttertoast.showToast(msg: 'Something Went Wrong');
       stopMusic(id: curr);

@@ -105,6 +105,7 @@ dependencies:
   map_launcher: ^3.3.0
   widgets_to_image: ^0.0.2
   permission_handler: ^11.3.1
+  audio_video_progress_bar: 2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -159,6 +160,7 @@ flutter:
     - assets/gif/
     - assets/vectors/
     - assets/images/
+    - assets/
 
   fonts:
     - family: Inter

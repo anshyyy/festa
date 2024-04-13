@@ -1,3 +1,4 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -149,66 +150,181 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                                 SizedBox(
                                   height: .5.h,
                                 ),
-                                Text(
-                                  state.musicList[index].length.toString(),
-                                  style: textTheme.bodySmall!.copyWith(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w400,
-                                    color: colorScheme.background,
+                                SizedBox(
+                                  width: 68.w,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        state.musicList[index].length
+                                            .toString(),
+                                        style: textTheme.bodySmall!.copyWith(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w400,
+                                          color: colorScheme.background,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          !state.musicList[index].isPlaying
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    // play
+                                                    context
+                                                        .read<
+                                                            ArtistMusicCubit>()
+                                                        .playMusic(
+                                                            id: state
+                                                                .musicList[
+                                                                    index]
+                                                                .id,
+                                                            audioUrl: state
+                                                                .musicList[
+                                                                    index]
+                                                                .audioUrl);
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      AssetConstants
+                                                          .mediaPlayIcon))
+                                              : GestureDetector(
+                                                  onTap: () {
+                                                    // pause
+                                                    context
+                                                        .read<
+                                                            ArtistMusicCubit>()
+                                                        .pauseMusic(
+                                                          id: state
+                                                              .musicList[index]
+                                                              .id,
+                                                        );
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      AssetConstants
+                                                          .mediaPauseIcon)),
+                                          SizedBox(
+                                            width: 4.w,
+                                          ),
+                                          state.musicList[index].isLiked
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    context
+                                                        .read<
+                                                            ArtistMusicCubit>()
+                                                        .unLikeMusic(
+                                                            musicId: state
+                                                                .musicList[
+                                                                    index]
+                                                                .id);
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 2.w),
+                                                    child: SvgPicture.asset(
+                                                      AssetConstants
+                                                          .heartFilledIcon,
+                                                      height: 2.5.h,
+                                                    ),
+                                                  ),
+                                                )
+                                              : GestureDetector(
+                                                  onTap: () {
+                                                    context
+                                                        .read<
+                                                            ArtistMusicCubit>()
+                                                        .likeMusic(
+                                                            musicId: state
+                                                                .musicList[
+                                                                    index]
+                                                                .id);
+                                                  },
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 2.w),
+                                                    child: SvgPicture.asset(
+                                                      AssetConstants
+                                                          .heartOutlinedIcon,
+                                                      height: 2.5.h,
+                                                    ),
+                                                  ),
+                                                ),
+                                        ],
+                                      )
+                                    ],
                                   ),
                                 ),
-
-                                
+                                SizedBox(
+                                  height: 0.5.h,
+                                ),
+                                state.musicList[index].isPlaying
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            width: 45.w,
+                                            child: StreamBuilder<Duration?>(
+                                                stream: state
+                                                    .audioPlayer.positionStream,
+                                                builder: (context, snapshot) {
+                                                  final durationState =
+                                                      snapshot.data;
+                                                  final progress =
+                                                      durationState ??
+                                                          Duration.zero;
+                                                  final buffered = state
+                                                      .audioPlayer
+                                                      .bufferedPosition;
+                                                  final total = state
+                                                          .audioPlayer
+                                                          .duration ??
+                                                      Duration.zero;
+                                                  return 
+                                                  // (snapshot.data ==
+                                                  //             Duration.zero &&
+                                                  //         ((state.audioPlayer
+                                                  //                     .duration ??
+                                                  //                 Duration
+                                                  //                     .zero) ==
+                                                  //             Duration.zero))
+                                                  //     ? const SizedBox()
+                                                  //     : 
+                                                  ProgressBar(
+                                                          thumbRadius: 2.w,
+                                                          thumbGlowRadius: 1.w,
+                                                          barHeight: 0.5.h,
+                                                          timeLabelTextStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodySmall!
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .onTertiary,
+                                                                  ),
+                                                          progress: progress,
+                                                          buffered: buffered,
+                                                          
+                                                          total: total,
+                                                          onSeek: (duration) {
+                                                            state.audioPlayer
+                                                                .seek(duration);
+                                                          },
+                                                        );
+                                                }),
+                                          ),
+                                        ],
+                                      )
+                                    : const SizedBox(),
                               ],
                             )
                           ],
                         ),
-                        !state.musicList[index].isPlaying
-                            ? GestureDetector(
-                                onTap: () {
-                                  // play
-                                  context.read<ArtistMusicCubit>().playMusic(
-                                      id: state.musicList[index].id,
-                                      audioUrl:
-                                          state.musicList[index].audioUrl);
-                                },
-                                child: SvgPicture.asset(
-                                    AssetConstants.mediaPlayIcon))
-                            : GestureDetector(
-                                onTap: () {
-                                  // pause
-                                     context.read<ArtistMusicCubit>().pauseMusic(
-                                      id: state.musicList[index].id,);
-                                },
-                                child: SvgPicture.asset(
-                                    AssetConstants.mediaPauseIcon)),
-                        state.musicList[index].isLiked
-                            ? GestureDetector(
-                                onTap: () {
-                                  context.read<ArtistMusicCubit>().unLikeMusic(
-                                      musicId: state.musicList[index].id);
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 2.w),
-                                  child: SvgPicture.asset(
-                                    AssetConstants.heartFilledIcon,
-                                    height: 2.5.h,
-                                  ),
-                                ),
-                              )
-                            : GestureDetector(
-                                onTap: () {
-                                  context.read<ArtistMusicCubit>().likeMusic(
-                                      musicId: state.musicList[index].id);
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 2.w),
-                                  child: SvgPicture.asset(
-                                    AssetConstants.heartOutlinedIcon,
-                                    height: 2.5.h,
-                                  ),
-                                ),
-                              ),
                       ],
                     ),
                   ),
@@ -219,6 +335,3 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
     );
   }
 }
-
-
-

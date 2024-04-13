@@ -47,9 +47,10 @@ class MainNavigatorConsumer extends StatelessWidget {
               currentIndex: state.currentIndex,
               onTabChange: (i) {
                 if (state.currentIndex == i) {
-                  if (i == 0) {}
                 } else {
                   context.read<MainNavCubit>().onIndexChange(index: i);
+                  Provider.of<AppStateNotifier>(context, listen: false)
+                      .onMenuChange(index: i);
                 }
               },
             ),

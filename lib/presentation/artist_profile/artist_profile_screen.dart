@@ -1,13 +1,15 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/artist/artist_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
-import '../user/user_profile_screen.dart';
-import '../user/widgets/user_profile_widget.dart';
+import '../main_nav/bottom_nav.dart';
 import 'widgets/artist_profile.dart';
 import 'widgets/media_viewer_tabs.dart';
 
@@ -33,43 +35,44 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ArtistCubit, ArtistState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
-          child: state.isLoading ? 
-            UserShimmer()
-          : Scaffold(
-            body: Stack(
-              children: [
-                SizedBox.expand(
-                  child: DraggableScrollableSheet(
-                    initialChildSize: .5,
-                    minChildSize: .5,
-                    builder: (context, scrollController) {
-                      return SingleChildScrollView(
-                        controller: scrollController,
-                        child: Container(
-                          margin: EdgeInsets.only(top: 5.h),
-                          child: Column(
-                            children: [
-                              const ArtistProfile(),
-                              // MediaGrid(),
-                              MediaViewerTabs(
-                                artistId: state.artistId,
-                              ),
-                            ],
-                          ),
+          child: state.isLoading
+              ? const UserShimmer()
+              : Scaffold(
+                  bottomNavigationBar: CustomBottomNav(
+                      onTabChange: (v) {},
+                      isTabScreen: false,
+                      currentIndex:
+                          Provider.of<AppStateNotifier>(context, listen: false)
+                                  .menuIndex ??
+                              0),
+                  body: Stack(
+                    children: [
+                      SizedBox.expand(
+                        child: DraggableScrollableSheet(
+                          initialChildSize: .5,
+                          minChildSize: .5,
+                          builder: (context, scrollController) {
+                            return SingleChildScrollView(
+                                controller: scrollController,
+                                child: Container(
+                                    margin: EdgeInsets.only(top: 5.h),
+                                    child: Column(children: [
+                                      const ArtistProfile(),
+                                      // MediaGrid(),
+                                      MediaViewerTabs(
+                                        artistId: state.artistId,
+                                      ),
+                                    ])));
+                          },
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
         );
       },
     );
@@ -84,8 +87,8 @@ class UserShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-final colorScheme = themeData.colorScheme;
-final textTheme = themeData.textTheme;
+    final colorScheme = themeData.colorScheme;
+    final textTheme = themeData.textTheme;
 
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!.withOpacity(0.5),
@@ -97,8 +100,7 @@ final textTheme = themeData.textTheme;
             //   height: 1.h,
             // ),
             Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Column(
                   children: [
@@ -107,15 +109,18 @@ final textTheme = themeData.textTheme;
                       width: 3.w,
                       color: Colors.grey,
                     ),
-                    SizedBox(height: .5.w,),
-                     Container(
+                    SizedBox(
+                      height: .5.w,
+                    ),
+                    Container(
                       height: .5.w,
                       width: 3.w,
                       color: Colors.grey,
                     ),
-                    SizedBox(height: .5.w,),
-
-                     Container(
+                    SizedBox(
+                      height: .5.w,
+                    ),
+                    Container(
                       height: .5.w,
                       width: 3.w,
                       color: Colors.grey,
@@ -124,33 +129,32 @@ final textTheme = themeData.textTheme;
                 ),
               ],
             ),
-            
-                      Spacer(),
+
+            Spacer(),
             Stack(
               clipBehavior: Clip.none,
-               alignment: Alignment.center,
+              alignment: Alignment.center,
               children: [
                 Container(
                   height: 35.h,
                   width: 100.w,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10.w)
-                  ),
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10.w)),
                 ),
                 Positioned(
                   top: -5.h,
                   // left: 40.w,
                   child: Center(
                     child: Container(
-                    height: 20.w,
+                      height: 20.w,
                       width: 20.w,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      border: Border.all(width: 1, color: colorScheme.background),
-                      shape: BoxShape.circle
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          border: Border.all(
+                              width: 1, color: colorScheme.background),
+                          shape: BoxShape.circle),
                     ),
-                  ),
                   ),
                 )
               ],

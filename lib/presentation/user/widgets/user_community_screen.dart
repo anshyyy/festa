@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/user/user_community/user_community_cubit.dart';
@@ -8,6 +9,7 @@ import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../main_nav/bottom_nav.dart';
 import '../../widgets/custom_appbar.dart';
 import 'user_followers.dart';
 import 'user_friends.dart';
@@ -48,6 +50,13 @@ class UserCommunityConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
+          bottomNavigationBar: CustomBottomNav(
+                      onTabChange: (v) {},
+                      isTabScreen: false,
+                      currentIndex:
+                          Provider.of<AppStateNotifier>(context, listen: false)
+                                  .menuIndex ??
+                              0),
           appBar: CustomAppBar(
               title: state.username,
               scaffoldBackgroundColor: colorScheme.surface,

@@ -7,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
-import '../../../domain/core/constants/home_cache_storage.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/event/event_repository.dart';
@@ -30,30 +29,15 @@ class HomeCubit extends Cubit<HomeState> {
   bool isFetching = false;
   HomeCubit(super.initialState);
 
-  void init({
-    bool isGoToTop = false,
-  }) async {
-    if (isGoToTop) {
-      state.scrollController.animateTo(0,
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.bounceInOut);
-      return;
-    }
-
+  void init() async {
     List<FilterDto> filters = await state.eventRepository.getFilter();
     emit(state.copyWith(
       isLoading: false,
       filters: filters,
-      categoryFilter: CacheStorageHome.homeCategoryFilter ??
-          filters.firstWhere((element) {
-            return element.name == 'music';
-          }),
+      categoryFilter: filters.firstWhere((element) {
+        return element.name == 'music';
+      }),
     ));
-
-    if (CacheStorageHome.homeCategoryFilter == null) {
-      CacheStorageHome.updateHomeCategoryFilter(
-          filterDto: state.categoryFilter);
-    }
 
     state.scrollController.addListener(() {
       final double maxScroll = state.scrollController.position.maxScrollExtent;

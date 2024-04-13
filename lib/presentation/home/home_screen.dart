@@ -11,7 +11,6 @@ import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
-import '../../domain/core/constants/home_cache_storage.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
@@ -49,7 +48,6 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeScreenConsumer extends StatelessWidget {
-
   const HomeScreenConsumer({
     super.key,
   });
@@ -248,25 +246,16 @@ class HomeScreenConsumer extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     width: 100.w,
-                                    height: state.isLoading &&
-                                            state.categoryFilter == null
+                                    height: state.isLoading && !state.isSearchOpen
                                         ? 12.h
                                         : 9.5.h,
                                     child: ListView.separated(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
                                         FilterValueDto? categoryValue;
-                                        if (state.categoryFilter != null ||
-                                            CacheStorageHome
-                                                    .homeCategoryFilter !=
-                                                null) {
-                                          categoryValue =
-                                              state.categoryFilter != null
-                                                  ? state.categoryFilter!
-                                                      .values[index]
-                                                  : CacheStorageHome
-                                                      .homeCategoryFilter!
-                                                      .values[index];
+                                        if (state.categoryFilter != null) {
+                                          categoryValue = state
+                                              .categoryFilter!.values[index];
                                         }
 
                                         return GestureDetector(
@@ -324,10 +313,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   state.filters,
                                                 ));
                                           },
-                                          child: state.isLoading &&
-                                                  CacheStorageHome
-                                                          .homeCategoryFilter ==
-                                                      null
+                                          child: state.isLoading && !state.isSearchOpen
                                               ? const EventTypeTileShimmer()
                                               : EventTypeTile(
                                                   isSelected:
@@ -346,18 +332,9 @@ class HomeScreenConsumer extends StatelessWidget {
                                           width: 3.w,
                                         );
                                       },
-                                      itemCount: state.isLoading &&
-                                              CacheStorageHome
-                                                      .homeCategoryFilter ==
-                                                  null
+                                      itemCount: state.isLoading
                                           ? 5
-                                          : state.categoryFilter != null
-                                              ? state
-                                                  .categoryFilter!.values.length
-                                              : CacheStorageHome
-                                                  .homeCategoryFilter!
-                                                  .values
-                                                  .length,
+                                          : state.categoryFilter!.values.length,
                                     ),
                                   ),
                                 ],
@@ -509,9 +486,6 @@ class HomeScreenConsumer extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // state.isSearchOpen
-                    //     ? const HomeSearch()
-                    //     : const SizedBox(),
                     state.showLocationDialog
                         ? const LocationDialog()
                         : const SizedBox()

@@ -15,13 +15,15 @@ class UserProfileState with _$UserProfileState {
     required int userId,
     required bool isFollowing,
     required bool qrExpandedView,
+    required AppStateNotifier appStateNotifier
   }) = _UserProfileState;
 
   factory UserProfileState.initial({
     required String serverUrl,
-    required int userId,
+    required AppStateNotifier appStateNotifier
   }) =>
       UserProfileState(
+        appStateNotifier: appStateNotifier,
         isLoading: false,
         isSuccessful: false,
         isFailed: false,
@@ -34,7 +36,7 @@ class UserProfileState with _$UserProfileState {
         ),
      
         isFollowing: false,
-        userId: userId,
+        userId: appStateNotifier.user!.id,
         qrExpandedView:false,
       );
 }

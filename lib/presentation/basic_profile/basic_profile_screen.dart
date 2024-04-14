@@ -44,23 +44,24 @@ class BasicProfileScreenConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
     return BlocConsumer<BasicProfileCubit, BasicProfileState>(
         listener: (context, state) {
-      if(state.showPermissionDialog){
+      if (state.showPermissionDialog) {
         showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('Storage Permission Required'),
-        content: const Text('Please grant storage permission to use this feature.'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // context.read<PermissionCubit>().requestStoragePermission();
-            },
-            child: const Text('OK'),
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Storage Permission Required'),
+            content: const Text(
+                'Please grant storage permission to use this feature.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  // context.read<PermissionCubit>().requestStoragePermission();
+                },
+                child: const Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        );
       }
       if (state.isSuccessful) {
         navigator<NavigationService>()
@@ -93,10 +94,7 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                     state.profileImage != null
                         ? BasicProfileScreenConstants.addProfilePicture
                         : BasicProfileScreenConstants.addNameProfile,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Theme.of(context).colorScheme.background,
                           fontSize: 24.sp,
                           letterSpacing: -1,
@@ -127,9 +125,7 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                         height: 53.w,
                         width: 53.w,
                         decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: state.profileImage != null
@@ -184,7 +180,7 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                                               .primaryContainer
                                               .withOpacity(.7),
                                           BlendMode.srcIn),
-                    
+
                                       height: 4.h,
                                       // color:
                                     ),
@@ -202,15 +198,10 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                     children: [
                       Text(
                         BasicProfileScreenConstants.enterYourName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.sp,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .background),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18.sp,
+                            color: Theme.of(context).colorScheme.background),
                       ),
                       SizedBox(
                         height: 1.h,
@@ -220,53 +211,41 @@ class BasicProfileScreenConsumer extends StatelessWidget {
                         keyboardType: TextInputType.text,
                         maxLines: 1,
                         isFill: true,
-                        contentPadding: EdgeInsets.symmetric(vertical: 5.w, horizontal: 4.w),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 5.w, horizontal: 4.w),
                         inputWithLabel: false,
-                        fillColor: Theme.of(context)
-                            .colorScheme
-                            .primaryContainer,
+                        fillColor:
+                            Theme.of(context).colorScheme.primaryContainer,
                         hintText: 'Type here',
-                        hintTextStyle: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(
+                        hintTextStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
                                 // fontSize: 17.sp,
                                 ),
                         textStyle: Theme.of(context)
                             .textTheme
                             .bodyMedium!
                             .copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .background),
-                        errorStyle: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(
-                              color:
-                                  Theme.of(context).colorScheme.error,
-                            ),
+                                color:
+                                    Theme.of(context).colorScheme.background),
+                        errorStyle:
+                            Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
                         validator: (value) {
-                          if (value!.length < 3 &&
-                              state.startValidation) {
+                          if (value!.length < 3 && state.startValidation) {
                             return ErrorConstants.invalidFullNameError;
                           }
                           return null;
                         },
                         onChanged: (p0) {
-                          if (p0.length < 3 &&
-                              state.isSaveDetailsEnable) {
-                            context
-                                .read<BasicProfileCubit>()
-                                .emitFromAnywhere(
+                          if (p0.length < 3 && state.isSaveDetailsEnable) {
+                            context.read<BasicProfileCubit>().emitFromAnywhere(
                                     state: state.copyWith(
                                   isSaveDetailsEnable: false,
                                 ));
                           } else if (p0.length >= 3 &&
                               !state.isSaveDetailsEnable) {
-                            context
-                                .read<BasicProfileCubit>()
-                                .emitFromAnywhere(
+                            context.read<BasicProfileCubit>().emitFromAnywhere(
                                     state: state.copyWith(
                                   startValidation: true,
                                   isSaveDetailsEnable: true,
@@ -281,32 +260,32 @@ class BasicProfileScreenConsumer extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: Padding(
-                      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-                      ),
-                      child: Wrap(
-          children: [
-            Container(
-              height: 14.h,
-              color: Theme.of(context).colorScheme.surface,
-              padding: EdgeInsets.only(
-                  bottom: 6.h, top: 2.5.h, left: 6.w, right: 6.w),
-              child: GradientButton(
-                  text: BasicProfileScreenConstants.continueText,
-                  isEnabled: state.isSaveDetailsEnable,
-                  textStyle: textTheme.bodySmall!.copyWith(
-                    color: state.isSaveDetailsEnable
-                        ? colorScheme.background
-                        : colorScheme.background.withOpacity(.5),
-                    fontWeight: FontWeight.w600,
-                  ),
-                  onTap: () {
-                    context.read<BasicProfileCubit>().onContinue();
-                  }),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-          ],
+            child: Wrap(
+              children: [
+                Container(
+                  height: 14.h,
+                  color: Theme.of(context).colorScheme.surface,
+                  padding: EdgeInsets.only(
+                      bottom: 6.h, top: 2.5.h, left: 6.w, right: 6.w),
+                  child: GradientButton(
+                      text: BasicProfileScreenConstants.continueText,
+                      isEnabled: state.isSaveDetailsEnable,
+                      textStyle: textTheme.bodySmall!.copyWith(
+                        color: state.isSaveDetailsEnable
+                            ? colorScheme.background
+                            : colorScheme.background.withOpacity(.5),
+                        fontWeight: FontWeight.w600,
                       ),
-                    ),
+                      onTap: () {
+                        context.read<BasicProfileCubit>().onContinue();
+                      }),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     });

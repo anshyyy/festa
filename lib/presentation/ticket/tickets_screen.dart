@@ -4,7 +4,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/ticket/ticket_cubit.dart';
-import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/constants/string_constants.dart';
 import 'history_tickets/history_ticket_screen.dart';
 import 'upcoming_tickets/upcoming_ticket_screen.dart';
@@ -14,14 +13,7 @@ class TicketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppConfig appConfig = AppConfig.of(context)!;
-    return BlocProvider(
-      create: (context) => TicketCubit(TicketState.initial(
-        serverUrl: appConfig.serverUrl,
-      ))
-        ..init(),
-      child: const TicketScreenConsumer(),
-    );
+    return const TicketScreenConsumer();
   }
 }
 

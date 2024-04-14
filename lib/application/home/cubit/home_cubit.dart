@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
@@ -27,6 +28,7 @@ part 'home_cubit.freezed.dart';
 class HomeCubit extends Cubit<HomeState> {
   final int limit = 10;
   bool isFetching = false;
+  double lastScrollPos = 0.0;
   HomeCubit(super.initialState);
 
   void init() async {
@@ -39,9 +41,14 @@ class HomeCubit extends Cubit<HomeState> {
       }),
     ));
 
+    //write or call your logic
+    //code will run when widget rendering complete
+
     state.scrollController.addListener(() {
       final double maxScroll = state.scrollController.position.maxScrollExtent;
       final double currentScroll = state.scrollController.position.pixels;
+      lastScrollPos = state.scrollController.position.pixels;
+
       const double delta = 50;
       if (maxScroll - currentScroll <= delta) {
         if (state.hasMoreEvents) {
@@ -52,6 +59,23 @@ class HomeCubit extends Cubit<HomeState> {
         }
       }
     });
+
+    state.appStateNotifier.addListener(() {
+      if (state.appStateNotifier.menuIndex == 0) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          state.scrollController.animateTo(lastScrollPos,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.bounceInOut);
+        });
+
+        if (state.appStateNotifier.goToTop) {
+          state.scrollController.animateTo(0.0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.bounceOut);
+        }
+      }
+    });
+
     getEvents();
   }
 
@@ -327,7 +351,7 @@ class HomeCubit extends Cubit<HomeState> {
     Either<dynamic, LocationDto> response = await state.locationRepository
         .getLocationByCoordinates(
             lat: position.latitude, lng: position.longitude);
-            
+
     response.fold((l) {
       Fluttertoast.showToast(msg: 'Something went wrong');
     }, (r) {

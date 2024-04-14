@@ -10,7 +10,7 @@ class AppStateNotifier extends ChangeNotifier {
   ProfileStateEnum? profileState;
   LocationDto? location;
   UserDto? user;
-  bool showBottomNav;
+  bool goToTop;
   int? menuIndex;
 
   AppStateNotifier({
@@ -19,18 +19,19 @@ class AppStateNotifier extends ChangeNotifier {
     this.profileState,
     this.location,
     this.user,
-    required this.showBottomNav,
+    this.goToTop = false,
     this.menuIndex,
   });
 
-  void onMenuChange({required int index}) {
+  void onMenuChange({
+    required int index,
+    bool goToTop = false,
+  }) async {
     menuIndex = index;
+    this.goToTop = goToTop;
     notifyListeners();
-  }
-
-  void toggleBottomNav({required bool showBottomNav}) {
-    this.showBottomNav = showBottomNav;
-    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 500));
+    this.goToTop = false;
   }
 
   Future<void> updateAfterAuthChange({
@@ -49,12 +50,6 @@ class AppStateNotifier extends ChangeNotifier {
               : user.fullName.isNotEmpty
                   ? ProfileStateEnum.basic
                   : ProfileStateEnum.started;
-
-      if (profileState == ProfileStateEnum.completed) {
-        showBottomNav = true;
-      } else {
-        showBottomNav = false;
-      }
     }
     if (!isAuthorized) {
       menuIndex = 1;

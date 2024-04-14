@@ -158,7 +158,6 @@ Future appInitializer(AppConfig appConfig) async {
     isOffline: isOffline,
     profileState: profileState,
     user: user,
-    showBottomNav: profileState == ProfileStateEnum.completed,
     menuIndex: 0,
   );
 

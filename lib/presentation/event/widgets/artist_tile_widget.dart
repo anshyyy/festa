@@ -21,8 +21,7 @@ class ArtistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ArtistProfileCubit, ArtistProfileState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
@@ -75,9 +74,8 @@ class ArtistTile extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  context
-                      .read<ArtistProfileCubit>()
-                      .followUnfollowArtist(artistId: artist.id, isFollowing: true);
+                  context.read<ArtistProfileCubit>().followUnfollowArtist(
+                      artistId: artist.id, isFollowing: true);
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),

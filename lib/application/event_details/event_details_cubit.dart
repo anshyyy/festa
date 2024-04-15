@@ -13,24 +13,37 @@ part 'event_details_state.dart';
 class EventDetailsCubit extends Cubit<EventDetailsState> {
   EventDetailsCubit(super.initialState);
 
-  void fetchEventDetails({required int id}) async {
-    emit(state.copyWith(isLoading: true));
-    await Future.delayed(const Duration(milliseconds: 300));
-    Either<dynamic, EventDto> res =
-        await state.eventRepository.getEventDetails(eventId:id);
-    res.fold(
-      (l) => emit(state.copyWith(
-        isLoading: false,
-        isSuccess: false,
-        isFailure: true,
-      )),
-      (r) => emit(state.copyWith(
-        isLoading: false,
-        isSuccess: true,
-        isFailure: false,
-        event: r,
-      )),
-    );
+  void fetchEventDetails(
+      {required int id, bool isUpdatedDetails = false}) async {
+    if (isUpdatedDetails) {
+      Either<dynamic, EventDto> res =
+          await state.eventRepository.getEventDetails(eventId: id);
+
+      res.fold((l) => null, (r) {
+        emit(state.copyWith(event: r));
+      });
+
+      return;
+    } else {
+      emit(state.copyWith(isLoading: true));
+      await Future.delayed(const Duration(milliseconds: 300));
+      Either<dynamic, EventDto> res =
+          await state.eventRepository.getEventDetails(eventId: id);
+
+      res.fold(
+        (l) => emit(state.copyWith(
+          isLoading: false,
+          isSuccess: false,
+          isFailure: true,
+        )),
+        (r) => emit(state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          isFailure: false,
+          event: r,
+        )),
+      );
+    }
   }
 
   void toggleLsd() {
@@ -49,16 +62,32 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
     emit(state.copyWith(faqExpanded: !state.faqExpanded));
   }
 
-  void onEventLikedUnliked({required int eventId}){
-    state.eventRepository.likeUnlikeEvent(eventId: eventId, isLiked: state.isEventLiked);
+  void onEventLikedUnliked({required int eventId}) {
+    state.eventRepository
+        .likeUnlikeEvent(eventId: eventId, isLiked: state.isEventLiked);
     emit(state.copyWith(isEventLiked: !state.isEventLiked));
   }
 
-  void viewOnMaps({required double lat, required double long, required bool isAndroid, required String eventTitle})async{
+  void viewOnMaps(
+      {required double lat,
+      required double long,
+      required bool isAndroid,
+      required String eventTitle}) async {
     emit(state.copyWith(isLoading: true));
-    final MapType mapType = isAndroid ? MapType.google : MapType.apple;
-    await MapLauncher.showMarker(mapType: mapType, coords: Coords(lat, long), title: eventTitle);
-    emit(state.copyWith(isLoading: false));
+    final availableMaps = await MapLauncher.installedMaps;
 
+    final coords = Coords(lat, long);
+
+    emit(state.copyWith(
+      isLoading: false,
+      isOpenMapModal: true,
+      mapsOptions: availableMaps,
+      eventLocation: coords,
+    ));
+  }
+
+  void emitFromAnywhere({required EventDetailsState state})
+  {
+    emit(state);
   }
 }

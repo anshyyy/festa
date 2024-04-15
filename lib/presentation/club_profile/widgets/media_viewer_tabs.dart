@@ -17,29 +17,35 @@ class MediaViewerTabs extends StatelessWidget {
       },
       builder: (context, state) {
         return SizedBox(
-          height: 81.h,
+          height: 83.h,
           child: DefaultTabController(
             length: 2,
             child: Column(
               children: [
-                TabBar(
-                  labelColor: Theme.of(context).colorScheme.background,
-                  labelStyle: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(fontWeight: FontWeight.w600),
-                  unselectedLabelColor:
-                      Theme.of(context).colorScheme.background,
-                  unselectedLabelStyle:
-                      Theme.of(context).textTheme.bodySmall!.copyWith(),
-                  tabs: const [
-                    Tab(
-                      child: Text('Photos'),
-                    ),
-                    Tab(
-                      child: Text('Events'),
-                    ),
-                  ],
+                Container(
+                  color: Theme.of(context).colorScheme.surface,
+                  child: TabBar(
+                    
+                    
+                    labelColor: Theme.of(context).colorScheme.background,
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontWeight: FontWeight.w600),
+                    unselectedLabelColor:
+                        Theme.of(context).colorScheme.background,
+                    unselectedLabelStyle:
+                        Theme.of(context).textTheme.bodySmall!.copyWith(),
+                    tabs: const [
+                      Tab(
+                  
+                        child: Text('Photos'),
+                      ),
+                      Tab(
+                        child: Text('Events'),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: TabBarView(children: [

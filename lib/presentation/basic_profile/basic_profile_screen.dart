@@ -1,3 +1,5 @@
+
+import 'package:app_settings/app_settings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,19 +47,44 @@ class BasicProfileScreenConsumer extends StatelessWidget {
     return BlocConsumer<BasicProfileCubit, BasicProfileState>(
         listener: (context, state) {
       if (state.showPermissionDialog) {
+        context.read<BasicProfileCubit>().emitFromAnywhere(state: state.copyWith(
+          showPermissionDialog: false,
+        ));
+
         showDialog(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: const Text('Storage Permission Required'),
-            content: const Text(
-                'Please grant storage permission to use this feature.'),
+            title: Text(
+             'Storage Permission Required',
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.surface,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700),
+            ),
+            content: Text(
+              'Please grant storage permission to use this feature.',
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.surface,
+
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500),
+            ),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
+                  AppSettings.openAppSettings(type: AppSettingsType.settings);
+
                   Navigator.pop(context);
+
                   // context.read<PermissionCubit>().requestStoragePermission();
                 },
-                child: const Text('OK'),
+                child:  Text('OK',
+                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700),
+                
+                ),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -34,7 +35,8 @@ class ICoreRepository extends CoreRepository {
   @override
   Future<Either<PermissionStatus, File?>> selectImage() async {
     final permission = await permissionStatus();
-    if (permission.isPermanentlyDenied) {
+    if (permission.isPermanentlyDenied || permission.isDenied) {
+
       return left(PermissionStatus.permanentlyDenied);
     }
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);

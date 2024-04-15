@@ -34,155 +34,163 @@ class ClubProfile extends StatelessWidget {
           clipBehavior: Clip.none,
           alignment: Alignment.center,
           children: [
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 5.w,
-                  vertical: 3.h,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface.withOpacity(.85),
-                  borderRadius: BorderRadius.circular(25),
-                  // border: Border.all(
-                  //   color: Theme.of(context).colorScheme.secondaryContainer,
-                  //   width: .1,
-                  // ),
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 2.5.h,
-                    ),
-                    SizedBox(
-                      width: 65.w,
-                      child: Text(
-                        state.pub!.fullName,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.background),
-                      ),
-                    ),
-                    Text('@${state.pub!.tag!.tag}',
-                        style: Theme.of(context).textTheme.bodySmall!),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          AssetConstants.locationIcon,
-                          height: 2.h,
-                        ),
-                        SizedBox(
-                          width: 2.w,
-                        ),
-                        Expanded(
-                          child: Text(state.pub!.location!.vicinity,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.background,
-                                    fontSize: 15.sp,
-                                  )),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Text(
-                      state.pub!.description,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.background),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 5.w,
+                vertical: 3.h,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface.withOpacity(.85),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25)),
+                boxShadow: [
+                  BoxShadow(
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(.85),
+                    spreadRadius: 0,
+                    blurRadius: 5,
+                    offset: const Offset(0, -5), // changes position of shadow
+                  ),
+                ],
+                // border: Border.all(
+                //   color: Theme.of(context).colorScheme.secondaryContainer,
+                //   width: .1,
+                // ),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 2.5.h,
+                  ),
+                  SizedBox(
+                    width: 65.w,
+                    child: Text(
+                      state.pub!.fullName,
                       textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.background),
                     ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(AssetConstants.durationIcon,
-                                colorFilter: ColorFilter.mode(
-                                    colorScheme.inversePrimary, BlendMode.srcIn)),
-                            SizedBox(
-                              width: 1.w,
-                            ),
-                            Text(
-                              state.pub!.openingHours!.openNow
-                                  ? 'Open'
-                                  : 'Closed',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(AssetConstants.startIcon,
-                                colorFilter: ColorFilter.mode(
-                                    colorScheme.surfaceTint, BlendMode.srcIn)),
-                            SizedBox(
-                              width: 1.w,
-                            ),
-                            Text(
-                              '${state.pub!.averageRating}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Divider(
-                      thickness: .05.w,
-                      // color: Colors.white,
-                    ),
-                    // state.pub!.extraDetailsDto!.followedBy.isNotEmpty
-                    //     ? MutualFollowers()
-                    //     : const SizedBox(),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        navigator<NavigationService>().navigateTo(
-                            UserRoutes.clubCommunityScreenRoute,
-                            queryParams: {
-                              'clubId': state.clubId.toString(),
-                              'clubName': state.pub!.fullName,
-                            });
-                      },
-                      child: SocialReach(
-                        totalFollowers:
-                            state.pub!.extraDetailsDto!.totalFollowers,
-                        totalFriends: state.pub!.extraDetailsDto!.totalFriends,
-                        totalParties: state.pub!.extraDetailsDto!.totalParties,
+                  ),
+                  Text('@${state.pub!.tag!.tag}',
+                      style: Theme.of(context).textTheme.bodySmall!),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AssetConstants.locationIcon,
+                        height: 2.h,
                       ),
-                    )
-                  ],
-                ),
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                      Expanded(
+                        child: Text(state.pub!.location!.vicinity,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.background,
+                                  fontSize: 15.sp,
+                                )),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Text(
+                    state.pub!.description,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Theme.of(context).colorScheme.background),
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(AssetConstants.durationIcon,
+                              colorFilter: ColorFilter.mode(
+                                  colorScheme.inversePrimary, BlendMode.srcIn)),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            state.pub!.openingHours!.openNow
+                                ? 'Open'
+                                : 'Closed',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(AssetConstants.startIcon,
+                              colorFilter: ColorFilter.mode(
+                                  colorScheme.surfaceTint, BlendMode.srcIn)),
+                          SizedBox(
+                            width: 1.w,
+                          ),
+                          Text(
+                            '${state.pub!.averageRating}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Divider(
+                    thickness: .05.w,
+                    // color: Colors.white,
+                  ),
+                  // state.pub!.extraDetailsDto!.followedBy.isNotEmpty
+                  //     ? MutualFollowers()
+                  //     : const SizedBox(),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      navigator<NavigationService>().navigateTo(
+                          UserRoutes.clubCommunityScreenRoute,
+                          queryParams: {
+                            'clubId': state.clubId.toString(),
+                            'clubName': state.pub!.fullName,
+                          });
+                    },
+                    child: SocialReach(
+                      totalFollowers:
+                          state.pub!.extraDetailsDto!.totalFollowers,
+                      totalFriends: state.pub!.extraDetailsDto!.totalFriends,
+                      totalParties: state.pub!.extraDetailsDto!.totalParties,
+                    ),
+                  )
+                ],
               ),
             ),
             Positioned(
@@ -331,16 +339,18 @@ class ClubProfile extends StatelessWidget {
                               //   ),
                               //   child: Row(),
                               // )
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               Container(
                                 width: 60.w,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: colorScheme.background,
                                         width: .1.w),
-                                       borderRadius: BorderRadius.circular(10) 
-                                        ),
-                                        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 3.w),
+                                    borderRadius: BorderRadius.circular(10)),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 1.h, horizontal: 3.w),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
@@ -378,12 +388,17 @@ class ClubProfile extends StatelessWidget {
                                             height: .5.h,
                                           ),
                                           Text(
-                                            state.pub?.tag!=null ? '@${state.pub?.tag?.tag}' : '',
-                                            style: themeData.textTheme.bodySmall!
+                                            state.pub?.tag != null
+                                                ? '@${state.pub?.tag?.tag}'
+                                                : '',
+                                            style: themeData
+                                                .textTheme.bodySmall!
                                                 .copyWith(
-                                                    color: colorScheme.background
+                                                    color: colorScheme
+                                                        .background
                                                         .withOpacity(.7),
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ),
                                         ],
                                       ),
@@ -391,7 +406,9 @@ class ClubProfile extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 3.h,)
+                              SizedBox(
+                                height: 3.h,
+                              )
                             ],
                           ),
                         ),

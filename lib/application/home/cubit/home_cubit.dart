@@ -340,6 +340,13 @@ class HomeCubit extends Cubit<HomeState> {
   void onDetectMyLocation() async {
     await Geolocator.requestPermission();
     final permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      emit(state.copyWith(showPermissionDialog: true));
+      return;
+    }
+
     if (permission != LocationPermission.always &&
         permission != LocationPermission.whileInUse) {
       throw Error();

@@ -15,6 +15,9 @@ class EventDetailsState with _$EventDetailsState {
     required bool fnbExpanded,
     required bool faqExpanded,
     required bool isEventLiked,
+    required bool isOpenMapModal,
+    required List<AvailableMap> mapsOptions,
+    Coords? eventLocation,
   }) = _EventDetailsState;
 
   factory EventDetailsState.initial({
@@ -23,6 +26,8 @@ class EventDetailsState with _$EventDetailsState {
   }) =>
       EventDetailsState(
         isLoading: false,
+        mapsOptions: [],
+        isOpenMapModal: false,
         isSuccess: false,
         isFailure: false,
         apiBaseUrl: apiBaseUrl,

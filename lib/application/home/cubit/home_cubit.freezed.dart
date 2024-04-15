@@ -47,6 +47,7 @@ mixin _$HomeState {
   bool get isSearchOpen => throw _privateConstructorUsedError;
   bool get isSearchChanged => throw _privateConstructorUsedError;
   bool get isLocationSearchChanged => throw _privateConstructorUsedError;
+  bool get showPermissionDialog => throw _privateConstructorUsedError;
   bool get noFilteredEvents => throw _privateConstructorUsedError;
   bool get noLocatedEvents => throw _privateConstructorUsedError;
   LocationRepository get locationRepository =>
@@ -96,6 +97,7 @@ abstract class $HomeStateCopyWith<$Res> {
       bool isSearchOpen,
       bool isSearchChanged,
       bool isLocationSearchChanged,
+      bool showPermissionDialog,
       bool noFilteredEvents,
       bool noLocatedEvents,
       LocationRepository locationRepository,
@@ -149,6 +151,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
     Object? isLocationSearchChanged = null,
+    Object? showPermissionDialog = null,
     Object? noFilteredEvents = null,
     Object? noLocatedEvents = null,
     Object? locationRepository = null,
@@ -263,6 +266,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.isLocationSearchChanged
           : isLocationSearchChanged // ignore: cast_nullable_to_non_nullable
               as bool,
+      showPermissionDialog: null == showPermissionDialog
+          ? _value.showPermissionDialog
+          : showPermissionDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
       noFilteredEvents: null == noFilteredEvents
           ? _value.noFilteredEvents
           : noFilteredEvents // ignore: cast_nullable_to_non_nullable
@@ -366,6 +373,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool isSearchOpen,
       bool isSearchChanged,
       bool isLocationSearchChanged,
+      bool showPermissionDialog,
       bool noFilteredEvents,
       bool noLocatedEvents,
       LocationRepository locationRepository,
@@ -420,6 +428,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? isSearchOpen = null,
     Object? isSearchChanged = null,
     Object? isLocationSearchChanged = null,
+    Object? showPermissionDialog = null,
     Object? noFilteredEvents = null,
     Object? noLocatedEvents = null,
     Object? locationRepository = null,
@@ -534,6 +543,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.isLocationSearchChanged
           : isLocationSearchChanged // ignore: cast_nullable_to_non_nullable
               as bool,
+      showPermissionDialog: null == showPermissionDialog
+          ? _value.showPermissionDialog
+          : showPermissionDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
       noFilteredEvents: null == noFilteredEvents
           ? _value.noFilteredEvents
           : noFilteredEvents // ignore: cast_nullable_to_non_nullable
@@ -600,6 +613,7 @@ class _$HomeStateImpl implements _HomeState {
       required this.isSearchOpen,
       required this.isSearchChanged,
       required this.isLocationSearchChanged,
+      required this.showPermissionDialog,
       required this.noFilteredEvents,
       required this.noLocatedEvents,
       required this.locationRepository,
@@ -662,6 +676,8 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final bool isLocationSearchChanged;
   @override
+  final bool showPermissionDialog;
+  @override
   final bool noFilteredEvents;
   @override
   final bool noLocatedEvents;
@@ -680,7 +696,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey, user: $user)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey, user: $user)';
   }
 
   @override
@@ -736,6 +752,8 @@ class _$HomeStateImpl implements _HomeState {
             (identical(
                     other.isLocationSearchChanged, isLocationSearchChanged) ||
                 other.isLocationSearchChanged == isLocationSearchChanged) &&
+            (identical(other.showPermissionDialog, showPermissionDialog) ||
+                other.showPermissionDialog == showPermissionDialog) &&
             (identical(other.noFilteredEvents, noFilteredEvents) ||
                 other.noFilteredEvents == noFilteredEvents) &&
             (identical(other.noLocatedEvents, noLocatedEvents) ||
@@ -781,6 +799,7 @@ class _$HomeStateImpl implements _HomeState {
         isSearchOpen,
         isSearchChanged,
         isLocationSearchChanged,
+        showPermissionDialog,
         noFilteredEvents,
         noLocatedEvents,
         locationRepository,
@@ -826,6 +845,7 @@ abstract class _HomeState implements HomeState {
       required final bool isSearchOpen,
       required final bool isSearchChanged,
       required final bool isLocationSearchChanged,
+      required final bool showPermissionDialog,
       required final bool noFilteredEvents,
       required final bool noLocatedEvents,
       required final LocationRepository locationRepository,
@@ -887,6 +907,8 @@ abstract class _HomeState implements HomeState {
   bool get isSearchChanged;
   @override
   bool get isLocationSearchChanged;
+  @override
+  bool get showPermissionDialog;
   @override
   bool get noFilteredEvents;
   @override

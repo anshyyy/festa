@@ -1,19 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../domain/core/configs/injection.dart';
-import '../../domain/core/services/navigation_services/navigation_service.dart';
-import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
 import '../../infrastructure/artist/dtos/artist/artist_dto.dart';
 import '../../infrastructure/core/enum/image_type.enum.dart';
 
 class ShortProfileTile extends StatelessWidget {
   final ArtistProfileDto artist;
+  final Function()?   onTap;
   const ShortProfileTile({
     super.key,
     required this.artist,
+    this.onTap,
     required this.themeData,
   });
 
@@ -22,9 +20,7 @@ class ShortProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        navigator<NavigationService>().navigateTo(UserRoutes.artistProfileScreenRoute, queryParams: {'id':artist.id.toString()});
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(2.w),
         margin: EdgeInsets.only(right: 3.w),

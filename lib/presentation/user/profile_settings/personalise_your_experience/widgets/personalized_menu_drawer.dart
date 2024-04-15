@@ -125,7 +125,7 @@ class Consumer extends StatelessWidget {
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 2.w, vertical: 2.w),
+                                    horizontal: 2.w, vertical: 1.h),
                                 decoration: BoxDecoration(
                                     color:
                                         !state.menuOptionsList[index].isSelected
@@ -134,17 +134,12 @@ class Consumer extends StatelessWidget {
                                                 .withOpacity(.1),
                                     border: Border.all(
                                         width: .2.w,
-                                        color: colorScheme.background
+                                        color:state.menuOptionsList[index].isSelected? colorScheme.primary: colorScheme.background
                                             .withOpacity(.1)),
                                     borderRadius: BorderRadius.circular(50.w)),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    SvgPicture.asset(
-                                        AssetConstants.accountSettings),
-                                    SizedBox(
-                                      width: 1.w,
-                                    ),
                                     Text(
                                       state.menuOptionsList[index].text,
                                       style: textTheme.bodySmall!.copyWith(

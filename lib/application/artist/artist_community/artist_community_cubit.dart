@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,8 +9,8 @@ import '../../../infrastructure/core/dtos/community/community_dto.dart';
 import '../../../infrastructure/core/dtos/community_user/community_user_dto.dart';
 import '../../../infrastructure/user/i_user_repository.dart';
 
-part 'artist_community_state.dart';
 part 'artist_community_cubit.freezed.dart';
+part 'artist_community_state.dart';
 
 class ArtistCommunityCubit extends Cubit<ArtistCommunityState> {
   final int limit = 10;
@@ -60,40 +59,28 @@ class ArtistCommunityCubit extends Cubit<ArtistCommunityState> {
   Future getArtistFollowers() async {
     try {
       emit(state.copyWith(isFollowersFetching: true));
-      Either<dynamic, CommunityDto> followers =
+      final followers =
           await state.artistRepository.getArtistFollowers(
         artistId: state.artistId,
-        page: state.page,
+        page: state.followersPage,
         limit: limit,
+        searchQuery: state.followersSearchController.text,
       );
-      followers.fold(
-        (l) {
-          emit(state.copyWith(
-            isFollowersFetching: false,
-            isFailed: true,
-            isSuccessful: false,
-          ));
-        },
-        (r) {
-          List<CommunityUserDto> tempUsers = state.artistFollowers == null
+      List<CommunityUserDto> tempUsers = state.artistFollowers == null
               ? []
               : state.artistFollowers!.users.map((e) => e).toList();
-          tempUsers.addAll(r.users);
+          tempUsers.addAll(followers.users);
           isFollowersFetching = false;
 
           emit(
             state.copyWith(
               isFollowersFetching: false,
-              isFailed: false,
-              isSuccessful: true,
-              page: state.page + 1,
-              hasMoreFollowers: r.users.length == limit,
+              followersPage: state.followersPage + 1,
+              hasMoreFollowers: followers.users.length == limit,
               artistFollowers:
-                  CommunityDto(totalCount: r.totalCount, users: tempUsers),
+                  CommunityDto(totalCount: followers.totalCount, users: tempUsers),
             ),
           );
-        },
-      );
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -102,40 +89,30 @@ class ArtistCommunityCubit extends Cubit<ArtistCommunityState> {
   Future getArtistFriends() async {
     try {
       emit(state.copyWith(isFriendsFetching: true));
-      Either<dynamic, CommunityDto> followers =
+      final friends =
           await state.artistRepository.getArtistFriends(
         artistId: state.artistId,
-        page: state.page,
+        page: state.friendsPage,
         limit: limit,
+        searchQuery: state.followersSearchController.text,
       );
-      followers.fold(
-        (l) {
-          emit(state.copyWith(
-            isFriendsFetching: false,
-            isFailed: true,
-            isSuccessful: false,
-          ));
-        },
-        (r) {
+      
           List<CommunityUserDto> tempUsers = state.artistFriends == null
               ? []
               : state.artistFriends!.users.map((e) => e).toList();
-          tempUsers.addAll(r.users);
+          tempUsers.addAll(friends.users);
           isFriendsFetching = false;
 
           emit(
             state.copyWith(
               isFriendsFetching: false,
-              isFailed: false,
-              isSuccessful: true,
-              page: state.page + 1,
-              hasMoreFriends: r.users.length == limit,
+              friendsPage: state.friendsPage + 1,
+              hasMoreFriends: friends.users.length == limit,
               artistFriends:
-                  CommunityDto(totalCount: r.totalCount, users: tempUsers),
+                  CommunityDto(totalCount: friends.totalCount, users: tempUsers),
             ),
           );
-        },
-      );
+        
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -174,7 +151,7 @@ class ArtistCommunityCubit extends Cubit<ArtistCommunityState> {
             users: listOfFollowers)));
   }
 
-void followFriend({required int id}) {
+  void followFriend({required int id}) {
     state.userRepository.followUser(userId: id);
 
     final List<CommunityUserDto> listOfFollowers =
@@ -208,4 +185,54 @@ void followFriend({required int id}) {
             users: listOfFollowers)));
   }
 
+  Future searchArtistFollowers({
+    required int page,
+  }) async {
+    try {
+      emit(state.copyWith(isFollowersFetching: true));
+      final followers = await state.artistRepository.getArtistFollowers(
+          artistId: state.artistId,
+          page: page,
+          limit: limit,
+          searchQuery: state.followersSearchController.text,);
+      List<CommunityUserDto> temp = followers.users;
+      isFollowersFetching = false;
+      // isFollowersFetching = false;
+      emit(
+        state.copyWith(
+            isFollowersFetching: false,
+            followersPage: page + 1,
+            hasMoreFollowers: followers.users.length == limit,
+            artistFollowers:
+                CommunityDto(totalCount: followers.totalCount, users: temp)),
+      );
+    } catch (e) {
+        debugPrint(e.toString());
+    }
+  }
+
+  Future searchArtistFriends({
+    required int page,
+  }) async {
+    try {
+      emit(state.copyWith(isFriendsFetching: true));
+      final friends = await state.artistRepository.getArtistFollowers(
+          artistId: state.artistId,
+          page: page,
+          limit: limit,
+          searchQuery: state.friendsSearchController.text,);
+      List<CommunityUserDto> temp = friends.users;
+      isFriendsFetching = false;
+      emit(
+        state.copyWith(
+            isFriendsFetching: false,
+            friendsPage: page + 1,
+            hasMoreFriends: friends.users.length == limit,
+            artistFriends:
+                CommunityDto(totalCount: friends.totalCount, users: temp)),
+      );
+    } catch (e) {
+        debugPrint(e.toString());
+    }
+  }
 }

@@ -61,6 +61,7 @@ class AppStateNotifier extends ChangeNotifier {
     UserDto? user,
   }) {
     this.user = user;
+    notifyListeners();
   }
 
   Future<void> updateAfterNetworkChange({required bool isOffline}) async {

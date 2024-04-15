@@ -22,6 +22,7 @@ _$ArtistProfileDtoImpl _$$ArtistProfileDtoImplFromJson(
       tag: json['tag'] == null
           ? null
           : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
+      isFollowing: json['isFollowing'] as bool? ?? false,
       extraDetailsDto: json['extraDetails'] == null
           ? null
           : ArtistExtraDetailsDto.fromJson(
@@ -38,5 +39,6 @@ Map<String, dynamic> _$$ArtistProfileDtoImplToJson(
       'category': instance.categories,
       'city': instance.city,
       'tag': instance.tag,
+      'isFollowing': instance.isFollowing,
       'extraDetails': instance.extraDetailsDto,
     };

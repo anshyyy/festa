@@ -96,7 +96,6 @@ class ClubCommunityCubit extends Cubit<ClubCommunityState> {
           state.pubFollowers.users.map((e) => e).toList();
       temp.addAll(followers.users);
       isFollowersFetching = false;
-      // isFollowersFetching = false;
       emit(
         state.copyWith(
             isFollowersFetching: false,

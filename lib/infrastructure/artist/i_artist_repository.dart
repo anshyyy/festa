@@ -39,18 +39,21 @@ class IArtistRepository extends ArtistRepository {
   @override
   void followUnfollowArtist(
       {required int artistId, required bool isFollowing}) async {
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final url = isFollowing
-          ? '$serverUrl${ArtistApiConstants.UNFOLLOW_ARTIST}/$artistId'
-          : '$serverUrl${ArtistApiConstants.FOLLOW_ARTIST}/$artistId';
-      await RESTService.performPOSTRequest(
-          httpUrl: url, isAuth: true, token: token!);
-    
+    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = isFollowing
+        ? '$serverUrl${ArtistApiConstants.UNFOLLOW_ARTIST}/$artistId'
+        : '$serverUrl${ArtistApiConstants.FOLLOW_ARTIST}/$artistId';
+    await RESTService.performPOSTRequest(
+        httpUrl: url, isAuth: true, token: token!);
   }
 
   @override
-  Future<Either<dynamic, CommunityDto>> getArtistFollowers(
-      {required int artistId, required int page, required int limit}) async {
+  Future<CommunityDto> getArtistFollowers({
+    required int artistId,
+    required int page,
+    required int limit,
+    required String searchQuery,
+  }) async {
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       final url = '$serverUrl${ArtistApiConstants.ARTIST}/$artistId/followers';
@@ -61,20 +64,24 @@ class IArtistRepository extends ArtistRepository {
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
       if (response.statusCode != 200) {
-        return left(null);
+        return const CommunityDto(totalCount: 0, users: []);
       }
       final body = response.body;
       final artistFollowersRaw = jsonDecode(body) as Map<String, dynamic>;
       final artistFollowers = CommunityDto.fromJson(artistFollowersRaw);
-      return right(artistFollowers);
+      return artistFollowers;
     } catch (e) {
-      return left(null);
+      return const CommunityDto(totalCount: 0, users: []);
     }
   }
 
   @override
-  Future<Either<dynamic, CommunityDto>> getArtistFriends(
-      {required int artistId, required int page, required int limit}) async {
+  Future<CommunityDto> getArtistFriends({
+    required int artistId,
+    required int page,
+    required int limit,
+    required String searchQuery,
+  }) async {
     try {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       final url = '$serverUrl${ArtistApiConstants.ARTIST}/$artistId/friends';
@@ -85,14 +92,14 @@ class IArtistRepository extends ArtistRepository {
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
       if (response.statusCode != 200) {
-        return left(null);
+        return const CommunityDto(totalCount: 0, users: []);
       }
       final body = response.body;
       final artistFriendsRaw = jsonDecode(body) as Map<String, dynamic>;
       final artistFriends = CommunityDto.fromJson(artistFriendsRaw);
-      return right(artistFriends);
+      return artistFriends;
     } catch (e) {
-      return left(null);
+      return const CommunityDto(totalCount: 0, users: []);
     }
   }
 
@@ -118,19 +125,17 @@ class IArtistRepository extends ArtistRepository {
 
   @override
   void likeMusicById({required int musicId}) async {
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final url = '$serverUrl${ArtistApiConstants.LIKE_MUSIC}/$musicId';
-      await RESTService.performPOSTRequest(
-          httpUrl: url, isAuth: true, token: token!);
-   
+    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = '$serverUrl${ArtistApiConstants.LIKE_MUSIC}/$musicId';
+    await RESTService.performPOSTRequest(
+        httpUrl: url, isAuth: true, token: token!);
   }
 
   @override
   void unLikeMusicById({required int musicId}) async {
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final url = '$serverUrl${ArtistApiConstants.UNLIKE_MUSIC}/$musicId';
-      await RESTService.performPOSTRequest(
-          httpUrl: url, isAuth: true, token: token!);
-    
+    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+    final url = '$serverUrl${ArtistApiConstants.UNLIKE_MUSIC}/$musicId';
+    await RESTService.performPOSTRequest(
+        httpUrl: url, isAuth: true, token: token!);
   }
 }

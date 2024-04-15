@@ -60,12 +60,12 @@ class UsernameSettingsCubit extends Cubit<UsernameSettingsState> {
       ));
       showUsernameErrorToast();
     }, (r) async {
-      final user = await state.userRepository.fetchUserByToken();
       emit(state.copyWith(
         isLoading: false,
-        user: user,
+        user: r,
         isUsernameUpdateFailure: false,
         isUsernameUpdateSuccess: true,
+        isUpdateEnabled:false,
       ));
       showUsernameSuccessToast();
     });

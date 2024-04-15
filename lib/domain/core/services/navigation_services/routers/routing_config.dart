@@ -70,6 +70,8 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           UserCommunity(userId: int.parse(userId), username: username),
           settings);
 
+          
+
     case UserRoutes.profileAndSettingsRoute:
       return _getPageRoute(const ProfileAndSettingsScreen(), settings);
 

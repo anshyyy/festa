@@ -108,7 +108,6 @@ class ClubCommunityConsumer extends StatelessWidget {
                     ),
                     const Expanded(
                         child: TabBarView(
-                          
                       children: [
                         ClubFollowers(),
                         ClubFriends(),

@@ -9,7 +9,8 @@ class ArtistCommunityState with _$ArtistCommunityState {
     required bool isSuccessful,
     required int artistId,
     required String artistName,
-    required int page,
+    required int followersPage,
+    required int friendsPage,
     required ArtistRepository artistRepository,
     required UserRepository userRepository,
     CommunityDto? artistFollowers,
@@ -18,6 +19,9 @@ class ArtistCommunityState with _$ArtistCommunityState {
     required ScrollController friendsScrollController,
     required bool hasMoreFollowers,
     required bool hasMoreFriends,
+    required TextEditingController followersSearchController,
+    required TextEditingController friendsSearchController,
+
   }) = _ArtistCommunityState;
 
   factory ArtistCommunityState.initial({
@@ -32,12 +36,15 @@ class ArtistCommunityState with _$ArtistCommunityState {
         isSuccessful: false,
         artistId: artistId,
         artistName: artistName,
-        page: 1,
+        friendsPage: 1,
+        followersPage: 1,
         followersScrollController: ScrollController(),
         friendsScrollController: ScrollController(),
         artistRepository: IArtistRepository(serverUrl: serverUrl),
         userRepository: IUserRepository(serverUrl: serverUrl),
         hasMoreFollowers:true,
         hasMoreFriends:true,
+        friendsSearchController: TextEditingController(),
+        followersSearchController: TextEditingController(),
       );
 }

@@ -43,7 +43,7 @@ class ClubFollowers extends StatelessWidget {
               fillColor: themeData.scaffoldBackgroundColor.withOpacity(.4),
               hintText: AppConstants.search,
               hintTextStyle: textTheme.bodySmall!
-                  .copyWith(fontSize: 1.sp, color: colorScheme.background),
+                  .copyWith(fontSize: 15.sp, color: colorScheme.background),
               textStyle: textTheme.bodySmall!
                   .copyWith(fontSize: 15.sp, color: colorScheme.background),
               contentPadding:
@@ -221,7 +221,7 @@ class ClubFollowers extends StatelessWidget {
                       },
                     ),
                   )
-                :  Expanded(
+                : Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

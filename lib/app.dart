@@ -45,9 +45,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
       builder: (context, child) {
         return Column(
           children: [
-            Expanded(
-                child: Scaffold(
-                              body: child!)),
+            Expanded(child: Scaffold(body: child!)),
             if (Provider.of<AppStateNotifier>(context).isOffline)
               Material(
                 color: Theme.of(context).colorScheme.error,
@@ -132,13 +130,10 @@ Future appInitializer(AppConfig appConfig) async {
                     ? ProfileStateEnum.basic
                     : ProfileStateEnum.started;
   }
-
-  try {
-    final permission = await Geolocator.checkPermission();
-    if (permission != LocationPermission.always &&
-        permission != LocationPermission.whileInUse) {
-      throw Error();
-    }
+  final permission = await Geolocator.checkPermission();
+  if (permission != LocationPermission.always &&
+      permission != LocationPermission.whileInUse) {
+  } else {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     LocationDto(
@@ -149,10 +144,7 @@ Future appInitializer(AppConfig appConfig) async {
         state: 'Karnataka',
         country: 'India',
         icon: '');
-  } catch (error) {
-    debugPrint(error.toString());
   }
-
   AppStateNotifier appStateNotifier = AppStateNotifier(
     isAuthorized: isAuthorized,
     isOffline: isOffline,

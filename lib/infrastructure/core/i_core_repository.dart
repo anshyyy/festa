@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app_settings/app_settings.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -13,8 +10,6 @@ import '../../domain/core/core_repository.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
 
 class ICoreRepository extends CoreRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   final String serverUrl;
 
@@ -47,23 +42,6 @@ class ICoreRepository extends CoreRepository {
     final file = File(path);
 
     return right(file);
-  }
-
-  @override
-  Future<Either<String, String>> uploadFileToUserLocation(
-      {required File file}) async {
-    try {
-      final String uid = _firebaseAuth.currentUser!.uid;
-      final String filePath = 'users/$uid/${file.uri.pathSegments.last}';
-      final ref = _firebaseStorage.ref().child(filePath);
-
-      final uploadTask = await ref.putFile(file);
-      final downloadUrl = await uploadTask.ref.getDownloadURL();
-
-      return Right(downloadUrl); // Return the download URL on success
-    } catch (e) {
-      return Left(e.toString()); // Return error message on failure
-    }
   }
 
   @override

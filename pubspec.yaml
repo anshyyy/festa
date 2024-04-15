@@ -56,7 +56,6 @@ dependencies:
   # Firebase Utils
   firebase_core: 2.25.0
   firebase_auth: 4.17.0
-  firebase_storage: 
   firebase_crashlytics: 3.4.10
   firebase_analytics: 10.8.1
   firebase_remote_config: 4.3.9

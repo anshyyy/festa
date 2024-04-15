@@ -73,8 +73,7 @@ class MainNavigatorConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppStateNotifier appStateNotifier =
-        Provider.of<AppStateNotifier>(context);
+    
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {},
       builder: (context, state) {

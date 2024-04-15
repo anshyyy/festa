@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,8 +21,8 @@ import '../../../infrastructure/location/dtos/suggestion/suggestion_dto.dart';
 import '../../../infrastructure/location/i_location_repository.dart';
 import '../../../presentation/home/widgets/dropdown_panel.dart';
 
-part 'home_state.dart';
 part 'home_cubit.freezed.dart';
+part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final int limit = 10;

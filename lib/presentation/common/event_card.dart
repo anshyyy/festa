@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
@@ -38,11 +37,9 @@ class EventCard extends StatefulWidget {
 
 class _EventCardState extends State<EventCard> {
   int index = 0;
-  late VideoPlayerController _controller;
 
   void init({required String url}) async {
-    _controller = await VideoPlayerController.networkUrl(Uri.parse(url))
-      ..initialize();
+   
     setState(() {});
   }
 
@@ -62,7 +59,7 @@ class _EventCardState extends State<EventCard> {
             : words[0];
 
     return Padding(
-      padding: EdgeInsets.only(bottom: 1.h),
+      padding: EdgeInsets.only(bottom: 5.h),
       child: Stack(
         children: [
           Column(
@@ -553,17 +550,6 @@ class _EventCardState extends State<EventCard> {
                           //     ),
                           //   )
                           // else
-                          const SizedBox(),
-                          GestureDetector(
-                            onTap: widget.onLike,
-                            child: SvgPicture.asset(
-                              widget.isLiked
-                                  ? AssetConstants.accountSettings
-                                  : AssetConstants.muteIcon,
-                              width: 6.w,
-                              height: 6.w,
-                            ),
-                          ),
                         ],
                       ),
                     ),

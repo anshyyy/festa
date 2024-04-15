@@ -28,6 +28,7 @@ mixin _$UserProfileState {
   int get userId => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
   bool get qrExpandedView => throw _privateConstructorUsedError;
+  AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserProfileStateCopyWith<UserProfileState> get copyWith =>
@@ -52,7 +53,8 @@ abstract class $UserProfileStateCopyWith<$Res> {
       UserDto? user,
       int userId,
       bool isFollowing,
-      bool qrExpandedView});
+      bool qrExpandedView,
+      AppStateNotifier appStateNotifier});
 
   $UserDtoCopyWith<$Res>? get user;
 }
@@ -82,6 +84,7 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
     Object? userId = null,
     Object? isFollowing = null,
     Object? qrExpandedView = null,
+    Object? appStateNotifier = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -132,6 +135,10 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
           ? _value.qrExpandedView
           : qrExpandedView // ignore: cast_nullable_to_non_nullable
               as bool,
+      appStateNotifier: null == appStateNotifier
+          ? _value.appStateNotifier
+          : appStateNotifier // ignore: cast_nullable_to_non_nullable
+              as AppStateNotifier,
     ) as $Val);
   }
 
@@ -168,7 +175,8 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
       UserDto? user,
       int userId,
       bool isFollowing,
-      bool qrExpandedView});
+      bool qrExpandedView,
+      AppStateNotifier appStateNotifier});
 
   @override
   $UserDtoCopyWith<$Res>? get user;
@@ -197,6 +205,7 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? isFollowing = null,
     Object? qrExpandedView = null,
+    Object? appStateNotifier = null,
   }) {
     return _then(_$UserProfileStateImpl(
       isLoading: null == isLoading
@@ -247,6 +256,10 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
           ? _value.qrExpandedView
           : qrExpandedView // ignore: cast_nullable_to_non_nullable
               as bool,
+      appStateNotifier: null == appStateNotifier
+          ? _value.appStateNotifier
+          : appStateNotifier // ignore: cast_nullable_to_non_nullable
+              as AppStateNotifier,
     ));
   }
 }
@@ -266,7 +279,8 @@ class _$UserProfileStateImpl implements _UserProfileState {
       this.user,
       required this.userId,
       required this.isFollowing,
-      required this.qrExpandedView});
+      required this.qrExpandedView,
+      required this.appStateNotifier});
 
   @override
   final bool isLoading;
@@ -292,10 +306,12 @@ class _$UserProfileStateImpl implements _UserProfileState {
   final bool isFollowing;
   @override
   final bool qrExpandedView;
+  @override
+  final AppStateNotifier appStateNotifier;
 
   @override
   String toString() {
-    return 'UserProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, profileImage: $profileImage, coverImage: $coverImage, coreRepository: $coreRepository, userRepository: $userRepository, user: $user, userId: $userId, isFollowing: $isFollowing, qrExpandedView: $qrExpandedView)';
+    return 'UserProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, profileImage: $profileImage, coverImage: $coverImage, coreRepository: $coreRepository, userRepository: $userRepository, user: $user, userId: $userId, isFollowing: $isFollowing, qrExpandedView: $qrExpandedView, appStateNotifier: $appStateNotifier)';
   }
 
   @override
@@ -323,7 +339,9 @@ class _$UserProfileStateImpl implements _UserProfileState {
             (identical(other.isFollowing, isFollowing) ||
                 other.isFollowing == isFollowing) &&
             (identical(other.qrExpandedView, qrExpandedView) ||
-                other.qrExpandedView == qrExpandedView));
+                other.qrExpandedView == qrExpandedView) &&
+            (identical(other.appStateNotifier, appStateNotifier) ||
+                other.appStateNotifier == appStateNotifier));
   }
 
   @override
@@ -340,7 +358,8 @@ class _$UserProfileStateImpl implements _UserProfileState {
       user,
       userId,
       isFollowing,
-      qrExpandedView);
+      qrExpandedView,
+      appStateNotifier);
 
   @JsonKey(ignore: true)
   @override
@@ -352,18 +371,20 @@ class _$UserProfileStateImpl implements _UserProfileState {
 
 abstract class _UserProfileState implements UserProfileState {
   const factory _UserProfileState(
-      {required final bool isLoading,
-      required final bool isSuccessful,
-      required final bool isFailed,
-      required final bool noUse,
-      final String? profileImage,
-      final String? coverImage,
-      required final CoreRepository coreRepository,
-      required final UserRepository userRepository,
-      final UserDto? user,
-      required final int userId,
-      required final bool isFollowing,
-      required final bool qrExpandedView}) = _$UserProfileStateImpl;
+          {required final bool isLoading,
+          required final bool isSuccessful,
+          required final bool isFailed,
+          required final bool noUse,
+          final String? profileImage,
+          final String? coverImage,
+          required final CoreRepository coreRepository,
+          required final UserRepository userRepository,
+          final UserDto? user,
+          required final int userId,
+          required final bool isFollowing,
+          required final bool qrExpandedView,
+          required final AppStateNotifier appStateNotifier}) =
+      _$UserProfileStateImpl;
 
   @override
   bool get isLoading;
@@ -389,6 +410,8 @@ abstract class _UserProfileState implements UserProfileState {
   bool get isFollowing;
   @override
   bool get qrExpandedView;
+  @override
+  AppStateNotifier get appStateNotifier;
   @override
   @JsonKey(ignore: true)
   _$$UserProfileStateImplCopyWith<_$UserProfileStateImpl> get copyWith =>

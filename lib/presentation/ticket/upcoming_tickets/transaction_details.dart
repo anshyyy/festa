@@ -27,7 +27,7 @@ class TransactionDetails extends StatelessWidget {
                     ),
               ),
               Text(
-                ticketDetails.transactionId,
+                ticketDetails.transactionId.isEmpty ? '-' : ticketDetails.transactionId,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.background),

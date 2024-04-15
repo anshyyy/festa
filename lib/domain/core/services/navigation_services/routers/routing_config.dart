@@ -24,10 +24,8 @@ import '../../../../../presentation/event/booking/free_booking_screen.dart';
 import '../../../../../presentation/event/booking/payment_details_screen.dart';
 import '../../../../../presentation/event/booking/payment_status_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
-import '../../../../../presentation/home/home_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/notifications/notification_screen.dart';
-import '../../../../../presentation/ticket/tickets_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_privacy/account_privacy_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_settings_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
@@ -42,7 +40,6 @@ import '../../../../../presentation/user/profile_settings/account_settings/usern
 import '../../../../../presentation/user/profile_settings/edit_profile_screen/edit_profile_screen.dart';
 import '../../../../../presentation/user/profile_settings/personalise_your_experience/personalise_experience_screen.dart';
 import '../../../../../presentation/user/profile_settings/profile_and_settings.dart';
-import '../../../../../presentation/user/user_profile_screen.dart';
 import '../../../../../presentation/user/widgets/user_community_screen.dart';
 import '../../../extensions/string_extension.dart';
 import 'route_name.dart';
@@ -65,18 +62,6 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case AuthRoutes.locationSetupRoute:
       return _getPageRoute(const SetYourLocation(), settings);
-
-    case UserRoutes.homeScreenRoute:
-      return _getPageRoute(const HomeScreen(), settings);
-
-    case UserRoutes.userProfileRoute:
-      final userId = routingData.queryParameters['userId'] ?? '0';
-
-      return _getPageRoute(
-          UserProfileScreen(
-            userId: int.parse(userId),
-          ),
-          settings);
 
     case UserRoutes.userCommunityScreenRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
@@ -175,9 +160,6 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
             distance: routingData.queryParameters['distance'] ?? '',
           ),
           settings);
-
-    case UserRoutes.ticketsRoute:
-      return _getPageRoute(const TicketScreen(), settings);
 
     case UserRoutes.bookingRoute:
       final String eventId = routingData.queryParameters['eventId'] ?? '';

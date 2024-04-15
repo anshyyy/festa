@@ -50,7 +50,14 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         // showpopup
       }
     }, (r) async {
-      if (r == null) return;
+      if (r == null) {
+        emit(
+        state.copyWith(
+          isLoading: false,
+        ),
+      );
+      return;
+      }
       emit(state.copyWith(
         isLoading: true,
       ));
@@ -76,7 +83,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         // showpopup
       }
     }, (r) async {
-      if (r == null) return;
+      if (r == null) {
+        emit(state.copyWith(isLoading: false));
+        return;
+        }
       emit(state.copyWith(
         isLoading: true,
       ));

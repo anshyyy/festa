@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+import '../../application/home/cubit/home_cubit.dart';
 import '../../application/main_nav/main_nav_cubit.dart';
+import '../../application/ticket/ticket_cubit.dart';
+import '../../application/user/user_profile/user_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../home/home_screen.dart';
 import '../ticket/tickets_screen.dart';
@@ -16,11 +19,50 @@ class MainNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MainNavCubit(
-          MainNavState.initial(currentIndex: int.parse(routeIndex))),
+    AppConfig appConfig = AppConfig.of(context)!;
+    AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => MainNavCubit(
+              MainNavState.initial(currentIndex: int.parse(routeIndex))),
+          child: const MainNavigatorConsumer(),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => HomeCubit(HomeState.initial(
+            appStateNotifier: appStateNotifier,
+            serverUrl: appConfig.serverUrl,
+            mapsApiKey: appConfig.googleMapsApiKey,
+          ))
+            ..init(),
+          child: const HomeScreenConsumer(),
+        ),
+        BlocProvider(
+          create: (context) => TicketCubit(TicketState.initial(
+            serverUrl: appConfig.serverUrl,
+          ))
+            ..init(),
+          child: const TicketScreenConsumer(),
+        ),
+        BlocProvider(
+          create: (context) => UserProfileCubit(UserProfileState.initial(
+            serverUrl: appConfig.serverUrl,
+            appStateNotifier: appStateNotifier,
+          ))
+            ..init(),
+          child: const UserProfileScreenConsumer(),
+        )
+      ],
       child: const MainNavigatorConsumer(),
     );
+
+    // return BlocProvider(
+    //   create: (context) => MainNavCubit(
+    //       MainNavState.initial(currentIndex: int.parse(routeIndex))),
+    //   child: const MainNavigatorConsumer(),
+    // );
   }
 }
 
@@ -31,8 +73,7 @@ class MainNavigatorConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppStateNotifier appStateNotifier =
-        Provider.of<AppStateNotifier>(context);
+    
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -47,6 +88,11 @@ class MainNavigatorConsumer extends StatelessWidget {
               currentIndex: state.currentIndex,
               onTabChange: (i) {
                 if (state.currentIndex == i) {
+                  if (i == 0) {
+                    // go to top
+                    Provider.of<AppStateNotifier>(context, listen: false)
+                        .onMenuChange(index: i, goToTop: true);
+                  }
                 } else {
                   context.read<MainNavCubit>().onIndexChange(index: i);
                   Provider.of<AppStateNotifier>(context, listen: false)
@@ -62,9 +108,7 @@ class MainNavigatorConsumer extends StatelessWidget {
                   : state.currentIndex == 2
                       ? const TicketScreen()
                       : state.currentIndex == 3
-                          ? UserProfileScreen(
-                              userId: appStateNotifier.user!.id,
-                            )
+                          ? const UserProfileScreen()
                           : null,
             ),
           ),

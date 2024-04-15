@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/core_repository.dart';
 import '../../../domain/user/user_repository.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';

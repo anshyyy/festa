@@ -49,7 +49,7 @@ class HomeState with _$HomeState {
         noUse: false,
         hasMoreEvents: true,
         searchController: TextEditingController(),
-        scrollController: ScrollController(),
+        scrollController: ScrollController(keepScrollOffset: true,),
         filters: [],
         user: appStateNotifier.user,
         events: [],

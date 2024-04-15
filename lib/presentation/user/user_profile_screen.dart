@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,21 +24,13 @@ import '../widgets/custom_outlined_button.dart';
 import 'widgets/user_profile_widget.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  final int userId;
-  const UserProfileScreen({super.key, required this.userId});
+  const UserProfileScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final appConfig = AppConfig.of(context)!;
-
-    return BlocProvider(
-      create: (context) => UserProfileCubit(UserProfileState.initial(
-        serverUrl: appConfig.serverUrl,
-        userId: userId,
-      ))
-        ..init(),
-      child: const UserProfileScreenConsumer(),
-    );
+    return const UserProfileScreenConsumer();
   }
 }
 
@@ -59,7 +53,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ?  const UserShimmer()
+              ? const UserShimmer()
               : Stack(
                   children: [
                     Container(
@@ -203,7 +197,7 @@ class UserShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-final colorScheme = themeData.colorScheme;
+    final colorScheme = themeData.colorScheme;
 // final textTheme = themeData.textTheme;
 
     return Shimmer.fromColors(
@@ -216,8 +210,7 @@ final colorScheme = themeData.colorScheme;
             //   height: 1.h,
             // ),
             Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Column(
                   children: [
@@ -226,15 +219,18 @@ final colorScheme = themeData.colorScheme;
                       width: 3.w,
                       color: Colors.grey,
                     ),
-                    SizedBox(height: .5.w,),
-                     Container(
+                    SizedBox(
+                      height: .5.w,
+                    ),
+                    Container(
                       height: .5.w,
                       width: 3.w,
                       color: Colors.grey,
                     ),
-                    SizedBox(height: .5.w,),
-
-                     Container(
+                    SizedBox(
+                      height: .5.w,
+                    ),
+                    Container(
                       height: .5.w,
                       width: 3.w,
                       color: Colors.grey,
@@ -243,33 +239,32 @@ final colorScheme = themeData.colorScheme;
                 ),
               ],
             ),
-            
-                       const Spacer(),
+
+            const Spacer(),
             Stack(
               clipBehavior: Clip.none,
-               alignment: Alignment.center,
+              alignment: Alignment.center,
               children: [
                 Container(
                   height: 35.h,
                   width: 100.w,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10.w)
-                  ),
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10.w)),
                 ),
                 Positioned(
                   top: -5.h,
                   // left: 40.w,
                   child: Center(
                     child: Container(
-                    height: 20.w,
+                      height: 20.w,
                       width: 20.w,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      border: Border.all(width: 1, color: colorScheme.background),
-                      shape: BoxShape.circle
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          border: Border.all(
+                              width: 1, color: colorScheme.background),
+                          shape: BoxShape.circle),
                     ),
-                  ),
                   ),
                 )
               ],

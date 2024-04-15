@@ -44,14 +44,12 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<UsernameSettingsCubit, UsernameSettingsState>(
       listener: (context, state) {
-        if (!state.isUsernameUpdateFailure && state.isUsernameUpdateSuccess) {
-          if (state.user != null) {
-            appStateNotifier.updateUser(
-              user: state.user,
-            );
-          }
-
-          // navigator<NavigationService>().goBack();
+        if (!state.isUsernameUpdateFailure &&
+            state.isUsernameUpdateSuccess &&
+            state.user != null) {
+          appStateNotifier.updateUser(
+            user: state.user,
+          );
         }
       },
       builder: (context, state) {

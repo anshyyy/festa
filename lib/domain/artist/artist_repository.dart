@@ -6,17 +6,21 @@ import '../../infrastructure/core/dtos/community/community_dto.dart';
 
 abstract class ArtistRepository {
   Future<Either<String, ArtistProfileDto>> getArtistById({required int artistId});
+
   void followUnfollowArtist({required int artistId, required bool isFollowing});
-  Future<Either<dynamic, CommunityDto>> getArtistFollowers({
+
+  Future<CommunityDto> getArtistFollowers({
     required int artistId,
     required int page,
     required int limit,
+    required String searchQuery,
   });
 
-  Future<Either<dynamic, CommunityDto>> getArtistFriends({
+  Future<CommunityDto> getArtistFriends({
     required int artistId,
     required int page,
     required int limit,
+    required String searchQuery,
   });
 
   Future<List<MusicDto>> fetchMusicByArtistId({required int id});

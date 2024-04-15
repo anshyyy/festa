@@ -82,16 +82,16 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
         .fetchPaymentStatusById(bookingId: state.eventBookingDetails.bookingId);
     if (!response.isDone) {
       emit(state.copyWith(
-        isPaymentSuccess: true,
+        isPaymentSuccess: false,
         isPaymentFailure: false,
-        isPaymentPending: false,
+        isPaymentPending: true,
         isLoading: false,
       ));
     } else {
       emit(state.copyWith(
         isPaymentSuccess: true,
         isPaymentFailure: false,
-        isPaymentPending: true,
+        isPaymentPending: false,
         isLoading: false,
       ));
     }

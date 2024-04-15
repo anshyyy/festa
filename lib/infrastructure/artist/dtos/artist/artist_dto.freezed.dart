@@ -34,6 +34,8 @@ mixin _$ArtistProfileDto {
   String get city => throw _privateConstructorUsedError;
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isFollowing', defaultValue: false)
+  bool? get isFollowing => throw _privateConstructorUsedError;
   @JsonKey(name: 'extraDetails', defaultValue: null)
   ArtistExtraDetailsDto? get extraDetailsDto =>
       throw _privateConstructorUsedError;
@@ -59,6 +61,7 @@ abstract class $ArtistProfileDtoCopyWith<$Res> {
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false) bool? isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       ArtistExtraDetailsDto? extraDetailsDto});
 
@@ -86,6 +89,7 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
     Object? categories = null,
     Object? city = null,
     Object? tag = freezed,
+    Object? isFollowing = freezed,
     Object? extraDetailsDto = freezed,
   }) {
     return _then(_value.copyWith(
@@ -117,6 +121,10 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagDto?,
+      isFollowing: freezed == isFollowing
+          ? _value.isFollowing
+          : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool?,
       extraDetailsDto: freezed == extraDetailsDto
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
@@ -167,6 +175,7 @@ abstract class _$$ArtistProfileDtoImplCopyWith<$Res>
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false) bool? isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       ArtistExtraDetailsDto? extraDetailsDto});
 
@@ -194,6 +203,7 @@ class __$$ArtistProfileDtoImplCopyWithImpl<$Res>
     Object? categories = null,
     Object? city = null,
     Object? tag = freezed,
+    Object? isFollowing = freezed,
     Object? extraDetailsDto = freezed,
   }) {
     return _then(_$ArtistProfileDtoImpl(
@@ -225,6 +235,10 @@ class __$$ArtistProfileDtoImplCopyWithImpl<$Res>
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagDto?,
+      isFollowing: freezed == isFollowing
+          ? _value.isFollowing
+          : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool?,
       extraDetailsDto: freezed == extraDetailsDto
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
@@ -245,6 +259,7 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
       @JsonKey(name: 'category', defaultValue: []) required this.categories,
       @JsonKey(name: 'city', defaultValue: '') required this.city,
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false) this.isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto});
 
   factory _$ArtistProfileDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -272,12 +287,15 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
   @JsonKey(name: 'tag', defaultValue: null)
   final TagDto? tag;
   @override
+  @JsonKey(name: 'isFollowing', defaultValue: false)
+  final bool? isFollowing;
+  @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   final ArtistExtraDetailsDto? extraDetailsDto;
 
   @override
   String toString() {
-    return 'ArtistProfileDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, categories: $categories, city: $city, tag: $tag, extraDetailsDto: $extraDetailsDto)';
+    return 'ArtistProfileDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, categories: $categories, city: $city, tag: $tag, isFollowing: $isFollowing, extraDetailsDto: $extraDetailsDto)';
   }
 
   @override
@@ -296,6 +314,8 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
                 .equals(other.categories, categories) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.tag, tag) || other.tag == tag) &&
+            (identical(other.isFollowing, isFollowing) ||
+                other.isFollowing == isFollowing) &&
             (identical(other.extraDetailsDto, extraDetailsDto) ||
                 other.extraDetailsDto == extraDetailsDto));
   }
@@ -311,6 +331,7 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
       const DeepCollectionEquality().hash(categories),
       city,
       tag,
+      isFollowing,
       extraDetailsDto);
 
   @JsonKey(ignore: true)
@@ -341,6 +362,8 @@ abstract class _ArtistProfileDto implements ArtistProfileDto {
       required final List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') required final String city,
       @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
+      @JsonKey(name: 'isFollowing', defaultValue: false)
+      final bool? isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       final ArtistExtraDetailsDto? extraDetailsDto}) = _$ArtistProfileDtoImpl;
 
@@ -368,6 +391,9 @@ abstract class _ArtistProfileDto implements ArtistProfileDto {
   @override
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag;
+  @override
+  @JsonKey(name: 'isFollowing', defaultValue: false)
+  bool? get isFollowing;
   @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   ArtistExtraDetailsDto? get extraDetailsDto;

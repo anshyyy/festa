@@ -204,10 +204,10 @@ class HomeScreenConsumer extends StatelessWidget {
                           if (!state.hasMoreEvents && state.events.isEmpty)
                             const EmptyEvents()
                           else ...[
-                            state.isSearchOpen ? SizedBox() :SizedBox(
+                            state.isSearchOpen ? const SizedBox() :SizedBox(
                               height: 2.h,
                             ),
-                            state.isSearchOpen ? SizedBox() :Text(
+                            state.isSearchOpen ? const SizedBox() :Text(
                               '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
                               style: themeData.textTheme.bodySmall!.copyWith(
                                 fontWeight: FontWeight.w700,
@@ -219,7 +219,7 @@ class HomeScreenConsumer extends StatelessWidget {
                             SizedBox(
                               height: 2.h,
                             ),
-                            state.isSearchOpen ? SizedBox() :Column(
+                            state.isSearchOpen ? const SizedBox() :Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(HomeScreenConstants.pickYourExperience,
@@ -323,13 +323,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            state.isSearchOpen ? SizedBox() : SizedBox(
+                            state.isSearchOpen ? const SizedBox() : SizedBox(
                               height: 2.h,
                             ),
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                state.isSearchOpen ? SizedBox() :GestureDetector(
+                                state.isSearchOpen ? const SizedBox() :GestureDetector(
                                   onTap: () {},
                                   child: Text(
                                     HomeScreenConstants.explorerAll,
@@ -340,7 +340,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                state.isSearchOpen ? SizedBox() : SizedBox(
+                                state.isSearchOpen ? const SizedBox() : SizedBox(
                                   height: 2.h,
                                 ),
                                 SingleChildScrollView(

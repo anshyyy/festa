@@ -28,6 +28,7 @@ class BasicProfileCubit extends Cubit<BasicProfileState> {
     response.fold((l) {
       if (l == PermissionStatus.permanentlyDenied) {
         // showpopup
+
         emit(state.copyWith(
         showPermissionDialog: true,
         noUse: !state.noUse,

@@ -21,8 +21,7 @@ class ArtistTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ArtistProfileCubit, ArtistProfileState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
@@ -73,28 +72,64 @@ class ArtistTile extends StatelessWidget {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  context
-                      .read<ArtistProfileCubit>()
-                      .followUnfollowArtist(artistId: artist.id, isFollowing: true);
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 1.h),
-                  height: 4.5.h,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: Text(
-                    'Follow',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                  )),
-                ),
-              )
+              !artist.isFollowing!
+                  ? GestureDetector(
+                      onTap: () {
+                        context.read<ArtistProfileCubit>().followUnfollowArtist(
+                            artistId: artist.id, isFollowing: false);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 7.w, vertical: 1.h),
+                        height: 4.5.h,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child: Text(
+                          'Follow',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.background,
+                              ),
+                        )),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        context.read<ArtistProfileCubit>().followUnfollowArtist(
+                            artistId: artist.id, isFollowing: true);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 1.h),
+                        height: 4.5.h,
+                        width: 30.w,
+                        decoration: BoxDecoration(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            border: Border.all(
+                                width: .2.w,
+                                color: Theme.of(context).colorScheme.primary),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child: Text(
+                          'Following',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.background,
+                              ),
+                        )),
+                      ),
+                    )
             ],
           ),
         );

@@ -19,7 +19,6 @@ import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/custom_appbar.dart';
-import '../../widgets/custom_textfield.dart';
 import '../../widgets/snackbar_alert.dart';
 import 'widgets/setting_tile.dart';
 
@@ -118,49 +117,49 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: CustomTextField(
-                        controller: state.menuSearchController,
-                        width: 90.w,
-                        prefixIcon: SvgPicture.asset(AssetConstants.searchIcon,
-                            height: 3.5.h,
-                            colorFilter: ColorFilter.mode(
-                                colorScheme.secondaryContainer,
-                                BlendMode.srcIn)),
-                        keyboardType: TextInputType.text,
-                        // height: 8.5.h,
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 1.w, vertical: 1.3.h),
-                        maxLines: 1,
-                        isFill: true,
-                        inputWithLabel: false,
-                        fillColor: Theme.of(context).colorScheme.surface,
-                        hintText: AppConstants.search,
-                        hintTextStyle:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                // fontSize: 17.sp,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16.5.sp),
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.background),
-                        errorStyle:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                ),
+                    // SizedBox(
+                    //   height: 1.h,
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    //   child: CustomTextField(
+                    //     controller: state.menuSearchController,
+                    //     width: 90.w,
+                    //     prefixIcon: SvgPicture.asset(AssetConstants.searchIcon,
+                    //         height: 3.5.h,
+                    //         colorFilter: ColorFilter.mode(
+                    //             colorScheme.secondaryContainer,
+                    //             BlendMode.srcIn)),
+                    //     keyboardType: TextInputType.text,
+                    //     // height: 8.5.h,
+                    //     contentPadding: EdgeInsets.symmetric(
+                    //         horizontal: 1.w, vertical: 1.3.h),
+                    //     maxLines: 1,
+                    //     isFill: true,
+                    //     inputWithLabel: false,
+                    //     fillColor: Theme.of(context).colorScheme.surface,
+                    //     hintText: AppConstants.search,
+                    //     hintTextStyle:
+                    //         Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    //             // fontSize: 17.sp,
+                    //             fontWeight: FontWeight.w400,
+                    //             fontSize: 16.5.sp),
+                    //     textStyle: Theme.of(context)
+                    //         .textTheme
+                    //         .bodyMedium!
+                    //         .copyWith(
+                    //             color:
+                    //                 Theme.of(context).colorScheme.background),
+                    //     errorStyle:
+                    //         Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    //               color: Theme.of(context).colorScheme.error,
+                    //             ),
 
-                        onChanged: (value) => context
-                            .read<ProfileCubit>()
-                            .onMenuSearch(query: value),
-                      ),
-                    ),
+                    //     onChanged: (value) => context
+                    //         .read<ProfileCubit>()
+                    //         .onMenuSearch(query: value),
+                    //   ),
+                    // ),
                     SizedBox(height: 1.h,),
                     Stack(
                       children: [

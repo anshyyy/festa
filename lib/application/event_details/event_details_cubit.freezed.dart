@@ -28,6 +28,9 @@ mixin _$EventDetailsState {
   bool get fnbExpanded => throw _privateConstructorUsedError;
   bool get faqExpanded => throw _privateConstructorUsedError;
   bool get isEventLiked => throw _privateConstructorUsedError;
+  bool get isOpenMapModal => throw _privateConstructorUsedError;
+  List<AvailableMap> get mapsOptions => throw _privateConstructorUsedError;
+  Coords? get eventLocation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventDetailsStateCopyWith<EventDetailsState> get copyWith =>
@@ -52,7 +55,10 @@ abstract class $EventDetailsStateCopyWith<$Res> {
       bool ambExpanded,
       bool fnbExpanded,
       bool faqExpanded,
-      bool isEventLiked});
+      bool isEventLiked,
+      bool isOpenMapModal,
+      List<AvailableMap> mapsOptions,
+      Coords? eventLocation});
 
   $EventDtoCopyWith<$Res>? get event;
 }
@@ -82,6 +88,9 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
     Object? fnbExpanded = null,
     Object? faqExpanded = null,
     Object? isEventLiked = null,
+    Object? isOpenMapModal = null,
+    Object? mapsOptions = null,
+    Object? eventLocation = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -132,6 +141,18 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
           ? _value.isEventLiked
           : isEventLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      isOpenMapModal: null == isOpenMapModal
+          ? _value.isOpenMapModal
+          : isOpenMapModal // ignore: cast_nullable_to_non_nullable
+              as bool,
+      mapsOptions: null == mapsOptions
+          ? _value.mapsOptions
+          : mapsOptions // ignore: cast_nullable_to_non_nullable
+              as List<AvailableMap>,
+      eventLocation: freezed == eventLocation
+          ? _value.eventLocation
+          : eventLocation // ignore: cast_nullable_to_non_nullable
+              as Coords?,
     ) as $Val);
   }
 
@@ -168,7 +189,10 @@ abstract class _$$EventDetailsStateImplCopyWith<$Res>
       bool ambExpanded,
       bool fnbExpanded,
       bool faqExpanded,
-      bool isEventLiked});
+      bool isEventLiked,
+      bool isOpenMapModal,
+      List<AvailableMap> mapsOptions,
+      Coords? eventLocation});
 
   @override
   $EventDtoCopyWith<$Res>? get event;
@@ -197,6 +221,9 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
     Object? fnbExpanded = null,
     Object? faqExpanded = null,
     Object? isEventLiked = null,
+    Object? isOpenMapModal = null,
+    Object? mapsOptions = null,
+    Object? eventLocation = freezed,
   }) {
     return _then(_$EventDetailsStateImpl(
       isLoading: null == isLoading
@@ -247,6 +274,18 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
           ? _value.isEventLiked
           : isEventLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      isOpenMapModal: null == isOpenMapModal
+          ? _value.isOpenMapModal
+          : isOpenMapModal // ignore: cast_nullable_to_non_nullable
+              as bool,
+      mapsOptions: null == mapsOptions
+          ? _value._mapsOptions
+          : mapsOptions // ignore: cast_nullable_to_non_nullable
+              as List<AvailableMap>,
+      eventLocation: freezed == eventLocation
+          ? _value.eventLocation
+          : eventLocation // ignore: cast_nullable_to_non_nullable
+              as Coords?,
     ));
   }
 }
@@ -266,7 +305,11 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       required this.ambExpanded,
       required this.fnbExpanded,
       required this.faqExpanded,
-      required this.isEventLiked});
+      required this.isEventLiked,
+      required this.isOpenMapModal,
+      required final List<AvailableMap> mapsOptions,
+      this.eventLocation})
+      : _mapsOptions = mapsOptions;
 
   @override
   final bool isLoading;
@@ -292,10 +335,22 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
   final bool faqExpanded;
   @override
   final bool isEventLiked;
+  @override
+  final bool isOpenMapModal;
+  final List<AvailableMap> _mapsOptions;
+  @override
+  List<AvailableMap> get mapsOptions {
+    if (_mapsOptions is EqualUnmodifiableListView) return _mapsOptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mapsOptions);
+  }
+
+  @override
+  final Coords? eventLocation;
 
   @override
   String toString() {
-    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, eventDistance: $eventDistance, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked)';
+    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, eventDistance: $eventDistance, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked, isOpenMapModal: $isOpenMapModal, mapsOptions: $mapsOptions, eventLocation: $eventLocation)';
   }
 
   @override
@@ -325,7 +380,13 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
             (identical(other.faqExpanded, faqExpanded) ||
                 other.faqExpanded == faqExpanded) &&
             (identical(other.isEventLiked, isEventLiked) ||
-                other.isEventLiked == isEventLiked));
+                other.isEventLiked == isEventLiked) &&
+            (identical(other.isOpenMapModal, isOpenMapModal) ||
+                other.isOpenMapModal == isOpenMapModal) &&
+            const DeepCollectionEquality()
+                .equals(other._mapsOptions, _mapsOptions) &&
+            (identical(other.eventLocation, eventLocation) ||
+                other.eventLocation == eventLocation));
   }
 
   @override
@@ -342,7 +403,10 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       ambExpanded,
       fnbExpanded,
       faqExpanded,
-      isEventLiked);
+      isEventLiked,
+      isOpenMapModal,
+      const DeepCollectionEquality().hash(_mapsOptions),
+      eventLocation);
 
   @JsonKey(ignore: true)
   @override
@@ -365,7 +429,10 @@ abstract class _EventDetailsState implements EventDetailsState {
       required final bool ambExpanded,
       required final bool fnbExpanded,
       required final bool faqExpanded,
-      required final bool isEventLiked}) = _$EventDetailsStateImpl;
+      required final bool isEventLiked,
+      required final bool isOpenMapModal,
+      required final List<AvailableMap> mapsOptions,
+      final Coords? eventLocation}) = _$EventDetailsStateImpl;
 
   @override
   bool get isLoading;
@@ -391,6 +458,12 @@ abstract class _EventDetailsState implements EventDetailsState {
   bool get faqExpanded;
   @override
   bool get isEventLiked;
+  @override
+  bool get isOpenMapModal;
+  @override
+  List<AvailableMap> get mapsOptions;
+  @override
+  Coords? get eventLocation;
   @override
   @JsonKey(ignore: true)
   _$$EventDetailsStateImplCopyWith<_$EventDetailsStateImpl> get copyWith =>

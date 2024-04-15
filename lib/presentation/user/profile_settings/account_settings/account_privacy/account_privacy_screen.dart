@@ -53,8 +53,7 @@ class AccountPrivacyScreenConsumer extends StatelessWidget {
         
         if (state.isSuccess && !state.isFailure) {
           Provider.of<AppStateNotifier>(context, listen: false)
-              .updateAfterAuthChange(
-            isAuthorized: true,
+              .updateUser(
             user: state.user,
           );
         }

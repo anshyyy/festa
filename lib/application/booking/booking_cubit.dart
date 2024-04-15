@@ -34,8 +34,6 @@ class BookingCubit extends Cubit<BookingState> {
       return e;
     }).toList();
 
-
-
     emit(
       state.copyWith(
         noUse: !state.noUse,

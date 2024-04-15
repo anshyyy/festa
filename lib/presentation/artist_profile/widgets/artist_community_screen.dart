@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/artist/artist_community/artist_community_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
-import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../main_nav/bottom_nav.dart';
 import '../../widgets/custom_appbar.dart';
-import '../../widgets/custom_textfield.dart';
 import 'artist_followers.dart';
 import 'artist_friends.dart';
 
@@ -49,11 +49,16 @@ class ArtistCommunityConsumer extends StatelessWidget {
     final textTheme = themeData.textTheme;
 
     return BlocConsumer<ArtistCommunityCubit, ArtistCommunityState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          bottomNavigationBar: CustomBottomNav(
+              onTabChange: (v) {},
+              isTabScreen: false,
+              currentIndex:
+                  Provider.of<AppStateNotifier>(context, listen: false)
+                          .menuIndex ??
+                      0),
           appBar: CustomAppBar(
               title: state.artistName,
               scaffoldBackgroundColor: colorScheme.surface,
@@ -99,31 +104,12 @@ class ArtistCommunityConsumer extends StatelessWidget {
                     SizedBox(
                       height: 2.w,
                     ),
-                    CustomTextField(
-                      isFill: true,
-                      fillColor:
-                          themeData.scaffoldBackgroundColor.withOpacity(.4),
-                      hintText: AppConstants.search,
-                      hintTextStyle: textTheme.bodySmall!.copyWith(
-                          fontSize: 1.sp, color: colorScheme.background),
-                      textStyle: textTheme.bodySmall!.copyWith(
-                          fontSize: 15.sp, color: colorScheme.background),
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: 3.w, vertical: 2.5.w),
-                    ),
-                    Expanded(
+                    
+                    const Expanded(
                         child: TabBarView(
                       children: [
-                        state.isFollowersFetching
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : const ArtistFollowers(),
-                        state.isFriendsFetching
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : const ArtistFriends(),
+                        ArtistFollowers(),
+                         ArtistFriends(),
                       ],
                     ))
                   ],
@@ -136,4 +122,3 @@ class ArtistCommunityConsumer extends StatelessWidget {
     );
   }
 }
-

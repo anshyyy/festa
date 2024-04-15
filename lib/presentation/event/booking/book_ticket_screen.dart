@@ -112,14 +112,12 @@ class BottomBookingBar extends StatelessWidget {
       this.onClick,
       required this.startDate,
       required this.priceRangeStart,
-       this.priceRangeEnd});
+      this.priceRangeEnd});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BookingCubit, BookingState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Container(
           height: 11.5.h,
@@ -144,50 +142,59 @@ class BottomBookingBar extends StatelessWidget {
                             color: Theme.of(context).colorScheme.background,
                             fontSize: 16.5.sp)),
                     SizedBox(
-                      height: 1.h,
+                      height: state.isBookingEnabled ? 1.h : 0,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                            // '${event.priceRangeStart.toIndianRupeeString()} ',
-                            state.totalPrice==0 ? 'Free': state.totalPrice.toIndianRupeeString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontSize: 16.sp)),
-                        SizedBox(
-                          width: 1.w,
-                        ),
-                        Text(priceRangeEnd?.toIndianRupeeString() ?? '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    decorationThickness: .5.w,
-                                    decorationColor:
-                                        Theme.of(context).colorScheme.surface,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.5.sp)),
-                      ],
-                    ),
+                    state.isBookingEnabled
+                        ? Row(
+                            children: [
+                              Text(
+                                  state.totalPrice == 0
+                                      ? 'Free'
+                                      : state.totalPrice.toIndianRupeeString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                          fontSize: 16.sp)),
+                              SizedBox(
+                                width: 1.w,
+                              ),
+                              Text(priceRangeEnd?.toIndianRupeeString() ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          decorationThickness: .5.w,
+                                          decorationColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14.5.sp)),
+                            ],
+                          )
+                        : const SizedBox(),
                   ],
                 ),
               ),
               Expanded(
                   flex: 4,
                   child: GradientButton(
-
                     text: EventDetailsScreenConstants.bookTheTickets,
                     onTap: onClick,
                     isEnabled: state.isBookingEnabled,
                     textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: state.isBookingEnabled ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.background.withOpacity(.5),
+                          color: state.isBookingEnabled
+                              ? Theme.of(context).colorScheme.background
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .background
+                                  .withOpacity(.5),
                           fontWeight: FontWeight.w600,
                         ),
                   ))

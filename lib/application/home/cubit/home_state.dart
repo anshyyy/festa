@@ -29,6 +29,7 @@ class HomeState with _$HomeState {
     required bool isSearchOpen,
     required bool isSearchChanged,
     required bool isLocationSearchChanged,
+    required bool showPermissionDialog,
     required bool noFilteredEvents,
     required bool noLocatedEvents,
     required LocationRepository locationRepository,
@@ -45,6 +46,7 @@ class HomeState with _$HomeState {
           required String mapsApiKey}) =>
       HomeState(
         page: 1,
+        showPermissionDialog: false,
         homeKey: GlobalKey(),
         noUse: false,
         hasMoreEvents: true,

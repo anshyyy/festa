@@ -22,7 +22,8 @@ mixin _$ArtistCommunityState {
   bool get isSuccessful => throw _privateConstructorUsedError;
   int get artistId => throw _privateConstructorUsedError;
   String get artistName => throw _privateConstructorUsedError;
-  int get page => throw _privateConstructorUsedError;
+  int get followersPage => throw _privateConstructorUsedError;
+  int get friendsPage => throw _privateConstructorUsedError;
   ArtistRepository get artistRepository => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
   CommunityDto? get artistFollowers => throw _privateConstructorUsedError;
@@ -33,6 +34,10 @@ mixin _$ArtistCommunityState {
       throw _privateConstructorUsedError;
   bool get hasMoreFollowers => throw _privateConstructorUsedError;
   bool get hasMoreFriends => throw _privateConstructorUsedError;
+  TextEditingController get followersSearchController =>
+      throw _privateConstructorUsedError;
+  TextEditingController get friendsSearchController =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArtistCommunityStateCopyWith<ArtistCommunityState> get copyWith =>
@@ -52,7 +57,8 @@ abstract class $ArtistCommunityStateCopyWith<$Res> {
       bool isSuccessful,
       int artistId,
       String artistName,
-      int page,
+      int followersPage,
+      int friendsPage,
       ArtistRepository artistRepository,
       UserRepository userRepository,
       CommunityDto? artistFollowers,
@@ -60,7 +66,9 @@ abstract class $ArtistCommunityStateCopyWith<$Res> {
       ScrollController followersScrollController,
       ScrollController friendsScrollController,
       bool hasMoreFollowers,
-      bool hasMoreFriends});
+      bool hasMoreFriends,
+      TextEditingController followersSearchController,
+      TextEditingController friendsSearchController});
 
   $CommunityDtoCopyWith<$Res>? get artistFollowers;
   $CommunityDtoCopyWith<$Res>? get artistFriends;
@@ -86,7 +94,8 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
     Object? isSuccessful = null,
     Object? artistId = null,
     Object? artistName = null,
-    Object? page = null,
+    Object? followersPage = null,
+    Object? friendsPage = null,
     Object? artistRepository = null,
     Object? userRepository = null,
     Object? artistFollowers = freezed,
@@ -95,6 +104,8 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
     Object? friendsScrollController = null,
     Object? hasMoreFollowers = null,
     Object? hasMoreFriends = null,
+    Object? followersSearchController = null,
+    Object? friendsSearchController = null,
   }) {
     return _then(_value.copyWith(
       isFollowersFetching: null == isFollowersFetching
@@ -121,9 +132,13 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
               as String,
-      page: null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
+      followersPage: null == followersPage
+          ? _value.followersPage
+          : followersPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      friendsPage: null == friendsPage
+          ? _value.friendsPage
+          : friendsPage // ignore: cast_nullable_to_non_nullable
               as int,
       artistRepository: null == artistRepository
           ? _value.artistRepository
@@ -157,6 +172,14 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
           ? _value.hasMoreFriends
           : hasMoreFriends // ignore: cast_nullable_to_non_nullable
               as bool,
+      followersSearchController: null == followersSearchController
+          ? _value.followersSearchController
+          : followersSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      friendsSearchController: null == friendsSearchController
+          ? _value.friendsSearchController
+          : friendsSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
     ) as $Val);
   }
 
@@ -200,7 +223,8 @@ abstract class _$$ArtistCommunityStateImplCopyWith<$Res>
       bool isSuccessful,
       int artistId,
       String artistName,
-      int page,
+      int followersPage,
+      int friendsPage,
       ArtistRepository artistRepository,
       UserRepository userRepository,
       CommunityDto? artistFollowers,
@@ -208,7 +232,9 @@ abstract class _$$ArtistCommunityStateImplCopyWith<$Res>
       ScrollController followersScrollController,
       ScrollController friendsScrollController,
       bool hasMoreFollowers,
-      bool hasMoreFriends});
+      bool hasMoreFriends,
+      TextEditingController followersSearchController,
+      TextEditingController friendsSearchController});
 
   @override
   $CommunityDtoCopyWith<$Res>? get artistFollowers;
@@ -233,7 +259,8 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
     Object? isSuccessful = null,
     Object? artistId = null,
     Object? artistName = null,
-    Object? page = null,
+    Object? followersPage = null,
+    Object? friendsPage = null,
     Object? artistRepository = null,
     Object? userRepository = null,
     Object? artistFollowers = freezed,
@@ -242,6 +269,8 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
     Object? friendsScrollController = null,
     Object? hasMoreFollowers = null,
     Object? hasMoreFriends = null,
+    Object? followersSearchController = null,
+    Object? friendsSearchController = null,
   }) {
     return _then(_$ArtistCommunityStateImpl(
       isFollowersFetching: null == isFollowersFetching
@@ -268,9 +297,13 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
               as String,
-      page: null == page
-          ? _value.page
-          : page // ignore: cast_nullable_to_non_nullable
+      followersPage: null == followersPage
+          ? _value.followersPage
+          : followersPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      friendsPage: null == friendsPage
+          ? _value.friendsPage
+          : friendsPage // ignore: cast_nullable_to_non_nullable
               as int,
       artistRepository: null == artistRepository
           ? _value.artistRepository
@@ -304,6 +337,14 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
           ? _value.hasMoreFriends
           : hasMoreFriends // ignore: cast_nullable_to_non_nullable
               as bool,
+      followersSearchController: null == followersSearchController
+          ? _value.followersSearchController
+          : followersSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      friendsSearchController: null == friendsSearchController
+          ? _value.friendsSearchController
+          : friendsSearchController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
     ));
   }
 }
@@ -318,7 +359,8 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       required this.isSuccessful,
       required this.artistId,
       required this.artistName,
-      required this.page,
+      required this.followersPage,
+      required this.friendsPage,
       required this.artistRepository,
       required this.userRepository,
       this.artistFollowers,
@@ -326,7 +368,9 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       required this.followersScrollController,
       required this.friendsScrollController,
       required this.hasMoreFollowers,
-      required this.hasMoreFriends});
+      required this.hasMoreFriends,
+      required this.followersSearchController,
+      required this.friendsSearchController});
 
   @override
   final bool isFollowersFetching;
@@ -341,7 +385,9 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
   @override
   final String artistName;
   @override
-  final int page;
+  final int followersPage;
+  @override
+  final int friendsPage;
   @override
   final ArtistRepository artistRepository;
   @override
@@ -358,10 +404,14 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
   final bool hasMoreFollowers;
   @override
   final bool hasMoreFriends;
+  @override
+  final TextEditingController followersSearchController;
+  @override
+  final TextEditingController friendsSearchController;
 
   @override
   String toString() {
-    return 'ArtistCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, artistId: $artistId, artistName: $artistName, page: $page, artistRepository: $artistRepository, userRepository: $userRepository, artistFollowers: $artistFollowers, artistFriends: $artistFriends, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends)';
+    return 'ArtistCommunityState(isFollowersFetching: $isFollowersFetching, isFriendsFetching: $isFriendsFetching, isFailed: $isFailed, isSuccessful: $isSuccessful, artistId: $artistId, artistName: $artistName, followersPage: $followersPage, friendsPage: $friendsPage, artistRepository: $artistRepository, userRepository: $userRepository, artistFollowers: $artistFollowers, artistFriends: $artistFriends, followersScrollController: $followersScrollController, friendsScrollController: $friendsScrollController, hasMoreFollowers: $hasMoreFollowers, hasMoreFriends: $hasMoreFriends, followersSearchController: $followersSearchController, friendsSearchController: $friendsSearchController)';
   }
 
   @override
@@ -381,7 +431,10 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
                 other.artistId == artistId) &&
             (identical(other.artistName, artistName) ||
                 other.artistName == artistName) &&
-            (identical(other.page, page) || other.page == page) &&
+            (identical(other.followersPage, followersPage) ||
+                other.followersPage == followersPage) &&
+            (identical(other.friendsPage, friendsPage) ||
+                other.friendsPage == friendsPage) &&
             (identical(other.artistRepository, artistRepository) ||
                 other.artistRepository == artistRepository) &&
             (identical(other.userRepository, userRepository) ||
@@ -399,7 +452,13 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
             (identical(other.hasMoreFollowers, hasMoreFollowers) ||
                 other.hasMoreFollowers == hasMoreFollowers) &&
             (identical(other.hasMoreFriends, hasMoreFriends) ||
-                other.hasMoreFriends == hasMoreFriends));
+                other.hasMoreFriends == hasMoreFriends) &&
+            (identical(other.followersSearchController,
+                    followersSearchController) ||
+                other.followersSearchController == followersSearchController) &&
+            (identical(
+                    other.friendsSearchController, friendsSearchController) ||
+                other.friendsSearchController == friendsSearchController));
   }
 
   @override
@@ -411,7 +470,8 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       isSuccessful,
       artistId,
       artistName,
-      page,
+      followersPage,
+      friendsPage,
       artistRepository,
       userRepository,
       artistFollowers,
@@ -419,7 +479,9 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       followersScrollController,
       friendsScrollController,
       hasMoreFollowers,
-      hasMoreFriends);
+      hasMoreFriends,
+      followersSearchController,
+      friendsSearchController);
 
   @JsonKey(ignore: true)
   @override
@@ -432,21 +494,25 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
 
 abstract class _ArtistCommunityState implements ArtistCommunityState {
   const factory _ArtistCommunityState(
-      {required final bool isFollowersFetching,
-      required final bool isFriendsFetching,
-      required final bool isFailed,
-      required final bool isSuccessful,
-      required final int artistId,
-      required final String artistName,
-      required final int page,
-      required final ArtistRepository artistRepository,
-      required final UserRepository userRepository,
-      final CommunityDto? artistFollowers,
-      final CommunityDto? artistFriends,
-      required final ScrollController followersScrollController,
-      required final ScrollController friendsScrollController,
-      required final bool hasMoreFollowers,
-      required final bool hasMoreFriends}) = _$ArtistCommunityStateImpl;
+          {required final bool isFollowersFetching,
+          required final bool isFriendsFetching,
+          required final bool isFailed,
+          required final bool isSuccessful,
+          required final int artistId,
+          required final String artistName,
+          required final int followersPage,
+          required final int friendsPage,
+          required final ArtistRepository artistRepository,
+          required final UserRepository userRepository,
+          final CommunityDto? artistFollowers,
+          final CommunityDto? artistFriends,
+          required final ScrollController followersScrollController,
+          required final ScrollController friendsScrollController,
+          required final bool hasMoreFollowers,
+          required final bool hasMoreFriends,
+          required final TextEditingController followersSearchController,
+          required final TextEditingController friendsSearchController}) =
+      _$ArtistCommunityStateImpl;
 
   @override
   bool get isFollowersFetching;
@@ -461,7 +527,9 @@ abstract class _ArtistCommunityState implements ArtistCommunityState {
   @override
   String get artistName;
   @override
-  int get page;
+  int get followersPage;
+  @override
+  int get friendsPage;
   @override
   ArtistRepository get artistRepository;
   @override
@@ -478,6 +546,10 @@ abstract class _ArtistCommunityState implements ArtistCommunityState {
   bool get hasMoreFollowers;
   @override
   bool get hasMoreFriends;
+  @override
+  TextEditingController get followersSearchController;
+  @override
+  TextEditingController get friendsSearchController;
   @override
   @JsonKey(ignore: true)
   _$$ArtistCommunityStateImplCopyWith<_$ArtistCommunityStateImpl>

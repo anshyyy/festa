@@ -47,7 +47,7 @@ class MainApp extends StatelessWidget with WidgetsBindingObserver {
           children: [
             Expanded(
                 child: Scaffold(
-                    body: child!)),
+                              body: child!)),
             if (Provider.of<AppStateNotifier>(context).isOffline)
               Material(
                 color: Theme.of(context).colorScheme.error,
@@ -182,7 +182,7 @@ Future appInitializer(AppConfig appConfig) async {
   checkForAppUpdate(navKey);
 
   setupLocator(navKey, appStateNotifier);
-  Future.delayed(const Duration(seconds: 4)).then((value) {
+  Future.delayed(const Duration(seconds: 2)).then((value) {
     DynamicLinkUtil.initDynamicLinks(isAuthorized: isAuthorized);
 
     // initClearNotificationsState(navigationKey: navKey);

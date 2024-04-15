@@ -16,6 +16,7 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/custom_textfield.dart';
+import '../../widgets/user_social_list_shimmer.dart';
 
 class ClubFollowers extends StatelessWidget {
   const ClubFollowers({
@@ -54,9 +55,25 @@ class ClubFollowers extends StatelessWidget {
                   context.read<ClubCommunityCubit>().searchPubFollowers(page: 1);
                  });
               },
-              
+              suffixIcon: state.followersSearchController.text.isNotEmpty
+                  ? GestureDetector(
+                      onTap: () {
+                        context.read<ClubCommunityCubit>().clearSearch();
+                      },
+                      child: SvgPicture.asset(AssetConstants.closeIcon,
+                          height: 2.5.h,
+                          colorFilter: ColorFilter.mode(
+                              colorScheme.secondaryContainer, BlendMode.srcIn)),
+                    )
+                  : null,
+              prefixIcon: SvgPicture.asset(AssetConstants.searchIcon,
+                  height: 2.5.h,
+                  colorFilter: ColorFilter.mode(
+                      colorScheme.secondaryContainer, BlendMode.srcIn)),
             ),
-            state.pubFollowers.users.isNotEmpty
+            state.isFollowersFetching
+                ? const Expanded(child:  UserSocialShimmer())
+                : state.pubFollowers.users.isNotEmpty
                 ? Expanded(
                     child: ListView.builder(
                       // shrinkWrap: true,
@@ -204,14 +221,32 @@ class ClubFollowers extends StatelessWidget {
                       },
                     ),
                   )
-                : SizedBox(
-                    height: 40.h,
-                  ),
-            state.isFollowersFetching
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : const SizedBox(),
+                :  Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              AssetConstants.usernameIcon,
+                              height: 10.h,
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              'No Friends Yet',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
 
           ],
         );

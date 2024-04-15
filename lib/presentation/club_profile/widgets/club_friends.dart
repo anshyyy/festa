@@ -16,6 +16,7 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/custom_textfield.dart';
+import '../../widgets/user_social_list_shimmer.dart';
 
 class ClubFriends extends StatelessWidget {
   const ClubFriends({
@@ -54,7 +55,9 @@ class ClubFriends extends StatelessWidget {
                 });
               },
             ),
-            state.pubFriends.users.isNotEmpty
+            state.isFriendsFetching
+                ? const Expanded(child: UserSocialShimmer())
+                : state.pubFriends.users.isNotEmpty
                 ? Expanded(
                     child: ListView.builder(
                       controller: state.friendsScrollController,
@@ -202,14 +205,32 @@ class ClubFriends extends StatelessWidget {
                       },
                     ),
                   )
-                : SizedBox(
-                    height: 40.h,
-                  ),
-            state.isFriendsFetching
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : const SizedBox(),
+                : Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              AssetConstants.usernameIcon,
+                              height: 10.h,
+                            ),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              'No Friends Yet',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
           ],
         );
       },

@@ -529,7 +529,7 @@ class _EventCardState extends State<EventCard> {
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // if (widget.event.startDate.isNotEmpty)

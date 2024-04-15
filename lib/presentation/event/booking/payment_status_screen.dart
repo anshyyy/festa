@@ -164,18 +164,18 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            SvgPicture.asset(
-                                              state.isPaymentPending
-                                                  ? AssetConstants.alertIcon
-                                                  : state.isPaymentSuccess
-                                                      ? AssetConstants
-                                                          .circledTickFilledGreen
-                                                      : AssetConstants
-                                                          .circledCloseFilledRed,
-                                            ),
-                                            SizedBox(
-                                              width: 2.w,
-                                            ),
+                                            // SvgPicture.asset(
+                                            //   state.isPaymentPending
+                                            //       ? AssetConstants.alertIcon
+                                            //       : state.isPaymentSuccess
+                                            //           ? AssetConstants
+                                            //               .circledTickFilledGreen
+                                            //           : AssetConstants
+                                            //               .circledCloseFilledRed,
+                                            // ),
+                                            // SizedBox(
+                                            //   width: 2.w,
+                                            // ),
                                             Text(
                                               state.isPaymentPending
                                                   ? 'Pending'
@@ -258,32 +258,36 @@ class PaymentStatusConsumer extends StatelessWidget {
                                     SizedBox(
                                       height: 3.h,
                                     ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Note',
-                                          style: themeData.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15.5.sp,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        Text(
-                                          'You payment status is pending, please check again after few minutes',
-                                          style: themeData.textTheme.bodyMedium!
-                                              .copyWith(
-                                            color: colorScheme.background,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.5.sp,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    state.isPaymentPending
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Note',
+                                                style: themeData
+                                                    .textTheme.bodySmall!
+                                                    .copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15.5.sp,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 1.h,
+                                              ),
+                                              Text(
+                                                'You payment status is pending, please check again after few minutes',
+                                                style: themeData
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                  color: colorScheme.background,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 16.5.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : const SizedBox(),
                                     SizedBox(
                                       height: 3.h,
                                     ),

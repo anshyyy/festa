@@ -37,7 +37,7 @@ class BookingDescription extends StatelessWidget {
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    state.isShareEnabled ? GestureDetector(
+                    state.isShareEnabled && !ticketDetails.showTicketDetails ? GestureDetector(
                       onTap: (){
                         context.read<TicketCubit>().shareTicket();
                         

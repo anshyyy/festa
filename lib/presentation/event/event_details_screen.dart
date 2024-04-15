@@ -14,6 +14,7 @@ import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../common/event_card.dart';
+import '../core/open_maps_modal.dart';
 import '../widgets/custom_appbar.dart';
 import '../widgets/gradient_text.dart';
 import 'core/book_tickets.dart';
@@ -53,7 +54,20 @@ class EventDetailsScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EventDetailsCubit, EventDetailsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.isOpenMapModal) {
+          context
+              .read<EventDetailsCubit>()
+              .emitFromAnywhere(state: state.copyWith(isOpenMapModal: false));
+          showModalBottomSheet(
+              context: context,
+              builder: (context) => OpenMapsModal(
+                    title: state.event!.name,
+                    coords: state.eventLocation!,
+                    mapsOptions: state.mapsOptions,
+                  ));
+        }
+      },
       builder: (context, state) {
         final event = state.event;
         final List<GlobalKey> tileKeys = [
@@ -65,9 +79,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
         ];
         return state.isLoading
-            ? const EventDetailsShimmer()
+            ? const Scaffold(
+              body:  EventDetailsShimmer())
             : Scaffold(
-                backgroundColor: Theme.of(context).colorScheme.background.withOpacity(.02),
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
@@ -84,8 +98,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       ),
                 appBar: CustomAppBar(
                     title: event.name,
-                    scaffoldBackgroundColor:
-                        Theme.of(context).colorScheme.background.withOpacity(.02),
+                    scaffoldBackgroundColor: Theme.of(context)
+                        .colorScheme
+                        .background
+                        .withOpacity(.02),
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
@@ -114,6 +130,15 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: EventCard(
+                          loadData: () {
+                            if (state.event != null) {
+                              context
+                                  .read<EventDetailsCubit>()
+                                  .fetchEventDetails(
+                                      id: state.event!.id,
+                                      isUpdatedDetails: true);
+                            }
+                          },
                           distance: state.eventDistance,
                           event: event,
                           isLiked: state.isEventLiked,
@@ -124,7 +149,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                       GestureDetector(
                         onTap: () {
                           context.read<EventDetailsCubit>().viewOnMaps(

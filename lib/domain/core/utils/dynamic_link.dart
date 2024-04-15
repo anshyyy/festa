@@ -1,4 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../configs/injection.dart';
 import '../constants/string_constants.dart';
@@ -19,17 +21,15 @@ class DynamicLinkUtil {
     dynamicLinks.onLink.listen((event) {
       final url = event.link;
       handleDynamicLink(url: url, isAuthorized: isAuthorized);
-    }).onError((error) {
-    });
+    }).onError((error) {});
     onInitialLinkHandler(isAuthorized: isAuthorized);
   }
 
   static void onInitialLinkHandler({required bool isAuthorized}) {
-      dynamicLinks.getInitialLink().then((dynamicLinkData) {
-        if (dynamicLinkData == null) return;
-        handleDynamicLink(
-            url: dynamicLinkData.link, isAuthorized: isAuthorized);
-      });
+    dynamicLinks.getInitialLink().then((dynamicLinkData) {
+      if (dynamicLinkData == null) return;
+      handleDynamicLink(url: dynamicLinkData.link, isAuthorized: isAuthorized);
+    });
   }
 
   static void handleDynamicLink(
@@ -42,10 +42,15 @@ class DynamicLinkUtil {
         DynamicLinkStorageService.storeDynamicAppLink(
             category: category, id: id);
       } else {
+        // Fluttertoast.showToast(msg: 'Hello Dynamic Link $id',
+        // gravity: ToastGravity.TOP,
+        // textColor: Colors.black,
+        // backgroundColor: Colors.green,
+        // );
         String route = getDynamicRoute(category, id);
-        navigator<NavigationService>().navigateTo(route, queryParams: {
-          'id': id,
-        });
+          navigator<NavigationService>().navigateTo(route, queryParams: {
+            'id': id,
+          });
       }
     }
   }

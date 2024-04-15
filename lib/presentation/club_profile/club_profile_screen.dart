@@ -2,12 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/club_profile/club_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/configs/injection.dart';
+import '../../domain/core/constants/asset_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../main_nav/bottom_nav.dart';
 import 'widgets/club_profile.dart';
 import 'widgets/image_carousel.dart';
@@ -93,6 +97,17 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                               },
                             ),
                           ),
+                          Positioned(
+                              top: 7.h,
+                              left: 5.w,
+                              child: GestureDetector(
+                                  onTap: () {
+                                    navigator<NavigationService>().goBack();
+                                  },
+                                  child: Center(
+                                      child: SvgPicture.asset(
+                                    AssetConstants.arrowLeft,
+                                  ))))
                         ],
                       ),
                     ),

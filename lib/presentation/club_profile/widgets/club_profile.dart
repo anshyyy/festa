@@ -41,7 +41,18 @@ class ClubProfile extends StatelessWidget {
               ),
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.surface.withOpacity(.85),
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25)),
+                boxShadow: [
+                  BoxShadow(
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(.85),
+                    spreadRadius: 0,
+                    blurRadius: 5,
+                    offset: const Offset(0, -5), // changes position of shadow
+                  ),
+                ],
                 // border: Border.all(
                 //   color: Theme.of(context).colorScheme.secondaryContainer,
                 //   width: .1,
@@ -328,16 +339,18 @@ class ClubProfile extends StatelessWidget {
                               //   ),
                               //   child: Row(),
                               // )
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               Container(
                                 width: 60.w,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: colorScheme.background,
                                         width: .1.w),
-                                       borderRadius: BorderRadius.circular(10) 
-                                        ),
-                                        padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 3.w),
+                                    borderRadius: BorderRadius.circular(10)),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 1.h, horizontal: 3.w),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.min,
@@ -375,12 +388,17 @@ class ClubProfile extends StatelessWidget {
                                             height: .5.h,
                                           ),
                                           Text(
-                                            state.pub?.tag!=null ? '@${state.pub?.tag?.tag}' : '',
-                                            style: themeData.textTheme.bodySmall!
+                                            state.pub?.tag != null
+                                                ? '@${state.pub?.tag?.tag}'
+                                                : '',
+                                            style: themeData
+                                                .textTheme.bodySmall!
                                                 .copyWith(
-                                                    color: colorScheme.background
+                                                    color: colorScheme
+                                                        .background
                                                         .withOpacity(.7),
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ),
                                         ],
                                       ),
@@ -388,7 +406,9 @@ class ClubProfile extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 3.h,)
+                              SizedBox(
+                                height: 3.h,
+                              )
                             ],
                           ),
                         ),

@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,49 @@ class LocationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.showPermissionDialog) {
+          context.read<HomeCubit>().emitFromEveryWhere(
+              currentState: state.copyWith(showPermissionDialog: false));
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                'Location Permission Required',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w700),
+              ),
+              content: Text(
+                'Please grant location permission to use this feature.',
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    AppSettings.openAppSettings(type: AppSettingsType.location);
+
+                    Navigator.pop(context);
+
+                    // context.read<PermissionCubit>().requestStoragePermission();
+                  },
+                  child: Text(
+                    'OK',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Stack(
           children: [
@@ -176,7 +219,9 @@ class LocationDialog extends StatelessWidget {
                                     ),
                                     GestureDetector(
                                       onTap: () async {
-                                        context.read<HomeCubit>().onDetectMyLocation();
+                                        context
+                                            .read<HomeCubit>()
+                                            .onDetectMyLocation();
                                       },
                                       child: Text(
                                         'Detect my location',

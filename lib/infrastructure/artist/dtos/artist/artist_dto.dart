@@ -20,7 +20,7 @@ class ArtistProfileDto with _$ArtistProfileDto {
     @JsonKey(name: 'category', defaultValue: []) required List<ArtistCategoryDto> categories,
     @JsonKey(name: 'city', defaultValue: '') required String city,
     @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
-    @JsonKey(name: 'isFollowing', defaultValue: false) bool? isFollowing,
+    @JsonKey(name: 'isFollowing', defaultValue: false) required bool isFollowing,
     @JsonKey(name: 'extraDetails', defaultValue: null) ArtistExtraDetailsDto? extraDetailsDto,
   }) = _ArtistProfileDto;
 

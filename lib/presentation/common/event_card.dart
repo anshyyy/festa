@@ -23,11 +23,13 @@ class EventCard extends StatefulWidget {
   final bool isInListing;
   final String distance;
   final void Function()? onLike;
+  final Function()? loadData;
   const EventCard(
       {super.key,
       required this.event,
       this.distance = '',
       this.onLike,
+      this.loadData,
       this.isInListing = false,
       required this.isLiked});
 
@@ -39,7 +41,6 @@ class _EventCardState extends State<EventCard> {
   int index = 0;
 
   void init({required String url}) async {
-   
     setState(() {});
   }
 
@@ -122,43 +123,42 @@ class _EventCardState extends State<EventCard> {
                   itemCount: widget.event.assets.length +
                       (widget.event.coverImage.isNotEmpty ? 1 : 0),
                   itemBuilder: (context, imageIndex) {
-                    
-                    final index = imageIndex == 0 ? imageIndex : imageIndex -
-                        (widget.event.coverImage.isNotEmpty ? 1 : 0);
-
+                    final index = imageIndex == 0
+                        ? imageIndex
+                        : imageIndex -
+                            (widget.event.coverImage.isNotEmpty ? 1 : 0);
 
                     return Container(
-                            foregroundDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.black.withOpacity(.8),
-                                  Colors.transparent,
-                                  Colors.transparent,
-                                  Colors.black.withOpacity(.8)
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: const [0, 0.4, 0.6, 1],
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: CachedNetworkImageProvider(
-                                  imageIndex == 0 &&
-                                          widget.event.coverImage.isNotEmpty
-                                      ? CustomImageProvider.getImageUrl(
-                                          widget.event.coverImage,
-                                          ImageType.other)
-                                      : CustomImageProvider.getImageUrl(
-                                          widget.event.assets[index].url,
-                                          ImageType.other),
-                                ),
-                              ),
-                            ),
-                          );
+                      foregroundDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black.withOpacity(.8),
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.black.withOpacity(.8)
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: const [0, 0.4, 0.6, 1],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: CachedNetworkImageProvider(
+                            imageIndex == 0 &&
+                                    widget.event.coverImage.isNotEmpty
+                                ? CustomImageProvider.getImageUrl(
+                                    widget.event.coverImage, ImageType.other)
+                                : CustomImageProvider.getImageUrl(
+                                    widget.event.assets[index].url,
+                                    ImageType.other),
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   onPageChanged: (value) {
                     setState(() {
@@ -204,8 +204,20 @@ class _EventCardState extends State<EventCard> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: widget.event.artists
-                        .map((e) =>
-                            ShortProfileTile(artist: e, themeData: themeData))
+                        .map((e) => ShortProfileTile(
+                            onTap: () {
+                              navigator<NavigationService>().navigateTo(
+                                  UserRoutes.artistProfileScreenRoute,
+                                  queryParams: {
+                                    'id': e.id.toString()
+                                  }).then((value) {
+                                if (widget.loadData != null) {
+                                  widget.loadData!();
+                                }
+                              });
+                            },
+                            artist: e,
+                            themeData: themeData))
                         .toList(),
                   ),
                 ),

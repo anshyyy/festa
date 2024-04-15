@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -9,6 +10,9 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../application/artist/artist_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
+import '../../domain/core/configs/injection.dart';
+import '../../domain/core/constants/asset_constants.dart';
+import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../main_nav/bottom_nav.dart';
 import 'widgets/artist_profile.dart';
 import 'widgets/media_viewer_tabs.dart';
@@ -70,6 +74,17 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
+                      Positioned(
+                          top: 7.h,
+                          left: 5.w,
+                          child: GestureDetector(
+                              onTap: () {
+                                navigator<NavigationService>().goBack();
+                              },
+                              child: Center(
+                                  child: SvgPicture.asset(
+                                AssetConstants.arrowLeft,
+                              ))))
                     ],
                   ),
                 ),
@@ -156,7 +171,7 @@ class UserShimmer extends StatelessWidget {
                           shape: BoxShape.circle),
                     ),
                   ),
-                )
+                ),
               ],
             )
           ],

@@ -84,7 +84,7 @@ class ClubFriends extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           navigator<NavigationService>().navigateTo(
-                              UserRoutes.userProfileRoute,
+                              UserRoutes.otherUserProfileRoute,
                               queryParams: {
                                 'id': currentUser.id.toString(),
                               });

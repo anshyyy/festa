@@ -21,6 +21,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     // emit(state.copyWith(isLoading: false, user: user!));
   }
 
+  void initOtherUserProfile({required int userId}) async{
+     emit(state.copyWith(isLoading: true, userId: userId));
+    fetchUserDetails(id: userId);
+  }
+
   void fetchUserDetails({required int id}) async {
     final response = await state.userRepository.fetchUserDetails(userId: id);
     response.fold((l) {

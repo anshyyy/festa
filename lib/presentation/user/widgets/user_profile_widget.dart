@@ -59,8 +59,49 @@ class UserProfile extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        Text(
+                          state.user!.fullName,
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).colorScheme.background),
+                        ),
+                        Text(
+                            state.user?.tag != null
+                                ? '@${state.user!.tag!.tag}'
+                                : '',
+                            style: Theme.of(context).textTheme.bodySmall!),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                      
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: state.user!.description.isEmpty ? 0 : 1.h),
+                          child: Text(
+                            state.user!.description,
+                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .background
+                                      .withOpacity(.7),
+                                  fontSize: 14.5.sp,
+                                ),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Divider(
+                          thickness: .1.w,
+                          // color: Colors.white,
+                        ),
+                        GestureDetector(
+                          onTap: () {
                         navigator<NavigationService>().navigateTo(
                             UserRoutes.userCommunityScreenRoute,
                             queryParams: {
@@ -68,63 +109,26 @@ class UserProfile extends StatelessWidget {
                               'username':state.user!.fullName,
                             });
                       },
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          Text(
-                            state.user!.fullName,
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).colorScheme.background),
-                          ),
-                          Text(
-                              state.user?.tag != null
-                                  ? '@${state.user!.tag!.tag}'
-                                  : '',
-                              style: Theme.of(context).textTheme.bodySmall!),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                        
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: state.user!.description.isEmpty ? 0 : 1.h),
-                            child: Text(
-                              state.user!.description,
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background
-                                        .withOpacity(.7),
-                                    fontSize: 14.5.sp,
+                          child: Column(
+                            children: [
+                              MutualFollowers(
+                                    artistCommunityDto:
+                                        state.user?.extraDetailsDto?.followedBy,
                                   ),
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Divider(
-                            thickness: .1.w,
-                            // color: Colors.white,
-                          ),
-                          MutualFollowers(
-                                artistCommunityDto:
-                                    state.user?.extraDetailsDto?.followedBy,
+                              SizedBox(
+                                height: 1.h,
                               ),
-                          SizedBox(
-                            height: 1.h,
+                              SocialReach(
+                                  totalParties:
+                                      state.user?.extraDetailsDto?.totalParties,
+                                  totalFollowers:
+                                      state.user?.extraDetailsDto?.totalFollowers,
+                                  totalFriends:
+                                      state.user?.extraDetailsDto?.totalFriends),
+                            ],
                           ),
-                          SocialReach(
-                              totalParties:
-                                  state.user?.extraDetailsDto?.totalParties,
-                              totalFollowers:
-                                  state.user?.extraDetailsDto?.totalFollowers,
-                              totalFriends:
-                                  state.user?.extraDetailsDto?.totalFriends)
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ],
                 ),

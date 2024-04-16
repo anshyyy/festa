@@ -157,7 +157,7 @@ class ArtistMusicCollectionWidget extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        state.musicList[index].length
+                                        (state.musicList[index].length/1000).toString()
                                             .toString(),
                                         style: textTheme.bodySmall!.copyWith(
                                           fontSize: 12.sp,

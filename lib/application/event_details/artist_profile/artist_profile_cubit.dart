@@ -14,13 +14,18 @@ class ArtistProfileCubit extends Cubit<ArtistProfileState> {
   void followUnfollowArtist(
       {required int artistId, required bool isFollowing}) {
     state.artistRepository
-        .followUnfollowArtist(artistId: artistId, isFollowing: !isFollowing);
+        .followUnfollowArtist(artistId: artistId, isFollowing: isFollowing);
     final updated = state.artists.map((e) {
       if (e.id == artistId) {
-        return e.copyWith(isFollowing: !e.isFollowing!);
+        return e.copyWith(isFollowing: !e.isFollowing);
       }
       return e;
     }).toList();
     emit(state.copyWith(noUse: !state.noUse, artists: updated));
+  }
+
+
+  void emitFromAnywhere({required ArtistProfileState state}){
+    emit(state);
   }
 }

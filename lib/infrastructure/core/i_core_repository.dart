@@ -29,12 +29,12 @@ class ICoreRepository extends CoreRepository {
 
   @override
   Future<Either<PermissionStatus, File?>> selectImage() async {
-    final permission = await permissionStatus();
-    if (permission.isPermanentlyDenied || permission.isDenied) {
+    // final permission = await permissionStatus();
+    // if (permission.isPermanentlyDenied || permission.isDenied) {
 
-      return left(PermissionStatus.permanentlyDenied);
-    }
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    //   return left(PermissionStatus.permanentlyDenied);
+    // }
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery,requestFullMetadata: false);
 
     if (image == null) return right(null);
 

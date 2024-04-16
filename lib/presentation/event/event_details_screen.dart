@@ -110,10 +110,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
+                            isScrollControlled: true,
                             context: context,
                             builder: (context) => EventOptionsModalSheet(
-                              artists: event.artists,
-                              eventDetails: event,
+                              eventId: state.event!.id,
                             ),
                           );
                         },
@@ -150,7 +150,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 2.h,
+                        height: 3.h,
                       ),
                       GestureDetector(
                         onTap: () {

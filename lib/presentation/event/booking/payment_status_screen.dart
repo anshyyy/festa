@@ -164,18 +164,16 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            // SvgPicture.asset(
-                                            //   state.isPaymentPending
-                                            //       ? AssetConstants.alertIcon
-                                            //       : state.isPaymentSuccess
-                                            //           ? AssetConstants
-                                            //               .circledTickFilledGreen
-                                            //           : AssetConstants
-                                            //               .circledCloseFilledRed,
-                                            // ),
-                                            // SizedBox(
-                                            //   width: 2.w,
-                                            // ),
+                                            SvgPicture.asset(
+                                              state.isPaymentSuccess
+                                                      ? AssetConstants
+                                                          .circledTickFilledGreen
+                                                      : AssetConstants
+                                                          .circledCloseFilledRed,
+                                            ),
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
                                             Text(
                                               state.isPaymentPending
                                                   ? 'Pending'

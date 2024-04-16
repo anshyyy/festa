@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/core_repository.dart';
@@ -19,6 +18,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     emit(state.copyWith(isLoading: true));
     fetchUserDetails(id: state.userId);
     // emit(state.copyWith(isLoading: false, user: user!));
+  }
+
+  void initOtherUserProfile({required int userId}) async{
+     emit(state.copyWith(isLoading: true, userId: userId));
+    fetchUserDetails(id: userId);
   }
 
   void fetchUserDetails({required int id}) async {
@@ -46,9 +50,11 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     emit(state.copyWith(isLoading: true));
     final fileReponse = await state.coreRepository.selectImage();
     fileReponse.fold((l) {
-      if (l == PermissionStatus.permanentlyDenied) {
-        // showpopup
-      }
+      emit(
+        state.copyWith(
+          isLoading: false,
+        ),
+      );
     }, (r) async {
       if (r == null) return;
       final res = await state.coreRepository.uploadFile(file: r);

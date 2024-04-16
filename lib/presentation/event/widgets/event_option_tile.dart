@@ -17,8 +17,10 @@ class EventOptionsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      // behavior: HitTestBehavior.translucent,
+      splashColor: Colors.red,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 1.h),
         child: Row(

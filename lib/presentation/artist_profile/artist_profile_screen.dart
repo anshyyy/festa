@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -55,6 +56,11 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                               0),
                   body: Stack(
                     children: [
+                      Container(
+                        height: 60.h,
+                        width: 100.w,
+                        decoration:BoxDecoration(image: DecorationImage(image: CachedNetworkImageProvider(state.artistProfile!.coverImage,),fit: BoxFit.cover)),
+                      ),
                       SizedBox.expand(
                         child: DraggableScrollableSheet(
                           initialChildSize: .5,

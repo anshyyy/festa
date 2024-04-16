@@ -22,7 +22,6 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
       res.fold((l) => null, (r) {
         emit(state.copyWith(event: r));
       });
-
       return;
     } else {
       emit(state.copyWith(isLoading: true));

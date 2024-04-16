@@ -16,6 +16,7 @@ _$EventBookingDetailsDtoImpl _$$EventBookingDetailsDtoImplFromJson(
               .toList() ??
           [],
       eventDetails: EventDto.fromJson(json['event'] as Map<String, dynamic>),
+      paymentMethod: json['paymentMethod'],
       status: json['status'] as String? ?? '',
       bookingId: json['id'] as int? ?? 0,
       razorpayOrderId: json['razorpayOrderId'] as String?,
@@ -27,6 +28,7 @@ Map<String, dynamic> _$$EventBookingDetailsDtoImplToJson(
       'numberOfTickets': instance.numberOfTickets,
       'ticketDetails': instance.eventTicketDetails,
       'event': instance.eventDetails,
+      'paymentMethod': instance.paymentMethod,
       'status': instance.status,
       'id': instance.bookingId,
       'razorpayOrderId': instance.razorpayOrderId,

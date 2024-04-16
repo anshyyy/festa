@@ -73,48 +73,52 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
           );
 
           DynamicLinkStorageService.getStoredDynamicLink().then((value) {
-            Map<String, String> pathSegments = value ?? {};
+            try {
+              Map pathSegments = value ?? {};
 
-            final profileState = user.fullName.isNotEmpty &&
-                    user.dob.isNotEmpty &&
-                    user.gender.isNotEmpty &&
-                    user.tag != null
-                ? ProfileStateEnum.completed
-                : user.fullName.isNotEmpty &&
-                        user.dob.isNotEmpty &&
-                        user.gender.isNotEmpty
-                    ? ProfileStateEnum.gender
-                    : user.fullName.isNotEmpty && user.dob.isNotEmpty
-                        ? ProfileStateEnum.birthday
-                        : user.fullName.isNotEmpty
-                            ? ProfileStateEnum.basic
-                            : ProfileStateEnum.started;
+              final profileState = user.fullName.isNotEmpty &&
+                      user.dob.isNotEmpty &&
+                      user.gender.isNotEmpty &&
+                      user.tag != null
+                  ? ProfileStateEnum.completed
+                  : user.fullName.isNotEmpty &&
+                          user.dob.isNotEmpty &&
+                          user.gender.isNotEmpty
+                      ? ProfileStateEnum.gender
+                      : user.fullName.isNotEmpty && user.dob.isNotEmpty
+                          ? ProfileStateEnum.birthday
+                          : user.fullName.isNotEmpty
+                              ? ProfileStateEnum.basic
+                              : ProfileStateEnum.started;
 
-            final route = profileState == ProfileStateEnum.completed
-                ? value != null
-                    ? DynamicLinkUtil.getDynamicRoute(
-                        pathSegments['category']!, pathSegments['id']!)
-                    : UserRoutes.mainNavRoute
-                : profileState == ProfileStateEnum.gender
-                    ? AuthRoutes.usernameRoute
-                    : profileState == ProfileStateEnum.birthday
-                        ? AuthRoutes.genderRoute
-                        : profileState == ProfileStateEnum.basic
-                            ? AuthRoutes.birthdayRoute
-                            : AuthRoutes.basicInfoRoute;
+              final route = profileState == ProfileStateEnum.completed
+                  ? value != null
+                      ? DynamicLinkUtil.getDynamicRoute(
+                          pathSegments['category']!, pathSegments['id']!)
+                      : UserRoutes.mainNavRoute
+                  : profileState == ProfileStateEnum.gender
+                      ? AuthRoutes.usernameRoute
+                      : profileState == ProfileStateEnum.birthday
+                          ? AuthRoutes.genderRoute
+                          : profileState == ProfileStateEnum.basic
+                              ? AuthRoutes.birthdayRoute
+                              : AuthRoutes.basicInfoRoute;
 
-            Future.delayed(const Duration(milliseconds: 100))
-                .then((value) async {
-              navigator<NavigationService>()
-                  .navigateTo(route, isClearStack: true, queryParams: {
-                'id': pathSegments['id'] ?? '0',
+              Future.delayed(const Duration(milliseconds: 100))
+                  .then((value) async {
+                    
+                 navigator<NavigationService>()
+                    .navigateTo(route, isClearStack: true, queryParams: {
+                  'id': pathSegments['id'] ?? '0',
+                });
               });
-            });
-
-            context.read<VerifyOtpCubit>().emitFromAnywhere(
-                  state: state.copyWith(isOTPVerificationSuccessful: false),
-                );
+            } catch (e) {
+              print(e);
+            }
           });
+          context.read<VerifyOtpCubit>().emitFromAnywhere(
+                state: state.copyWith(isOTPVerificationSuccessful: false),
+              );
         }
 
         // verify otp -> result - failed

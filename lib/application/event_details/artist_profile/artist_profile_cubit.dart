@@ -23,4 +23,9 @@ class ArtistProfileCubit extends Cubit<ArtistProfileState> {
     }).toList();
     emit(state.copyWith(noUse: !state.noUse, artists: updated));
   }
+
+
+  void emitFromAnywhere({required ArtistProfileState state}){
+    emit(state);
+  }
 }

@@ -127,7 +127,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                         ),
                       )),
                   Positioned(
-                      bottom: 2.h,
+                      bottom: 5.h,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
                         width: 100.w,
@@ -234,7 +234,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                 ),
                                 SvgPicture.asset(AssetConstants.shareIcon),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ))

@@ -110,10 +110,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
+                            isScrollControlled: true,
                             context: context,
                             builder: (context) => EventOptionsModalSheet(
-                              artists: event.artists,
-                              eventDetails: event,
+                              eventId: state.event!.id,
                             ),
                           );
                         },

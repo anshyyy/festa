@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,6 +14,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'domain/auth/auth_repository.dart';
 import 'domain/core/configs/app_config.dart';
 import 'domain/core/configs/injection.dart';
+import 'domain/core/constants/string_constants.dart';
 import 'domain/core/services/app_update_service/app_update_service.dart';
 import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
@@ -174,12 +177,91 @@ Future appInitializer(AppConfig appConfig) async {
   checkForAppUpdate(navKey);
 
   setupLocator(navKey, appStateNotifier);
+
+  initMessagingService(navigationKey: navKey);
+
   Future.delayed(const Duration(seconds: 2)).then((value) {
     DynamicLinkUtil.initDynamicLinks(isAuthorized: isAuthorized);
-
-    // initClearNotificationsState(navigationKey: navKey);
   });
   return runApp(configuredApp);
+}
+
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {}
+
+Future initMessagingService({
+  required GlobalKey<NavigatorState> navigationKey,
+}) async {
+  bool isPermissionGranted = true;
+  FirebaseMessaging fcm = FirebaseMessaging.instance;
+  await fcm.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  FirebaseMessaging.instance.getInitialMessage().then((message) {
+    if (message != null) {
+      Future.delayed(const Duration(seconds: 2)).then(
+        (value) => {print(message)},
+      );
+    }
+  });
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  if (isPermissionGranted) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (Platform.isAndroid) {
+        AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: DateTime.now().microsecond,
+            channelKey: AppConstants.channelKey,
+            title: message.notification?.title,
+            body: message.notification?.body,
+            actionType: ActionType.Default,
+            payload: message.data
+                .map((key, value) => MapEntry(key, value.toString())),
+          ),
+        );
+      }
+
+      if (message.data.isEmpty) {
+        return;
+      }
+
+      if (message.data['is_fcm'] == null) {
+        return;
+      }
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print(message);
+      //
+    });
+  }
+  if (Platform.isAndroid) {
+    await AwesomeNotifications().initialize(
+      'resource://drawable/notification_icon',
+      [
+        NotificationChannel(
+            channelGroupKey: AppConstants.channelGroupKey,
+            channelKey: AppConstants.channelKey,
+            channelName: AppConstants.channelName,
+            channelDescription: AppConstants.channelDescription,
+            defaultColor: const Color(0xff232E78),
+            ledColor: Colors.white)
+      ],
+    );
+    AwesomeNotifications().setListeners(
+      onActionReceivedMethod: (ReceivedAction receivedAction) async {},
+    );
+  }
 }
 
 Future<Map<String, dynamic>> getRemoteConfigs() async {

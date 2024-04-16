@@ -21,9 +21,9 @@ class TicketBookingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 11.5.h,
+      height: 12.5.h,
       width: 100.w,
-      padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
+      padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
       color: Theme.of(context).colorScheme.background.withOpacity(.1),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

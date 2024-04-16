@@ -66,7 +66,7 @@ class PaymentStatusConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? const SizedBox()
+              ? const Scaffold(body:  SizedBox())
               : Scaffold(
                   body: SingleChildScrollView(
                     child: Column(
@@ -164,18 +164,16 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            // SvgPicture.asset(
-                                            //   state.isPaymentPending
-                                            //       ? AssetConstants.alertIcon
-                                            //       : state.isPaymentSuccess
-                                            //           ? AssetConstants
-                                            //               .circledTickFilledGreen
-                                            //           : AssetConstants
-                                            //               .circledCloseFilledRed,
-                                            // ),
-                                            // SizedBox(
-                                            //   width: 2.w,
-                                            // ),
+                                            SvgPicture.asset(
+                                              state.isPaymentSuccess
+                                                      ? AssetConstants
+                                                          .circledTickFilledGreen
+                                                      : AssetConstants
+                                                          .circledCloseFilledRed,
+                                            ),
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
                                             Text(
                                               state.isPaymentPending
                                                   ? 'Pending'

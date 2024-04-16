@@ -425,38 +425,41 @@ class HomeScreenConsumer extends StatelessWidget {
                                 }
                                 return state.isLoading
                                     ? const EventCardShimmer()
-                                    : GestureDetector(
-                                        onTap: () {
-                                          navigator<NavigationService>()
-                                              .navigateTo(
-                                                  UserRoutes.eventDetailsRoute,
-                                                  queryParams: {
-                                                'id': state.events[index].id
-                                                    .toString(),
-                                                'distance':
-                                                    '${state.events[index].distance > 1000 ? (state.events[index].distance / 1000).toStringAsFixed(1) : state.events[index].distance.toStringAsFixed(0)}km',
-                                              }).then((value) {});
-                                        },
-                                        onDoubleTap: () {
-                                          context
-                                              .read<HomeCubit>()
-                                              .onEventLiked(
-                                                  id: state.events[index].id);
-                                        },
-                                        child: EventCard(
-                                          isInListing: true,
-                                          event: state.events[index],
-                                          isLiked: state.events[index].isLiked,
-                                          onLike: () {
+                                    : Padding(
+                                      padding: EdgeInsets.only(bottom: 5.h),
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            navigator<NavigationService>()
+                                                .navigateTo(
+                                                    UserRoutes.eventDetailsRoute,
+                                                    queryParams: {
+                                                  'id': state.events[index].id
+                                                      .toString(),
+                                                  'distance':
+                                                      '${state.events[index].distance > 1000 ? (state.events[index].distance / 1000).toStringAsFixed(1) : state.events[index].distance.toStringAsFixed(0)}km',
+                                                }).then((value) {});
+                                          },
+                                          onDoubleTap: () {
                                             context
                                                 .read<HomeCubit>()
                                                 .onEventLiked(
-                                                    id: state.events[index].id,
-                                                    isLiked: !state
-                                                        .events[index].isLiked);
+                                                    id: state.events[index].id);
                                           },
+                                          child: EventCard(
+                                            isInListing: true,
+                                            event: state.events[index],
+                                            isLiked: state.events[index].isLiked,
+                                            onLike: () {
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .onEventLiked(
+                                                      id: state.events[index].id,
+                                                      isLiked: !state
+                                                          .events[index].isLiked);
+                                            },
+                                          ),
                                         ),
-                                      );
+                                    );
                               },
                             )
                           ]

@@ -39,7 +39,7 @@ class IArtistRepository extends ArtistRepository {
   @override
   void followUnfollowArtist(
       {required int artistId, required bool isFollowing}) async {
-    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
     final url = isFollowing
         ? '$serverUrl${ArtistApiConstants.UNFOLLOW_ARTIST}/$artistId'
         : '$serverUrl${ArtistApiConstants.FOLLOW_ARTIST}/$artistId';

@@ -28,6 +28,8 @@ mixin _$EventBookingDetailsDto {
       throw _privateConstructorUsedError;
   @JsonKey(name: 'event')
   EventDto get eventDetails => throw _privateConstructorUsedError;
+  @JsonKey(name: 'paymentMethod')
+  dynamic get paymentMethod => throw _privateConstructorUsedError;
   @JsonKey(name: 'status', defaultValue: '')
   String get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'id', defaultValue: 0)
@@ -52,6 +54,7 @@ abstract class $EventBookingDetailsDtoCopyWith<$Res> {
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') EventDto eventDetails,
+      @JsonKey(name: 'paymentMethod') dynamic paymentMethod,
       @JsonKey(name: 'status', defaultValue: '') String status,
       @JsonKey(name: 'id', defaultValue: 0) int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
@@ -77,6 +80,7 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
     Object? numberOfTickets = null,
     Object? eventTicketDetails = null,
     Object? eventDetails = null,
+    Object? paymentMethod = freezed,
     Object? status = null,
     Object? bookingId = null,
     Object? razorpayOrderId = freezed,
@@ -94,6 +98,10 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
           ? _value.eventDetails
           : eventDetails // ignore: cast_nullable_to_non_nullable
               as EventDto,
+      paymentMethod: freezed == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -132,6 +140,7 @@ abstract class _$$EventBookingDetailsDtoImplCopyWith<$Res>
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') EventDto eventDetails,
+      @JsonKey(name: 'paymentMethod') dynamic paymentMethod,
       @JsonKey(name: 'status', defaultValue: '') String status,
       @JsonKey(name: 'id', defaultValue: 0) int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
@@ -157,6 +166,7 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
     Object? numberOfTickets = null,
     Object? eventTicketDetails = null,
     Object? eventDetails = null,
+    Object? paymentMethod = freezed,
     Object? status = null,
     Object? bookingId = null,
     Object? razorpayOrderId = freezed,
@@ -174,6 +184,10 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
           ? _value.eventDetails
           : eventDetails // ignore: cast_nullable_to_non_nullable
               as EventDto,
+      paymentMethod: freezed == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -199,6 +213,7 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       required this.eventTicketDetails,
       @JsonKey(name: 'event') required this.eventDetails,
+      @JsonKey(name: 'paymentMethod') this.paymentMethod,
       @JsonKey(name: 'status', defaultValue: '') required this.status,
       @JsonKey(name: 'id', defaultValue: 0) required this.bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
@@ -217,6 +232,9 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
   @JsonKey(name: 'event')
   final EventDto eventDetails;
   @override
+  @JsonKey(name: 'paymentMethod')
+  final dynamic paymentMethod;
+  @override
   @JsonKey(name: 'status', defaultValue: '')
   final String status;
   @override
@@ -228,7 +246,7 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
 
   @override
   String toString() {
-    return 'EventBookingDetailsDto(numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, status: $status, bookingId: $bookingId, razorpayOrderId: $razorpayOrderId)';
+    return 'EventBookingDetailsDto(numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, status: $status, bookingId: $bookingId, razorpayOrderId: $razorpayOrderId)';
   }
 
   @override
@@ -242,6 +260,8 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
                 .equals(other.eventTicketDetails, eventTicketDetails) &&
             (identical(other.eventDetails, eventDetails) ||
                 other.eventDetails == eventDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.paymentMethod, paymentMethod) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.bookingId, bookingId) ||
                 other.bookingId == bookingId) &&
@@ -256,6 +276,7 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
       numberOfTickets,
       const DeepCollectionEquality().hash(eventTicketDetails),
       eventDetails,
+      const DeepCollectionEquality().hash(paymentMethod),
       status,
       bookingId,
       razorpayOrderId);
@@ -282,6 +303,7 @@ abstract class _EventBookingDetailsDto implements EventBookingDetailsDto {
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       required final List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') required final EventDto eventDetails,
+      @JsonKey(name: 'paymentMethod') final dynamic paymentMethod,
       @JsonKey(name: 'status', defaultValue: '') required final String status,
       @JsonKey(name: 'id', defaultValue: 0) required final int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
@@ -299,6 +321,9 @@ abstract class _EventBookingDetailsDto implements EventBookingDetailsDto {
   @override
   @JsonKey(name: 'event')
   EventDto get eventDetails;
+  @override
+  @JsonKey(name: 'paymentMethod')
+  dynamic get paymentMethod;
   @override
   @JsonKey(name: 'status', defaultValue: '')
   String get status;

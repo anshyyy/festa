@@ -15,6 +15,7 @@ class EventBookingDetailsDto with _$EventBookingDetailsDto {
     @JsonKey(name: 'ticketDetails', defaultValue: [])
     required List<EventTicketDetailDto> eventTicketDetails,
     @JsonKey(name: 'event') required EventDto eventDetails,
+    @JsonKey(name: 'paymentMethod') dynamic paymentMethod,
     @JsonKey(name: 'status', defaultValue: '') required String status,
     @JsonKey(name: 'id', defaultValue: 0)
     required int bookingId,

@@ -94,7 +94,7 @@ class IAuthRepository extends AuthRepository {
 
       UserDto userInfo = (await authentication())!;
       final String? fcmToken = await getFCMToken();
-
+      
       if (fcmToken != null) {
         final String? token = await user?.getIdToken();
         addOrRemoveFCMTokenToServer(
@@ -132,6 +132,8 @@ class IAuthRepository extends AuthRepository {
   Future<UserDto?> authentication() async {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      final String? fcmToken = await getFCMToken();
+      print(fcmToken);
       // ignore: avoid_print
       print(token);
       if (token == null) {

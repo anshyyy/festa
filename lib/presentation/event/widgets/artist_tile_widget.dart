@@ -25,9 +25,15 @@ class ArtistTile extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
+            navigator<NavigationService>().goBack();
             navigator<NavigationService>().navigateTo(
                 UserRoutes.artistProfileScreenRoute,
-                queryParams: {'id': artist.id.toString()});
+                queryParams: {'id': artist.id.toString()}).then((value) {
+                  context.read<ArtistProfileCubit>().emitFromAnywhere(state: state.copyWith(
+                     
+                  ));
+                  
+                });
           },
           child: Row(
             children: [
@@ -72,7 +78,7 @@ class ArtistTile extends StatelessWidget {
                   ],
                 ),
               ),
-              !artist.isFollowing!
+              !artist.isFollowing
                   ? GestureDetector(
                       onTap: () {
                         context.read<ArtistProfileCubit>().followUnfollowArtist(

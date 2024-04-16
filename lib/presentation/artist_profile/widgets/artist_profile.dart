@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,127 +42,139 @@ class ArtistProfile extends StatelessWidget {
                 clipBehavior: Clip.none,
                 alignment: Alignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 5.w,
-                      vertical: 3.h,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.secondaryContainer,
-                        width: .3,
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 3.h,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.w,
+                          vertical: 3.h,
                         ),
-                        Text(
-                          state.artistProfile?.fullName ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color:
-                                      Theme.of(context).colorScheme.background),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(.85),
+                          // border: Border.all(
+                          //   color: Theme.of(context).colorScheme.secondaryContainer,
+                          //   width: .3,
+                          // ),
                         ),
-                        Text('@${state.artistProfile?.tag?.tag ?? ''}',
-                            style: Theme.of(context).textTheme.bodySmall!),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        Text(
-                          state.artistProfile?.description ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.background),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children:
-                              state.artistProfile!.categories.map((current) {
-                            return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 1.w, vertical: 1.w),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: .1.w,
-                                      color: colorScheme.background
-                                          .withOpacity(.5)),
-                                  borderRadius: BorderRadius.circular(50.w)),
-                              child: Row(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 3.h,
+                            ),
+                            Text(
+                              state.artistProfile?.fullName ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background),
+                            ),
+                            Text('@${state.artistProfile?.tag?.tag ?? ''}',
+                                style: Theme.of(context).textTheme.bodySmall!),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              state.artistProfile?.description ?? '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background),
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: state.artistProfile!.categories
+                                  .map((current) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 1.w, vertical: 1.w),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: .1.w,
+                                          color: colorScheme.background
+                                              .withOpacity(.5)),
+                                      borderRadius:
+                                          BorderRadius.circular(50.w)),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundColor: colorScheme.background,
+                                        radius: 1.5.w,
+                                      ),
+                                      SizedBox(
+                                        width: 1.w,
+                                      ),
+                                      Text(
+                                        current.name,
+                                        style: textTheme.bodySmall!.copyWith(
+                                            color: colorScheme.background,
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w600),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                            Divider(
+                              thickness: .1.w,
+                              // color: Colors.white,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                navigator<NavigationService>().navigateTo(
+                                    UserRoutes.artistCommunityScreenRoute,
+                                    queryParams: {
+                                      'artistId': state.artistId.toString(),
+                                      'artistName':
+                                          state.artistProfile!.fullName,
+                                    });
+                              },
+                              child: Column(
                                 children: [
-                                  CircleAvatar(
-                                    backgroundColor: colorScheme.background,
-                                    radius: 1.5.w,
+                                  MutualFollowers(
+                                    artistCommunityDto: state.artistProfile!
+                                        .extraDetailsDto!.followedBy,
                                   ),
                                   SizedBox(
-                                    width: 1.w,
+                                    height: 1.h,
                                   ),
-                                  Text(
-                                    current.name,
-                                    style: textTheme.bodySmall!.copyWith(
-                                        color: colorScheme.background,
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w600),
-                                  )
+                                  SocialReach(
+                                    totalParties: state.artistProfile!
+                                        .extraDetailsDto!.totalParties,
+                                    totalFollowers: state.artistProfile!
+                                        .extraDetailsDto!.totalFollowers,
+                                    totalFriends: state.artistProfile!
+                                        .extraDetailsDto!.totalFriends,
+                                    totalFootFall: state.artistProfile!
+                                        .extraDetailsDto!.totalFootFall,
+                                  ),
                                 ],
                               ),
-                            );
-                          }).toList(),
+                            )
+                          ],
                         ),
-                        Divider(
-                          thickness: .1.w,
-                          // color: Colors.white,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            navigator<NavigationService>().navigateTo(
-                                UserRoutes.artistCommunityScreenRoute,
-                                queryParams: {
-                                  'artistId': state.artistId.toString(),
-                                  'artistName': state.artistProfile!.fullName,
-                                });
-                          },
-                          child: Column(
-                            children: [
-                              MutualFollowers(
-                                artistCommunityDto: state
-                                    .artistProfile!.extraDetailsDto!.followedBy,
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              SocialReach(
-                                totalParties: state.artistProfile!
-                                    .extraDetailsDto!.totalParties,
-                                totalFollowers: state.artistProfile!
-                                    .extraDetailsDto!.totalFollowers,
-                                totalFriends: state.artistProfile!
-                                    .extraDetailsDto!.totalFriends,
-                                totalFootFall: state.artistProfile!
-                                    .extraDetailsDto!.totalFootFall,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                   Positioned(

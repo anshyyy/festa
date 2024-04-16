@@ -72,7 +72,7 @@ class ArtistTile extends StatelessWidget {
                   ],
                 ),
               ),
-              !artist.isFollowing!
+              !artist.isFollowing
                   ? GestureDetector(
                       onTap: () {
                         context.read<ArtistProfileCubit>().followUnfollowArtist(

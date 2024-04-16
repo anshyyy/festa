@@ -29,7 +29,8 @@ class PaymentDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
-    final AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
+    final AppStateNotifier appStateNotifier =
+        Provider.of<AppStateNotifier>(context);
     return BlocProvider(
       create: (context) => PaymentDetailsCubit(
         PaymentDetailsState.initial(
@@ -53,17 +54,20 @@ class PaymentDetailsConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PaymentDetailsCubit, PaymentDetailsState>(
       listener: (context, state) {
-        if (state.isPaymentFailure || state.isPaymentSuccess || state.isPaymentPending) {
-          navigator<NavigationService>()
-              .navigateTo(UserRoutes.paymentStatusScreenRoute, queryParams: {
-            'eventId': state.event!.id.toString(),
-            'isPaymentSuccess': state.isPaymentSuccess.toString(),
-            'isPaymentPending': state.isPaymentPending.toString(),
-            'totalAmount':state.totalAmount.toString(),
-            'numberOfTickets':
-                state.eventBookingDetails.numberOfTickets.toString(),
-          },
-          isClearStack: true,
+        if (state.isPaymentFailure ||
+            state.isPaymentSuccess ||
+            state.isPaymentPending) {
+          navigator<NavigationService>().navigateTo(
+            UserRoutes.paymentStatusScreenRoute,
+            queryParams: {
+              'eventId': state.event!.id.toString(),
+              'isPaymentSuccess': state.isPaymentSuccess.toString(),
+              'isPaymentPending': state.isPaymentPending.toString(),
+              'totalAmount': state.totalAmount.toString(),
+              'numberOfTickets':
+                  state.eventBookingDetails.numberOfTickets.toString(),
+            },
+            isClearStack: true,
           );
         }
       },
@@ -71,7 +75,7 @@ class PaymentDetailsConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? const SizedBox()
+              ? const Scaffold(body: SizedBox())
               : Scaffold(
                   bottomNavigationBar: TicketBookingWidget(
                     startDate: state.event!.startDate,
@@ -238,9 +242,7 @@ class EventDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PaymentDetailsCubit, PaymentDetailsState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final event = state.event;
         return Container(
@@ -262,7 +264,8 @@ class EventDetails extends StatelessWidget {
                       width: 22.5.w,
                       child: CachedNetworkImage(
                           fit: BoxFit.cover,
-                          imageUrl: CustomImageProvider.getImageUrl(event?.coverImage, ImageType.other) ))),
+                          imageUrl: CustomImageProvider.getImageUrl(
+                              event?.coverImage, ImageType.other)))),
               SizedBox(
                 width: 4.w,
               ),
@@ -344,9 +347,7 @@ class PaymentDestributionDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PaymentDetailsCubit, PaymentDetailsState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final themeData = Theme.of(context);
         final colorScheme = themeData.colorScheme;
@@ -365,7 +366,7 @@ class PaymentDestributionDetails extends StatelessWidget {
                 children: [
                   ...state.eventBookingDetails.eventTicketDetails.map((e) {
                     return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           e.name,
@@ -377,11 +378,15 @@ class PaymentDestributionDetails extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-                        PriceUnit(title: 'Ticket Price', detail: e.price.toIndianRupeeString()),
+                        PriceUnit(
+                            title: 'Ticket Price',
+                            detail: e.price.toIndianRupeeString()),
                         SizedBox(
                           height: 1.h,
                         ),
-                        PriceUnit(title: 'Quantity', detail: e.noOfTickets.toString()),
+                        PriceUnit(
+                            title: 'Quantity',
+                            detail: e.noOfTickets.toString()),
                         SizedBox(
                           height: 2.h,
                         ),

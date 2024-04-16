@@ -57,7 +57,7 @@ class BookTicketScreenConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? const SizedBox()
+              ? const Scaffold(body: SizedBox())
               : Scaffold(
                   bottomNavigationBar: BottomBookingBar(
                     startDate: state.event!.startDate,
@@ -120,9 +120,9 @@ class BottomBookingBar extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          height: 11.5.h,
+          height: 12.5.h,
           width: 100.w,
-          padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.h),
+                padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
           color: Theme.of(context).colorScheme.surface,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

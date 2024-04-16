@@ -150,7 +150,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 3.h,
+                        height: 2.h,
                       ),
                       GestureDetector(
                         onTap: () {

@@ -66,7 +66,7 @@ class PaymentStatusConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? const SizedBox()
+              ? const Scaffold(body:  SizedBox())
               : Scaffold(
                   body: SingleChildScrollView(
                     child: Column(

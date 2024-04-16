@@ -41,30 +41,37 @@ class MediaViewerTabsConsumer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TabBar(
-              //  dividerHeight: 0,
-              // indicatorPadding: EdgeInsets.symmetric(vertical: 2.w),
-              labelColor: Theme.of(context).colorScheme.background,
-              labelStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(fontWeight: FontWeight.w600),
-              unselectedLabelColor: Theme.of(context).colorScheme.background,
-              unselectedLabelStyle:
-                  Theme.of(context).textTheme.bodySmall!.copyWith(),
-              tabs: const [
-                Tab(
-                  child: Text('Music'),
-                ),
-              ],
+            Container(
+              color: Theme.of(context).colorScheme.surface,
+              child: TabBar(
+                //  dividerHeight: 0,
+                // indicatorPadding: EdgeInsets.symmetric(vertical: 2.w),
+                labelColor: Theme.of(context).colorScheme.background,
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(fontWeight: FontWeight.w600),
+                unselectedLabelColor: Theme.of(context).colorScheme.background,
+                unselectedLabelStyle:
+                    Theme.of(context).textTheme.bodySmall!.copyWith(),
+                tabs: const [
+                  Tab(
+                    child: Text('Music'),
+                  ),
+                ],
+              ),
             ),
             Expanded(
-              child: TabBarView(children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0),
-                  child: const ArtistMusicCollectionWidget(),
-                ),
-              ]),
+              child: Container(
+              color: Theme.of(context).colorScheme.surface,
+
+                child: TabBarView(children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0),
+                    child: const ArtistMusicCollectionWidget(),
+                  ),
+                ]),
+              ),
             )
           ],
         ),

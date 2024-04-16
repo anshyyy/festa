@@ -26,6 +26,7 @@ import '../../../../../presentation/event/booking/payment_status_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/notifications/notification_screen.dart';
+import '../../../../../presentation/user/other_user_profile_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_privacy/account_privacy_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_settings_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
@@ -70,7 +71,11 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           UserCommunity(userId: int.parse(userId), username: username),
           settings);
 
-          
+    case UserRoutes.otherUserProfileRoute:
+      final userId = routingData.queryParameters['userId'] ?? '0';
+      return _getPageRoute(
+          OtherUserProfileScreen(userId: int.parse(userId)),
+          settings);
 
     case UserRoutes.profileAndSettingsRoute:
       return _getPageRoute(const ProfileAndSettingsScreen(), settings);

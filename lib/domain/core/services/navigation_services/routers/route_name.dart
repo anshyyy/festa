@@ -29,9 +29,9 @@ class UserRoutes {
   static const String clubCommunityScreenRoute= 'clubCommunity';
   static const String homeScreenRoute = 'homeScreen';
   static const String eventDetailsRoute = 'eventDetails';
-  static const String userProfileRoute = 'userProfile';
+  static const String otherUserProfileRoute = 'otherUserProfile';
   static const String userCommunityScreenRoute= 'userCommunity';
-
+  
   static const String profileAndSettingsRoute = 'profileAndSettings';
   static const String personalizeExperienceRoute = 'personalizeExperienceRoute';
   static const String editProfileRoute = 'editProfile';

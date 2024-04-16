@@ -53,6 +53,8 @@ dependencies:
   dots_indicator: 3.0.0
   app_settings: 5.1.1
 
+  awesome_notifications: 
+
   # Firebase Utils
   firebase_core: 2.25.0
   firebase_auth: 4.17.0

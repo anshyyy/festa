@@ -17,6 +17,12 @@ class AppConstants {
   static String newReleaseUpdate =
       'New update of Festa App available now. Want to update ?';
 
+  static String channelGroupKey = 'local_channel_group';
+  static String channelKey = 'local_fcm_channel';
+  static String channelName = 'Local FCM Channel for android';
+  static String channelDescription =
+      'This help us to trigger notification on android';
+
   static String seconds = 's';
   static String filterKey = 'filter';
   static String otherKey = 'other';
@@ -298,7 +304,8 @@ class PersonalizeExperienceScreenConstants {
       'You are free to change the personalisation anytime.';
   static String totallyUptoYouMessage =
       'This is totally up to you and whether you’re comfortable.';
-  static String genderSettingChange = 'This is totally up to you and whether you’re comfortable.';
+  static String genderSettingChange =
+      'This is totally up to you and whether you’re comfortable.';
 }
 
 class EditProfileScreenConstants {
@@ -439,7 +446,6 @@ class DeleteAccountScreenConstants {
     sendingMeTooManyNotifications,
     theAppIsNotWorking
   ];
-
 }
 
 class SetupLocationScreenConstants {

@@ -185,6 +185,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         child: ListTileTheme(
                           dense: true,
                           child: ExpansionTile(
+                            initiallyExpanded: true,
                             onExpansionChanged: (value) {
                               if (value) {
                                 Scrollable.ensureVisible(
@@ -238,6 +239,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          initiallyExpanded: true,
                           onExpansionChanged: (value) {
                             if (value) {
                               Scrollable.ensureVisible(
@@ -307,6 +309,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          initiallyExpanded: true,
                           onExpansionChanged: (value) {
                             if (value) {
                               Scrollable.ensureVisible(
@@ -369,6 +372,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          initiallyExpanded: true,
                           onExpansionChanged: (value) {
                             if (value) {
                               Scrollable.ensureVisible(
@@ -438,6 +442,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
+                          initiallyExpanded: true,
                           onExpansionChanged: (value) async {
                             if (value) {
                               Scrollable.ensureVisible(

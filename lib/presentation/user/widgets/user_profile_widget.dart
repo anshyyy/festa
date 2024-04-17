@@ -1,7 +1,6 @@
                                                                                              import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -10,7 +9,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../application/user/user_profile/user_profile_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
-import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
@@ -46,9 +44,7 @@ class UserProfile extends StatelessWidget {
                   horizontal: 5.w,
                   vertical: 3.h,
                 ),
-                margin: EdgeInsets.symmetric(
-                  horizontal: .5.w,
-                ),
+            
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(25),
@@ -209,10 +205,10 @@ class UserProfile extends StatelessWidget {
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
-                                  SizedBox(
-                                    width: 1.w,
-                                  ),
-                                  SvgPicture.asset(AssetConstants.arrowDown)
+                                  // SizedBox(
+                                  //   width: 1.w,
+                                  // ),
+                                  // SvgPicture.asset(AssetConstants.arrowDown)
                                 ],
                               ),
                             ),

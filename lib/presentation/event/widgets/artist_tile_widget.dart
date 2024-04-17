@@ -29,11 +29,10 @@ class ArtistTile extends StatelessWidget {
             navigator<NavigationService>().navigateTo(
                 UserRoutes.artistProfileScreenRoute,
                 queryParams: {'id': artist.id.toString()}).then((value) {
-                  context.read<ArtistProfileCubit>().emitFromAnywhere(state: state.copyWith(
-                     
-                  ));
-                  
-                });
+              context
+                  .read<ArtistProfileCubit>()
+                  .emitFromAnywhere(state: state.copyWith());
+            });
           },
           child: Row(
             children: [
@@ -90,8 +89,7 @@ class ArtistTile extends StatelessWidget {
                         height: 4.5.h,
                         width: 30.w,
                         decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
+                            color: Theme.of(context).colorScheme.primary,
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                             child: Text(
@@ -108,20 +106,27 @@ class ArtistTile extends StatelessWidget {
                     )
                   : GestureDetector(
                       onTap: () {
-                        context.read<ArtistProfileCubit>().followUnfollowArtist(
-                            artistId: artist.id, isFollowing: true);
+                        navigator<NavigationService>().goBack();
+                        navigator<NavigationService>().navigateTo(
+                            UserRoutes.artistProfileScreenRoute,
+                            queryParams: {
+                              'id': artist.id.toString()
+                            }).then((value) {
+                          context
+                              .read<ArtistProfileCubit>()
+                              .emitFromAnywhere(state: state.copyWith());
+                        });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 1.h),
+                        padding: EdgeInsets.symmetric(vertical: 1.h),
                         height: 4.5.h,
                         width: 30.w,
                         decoration: BoxDecoration(
                             color:
                                 Theme.of(context).colorScheme.primaryContainer,
-                            border: Border.all(
-                                width: .2.w,
-                                color: Theme.of(context).colorScheme.primary),
+                            // border: Border.all(
+                            //     width: .2.w,
+                            //     color: Theme.of(context).colorScheme.primary),
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                             child: Text(

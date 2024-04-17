@@ -140,16 +140,19 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
                           ],
                         ),
                 ),
+                SizedBox(
+                  height: 1.5.h,
+                ),
                 Text(
                   PersonalizeExperienceScreenConstants.changePersonlize,
                   style: textTheme.bodySmall!.copyWith(
                     color: colorScheme.background,
-                    fontSize: 14.sp,
+                    fontSize: 14.5.sp,
                   ),
                 ),
-                // SizedBox(
-                //   height: 8.h,
-                // ),
+                SizedBox(
+                  height: 1.5.h,
+                ),
               ],
             ),
           )),

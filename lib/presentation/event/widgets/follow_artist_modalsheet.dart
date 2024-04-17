@@ -85,7 +85,7 @@ class FollowArtistsModalSheetConsumer extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: state.artists.length,
                 itemBuilder: (context, index) => Padding(
-                  padding: EdgeInsets.only(bottom: 1.h),
+                  padding: EdgeInsets.only(bottom: 2.h),
                   child: ArtistTile(
                     artist: state.artists[index],
                   ),

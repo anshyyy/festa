@@ -7,6 +7,7 @@ class ArtistProfileState with _$ArtistProfileState {
     required bool isSuccess,
     required bool isFailure,
     required bool noUse,
+
     required ArtistRepository artistRepository,
     required List<ArtistProfileDto> artists,
   }) = _ArtistProfileState;
@@ -19,6 +20,7 @@ class ArtistProfileState with _$ArtistProfileState {
         isLoading: false,
         isFailure: false,
         isSuccess: false,
+
         artistRepository: IArtistRepository(serverUrl: serverUrl),
         artists: artists,
       );

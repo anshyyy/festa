@@ -16,6 +16,7 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
+import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
 import 'social_reach.dart';
 
@@ -44,7 +45,8 @@ class ClubProfile extends StatelessWidget {
                     vertical: 3.h,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface.withOpacity(.85),
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(.85),
                   ),
                   child: Column(
                     children: [
@@ -56,9 +58,13 @@ class ClubProfile extends StatelessWidget {
                         child: Text(
                           state.pub!.fullName,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.background),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      Theme.of(context).colorScheme.background),
                         ),
                       ),
                       Text('@${state.pub!.tag!.tag}',
@@ -84,8 +90,9 @@ class ClubProfile extends StatelessWidget {
                                     .textTheme
                                     .bodySmall!
                                     .copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.background,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
                                       fontSize: 15.sp,
                                     )),
                           ),
@@ -112,7 +119,8 @@ class ClubProfile extends StatelessWidget {
                             children: [
                               SvgPicture.asset(AssetConstants.durationIcon,
                                   colorFilter: ColorFilter.mode(
-                                      colorScheme.inversePrimary, BlendMode.srcIn)),
+                                      colorScheme.inversePrimary,
+                                      BlendMode.srcIn)),
                               SizedBox(
                                 width: 1.w,
                               ),
@@ -134,7 +142,8 @@ class ClubProfile extends StatelessWidget {
                             children: [
                               SvgPicture.asset(AssetConstants.startIcon,
                                   colorFilter: ColorFilter.mode(
-                                      colorScheme.surfaceTint, BlendMode.srcIn)),
+                                      colorScheme.surfaceTint,
+                                      BlendMode.srcIn)),
                               SizedBox(
                                 width: 1.w,
                               ),
@@ -174,8 +183,10 @@ class ClubProfile extends StatelessWidget {
                         child: SocialReach(
                           totalFollowers:
                               state.pub!.extraDetailsDto!.totalFollowers,
-                          totalFriends: state.pub!.extraDetailsDto!.totalFriends,
-                          totalParties: state.pub!.extraDetailsDto!.totalParties,
+                          totalFriends:
+                              state.pub!.extraDetailsDto!.totalFriends,
+                          totalParties:
+                              state.pub!.extraDetailsDto!.totalParties,
                         ),
                       )
                     ],
@@ -229,9 +240,21 @@ class ClubProfile extends StatelessWidget {
                     right: 4.5.w,
                     child: GestureDetector(
                       onTap: () {
-                        context
-                            .read<ClubProfileCubit>()
-                            .followUnfollowPub(pubId: state.pub!.id.toString());
+                        showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return AgreeToUnfollowModalSheet(
+                                name: state.pub!.fullName,
+                                textTheme: textTheme,
+                                colorScheme: colorScheme,
+                              );
+                            }).then((value) {
+                          if (value != null) {
+                            context.read<ClubProfileCubit>().followUnfollowPub(
+                                pubId: state.pub!.id.toString());
+                          }
+                        });
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -256,10 +279,10 @@ class ClubProfile extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
-                            SizedBox(
-                              width: 1.w,
-                            ),
-                            SvgPicture.asset(AssetConstants.arrowDown)
+                            // SizedBox(
+                            //   width: 1.w,
+                            // ),
+                            // SvgPicture.asset(AssetConstants.arrowDown)
                           ],
                         ),
                       ),
@@ -426,6 +449,105 @@ class ClubProfile extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class AgreeToUnfollowModalSheet extends StatelessWidget {
+  const AgreeToUnfollowModalSheet({
+    super.key,
+    required this.textTheme,
+    required this.colorScheme,
+    required this.name,
+  });
+
+  final TextTheme textTheme;
+  final ColorScheme colorScheme;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 5.w,
+          right: 5.w),
+      // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 1.h,
+          ),
+          Center(
+            child: Container(
+              width: 12.w,
+              height: .5.h,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondaryContainer,
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 3.5.h,
+          ),
+          Text(
+            'Are you sure you want to unfollow?',
+            style: textTheme.bodyMedium!.copyWith(
+              color: colorScheme.background,
+              fontWeight: FontWeight.w600,
+              fontSize: 18.sp,
+            ),
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Text(
+            'Unfollowing $name means that you won\'t see any of their posts, events, or updates in your feed. However, you can still visit their profile to view their posts.',
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color:
+                      Theme.of(context).colorScheme.background.withOpacity(0.7),
+                ),
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          CustomOutlinedButton(
+            text: 'Yes',
+            height: 6.h,
+            onTap: () {
+              navigator<NavigationService>().goBack(responseObject: true);
+            },
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          GradientButton(
+            text: 'Cancel',
+            onTap: () {
+              navigator<NavigationService>().goBack();
+            },
+            textStyle: textTheme.bodySmall!.copyWith(
+              fontSize: 15.5.sp,
+              color: colorScheme.background,
+              fontWeight: FontWeight.w600,
+            ),
+            height: 5.5.h,
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+        ],
+      ),
     );
   }
 }

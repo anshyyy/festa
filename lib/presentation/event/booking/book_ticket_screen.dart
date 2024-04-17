@@ -122,7 +122,7 @@ class BottomBookingBar extends StatelessWidget {
         return Container(
           height: 12.5.h,
           width: 100.w,
-                padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
+          padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
           color: Theme.of(context).colorScheme.surface,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -163,19 +163,19 @@ class BottomBookingBar extends StatelessWidget {
                               SizedBox(
                                 width: 1.w,
                               ),
-                              Text(priceRangeEnd?.toIndianRupeeString() ?? '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          decorationThickness: .5.w,
-                                          decorationColor: Theme.of(context)
-                                              .colorScheme
-                                              .surface,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14.5.sp)),
+                              // Text(priceRangeEnd?.toIndianRupeeString() ?? '',
+                              //     style: Theme.of(context)
+                              //         .textTheme
+                              //         .bodyMedium!
+                              //         .copyWith(
+                              //             decoration:
+                              //                 TextDecoration.lineThrough,
+                              //             decorationThickness: .5.w,
+                              //             decorationColor: Theme.of(context)
+                              //                 .colorScheme
+                              //                 .surface,
+                              //             fontWeight: FontWeight.w600,
+                              //             fontSize: 14.5.sp)),
                             ],
                           )
                         : const SizedBox(),
@@ -185,10 +185,11 @@ class BottomBookingBar extends StatelessWidget {
               Expanded(
                   flex: 4,
                   child: GradientButton(
-                    text: EventDetailsScreenConstants.bookTheTickets,
+                    text: EventDetailsScreenConstants.grabPasses,
                     onTap: onClick,
                     isEnabled: state.isBookingEnabled,
                     textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 16.sp,
                           color: state.isBookingEnabled
                               ? Theme.of(context).colorScheme.background
                               : Theme.of(context)

@@ -73,7 +73,6 @@ class MainNavigatorConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -86,7 +85,7 @@ class MainNavigatorConsumer extends StatelessWidget {
           child: Scaffold(
             bottomNavigationBar: CustomBottomNav(
               currentIndex: state.currentIndex,
-              onTabChange: (i) {
+              onTabChange: (i) async {
                 if (state.currentIndex == i) {
                   if (i == 0) {
                     // go to top
@@ -98,6 +97,10 @@ class MainNavigatorConsumer extends StatelessWidget {
                   Provider.of<AppStateNotifier>(context, listen: false)
                       .onMenuChange(index: i);
                 }
+
+                Future.delayed(const Duration(milliseconds: 400)).then((value) {
+                  FocusScope.of(context).unfocus();
+                });
               },
             ),
             body: AnimatedSwitcher(

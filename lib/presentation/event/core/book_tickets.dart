@@ -50,7 +50,9 @@ class TicketBookingWidget extends StatelessWidget {
                   children: [
                     Text(
                         // '${event.priceRangeStart.toIndianRupeeString()} ',
-                        priceRangeStart == 0 ?'Free' : priceRangeStart.toIndianRupeeString(),
+                        priceRangeStart == 0
+                            ? 'Free'
+                            : priceRangeStart.toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             height: 1,
@@ -59,12 +61,14 @@ class TicketBookingWidget extends StatelessWidget {
                     SizedBox(
                       width: 1.w,
                     ),
-                    Text(priceRangeEnd?.toIndianRupeeString() ?? '',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          decorationThickness: .5.w,
-                          height: 1,
-                          decorationColor: Theme.of(context).colorScheme.surface,
-                            fontWeight: FontWeight.w600, fontSize: 14.5.sp)),
+                    // Text(priceRangeEnd?.toIndianRupeeString() ?? '',
+                    //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    //         decorationThickness: .5.w,
+                    //         height: 1,
+                    //         decorationColor:
+                    //             Theme.of(context).colorScheme.surface,
+                    //         fontWeight: FontWeight.w600,
+                    //         fontSize: 14.5.sp)),
                   ],
                 ),
               ],
@@ -72,12 +76,11 @@ class TicketBookingWidget extends StatelessWidget {
           ),
           Expanded(
               flex: 4,
-              
               child: GradientButton(
-                
-                text: EventDetailsScreenConstants.bookTheTickets,
+                text: EventDetailsScreenConstants.grabPasses,
                 onTap: onClick,
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 16.sp,
                       color: Theme.of(context).colorScheme.background,
                       fontWeight: FontWeight.w600,
                     ),

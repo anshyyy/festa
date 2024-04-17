@@ -9,6 +9,8 @@ class ArtistState with _$ArtistState {
     required bool isFailed,
     required bool noUse,
     required int artistId,
+    required bool isAtTop,
+    required DraggableScrollableController dragController,
     ArtistProfileDto? artistProfile,
     required IArtistRepository artistRepository,
     required bool isFollowing,
@@ -25,6 +27,8 @@ class ArtistState with _$ArtistState {
         isFailed: false,
         isSuccessful: false,
         artistId: artistId,
+        dragController: DraggableScrollableController(),
+        isAtTop: false,
         artistRepository: IArtistRepository(serverUrl: serverUrl),
         isFollowing: false,
       );

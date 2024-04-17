@@ -205,7 +205,7 @@ class EventScreenConstants {
   static String event = 'event';
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
   static String viewOnMaps = 'View on maps';
-  static String bookTheTickets = 'Book the tickets';
+  static String grabPasses = 'Grab Passes';
   static String description = 'Description';
   static String descriptionText =
       'Hac amet amet nisl hendrerit metus vivamus a. Rhoncus nulla consequat est et. Dignissim fringilla in posuere lacus suspendisse diam diam pretium scelerisque. sdf . urwthfgn eugerh geurgh gerughr uerhg ergguo hreguhh.';
@@ -229,7 +229,7 @@ class EventScreenConstants {
 class EventDetailsScreenConstants {
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
   static String viewOnMaps = 'View on maps';
-  static String bookTheTickets = 'Book the tickets';
+  static String grabPasses = 'Grab Passes';
   static String description = 'Description';
   static String descriptionText =
       'Hac amet amet nisl hendrerit metus vivamus a. Rhoncus nulla consequat est et. Dignissim fringilla in posuere lacus suspendisse diam diam pretium scelerisque. sdf . urwthfgn eugerh geurgh gerughr uerhg ergguo hreguhh.';

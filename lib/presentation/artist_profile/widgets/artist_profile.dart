@@ -3,19 +3,18 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/artist/artist_cubit.dart';
 import '../../../domain/core/configs/injection.dart';
-import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
+import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
 import 'mutual_followers.dart';
 import 'social_reach.dart';
@@ -205,9 +204,22 @@ class ArtistProfile extends StatelessWidget {
                           right: 4.5.w,
                           child: GestureDetector(
                             onTap: () {
-                              context
-                                  .read<ArtistCubit>()
-                                  .followUnfollowArtist();
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (context) {
+                                    return AgreeToUnfollowModalSheet(
+                                      name: state.artistProfile!.fullName,
+                                      textTheme: textTheme,
+                                      colorScheme: colorScheme,
+                                    );
+                                  }).then((value) {
+                                if (value != null) {
+                                  context
+                                      .read<ArtistCubit>()
+                                      .followUnfollowArtist();
+                                }
+                              });
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -232,10 +244,10 @@ class ArtistProfile extends StatelessWidget {
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
-                                  SizedBox(
-                                    width: 1.w,
-                                  ),
-                                  SvgPicture.asset(AssetConstants.arrowDown)
+                                  // SizedBox(
+                                  //   width: 1.w,
+                                  // ),
+                                  // SvgPicture.asset(AssetConstants.arrowDown)
                                 ],
                               ),
                             ),
@@ -449,6 +461,107 @@ class ArtistProfile extends StatelessWidget {
                 ],
               );
       },
+    );
+  }
+}
+
+
+
+class AgreeToUnfollowModalSheet extends StatelessWidget {
+  const AgreeToUnfollowModalSheet({
+    super.key,
+    required this.textTheme,
+    required this.colorScheme,
+    required this.name,
+  });
+
+  final TextTheme textTheme;
+  final ColorScheme colorScheme;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          left: 5.w,
+          right: 5.w),
+      // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 1.h,
+          ),
+          Center(
+            child: Container(
+              width: 12.w,
+              height: .5.h,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondaryContainer,
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 3.5.h,
+          ),
+          Text(
+            'Are you sure you want to unfollow?',
+            style: textTheme.bodyMedium!.copyWith(
+              color: colorScheme.background,
+              fontWeight: FontWeight.w600,
+              fontSize: 18.sp,
+            ),
+          ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Text(
+            'Unfollowing $name means that you won\'t see any of their posts, events, or updates in your feed. However, you can still visit their profile to view their posts.',
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  color:
+                      Theme.of(context).colorScheme.background.withOpacity(0.7),
+                ),
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          CustomOutlinedButton(
+            text: 'Yes',
+            height: 6.h,
+            onTap: () {
+              navigator<NavigationService>().goBack(responseObject: true);
+            },
+          ),
+          SizedBox(
+            height: 2.h,
+          ),
+          GradientButton(
+            text: 'Cancel',
+            onTap: () {
+              navigator<NavigationService>().goBack();
+            },
+            textStyle: textTheme.bodySmall!.copyWith(
+              fontSize: 15.5.sp,
+              color: colorScheme.background,
+              fontWeight: FontWeight.w600,
+            ),
+            height: 5.5.h,
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/events_calendar/events_calendar_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
@@ -48,17 +47,14 @@ class EventsCalendarBuilderConsumer extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final currentMonth =
                       state.pubEventsClubbed!.eventMonths[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: .5.h),
-                    child: EventCalender(
-                        eventId: state.pubEventsClubbed!.events.isNotEmpty
-                            ? state.pubEventsClubbed!.events[0].id
-                            : null,
-                        startDate: DateTime.utc(
-                            DateTime.now().year, currentMonth + 1, 1),
-                        endDate: DateTime.utc(
-                            DateTime.now().year, currentMonth + 1 + index, 31)),
-                  );
+                  return EventCalender(
+                      eventId: state.pubEventsClubbed!.events.isNotEmpty
+                          ? state.pubEventsClubbed!.events[0].id
+                          : null,
+                      startDate: DateTime.utc(
+                          DateTime.now().year, currentMonth + 1, 1),
+                      endDate: DateTime.utc(
+                          DateTime.now().year, currentMonth + 1 + index, 31));
                 });
       },
     );

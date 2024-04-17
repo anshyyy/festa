@@ -472,8 +472,7 @@ class BottomBookingBar extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                        // '${event.priceRangeStart.toIndianRupeeString()} ',
-                        '1000',
+                        '${priceRangeStart.toIndianRupeeString()} ',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.background,
@@ -481,14 +480,14 @@ class BottomBookingBar extends StatelessWidget {
                     SizedBox(
                       width: 1.w,
                     ),
-                    Text(priceRangeEnd.toIndianRupeeString(),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            decorationThickness: .5.w,
-                            decorationColor:
-                                Theme.of(context).colorScheme.surface,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.5.sp)),
+                    // Text(priceRangeEnd.toIndianRupeeString(),
+                    //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    //         decoration: TextDecoration.lineThrough,
+                    //         decorationThickness: .5.w,
+                    //         decorationColor:
+                    //             Theme.of(context).colorScheme.surface,
+                    //         fontWeight: FontWeight.w600,
+                    //         fontSize: 14.5.sp)),
                   ],
                 ),
               ],
@@ -497,9 +496,10 @@ class BottomBookingBar extends StatelessWidget {
           Expanded(
               flex: 4,
               child: GradientButton(
-                text: EventDetailsScreenConstants.bookTheTickets,
+                text: EventDetailsScreenConstants.grabPasses,
                 onTap: onClick,
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 16.sp,
                       color: Theme.of(context).colorScheme.background,
                       fontWeight: FontWeight.w600,
                     ),

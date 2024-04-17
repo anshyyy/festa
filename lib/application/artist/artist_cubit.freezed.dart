@@ -21,6 +21,9 @@ mixin _$ArtistState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   int get artistId => throw _privateConstructorUsedError;
+  bool get isAtTop => throw _privateConstructorUsedError;
+  DraggableScrollableController get dragController =>
+      throw _privateConstructorUsedError;
   ArtistProfileDto? get artistProfile => throw _privateConstructorUsedError;
   IArtistRepository get artistRepository => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
@@ -42,6 +45,8 @@ abstract class $ArtistStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       int artistId,
+      bool isAtTop,
+      DraggableScrollableController dragController,
       ArtistProfileDto? artistProfile,
       IArtistRepository artistRepository,
       bool isFollowing});
@@ -67,6 +72,8 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
     Object? isFailed = null,
     Object? noUse = null,
     Object? artistId = null,
+    Object? isAtTop = null,
+    Object? dragController = null,
     Object? artistProfile = freezed,
     Object? artistRepository = null,
     Object? isFollowing = null,
@@ -92,6 +99,14 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as int,
+      isAtTop: null == isAtTop
+          ? _value.isAtTop
+          : isAtTop // ignore: cast_nullable_to_non_nullable
+              as bool,
+      dragController: null == dragController
+          ? _value.dragController
+          : dragController // ignore: cast_nullable_to_non_nullable
+              as DraggableScrollableController,
       artistProfile: freezed == artistProfile
           ? _value.artistProfile
           : artistProfile // ignore: cast_nullable_to_non_nullable
@@ -134,6 +149,8 @@ abstract class _$$ArtistStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       int artistId,
+      bool isAtTop,
+      DraggableScrollableController dragController,
       ArtistProfileDto? artistProfile,
       IArtistRepository artistRepository,
       bool isFollowing});
@@ -158,6 +175,8 @@ class __$$ArtistStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? noUse = null,
     Object? artistId = null,
+    Object? isAtTop = null,
+    Object? dragController = null,
     Object? artistProfile = freezed,
     Object? artistRepository = null,
     Object? isFollowing = null,
@@ -183,6 +202,14 @@ class __$$ArtistStateImplCopyWithImpl<$Res>
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as int,
+      isAtTop: null == isAtTop
+          ? _value.isAtTop
+          : isAtTop // ignore: cast_nullable_to_non_nullable
+              as bool,
+      dragController: null == dragController
+          ? _value.dragController
+          : dragController // ignore: cast_nullable_to_non_nullable
+              as DraggableScrollableController,
       artistProfile: freezed == artistProfile
           ? _value.artistProfile
           : artistProfile // ignore: cast_nullable_to_non_nullable
@@ -208,6 +235,8 @@ class _$ArtistStateImpl implements _ArtistState {
       required this.isFailed,
       required this.noUse,
       required this.artistId,
+      required this.isAtTop,
+      required this.dragController,
       this.artistProfile,
       required this.artistRepository,
       required this.isFollowing});
@@ -223,6 +252,10 @@ class _$ArtistStateImpl implements _ArtistState {
   @override
   final int artistId;
   @override
+  final bool isAtTop;
+  @override
+  final DraggableScrollableController dragController;
+  @override
   final ArtistProfileDto? artistProfile;
   @override
   final IArtistRepository artistRepository;
@@ -231,7 +264,7 @@ class _$ArtistStateImpl implements _ArtistState {
 
   @override
   String toString() {
-    return 'ArtistState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, artistId: $artistId, artistProfile: $artistProfile, artistRepository: $artistRepository, isFollowing: $isFollowing)';
+    return 'ArtistState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, artistId: $artistId, isAtTop: $isAtTop, dragController: $dragController, artistProfile: $artistProfile, artistRepository: $artistRepository, isFollowing: $isFollowing)';
   }
 
   @override
@@ -248,6 +281,9 @@ class _$ArtistStateImpl implements _ArtistState {
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
+            (identical(other.isAtTop, isAtTop) || other.isAtTop == isAtTop) &&
+            (identical(other.dragController, dragController) ||
+                other.dragController == dragController) &&
             (identical(other.artistProfile, artistProfile) ||
                 other.artistProfile == artistProfile) &&
             (identical(other.artistRepository, artistRepository) ||
@@ -257,8 +293,18 @@ class _$ArtistStateImpl implements _ArtistState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isSuccessful,
-      isFailed, noUse, artistId, artistProfile, artistRepository, isFollowing);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      isSuccessful,
+      isFailed,
+      noUse,
+      artistId,
+      isAtTop,
+      dragController,
+      artistProfile,
+      artistRepository,
+      isFollowing);
 
   @JsonKey(ignore: true)
   @override
@@ -274,6 +320,8 @@ abstract class _ArtistState implements ArtistState {
       required final bool isFailed,
       required final bool noUse,
       required final int artistId,
+      required final bool isAtTop,
+      required final DraggableScrollableController dragController,
       final ArtistProfileDto? artistProfile,
       required final IArtistRepository artistRepository,
       required final bool isFollowing}) = _$ArtistStateImpl;
@@ -288,6 +336,10 @@ abstract class _ArtistState implements ArtistState {
   bool get noUse;
   @override
   int get artistId;
+  @override
+  bool get isAtTop;
+  @override
+  DraggableScrollableController get dragController;
   @override
   ArtistProfileDto? get artistProfile;
   @override

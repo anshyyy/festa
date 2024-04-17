@@ -59,19 +59,38 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                       Container(
                         height: 60.h,
                         width: 100.w,
-                        decoration:BoxDecoration(image: DecorationImage(image: CachedNetworkImageProvider(state.artistProfile!.coverImage,),fit: BoxFit.cover)),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                  state.artistProfile!.coverImage,
+                                ),
+                                fit: BoxFit.cover)),
                       ),
                       SizedBox.expand(
                         child: DraggableScrollableSheet(
                           initialChildSize: .5,
                           minChildSize: .5,
+                          controller: state.dragController,
                           builder: (context, scrollController) {
                             return SingleChildScrollView(
                                 controller: scrollController,
                                 child: Container(
                                     margin: EdgeInsets.only(top: 5.h),
                                     child: Column(children: [
-                                      const ArtistProfile(),
+                                      AnimatedContainer(
+                                        curve: Curves.bounceInOut,
+                                        duration: const Duration(seconds: 4),
+                                        child: state.isAtTop
+                                            ? Container(
+                                                alignment: Alignment.center,
+                                                width: 100.w,
+                                                height: 0.h,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                              )
+                                            : const ArtistProfile(),
+                                      ),
                                       // MediaGrid(),
                                       MediaViewerTabs(
                                         artistId: state.artistId,
@@ -81,7 +100,7 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          top: 7.h,
+                          top: 6.5.h,
                           left: 5.w,
                           child: GestureDetector(
                               onTap: () {

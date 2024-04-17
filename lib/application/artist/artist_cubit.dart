@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../infrastructure/artist/dtos/artist/artist_dto.dart';
@@ -18,6 +19,10 @@ class ArtistCubit extends Cubit<ArtistState> {
       emit(state.copyWith(
           isLoading: false, isFailed: true, isSuccessful: false));
     }
+
+    state.dragController.addListener(() {
+      emit(state.copyWith(isAtTop: state.dragController.size >= 1));
+    });
   }
 
   void getArtistDetails() async {

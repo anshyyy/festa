@@ -11,6 +11,7 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../core/report_modal.dart';
 import 'event_option_tile.dart';
 import 'follow_artist_modalsheet.dart';
 
@@ -40,6 +41,9 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
+    final textTheme = themeData.textTheme;
     return BlocConsumer<EventOptionsCubit, EventOptionsState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -112,6 +116,17 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
                           title: EventDetailsScreenConstants.addToCalendar),
                       // EventOptionsTile(title: EventDetailsScreenConstants.shareEvent),
                       EventOptionsTile(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return ReportModalSheet(
+                                      textTheme: textTheme,
+                                      colorScheme: colorScheme,
+                                      themeData: themeData);
+                                }).then((value) {});
+                          },
                           prefixIcon: SvgPicture.asset(
                             AssetConstants.gradientReport,
                             height: 5.w,
@@ -123,7 +138,7 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
                     ],
                   )
                 : Column(
-                  mainAxisSize: MainAxisSize.max,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
                         width: 12.w,
@@ -141,14 +156,21 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
                           margin: EdgeInsets.only(bottom: 1.h),
                           child: Column(
                             children: [
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               const MenuShimmer(),
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               const MenuShimmer(),
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               const MenuShimmer(),
-                              SizedBox(height: 2.h,),
-
+                              SizedBox(
+                                height: 2.h,
+                              ),
                             ],
                           ),
                         ),
@@ -187,8 +209,7 @@ class MenuShimmer extends StatelessWidget {
           width: 70.w,
           height: 4.w,
           decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(1.w)),
+              color: Colors.grey, borderRadius: BorderRadius.circular(1.w)),
         ),
         SizedBox(
           height: 1.h,

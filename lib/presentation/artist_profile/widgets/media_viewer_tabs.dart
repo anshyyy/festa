@@ -35,7 +35,7 @@ class MediaViewerTabsConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80.h,
+      height: 83.h,
       child: DefaultTabController(
         length: 1,
         child: Column(

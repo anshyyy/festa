@@ -44,7 +44,9 @@ class ClubProfileScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+    
+      },
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: CustomBottomNav(

@@ -151,6 +151,8 @@ class AssetConstants {
   static const unmuteIcon = '${vectorsFolder}unmute-icon.svg';
 
   static const successHexagon = '${vectorsFolder}success-tick.svg';
+  static const incogIcon = '${vectorsFolder}incog.svg';
+
   
 // eventIconConstants
   static const Map<String, String> extras = {

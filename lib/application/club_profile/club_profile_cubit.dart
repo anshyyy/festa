@@ -11,14 +11,7 @@ part 'club_profile_cubit.freezed.dart';
 part 'club_profile_state.dart';
 
 class ClubProfileCubit extends Cubit<ClubProfileState> {
-  ClubProfileCubit(super.initialState) {
-    state.parentController.addListener(() {
-    });
-
-    state.scrollController.addListener(() {
-      emit(state.copyWith(isAtTop: state.scrollController.offset < 1));
-    });
-  }
+  ClubProfileCubit(super.initialState) {}
 
   final int limit = 10;
   bool isFetching = false;
@@ -52,9 +45,14 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
           assets: assets,
           isFollowing: r.extraDetailsDto!.isFollowing));
     });
+
+    state.dragController.addListener(() {
+      emit(state.copyWith(isAtTop: state.dragController.size >= 1));
+      print(state.dragController.pixels);
+    });
   }
 
-    void emitFromAnywhere({
+  void emitFromAnywhere({
     required ClubProfileState state,
   }) {
     emit(state);
@@ -72,5 +70,4 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     emit(state.copyWith(isLoading: true));
     emit(state.copyWith(isLoading: false, isFollowing: !state.isFollowing));
   }
-
-  }
+}

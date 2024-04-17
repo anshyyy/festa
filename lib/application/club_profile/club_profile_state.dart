@@ -18,6 +18,7 @@ class ClubProfileState with _$ClubProfileState {
     required PubRepository pubRepository,
     required List<String> images,
     required int page,
+    required DraggableScrollableController dragController,
     required List<AssetDto> assets,
     PubDto? pub,
     required bool isFollowing,
@@ -30,6 +31,7 @@ class ClubProfileState with _$ClubProfileState {
       ClubProfileState(
         key: GlobalKey(),
         viewPortHeight: 274,
+        dragController: DraggableScrollableController(),
         showHeader: false,
         currentImageIndex: 0,
         scrollController: ScrollController(),

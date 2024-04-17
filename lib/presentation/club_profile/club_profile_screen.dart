@@ -25,6 +25,7 @@ class ClubProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
 
+
     return BlocProvider(
       create: (context) => ClubProfileCubit(ClubProfileState.initial(
         clubId: clubId,
@@ -79,6 +80,7 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                             child: DraggableScrollableSheet(
                               initialChildSize: .47,
                               minChildSize: .47,
+                              controller: state.dragController,
                               builder: (context, scrollController) {
                                 this.scrollController = scrollController;
                                 return SingleChildScrollView(
@@ -86,10 +88,24 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                                   child: Container(
                                     color: Colors.transparent,
                                     margin: EdgeInsets.only(top: 5.h),
-                                    child: const Column(
+                                    child: Column(
                                       children: [
-                                        ClubProfile(),
-                                        MediaViewerTabs(),
+                                        AnimatedContainer(
+                                          curve: Curves.bounceInOut,
+                                          duration: const Duration(seconds: 4),
+                                          child: state.isAtTop
+                                              ? Container(
+                                                  alignment: Alignment.center,
+                                                  width: 100.w,
+                                                  height: 0.h,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
+                                                )
+                                              : const ClubProfile(),
+                                        ),
+                                         const MediaViewerTabs(
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -97,17 +113,17 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                               },
                             ),
                           ),
-                          Positioned(
-                              top: 7.h,
-                              left: 5.w,
-                              child: GestureDetector(
-                                  onTap: () {
-                                    navigator<NavigationService>().goBack();
-                                  },
-                                  child: Center(
-                                      child: SvgPicture.asset(
-                                    AssetConstants.arrowLeft,
-                                  ))))
+                            Positioned(
+                                top: 6.5.h,
+                                left: 5.w,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      navigator<NavigationService>().goBack();
+                                    },
+                                    child: Center(
+                                        child: SvgPicture.asset(
+                                      AssetConstants.arrowLeft,
+                                    ))))
                         ],
                       ),
                     ),

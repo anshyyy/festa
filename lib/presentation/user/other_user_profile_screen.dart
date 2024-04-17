@@ -26,17 +26,19 @@ import 'widgets/user_profile_widget.dart';
 class OtherUserProfileScreen extends StatelessWidget {
   final int userId;
   const OtherUserProfileScreen({
-    super.key, required this.userId,
+    super.key,
+    required this.userId,
   });
 
   @override
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
-    final AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
+    final AppStateNotifier appStateNotifier =
+        Provider.of<AppStateNotifier>(context);
     return BlocProvider(
-      create: (context) => UserProfileCubit(
-        UserProfileState.initial(serverUrl: appConfig.serverUrl, appStateNotifier: appStateNotifier)
-      )..initOtherUserProfile(userId: userId),
+      create: (context) => UserProfileCubit(UserProfileState.initial(
+          serverUrl: appConfig.serverUrl, appStateNotifier: appStateNotifier))
+        ..initOtherUserProfile(userId: userId),
       child: const OtherUserProfileScreenConsumer(),
     );
   }
@@ -58,139 +60,157 @@ class OtherUserProfileScreenConsumer extends StatelessWidget {
     return BlocConsumer<UserProfileCubit, UserProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ModalProgressHUD(
-          inAsyncCall: state.isLoading,
-          child: state.isLoading
-              ? const UserShimmer()
-              : Stack(
-                  children: [
-                    Container(
-                        height: 80.h,
-                        decoration: BoxDecoration(
-                            color:
-                                colorScheme.secondaryContainer.withOpacity(.3)),
-                        child: Stack(
-                          children: [
-                            state.coverImage != null &&
-                                    state.coverImage!.isNotEmpty
-                                ? SizedBox(
-                                    height: 100.h,
-                                    width: 100.w,
-                                    child: CachedNetworkImage(
-                                      imageUrl: CustomImageProvider.getImageUrl(
-                                          state.coverImage, ImageType.other),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : appStateNotifier.user!.id != state.userId
-                                    ? const SizedBox()
-                                    : Center(
-                                        child: CustomOutlinedButton(
-                                          onTap: () {
-                                            context
-                                                .read<UserProfileCubit>()
-                                                .onSelectCoverImage();
-                                          },
-                                          text: UserProfileScreenConstants
-                                              .uploadYourHighlight,
-                                          textStyle:
-                                              textTheme.bodySmall!.copyWith(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w700,
+        return Scaffold(
+          body: ModalProgressHUD(
+            inAsyncCall: state.isLoading,
+            child: state.isLoading
+                ? const UserShimmer()
+                : Stack(
+                    children: [
+                      Container(
+                          height: 80.h,
+                          decoration: BoxDecoration(
+                              color: colorScheme.secondaryContainer
+                                  .withOpacity(.3)),
+                          child: Stack(
+                            children: [
+                              state.coverImage != null &&
+                                      state.coverImage!.isNotEmpty
+                                  ? SizedBox(
+                                      height: 100.h,
+                                      width: 100.w,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            CustomImageProvider.getImageUrl(
+                                                state.coverImage,
+                                                ImageType.other),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : appStateNotifier.user!.id != state.userId
+                                      ? const SizedBox()
+                                      : Center(
+                                          child: CustomOutlinedButton(
+                                            onTap: () {
+                                              context
+                                                  .read<UserProfileCubit>()
+                                                  .onSelectCoverImage();
+                                            },
+                                            text: UserProfileScreenConstants
+                                                .uploadYourHighlight,
+                                            textStyle:
+                                                textTheme.bodySmall!.copyWith(
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: colorScheme.background,
+                                            ),
+                                            width: 35.w,
+                                            height: 4.h,
+                                          ),
+                                        ),
+                              SafeArea(
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 2.w),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      appStateNotifier.user!.id != state.userId
+                                          ? const SizedBox()
+                                          : GestureDetector(
+                                              onTap: () {
+                                                navigator<NavigationService>()
+                                                    .navigateTo(
+                                                  UserRoutes
+                                                      .profileAndSettingsRoute,
+                                                )
+                                                    .then((value) {
+                                                  context
+                                                      .read<UserProfileCubit>()
+                                                      .fetchUserDetails(
+                                                          id: state.userId);
+                                                });
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  SvgPicture.asset(
+                                                      AssetConstants
+                                                          .hamBurgerMenu),
+                                                ],
+                                              ),
+                                            ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
+                      const Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          UserProfile(),
+                        ],
+                      ),
+                      // state.qrExpandedView
+                      1 == 2
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Center(
+                                    child: Container(
+                                      height: 50.h,
+                                      width: 90.w,
+                                      decoration: BoxDecoration(
+                                          color: colorScheme.surface,
+                                          border: Border.all(
                                             color: colorScheme.background,
                                           ),
-                                          width: 35.w,
-                                          height: 4.h,
+                                          borderRadius:
+                                              BorderRadius.circular(5.w)),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w, vertical: 10.w),
+                                      child: Center(
+                                        child: QrImageView(
+                                          data: DynamicLinkUtil.generateLink(
+                                              AppConstants.user,
+                                              state.userId.toString()),
+                                          eyeStyle: QrEyeStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondaryContainer,
+                                              eyeShape: QrEyeShape.square),
+                                          dataModuleStyle: QrDataModuleStyle(
+                                              dataModuleShape:
+                                                  QrDataModuleShape.square,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondaryContainer),
                                         ),
-                                      ),
-                            SafeArea(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 2.w),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    appStateNotifier.user!.id != state.userId
-                                        ? const SizedBox()
-                                        : GestureDetector(
-                                            onTap: () {
-                                              navigator<NavigationService>()
-                                                  .navigateTo(
-                                                UserRoutes
-                                                    .profileAndSettingsRoute,
-                                              )
-                                                  .then((value) {
-                                                context
-                                                    .read<UserProfileCubit>()
-                                                    .fetchUserDetails(
-                                                        id: state.userId);
-                                              });
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                SvgPicture.asset(AssetConstants
-                                                    .hamBurgerMenu),
-                                              ],
-                                            ),
-                                          ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        )),
-                    const Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        UserProfile(),
-                      ],
-                    ),
-                    // state.qrExpandedView
-                    1 == 2
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Center(
-                                  child: Container(
-                                    height: 50.h,
-                                    width: 90.w,
-                                    decoration: BoxDecoration(
-                                        color: colorScheme.surface,
-                                        border: Border.all(
-                                          color: colorScheme.background,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.w)),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10.w, vertical: 10.w),
-                                    child: Center(
-                                      child: QrImageView(
-                                        data: DynamicLinkUtil.generateLink(
-                                            AppConstants.user,
-                                            state.userId.toString()),
-                                        eyeStyle: QrEyeStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondaryContainer,
-                                            eyeShape: QrEyeShape.square),
-                                        dataModuleStyle: QrDataModuleStyle(
-                                            dataModuleShape:
-                                                QrDataModuleShape.square,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondaryContainer),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                        : const SizedBox()
-                  ],
-                ),
+                              ],
+                            )
+                          : const SizedBox(),
+
+                      Positioned(
+                          top: 7.h,
+                          left: 5.w,
+                          child: GestureDetector(
+                              onTap: () {
+                                navigator<NavigationService>().goBack();
+                              },
+                              child: Center(
+                                  child: SvgPicture.asset(
+                                AssetConstants.arrowLeft,
+                              ))))
+                    ],
+                  ),
+          ),
         );
       },
     );

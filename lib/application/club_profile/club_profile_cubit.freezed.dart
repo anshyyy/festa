@@ -32,6 +32,8 @@ mixin _$ClubProfileState {
   PubRepository get pubRepository => throw _privateConstructorUsedError;
   List<String> get images => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
+  DraggableScrollableController get dragController =>
+      throw _privateConstructorUsedError;
   List<AssetDto> get assets => throw _privateConstructorUsedError;
   PubDto? get pub => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
@@ -65,6 +67,7 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       PubRepository pubRepository,
       List<String> images,
       int page,
+      DraggableScrollableController dragController,
       List<AssetDto> assets,
       PubDto? pub,
       bool isFollowing,
@@ -102,6 +105,7 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     Object? pubRepository = null,
     Object? images = null,
     Object? page = null,
+    Object? dragController = null,
     Object? assets = null,
     Object? pub = freezed,
     Object? isFollowing = null,
@@ -169,6 +173,10 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      dragController: null == dragController
+          ? _value.dragController
+          : dragController // ignore: cast_nullable_to_non_nullable
+              as DraggableScrollableController,
       assets: null == assets
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
@@ -229,6 +237,7 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
       PubRepository pubRepository,
       List<String> images,
       int page,
+      DraggableScrollableController dragController,
       List<AssetDto> assets,
       PubDto? pub,
       bool isFollowing,
@@ -265,6 +274,7 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
     Object? pubRepository = null,
     Object? images = null,
     Object? page = null,
+    Object? dragController = null,
     Object? assets = null,
     Object? pub = freezed,
     Object? isFollowing = null,
@@ -332,6 +342,10 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      dragController: null == dragController
+          ? _value.dragController
+          : dragController // ignore: cast_nullable_to_non_nullable
+              as DraggableScrollableController,
       assets: null == assets
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
@@ -375,6 +389,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       required this.pubRepository,
       required this.images,
       required this.page,
+      required this.dragController,
       required this.assets,
       this.pub,
       required this.isFollowing,
@@ -412,6 +427,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   @override
   final int page;
   @override
+  final DraggableScrollableController dragController;
+  @override
   final List<AssetDto> assets;
   @override
   final PubDto? pub;
@@ -424,7 +441,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
 
   @override
   String toString() {
-    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, assets: $assets, pub: $pub, isFollowing: $isFollowing, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, dragController: $dragController, assets: $assets, pub: $pub, isFollowing: $isFollowing, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
   }
 
   @override
@@ -457,6 +474,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
                 other.pubRepository == pubRepository) &&
             const DeepCollectionEquality().equals(other.images, images) &&
             (identical(other.page, page) || other.page == page) &&
+            (identical(other.dragController, dragController) ||
+                other.dragController == dragController) &&
             const DeepCollectionEquality().equals(other.assets, assets) &&
             (identical(other.pub, pub) || other.pub == pub) &&
             (identical(other.isFollowing, isFollowing) ||
@@ -485,6 +504,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
         pubRepository,
         const DeepCollectionEquality().hash(images),
         page,
+        dragController,
         const DeepCollectionEquality().hash(assets),
         pub,
         isFollowing,
@@ -517,6 +537,7 @@ abstract class _ClubProfileState implements ClubProfileState {
       required final PubRepository pubRepository,
       required final List<String> images,
       required final int page,
+      required final DraggableScrollableController dragController,
       required final List<AssetDto> assets,
       final PubDto? pub,
       required final bool isFollowing,
@@ -553,6 +574,8 @@ abstract class _ClubProfileState implements ClubProfileState {
   List<String> get images;
   @override
   int get page;
+  @override
+  DraggableScrollableController get dragController;
   @override
   List<AssetDto> get assets;
   @override

@@ -204,145 +204,179 @@ class HomeScreenConsumer extends StatelessWidget {
                           if (!state.hasMoreEvents && state.events.isEmpty)
                             const EmptyEvents()
                           else ...[
-                            state.isSearchOpen ? const SizedBox() :SizedBox(
-                              height: 2.h,
-                            ),
-                            state.isSearchOpen ? const SizedBox() :Text(
-                              '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
-                              style: themeData.textTheme.bodySmall!.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
-                                letterSpacing: 0,
-                              ),
-                            ),
+                            state.isSearchOpen
+                                ? const SizedBox()
+                                : SizedBox(
+                                    height: 2.h,
+                                  ),
+                            state.isSearchOpen
+                                ? const SizedBox()
+                                : Text(
+                                    '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
+                                    style:
+                                        themeData.textTheme.bodySmall!.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
+                                      letterSpacing: 0,
+                                    ),
+                                  ),
                             SizedBox(
                               height: 2.h,
                             ),
-                            state.isSearchOpen ? const SizedBox() :Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(HomeScreenConstants.pickYourExperience,
-                                    style: themeData.textTheme.bodyMedium!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: themeData.colorScheme.background,
-                                    )),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                SizedBox(
-                                  width: 100.w,
-                                  height: state.isLoading && !state.isSearchOpen
-                                      ? 12.h
-                                      : 9.5.h,
-                                  child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      FilterValueDto? categoryValue;
-                                      if (state.categoryFilter != null) {
-                                        categoryValue =
-                                            state.categoryFilter!.values[index];
-                                      }
-
-                                      return GestureDetector(
-                                        onTap: () {
-                                          if (state.categoryFilter!
-                                              .values[index].isApplied) {
-                                            state.categoryFilter!
-                                                    .values[index] =
-                                                state.categoryFilter!
-                                                    .values[index]
-                                                    .copyWith(isApplied: false);
-                                            final indexTemp = state.filters
-                                                .indexWhere((element) {
-                                              return element.name == 'music';
-                                            });
-                                            state.filters[indexTemp] = state
-                                                .filters[indexTemp]
-                                                .copyWith(isApplied: false);
-                                            context
-                                                .read<HomeCubit>()
-                                                .updateFilterApplied(
-                                                    filters: List.from(
-                                                  state.filters,
-                                                ));
-                                            return;
-                                          }
-                                          for (int i = 0;
-                                              i <
-                                                  state.categoryFilter!.values
-                                                      .length;
-                                              i++) {
-                                            state.categoryFilter!.values[i] =
-                                                state.categoryFilter!.values[i]
-                                                    .copyWith(isApplied: false);
-                                          }
-                                          state.categoryFilter!.values[index] =
-                                              state
-                                                  .categoryFilter!.values[index]
-                                                  .copyWith(isApplied: true);
-                                          final indexTemp = state.filters
-                                              .indexWhere((element) {
-                                            return element.name == 'music';
-                                          });
-                                          state.filters[indexTemp] = state
-                                              .filters[indexTemp]
-                                              .copyWith(isApplied: true);
-                                          context
-                                              .read<HomeCubit>()
-                                              .updateFilterApplied(
-                                                  filters: List.from(
-                                                state.filters,
-                                              ));
-                                        },
-                                        child: state.isLoading &&
+                            state.isSearchOpen
+                                ? const SizedBox()
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          HomeScreenConstants
+                                              .pickYourExperience,
+                                          style: themeData.textTheme.bodyMedium!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: themeData
+                                                .colorScheme.background,
+                                          )),
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      SizedBox(
+                                        width: 100.w,
+                                        height: state.isLoading &&
                                                 !state.isSearchOpen
-                                            ? const EventTypeTileShimmer()
-                                            : EventTypeTile(
-                                                isSelected:
-                                                    categoryValue!.isApplied,
-                                                image: CustomImageProvider
-                                                    .getImageUrl(
-                                                        categoryValue.icon,
-                                                        ImageType.profile),
-                                                title:
-                                                    categoryValue.displayName,
-                                              ),
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                        width: 3.w,
-                                      );
-                                    },
-                                    itemCount: state.isLoading
-                                        ? 5
-                                        : state.categoryFilter!.values.length,
+                                            ? 12.h
+                                            : 9.5.h,
+                                        child: ListView.separated(
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            FilterValueDto? categoryValue;
+                                            if (state.categoryFilter != null) {
+                                              categoryValue = state
+                                                  .categoryFilter!
+                                                  .values[index];
+                                            }
+
+                                            return GestureDetector(
+                                              onTap: () {
+                                                if (state.categoryFilter!
+                                                    .values[index].isApplied) {
+                                                  state.categoryFilter!
+                                                          .values[index] =
+                                                      state.categoryFilter!
+                                                          .values[index]
+                                                          .copyWith(
+                                                              isApplied: false);
+                                                  final indexTemp = state
+                                                      .filters
+                                                      .indexWhere((element) {
+                                                    return element.name ==
+                                                        'music';
+                                                  });
+                                                  state.filters[indexTemp] =
+                                                      state.filters[indexTemp]
+                                                          .copyWith(
+                                                              isApplied: false);
+                                                  context
+                                                      .read<HomeCubit>()
+                                                      .updateFilterApplied(
+                                                          filters: List.from(
+                                                        state.filters,
+                                                      ));
+                                                  return;
+                                                }
+                                                for (int i = 0;
+                                                    i <
+                                                        state.categoryFilter!
+                                                            .values.length;
+                                                    i++) {
+                                                  state.categoryFilter!
+                                                          .values[i] =
+                                                      state.categoryFilter!
+                                                          .values[i]
+                                                          .copyWith(
+                                                              isApplied: false);
+                                                }
+                                                state.categoryFilter!
+                                                        .values[index] =
+                                                    state.categoryFilter!
+                                                        .values[index]
+                                                        .copyWith(
+                                                            isApplied: true);
+                                                final indexTemp = state.filters
+                                                    .indexWhere((element) {
+                                                  return element.name ==
+                                                      'music';
+                                                });
+                                                state.filters[indexTemp] = state
+                                                    .filters[indexTemp]
+                                                    .copyWith(isApplied: true);
+                                                context
+                                                    .read<HomeCubit>()
+                                                    .updateFilterApplied(
+                                                        filters: List.from(
+                                                      state.filters,
+                                                    ));
+                                              },
+                                              child: state.isLoading &&
+                                                      !state.isSearchOpen
+                                                  ? const EventTypeTileShimmer()
+                                                  : EventTypeTile(
+                                                      isSelected: categoryValue!
+                                                          .isApplied,
+                                                      image: CustomImageProvider
+                                                          .getImageUrl(
+                                                              categoryValue
+                                                                  .icon,
+                                                              ImageType
+                                                                  .profile),
+                                                      title: categoryValue
+                                                          .displayName,
+                                                    ),
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(
+                                              width: 3.w,
+                                            );
+                                          },
+                                          itemCount: state.isLoading
+                                              ? 5
+                                              : state.categoryFilter!.values
+                                                  .length,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            state.isSearchOpen ? const SizedBox() : SizedBox(
-                              height: 2.h,
-                            ),
-                          Column(
+                            state.isSearchOpen
+                                ? const SizedBox()
+                                : SizedBox(
+                                    height: 2.h,
+                                  ),
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                state.isSearchOpen ? const SizedBox() :GestureDetector(
-                                  onTap: () {},
-                                  child: Text(
-                                    HomeScreenConstants.explorerAll,
-                                    style: themeData.textTheme.bodyMedium!
-                                        .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: themeData.colorScheme.background,
-                                    ),
-                                  ),
-                                ),
-                                state.isSearchOpen ? const SizedBox() : SizedBox(
-                                  height: 2.h,
-                                ),
+                                state.isSearchOpen
+                                    ? const SizedBox()
+                                    : GestureDetector(
+                                        onTap: () {},
+                                        child: Text(
+                                          HomeScreenConstants.explorerAll,
+                                          style: themeData.textTheme.bodyMedium!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: themeData
+                                                .colorScheme.background,
+                                          ),
+                                        ),
+                                      ),
+                                state.isSearchOpen
+                                    ? const SizedBox()
+                                    : SizedBox(
+                                        height: 2.h,
+                                      ),
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -426,12 +460,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                 return state.isLoading
                                     ? const EventCardShimmer()
                                     : Padding(
-                                      padding: EdgeInsets.only(bottom: 5.h),
-                                      child: GestureDetector(
+                                        padding: EdgeInsets.only(bottom: 5.h),
+                                        child: GestureDetector(
                                           onTap: () {
                                             navigator<NavigationService>()
                                                 .navigateTo(
-                                                    UserRoutes.eventDetailsRoute,
+                                                    UserRoutes
+                                                        .eventDetailsRoute,
                                                     queryParams: {
                                                   'id': state.events[index].id
                                                       .toString(),
@@ -448,18 +483,21 @@ class HomeScreenConsumer extends StatelessWidget {
                                           child: EventCard(
                                             isInListing: true,
                                             event: state.events[index],
-                                            isLiked: state.events[index].isLiked,
+                                            isLiked:
+                                                state.events[index].isLiked,
                                             onLike: () {
                                               context
                                                   .read<HomeCubit>()
                                                   .onEventLiked(
-                                                      id: state.events[index].id,
+                                                      id: state
+                                                          .events[index].id,
                                                       isLiked: !state
-                                                          .events[index].isLiked);
+                                                          .events[index]
+                                                          .isLiked);
                                             },
                                           ),
                                         ),
-                                    );
+                                      );
                               },
                             )
                           ]
@@ -490,158 +528,166 @@ class EmptyEvents extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: 10.h,
-                ),
-                SvgPicture.asset(AssetConstants.notFoundFilter),
-                Text(
-                  '${HomeScreenConstants.noEventsFound}${state.noFilteredEvents ? HomeScreenConstants.filters : HomeScreenConstants.area}',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                state.noFilteredEvents
-                    ? PrimaryButton(
-                        text: HomeScreenConstants.editFilters,
-                        function: () {
-                          final builderContext = context;
-                          showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              builder: (context) {
-                                return FilterModalSheet(
-                                  filters: List.from(state.filters
-                                      .map((e) => e.copyWith(
-                                          values: List.from(e.values)))
-                                      .toList()),
-                                );
-                              }).then((value) {
-                            if (value != null) {
-                              if (value is List<FilterDto>) {
-                                builderContext
-                                    .read<HomeCubit>()
-                                    .updateFilterApplied(filters: value);
-                              }
-                            }
-                          });
-                        },
-                        width: 10.w,
-                        height: 4.h,
-                        borderColor:
-                            Theme.of(context).colorScheme.secondaryContainer,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onSurface,
-                        textColor: Theme.of(context).colorScheme.background,
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(
-                              fontSize: 14.sp,
-                              color: Theme.of(context).colorScheme.background,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      )
-                    : GestureDetector(
-                        onTap: () {
-                          context.read<HomeCubit>().toggleLocationDialog();
-                        },
-                        child: Container(
-                          height: 4.h,
-                          width: 35.w,
-                          padding: EdgeInsets.symmetric(horizontal: 2.w),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Theme.of(context).colorScheme.primary,
-                                Theme.of(context).colorScheme.secondary
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AssetConstants.setupLocation,
-                                height: 2.h,
-                              ),
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    HomeScreenConstants.chooseLocation,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: 14.sp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                SizedBox(
-                  height: 10.h,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Popular events in Banglore',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.sp,
-                        color: Theme.of(context).colorScheme.background,
-                      ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GradientText(
-                    text: 'See all Events',
-                    colors: [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.secondary
-                    ],
-                    textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30.h,),
+                  SvgPicture.asset(AssetConstants.notFoundFilter),
+                  Text(
+                    '${HomeScreenConstants.noEventsFound}${state.noFilteredEvents ? HomeScreenConstants.filters : HomeScreenConstants.area}',
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(children: [
-                EventWidget(),
-                EventWidget(),
-                EventWidget(),
-                EventWidget(),
-                EventWidget(),
-                EventWidget(),
-              ]),
-            )
-          ],
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  state.noFilteredEvents
+                      ? PrimaryButton(
+                          text: HomeScreenConstants.editFilters,
+                          function: () {
+                            final builderContext = context;
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return FilterModalSheet(
+                                    filters: List.from(state.filters
+                                        .map((e) => e.copyWith(
+                                            values: List.from(e.values)))
+                                        .toList()),
+                                  );
+                                }).then((value) {
+                              if (value != null) {
+                                if (value is List<FilterDto>) {
+                                  builderContext
+                                      .read<HomeCubit>()
+                                      .updateFilterApplied(filters: value);
+                                }
+                              }
+                            });
+                          },
+                          width: 10.w,
+                          height: 4.h,
+                          borderColor:
+                              Theme.of(context).colorScheme.secondaryContainer,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          textColor: Theme.of(context).colorScheme.background,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                fontSize: 14.sp,
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        )
+                      : GestureDetector(
+                          onTap: () {
+                            context.read<HomeCubit>().toggleLocationDialog();
+                          },
+                          child: Container(
+                            height: 4.h,
+                            width: 35.w,
+                            padding: EdgeInsets.symmetric(horizontal: 2.w),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Theme.of(context).colorScheme.primary,
+                                  Theme.of(context).colorScheme.secondary
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  AssetConstants.setupLocation,
+                                  height: 2.h,
+                                ),
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      HomeScreenConstants.chooseLocation,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            fontSize: 14.sp,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                ],
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       'Popular events in Banglore',
+              //       style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              //             fontWeight: FontWeight.w600,
+              //             fontSize: 16.sp,
+              //             color: Theme.of(context).colorScheme.background,
+              //           ),
+              //     ),
+              //     Align(
+              //       alignment: Alignment.centerRight,
+              //       child: GradientText(
+              //         text: 'See all Events',
+              //         colors: [
+              //           Theme.of(context).colorScheme.primary,
+              //           Theme.of(context).colorScheme.secondary
+              //         ],
+              //         textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+              //               fontWeight: FontWeight.w600,
+              //               fontSize: 16.sp,
+              //               color: Theme.of(context).colorScheme.background,
+              //             ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // SizedBox(
+              //   height: 2.h,
+              // ),
+              // const SingleChildScrollView(
+              //   scrollDirection: Axis.horizontal,
+              //   child: Row(children: [
+              //     EventWidget(),
+              //     EventWidget(),
+              //     EventWidget(),
+              //     EventWidget(),
+              //     EventWidget(),
+              //     EventWidget(),
+              //   ]),
+              // )
+
+            ],
+
+
+          ),
+
+      
         );
       },
     );

@@ -61,16 +61,16 @@ class HomeCubit extends Cubit<HomeState> {
 
     state.appStateNotifier.addListener(() {
       if (state.appStateNotifier.menuIndex == 0) {
-        Future.delayed(const Duration(milliseconds: 500), () {
-          state.scrollController.animateTo(lastScrollPos,
-              duration: const Duration(milliseconds: 100),
-              curve: Curves.bounceInOut);
-        });
-
         if (state.appStateNotifier.goToTop) {
           state.scrollController.animateTo(0.0,
               duration: const Duration(milliseconds: 500),
               curve: Curves.bounceOut);
+        } else {
+          Future.delayed(const Duration(milliseconds: 500), () {
+            state.scrollController.animateTo(lastScrollPos,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.bounceInOut);
+          });
         }
       }
     });

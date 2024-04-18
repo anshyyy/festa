@@ -79,11 +79,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future onPullToRefresh() async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: true, events: [], page: 1,isRefresh: true));
 
     await getEvents();
 
-    emit(state.copyWith(isLoading: false));
+    emit(state.copyWith(isLoading: false,isRefresh: false));
   }
 
   Future getEvents({String? eventsFrom}) async {

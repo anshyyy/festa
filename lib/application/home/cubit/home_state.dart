@@ -27,6 +27,7 @@ class HomeState with _$HomeState {
     required Offset chipPosition,
     OverlayEntry? overlayEntry,
     required bool isSearchOpen,
+    required bool isRefresh,
     required bool isSearchChanged,
     required bool isLocationSearchChanged,
     required bool showPermissionDialog,
@@ -46,6 +47,7 @@ class HomeState with _$HomeState {
           required String mapsApiKey}) =>
       HomeState(
         page: 1,
+        isRefresh: false,
         showPermissionDialog: false,
         homeKey: GlobalKey(),
         noUse: false,

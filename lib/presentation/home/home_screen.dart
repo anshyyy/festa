@@ -52,6 +52,7 @@ class HomeScreenConsumer extends StatelessWidget {
       builder: (context, state) {
         return RefreshIndicator(
           onRefresh: () async {
+
             context.read<HomeCubit>().onPullToRefresh();
           },
           child: SafeArea(
@@ -201,7 +202,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                          if (!state.hasMoreEvents && state.events.isEmpty)
+                          if (!state.hasMoreEvents && state.events.isEmpty && !state.isRefresh)
                             const EmptyEvents()
                           else ...[
                             state.isSearchOpen

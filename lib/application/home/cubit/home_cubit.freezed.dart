@@ -45,6 +45,7 @@ mixin _$HomeState {
   Offset get chipPosition => throw _privateConstructorUsedError;
   OverlayEntry? get overlayEntry => throw _privateConstructorUsedError;
   bool get isSearchOpen => throw _privateConstructorUsedError;
+  bool get isRefresh => throw _privateConstructorUsedError;
   bool get isSearchChanged => throw _privateConstructorUsedError;
   bool get isLocationSearchChanged => throw _privateConstructorUsedError;
   bool get showPermissionDialog => throw _privateConstructorUsedError;
@@ -95,6 +96,7 @@ abstract class $HomeStateCopyWith<$Res> {
       Offset chipPosition,
       OverlayEntry? overlayEntry,
       bool isSearchOpen,
+      bool isRefresh,
       bool isSearchChanged,
       bool isLocationSearchChanged,
       bool showPermissionDialog,
@@ -149,6 +151,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? chipPosition = null,
     Object? overlayEntry = freezed,
     Object? isSearchOpen = null,
+    Object? isRefresh = null,
     Object? isSearchChanged = null,
     Object? isLocationSearchChanged = null,
     Object? showPermissionDialog = null,
@@ -257,6 +260,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       isSearchOpen: null == isSearchOpen
           ? _value.isSearchOpen
           : isSearchOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isRefresh: null == isRefresh
+          ? _value.isRefresh
+          : isRefresh // ignore: cast_nullable_to_non_nullable
               as bool,
       isSearchChanged: null == isSearchChanged
           ? _value.isSearchChanged
@@ -371,6 +378,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       Offset chipPosition,
       OverlayEntry? overlayEntry,
       bool isSearchOpen,
+      bool isRefresh,
       bool isSearchChanged,
       bool isLocationSearchChanged,
       bool showPermissionDialog,
@@ -426,6 +434,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? chipPosition = null,
     Object? overlayEntry = freezed,
     Object? isSearchOpen = null,
+    Object? isRefresh = null,
     Object? isSearchChanged = null,
     Object? isLocationSearchChanged = null,
     Object? showPermissionDialog = null,
@@ -535,6 +544,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.isSearchOpen
           : isSearchOpen // ignore: cast_nullable_to_non_nullable
               as bool,
+      isRefresh: null == isRefresh
+          ? _value.isRefresh
+          : isRefresh // ignore: cast_nullable_to_non_nullable
+              as bool,
       isSearchChanged: null == isSearchChanged
           ? _value.isSearchChanged
           : isSearchChanged // ignore: cast_nullable_to_non_nullable
@@ -611,6 +624,7 @@ class _$HomeStateImpl implements _HomeState {
       required this.chipPosition,
       this.overlayEntry,
       required this.isSearchOpen,
+      required this.isRefresh,
       required this.isSearchChanged,
       required this.isLocationSearchChanged,
       required this.showPermissionDialog,
@@ -672,6 +686,8 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final bool isSearchOpen;
   @override
+  final bool isRefresh;
+  @override
   final bool isSearchChanged;
   @override
   final bool isLocationSearchChanged;
@@ -696,7 +712,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey, user: $user)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey, user: $user)';
   }
 
   @override
@@ -747,6 +763,8 @@ class _$HomeStateImpl implements _HomeState {
                 other.overlayEntry == overlayEntry) &&
             (identical(other.isSearchOpen, isSearchOpen) ||
                 other.isSearchOpen == isSearchOpen) &&
+            (identical(other.isRefresh, isRefresh) ||
+                other.isRefresh == isRefresh) &&
             (identical(other.isSearchChanged, isSearchChanged) ||
                 other.isSearchChanged == isSearchChanged) &&
             (identical(
@@ -797,6 +815,7 @@ class _$HomeStateImpl implements _HomeState {
         chipPosition,
         overlayEntry,
         isSearchOpen,
+        isRefresh,
         isSearchChanged,
         isLocationSearchChanged,
         showPermissionDialog,
@@ -843,6 +862,7 @@ abstract class _HomeState implements HomeState {
       required final Offset chipPosition,
       final OverlayEntry? overlayEntry,
       required final bool isSearchOpen,
+      required final bool isRefresh,
       required final bool isSearchChanged,
       required final bool isLocationSearchChanged,
       required final bool showPermissionDialog,
@@ -903,6 +923,8 @@ abstract class _HomeState implements HomeState {
   OverlayEntry? get overlayEntry;
   @override
   bool get isSearchOpen;
+  @override
+  bool get isRefresh;
   @override
   bool get isSearchChanged;
   @override

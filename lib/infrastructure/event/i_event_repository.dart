@@ -51,7 +51,7 @@ class IEventRepository extends EventRepository {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
       final url = '$serverUrl${EventApiConstants.EVENTS}';
       final Map<String, String> param = {
-        'page': '2',
+        'page': page.toString(),
         'limit': limit.toString(),
         'lat': lat.toString(),
         'long': long.toString(),

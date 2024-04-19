@@ -28,6 +28,7 @@ class UserApiConstants {
   static const PERSONALIZE_LIST = '$PERSONALIZE/list';
   static const GET_USER_TICKETS = '/booking/user';
   static const DELETE_REASON = '/feedback/delete/user';
+  static const REPORT = '/feedback/report';
 }
 
 class AuthApiConstants {
@@ -58,5 +59,4 @@ class LocationApiConstants {
   static const PLACE_AUTOCOMPLETE = '$GOOGLE_MAPS_API/place/autocomplete/json';
   static const PLACE_DETAILS = '$GOOGLE_MAPS_API/place/details/json';
   static const LOCATION_BY_COORDINATES = '$GOOGLE_MAPS_API/geocode/json';
-  
 }

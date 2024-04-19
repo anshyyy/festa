@@ -64,12 +64,12 @@ class HomeCubit extends Cubit<HomeState> {
         if (state.appStateNotifier.goToTop) {
           state.scrollController.animateTo(0.0,
               duration: const Duration(milliseconds: 500),
-              curve: Curves.bounceOut);
+              curve: Curves.ease);
         } else {
           Future.delayed(const Duration(milliseconds: 500), () {
             state.scrollController.animateTo(lastScrollPos,
                 duration: const Duration(milliseconds: 100),
-                curve: Curves.bounceInOut);
+                curve: Curves.ease);
           });
         }
       }

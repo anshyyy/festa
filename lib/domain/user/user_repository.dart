@@ -52,4 +52,12 @@ abstract class UserRepository {
   Future<Either<dynamic,UserTicketsDto>> fetchAllUserTickets(); 
   
   Future<UserDto?> fetchUserByToken();
+
+  Future<bool> report({
+    required String type,
+    required String msg,
+    required String id,
+  });
+
+  
 }

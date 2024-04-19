@@ -32,7 +32,7 @@ class IUserRepository extends UserRepository {
       final userFetchUrl = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
       final userResponse = await RESTService.performGETRequest(
           httpUrl: userFetchUrl, isAuth: true, token: token);
-          
+
       if (userResponse.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
@@ -299,6 +299,31 @@ class IUserRepository extends UserRepository {
       return UserDto.fromJson(data);
     } catch (error) {
       return null;
+    }
+  }
+
+  @override
+  Future<bool> report(
+      {required String type, required String msg, required String id}) async {
+    bool isReported = false;
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${UserApiConstants.REPORT}';
+      final reqBody = {
+        'type': type,
+        'value': id,
+        'message':msg,
+      };
+      final res = await RESTService.performPOSTRequest(
+          body: jsonEncode(reqBody), httpUrl: url, isAuth: true, token: token!);
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isReported = true;
+      }
+
+      return isReported;
+    } catch (e) {
+      return isReported;
     }
   }
 }

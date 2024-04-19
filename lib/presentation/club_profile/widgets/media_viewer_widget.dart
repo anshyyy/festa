@@ -121,7 +121,7 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                   },
                                   child: SvgPicture.asset(
                                       AssetConstants.arrowLeft)),
-                              SvgPicture.asset(AssetConstants.hamBurgerMenu),
+                              // SvgPicture.asset(AssetConstants.hamBurgerMenu),
                             ],
                           ),
                         ),

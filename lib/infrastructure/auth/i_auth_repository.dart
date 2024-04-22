@@ -94,7 +94,7 @@ class IAuthRepository extends AuthRepository {
 
       UserDto userInfo = (await authentication())!;
       final String? fcmToken = await getFCMToken();
-      
+
       if (fcmToken != null) {
         final String? token = await user?.getIdToken();
         addOrRemoveFCMTokenToServer(
@@ -115,17 +115,17 @@ class IAuthRepository extends AuthRepository {
 
   @override
   Future loginWithGoogle() async {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-      await _firebaseAuth.signInWithCredential(credential);
+    await _firebaseAuth.signInWithCredential(credential);
   }
 
   @override
@@ -177,9 +177,10 @@ class IAuthRepository extends AuthRepository {
       final url = '$serverUrl${UserApiConstants.USERS}';
       final feedbackUrl = '$serverUrl${UserApiConstants.DELETE_REASON}';
       await RESTService.performPOSTRequest(
-          httpUrl: feedbackUrl, isAuth: true, token: token!, body: jsonEncode({
-            'reason':reason
-          }));
+          httpUrl: feedbackUrl,
+          isAuth: true,
+          token: token!,
+          body: jsonEncode({'reason': reason}));
 
       final response = await RESTService.performDELETERequest(
         httpUrl: url,
@@ -189,7 +190,7 @@ class IAuthRepository extends AuthRepository {
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
-      
+
       return true;
     } catch (e) {
       return false;

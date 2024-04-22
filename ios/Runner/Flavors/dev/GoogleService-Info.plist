@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>154103086037-0nncc86gh56hmc9qu682qm598n1rg9cm.apps.googleusercontent.com</string>
+	<string>441317414729-4l0otjjh181hutdv3ipqjltss87153mt.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.154103086037-0nncc86gh56hmc9qu682qm598n1rg9cm</string>
+	<string>com.googleusercontent.apps.441317414729-4l0otjjh181hutdv3ipqjltss87153mt</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>154103086037-3f2d5d2iuiqrkgge96issmt44h2k0660.apps.googleusercontent.com</string>
+	<string>441317414729-9vkds1ququsqkg6il7ds3dgi41lhl3ku.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBa3vvpMRYrvZlZoszWxT2hZJgh1n5lE34</string>
+	<string>AIzaSyCXh-mMACGMsD0KhuH0x-wWpJmgnJOcnyo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>154103086037</string>
+	<string>441317414729</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.festaworld.app</string>
+	<string>com.festaworld.app.dev</string>
 	<key>PROJECT_ID</key>
-	<string>festa-dev-a42a6</string>
+	<string>festa-dev-488fd</string>
 	<key>STORAGE_BUCKET</key>
-	<string>festa-dev-a42a6.appspot.com</string>
+	<string>festa-dev-488fd.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:154103086037:ios:80ae21b940fde469fa5b5c</string>
+	<string>1:441317414729:ios:752c4034d29eeeaaa42c98</string>
 </dict>
 </plist>

@@ -225,16 +225,16 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                             SizedBox(
                               width: 10.w,
                             ),
-                            Column(
-                              children: [
-                                SvgPicture.asset(
-                                    AssetConstants.heartOutlinedIcon),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                SvgPicture.asset(AssetConstants.shareIcon),
-                              ],
-                            ),
+                            // Column(
+                            //   children: [
+                            //     SvgPicture.asset(
+                            //         AssetConstants.heartOutlinedIcon),
+                            //     SizedBox(
+                            //       height: 4.h,
+                            //     ),
+                            //     SvgPicture.asset(AssetConstants.shareIcon),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ))

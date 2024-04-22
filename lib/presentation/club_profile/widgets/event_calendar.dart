@@ -8,13 +8,16 @@ import '../../../application/club_profile/events_calendar/events_calendar_cubit.
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../infrastructure/pub/dtos/pub_event/pub_event_dto.dart';
+import 'package:collection/collection.dart';
+
 class EventCalender extends StatelessWidget {
   final DateTime startDate;
-  final int? eventId;
+  final List<PubEventDto> lsOfEvents;
   final DateTime endDate;
   const EventCalender(
       {super.key,
-      this.eventId,
+      this.lsOfEvents = const [],
       required this.startDate,
       required this.endDate});
 
@@ -66,12 +69,20 @@ class EventCalender extends StatelessWidget {
                       .getEventImageByDate(day);
                   return GestureDetector(
                     onTap: () {
-                      if (eventId != 0 && imageUrl.isNotEmpty) {
-                        navigator<NavigationService>().navigateTo(
-                            UserRoutes.eventDetailsRoute,
-                            queryParams: {
-                              'id': eventId.toString(),
-                            });
+                      if (lsOfEvents.isNotEmpty) {
+                        PubEventDto? pubEventDto = lsOfEvents.firstWhereOrNull(
+                          (el) =>
+                              el.startDate.month == startDate.month &&
+                              el.startDate.day == startDate.day + 1,
+                        );
+
+                        if (pubEventDto != null) {
+                          navigator<NavigationService>().navigateTo(
+                              UserRoutes.eventDetailsRoute,
+                              queryParams: {
+                                'id': pubEventDto.id.toString(),
+                              });
+                        }
                       }
                     },
                     child: Container(

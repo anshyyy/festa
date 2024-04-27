@@ -60,22 +60,7 @@ class NotificationScreenConsumer extends StatelessWidget {
                   },
                   child: Center(
                       child: SvgPicture.asset(AssetConstants.arrowLeft))),
-              actions: [
-                Padding(
-                  padding: EdgeInsets.only(right: 2.w),
-                  child: GradientText(
-                    text: NotificationsScreenConstants.notificationsFilter,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w500),
-                    colors: [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.secondary
-                    ],
-                  ),
-                )
-              ]),
+              actions: const []),
           body: SafeArea(
             child: state.isLoading
                 ? const NotificationShimmer()
@@ -119,7 +104,9 @@ class NotificationShimmer extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                SizedBox(width: 2.h,),
+                SizedBox(
+                  width: 2.h,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -127,20 +114,19 @@ class NotificationShimmer extends StatelessWidget {
                       width: 70.w,
                       height: 4.w,
                       decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(1.w)
-                      ),
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(1.w)),
                     ),
-                    SizedBox(height: 1.h,),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                     Container(
-                  width: 50.w,
-                  height: 3.w,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                        borderRadius: BorderRadius.circular(1.w)
-
-                  ),
-                ),
+                      width: 50.w,
+                      height: 3.w,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(1.w)),
+                    ),
                   ],
                 ),
               ],

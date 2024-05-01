@@ -11,8 +11,8 @@ class OtherConstants {
   static const String termsOfService = 'https://dadlabs.in/terms-of-use';
   static const String privacyPolicy = 'https://dadlabs.in/privacy-policy';
   static const LocationDto defaultLocation = LocationDto(
-    latitude: 12.9784,
-    longitude: 77.6408,
+    latitude: 12.9715987,
+    longitude: 77.5945627,
     area: 'Bangalore',
     city: 'Bangalore',
     state: 'Karnataka',

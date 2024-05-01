@@ -46,6 +46,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Festa app needs access to location when open.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need microphone access for uploading audio</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to upload and share photos in the app.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

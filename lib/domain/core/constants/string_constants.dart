@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class AppConstants {
   static String appName = 'Festa';
+  static bool underReview = false;
   static String continueText = 'Continue';
   static String updateAvailable = 'Update Available';
   static String ignore = 'Ignore';
@@ -66,6 +67,7 @@ class TermsAndConditionConstants {
   static String privacyMessage =
       'Your privacy is our top concern and we want you to know how we process your personal information. By continuing you confirm that you\'ve read and accepted our';
   static String privacyText = 'Privacy Policy';
+    static String EULA = 'End User License Agreement (EULA)';
   static String termsText = 'Terms';
   static String authTermsAcceptMessage =
       'By signing up, you agree to our Terms, See how we use your data in our Privacy Policy. We never post to Facebook. ';

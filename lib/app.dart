@@ -282,6 +282,7 @@ Future<Map<String, dynamic>> getRemoteConfigs() async {
     appLink = remoteConfig.getString('app_link');
     minVersion = remoteConfig.getInt('min_version');
     latestVersion = remoteConfig.getInt('latest_version');
+    AppConstants.underReview = remoteConfig.getBool('under_review');
 
     configs = {
       'app_link': appLink,

@@ -31,8 +31,8 @@ class StartScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-final colorScheme = themeData.colorScheme;
-final textTheme = themeData.textTheme;
+    final colorScheme = themeData.colorScheme;
+    final textTheme = themeData.textTheme;
 
     return BlocConsumer<StarterCubit, StarterState>(
       listener: (context, state) {
@@ -73,16 +73,28 @@ final textTheme = themeData.textTheme;
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 5.w),
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                         GestureDetector(
-                          onTap: (){
-                            context.read<StarterCubit>().onTermsAndConditionChecked();
-                          },
-                          child: state.isTermsAndConditionChecked?  SvgPicture.asset(AssetConstants.checkboxTicked, height: 6.w,):SvgPicture.asset(AssetConstants.checkboxUnticked, height: 6.w,)),
-                          SizedBox(width: 1.5.w,),
+                          GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<StarterCubit>()
+                                    .onTermsAndConditionChecked();
+                              },
+                              child: state.isTermsAndConditionChecked
+                                  ? SvgPicture.asset(
+                                      AssetConstants.checkboxTicked,
+                                      height: 6.w,
+                                    )
+                                  : SvgPicture.asset(
+                                      AssetConstants.checkboxUnticked,
+                                      height: 6.w,
+                                    )),
+                          SizedBox(
+                            width: 1.5.w,
+                          ),
                           Expanded(
                             child: RichText(
                               // textAlign: TextAlign.center,
@@ -91,8 +103,11 @@ final textTheme = themeData.textTheme;
                                   TextSpan(
                                       text:
                                           '${TermsAndConditionConstants.privacyMessage} ',
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14.5.sp,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .copyWith(
+                                            fontSize: 14.5.sp,
                                           )),
                                   TextSpan(
                                     recognizer: TapGestureRecognizer()
@@ -114,17 +129,47 @@ final textTheme = themeData.textTheme;
                                         ),
                                   ),
                                   TextSpan(
-                                      text: ' ${AppConstants.andText} ',
-                                      style: Theme.of(context).textTheme.bodySmall!
-                                      .copyWith(fontSize: 14.5.sp),
-                                      ),
+                                    text: ', ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(fontSize: 14.5.sp),
+                                  ),
                                   TextSpan(
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         launchUrl(Uri.parse(
                                             'https://www.festa.world/privacy'));
                                       },
-                                    text: TermsAndConditionConstants.privacyText,
+                                    text:
+                                        TermsAndConditionConstants.privacyText,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          fontSize: 14.5.sp,
+                                          color: colorScheme.background,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: Theme.of(context)
+                                              .colorScheme
+                                              .background,
+                                        ),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppConstants.andText} ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(fontSize: 14.5.sp),
+                                  ),
+                                  TextSpan(
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launchUrl(Uri.parse(
+                                            'https://www.festa.world/eula-terms'));
+                                      },
+                                    text:
+                                        TermsAndConditionConstants.EULA,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodySmall!
@@ -151,19 +196,24 @@ final textTheme = themeData.textTheme;
                         ],
                       ),
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 4.h,
                     ),
                     Container(
                       height: 13.5.h,
                       color: Theme.of(context).colorScheme.surface,
-                      padding: EdgeInsets.only(bottom: 5.h, top: 3.h, left: 6.w, right: 6.w),
+                      padding: EdgeInsets.only(
+                          bottom: 5.h, top: 3.h, left: 6.w, right: 6.w),
                       child: GradientButton(
                         isEnabled: state.isTermsAndConditionChecked,
                         text: AppConstants.continueText,
-                        textStyle: state.isTermsAndConditionChecked ? 
-                        textTheme.bodySmall!.copyWith(color: colorScheme.background, fontWeight: FontWeight.w600)
-                        :textTheme.bodySmall!.copyWith(color: colorScheme.secondaryContainer, fontWeight: FontWeight.w600),
+                        textStyle: state.isTermsAndConditionChecked
+                            ? textTheme.bodySmall!.copyWith(
+                                color: colorScheme.background,
+                                fontWeight: FontWeight.w600)
+                            : textTheme.bodySmall!.copyWith(
+                                color: colorScheme.secondaryContainer,
+                                fontWeight: FontWeight.w600),
                         onTap: () {
                           context.read<StarterCubit>().completeOnboarding();
                         },

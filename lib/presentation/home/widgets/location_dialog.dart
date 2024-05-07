@@ -9,6 +9,7 @@ import '../../../application/home/cubit/home_cubit.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 // import '../../core/custom_textfield.dart';
 import '../../../domain/core/constants/other_constants.dart';
+import '../../../domain/core/constants/string_constants.dart';
 import '../../widgets/custom_textfield.dart';
 import 'location_tile.dart';
 
@@ -75,7 +76,7 @@ class LocationDialog extends StatelessWidget {
             ),
             Center(
               child: AnimatedContainer(
-                height: 37.h,
+                height: AppConstants.underReview ? 32.h : 37.h,
                 duration: const Duration(seconds: 1),
                 margin: EdgeInsets.all(1.w),
                 decoration: BoxDecoration(
@@ -210,37 +211,39 @@ class LocationDialog extends StatelessWidget {
                             )
                           : Column(
                               children: [
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                        AssetConstants.navigationIcon),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        context
-                                            .read<HomeCubit>()
-                                            .onDetectMyLocation();
-                                      },
-                                      child: Text(
-                                        'Detect my location',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .background,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                if (!AppConstants.underReview)
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                          AssetConstants.navigationIcon),
+                                      SizedBox(
+                                        width: 2.w,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 3.h,
-                                ),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          context
+                                              .read<HomeCubit>()
+                                              .onDetectMyLocation();
+                                        },
+                                        child: Text(
+                                          'Detect my location',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .background,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                if (!AppConstants.underReview)
+                                  SizedBox(
+                                    height: 3.h,
+                                  ),
                                 Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

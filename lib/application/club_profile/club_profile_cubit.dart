@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/pub/pub_repository.dart';
+import '../../domain/user/user_repository.dart';
 import '../../infrastructure/core/dtos/asset/asset_dto.dart';
 import '../../infrastructure/event/dtos/pub/pub_dto.dart';
 import '../../infrastructure/pub/i_pub_repository.dart';
+import '../../infrastructure/user/i_user_repository.dart';
 
 part 'club_profile_cubit.freezed.dart';
 part 'club_profile_state.dart';
@@ -38,12 +40,14 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
         r.assets.insert(0, coverImageAsset);
       }
       emit(state.copyWith(
-          isLoading: false,
-          isFailed: false,
-          isSuccessful: true,
-          pub: r,
-          assets: assets,
-          isFollowing: r.extraDetailsDto!.isFollowing));
+        isLoading: false,
+        isFailed: false,
+        isSuccessful: true,
+        pub: r,
+        assets: assets,
+        isBlocked: r.extraDetailsDto!.isBlocked,
+        isFollowing: r.extraDetailsDto!.isFollowing,
+      ));
     });
 
     state.dragController.addListener(() {
@@ -71,4 +75,20 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     emit(state.copyWith(isLoading: false, isFollowing: !state.isFollowing));
   }
 
+  void blockOrUnblockPub({bool isBlock = true}) async {
+    if (isBlock) {
+      emit(state.copyWith(isBlocked: true));
+      await state.userRepository.block(
+        type: 'pub',
+        id: state.clubId.toString(),
+      );
+    } else {
+      //
+      emit(state.copyWith(isBlocked: false));
+      await state.userRepository.unBlock(
+        type: 'pub',
+        id: state.clubId.toString(),
+      );
+    }
+  }
 }

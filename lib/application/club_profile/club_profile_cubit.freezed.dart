@@ -36,7 +36,9 @@ mixin _$ClubProfileState {
       throw _privateConstructorUsedError;
   List<AssetDto> get assets => throw _privateConstructorUsedError;
   PubDto? get pub => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
+  bool get isBlocked => throw _privateConstructorUsedError;
   bool get openPhotoViewer => throw _privateConstructorUsedError;
   bool get showHeader => throw _privateConstructorUsedError;
 
@@ -70,7 +72,9 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       DraggableScrollableController dragController,
       List<AssetDto> assets,
       PubDto? pub,
+      UserRepository userRepository,
       bool isFollowing,
+      bool isBlocked,
       bool openPhotoViewer,
       bool showHeader});
 
@@ -108,7 +112,9 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     Object? dragController = null,
     Object? assets = null,
     Object? pub = freezed,
+    Object? userRepository = null,
     Object? isFollowing = null,
+    Object? isBlocked = null,
     Object? openPhotoViewer = null,
     Object? showHeader = null,
   }) {
@@ -185,9 +191,17 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
               as PubDto?,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBlocked: null == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
       openPhotoViewer: null == openPhotoViewer
           ? _value.openPhotoViewer
@@ -240,7 +254,9 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
       DraggableScrollableController dragController,
       List<AssetDto> assets,
       PubDto? pub,
+      UserRepository userRepository,
       bool isFollowing,
+      bool isBlocked,
       bool openPhotoViewer,
       bool showHeader});
 
@@ -277,7 +293,9 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
     Object? dragController = null,
     Object? assets = null,
     Object? pub = freezed,
+    Object? userRepository = null,
     Object? isFollowing = null,
+    Object? isBlocked = null,
     Object? openPhotoViewer = null,
     Object? showHeader = null,
   }) {
@@ -354,9 +372,17 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
               as PubDto?,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBlocked: null == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
       openPhotoViewer: null == openPhotoViewer
           ? _value.openPhotoViewer
@@ -392,7 +418,9 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       required this.dragController,
       required this.assets,
       this.pub,
+      required this.userRepository,
       required this.isFollowing,
+      required this.isBlocked,
       required this.openPhotoViewer,
       required this.showHeader});
 
@@ -433,7 +461,11 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   @override
   final PubDto? pub;
   @override
+  final UserRepository userRepository;
+  @override
   final bool isFollowing;
+  @override
+  final bool isBlocked;
   @override
   final bool openPhotoViewer;
   @override
@@ -441,7 +473,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
 
   @override
   String toString() {
-    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, dragController: $dragController, assets: $assets, pub: $pub, isFollowing: $isFollowing, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, dragController: $dragController, assets: $assets, pub: $pub, userRepository: $userRepository, isFollowing: $isFollowing, isBlocked: $isBlocked, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
   }
 
   @override
@@ -478,8 +510,12 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
                 other.dragController == dragController) &&
             const DeepCollectionEquality().equals(other.assets, assets) &&
             (identical(other.pub, pub) || other.pub == pub) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.isFollowing, isFollowing) ||
                 other.isFollowing == isFollowing) &&
+            (identical(other.isBlocked, isBlocked) ||
+                other.isBlocked == isBlocked) &&
             (identical(other.openPhotoViewer, openPhotoViewer) ||
                 other.openPhotoViewer == openPhotoViewer) &&
             (identical(other.showHeader, showHeader) ||
@@ -507,7 +543,9 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
         dragController,
         const DeepCollectionEquality().hash(assets),
         pub,
+        userRepository,
         isFollowing,
+        isBlocked,
         openPhotoViewer,
         showHeader
       ]);
@@ -540,7 +578,9 @@ abstract class _ClubProfileState implements ClubProfileState {
       required final DraggableScrollableController dragController,
       required final List<AssetDto> assets,
       final PubDto? pub,
+      required final UserRepository userRepository,
       required final bool isFollowing,
+      required final bool isBlocked,
       required final bool openPhotoViewer,
       required final bool showHeader}) = _$ClubProfileStateImpl;
 
@@ -581,7 +621,11 @@ abstract class _ClubProfileState implements ClubProfileState {
   @override
   PubDto? get pub;
   @override
+  UserRepository get userRepository;
+  @override
   bool get isFollowing;
+  @override
+  bool get isBlocked;
   @override
   bool get openPhotoViewer;
   @override

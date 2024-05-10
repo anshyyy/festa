@@ -198,83 +198,83 @@ class ArtistProfile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  state.isFollowing
-                      ? Positioned(
-                          top: 1.5.h,
-                          right: 4.5.w,
-                          child: GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (context) {
-                                    return AgreeToUnfollowModalSheet(
-                                      name: state.artistProfile!.fullName,
-                                      textTheme: textTheme,
-                                      colorScheme: colorScheme,
-                                    );
-                                  }).then((value) {
-                                if (value != null) {
-                                  context
-                                      .read<ArtistCubit>()
-                                      .followUnfollowArtist();
-                                }
-                              });
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 3.w, vertical: 2.w),
-                              decoration: BoxDecoration(
-                                  color: colorScheme.secondaryContainer
-                                      .withOpacity(.2),
-                                  borderRadius: BorderRadius.circular(2.w)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Following',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          fontSize: 14.sp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
-                                  // SizedBox(
-                                  //   width: 1.w,
-                                  // ),
-                                  // SvgPicture.asset(AssetConstants.arrowDown)
-                                ],
-                              ),
-                            ),
-                          ))
-                      : Positioned(
-                          top: 1.5.h,
-                          right: 4.5.w,
-                          child: GradientButton(
-                            width: 23.w,
-                            height: 4.h,
-                            text: 'Follow',
-                            onTap: () {
-                              context
-                                  .read<ArtistCubit>()
-                                  .followUnfollowArtist();
-                            },
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  fontSize: 14.sp,
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        ),
+                  // state.isFollowing
+                  //     ? Positioned(
+                  //         top: 1.5.h,
+                  //         right: 4.5.w,
+                  //         child: GestureDetector(
+                  //           onTap: () {
+                  //             showModalBottomSheet(
+                  //                 context: context,
+                  //                 isScrollControlled: true,
+                  //                 builder: (context) {
+                  //                   return AgreeToUnfollowModalSheet(
+                  //                     name: state.artistProfile!.fullName,
+                  //                     textTheme: textTheme,
+                  //                     colorScheme: colorScheme,
+                  //                   );
+                  //                 }).then((value) {
+                  //               if (value != null) {
+                  //                 context
+                  //                     .read<ArtistCubit>()
+                  //                     .followUnfollowArtist();
+                  //               }
+                  //             });
+                  //           },
+                  //           child: Container(
+                  //             padding: EdgeInsets.symmetric(
+                  //                 horizontal: 3.w, vertical: 2.w),
+                  //             decoration: BoxDecoration(
+                  //                 color: colorScheme.secondaryContainer
+                  //                     .withOpacity(.2),
+                  //                 borderRadius: BorderRadius.circular(2.w)),
+                  //             child: Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: [
+                  //                 Text(
+                  //                   'Following',
+                  //                   style: Theme.of(context)
+                  //                       .textTheme
+                  //                       .bodySmall
+                  //                       ?.copyWith(
+                  //                         fontSize: 14.sp,
+                  //                         color: Theme.of(context)
+                  //                             .colorScheme
+                  //                             .background,
+                  //                         fontWeight: FontWeight.w600,
+                  //                       ),
+                  //                 ),
+                  //                 // SizedBox(
+                  //                 //   width: 1.w,
+                  //                 // ),
+                  //                 // SvgPicture.asset(AssetConstants.arrowDown)
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ))
+                  //     : Positioned(
+                  //         top: 1.5.h,
+                  //         right: 4.5.w,
+                  //         child: GradientButton(
+                  //           width: 23.w,
+                  //           height: 4.h,
+                  //           text: 'Follow',
+                  //           onTap: () {
+                  //             context
+                  //                 .read<ArtistCubit>()
+                  //                 .followUnfollowArtist();
+                  //           },
+                  //           textStyle: Theme.of(context)
+                  //               .textTheme
+                  //               .bodySmall
+                  //               ?.copyWith(
+                  //                 fontSize: 14.sp,
+                  //                 color:
+                  //                     Theme.of(context).colorScheme.background,
+                  //                 fontWeight: FontWeight.w600,
+                  //               ),
+                  //         ),
+                  //       ),
                   Positioned(
                     top: 1.h,
                     left: 2.w,

@@ -26,7 +26,9 @@ mixin _$ArtistState {
       throw _privateConstructorUsedError;
   ArtistProfileDto? get artistProfile => throw _privateConstructorUsedError;
   IArtistRepository get artistRepository => throw _privateConstructorUsedError;
+  IUserRepository get userRepository => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
+  bool get isBlocked => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArtistStateCopyWith<ArtistState> get copyWith =>
@@ -49,7 +51,9 @@ abstract class $ArtistStateCopyWith<$Res> {
       DraggableScrollableController dragController,
       ArtistProfileDto? artistProfile,
       IArtistRepository artistRepository,
-      bool isFollowing});
+      IUserRepository userRepository,
+      bool isFollowing,
+      bool isBlocked});
 
   $ArtistProfileDtoCopyWith<$Res>? get artistProfile;
 }
@@ -76,7 +80,9 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
     Object? dragController = null,
     Object? artistProfile = freezed,
     Object? artistRepository = null,
+    Object? userRepository = null,
     Object? isFollowing = null,
+    Object? isBlocked = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -115,9 +121,17 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
               as IArtistRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as IUserRepository,
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBlocked: null == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -153,7 +167,9 @@ abstract class _$$ArtistStateImplCopyWith<$Res>
       DraggableScrollableController dragController,
       ArtistProfileDto? artistProfile,
       IArtistRepository artistRepository,
-      bool isFollowing});
+      IUserRepository userRepository,
+      bool isFollowing,
+      bool isBlocked});
 
   @override
   $ArtistProfileDtoCopyWith<$Res>? get artistProfile;
@@ -179,7 +195,9 @@ class __$$ArtistStateImplCopyWithImpl<$Res>
     Object? dragController = null,
     Object? artistProfile = freezed,
     Object? artistRepository = null,
+    Object? userRepository = null,
     Object? isFollowing = null,
+    Object? isBlocked = null,
   }) {
     return _then(_$ArtistStateImpl(
       isLoading: null == isLoading
@@ -218,9 +236,17 @@ class __$$ArtistStateImplCopyWithImpl<$Res>
           ? _value.artistRepository
           : artistRepository // ignore: cast_nullable_to_non_nullable
               as IArtistRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as IUserRepository,
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBlocked: null == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -239,7 +265,9 @@ class _$ArtistStateImpl implements _ArtistState {
       required this.dragController,
       this.artistProfile,
       required this.artistRepository,
-      required this.isFollowing});
+      required this.userRepository,
+      required this.isFollowing,
+      required this.isBlocked});
 
   @override
   final bool isLoading;
@@ -260,11 +288,15 @@ class _$ArtistStateImpl implements _ArtistState {
   @override
   final IArtistRepository artistRepository;
   @override
+  final IUserRepository userRepository;
+  @override
   final bool isFollowing;
+  @override
+  final bool isBlocked;
 
   @override
   String toString() {
-    return 'ArtistState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, artistId: $artistId, isAtTop: $isAtTop, dragController: $dragController, artistProfile: $artistProfile, artistRepository: $artistRepository, isFollowing: $isFollowing)';
+    return 'ArtistState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, artistId: $artistId, isAtTop: $isAtTop, dragController: $dragController, artistProfile: $artistProfile, artistRepository: $artistRepository, userRepository: $userRepository, isFollowing: $isFollowing, isBlocked: $isBlocked)';
   }
 
   @override
@@ -288,8 +320,12 @@ class _$ArtistStateImpl implements _ArtistState {
                 other.artistProfile == artistProfile) &&
             (identical(other.artistRepository, artistRepository) ||
                 other.artistRepository == artistRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository) &&
             (identical(other.isFollowing, isFollowing) ||
-                other.isFollowing == isFollowing));
+                other.isFollowing == isFollowing) &&
+            (identical(other.isBlocked, isBlocked) ||
+                other.isBlocked == isBlocked));
   }
 
   @override
@@ -304,7 +340,9 @@ class _$ArtistStateImpl implements _ArtistState {
       dragController,
       artistProfile,
       artistRepository,
-      isFollowing);
+      userRepository,
+      isFollowing,
+      isBlocked);
 
   @JsonKey(ignore: true)
   @override
@@ -324,7 +362,9 @@ abstract class _ArtistState implements ArtistState {
       required final DraggableScrollableController dragController,
       final ArtistProfileDto? artistProfile,
       required final IArtistRepository artistRepository,
-      required final bool isFollowing}) = _$ArtistStateImpl;
+      required final IUserRepository userRepository,
+      required final bool isFollowing,
+      required final bool isBlocked}) = _$ArtistStateImpl;
 
   @override
   bool get isLoading;
@@ -345,7 +385,11 @@ abstract class _ArtistState implements ArtistState {
   @override
   IArtistRepository get artistRepository;
   @override
+  IUserRepository get userRepository;
+  @override
   bool get isFollowing;
+  @override
+  bool get isBlocked;
   @override
   @JsonKey(ignore: true)
   _$$ArtistStateImplCopyWith<_$ArtistStateImpl> get copyWith =>

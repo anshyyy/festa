@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -137,15 +139,97 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                                           AssetConstants.arrowLeft,
                                           width: 7.w,
                                         ))),
-                                    // GestureDetector(
-                                    //     onTap: () {},
-                                    //     child: SvgPicture.asset(
-                                    //       AssetConstants.hamBurgerMenu,
-                                    //       width: 7.w,
-                                    //     )),
+                                    GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return ProfileActionsModal(
+                                                profileName:
+                                                    state.pub!.fullName,
+                                                isBlocked: state.isBlocked,
+                                                isFollowing: state.isFollowing,
+                                                onTapBlockOrUnBlock: (val) {
+                                                  navigator<NavigationService>()
+                                                      .goBack(responseObject: {
+                                                    'key': 'blockOrUnblock',
+                                                    'val': val,
+                                                  });
+                                                },
+                                                onTapFollowOrUnfollow: (val) {
+                                                  navigator<NavigationService>()
+                                                      .goBack(responseObject: {
+                                                    'key': 'followOrUnfollow',
+                                                    'val': val,
+                                                  });
+                                                },
+                                              );
+                                            },
+                                          ).then((value) {
+                                            if (value == null) return;
+
+                                            if (value['key'] ==
+                                                'followOrUnfollow') {
+                                              context
+                                                  .read<ClubProfileCubit>()
+                                                  .followUnfollowPub(
+                                                      pubId: state.clubId
+                                                          .toString());
+                                            } else if (value['key'] ==
+                                                'blockOrUnblock') {
+                                              context
+                                                  .read<ClubProfileCubit>()
+                                                  .blockOrUnblockPub(
+                                                      isBlock: value['val']);
+                                            }
+                                          });
+                                        },
+                                        child: SvgPicture.asset(
+                                          AssetConstants.hamBurgerMenu,
+                                          width: 7.w,
+                                        )),
                                   ],
                                 ),
-                              ))
+                              )),
+                          if (state.isBlocked)
+                            Positioned(
+                                top: 11.h,
+                                child: SizedBox(
+                                  width: 100.w,
+                                  height: 100.h,
+                                  child: ClipRect(
+                                      child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10.0, sigmaY: 10.0),
+                                    child: Container(
+                                      color: Colors.black.withOpacity(0.1),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Center(
+                                            child: Text(
+                                              '${state.pub!.fullName} is blocked!',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontSize: 18.sp,
+                                                  ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                                ))
                         ],
                       ),
                     ),
@@ -290,34 +374,35 @@ class ProfileActionsModal extends StatelessWidget {
               SizedBox(
                 height: 2.h,
               ),
-              ProfileActionTile(
-                prefixIcon: SvgPicture.asset(
-                  isFollowing
-                      ? AssetConstants.closeIcon
-                      : AssetConstants.followIcon,
-                  height: 6.w,
+              if (!isBlocked)
+                ProfileActionTile(
+                  prefixIcon: SvgPicture.asset(
+                    isFollowing
+                        ? AssetConstants.closeIcon
+                        : AssetConstants.followIcon,
+                    height: 6.w,
+                  ),
+                  onTap: () {
+                    if (isFollowing) {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return AgreeToUnfollowModalSheet(
+                                textTheme: Theme.of(context).textTheme,
+                                colorScheme: Theme.of(context).colorScheme,
+                                name: profileName);
+                          }).then((value) {
+                        if (value != null) {
+                          // unfollow
+                          onTapFollowOrUnfollow!(true);
+                        }
+                      });
+                    } else {
+                      onTapFollowOrUnfollow!(false);
+                    }
+                  },
+                  title: isFollowing ? 'Unfollow' : 'Follow',
                 ),
-                onTap: () {
-                  if (isFollowing) {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return AgreeToUnfollowModalSheet(
-                              textTheme: Theme.of(context).textTheme,
-                              colorScheme: Theme.of(context).colorScheme,
-                              name: profileName);
-                        }).then((value) {
-                      if (value != null) {
-                        // unfollow
-                        onTapFollowOrUnfollow!(true);
-                      }
-                    });
-                  } else {
-                    onTapFollowOrUnfollow!(false);
-                  }
-                },
-                title: isFollowing ? 'Unfollow' : 'Follow',
-              ),
               ProfileActionTile(
                 onTap: () {
                   if (!isBlocked) {

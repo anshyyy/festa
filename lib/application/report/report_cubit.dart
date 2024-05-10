@@ -19,6 +19,10 @@ class ReportCubit extends Cubit<ReportState> {
     emit(state.copyWith(type: 'user'));
   }
 
+    void initReportArtist() async {
+    emit(state.copyWith(type: 'artist'));
+  }
+
   void initReportPub() async {
     emit(state.copyWith(type: 'pub'));
   }

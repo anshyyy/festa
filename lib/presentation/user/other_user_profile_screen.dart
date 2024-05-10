@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -281,24 +283,43 @@ class OtherUserProfileScreenConsumer extends StatelessWidget {
                           ),
                         ),
                       ),
-
-                      // Positioned(
-                      //   right: 5.w,
-                      //   child: SafeArea(
-                      //     child: GestureDetector(
-                      //       onTap: () {},
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.end,
-                      //         children: [
-                      //           Row(
-                      //             mainAxisAlignment: MainAxisAlignment.end,
-                      //             children: [],
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
+                    if(state.isBlocked)
+                      Positioned(
+                          top: 13.h,
+                          child: SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: ClipRect(
+                                child: BackdropFilter(
+                              filter:
+                                  ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                              child: Container(
+                                color: Colors.black.withOpacity(0.1),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        '${state.user!.fullName} is blocked!',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                                  fontSize: 18.sp,
+                                            ),
+                                      ),
+                                    
+                                    ),
+                                    SizedBox(height: 5.h,),
+                                  ],
+                                ),
+                              ),
+                            )),
+                          ))
                     ],
                   ),
           ),
@@ -356,6 +377,7 @@ class ProfileActionsModal extends StatelessWidget {
               SizedBox(
                 height: 2.h,
               ),
+              if(!isBlocked)
               ProfileActionTile(
                 prefixIcon: SvgPicture.asset(
                   isFollowing

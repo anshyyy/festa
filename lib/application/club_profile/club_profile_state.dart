@@ -21,7 +21,9 @@ class ClubProfileState with _$ClubProfileState {
     required DraggableScrollableController dragController,
     required List<AssetDto> assets,
     PubDto? pub,
+    required UserRepository userRepository,
     required bool isFollowing,
+    required bool isBlocked,
     required bool openPhotoViewer,
     required bool showHeader,
   }) = _ClubProfileState;
@@ -40,6 +42,8 @@ class ClubProfileState with _$ClubProfileState {
         isAtTop: false,
         images: [],
         clubId: clubId,
+        isBlocked: false,
+        userRepository: IUserRepository(serverUrl: apiBaseUrl),
         pubRepository: IPubRepository(serverUrl: apiBaseUrl),
         isLoading: false,
         isFailed: false,

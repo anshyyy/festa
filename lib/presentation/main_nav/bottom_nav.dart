@@ -51,8 +51,8 @@ class CustomBottomNav extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  // context.read<MainNavCubit>().onIndexChange(index: 0);
                   if (isTabScreen) {
                     onTabChange!(0);
                   } else {
@@ -64,8 +64,7 @@ class CustomBottomNav extends StatelessWidget {
                   }
                 },
                 child: SizedBox(
-                  width: 8.w,
-                  // height: 100.h,
+                  width: 12.w,
                   child: Stack(
                     children: [
                       Center(
@@ -80,7 +79,7 @@ class CustomBottomNav extends StatelessWidget {
                         bottom: 0,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
-                          width: 8.w,
+                          width: 12.w,
                           height: .3.h,
                           decoration: BoxDecoration(
                               borderRadius: const BorderRadius.vertical(
@@ -95,45 +94,9 @@ class CustomBottomNav extends StatelessWidget {
                   ),
                 ),
               ),
-              // GestureDetector(
-              //   // onTap: () {
-              //   //   context.read<MainNavCubit>().onIndexChange(index: 1);
-              //   // },
-              //   child: SizedBox(
-              //     width: 8.w,
-              //     height: 100.h,
-              //     child: Stack(
-              //       children: [
-              //         Center(
-              //           child: SvgPicture.asset(
-              //             AssetConstants.communityIcon,
-              //             color: state.currentIndex == 1
-              //                 ? Theme.of(context).primaryColor
-              //                 : Theme.of(context).colorScheme.onSecondary,
-              //           ),
-              //         ),
-              //         Positioned(
-              //           bottom: 0,
-              //           child: AnimatedContainer(
-              //             duration: const Duration(milliseconds: 200),
-              //             width: 8.w,
-              //             height: .3.h,
-              //             decoration: BoxDecoration(
-              //                 borderRadius: const BorderRadius.vertical(
-              //                   top: Radius.circular(10),
-              //                 ),
-              //                 color: state.currentIndex == 1
-              //                     ? Theme.of(context).primaryColor
-              //                     : Colors.transparent),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  // context.read<MainNavCubit>().onIndexChange(index: 2);
                   if (isTabScreen) {
                     onTabChange!(2);
                   } else {
@@ -147,8 +110,7 @@ class CustomBottomNav extends StatelessWidget {
                   }
                 },
                 child: SizedBox(
-                  width: 8.w,
-                  // height: 100.h,
+                  width: 12.w,
                   child: Stack(
                     children: [
                       Center(
@@ -163,7 +125,7 @@ class CustomBottomNav extends StatelessWidget {
                         bottom: 0,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
-                          width: 8.w,
+                          width: 12.w,
                           height: .3.h,
                           decoration: BoxDecoration(
                               borderRadius: const BorderRadius.vertical(
@@ -178,10 +140,9 @@ class CustomBottomNav extends StatelessWidget {
                   ),
                 ),
               ),
-
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  // context.read<MainNavCubit>().onIndexChange(index: 3);
                   if (isTabScreen) {
                     onTabChange!(3);
                   } else {
@@ -193,8 +154,7 @@ class CustomBottomNav extends StatelessWidget {
                   }
                 },
                 child: SizedBox(
-                  width: 7.w,
-                  height: 100.h,
+                  width: 12.w,
                   child: Stack(
                     children: [
                       Center(
@@ -220,7 +180,7 @@ class CustomBottomNav extends StatelessWidget {
                         bottom: 0,
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
-                          width: 8.w,
+                          width: 12.w,
                           height: .3.h,
                           decoration: BoxDecoration(
                               borderRadius: const BorderRadius.vertical(

@@ -31,9 +31,7 @@ class ClubFollowers extends StatelessWidget {
     final AppStateNotifier appStateNotifier =
         Provider.of<AppStateNotifier>(context);
     return BlocConsumer<ClubCommunityCubit, ClubCommunityState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Column(
           children: [
@@ -49,11 +47,13 @@ class ClubFollowers extends StatelessWidget {
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.5.w),
               onChanged: (value) {
-                EasyDebounce.debounce('club-followers-search', 
-                const Duration(milliseconds: 500),
-                 () {
-                  context.read<ClubCommunityCubit>().searchPubFollowers(page: 1);
-                 });
+                EasyDebounce.debounce(
+                    'club-followers-search', const Duration(milliseconds: 500),
+                    () {
+                  context
+                      .read<ClubCommunityCubit>()
+                      .searchPubFollowers(page: 1);
+                });
               },
               suffixIcon: state.followersSearchController.text.isNotEmpty
                   ? GestureDetector(
@@ -72,156 +72,172 @@ class ClubFollowers extends StatelessWidget {
                       colorScheme.secondaryContainer, BlendMode.srcIn)),
             ),
             state.isFollowersFetching
-                ? const Expanded(child:  UserSocialShimmer())
+                ? const Expanded(child: UserSocialShimmer())
                 : state.pubFollowers.users.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      // shrinkWrap: true,
-                      controller: state.followersScrollController,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: state.pubFollowers.users.length,
-                      itemBuilder: (context, index) {
-                        final currentUser = state.pubFollowers.users[index];
-                        return GestureDetector(
-                          onTap: () {
-                            navigator<NavigationService>().navigateTo(
-                                UserRoutes.otherUserProfileRoute,
-                                queryParams: {
-                                  'userId': currentUser.id.toString(),
-                                });
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 1.5.w),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
+                    ? Expanded(
+                        child: ListView.builder(
+                          // shrinkWrap: true,
+                          controller: state.followersScrollController,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: state.pubFollowers.users.length,
+                          itemBuilder: (context, index) {
+                            final currentUser = state.pubFollowers.users[index];
+                            return GestureDetector(
+                              onTap: () {
+                                if (appStateNotifier.user!.id ==
+                                    currentUser.id) {
+                                  return;
+                                }
+                                navigator<NavigationService>().navigateTo(
+                                    UserRoutes.otherUserProfileRoute,
+                                    queryParams: {
+                                      'userId': currentUser.id.toString(),
+                                    });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 1.5.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      height: 14.w,
-                                      width: 14.w,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: colorScheme.background,
-                                              width: .5.w),
-                                          borderRadius:
-                                              BorderRadius.circular(50.w),
-                                          image: DecorationImage(
-                                              image: CachedNetworkImageProvider(CustomImageProvider.getImageUrl(currentUser
-                                                          .profileImage, ImageType.profile)),
-                                              fit: BoxFit.cover)),
-                                    ),
-                                    SizedBox(
-                                      width: 4.w,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    Row(
                                       children: [
-                                        Text(currentUser.fullName,
-                                            style:
-                                                textTheme.bodyMedium!.copyWith(
-                                              color: colorScheme.background,
-                                              fontWeight: FontWeight.w600,
-                                            )),
-                                        Text(
-                                          currentUser.tag?.tag != null
-                                              ? currentUser.tag!.tag
-                                              : '',
-                                          style: textTheme.bodySmall,
+                                        Container(
+                                          height: 14.w,
+                                          width: 14.w,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: colorScheme.background,
+                                                  width: .5.w),
+                                              borderRadius: BorderRadius
+                                                  .circular(50.w),
+                                              image: DecorationImage(
+                                                  image: CachedNetworkImageProvider(
+                                                      CustomImageProvider
+                                                          .getImageUrl(
+                                                              currentUser
+                                                                  .profileImage,
+                                                              ImageType
+                                                                  .profile)),
+                                                  fit: BoxFit.cover)),
+                                        ),
+                                        SizedBox(
+                                          width: 4.w,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(currentUser.fullName,
+                                                style: textTheme.bodyMedium!
+                                                    .copyWith(
+                                                  color: colorScheme.background,
+                                                  fontWeight: FontWeight.w600,
+                                                )),
+                                            Text(
+                                              currentUser.tag?.tag != null
+                                                  ? currentUser.tag!.tag
+                                                  : '',
+                                              style: textTheme.bodySmall,
+                                            )
+                                          ],
                                         )
                                       ],
-                                    )
+                                    ),
+                                    appStateNotifier.user!.id == currentUser.id
+                                        ? const SizedBox()
+                                        : !currentUser.isFollowing
+                                            ? GestureDetector(
+                                                onTap: () {
+                                                  context
+                                                      .read<
+                                                          ClubCommunityCubit>()
+                                                      .followFollower(
+                                                          id: currentUser.id);
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5.w,
+                                                      vertical: 1.w),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: colorScheme
+                                                          .primaryContainer),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                          AssetConstants
+                                                              .playButtonIcon),
+                                                      SizedBox(
+                                                        width: 1.w,
+                                                      ),
+                                                      Text(
+                                                        ClubProfileScreenConstants
+                                                            .follow,
+                                                        style: textTheme
+                                                            .bodySmall!
+                                                            .copyWith(
+                                                                color: colorScheme
+                                                                    .background),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  context
+                                                      .read<
+                                                          ClubCommunityCubit>()
+                                                      .unFollowFollower(
+                                                          id: currentUser.id);
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 5.w,
+                                                      vertical: 1.w),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: colorScheme
+                                                          .primaryContainer),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      // SvgPicture.asset(
+                                                      //     AssetConstants.),
+                                                      SizedBox(
+                                                        width: 1.w,
+                                                      ),
+                                                      Text(
+                                                        ClubProfileScreenConstants
+                                                            .following,
+                                                        style: textTheme
+                                                            .bodySmall!
+                                                            .copyWith(
+                                                                color: colorScheme
+                                                                    .background),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
                                   ],
                                 ),
-                                appStateNotifier.user!.id == currentUser.id
-                                    ? const SizedBox()
-                                    : !currentUser.isFollowing
-                                        ? GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<ClubCommunityCubit>()
-                                                  .followFollower(
-                                                      id: currentUser.id);
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 5.w,
-                                                  vertical: 1.w),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: colorScheme
-                                                      .primaryContainer),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  SvgPicture.asset(
-                                                      AssetConstants
-                                                          .playButtonIcon),
-                                                  SizedBox(
-                                                    width: 1.w,
-                                                  ),
-                                                  Text(
-                                                    ClubProfileScreenConstants
-                                                        .follow,
-                                                    style: textTheme.bodySmall!
-                                                        .copyWith(
-                                                            color: colorScheme
-                                                                .background),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        : GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<ClubCommunityCubit>()
-                                                  .unFollowFollower(
-                                                      id: currentUser.id);
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 5.w,
-                                                  vertical: 1.w),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: colorScheme
-                                                      .primaryContainer),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  // SvgPicture.asset(
-                                                  //     AssetConstants.),
-                                                  SizedBox(
-                                                    width: 1.w,
-                                                  ),
-                                                  Text(
-                                                    ClubProfileScreenConstants
-                                                        .following,
-                                                    style: textTheme.bodySmall!
-                                                        .copyWith(
-                                                            color: colorScheme
-                                                                .background),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                : Expanded(
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    : Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -247,7 +263,6 @@ class ClubFollowers extends StatelessWidget {
                           ],
                         ),
                       ),
-
           ],
         );
       },

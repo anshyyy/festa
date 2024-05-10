@@ -61,7 +61,7 @@ class EmailScreenConsumer extends StatelessWidget {
                   navigator<NavigationService>().goBack();
                 },
                 child: Center(
-                  child: SvgPicture.asset(AssetConstants.arrowLeft),
+                  child: SvgPicture.asset(AssetConstants.arrowLeft, width: 7.w,),
                 ),
               ),
               actions: const [],

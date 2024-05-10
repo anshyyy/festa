@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../../application/user/account_settings_cubit/account_settings_cubit.dart';
 import '../../../../domain/core/configs/app_config.dart';
@@ -56,7 +57,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                       navigator<NavigationService>().goBack();
                     },
                     child: Center(
-                      child: SvgPicture.asset(AssetConstants.arrowLeft),
+                      child: SvgPicture.asset(AssetConstants.arrowLeft, width: 7.w,),
                     ),
                   ),
                   actions: const [],

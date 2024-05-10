@@ -46,12 +46,13 @@ class ArtistFollowers extends StatelessWidget {
                   .copyWith(fontSize: 15.sp, color: colorScheme.background),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.5.w),
-               onChanged: (value) {
-                EasyDebounce.debounce('artist-followers-search', 
-                const Duration(milliseconds: 500),
-                 () {
-                  context.read<ArtistCommunityCubit>().searchArtistFollowers(page: 1);
-                 });
+              onChanged: (value) {
+                EasyDebounce.debounce('artist-followers-search',
+                    const Duration(milliseconds: 500), () {
+                  context
+                      .read<ArtistCommunityCubit>()
+                      .searchArtistFollowers(page: 1);
+                });
               },
               suffixIcon: state.friendsSearchController.text.isNotEmpty
                   ? GestureDetector(
@@ -82,6 +83,10 @@ class ArtistFollowers extends StatelessWidget {
                                 state.artistFollowers!.users[index];
                             return GestureDetector(
                               onTap: () {
+                                if (appStateNotifier.user!.id ==
+                                    currentUser.id) {
+                                  return;
+                                }
                                 navigator<NavigationService>().navigateTo(
                                     UserRoutes.otherUserProfileRoute,
                                     queryParams: {

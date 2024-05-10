@@ -148,72 +148,72 @@ class UserProfile extends StatelessWidget {
                   ],
                 ),
               ),
-              appStateNotifier.user!.id != state.userId
-                  ? !state.isFollowing
-                      ? Positioned(
-                          top: 1.5.h,
-                          right: 4.5.w,
-                          child: GradientButton(
-                            width: 23.w,
-                            height: 4.h,
-                            text: ClubProfileScreenConstants.follow,
-                            onTap: () {
-                              context
-                                  .read<UserProfileCubit>()
-                                  .followUser(id: state.userId);
-                            },
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  fontSize: 14.sp,
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        )
-                      : Positioned(
-                          top: 1.5.h,
-                          right: 4.5.w,
-                          child: GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<UserProfileCubit>()
-                                  .unFollowUser(id: state.userId);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 3.w, vertical: 2.w),
-                              decoration: BoxDecoration(
-                                  color: colorScheme.secondaryContainer
-                                      .withOpacity(.2),
-                                  borderRadius: BorderRadius.circular(2.w)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Following',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                          fontSize: 14.sp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
-                                  // SizedBox(
-                                  //   width: 1.w,
-                                  // ),
-                                  // SvgPicture.asset(AssetConstants.arrowDown)
-                                ],
-                              ),
-                            ),
-                          ))
-                  : const SizedBox(),
+              // appStateNotifier.user!.id != state.userId
+              //     ? !state.isFollowing
+              //         ? Positioned(
+              //             top: 1.5.h,
+              //             right: 4.5.w,
+              //             child: GradientButton(
+              //               width: 23.w,
+              //               height: 4.h,
+              //               text: ClubProfileScreenConstants.follow,
+              //               onTap: () {
+              //                 context
+              //                     .read<UserProfileCubit>()
+              //                     .followUser(id: state.userId);
+              //               },
+              //               textStyle: Theme.of(context)
+              //                   .textTheme
+              //                   .bodySmall
+              //                   ?.copyWith(
+              //                     fontSize: 14.sp,
+              //                     color:
+              //                         Theme.of(context).colorScheme.background,
+              //                     fontWeight: FontWeight.w600,
+              //                   ),
+              //             ),
+              //           )
+              //         : Positioned(
+              //             top: 1.5.h,
+              //             right: 4.5.w,
+              //             child: GestureDetector(
+              //               onTap: () {
+              //                 context
+              //                     .read<UserProfileCubit>()
+              //                     .unFollowUser(id: state.userId);
+              //               },
+              //               child: Container(
+              //                 padding: EdgeInsets.symmetric(
+              //                     horizontal: 3.w, vertical: 2.w),
+              //                 decoration: BoxDecoration(
+              //                     color: colorScheme.secondaryContainer
+              //                         .withOpacity(.2),
+              //                     borderRadius: BorderRadius.circular(2.w)),
+              //                 child: Row(
+              //                   mainAxisAlignment: MainAxisAlignment.center,
+              //                   children: [
+              //                     Text(
+              //                       'Following',
+              //                       style: Theme.of(context)
+              //                           .textTheme
+              //                           .bodySmall
+              //                           ?.copyWith(
+              //                             fontSize: 14.sp,
+              //                             color: Theme.of(context)
+              //                                 .colorScheme
+              //                                 .background,
+              //                             fontWeight: FontWeight.w600,
+              //                           ),
+              //                     ),
+              //                     // SizedBox(
+              //                     //   width: 1.w,
+              //                     // ),
+              //                     // SvgPicture.asset(AssetConstants.arrowDown)
+              //                   ],
+              //                 ),
+              //               ),
+              //             ))
+              //     : const SizedBox(),
               Positioned(
                 top: 1.h,
                 left: 2.w,

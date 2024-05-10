@@ -92,7 +92,7 @@ class HistoryTicketScreen extends StatelessWidget {
                               },
                               child: Center(
                                   child: SvgPicture.asset(
-                                      AssetConstants.arrowLeft))),
+                                      AssetConstants.arrowLeft, width: 7.w))),
                         ),
                       ),
                     ],

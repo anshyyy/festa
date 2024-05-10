@@ -20,7 +20,6 @@ abstract class UserRepository {
     required int page,
     required int limit,
     required String searchQuery,
-
   });
 
   Future<Either<dynamic, UserDto>> fetchUserDetails({
@@ -34,7 +33,7 @@ abstract class UserRepository {
   void unFollowUser({
     required int userId,
   });
-  
+
   Future<bool> sendOtpToEmail({
     required String email,
   });
@@ -43,14 +42,15 @@ abstract class UserRepository {
     required String email,
     required String otp,
   });
-  
+
   Future<List<PersonalizationMenuDto>> fetchPersonalizeMenu();
 
-  void updatePersonalizedMenu({required String title, required List<String> list});
+  void updatePersonalizedMenu(
+      {required String title, required List<String> list});
   Future<bool> deleteProfile({required int id, required String reason});
 
-  Future<Either<dynamic,UserTicketsDto>> fetchAllUserTickets(); 
-  
+  Future<Either<dynamic, UserTicketsDto>> fetchAllUserTickets();
+
   Future<UserDto?> fetchUserByToken();
 
   Future<bool> report({
@@ -59,5 +59,13 @@ abstract class UserRepository {
     required String id,
   });
 
-  
+  Future<bool> block({
+    required String type,
+    required String id,
+  });
+
+  Future<bool> unBlock({
+    required String type,
+    required String id,
+  });
 }

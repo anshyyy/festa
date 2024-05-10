@@ -70,4 +70,5 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     emit(state.copyWith(isLoading: true));
     emit(state.copyWith(isLoading: false, isFollowing: !state.isFollowing));
   }
+
 }

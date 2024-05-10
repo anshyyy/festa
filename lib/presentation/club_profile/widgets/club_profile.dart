@@ -16,8 +16,8 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
-import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
+import '../club_profile_screen.dart';
 import 'social_reach.dart';
 
 class ClubProfile extends StatelessWidget {
@@ -449,105 +449,6 @@ class ClubProfile extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class AgreeToUnfollowModalSheet extends StatelessWidget {
-  const AgreeToUnfollowModalSheet({
-    super.key,
-    required this.textTheme,
-    required this.colorScheme,
-    required this.name,
-  });
-
-  final TextTheme textTheme;
-  final ColorScheme colorScheme;
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-          left: 5.w,
-          right: 5.w),
-      // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: 1.h,
-          ),
-          Center(
-            child: Container(
-              width: 12.w,
-              height: .5.h,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 3.5.h,
-          ),
-          Text(
-            'Are you sure you want to unfollow?',
-            style: textTheme.bodyMedium!.copyWith(
-              color: colorScheme.background,
-              fontWeight: FontWeight.w600,
-              fontSize: 18.sp,
-            ),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Text(
-            'Unfollowing $name means that you won\'t see any of their posts, events, or updates in your feed. However, you can still visit their profile to view their posts.',
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color:
-                      Theme.of(context).colorScheme.background.withOpacity(0.7),
-                ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          CustomOutlinedButton(
-            text: 'Yes',
-            height: 6.h,
-            onTap: () {
-              navigator<NavigationService>().goBack(responseObject: true);
-            },
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          GradientButton(
-            text: 'Cancel',
-            onTap: () {
-              navigator<NavigationService>().goBack();
-            },
-            textStyle: textTheme.bodySmall!.copyWith(
-              fontSize: 15.5.sp,
-              color: colorScheme.background,
-              fontWeight: FontWeight.w600,
-            ),
-            height: 5.5.h,
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-        ],
-      ),
     );
   }
 }

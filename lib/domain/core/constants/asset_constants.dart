@@ -152,6 +152,8 @@ class AssetConstants {
 
   static const successHexagon = '${vectorsFolder}success-tick.svg';
   static const incogIcon = '${vectorsFolder}incog.svg';
+  static const userBlock = '${vectorsFolder}block-user.svg';
+
 
   
 // eventIconConstants

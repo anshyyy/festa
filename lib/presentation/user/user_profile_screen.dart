@@ -95,41 +95,42 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                           height: 4.h,
                                         ),
                                       ),
-                            SafeArea(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 2.w),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    appStateNotifier.user!.id != state.userId
-                                        ? const SizedBox()
-                                        : GestureDetector(
-                                            onTap: () {
-                                              navigator<NavigationService>()
-                                                  .navigateTo(
-                                                UserRoutes
-                                                    .profileAndSettingsRoute,
-                                              )
-                                                  .then((value) {
-                                                context
-                                                    .read<UserProfileCubit>()
-                                                    .fetchUserDetails(
-                                                        id: state.userId);
-                                              });
-                                            },
-                                            child: Row(
+                            appStateNotifier.user!.id != state.userId
+                                ? const SizedBox()
+                                : SafeArea(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        navigator<NavigationService>()
+                                            .navigateTo(
+                                          UserRoutes.profileAndSettingsRoute,
+                                        )
+                                            .then((value) {
+                                          context
+                                              .read<UserProfileCubit>()
+                                              .fetchUserDetails(
+                                                  id: state.userId);
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            right: 5.w, top: 1.h),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
                                                 SvgPicture.asset(AssetConstants
-                                                    .hamBurgerMenu),
+                                                    .hamBurgerMenu,width: 7.w),
                                               ],
                                             ),
-                                          ),
-                                  ],
-                                ),
-                              ),
-                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
                           ],
                         )),
                     const Column(

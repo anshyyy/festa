@@ -19,6 +19,7 @@ mixin _$UserProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
   bool get isFailed => throw _privateConstructorUsedError;
+  bool get isUpdating => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   String? get profileImage => throw _privateConstructorUsedError;
   String? get coverImage => throw _privateConstructorUsedError;
@@ -27,6 +28,7 @@ mixin _$UserProfileState {
   UserDto? get user => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
+  bool get isBlocked => throw _privateConstructorUsedError;
   bool get qrExpandedView => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
 
@@ -45,6 +47,7 @@ abstract class $UserProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool isSuccessful,
       bool isFailed,
+      bool isUpdating,
       bool noUse,
       String? profileImage,
       String? coverImage,
@@ -53,6 +56,7 @@ abstract class $UserProfileStateCopyWith<$Res> {
       UserDto? user,
       int userId,
       bool isFollowing,
+      bool isBlocked,
       bool qrExpandedView,
       AppStateNotifier appStateNotifier});
 
@@ -75,6 +79,7 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
     Object? isLoading = null,
     Object? isSuccessful = null,
     Object? isFailed = null,
+    Object? isUpdating = null,
     Object? noUse = null,
     Object? profileImage = freezed,
     Object? coverImage = freezed,
@@ -83,6 +88,7 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
     Object? user = freezed,
     Object? userId = null,
     Object? isFollowing = null,
+    Object? isBlocked = null,
     Object? qrExpandedView = null,
     Object? appStateNotifier = null,
   }) {
@@ -98,6 +104,10 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
       isFailed: null == isFailed
           ? _value.isFailed
           : isFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUpdating: null == isUpdating
+          ? _value.isUpdating
+          : isUpdating // ignore: cast_nullable_to_non_nullable
               as bool,
       noUse: null == noUse
           ? _value.noUse
@@ -130,6 +140,10 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isBlocked: null == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
               as bool,
       qrExpandedView: null == qrExpandedView
           ? _value.qrExpandedView
@@ -167,6 +181,7 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
       {bool isLoading,
       bool isSuccessful,
       bool isFailed,
+      bool isUpdating,
       bool noUse,
       String? profileImage,
       String? coverImage,
@@ -175,6 +190,7 @@ abstract class _$$UserProfileStateImplCopyWith<$Res>
       UserDto? user,
       int userId,
       bool isFollowing,
+      bool isBlocked,
       bool qrExpandedView,
       AppStateNotifier appStateNotifier});
 
@@ -196,6 +212,7 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSuccessful = null,
     Object? isFailed = null,
+    Object? isUpdating = null,
     Object? noUse = null,
     Object? profileImage = freezed,
     Object? coverImage = freezed,
@@ -204,6 +221,7 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
     Object? user = freezed,
     Object? userId = null,
     Object? isFollowing = null,
+    Object? isBlocked = null,
     Object? qrExpandedView = null,
     Object? appStateNotifier = null,
   }) {
@@ -219,6 +237,10 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
       isFailed: null == isFailed
           ? _value.isFailed
           : isFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUpdating: null == isUpdating
+          ? _value.isUpdating
+          : isUpdating // ignore: cast_nullable_to_non_nullable
               as bool,
       noUse: null == noUse
           ? _value.noUse
@@ -252,6 +274,10 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      isBlocked: null == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
       qrExpandedView: null == qrExpandedView
           ? _value.qrExpandedView
           : qrExpandedView // ignore: cast_nullable_to_non_nullable
@@ -271,6 +297,7 @@ class _$UserProfileStateImpl implements _UserProfileState {
       {required this.isLoading,
       required this.isSuccessful,
       required this.isFailed,
+      required this.isUpdating,
       required this.noUse,
       this.profileImage,
       this.coverImage,
@@ -279,6 +306,7 @@ class _$UserProfileStateImpl implements _UserProfileState {
       this.user,
       required this.userId,
       required this.isFollowing,
+      required this.isBlocked,
       required this.qrExpandedView,
       required this.appStateNotifier});
 
@@ -288,6 +316,8 @@ class _$UserProfileStateImpl implements _UserProfileState {
   final bool isSuccessful;
   @override
   final bool isFailed;
+  @override
+  final bool isUpdating;
   @override
   final bool noUse;
   @override
@@ -305,13 +335,15 @@ class _$UserProfileStateImpl implements _UserProfileState {
   @override
   final bool isFollowing;
   @override
+  final bool isBlocked;
+  @override
   final bool qrExpandedView;
   @override
   final AppStateNotifier appStateNotifier;
 
   @override
   String toString() {
-    return 'UserProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, profileImage: $profileImage, coverImage: $coverImage, coreRepository: $coreRepository, userRepository: $userRepository, user: $user, userId: $userId, isFollowing: $isFollowing, qrExpandedView: $qrExpandedView, appStateNotifier: $appStateNotifier)';
+    return 'UserProfileState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, isUpdating: $isUpdating, noUse: $noUse, profileImage: $profileImage, coverImage: $coverImage, coreRepository: $coreRepository, userRepository: $userRepository, user: $user, userId: $userId, isFollowing: $isFollowing, isBlocked: $isBlocked, qrExpandedView: $qrExpandedView, appStateNotifier: $appStateNotifier)';
   }
 
   @override
@@ -325,6 +357,8 @@ class _$UserProfileStateImpl implements _UserProfileState {
                 other.isSuccessful == isSuccessful) &&
             (identical(other.isFailed, isFailed) ||
                 other.isFailed == isFailed) &&
+            (identical(other.isUpdating, isUpdating) ||
+                other.isUpdating == isUpdating) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
@@ -338,6 +372,8 @@ class _$UserProfileStateImpl implements _UserProfileState {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.isFollowing, isFollowing) ||
                 other.isFollowing == isFollowing) &&
+            (identical(other.isBlocked, isBlocked) ||
+                other.isBlocked == isBlocked) &&
             (identical(other.qrExpandedView, qrExpandedView) ||
                 other.qrExpandedView == qrExpandedView) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
@@ -350,6 +386,7 @@ class _$UserProfileStateImpl implements _UserProfileState {
       isLoading,
       isSuccessful,
       isFailed,
+      isUpdating,
       noUse,
       profileImage,
       coverImage,
@@ -358,6 +395,7 @@ class _$UserProfileStateImpl implements _UserProfileState {
       user,
       userId,
       isFollowing,
+      isBlocked,
       qrExpandedView,
       appStateNotifier);
 
@@ -374,6 +412,7 @@ abstract class _UserProfileState implements UserProfileState {
           {required final bool isLoading,
           required final bool isSuccessful,
           required final bool isFailed,
+          required final bool isUpdating,
           required final bool noUse,
           final String? profileImage,
           final String? coverImage,
@@ -382,6 +421,7 @@ abstract class _UserProfileState implements UserProfileState {
           final UserDto? user,
           required final int userId,
           required final bool isFollowing,
+          required final bool isBlocked,
           required final bool qrExpandedView,
           required final AppStateNotifier appStateNotifier}) =
       _$UserProfileStateImpl;
@@ -392,6 +432,8 @@ abstract class _UserProfileState implements UserProfileState {
   bool get isSuccessful;
   @override
   bool get isFailed;
+  @override
+  bool get isUpdating;
   @override
   bool get noUse;
   @override
@@ -408,6 +450,8 @@ abstract class _UserProfileState implements UserProfileState {
   int get userId;
   @override
   bool get isFollowing;
+  @override
+  bool get isBlocked;
   @override
   bool get qrExpandedView;
   @override

@@ -87,6 +87,10 @@ class UserFollowers extends StatelessWidget {
                                 state.userFollowers.users[index];
                             return GestureDetector(
                               onTap: () {
+                                if (appStateNotifier.user!.id ==
+                                    currentUser.id) {
+                                  return;
+                                }
                                 navigator<NavigationService>().navigateTo(
                                     UserRoutes.otherUserProfileRoute,
                                     queryParams: {

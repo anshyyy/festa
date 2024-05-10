@@ -43,7 +43,7 @@ class FreeBookingScreen extends StatelessWidget {
               onTap: () {
                 navigator<NavigationService>().goBack();
               },
-              child: Center(child: SvgPicture.asset(AssetConstants.arrowLeft))),
+              child: Center(child: SvgPicture.asset(AssetConstants.arrowLeft,  width: 7.w))),
           actions: const []),
       body: Column(
         children: [

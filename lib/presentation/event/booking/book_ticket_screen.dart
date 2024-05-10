@@ -74,7 +74,7 @@ class BookTicketScreenConsumer extends StatelessWidget {
                           },
                           child: Center(
                               child:
-                                  SvgPicture.asset(AssetConstants.arrowLeft))),
+                                  SvgPicture.asset(AssetConstants.arrowLeft,  width: 7.w))),
                       actions: const []),
                   body: SafeArea(
                     child: SingleChildScrollView(

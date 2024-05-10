@@ -6,6 +6,7 @@ class UserProfileState with _$UserProfileState {
     required bool isLoading,
     required bool isSuccessful,
     required bool isFailed,
+    required bool isUpdating,
     required bool noUse,
     String? profileImage,
     String? coverImage,
@@ -14,6 +15,7 @@ class UserProfileState with _$UserProfileState {
      UserDto? user,
     required int userId,
     required bool isFollowing,
+    required bool isBlocked,
     required bool qrExpandedView,
     required AppStateNotifier appStateNotifier
   }) = _UserProfileState;
@@ -25,8 +27,10 @@ class UserProfileState with _$UserProfileState {
       UserProfileState(
         appStateNotifier: appStateNotifier,
         isLoading: false,
+        isUpdating: false,
         isSuccessful: false,
         isFailed: false,
+        isBlocked: false,
         noUse: false,
         coreRepository: ICoreRepository(
           serverUrl: serverUrl,

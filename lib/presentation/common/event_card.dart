@@ -125,7 +125,7 @@ class _EventCardState extends State<EventCard> {
                       ? imageIndex
                       : imageIndex -
                           (widget.event.coverImage.isNotEmpty ? 1 : 0);
-    
+
                   return Container(
                     foregroundDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -146,8 +146,7 @@ class _EventCardState extends State<EventCard> {
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: CachedNetworkImageProvider(
-                          imageIndex == 0 &&
-                                  widget.event.coverImage.isNotEmpty
+                          imageIndex == 0 && widget.event.coverImage.isNotEmpty
                               ? CustomImageProvider.getImageUrl(
                                   widget.event.coverImage, ImageType.other)
                               : CustomImageProvider.getImageUrl(
@@ -247,7 +246,7 @@ class _EventCardState extends State<EventCard> {
             // SizedBox(
             //   height: 1.h,
             // ),
-    
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -282,12 +281,8 @@ class _EventCardState extends State<EventCard> {
                       ),
                       Text(
                         widget.event.pub!.averageRating.toStringAsFixed(1),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(
-                                color:
-                                    Theme.of(context).colorScheme.background),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            color: Theme.of(context).colorScheme.background),
                       ),
                     ],
                   )
@@ -322,56 +317,61 @@ class _EventCardState extends State<EventCard> {
                 getExpenseRating(rating: widget.event.id)
               ],
             ),
-            !widget.isInListing ? Column(
-              children: [
-                SizedBox(
-              height: 1.5.h,
-            ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Row(
+            !widget.isInListing
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: 1.5.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SvgPicture.asset(
-                            AssetConstants.locationIcon,
+                          Expanded(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  AssetConstants.locationIcon,
+                                ),
+                                SizedBox(
+                                  width: 1.w,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    widget.event.address!.vicinity,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style:
+                                        themeData.textTheme.bodySmall!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           SizedBox(
                             width: 1.w,
                           ),
-                          Expanded(
-                            child: Text(
-                              widget.event.address!.vicinity,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: themeData.textTheme.bodySmall!.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: Theme.of(context).colorScheme.background,
-                              ),
+                          Text(
+                            widget.event.distance <= 0
+                                ? widget.distance
+                                : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
+                            style: themeData.textTheme.bodySmall!.copyWith(
+                              color: themeData.colorScheme.background,
+                              fontWeight: FontWeight.w600,
+                              // fontSize: 14.sp,
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      width: 1.w,
-                    ),
-                    Text(
-                      widget.event.distance <= 0
-                          ? widget.distance
-                          : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
-                      style: themeData.textTheme.bodySmall!.copyWith(
-                        color: themeData.colorScheme.background,
-                        fontWeight: FontWeight.w600,
-                        // fontSize: 14.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ): const SizedBox(),
+                    ],
+                  )
+                : const SizedBox(),
             // widget.event.categories.isNotEmpty
             //     ? Container(
             //       margin: EdgeInsets.only(bottom: 4.w),
@@ -424,8 +424,7 @@ class _EventCardState extends State<EventCard> {
             children: [
               if (widget.event.pub != null)
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,12 +434,21 @@ class _EventCardState extends State<EventCard> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              radius: 4.5.w,
-                              backgroundImage: CachedNetworkImageProvider(
-                                  CustomImageProvider.getImageUrl(
-                                      widget.event.pub?.coverImageUrl ?? '',
-                                      ImageType.profile)),
+                            GestureDetector(
+                              onTap: () {
+                                navigator<NavigationService>().navigateTo(
+                                    UserRoutes.clubProfileRoute,
+                                    queryParams: {
+                                      'id': widget.event.pub!.id.toString()
+                                    });
+                              },
+                              child: CircleAvatar(
+                                radius: 4.5.w,
+                                backgroundImage: CachedNetworkImageProvider(
+                                    CustomImageProvider.getImageUrl(
+                                        widget.event.pub?.coverImageUrl ?? '',
+                                        ImageType.profile)),
+                              ),
                             ),
                             SizedBox(
                               width: 2.w,
@@ -452,12 +460,11 @@ class _EventCardState extends State<EventCard> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      navigator<NavigationService>()
-                                          .navigateTo(
-                                              UserRoutes.clubProfileRoute,
-                                              queryParams: {
-                                            'id': widget.event.pub!.id
-                                                .toString()
+                                      navigator<NavigationService>().navigateTo(
+                                          UserRoutes.clubProfileRoute,
+                                          queryParams: {
+                                            'id':
+                                                widget.event.pub!.id.toString()
                                           });
                                     },
                                     child: Text(
@@ -474,8 +481,8 @@ class _EventCardState extends State<EventCard> {
                                     widget.event.address?.vicinity ?? '',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: themeData.textTheme.bodySmall!
-                                        .copyWith(
+                                    style:
+                                        themeData.textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14.sp,
                                       color: themeData.colorScheme.background,
@@ -503,8 +510,7 @@ class _EventCardState extends State<EventCard> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 2.w, vertical: .35.h),
                               decoration: BoxDecoration(
-                                  color:
-                                      themeData.colorScheme.primaryContainer,
+                                  color: themeData.colorScheme.primaryContainer,
                                   borderRadius: BorderRadius.circular(50.w)),
                               child: Row(
                                 children: [
@@ -512,8 +518,8 @@ class _EventCardState extends State<EventCard> {
                                     widget.event.distance <= 0
                                         ? widget.distance
                                         : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
-                                    style: themeData.textTheme.bodySmall!
-                                        .copyWith(
+                                    style:
+                                        themeData.textTheme.bodySmall!.copyWith(
                                       color: themeData.colorScheme.background,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14.sp,

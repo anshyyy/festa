@@ -29,6 +29,7 @@ class UserApiConstants {
   static const GET_USER_TICKETS = '/booking/user';
   static const DELETE_REASON = '/feedback/delete/user';
   static const REPORT = '/feedback/report';
+  static const BLOCK = '/block';
 }
 
 class AuthApiConstants {

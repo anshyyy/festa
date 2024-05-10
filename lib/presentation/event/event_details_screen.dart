@@ -105,7 +105,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
-                            child: SvgPicture.asset(AssetConstants.arrowLeft))),
+                            child: SvgPicture.asset(AssetConstants.arrowLeft, width: 7.w,))),
                     actions: [
                       GestureDetector(
                         onTap: () {
@@ -118,7 +118,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           );
                         },
                         child: Padding(
-                          padding: EdgeInsets.only(right: 2.w),
+                          padding: EdgeInsets.only(right: 5.w),
                           child: SvgPicture.asset(AssetConstants.threeDotsIcon),
                         ),
                       )

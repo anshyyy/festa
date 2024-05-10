@@ -130,11 +130,15 @@ class IUserRepository extends UserRepository {
 
   @override
   void followUser({required int userId}) async {
-    final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-    final url = '$serverUrl${UserApiConstants.USERS}/follow/$userId';
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${UserApiConstants.USERS}/follow/$userId';
 
-    await RESTService.performPOSTRequest(
-        httpUrl: url, isAuth: true, token: token!);
+      await RESTService.performPOSTRequest(
+          httpUrl: url, isAuth: true, token: token!);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -312,7 +316,7 @@ class IUserRepository extends UserRepository {
       final reqBody = {
         'type': type,
         'value': id,
-        'message':msg,
+        'message': msg,
       };
       final res = await RESTService.performPOSTRequest(
           body: jsonEncode(reqBody), httpUrl: url, isAuth: true, token: token!);
@@ -324,6 +328,46 @@ class IUserRepository extends UserRepository {
       return isReported;
     } catch (e) {
       return isReported;
+    }
+  }
+
+  @override
+  Future<bool> block({required String type, required String id}) async {
+    bool isBlocked = false;
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${UserApiConstants.BLOCK}';
+      final reqBody = {'entityType': type, 'entityId': id};
+      final res = await RESTService.performPOSTRequest(
+          body: jsonEncode(reqBody), httpUrl: url, isAuth: true, token: token!);
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isBlocked = true;
+      }
+
+      return isBlocked;
+    } catch (e) {
+      return isBlocked;
+    }
+  }
+
+  @override
+  Future<bool> unBlock({required String type, required String id}) async {
+    bool isUnblocked = false;
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${UserApiConstants.BLOCK}';
+      final reqBody = {'entityType': type, 'entityId': id};
+      final res = await RESTService.performDELETERequest(
+          body: jsonEncode(reqBody), httpUrl: url, isAuth: true, token: token!);
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isUnblocked = true;
+      }
+
+      return isUnblocked;
+    } catch (e) {
+      return isUnblocked;
     }
   }
 }

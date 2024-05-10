@@ -33,6 +33,7 @@ class CustomBottomNav extends StatelessWidget {
       color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.4),
       child: SafeArea(
         child: Container(
+          width: 80.w,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50.h),
               color: Theme.of(context)

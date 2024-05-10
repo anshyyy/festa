@@ -20,8 +20,8 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     // emit(state.copyWith(isLoading: false, user: user!));
   }
 
-  void initOtherUserProfile({required int userId}) async{
-     emit(state.copyWith(isLoading: true, userId: userId));
+  void initOtherUserProfile({required int userId}) async {
+    emit(state.copyWith(isLoading: true, userId: userId));
     fetchUserDetails(id: userId);
   }
 
@@ -41,6 +41,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
         user: r,
         profileImage: r.profileImage,
         coverImage: r.coverImage,
+        isBlocked: r.extraDetailsDto!.isBlocked,
         isFollowing: r.extraDetailsDto!.isFollowing,
       ));
     });
@@ -97,5 +98,21 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   }) async {
     state.userRepository.unFollowUser(userId: id);
     emit(state.copyWith(isFollowing: false));
+  }
+
+  void blockUser() async {
+    emit(state.copyWith(isBlocked: true));
+
+    await state.userRepository.block(id: state.userId.toString(), type: 'user');
+  }
+
+  void unblockUser() async {
+    emit(state.copyWith(isBlocked: false));
+    await state.userRepository
+        .unBlock(id: state.userId.toString(), type: 'user');
+  }
+
+  void emitFromAnywhere({required UserProfileState state}) {
+    emit(state);
   }
 }

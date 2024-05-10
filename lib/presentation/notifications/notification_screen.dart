@@ -11,7 +11,6 @@ import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../widgets/custom_appbar.dart';
-import '../widgets/gradient_text.dart';
 import '../widgets/snackbar_alert.dart';
 import 'widgets/not_notifications_screen.dart';
 import 'widgets/notifications_widget.dart';
@@ -59,7 +58,7 @@ class NotificationScreenConsumer extends StatelessWidget {
                     navigator<NavigationService>().goBack();
                   },
                   child: Center(
-                      child: SvgPicture.asset(AssetConstants.arrowLeft))),
+                      child: SvgPicture.asset(AssetConstants.arrowLeft, width: 7.w,))),
               actions: const []),
           body: SafeArea(
             child: state.isLoading

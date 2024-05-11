@@ -18,11 +18,12 @@ class ReportState with _$ReportState {
     required String serverUrl,
     required String name,
     required String id,
+    required String type,
   }) =>
       ReportState(
         id: id,
         name: name,
-        type: '',
+        type:type,
         noUse: false,
         isLoading: false,
         isFailure: false,

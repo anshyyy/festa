@@ -78,7 +78,6 @@ dependencies:
   flutter_svg: 2.0.9
   bloc: 8.1.2
   pin_code_fields: 8.0.1
-  sizer: 2.0.15
   timer_count_down: ^2.2.2
   qr_image: ^1.0.0
   qr_flutter: ^4.1.0

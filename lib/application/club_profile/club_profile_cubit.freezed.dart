@@ -19,6 +19,7 @@ mixin _$ClubProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isFailed => throw _privateConstructorUsedError;
   bool get isSuccessful => throw _privateConstructorUsedError;
+  bool get showHamburger => throw _privateConstructorUsedError;
   String get responseMsg => throw _privateConstructorUsedError;
   GlobalKey<State<StatefulWidget>> get key =>
       throw _privateConstructorUsedError;
@@ -57,6 +58,7 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool isFailed,
       bool isSuccessful,
+      bool showHamburger,
       String responseMsg,
       GlobalKey<State<StatefulWidget>> key,
       int clubId,
@@ -97,6 +99,7 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     Object? isLoading = null,
     Object? isFailed = null,
     Object? isSuccessful = null,
+    Object? showHamburger = null,
     Object? responseMsg = null,
     Object? key = null,
     Object? clubId = null,
@@ -130,6 +133,10 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
       isSuccessful: null == isSuccessful
           ? _value.isSuccessful
           : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showHamburger: null == showHamburger
+          ? _value.showHamburger
+          : showHamburger // ignore: cast_nullable_to_non_nullable
               as bool,
       responseMsg: null == responseMsg
           ? _value.responseMsg
@@ -239,6 +246,7 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
       {bool isLoading,
       bool isFailed,
       bool isSuccessful,
+      bool showHamburger,
       String responseMsg,
       GlobalKey<State<StatefulWidget>> key,
       int clubId,
@@ -278,6 +286,7 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isFailed = null,
     Object? isSuccessful = null,
+    Object? showHamburger = null,
     Object? responseMsg = null,
     Object? key = null,
     Object? clubId = null,
@@ -311,6 +320,10 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
       isSuccessful: null == isSuccessful
           ? _value.isSuccessful
           : isSuccessful // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showHamburger: null == showHamburger
+          ? _value.showHamburger
+          : showHamburger // ignore: cast_nullable_to_non_nullable
               as bool,
       responseMsg: null == responseMsg
           ? _value.responseMsg
@@ -403,6 +416,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       {required this.isLoading,
       required this.isFailed,
       required this.isSuccessful,
+      required this.showHamburger,
       required this.responseMsg,
       required this.key,
       required this.clubId,
@@ -430,6 +444,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   final bool isFailed;
   @override
   final bool isSuccessful;
+  @override
+  final bool showHamburger;
   @override
   final String responseMsg;
   @override
@@ -473,7 +489,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
 
   @override
   String toString() {
-    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, dragController: $dragController, assets: $assets, pub: $pub, userRepository: $userRepository, isFollowing: $isFollowing, isBlocked: $isBlocked, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, showHamburger: $showHamburger, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, dragController: $dragController, assets: $assets, pub: $pub, userRepository: $userRepository, isFollowing: $isFollowing, isBlocked: $isBlocked, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
   }
 
   @override
@@ -487,6 +503,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
                 other.isFailed == isFailed) &&
             (identical(other.isSuccessful, isSuccessful) ||
                 other.isSuccessful == isSuccessful) &&
+            (identical(other.showHamburger, showHamburger) ||
+                other.showHamburger == showHamburger) &&
             (identical(other.responseMsg, responseMsg) ||
                 other.responseMsg == responseMsg) &&
             (identical(other.key, key) || other.key == key) &&
@@ -528,6 +546,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
         isLoading,
         isFailed,
         isSuccessful,
+        showHamburger,
         responseMsg,
         key,
         clubId,
@@ -563,6 +582,7 @@ abstract class _ClubProfileState implements ClubProfileState {
       {required final bool isLoading,
       required final bool isFailed,
       required final bool isSuccessful,
+      required final bool showHamburger,
       required final String responseMsg,
       required final GlobalKey<State<StatefulWidget>> key,
       required final int clubId,
@@ -590,6 +610,8 @@ abstract class _ClubProfileState implements ClubProfileState {
   bool get isFailed;
   @override
   bool get isSuccessful;
+  @override
+  bool get showHamburger;
   @override
   String get responseMsg;
   @override

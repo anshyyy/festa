@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../application/user/account_settings_cubit/account_settings_cubit.dart';
 import '../../../../domain/core/configs/app_config.dart';
@@ -38,31 +38,32 @@ class AccountSettingScreenConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AccountSettingsCubit, AccountSettingsState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         final AppStateNotifier appStateNotifier =
             Provider.of<AppStateNotifier>(context);
         final user = appStateNotifier.user;
-        return state.isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Scaffold(
-                appBar: CustomAppBar(
-                  title: ProfileAndSettingsScreenConstants.accountSettings,
-                  leading: GestureDetector(
-                    onTap: () {
-                      navigator<NavigationService>().goBack();
-                    },
-                    child: Center(
-                      child: SvgPicture.asset(AssetConstants.arrowLeft, width: 7.w,),
-                    ),
-                  ),
-                  actions: const [],
+        return Scaffold(
+          appBar: CustomAppBar(
+            title: ProfileAndSettingsScreenConstants.accountSettings,
+            leading: GestureDetector(
+              onTap: () {
+                navigator<NavigationService>().goBack();
+              },
+              child: Center(
+                child: SvgPicture.asset(
+                  AssetConstants.arrowLeft,
+                  width: 7.w,
                 ),
-                body: Column(
+              ),
+            ),
+            actions: const [],
+          ),
+          body: state.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
                   children: [
                     SettingTile(
                       prefixIcon: AssetConstants.emailIcon,
@@ -132,7 +133,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                     ),
                   ],
                 ),
-              );
+        );
       },
     );
   }

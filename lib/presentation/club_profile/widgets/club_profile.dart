@@ -17,7 +17,6 @@ import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/gradient_button.dart';
-import '../club_profile_screen.dart';
 import 'social_reach.dart';
 
 class ClubProfile extends StatelessWidget {
@@ -214,79 +213,63 @@ class ClubProfile extends StatelessWidget {
                 ],
               ),
             ),
-            // !state.isFollowing
-            //     ? Positioned(
-            //         top: 1.5.h,
-            //         right: 4.5.w,
-            //         child: GradientButton(
-            //           width: 23.w,
-            //           height: 4.h,
-            //           text: ClubProfileScreenConstants.follow,
-            //           onTap: () {
-            //             context
-            //                 .read<ClubProfileCubit>()
-            //                 .followUnfollowPub(pubId: state.pub!.id.toString());
-            //           },
-            //           textStyle:
-            //               Theme.of(context).textTheme.bodySmall?.copyWith(
-            //                     fontSize: 14.sp,
-            //                     color: Theme.of(context).colorScheme.background,
-            //                     fontWeight: FontWeight.w600,
-            //                   ),
-            //         ),
-            //       )
-            //     : Positioned(
-            //         top: 1.5.h,
-            //         right: 4.5.w,
-            //         child: GestureDetector(
-            //           onTap: () {
-            //             showModalBottomSheet(
-            //                 context: context,
-            //                 isScrollControlled: true,
-            //                 builder: (context) {
-            //                   return AgreeToUnfollowModalSheet(
-            //                     name: state.pub!.fullName,
-            //                     textTheme: textTheme,
-            //                     colorScheme: colorScheme,
-            //                   );
-            //                 }).then((value) {
-            //               if (value != null) {
-            //                 context.read<ClubProfileCubit>().followUnfollowPub(
-            //                     pubId: state.pub!.id.toString());
-            //               }
-            //             });
-            //           },
-            //           child: Container(
-            //             padding: EdgeInsets.symmetric(
-            //                 horizontal: 3.w, vertical: 2.w),
-            //             decoration: BoxDecoration(
-            //                 color:
-            //                     colorScheme.secondaryContainer.withOpacity(.2),
-            //                 borderRadius: BorderRadius.circular(2.w)),
-            //             child: Row(
-            //               mainAxisAlignment: MainAxisAlignment.center,
-            //               children: [
-            //                 Text(
-            //                   'Following',
-            //                   style: Theme.of(context)
-            //                       .textTheme
-            //                       .bodySmall
-            //                       ?.copyWith(
-            //                         fontSize: 14.sp,
-            //                         color: Theme.of(context)
-            //                             .colorScheme
-            //                             .background,
-            //                         fontWeight: FontWeight.w600,
-            //                       ),
-            //                 ),
-            //                 // SizedBox(
-            //                 //   width: 1.w,
-            //                 // ),
-            //                 // SvgPicture.asset(AssetConstants.arrowDown)
-            //               ],
-            //             ),
-            //           ),
-            //         )),
+            !state.isFollowing
+                ? Positioned(
+                    top: 1.5.h,
+                    right: 4.5.w,
+                    child: GradientButton(
+                      width: 23.w,
+                      height: 4.h,
+                      text: ClubProfileScreenConstants.follow,
+                      onTap: () {
+                        context
+                            .read<ClubProfileCubit>()
+                            .followUnfollowPub(pubId: state.pub!.id.toString());
+                      },
+                      textStyle:
+                          Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontSize: 14.sp,
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w600,
+                              ),
+                    ),
+                  )
+                : Positioned(
+                    top: 1.5.h,
+                    right: 4.5.w,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 3.w, vertical: 2.w),
+                        decoration: BoxDecoration(
+                            color:
+                                colorScheme.secondaryContainer.withOpacity(.2),
+                            borderRadius: BorderRadius.circular(2.w)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Following',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontSize: 14.sp,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                            // SizedBox(
+                            //   width: 1.w,
+                            // ),
+                            // SvgPicture.asset(AssetConstants.arrowDown)
+                          ],
+                        ),
+                      ),
+                    )),
             Positioned(
               top: 1.5.h,
               left: 2.w,

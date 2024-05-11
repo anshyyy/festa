@@ -11,20 +11,8 @@ part 'report_cubit.freezed.dart';
 class ReportCubit extends Cubit<ReportState> {
   ReportCubit(super.initialState);
 
-  void initReportEvent() async {
-    emit(state.copyWith(type: 'event'));
-  }
-
-  void initReportUser() async {
-    emit(state.copyWith(type: 'user'));
-  }
-
-    void initReportArtist() async {
-    emit(state.copyWith(type: 'artist'));
-  }
-
-  void initReportPub() async {
-    emit(state.copyWith(type: 'pub'));
+  void init() async {
+    emit(state.copyWith(type: state.type));
   }
 
   void onSubmit() async {

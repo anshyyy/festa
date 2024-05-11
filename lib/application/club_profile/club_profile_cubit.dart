@@ -51,8 +51,9 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     });
 
     state.dragController.addListener(() {
-      emit(state.copyWith(isAtTop: state.dragController.size >= 1));
-      // print(state.dragController.pixels);
+      emit(state.copyWith(
+        isAtTop: state.dragController.size >= 1,
+      ));
     });
   }
 

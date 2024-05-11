@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -7,8 +6,8 @@ import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../widgets/custom_outlined_button.dart';
 import '../widgets/gradient_button.dart';
 
-class AgreeToUnfollowModalSheet extends StatelessWidget {
-  const AgreeToUnfollowModalSheet({
+class AgreeToBlock extends StatelessWidget {
+  const AgreeToBlock({
     super.key,
 
     required this.name,
@@ -49,9 +48,9 @@ class AgreeToUnfollowModalSheet extends StatelessWidget {
             height: 3.5.h,
           ),
           Text(
-            'Are you sure you want to unfollow?',
+            'Are you sure you want to Block?',
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color:Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.background,
               fontWeight: FontWeight.w600,
               fontSize: 18.sp,
             ),
@@ -60,7 +59,7 @@ class AgreeToUnfollowModalSheet extends StatelessWidget {
             height: 1.h,
           ),
           Text(
-            'Unfollowing $name means that you won\'t see any of their posts, events, or updates in your feed. However, you can still visit their profile to view their posts.',
+            '$name means that they won’t be able to message you or find your profile or content on Festa, You can unblock them at any time in settings.',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color:
                       Theme.of(context).colorScheme.background.withOpacity(0.7),

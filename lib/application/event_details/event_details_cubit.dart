@@ -85,8 +85,7 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
     ));
   }
 
-  void emitFromAnywhere({required EventDetailsState state})
-  {
+  void emitFromAnywhere({required EventDetailsState state}) {
     emit(state);
   }
 }

@@ -18,8 +18,11 @@ class IPubRepository extends PubRepository {
   @override
   Future<Either<String, PubDto>> getPubById({required int pubId}) async {
     try {
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+
       final url = '$serverUrl${PubApiConstants.PUBS}/$pubId';
-      final response = await RESTService.performGETRequest(httpUrl: url);
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, isAuth: true, token: token!);
 
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
@@ -49,7 +52,7 @@ class IPubRepository extends PubRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
-        'search':searchQuery.toLowerCase(),
+        'search': searchQuery.toLowerCase(),
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);
@@ -72,7 +75,6 @@ class IPubRepository extends PubRepository {
     required int page,
     required int limit,
     required String searchQuery,
-
   }) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
@@ -81,7 +83,7 @@ class IPubRepository extends PubRepository {
       final Map<String, String> param = {
         'page': page.toString(),
         'limit': limit.toString(),
-        'search':searchQuery.toLowerCase(),
+        'search': searchQuery.toLowerCase(),
       };
       final response = await RESTService.performGETRequest(
           httpUrl: url, param: param, isAuth: true, token: token!);

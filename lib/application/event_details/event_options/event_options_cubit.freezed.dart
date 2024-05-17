@@ -20,9 +20,11 @@ mixin _$EventOptionsState {
   bool get isSuccess => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
+  bool get goToHome => throw _privateConstructorUsedError;
   int get eventId => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
+  UserRepository get userRepository => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventOptionsStateCopyWith<EventOptionsState> get copyWith =>
@@ -40,9 +42,11 @@ abstract class $EventOptionsStateCopyWith<$Res> {
       bool isSuccess,
       bool isFailure,
       bool noUse,
+      bool goToHome,
       int eventId,
       EventDto? event,
-      EventRepository eventRepository});
+      EventRepository eventRepository,
+      UserRepository userRepository});
 
   $EventDtoCopyWith<$Res>? get event;
 }
@@ -64,9 +68,11 @@ class _$EventOptionsStateCopyWithImpl<$Res, $Val extends EventOptionsState>
     Object? isSuccess = null,
     Object? isFailure = null,
     Object? noUse = null,
+    Object? goToHome = null,
     Object? eventId = null,
     Object? event = freezed,
     Object? eventRepository = null,
+    Object? userRepository = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -85,6 +91,10 @@ class _$EventOptionsStateCopyWithImpl<$Res, $Val extends EventOptionsState>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
+      goToHome: null == goToHome
+          ? _value.goToHome
+          : goToHome // ignore: cast_nullable_to_non_nullable
+              as bool,
       eventId: null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -97,6 +107,10 @@ class _$EventOptionsStateCopyWithImpl<$Res, $Val extends EventOptionsState>
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
               as EventRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
     ) as $Val);
   }
 
@@ -126,9 +140,11 @@ abstract class _$$EventOptionsStateImplCopyWith<$Res>
       bool isSuccess,
       bool isFailure,
       bool noUse,
+      bool goToHome,
       int eventId,
       EventDto? event,
-      EventRepository eventRepository});
+      EventRepository eventRepository,
+      UserRepository userRepository});
 
   @override
   $EventDtoCopyWith<$Res>? get event;
@@ -149,9 +165,11 @@ class __$$EventOptionsStateImplCopyWithImpl<$Res>
     Object? isSuccess = null,
     Object? isFailure = null,
     Object? noUse = null,
+    Object? goToHome = null,
     Object? eventId = null,
     Object? event = freezed,
     Object? eventRepository = null,
+    Object? userRepository = null,
   }) {
     return _then(_$EventOptionsStateImpl(
       isLoading: null == isLoading
@@ -170,6 +188,10 @@ class __$$EventOptionsStateImplCopyWithImpl<$Res>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
+      goToHome: null == goToHome
+          ? _value.goToHome
+          : goToHome // ignore: cast_nullable_to_non_nullable
+              as bool,
       eventId: null == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
@@ -182,6 +204,10 @@ class __$$EventOptionsStateImplCopyWithImpl<$Res>
           ? _value.eventRepository
           : eventRepository // ignore: cast_nullable_to_non_nullable
               as EventRepository,
+      userRepository: null == userRepository
+          ? _value.userRepository
+          : userRepository // ignore: cast_nullable_to_non_nullable
+              as UserRepository,
     ));
   }
 }
@@ -194,9 +220,11 @@ class _$EventOptionsStateImpl implements _EventOptionsState {
       required this.isSuccess,
       required this.isFailure,
       required this.noUse,
+      required this.goToHome,
       required this.eventId,
       this.event,
-      required this.eventRepository});
+      required this.eventRepository,
+      required this.userRepository});
 
   @override
   final bool isLoading;
@@ -207,15 +235,19 @@ class _$EventOptionsStateImpl implements _EventOptionsState {
   @override
   final bool noUse;
   @override
+  final bool goToHome;
+  @override
   final int eventId;
   @override
   final EventDto? event;
   @override
   final EventRepository eventRepository;
+  @override
+  final UserRepository userRepository;
 
   @override
   String toString() {
-    return 'EventOptionsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventId: $eventId, event: $event, eventRepository: $eventRepository)';
+    return 'EventOptionsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, goToHome: $goToHome, eventId: $eventId, event: $event, eventRepository: $eventRepository, userRepository: $userRepository)';
   }
 
   @override
@@ -230,15 +262,19 @@ class _$EventOptionsStateImpl implements _EventOptionsState {
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
+            (identical(other.goToHome, goToHome) ||
+                other.goToHome == goToHome) &&
             (identical(other.eventId, eventId) || other.eventId == eventId) &&
             (identical(other.event, event) || other.event == event) &&
             (identical(other.eventRepository, eventRepository) ||
-                other.eventRepository == eventRepository));
+                other.eventRepository == eventRepository) &&
+            (identical(other.userRepository, userRepository) ||
+                other.userRepository == userRepository));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
-      noUse, eventId, event, eventRepository);
+      noUse, goToHome, eventId, event, eventRepository, userRepository);
 
   @JsonKey(ignore: true)
   @override
@@ -250,14 +286,15 @@ class _$EventOptionsStateImpl implements _EventOptionsState {
 
 abstract class _EventOptionsState implements EventOptionsState {
   const factory _EventOptionsState(
-          {required final bool isLoading,
-          required final bool isSuccess,
-          required final bool isFailure,
-          required final bool noUse,
-          required final int eventId,
-          final EventDto? event,
-          required final EventRepository eventRepository}) =
-      _$EventOptionsStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccess,
+      required final bool isFailure,
+      required final bool noUse,
+      required final bool goToHome,
+      required final int eventId,
+      final EventDto? event,
+      required final EventRepository eventRepository,
+      required final UserRepository userRepository}) = _$EventOptionsStateImpl;
 
   @override
   bool get isLoading;
@@ -268,11 +305,15 @@ abstract class _EventOptionsState implements EventOptionsState {
   @override
   bool get noUse;
   @override
+  bool get goToHome;
+  @override
   int get eventId;
   @override
   EventDto? get event;
   @override
   EventRepository get eventRepository;
+  @override
+  UserRepository get userRepository;
   @override
   @JsonKey(ignore: true)
   _$$EventOptionsStateImplCopyWith<_$EventOptionsStateImpl> get copyWith =>

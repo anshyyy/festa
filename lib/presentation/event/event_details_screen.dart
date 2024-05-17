@@ -79,8 +79,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
         ];
         return state.isLoading
-            ? const Scaffold(
-              body:  EventDetailsShimmer())
+            ? const Scaffold(body: EventDetailsShimmer())
             : Scaffold(
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
@@ -105,7 +104,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     leading: GestureDetector(
                         onTap: () => navigator<NavigationService>().goBack(),
                         child: Center(
-                            child: SvgPicture.asset(AssetConstants.arrowLeft, width: 7.w,))),
+                            child: SvgPicture.asset(
+                          AssetConstants.arrowLeft,
+                          width: 7.w,
+                        ))),
                     actions: [
                       GestureDetector(
                         onTap: () {
@@ -130,6 +132,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
                         child: EventCard(
+                          vKey: event.id.toString(),
                           loadData: () {
                             if (state.event != null) {
                               context
@@ -138,7 +141,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                       id: state.event!.id,
                                       isUpdatedDetails: true);
                             }
-                          },
+                          },                          
                           distance: state.eventDistance,
                           event: event,
                           isLiked: state.isEventLiked,

@@ -137,6 +137,7 @@ class AssetConstants {
 
   static const mediaPlayIcon = '${vectorsFolder}media-play.svg';
   static const mediaPauseIcon = '${vectorsFolder}media-pause.svg';
+  static const pauseIcon = '${vectorsFolder}pause.svg';
 
   static const checkboxUnticked = '${vectorsFolder}checkbox-unchecked.svg';
   static const checkboxTicked = '${vectorsFolder}checkbox-checked.svg';
@@ -148,14 +149,12 @@ class AssetConstants {
   static const expenseRating5 = '${vectorsFolder}expense-rating-5.svg';
 
   static const muteIcon = '${vectorsFolder}mute-icon.svg';
-  static const unmuteIcon = '${vectorsFolder}unmute-icon.svg';
+  static const unmuteIcon = '${vectorsFolder}unmute.svg';
 
   static const successHexagon = '${vectorsFolder}success-tick.svg';
   static const incogIcon = '${vectorsFolder}incog.svg';
   static const userBlock = '${vectorsFolder}block-user.svg';
 
-
-  
 // eventIconConstants
   static const Map<String, String> extras = {
     'light': lightsIcon,

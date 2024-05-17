@@ -7,9 +7,11 @@ class EventOptionsState with _$EventOptionsState {
     required bool isSuccess,
     required bool isFailure,
     required bool noUse,
+    required bool goToHome,
     required int eventId,
     EventDto? event,
     required EventRepository eventRepository,
+    required UserRepository userRepository,
   }) = _EventOptionsState;
 
   factory EventOptionsState.initial({
@@ -20,7 +22,9 @@ class EventOptionsState with _$EventOptionsState {
         isLoading: false,
         isFailure: false,
         isSuccess: false,
+        goToHome: false,
         eventId: eventId,
+        userRepository: IUserRepository(serverUrl: serverUrl),
         eventRepository: IEventRepository(serverUrl: serverUrl),
       );
 }

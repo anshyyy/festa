@@ -23,6 +23,7 @@ final appThemeData = {
           onPrimary: const Color(0xffCBCBCB),
           onBackground: const Color(0xffFCFCFC),
           surface: const Color(0XFF171717),
+          shadow: const Color(0xFF343434),
           error: const Color(0XFFDF1642),
           inversePrimary:const Color(0XFF18A957), // success
           scrim: const Color(0XFF3D53F5),

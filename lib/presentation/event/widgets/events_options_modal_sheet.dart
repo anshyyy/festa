@@ -11,6 +11,8 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
+import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../core/agree_to_block_modal.dart';
 import '../../core/report_modal.dart';
 import 'event_option_tile.dart';
 import 'follow_artist_modalsheet.dart';
@@ -44,7 +46,12 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<EventOptionsCubit, EventOptionsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.goToHome) {
+          navigator<NavigationService>()
+              .navigateTo(UserRoutes.mainNavRoute, isClearStack: true);
+        }
+      },
       builder: (context, state) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
@@ -132,6 +139,29 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
                             height: 5.w,
                           ),
                           title: EventDetailsScreenConstants.report),
+
+                      EventOptionsTile(
+                        prefixIcon: SvgPicture.asset(
+                          AssetConstants.userBlock,
+                          height: 5.w,
+                        ),
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => AgreeToBlock(
+                              name: state.event!.name,
+                            ),
+                          ).then((value) {
+                            if (value != null) {
+                              context.read<EventOptionsCubit>().blockEvent();
+                            }
+                          });
+                        },
+                        title: 'Block',
+                        suffixIcon: SvgPicture.asset(
+                          AssetConstants.arrowRight,
+                        ),
+                      ),
                       SizedBox(
                         height: 3.h,
                       ),

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../presentation/artist_profile/artist_profile_screen.dart';
 import '../../../../../presentation/artist_profile/widgets/artist_community_screen.dart';
 import '../../../../../presentation/auth/auth_screen.dart';
@@ -74,8 +73,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.otherUserProfileRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
       return _getPageRoute(
-          OtherUserProfileScreen(userId: int.parse(userId)),
-          settings);
+          OtherUserProfileScreen(userId: int.parse(userId)), settings);
 
     case UserRoutes.profileAndSettingsRoute:
       return _getPageRoute(const ProfileAndSettingsScreen(), settings);

@@ -86,6 +86,8 @@ dependencies:
   carousel_slider: ^4.2.1
   shimmer: 3.0.0
   photo_view: ^0.14.0
+  expandable_page_view: 1.0.17
+  visibility_detector: 0.4.0+2
 
   # google
   google_sign_in: ^6.2.1

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/other_constants.dart';
@@ -63,8 +62,7 @@ class HomeCubit extends Cubit<HomeState> {
       if (state.appStateNotifier.menuIndex == 0) {
         if (state.appStateNotifier.goToTop) {
           state.scrollController.animateTo(0.0,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.ease);
+              duration: const Duration(milliseconds: 500), curve: Curves.ease);
         } else {
           Future.delayed(const Duration(milliseconds: 500), () {
             state.scrollController.animateTo(lastScrollPos,
@@ -79,11 +77,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future onPullToRefresh() async {
-    emit(state.copyWith(isLoading: true, events: [], page: 1,isRefresh: true));
+    emit(state.copyWith(isLoading: true, events: [], page: 1, isRefresh: true));
 
     await getEvents();
 
-    emit(state.copyWith(isLoading: false,isRefresh: false));
+    emit(state.copyWith(isLoading: false, isRefresh: false));
   }
 
   Future getEvents({String? eventsFrom}) async {

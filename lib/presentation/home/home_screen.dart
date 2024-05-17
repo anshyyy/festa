@@ -52,7 +52,6 @@ class HomeScreenConsumer extends StatelessWidget {
       builder: (context, state) {
         return RefreshIndicator(
           onRefresh: () async {
-
             context.read<HomeCubit>().onPullToRefresh();
           },
           child: SafeArea(
@@ -202,7 +201,9 @@ class HomeScreenConsumer extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                          if (!state.hasMoreEvents && state.events.isEmpty && !state.isRefresh)
+                          if (!state.hasMoreEvents &&
+                              state.events.isEmpty &&
+                              !state.isRefresh)
                             const EmptyEvents()
                           else ...[
                             state.isSearchOpen
@@ -482,6 +483,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     id: state.events[index].id);
                                           },
                                           child: EventCard(
+                                            vKey: index.toString(),
                                             isInListing: true,
                                             event: state.events[index],
                                             isLiked:
@@ -538,7 +540,9 @@ class EmptyEvents extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 30.h,),
+                  SizedBox(
+                    height: 30.h,
+                  ),
                   SvgPicture.asset(AssetConstants.notFoundFilter),
                   Text(
                     '${HomeScreenConstants.noEventsFound}${state.noFilteredEvents ? HomeScreenConstants.filters : HomeScreenConstants.area}',
@@ -682,13 +686,8 @@ class EmptyEvents extends StatelessWidget {
               //     EventWidget(),
               //   ]),
               // )
-
             ],
-
-
           ),
-
-      
         );
       },
     );

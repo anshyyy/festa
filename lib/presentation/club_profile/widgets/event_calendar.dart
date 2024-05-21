@@ -73,7 +73,7 @@ class EventCalender extends StatelessWidget {
                         PubEventDto? pubEventDto = lsOfEvents.firstWhereOrNull(
                           (el) =>
                               el.startDate.month == startDate.month &&
-                              el.startDate.day == startDate.day + 1,
+                              el.startDate.day == day.day,
                         );
 
                         if (pubEventDto != null) {

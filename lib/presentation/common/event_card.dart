@@ -109,6 +109,9 @@ class _EventCardState extends State<EventCard> {
 
   void togglePlayPause({bool isPlay = true}) {
     if (isPlay) {
+      if (videoPlayerController!.value.position.inSeconds >= videoPlayerController!.value.duration.inSeconds) {
+        videoPlayerController!.seekTo(Duration.zero);
+      }
       isVideoLoading = true;
       videoPlayerController!.play();
       isPlaying = true;
@@ -148,8 +151,7 @@ class _EventCardState extends State<EventCard> {
     return VisibilityDetector(
       key: Key(widget.vKey),
       onVisibilityChanged: (info) {
-        if (widget.isInListing &&
-            widget.event.assets[pageIndex].type == MediaEnum.video.name &&
+        if (widget.event.assets[pageIndex].type == MediaEnum.video.name &&
             videoPlayerController != null) {
           var visiblePercentage = info.visibleFraction * 100;
           if (visiblePercentage <= 50 && isPlaying) {
@@ -267,13 +269,14 @@ class _EventCardState extends State<EventCard> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: AspectRatio(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: AspectRatio(
                                         aspectRatio: 4 / 5,
                                         child: Image.network(
-                                          widget.event.assets[index].url,
-                                        ),
-                                      )),
+                                            CustomImageProvider.getImageUrl(
+                                                widget.event.assets[index].url,
+                                                ImageType.other))),
+                                  ),
                                 );
                         }),
                   ),

@@ -16,6 +16,7 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
+import '../../../infrastructure/pub/dtos/pub_opening_hours/pub_opening_hours_dto.dart';
 import '../../widgets/gradient_button.dart';
 import 'social_reach.dart';
 
@@ -124,7 +125,10 @@ class ClubProfile extends StatelessWidget {
                                 width: 1.w,
                               ),
                               Text(
-                                state.pub!.openingHours!.openNow
+                                (state.pub!.openingHours ??
+                                            const PubOpeningHours(
+                                                openNow: false))
+                                        .openNow
                                     ? 'Open'
                                     : 'Closed',
                                 style: Theme.of(context)

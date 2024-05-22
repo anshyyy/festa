@@ -80,13 +80,17 @@ class _EventCardState extends State<EventCard> {
     await videoPlayerController!.initialize();
     initPlayer = false;
     isPlaying = false;
-    isMute = false;
-    setState(() {});
+      if (isMute) {
+      videoPlayerController!.setVolume(0.0);
+    }
+
+      setState(() {});
 
     if (isAutoPlay) {
       togglePlayPause();
     }
 
+  
     videoPlayerController!.addListener(
       () {
         if (!videoPlayerController!.value.isPlaying &&
@@ -109,7 +113,8 @@ class _EventCardState extends State<EventCard> {
 
   void togglePlayPause({bool isPlay = true}) {
     if (isPlay) {
-      if (videoPlayerController!.value.position.inSeconds >= videoPlayerController!.value.duration.inSeconds) {
+      if (videoPlayerController!.value.position.inSeconds >=
+          videoPlayerController!.value.duration.inSeconds) {
         videoPlayerController!.seekTo(Duration.zero);
       }
       isVideoLoading = true;

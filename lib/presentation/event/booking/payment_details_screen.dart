@@ -13,9 +13,11 @@ import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
 import '../../../domain/core/extensions/number_extension.dart';
 import '../../../domain/core/extensions/string_extension.dart';
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/gradient_button.dart';
@@ -91,8 +93,8 @@ class PaymentDetailsConsumer extends StatelessWidget {
                             navigator<NavigationService>().goBack();
                           },
                           child: Center(
-                              child:
-                                  SvgPicture.asset(AssetConstants.arrowLeft,  width: 7.w))),
+                              child: SvgPicture.asset(AssetConstants.arrowLeft,
+                                  width: 7.w))),
                       actions: const []),
                   body: SafeArea(
                       child: Padding(
@@ -471,8 +473,7 @@ class BottomBookingBar extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                        '${priceRangeStart.toIndianRupeeString()} ',
+                    Text('${priceRangeStart.toIndianRupeeString()} ',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.background,
@@ -497,7 +498,9 @@ class BottomBookingBar extends StatelessWidget {
               flex: 4,
               child: GradientButton(
                 text: EventDetailsScreenConstants.grabPasses,
-                onTap: onClick,
+                onTap: () {
+                  onClick!();
+                },
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: 16.sp,
                       color: Theme.of(context).colorScheme.background,

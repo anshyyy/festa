@@ -1,14 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/event_details/artist_profile/artist_profile_cubit.dart';
+import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/artist/dtos/artist/artist_dto.dart';
+import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class ArtistTile extends StatelessWidget {
@@ -25,6 +29,9 @@ class ArtistTile extends StatelessWidget {
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
+            AnalyticsService().logEvent(eventName: 'view_artist', paras: {
+              'artist_id': artist.id.toString(),
+            });
             navigator<NavigationService>().goBack();
             navigator<NavigationService>().navigateTo(
                 UserRoutes.artistProfileScreenRoute,
@@ -106,6 +113,10 @@ class ArtistTile extends StatelessWidget {
                     )
                   : GestureDetector(
                       onTap: () {
+                        AnalyticsService()
+                            .logEvent(eventName: 'view_artist', paras: {
+                          'artist_id': artist.id.toString(),
+                        });
                         navigator<NavigationService>().goBack();
                         navigator<NavigationService>().navigateTo(
                             UserRoutes.artistProfileScreenRoute,

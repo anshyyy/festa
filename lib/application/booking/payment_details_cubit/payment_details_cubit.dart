@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/event/event_repository.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/event/dtos/event/event_dto.dart';
@@ -62,7 +63,9 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
         'order_id': state.eventBookingDetails.razorpayOrderId,
         'prefill': {'contact': state.user!.phoneNumber},
       };
-
+      AnalyticsService().logEvent(eventName: 'payment_init', paras: {
+        'order_id': state.eventBookingDetails.razorpayOrderId,
+      });
       try {
         state.razorpay.open(options);
       } catch (e) {
@@ -88,6 +91,9 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
         isLoading: false,
       ));
     } else {
+      AnalyticsService().logEvent(eventName: 'payment_success', paras: {
+        'order_id': state.eventBookingDetails.razorpayOrderId,
+      });
       emit(state.copyWith(
         isPaymentSuccess: true,
         isPaymentFailure: false,
@@ -98,6 +104,9 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
+    AnalyticsService().logEvent(eventName: 'payment_failed', paras: {
+      'order_id': state.eventBookingDetails.razorpayOrderId,
+    });
     emit(state.copyWith(
       isPaymentSuccess: false,
       isPaymentFailure: true,

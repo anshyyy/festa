@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/booking/payment_status_cubit/payment_status_cubit.dart';
@@ -11,9 +12,11 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/extensions/number_extension.dart';
 import '../../../domain/core/extensions/string_extension.dart';
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../widgets/custom_outlined_button.dart';
 import '../../widgets/gradient_button.dart';
@@ -66,7 +69,7 @@ class PaymentStatusConsumer extends StatelessWidget {
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
-              ? const Scaffold(body:  SizedBox())
+              ? const Scaffold(body: SizedBox())
               : Scaffold(
                   body: SingleChildScrollView(
                     child: Column(
@@ -166,10 +169,10 @@ class PaymentStatusConsumer extends StatelessWidget {
                                           children: [
                                             SvgPicture.asset(
                                               state.isPaymentSuccess
-                                                      ? AssetConstants
-                                                          .circledTickFilledGreen
-                                                      : AssetConstants
-                                                          .circledCloseFilledRed,
+                                                  ? AssetConstants
+                                                      .circledTickFilledGreen
+                                                  : AssetConstants
+                                                      .circledCloseFilledRed,
                                             ),
                                             SizedBox(
                                               width: 2.w,
@@ -445,6 +448,10 @@ class PaymentStatusConsumer extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  AnalyticsService()
+                                      .logEvent(eventName: 'view_club', paras: {
+                                    'club_id': state.event!.pub!.id.toString(),
+                                  });
                                   navigator<NavigationService>().navigateTo(
                                       UserRoutes.clubProfileRoute,
                                       queryParams: {

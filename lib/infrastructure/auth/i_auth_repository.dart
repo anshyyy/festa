@@ -131,7 +131,7 @@ class IAuthRepository extends AuthRepository {
   @override
   Future<UserDto?> authentication() async {
     try {
-      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
       final String? fcmToken = await getFCMToken();
       print(fcmToken);
       // ignore: avoid_print

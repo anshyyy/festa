@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>441317414729-4l0otjjh181hutdv3ipqjltss87153mt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.441317414729-4l0otjjh181hutdv3ipqjltss87153mt</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>441317414729-9vkds1ququsqkg6il7ds3dgi41lhl3ku.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCXh-mMACGMsD0KhuH0x-wWpJmgnJOcnyo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>441317414729</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.festaworld.app.dev</string>
+	<key>PROJECT_ID</key>
+	<string>festa-dev-488fd</string>
+	<key>STORAGE_BUCKET</key>
+	<string>festa-dev-488fd.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:441317414729:ios:752c4034d29eeeaaa42c98</string>
+</dict>
+</plist>

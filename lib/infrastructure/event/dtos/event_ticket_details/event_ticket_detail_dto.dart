@@ -1,0 +1,27 @@
+// ignore_for_file: invalid_annotation_target
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'event_ticket_detail_dto.freezed.dart';
+part 'event_ticket_detail_dto.g.dart';
+
+@Freezed(makeCollectionsUnmodifiable: false)
+class EventTicketDetailDto with _$EventTicketDetailDto {
+  const factory EventTicketDetailDto({
+    @JsonKey(name: 'id', defaultValue: 0) required int id,
+    @JsonKey(name: 'name', defaultValue: '') required String name,
+    @JsonKey(name: 'description', defaultValue: '') required String description,
+    @JsonKey(name: 'price', defaultValue: 0) required double price,
+    @JsonKey(name: 'bookedSeats', defaultValue: 0) required int bookedSeats,
+    @JsonKey(name: 'totalCapacity', defaultValue: 0) required int totalCapacity,
+    @JsonKey(defaultValue: 0) required int currentTicketsCount,
+    @JsonKey(name: 'isPaid', defaultValue: false) required bool isPaid,
+    @JsonKey(name: 'priceCurrency', defaultValue: '')
+    required String priceCurrency,
+    @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
+    required int maxTicketsToBook,
+    @JsonKey(name: 'noOfTickets', defaultValue: 0) required int noOfTickets,
+  }) = _EventTicketDetailDto;
+
+  factory EventTicketDetailDto.fromJson(Map<String, dynamic> json) =>
+      _$EventTicketDetailDtoFromJson(json);
+}

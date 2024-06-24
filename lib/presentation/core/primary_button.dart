@@ -3,7 +3,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.function,
     this.width,
@@ -20,7 +20,7 @@ class PrimaryButton extends StatelessWidget {
     this.isSuffixIcon = false,
     this.icon,
     this.isOnlyIcon = false,
-  }) : super(key: key);
+  });
   final double? width, height, borderRadius, elevation;
   final Color? borderColor, backgroundColor, textColor;
   final String text;
@@ -90,13 +90,15 @@ class PrimaryButton extends StatelessWidget {
   ButtonStyle buttonStyle(BuildContext context) {
     return ElevatedButton.styleFrom(
       minimumSize: Size(width ?? 100.w, height ?? 14.w),
-      backgroundColor: backgroundColor ?? Colors.white,
-      disabledBackgroundColor: Theme.of(context).primaryColor.withOpacity(0.5),
+      backgroundColor: backgroundColor?? Theme.of(context).colorScheme.primary.withOpacity(0.5),
+      disabledBackgroundColor:
+          Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.5),
       side: BorderSide(
-        color: borderColor ?? Theme.of(context).primaryColor,
+        color:
+            borderColor ?? Theme.of(context).colorScheme.onSecondaryContainer,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius ?? 4.w),
+        borderRadius: BorderRadius.circular(borderRadius ?? 2.w),
       ),
       elevation: elevation,
     );

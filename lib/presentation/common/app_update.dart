@@ -12,9 +12,9 @@ import '../core/primary_button.dart';
 class ForceUpdateWidget extends StatelessWidget {
   final String downloadLink;
   const ForceUpdateWidget({
-    Key? key,
+    super.key,
     required this.downloadLink,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +115,10 @@ class NewReleaseAvailable extends StatelessWidget {
   final String hashValue;
   final String downloadLink;
   const NewReleaseAvailable({
-    Key? key,
+    super.key,
     required this.hashValue,
     required this.downloadLink,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

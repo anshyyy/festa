@@ -8,6 +8,7 @@ import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/event/event_repository.dart';
 import '../../../domain/location/location_repository.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';
@@ -209,6 +210,10 @@ class HomeCubit extends Cubit<HomeState> {
     final categoryFilter =
         filters.firstWhere((element) => element.name == 'music');
 
+    AnalyticsService().logEvent(eventName: 'pick_experience', paras: {
+      'category': categoryFilter.displayName,
+    });
+
     final appliedFilter = filters.where(
         (element) => (element.isApplied == true && element.name != 'sort'));
 
@@ -315,6 +320,9 @@ class HomeCubit extends Cubit<HomeState> {
   void onSearchChange({bool isSearchOn = true}) async {
     emit(state.copyWith(page: 1, isLoading: true));
     if (isSearchOn) {
+      AnalyticsService().logEvent(eventName: 'search_events', paras: {
+        'search_term': state.searchController.text.trim(),
+      });
       await getEvents();
     } else {
       if (state.searchController.text.trim().isEmpty) {

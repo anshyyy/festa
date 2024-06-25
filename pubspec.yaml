@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.3.1+24
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -34,7 +34,11 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
+  cupertino_icons: 1.0.6
+
+  #ui
+  modal_progress_hud_nsn: 0.5.1
+  persistent_bottom_nav_bar: 5.0.2
 
   # Util
   freezed_annotation: 2.4.1
@@ -42,13 +46,23 @@ dependencies:
   provider: 6.1.1
   json_annotation: 4.8.1
   path_provider: 2.1.2
+  dartz: 0.10.1
+  image_picker: 1.0.7
+  flutter_bloc: 8.1.3
+  add_2_calendar: 3.0.1
+  dots_indicator: 3.0.0
+  app_settings: 5.1.1
+
+  awesome_notifications: 
 
   # Firebase Utils
-  firebase_core: 2.24.2
-  firebase_auth: 4.16.0
-  firebase_crashlytics: 3.4.9
-  firebase_analytics: 10.8.0
-  firebase_remote_config: 4.3.8
+  firebase_core: 2.25.0
+  firebase_auth: 4.17.0
+  firebase_crashlytics: 3.4.10
+  firebase_analytics: 10.8.1
+  firebase_remote_config: 4.3.9
+  firebase_messaging: ^14.7.11
+
   #Network
   cached_network_image: 3.3.1
   http: 1.2.0
@@ -61,6 +75,40 @@ dependencies:
   # UI
   responsive_sizer: 3.3.0+1 
   fluttertoast: 8.2.4 
+  flutter_svg: 2.0.9
+  bloc: 8.1.2
+  pin_code_fields: 8.0.1
+  timer_count_down: ^2.2.2
+  qr_image: ^1.0.0
+  qr_flutter: ^4.1.0
+  palette_generator: ^0.3.3+3
+  flutter_staggered_grid_view: ^0.7.0
+  carousel_slider: ^4.2.1
+  shimmer: 3.0.0
+  photo_view: ^0.14.0
+  expandable_page_view: 1.0.17
+  visibility_detector: 0.4.0+2
+
+  # google
+  google_sign_in: ^6.2.1
+  intl: ^0.19.0
+  table_calendar: ^3.1.0
+  dropdown_button2: ^2.3.9
+
+  geolocator: 11.0.0
+  device_info_plus: ^9.1.2
+  easy_debounce: ^2.0.3
+  share_plus: ^7.2.2
+  firebase_dynamic_links: ^5.4.9
+  dio: ^5.4.2
+  http_parser: ^4.0.2
+  video_player: 2.8.6
+  razorpay_flutter: ^1.3.0
+  just_audio: ^0.9.37
+  map_launcher: ^3.3.0
+  widgets_to_image: ^0.0.2
+  permission_handler: ^11.3.1
+  audio_video_progress_bar: 2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +124,29 @@ dev_dependencies:
   flutter_native_splash: 2.3.10
 
 
+flutter_icons:
+  android: true
+  ios: true
+  adaptive_icon_background: "assets/icons/app_bg.png"
+  adaptive_icon_foreground: "assets/icons/app_fg.png"
+  image_path: "assets/icons/app_logo.png"
+  remove_alpha_ios: false
+  web:
+    generate: false
+  windows:
+    generate: false
+
+flutter_native_splash:
+  color: "#000000"
+  image: assets/icons/splash.png
+
+  android_12:
+    image: assets/icons/splash.png
+    icon_background_color: "#FFFFFF"
+
+  ios: false
+  web: false
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -90,6 +161,31 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/gif/
+    - assets/vectors/
+    - assets/images/
+    - assets/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: fonts/inter/Inter-Thin.ttf
+          weight: 100
+        - asset: fonts/inter/Inter-ExtraLight.ttf
+          weight: 200
+        - asset: fonts/inter/Inter-Light.ttf
+          weight: 300
+        - asset: fonts/inter/Inter-Regular.ttf
+          weight: 400
+        - asset: fonts/inter/Inter-Medium.ttf
+          weight: 500
+        - asset: fonts/inter/Inter-SemiBold.ttf
+          weight: 600
+        - asset: fonts/inter/Inter-Bold.ttf
+          weight: 700
+        - asset: fonts/inter/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/inter/Inter-Black.ttf
+          weight: 900
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -102,10 +198,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

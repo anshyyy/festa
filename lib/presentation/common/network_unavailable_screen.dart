@@ -1,9 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 
-import '../../../../domain/core/configs/app_config.dart';
 import '../../../../domain/core/configs/injection.dart';
 import '../../../../domain/core/services/navigation_services/navigation_service.dart';
 
@@ -81,7 +80,6 @@ class _NetworkUnavailableScreenState extends State<NetworkUnavailableScreen> {
 
                 if (isNetworkAvailable) {
                   if (widget.isStartRoute) {
-                    AppConfig appConfig = AppConfig.of(context)!;
                     return;
                   }
                   setState(() {

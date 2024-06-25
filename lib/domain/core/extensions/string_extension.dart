@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
+import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../services/navigation_services/routers/routing_dto.dart';
 
 extension StringExtension on String {
@@ -16,6 +18,18 @@ extension StringExtension on String {
         currentStatus.substring(1).toLowerCase();
 
     return currentStatus;
+  }
+
+  static String formatAmount(int amount) {
+    if (amount < 1000) {
+      return amount.toString();
+    } else if (amount < 1000000) {
+      double result = amount / 1000.0;
+      return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}k';
+    } else {
+      double result = amount / 1000000.0;
+      return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}M';
+    }
   }
 
   String get capitalizeCamel {
@@ -47,6 +61,43 @@ extension StringExtension on String {
       default:
         return toLowerCase();
     }
+  }
+
+  static String displayAddress(LocationDto location) {
+    if (location.area.isNotEmpty) {
+      return location.area;
+    }
+    return location.city;
+  }
+
+  static String formatDateTimeNormal(DateTime dateTime) {
+    DateFormat formatter = DateFormat('dd MMM yyyy');
+    return formatter.format(dateTime);
+  }
+
+  static String formatDateTimeWithDash(DateTime dateTime) {
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dateTime);
+  }
+
+  static String formatDateTimeLong(DateTime dateTime) {
+    DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
+    return formatter.format(dateTime);
+  }
+
+  static String formatDateTimeMedium(DateTime dateTime) {
+    DateFormat formatter = DateFormat('MMM dd, hh:mma');
+    return formatter.format(dateTime);
+  }
+
+  static String formatDateTimeShort(DateTime dateTime) {
+    DateFormat formatter = DateFormat('dd MMM, hh:mma');
+    return formatter.format(dateTime);
+  }
+
+  static String formatDateTimeWithDay(DateTime dateTime) {
+    DateFormat formatter = DateFormat('EEE dd MMM, yyyy   hh:mm a');
+    return formatter.format(dateTime);
   }
 }
 

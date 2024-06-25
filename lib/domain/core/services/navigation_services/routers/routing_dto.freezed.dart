@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'routing_dto.dart';
 
@@ -33,67 +33,71 @@ mixin _$RoutingDto {
 abstract class $RoutingDtoCopyWith<$Res> {
   factory $RoutingDtoCopyWith(
           RoutingDto value, $Res Function(RoutingDto) then) =
-      _$RoutingDtoCopyWithImpl<$Res>;
+      _$RoutingDtoCopyWithImpl<$Res, RoutingDto>;
+  @useResult
   $Res call({String route, Map<String, String> queryParameters});
 }
 
 /// @nodoc
-class _$RoutingDtoCopyWithImpl<$Res> implements $RoutingDtoCopyWith<$Res> {
+class _$RoutingDtoCopyWithImpl<$Res, $Val extends RoutingDto>
+    implements $RoutingDtoCopyWith<$Res> {
   _$RoutingDtoCopyWithImpl(this._value, this._then);
 
-  final RoutingDto _value;
   // ignore: unused_field
-  final $Res Function(RoutingDto) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? route = freezed,
-    Object? queryParameters = freezed,
+    Object? route = null,
+    Object? queryParameters = null,
   }) {
     return _then(_value.copyWith(
-      route: route == freezed
+      route: null == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
               as String,
-      queryParameters: queryParameters == freezed
+      queryParameters: null == queryParameters
           ? _value.queryParameters
           : queryParameters // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
-    ));
+    ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_RoutingDtoCopyWith<$Res>
+abstract class _$$RoutingDtoImplCopyWith<$Res>
     implements $RoutingDtoCopyWith<$Res> {
-  factory _$$_RoutingDtoCopyWith(
-          _$_RoutingDto value, $Res Function(_$_RoutingDto) then) =
-      __$$_RoutingDtoCopyWithImpl<$Res>;
+  factory _$$RoutingDtoImplCopyWith(
+          _$RoutingDtoImpl value, $Res Function(_$RoutingDtoImpl) then) =
+      __$$RoutingDtoImplCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String route, Map<String, String> queryParameters});
 }
 
 /// @nodoc
-class __$$_RoutingDtoCopyWithImpl<$Res> extends _$RoutingDtoCopyWithImpl<$Res>
-    implements _$$_RoutingDtoCopyWith<$Res> {
-  __$$_RoutingDtoCopyWithImpl(
-      _$_RoutingDto _value, $Res Function(_$_RoutingDto) _then)
-      : super(_value, (v) => _then(v as _$_RoutingDto));
+class __$$RoutingDtoImplCopyWithImpl<$Res>
+    extends _$RoutingDtoCopyWithImpl<$Res, _$RoutingDtoImpl>
+    implements _$$RoutingDtoImplCopyWith<$Res> {
+  __$$RoutingDtoImplCopyWithImpl(
+      _$RoutingDtoImpl _value, $Res Function(_$RoutingDtoImpl) _then)
+      : super(_value, _then);
 
-  @override
-  _$_RoutingDto get _value => super._value as _$_RoutingDto;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? route = freezed,
-    Object? queryParameters = freezed,
+    Object? route = null,
+    Object? queryParameters = null,
   }) {
-    return _then(_$_RoutingDto(
-      route: route == freezed
+    return _then(_$RoutingDtoImpl(
+      route: null == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
               as String,
-      queryParameters: queryParameters == freezed
+      queryParameters: null == queryParameters
           ? _value._queryParameters
           : queryParameters // ignore: cast_nullable_to_non_nullable
               as Map<String, String>,
@@ -103,19 +107,20 @@ class __$$_RoutingDtoCopyWithImpl<$Res> extends _$RoutingDtoCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RoutingDto implements _RoutingDto {
-  _$_RoutingDto(
+class _$RoutingDtoImpl implements _RoutingDto {
+  _$RoutingDtoImpl(
       {required this.route, required final Map<String, String> queryParameters})
       : _queryParameters = queryParameters;
 
-  factory _$_RoutingDto.fromJson(Map<String, dynamic> json) =>
-      _$$_RoutingDtoFromJson(json);
+  factory _$RoutingDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RoutingDtoImplFromJson(json);
 
   @override
   final String route;
   final Map<String, String> _queryParameters;
   @override
   Map<String, String> get queryParameters {
+    if (_queryParameters is EqualUnmodifiableMapView) return _queryParameters;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_queryParameters);
   }
@@ -126,30 +131,29 @@ class _$_RoutingDto implements _RoutingDto {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RoutingDto &&
-            const DeepCollectionEquality().equals(other.route, route) &&
+            other is _$RoutingDtoImpl &&
+            (identical(other.route, route) || other.route == route) &&
             const DeepCollectionEquality()
                 .equals(other._queryParameters, _queryParameters));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(route),
+  int get hashCode => Object.hash(runtimeType, route,
       const DeepCollectionEquality().hash(_queryParameters));
 
   @JsonKey(ignore: true)
   @override
-  _$$_RoutingDtoCopyWith<_$_RoutingDto> get copyWith =>
-      __$$_RoutingDtoCopyWithImpl<_$_RoutingDto>(this, _$identity);
+  @pragma('vm:prefer-inline')
+  _$$RoutingDtoImplCopyWith<_$RoutingDtoImpl> get copyWith =>
+      __$$RoutingDtoImplCopyWithImpl<_$RoutingDtoImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RoutingDtoToJson(
+    return _$$RoutingDtoImplToJson(
       this,
     );
   }
@@ -158,10 +162,10 @@ class _$_RoutingDto implements _RoutingDto {
 abstract class _RoutingDto implements RoutingDto {
   factory _RoutingDto(
       {required final String route,
-      required final Map<String, String> queryParameters}) = _$_RoutingDto;
+      required final Map<String, String> queryParameters}) = _$RoutingDtoImpl;
 
   factory _RoutingDto.fromJson(Map<String, dynamic> json) =
-      _$_RoutingDto.fromJson;
+      _$RoutingDtoImpl.fromJson;
 
   @override
   String get route;
@@ -169,6 +173,6 @@ abstract class _RoutingDto implements RoutingDto {
   Map<String, String> get queryParameters;
   @override
   @JsonKey(ignore: true)
-  _$$_RoutingDtoCopyWith<_$_RoutingDto> get copyWith =>
+  _$$RoutingDtoImplCopyWith<_$RoutingDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

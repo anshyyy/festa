@@ -106,6 +106,7 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
   void handlePaymentError(PaymentFailureResponse response) {
     AnalyticsService().logEvent(eventName: 'payment_failed', paras: {
       'order_id': state.eventBookingDetails.razorpayOrderId,
+      'error': response.toString(),
     });
     emit(state.copyWith(
       isPaymentSuccess: false,

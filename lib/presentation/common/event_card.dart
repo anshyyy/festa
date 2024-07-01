@@ -501,27 +501,27 @@ class _EventCardState extends State<EventCard> {
                       ),
                     ],
                   ),
-                  if (widget.event.pub != null)
-                    Row(
-                      children: [
-                        SvgPicture.asset(AssetConstants.startIcon,
-                            colorFilter: ColorFilter.mode(
-                                themeData.colorScheme.surfaceTint,
-                                BlendMode.srcIn)),
-                        SizedBox(
-                          width: 1.w,
-                        ),
-                        Text(
-                          widget.event.pub!.averageRating.toStringAsFixed(1),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.background),
-                        ),
-                      ],
-                    )
+                  if (widget.event.pub != null) SizedBox()
+                    // Row(
+                    //   children: [
+                    //     SvgPicture.asset(AssetConstants.startIcon,
+                    //         colorFilter: ColorFilter.mode(
+                    //             themeData.colorScheme.surfaceTint,
+                    //             BlendMode.srcIn)),
+                    //     SizedBox(
+                    //       width: 1.w,
+                    //     ),
+                    //     Text(
+                    //       widget.event.pub!.averageRating.toStringAsFixed(1),
+                    //       style: Theme.of(context)
+                    //           .textTheme
+                    //           .bodySmall!
+                    //           .copyWith(
+                    //               color:
+                    //                   Theme.of(context).colorScheme.background),
+                    //     ),
+                    //   ],
+                    // )
                 ],
               ),
               SizedBox(
@@ -550,7 +550,7 @@ class _EventCardState extends State<EventCard> {
                       )
                     ],
                   ),
-                  getExpenseRating(rating: widget.event.id)
+                 // getExpenseRating(rating: widget.event.id)
                 ],
               ),
               !widget.isInListing

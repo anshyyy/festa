@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../domain/core/constants/other_constants.dart';
+
 class SettingTile extends StatelessWidget {
   final String prefixIcon;
   final String label;
   final String suffixIcon;
   final String? detail;
   final void Function()? onTap;
+  final bool isEmpty;
   const SettingTile({
     super.key,
     required this.prefixIcon,
@@ -15,6 +18,7 @@ class SettingTile extends StatelessWidget {
     required this.suffixIcon,
     required this.onTap,
     this.detail,
+    this.isEmpty = false
   });
 
   @override
@@ -34,9 +38,23 @@ class SettingTile extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  prefixIcon,
-                  height: 3.h,
+                Stack(
+                  children: [
+                    if(isEmpty)
+                    Container(
+                      width: 5,
+                      height: 5,
+                      decoration:  BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          gradient:  const LinearGradient(
+                        colors: <Color>[Color(0xffFF1759), Color(0xffBF0036)],
+                      )),
+                    ),
+                    SvgPicture.asset(
+                      prefixIcon,
+                      height: 3.h,
+                    ),
+                  ],
                 ),
                 SizedBox(
                   width: 4.w,
@@ -50,7 +68,9 @@ class SettingTile extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(width: 20.w,),
+            SizedBox(
+              width: 20.w,
+            ),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -78,6 +78,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                     ),
                     SettingTile(
                       prefixIcon: AssetConstants.emailIcon,
+                      isEmpty: user.email == null,
                       label: AccountSettingScreenConstants.email,
                       suffixIcon: AssetConstants.arrowRight,
                       detail: user.email,

@@ -543,6 +543,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                     final currentMenu =
                                         OtherConstants.settingsMenu[index];
                                     return SettingTile(
+                                        isEmpty: state.user!.email == null,
                                         prefixIcon: currentMenu.icon,
                                         label: currentMenu.title,
                                         suffixIcon: AssetConstants.arrowRight,

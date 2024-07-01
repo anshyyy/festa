@@ -174,6 +174,22 @@ class CustomBottomNav extends StatelessWidget {
                                       CustomImageProvider.getImageUrl(
                                           appStateNotifier.user!.profileImage,
                                           ImageType.profile)))),
+                          // child:  Stack(
+                          //   children: [
+                          //     Container(
+                          //       width: 6.px,
+                          //       height: 6.px,
+                          //       decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(50),
+                          //           gradient: const LinearGradient(
+                          //             colors: <Color>[
+                          //               Color(0xffFF1759),
+                          //               Color(0xffBF0036)
+                          //             ],
+                          //           )),
+                          //     ),
+                          //   ],
+                          // ),
                         ),
                       ),
                       Positioned(

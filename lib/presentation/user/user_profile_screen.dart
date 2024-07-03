@@ -134,8 +134,8 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                                     right: 5,
                                                     top:4,
                                                     child: Container(
-                                                      width: 6.px,
-                                                      height: 6.px,
+                                                      width: 7.px,
+                                                      height: 7.px,
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +50,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
+        
         if (state.isLogout && state.responseMsg.isNotEmpty) {
           CustomScaffoldMessenger.clearSnackBars(context);
           CustomScaffoldMessenger.showSnackBar(
@@ -542,8 +545,11 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     final currentMenu =
                                         OtherConstants.settingsMenu[index];
+                                    print("${state.user}");
+                                   
+                                        
                                     return SettingTile(
-                                        isEmpty: state.user!.email == null,
+                                        isEmpty: state.appStateNotifier.user!.email == null,
                                         prefixIcon: currentMenu.icon,
                                         label: currentMenu.title,
                                         suffixIcon: AssetConstants.arrowRight,

@@ -41,14 +41,17 @@ class SettingTile extends StatelessWidget {
                 Stack(
                   children: [
                     if(isEmpty)
-                    Container(
-                      width: 5,
-                      height: 5,
-                      decoration:  BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          gradient:  const LinearGradient(
-                        colors: <Color>[Color(0xffFF1759), Color(0xffBF0036)],
-                      )),
+                    Positioned(
+                      right: 2,
+                      child: Container(
+                        width: 7.px,
+                        height: 7.px,
+                        decoration:  BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            gradient:  const LinearGradient(
+                          colors: <Color>[Color(0xffFF1759), Color(0xffBF0036)],
+                        )),
+                      ),
                     ),
                     SvgPicture.asset(
                       prefixIcon,

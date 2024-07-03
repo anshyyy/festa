@@ -13,6 +13,7 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
@@ -108,7 +109,10 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                     navigator<NavigationService>().goBack();
                   },
                   child: Center(
-                      child: SvgPicture.asset(AssetConstants.arrowLeft,width: 7.w,))),
+                      child: SvgPicture.asset(
+                    AssetConstants.arrowLeft,
+                    width: 7.w,
+                  ))),
               actions: const []),
           body: SafeArea(
             child: ModalProgressHUD(
@@ -160,7 +164,9 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                     //         .onMenuSearch(query: value),
                     //   ),
                     // ),
-                    SizedBox(height: 1.h,),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                     Stack(
                       children: [
                         Column(
@@ -426,7 +432,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                     child: Container(
                                       height: 15.w,
                                       width: 15.w,
-                                      padding:  const EdgeInsets.all(3),
+                                      padding: const EdgeInsets.all(3),
                                       decoration: BoxDecoration(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -571,6 +577,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       EdgeInsets.symmetric(horizontal: 3.w),
                                   child: GestureDetector(
                                     onTap: () {
+                                      AnalyticsService().logEvent(
+                                          eventName: 'logout', paras: {});
                                       context.read<ProfileCubit>().logout();
                                     },
                                     child: Row(

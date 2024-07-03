@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/home/cubit/home_cubit.dart';
+import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
 
 class LocationTile extends StatelessWidget {
@@ -16,12 +17,13 @@ class LocationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return GestureDetector(
           onTap: () {
+            AnalyticsService().logEvent(eventName: 'choose_location', paras: {
+              'location': location.city,
+            });
             context.read<HomeCubit>().updateLocation(location: location);
           },
           child: Container(

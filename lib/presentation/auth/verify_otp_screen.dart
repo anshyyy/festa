@@ -11,6 +11,7 @@ import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
+import '../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/services/storage_service/dynamic_link_storage_service.dart';
@@ -104,10 +105,21 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                               ? AuthRoutes.birthdayRoute
                               : AuthRoutes.basicInfoRoute;
 
+              AnalyticsService().setUserId(state.user!.id.toString());
+              AnalyticsService()
+                  .setUserProperties(name: 'user_id', val: user.id.toString());
+              AnalyticsService().setUserProperties(
+                  name: 'phone_no', val: user.phoneNumber.toString());
+
+              if (profileState == ProfileStateEnum.started) {
+                AnalyticsService().logEvent(eventName: 'sign_up', paras: {});
+              } else {
+                AnalyticsService().logEvent(eventName: 'login', paras: {});
+              }
+
               Future.delayed(const Duration(milliseconds: 100))
                   .then((value) async {
-                    
-                 navigator<NavigationService>()
+                navigator<NavigationService>()
                     .navigateTo(route, isClearStack: true, queryParams: {
                   'id': pathSegments['id'] ?? '0',
                 });

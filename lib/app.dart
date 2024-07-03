@@ -17,6 +17,7 @@ import 'domain/auth/auth_repository.dart';
 import 'domain/core/configs/app_config.dart';
 import 'domain/core/configs/injection.dart';
 import 'domain/core/constants/string_constants.dart';
+import 'domain/core/services/analytics_service/analytics_service.dart';
 import 'domain/core/services/app_update_service/app_update_service.dart';
 import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
@@ -157,6 +158,15 @@ Future appInitializer(AppConfig appConfig) async {
         country: 'India',
         icon: '');
   }
+
+  if (user != null) {
+    AnalyticsService().setUserId(user.id.toString());
+    AnalyticsService()
+        .setUserProperties(name: 'user_id', val: user.id.toString());
+    AnalyticsService()
+        .setUserProperties(name: 'phone_no', val: user.phoneNumber.toString());
+  }
+
   AppStateNotifier appStateNotifier = AppStateNotifier(
     isAuthorized: isAuthorized,
     isOffline: isOffline,

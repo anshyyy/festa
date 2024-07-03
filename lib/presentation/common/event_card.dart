@@ -2,21 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
 import '../../domain/core/extensions/number_extension.dart';
 import '../../domain/core/extensions/string_extension.dart';
 import '../../domain/core/helpers/generic_helpers.dart';
+import '../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/auth/dtos/user_dto.dart';
 import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../../infrastructure/core/enum/media_type.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
@@ -152,7 +156,6 @@ class _EventCardState extends State<EventCard> {
                 ? '${words[0]} ${words[1]}'
                 : '${words[0]} ${words[1]} ...'
             : words[0];
-
     return VisibilityDetector(
       key: Key(widget.vKey),
       onVisibilityChanged: (info) {
@@ -416,6 +419,10 @@ class _EventCardState extends State<EventCard> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      AnalyticsService()
+                          .logEvent(eventName: 'share_event', paras: {
+                        'event_id': widget.event.id.toString(),
+                      });
                       Share.share(GenericHelpers().getDynamicLink(
                           AppConstants.event, widget.event.id.toString()));
                     },
@@ -436,6 +443,10 @@ class _EventCardState extends State<EventCard> {
                     children: widget.event.artists
                         .map((e) => ShortProfileTile(
                             onTap: () {
+                              AnalyticsService()
+                                  .logEvent(eventName: 'view_artist', paras: {
+                                'artist_id': e.id.toString(),
+                              });
                               navigator<NavigationService>().navigateTo(
                                   UserRoutes.artistProfileScreenRoute,
                                   queryParams: {
@@ -631,6 +642,11 @@ class _EventCardState extends State<EventCard> {
                             children: [
                               GestureDetector(
                                 onTap: () {
+                                  AnalyticsService()
+                                      .logEvent(eventName: 'view_club', paras: {
+                                    'club_id': widget.event.pub!.id.toString(),
+                                  });
+
                                   navigator<NavigationService>().navigateTo(
                                       UserRoutes.clubProfileRoute,
                                       queryParams: {
@@ -655,6 +671,12 @@ class _EventCardState extends State<EventCard> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
+                                        AnalyticsService().logEvent(
+                                            eventName: 'view_club',
+                                            paras: {
+                                              'club_id': widget.event.pub!.id
+                                                  .toString(),
+                                            });
                                         navigator<NavigationService>()
                                             .navigateTo(
                                                 UserRoutes.clubProfileRoute,

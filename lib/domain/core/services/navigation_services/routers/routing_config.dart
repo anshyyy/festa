@@ -48,6 +48,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
   final routingData = settings.name!.getRoutingData;
 
   switch (routingData.route) {
+    
     case AuthRoutes.basicInfoRoute:
       return _getPageRoute(const BasicProfileScreen(), settings);
 

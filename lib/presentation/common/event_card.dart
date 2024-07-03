@@ -51,6 +51,7 @@ class _EventCardState extends State<EventCard> {
   bool isVideoLoading = false;
   bool isPlaying = false;
   bool isMute = false;
+  bool isManualPaused = false;
 
   VideoPlayerController? videoPlayerController;
 
@@ -80,17 +81,16 @@ class _EventCardState extends State<EventCard> {
     await videoPlayerController!.initialize();
     initPlayer = false;
     isPlaying = false;
-      if (isMute) {
+    if (isMute) {
       videoPlayerController!.setVolume(0.0);
     }
 
-      setState(() {});
+    setState(() {});
 
     if (isAutoPlay) {
       togglePlayPause();
     }
 
-  
     videoPlayerController!.addListener(
       () {
         if (!videoPlayerController!.value.isPlaying &&
@@ -161,7 +161,7 @@ class _EventCardState extends State<EventCard> {
           var visiblePercentage = info.visibleFraction * 100;
           if (visiblePercentage <= 50 && isPlaying) {
             togglePlayPause(isPlay: false);
-          } else if (visiblePercentage >= 50 && !isPlaying) {
+          } else if (visiblePercentage >= 50 && !isPlaying && !isManualPaused) {
             togglePlayPause();
           }
         }
@@ -245,6 +245,10 @@ class _EventCardState extends State<EventCard> {
                                                 left: null,
                                                 child: GestureDetector(
                                                   onTap: () {
+                                                    if (isPlaying) {
+                                                      isManualPaused = true;
+                                                      setState(() {});
+                                                    } 
                                                     togglePlayPause(
                                                         isPlay: !isPlaying);
                                                   },
@@ -300,6 +304,13 @@ class _EventCardState extends State<EventCard> {
                                   widget.isInListing
                               ? GestureDetector(
                                   onTap: () {
+                                    if (isPlaying) {
+                                      isManualPaused = true;
+                                      setState(() {});
+                                    } else {
+                                      isManualPaused = false;
+                                      setState(() {});
+                                    }
                                     togglePlayPause(isPlay: !isPlaying);
                                   },
                                   child: Center(

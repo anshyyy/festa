@@ -70,6 +70,8 @@ mixin _$EventDto {
   bool get isApplied => throw _privateConstructorUsedError;
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isPaused', defaultValue: true)
+  bool get isPaused => throw _privateConstructorUsedError;
   @JsonKey(name: 'expensiveRating', defaultValue: 0)
   int get expensiveRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'categories', defaultValue: [])
@@ -119,6 +121,7 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true) bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0) int expensiveRating,
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories,
@@ -167,6 +170,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
     Object? pub = freezed,
     Object? isApplied = null,
     Object? isLiked = null,
+    Object? isPaused = null,
     Object? expensiveRating = null,
     Object? categories = null,
     Object? eventTicketCategories = null,
@@ -272,6 +276,10 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      isPaused: null == isPaused
+          ? _value.isPaused
+          : isPaused // ignore: cast_nullable_to_non_nullable
+              as bool,
       expensiveRating: null == expensiveRating
           ? _value.expensiveRating
           : expensiveRating // ignore: cast_nullable_to_non_nullable
@@ -350,6 +358,7 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true) bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0) int expensiveRating,
       @JsonKey(name: 'categories', defaultValue: [])
       List<CategoryDto> categories,
@@ -398,6 +407,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
     Object? pub = freezed,
     Object? isApplied = null,
     Object? isLiked = null,
+    Object? isPaused = null,
     Object? expensiveRating = null,
     Object? categories = null,
     Object? eventTicketCategories = null,
@@ -503,6 +513,10 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
               as bool,
+      isPaused: null == isPaused
+          ? _value.isPaused
+          : isPaused // ignore: cast_nullable_to_non_nullable
+              as bool,
       expensiveRating: null == expensiveRating
           ? _value.expensiveRating
           : expensiveRating // ignore: cast_nullable_to_non_nullable
@@ -554,6 +568,7 @@ class _$EventDtoImpl implements _EventDto {
       @JsonKey(name: 'pub') this.pub,
       @JsonKey(defaultValue: false) required this.isApplied,
       @JsonKey(name: 'isLiked', defaultValue: false) required this.isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true) required this.isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0)
       required this.expensiveRating,
       @JsonKey(name: 'categories', defaultValue: []) required this.categories,
@@ -639,6 +654,9 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(name: 'isLiked', defaultValue: false)
   final bool isLiked;
   @override
+  @JsonKey(name: 'isPaused', defaultValue: true)
+  final bool isPaused;
+  @override
   @JsonKey(name: 'expensiveRating', defaultValue: 0)
   final int expensiveRating;
   @override
@@ -650,7 +668,7 @@ class _$EventDtoImpl implements _EventDto {
 
   @override
   String toString() {
-    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied, isLiked: $isLiked, expensiveRating: $expensiveRating, categories: $categories, eventTicketCategories: $eventTicketCategories)';
+    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied, isLiked: $isLiked, isPaused: $isPaused, expensiveRating: $expensiveRating, categories: $categories, eventTicketCategories: $eventTicketCategories)';
   }
 
   @override
@@ -696,6 +714,8 @@ class _$EventDtoImpl implements _EventDto {
             (identical(other.isApplied, isApplied) ||
                 other.isApplied == isApplied) &&
             (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.isPaused, isPaused) ||
+                other.isPaused == isPaused) &&
             (identical(other.expensiveRating, expensiveRating) ||
                 other.expensiveRating == expensiveRating) &&
             const DeepCollectionEquality()
@@ -733,6 +753,7 @@ class _$EventDtoImpl implements _EventDto {
         pub,
         isApplied,
         isLiked,
+        isPaused,
         expensiveRating,
         const DeepCollectionEquality().hash(categories),
         const DeepCollectionEquality().hash(eventTicketCategories)
@@ -796,6 +817,8 @@ abstract class _EventDto implements EventDto {
       @JsonKey(defaultValue: false) required final bool isApplied,
       @JsonKey(name: 'isLiked', defaultValue: false)
       required final bool isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true)
+      required final bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0)
       required final int expensiveRating,
       @JsonKey(name: 'categories', defaultValue: [])
@@ -882,6 +905,9 @@ abstract class _EventDto implements EventDto {
   @override
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked;
+  @override
+  @JsonKey(name: 'isPaused', defaultValue: true)
+  bool get isPaused;
   @override
   @JsonKey(name: 'expensiveRating', defaultValue: 0)
   int get expensiveRating;

@@ -110,16 +110,17 @@ Future appInitializer(AppConfig appConfig) async {
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
-  AuthRepository authRepository =
-      IAuthRepository(serverUrl: appConfig.serverUrl);
-  final user = await authRepository.authentication();
-
   final bool isUserFirstTime = await AppUpdateService.isUserFirstTime();
 
   if (isUserFirstTime) {
     await FirebaseAuth.instance.signOut();
     await AppUpdateService.setUserFirstTime(val: false);
   }
+
+  AuthRepository authRepository =
+      IAuthRepository(serverUrl: appConfig.serverUrl);
+
+  final user = await authRepository.authentication();
 
   bool isAuthorized = user != null;
 

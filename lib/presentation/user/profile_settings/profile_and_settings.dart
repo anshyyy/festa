@@ -10,6 +10,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/auth/profile/profile_cubit.dart';
+import '../../../application/user/user_profile/user_profile_cubit.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
@@ -26,7 +27,8 @@ import '../../widgets/snackbar_alert.dart';
 import 'widgets/setting_tile.dart';
 
 class ProfileAndSettingsScreen extends StatelessWidget {
-  const ProfileAndSettingsScreen({super.key});
+  final String providedEmail;
+  const ProfileAndSettingsScreen({super.key,required this.providedEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +38,23 @@ class ProfileAndSettingsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(ProfileState.initial(
           appStateNotifier: appStateNotifier, serverUrl: appConfig.serverUrl)),
-      child: const ProfileAndSettingsScreenConsumer(),
+      child:  ProfileAndSettingsScreenConsumer(providedEmail : providedEmail),
     );
   }
 }
 
 class ProfileAndSettingsScreenConsumer extends StatelessWidget {
+  final String providedEmail;
   const ProfileAndSettingsScreenConsumer({
+
     super.key,
+    required this.providedEmail
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {
-        
         if (state.isLogout && state.responseMsg.isNotEmpty) {
           CustomScaffoldMessenger.clearSnackBars(context);
           CustomScaffoldMessenger.showSnackBar(
@@ -103,7 +107,6 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
         final themeData = Theme.of(context);
         final colorScheme = themeData.colorScheme;
         // final textTheme = themeData.textTheme;
-
         return Scaffold(
           appBar: CustomAppBar(
               title: ProfileAndSettingsScreenConstants.profileAndSettings,
@@ -545,11 +548,12 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     final currentMenu =
                                         OtherConstants.settingsMenu[index];
-                                    print("${state.user}");
-                                   
-                                        
+                                    // print("${state.user}");
+                                    // print(state.appStateNotifier.user!.email);
+                                  
+                                  
                                     return SettingTile(
-                                        isEmpty: state.appStateNotifier.user!.email == null,
+                                        isEmpty:  providedEmail.isEmpty,
                                         prefixIcon: currentMenu.icon,
                                         label: currentMenu.title,
                                         suffixIcon: AssetConstants.arrowRight,
@@ -562,6 +566,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                         currentMenu
                                                             .navigationRoute,
                                                         queryParams: {
+                                                      'email':providedEmail,
                                                       'userId': state.user!.id
                                                           .toString()
                                                     });

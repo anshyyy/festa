@@ -17,7 +17,8 @@ import '../widgets/setting_tile.dart';
 
 class AccountSettingScreen extends StatelessWidget {
   final int userId;
-  const AccountSettingScreen({super.key, required this.userId});
+  final String email;
+  const AccountSettingScreen({super.key, required this.userId,required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,16 @@ class AccountSettingScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AccountSettingsCubit(AccountSettingsState.initial(
           serverUrl: appConfig.serverUrl, userId: userId)),
-      child: const AccountSettingScreenConsumer(),
+      child:  AccountSettingScreenConsumer(email: email,),
     );
   }
 }
 
 class AccountSettingScreenConsumer extends StatelessWidget {
+  final String email;
   const AccountSettingScreenConsumer({
     super.key,
+    required this.email
   });
 
   @override
@@ -78,13 +81,13 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                     ),
                     SettingTile(
                       prefixIcon: AssetConstants.emailIcon,
-                      isEmpty: user.email == null,
+                      isEmpty: email.isEmpty,
                       label: AccountSettingScreenConstants.email,
                       suffixIcon: AssetConstants.arrowRight,
-                      detail: user.email,
+                      detail: user.email==null?(email.isEmpty?"Verify":email):"Verify",
                       onTap: 
                       
-                      user.email!=null?
+                      user.email!=null || email.isNotEmpty?
                       null:
                       () => 
                       navigator<NavigationService>().navigateTo(

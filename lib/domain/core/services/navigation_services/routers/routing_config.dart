@@ -77,7 +77,9 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           OtherUserProfileScreen(userId: int.parse(userId)), settings);
 
     case UserRoutes.profileAndSettingsRoute:
-      return _getPageRoute(const ProfileAndSettingsScreen(), settings);
+      final email = routingData.queryParameters['email'] ?? '';
+      //print("this is the $email");
+      return _getPageRoute(ProfileAndSettingsScreen(providedEmail: email.toString()), settings);
 
     case UserRoutes.personalizeExperienceRoute:
       return _getPageRoute(const PersonalizeYourExperienceScreen(), settings);
@@ -93,9 +95,11 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.accountSettingsRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
+      final email = routingData.queryParameters['email'] ?? '';
       return _getPageRoute(
         AccountSettingScreen(
           userId: int.parse(userId),
+          email: email,
         ),
         settings,
       );

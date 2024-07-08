@@ -187,7 +187,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void removeAppliedFilter({required String id}) {
+    for(int i=0;i<state.filters.length;i++){
+      print(state.filters[i]);
+    }
     List<FilterDto> filters = List.from(state.filters.map((e) {
+      //print(e.name);
       if (e.name == id) {
         return e.copyWith(
             isApplied: false,

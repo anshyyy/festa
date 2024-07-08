@@ -200,10 +200,10 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                                       Theme.of(context).colorScheme.background),
                           errorStyle:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
+                                    color: Theme.of(context).colorScheme.error
                                   ),
                           validator: (value) {
-                            if (value!.isEmpty || value.length < 6 || !GenericHelpers().isValidMobile(value)) {
+                            if (value!.isEmpty || value.length <= 9 || !GenericHelpers().isValidMobile(value)) {
                               return ErrorConstants.invalidMobileNumberError;
                             }
                             return null;

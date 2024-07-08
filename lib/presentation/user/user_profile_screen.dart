@@ -103,8 +103,11 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                         navigator<NavigationService>()
                                             .navigateTo(
                                           UserRoutes.profileAndSettingsRoute,
+                                          queryParams: {
+                                            'email': state.user!.email ?? ""
+                                          }
                                         )
-                                            .then((value) {
+                                        .then((value) {
                                           context
                                               .read<UserProfileCubit>()
                                               .fetchUserDetails(

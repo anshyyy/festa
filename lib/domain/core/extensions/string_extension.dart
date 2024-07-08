@@ -20,6 +20,10 @@ extension StringExtension on String {
     return currentStatus;
   }
 
+  static String formatDateTimeLongNew(DateTime dateTime) {
+    return DateFormat('EEE, d MMMM').format(dateTime);
+  }
+
   static String formatAmount(int amount) {
     if (amount < 1000) {
       return amount.toString();

@@ -59,14 +59,9 @@ class ExploreTile extends StatelessWidget {
               SizedBox(
                 width: 1.w,
               ),
-              icon != null
-                  ? SvgPicture.asset(
-                      icon!,
-                      height: 2.1.h,
-                    )
-                  : SvgPicture.asset(AssetConstants.closeIcon,
-                    height: 4.w,
-                  )
+             icon != null
+  ? (icon!.isNotEmpty ? SvgPicture.asset(icon!, height: 2.1.h) : SizedBox.shrink())
+  : SvgPicture.asset(AssetConstants.closeIcon, height: 4.w)
             ],
           ),
         );

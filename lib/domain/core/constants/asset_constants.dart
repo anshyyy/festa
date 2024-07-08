@@ -51,6 +51,9 @@ class AssetConstants {
   static const arrowDown = '${vectorsFolder}arrow-down.svg';
   static const arrowRight = '${vectorsFolder}arrow-right.svg';
   static const arrowLeft = '${vectorsFolder}arrow-left.svg';
+  static const happyhours = '${vectorsFolder}happy-hours.svg';
+  static const happyHoursMain = '${vectorsFolder}happy-hours-main.svg';
+  
 
   static const editIcon = '${vectorsFolder}edit-icon.svg';
   static const shareIcon = '${vectorsFolder}share-icon.svg';

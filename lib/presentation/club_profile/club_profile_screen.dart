@@ -104,7 +104,7 @@ class ClubProfileScreenConsumer extends StatelessWidget {
                                                       .colorScheme
                                                       .surface,
                                                 )
-                                              : const ClubProfile(),
+                                              :  ClubProfile(),
                                         ),
                                         const MediaViewerTabs(),
                                       ],

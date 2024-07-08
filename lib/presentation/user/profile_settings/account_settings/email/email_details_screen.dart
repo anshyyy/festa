@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../application/user/email/email_details/email_details_cubit.dart';
+import '../../../../../application/user/user_profile/user_profile_cubit.dart';
 import '../../../../../domain/core/configs/injection.dart';
 import '../../../../../domain/core/constants/asset_constants.dart';
 import '../../../../../domain/core/constants/string_constants.dart';
@@ -38,7 +39,7 @@ class ExmailDetailsScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<EmailDetailsCubit, EmailDetailsState>(
       listener: (context, state) {
-        
+     
       },
       builder: (context, state) {
         return Scaffold(
@@ -93,11 +94,7 @@ class ExmailDetailsScreenConsumer extends StatelessWidget {
                   GradientButton(
                     text: 'Go to Home',
                     onTap: () {
-                      // showModalBottomSheet(
-                      //     context: context,
-                      //     builder: (context) {
-                      //       return DeleteEmailModalSheet();
-                      //     });
+                      
                       navigator<NavigationService>().navigateTo(UserRoutes.mainNavRoute, queryParams: {
                         'routeIndex':'0',
                       },

@@ -22,6 +22,7 @@ import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../../infrastructure/event/dtos/filter_value/filter_value_dto.dart';
 import '../common/event_card.dart';
 import '../core/primary_button.dart';
+import '../search/delegate/search_delegate.dart';
 import '../widgets/custom_textfield.dart';
 import '../widgets/gradient_text.dart';
 import 'widgets/event_genre_card.dart';
@@ -73,64 +74,91 @@ class HomeScreenConsumer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          state.isSearchOpen
-                              ? CustomTextField(
-                                  autofocus: true,
-                                  controller: state.searchController,
-                                  onChanged: (val) {
-                                    EasyDebounce.debounce('home-search-events',
-                                        const Duration(milliseconds: 500), () {
-                                      context
-                                          .read<HomeCubit>()
-                                          .onSearchChange();
-                                    });
-                                  },
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 4.w, vertical: 1.5.h),
-                                  hintTextStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                          fontSize: 16.sp,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .background
-                                              .withOpacity(0.6)),
-                                  isFill: true,
-                                  fillColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                        fontSize: 16.sp,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .background
-                                            .withOpacity(0.6),
-                                      ),
-                                  hintText: HomeScreenConstants.searchEvent,
-                                  prefixIcon: SvgPicture.asset(
-                                    AssetConstants.searchIcon,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background
-                                        .withOpacity(0.6),
-                                    width: 7.w,
-                                  ),
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      context
-                                          .read<HomeCubit>()
-                                          .onSearchChange(isSearchOn: false);
-                                    },
-                                    child: SvgPicture.asset(
-                                      AssetConstants.closeIcon,
-                                      width: 6.w,
-                                    ),
-                                  ),
-                                )
-                              : Row(
+                         
+
+              //             InkWell(
+              //               onTap: (){
+              //                  showSearch(
+              //   context: context,
+              //   delegate: MySearchDelegate(),
+              // );
+              //               },
+              //               child:  SvgPicture.asset(
+              //                       AssetConstants.searchIcon,
+              //                       color: Theme.of(context)
+              //                           .colorScheme
+              //                           .background
+              //                           .withOpacity(0.6),
+              //                       width: 7.w,
+              //                     ),
+              //             ),
+                          
+
+
+                          
+
+
+              //                 ? CustomTextField(
+              //                     autofocus: true,
+              //                     controller: state.searchController,
+              //                     onChanged: (val) {
+              //                       EasyDebounce.debounce('home-search-events',
+              //                           const Duration(milliseconds: 500), () {
+              //                         context
+              //                             .read<HomeCubit>()
+              //                             .onSearchChange();
+              //                       });
+              //                     },
+              //                     contentPadding: EdgeInsets.symmetric(
+              //                         horizontal: 4.w, vertical: 1.5.h),
+              //                     hintTextStyle: Theme.of(context)
+              //                         .textTheme
+              //                         .bodySmall!
+              //                         .copyWith(
+              //                             fontSize: 16.sp,
+              //                             color: Theme.of(context)
+              //                                 .colorScheme
+              //                                 .background
+              //                                 .withOpacity(0.6)),
+              //                     isFill: true,
+              //                     fillColor:
+              //                         Theme.of(context).colorScheme.surface,
+              //                     textStyle: Theme.of(context)
+              //                         .textTheme
+              //                         .bodySmall!
+              //                         .copyWith(
+              //                           fontSize: 16.sp,
+              //                           color: Theme.of(context)
+              //                               .colorScheme
+              //                               .background
+              //                               .withOpacity(0.6),
+              //                         ),
+              //                     hintText: HomeScreenConstants.searchEvent,
+              //                     prefixIcon: SvgPicture.asset(
+              //                       AssetConstants.searchIcon,
+              //                       color: Theme.of(context)
+              //                           .colorScheme
+              //                           .background
+              //                           .withOpacity(0.6),
+              //                       width: 7.w,
+              //                     ),
+              //                     suffixIcon: GestureDetector(
+              //                       onTap: () {
+              //                          showSearch(
+              //   context: context,
+              //   delegate: MySearchDelegate(),
+              // );
+              //                         // context
+              //                         //     .read<HomeCubit>()
+              //                         //     .onSearchChange(isSearchOn: false);
+              //                       },
+              //                       child: SvgPicture.asset(
+              //                         AssetConstants.closeIcon,
+              //                         width: 6.w,
+              //                       ),
+              //                     ),
+              //                   )
+                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -177,9 +205,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            context
-                                                .read<HomeCubit>()
-                                                .toggleSearch(flag: true);
+                                            // context
+                                            //     .read<HomeCubit>()
+                                            //     .toggleSearch(flag: true);
+                                            showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
                                           },
                                           child: SvgPicture.asset(
                                             AssetConstants.searchIcon,
@@ -290,32 +322,17 @@ class HomeScreenConsumer extends StatelessWidget {
                                                       ));
                                                   return;
                                                 }
-                                                for (int i = 0;
-                                                    i <
-                                                        state.categoryFilter!
-                                                            .values.length;
-                                                    i++) {
-                                                  state.categoryFilter!
-                                                          .values[i] =
-                                                      state.categoryFilter!
-                                                          .values[i]
-                                                          .copyWith(
-                                                              isApplied: false);
+                                                for (int i = 0;i <state.categoryFilter!.values.length;i++) {
+                                                  state.categoryFilter!.values[i] =
+                                                      state.categoryFilter!.values[i].copyWith(isApplied: false);
                                                 }
-                                                state.categoryFilter!
-                                                        .values[index] =
-                                                    state.categoryFilter!
-                                                        .values[index]
-                                                        .copyWith(
-                                                            isApplied: true);
+                                                state.categoryFilter!.values[index] =
+                                                    state.categoryFilter!.values[index].copyWith(isApplied: true);
                                                 final indexTemp = state.filters
                                                     .indexWhere((element) {
-                                                  return element.name ==
-                                                      'music';
+                                                  return element.name =='music';
                                                 });
-                                                state.filters[indexTemp] = state
-                                                    .filters[indexTemp]
-                                                    .copyWith(isApplied: true);
+                                                state.filters[indexTemp] = state.filters[indexTemp].copyWith(isApplied: true);
                                                 context
                                                     .read<HomeCubit>()
                                                     .updateFilterApplied(
@@ -335,7 +352,8 @@ class HomeScreenConsumer extends StatelessWidget {
                                                                   .icon,
                                                               ImageType
                                                                   .profile),
-                                                      title: categoryValue
+                                                      title: 
+                                                      categoryValue
                                                           .displayName,
                                                     ),
                                             );
@@ -386,7 +404,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                     children: state.exploreList.map((Map item) {
                                       return ExploreTile(
                                         label: item['label'],
-                                        icon: item['svgIcon'],
+                                        icon: item['svgIcon'] ?? " ",
                                         isSelected: item['isSelected'],
                                         key: item['label']
                                                     .toString()
@@ -433,6 +451,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     overlayState:
                                                         Overlay.of(context));
                                           } else {
+                                            print(item);
                                             context
                                                 .read<HomeCubit>()
                                                 .removeAppliedFilter(

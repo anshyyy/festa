@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -78,6 +77,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
           GlobalKey(),
           GlobalKey(),
+          GlobalKey(),
+          GlobalKey()
         ];
         return state.isLoading
             ? const Scaffold(body: EventDetailsShimmer())
@@ -142,7 +143,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                       id: state.event!.id,
                                       isUpdatedDetails: true);
                             }
-                          },                          
+                          },
                           distance: state.eventDistance,
                           event: event,
                           isLiked: state.isEventLiked,
@@ -183,6 +184,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       SizedBox(
                         height: 2.h,
                       ),
+                      // description box
                       Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
@@ -438,7 +440,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       //   ),
                       // ),
                       const SizedBox(height: 10),
-                       Theme(
+                      // rules box
+
+                      Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
@@ -450,8 +454,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               await Future.delayed(
                                   const Duration(milliseconds: 200));
                               Scrollable.ensureVisible(
-                                tileKeys[5].currentContext!,
-                              );
+                                  tileKeys[4].currentContext!);
                             }
                           },
                           iconColor: Theme.of(context).colorScheme.background,
@@ -472,7 +475,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                         .background,
                                     fontWeight: FontWeight.w600),
                           ),
-                          key: tileKeys[6],
+                          key: tileKeys[4],
                           children: [
                             ListView.builder(
                               shrinkWrap: true,
@@ -484,9 +487,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                   key: event.faqs.length - 1 == index
                                       ? tileKeys[6]
                                       : null,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 3.5.w,
-                                  ).copyWith(bottom: 1.h),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 3.5.w)
+                                          .copyWith(bottom: 1.h),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -522,7 +525,6 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                             ),
-                                           
                                           ],
                                         ),
                                       ),
@@ -538,7 +540,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         height: 10,
                       ),
 
-                      // FAQs
+// FAQs box
                       Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
@@ -547,12 +549,11 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           onExpansionChanged: (value) async {
                             if (value) {
                               Scrollable.ensureVisible(
-                                  tileKeys[4].currentContext!);
+                                  tileKeys[7].currentContext!);
                               await Future.delayed(
                                   const Duration(milliseconds: 200));
                               Scrollable.ensureVisible(
-                                tileKeys[5].currentContext!,
-                              );
+                                  tileKeys[7].currentContext!);
                             }
                           },
                           iconColor: Theme.of(context).colorScheme.background,
@@ -573,7 +574,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                         .background,
                                     fontWeight: FontWeight.w600),
                           ),
-                          key: tileKeys[5],
+                          key: tileKeys[7],
                           children: [
                             ListView.builder(
                               shrinkWrap: true,
@@ -583,11 +584,11 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                 final e = event.faqs[index];
                                 return Padding(
                                   key: event.faqs.length - 1 == index
-                                      ? tileKeys[5]
+                                      ? tileKeys[8]
                                       : null,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 3.5.w,
-                                  ).copyWith(bottom: 1.h),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 3.5.w)
+                                          .copyWith(bottom: 1.h),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -653,6 +654,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       SizedBox(
                         height: 5.h,
                       )

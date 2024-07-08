@@ -78,10 +78,16 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                     ),
                     SettingTile(
                       prefixIcon: AssetConstants.emailIcon,
+                      isEmpty: user.email == null,
                       label: AccountSettingScreenConstants.email,
                       suffixIcon: AssetConstants.arrowRight,
                       detail: user.email,
-                      onTap: () => navigator<NavigationService>().navigateTo(
+                      onTap: 
+                      
+                      user.email!=null?
+                      null:
+                      () => 
+                      navigator<NavigationService>().navigateTo(
                         UserRoutes.emailScreenRoute,
                       ),
                     ),

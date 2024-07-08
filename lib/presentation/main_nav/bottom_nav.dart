@@ -15,11 +15,13 @@ import '../../domain/core/utils/image_provider.dart';
 import '../../infrastructure/core/enum/image_type.enum.dart';
 
 class CustomBottomNav extends StatelessWidget {
+  final bool isEmailNotProvided;
   final int currentIndex;
   final bool isTabScreen;
   final Function(int)? onTabChange;
   const CustomBottomNav({
     super.key,
+    this.isEmailNotProvided = false,
     this.isTabScreen = true,
     required this.onTabChange,
     required this.currentIndex,
@@ -162,18 +164,39 @@ class CustomBottomNav extends StatelessWidget {
                           height: 3.h,
                           width: 3.h,
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: currentIndex == 3
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer),
+                            
+                              // border: Border.all(
+                              //     color: currentIndex == 3
+                              //         ? Theme.of(context).colorScheme.primary
+                              //         : Theme.of(context)
+                              //             .colorScheme
+                              //             .secondaryContainer),
                               borderRadius: BorderRadius.circular(50.w),
                               image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                       CustomImageProvider.getImageUrl(
                                           appStateNotifier.user!.profileImage,
                                           ImageType.profile)))),
+                          child:  Stack(
+                            children: [
+                              if(isEmailNotProvided)
+                              Positioned(
+                                right: 2,
+                                child: Container(
+                                  width: 7.px,
+                                  height: 7.px,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      gradient: const LinearGradient(
+                                        colors: <Color>[
+                                          Color(0xffFF1759),
+                                          Color(0xffBF0036)
+                                        ],
+                                      )),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Positioned(

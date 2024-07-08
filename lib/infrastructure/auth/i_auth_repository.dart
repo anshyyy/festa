@@ -46,6 +46,7 @@ class IAuthRepository extends AuthRepository {
           // }
         },
         verificationFailed: (FirebaseAuthException exeption) {
+           print(exeption);
           _verifyPhoneException = exeption;
           if (!completer!.isCompleted) completer!.complete(false);
         },

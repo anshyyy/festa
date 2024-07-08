@@ -77,6 +77,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
           GlobalKey(),
           GlobalKey(),
+          GlobalKey(),
         ];
         return state.isLoading
             ? const Scaffold(body: EventDetailsShimmer())
@@ -234,89 +235,223 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
                       // LSD
-                      Theme(
-                        data: Theme.of(context)
-                            .copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          onExpansionChanged: (value) {
-                            if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[1].currentContext!);
-                            }
-                          },
-                          iconColor: Theme.of(context).colorScheme.background,
-                          collapsedIconColor:
-                              Theme.of(context).colorScheme.background,
-                          collapsedBackgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          title: Text(
-                            EventScreenConstants.lsd,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          key: tileKeys[1],
-                          children: [
-                            ...event.lsd.map((e) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 3.5.w)
-                                    .copyWith(bottom: 1.h),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset(
-                                      AssetConstants.extras[e.type]!,
-                                      height: 3.h,
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Expanded(
-                                        child: Text(
-                                      e.text,
-                                      maxLines: 2,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    )),
-                                  ],
-                                ),
-                              );
-                            })
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      // Theme(
+                      //   data: Theme.of(context)
+                      //       .copyWith(dividerColor: Colors.transparent),
+                      //   child: ExpansionTile(
+                      //     initiallyExpanded: true,
+                      //     onExpansionChanged: (value) {
+                      //       if (value) {
+                      //         Scrollable.ensureVisible(
+                      //             tileKeys[1].currentContext!);
+                      //       }
+                      //     },
+                      //     iconColor: Theme.of(context).colorScheme.background,
+                      //     collapsedIconColor:
+                      //         Theme.of(context).colorScheme.background,
+                      //     collapsedBackgroundColor:
+                      //         Theme.of(context).colorScheme.primaryContainer,
+                      //     backgroundColor:
+                      //         Theme.of(context).colorScheme.primaryContainer,
+                      //     title: Text(
+                      //       EventScreenConstants.lsd,
+                      //       style: Theme.of(context)
+                      //           .textTheme
+                      //           .bodySmall!
+                      //           .copyWith(
+                      //               color: Theme.of(context)
+                      //                   .colorScheme
+                      //                   .background,
+                      //               fontWeight: FontWeight.w600),
+                      //     ),
+                      //     key: tileKeys[1],
+                      //     children: [
+                      //       ...event.lsd.map((e) {
+                      //         return Padding(
+                      //           padding: EdgeInsets.symmetric(horizontal: 3.5.w)
+                      //               .copyWith(bottom: 1.h),
+                      //           child: Row(
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               SvgPicture.asset(
+                      //                 AssetConstants.extras[e.type]!,
+                      //                 height: 3.h,
+                      //               ),
+                      //               SizedBox(
+                      //                 width: 2.w,
+                      //               ),
+                      //               Expanded(
+                      //                   child: Text(
+                      //                 e.text,
+                      //                 maxLines: 2,
+                      //                 style: Theme.of(context)
+                      //                     .textTheme
+                      //                     .bodySmall!
+                      //                     .copyWith(
+                      //                       color: Theme.of(context)
+                      //                           .colorScheme
+                      //                           .background,
+                      //                     ),
+                      //               )),
+                      //             ],
+                      //           ),
+                      //         );
+                      //       })
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
 
                       // Ambience
-                      Theme(
+                      // Theme(
+                      //   data: Theme.of(context)
+                      //       .copyWith(dividerColor: Colors.transparent),
+                      //   child: ExpansionTile(
+                      //     initiallyExpanded: true,
+                      //     onExpansionChanged: (value) {
+                      //       if (value) {
+                      //         Scrollable.ensureVisible(
+                      //             tileKeys[2].currentContext!);
+                      //       }
+                      //     },
+                      //     iconColor: Theme.of(context).colorScheme.background,
+                      //     collapsedIconColor:
+                      //         Theme.of(context).colorScheme.background,
+                      //     collapsedBackgroundColor:
+                      //         Theme.of(context).colorScheme.primaryContainer,
+                      //     backgroundColor:
+                      //         Theme.of(context).colorScheme.primaryContainer,
+                      //     key: tileKeys[2],
+                      //     title: Text(
+                      //       EventScreenConstants.ambience,
+                      //       style: Theme.of(context)
+                      //           .textTheme
+                      //           .bodySmall!
+                      //           .copyWith(
+                      //               color: Theme.of(context)
+                      //                   .colorScheme
+                      //                   .background,
+                      //               fontWeight: FontWeight.w600),
+                      //     ),
+                      //     children: [
+                      //       ...event.ambience.map((e) {
+                      //         return Padding(
+                      //           padding: EdgeInsets.symmetric(
+                      //             horizontal: 3.5.w,
+                      //           ).copyWith(bottom: 1.h),
+                      //           child: Row(
+                      //             children: [
+                      //               Expanded(
+                      //                   child: Text(
+                      //                 e.text,
+                      //                 maxLines: 2,
+                      //                 style: Theme.of(context)
+                      //                     .textTheme
+                      //                     .bodySmall!
+                      //                     .copyWith(
+                      //                       color: Theme.of(context)
+                      //                           .colorScheme
+                      //                           .background,
+                      //                     ),
+                      //               )),
+                      //             ],
+                      //           ),
+                      //         );
+                      //       })
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+
+                      // Food
+                      //  Theme(
+                      //   data: Theme.of(context)
+                      //       .copyWith(dividerColor: Colors.transparent),
+                      //   child: ExpansionTile(
+                      //     initiallyExpanded: true,
+                      //     onExpansionChanged: (value) {
+                      //       if (value) {
+                      //         Scrollable.ensureVisible(
+                      //             tileKeys[3].currentContext!);
+                      //       }
+                      //     },
+                      //     iconColor: Theme.of(context).colorScheme.background,
+                      //     collapsedIconColor:
+                      //         Theme.of(context).colorScheme.background,
+                      //     collapsedBackgroundColor:
+                      //         Theme.of(context).colorScheme.primaryContainer,
+                      //     backgroundColor:
+                      //         Theme.of(context).colorScheme.primaryContainer,
+                      //     key: tileKeys[3],
+                      //     title: Text(
+                      //       EventScreenConstants.foodAndBeverages,
+                      //       style: Theme.of(context)
+                      //           .textTheme
+                      //           .bodySmall!
+                      //           .copyWith(
+                      //               color: Theme.of(context)
+                      //                   .colorScheme
+                      //                   .background,
+                      //               fontWeight: FontWeight.w600),
+                      //     ),
+                      //     children: [
+                      //       ...event.foodAndBeverages.map((e) {
+                      //         return Padding(
+                      //           padding: EdgeInsets.symmetric(
+                      //             horizontal: 3.5.w,
+                      //           ).copyWith(bottom: 1.h),
+                      //           child: Row(
+                      //             children: [
+                      //               SvgPicture.asset(
+                      //                 AssetConstants.extras[e.type]!,
+                      //                 height: 3.h,
+                      //               ),
+                      //               SizedBox(
+                      //                 width: 2.w,
+                      //               ),
+                      //               Expanded(
+                      //                   child: Text(
+                      //                 e.text,
+                      //                 maxLines: 2,
+                      //                 style: Theme.of(context)
+                      //                     .textTheme
+                      //                     .bodySmall!
+                      //                     .copyWith(
+                      //                       color: Theme.of(context)
+                      //                           .colorScheme
+                      //                           .background,
+                      //                     ),
+                      //               )),
+                      //             ],
+                      //           ),
+                      //         );
+                      //       })
+                      //     ],
+                      //   ),
+                      // ),
+                      const SizedBox(height: 10),
+                       Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
                         child: ExpansionTile(
                           initiallyExpanded: true,
-                          onExpansionChanged: (value) {
+                          onExpansionChanged: (value) async {
                             if (value) {
                               Scrollable.ensureVisible(
-                                  tileKeys[2].currentContext!);
+                                  tileKeys[4].currentContext!);
+                              await Future.delayed(
+                                  const Duration(milliseconds: 200));
+                              Scrollable.ensureVisible(
+                                tileKeys[5].currentContext!,
+                              );
                             }
                           },
                           iconColor: Theme.of(context).colorScheme.background,
@@ -326,9 +461,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               Theme.of(context).colorScheme.primaryContainer,
                           backgroundColor:
                               Theme.of(context).colorScheme.primaryContainer,
-                          key: tileKeys[2],
                           title: Text(
-                            EventScreenConstants.ambience,
+                            "Rules",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
@@ -338,31 +472,65 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                         .background,
                                     fontWeight: FontWeight.w600),
                           ),
+                          key: tileKeys[6],
                           children: [
-                            ...event.ambience.map((e) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 3.5.w,
-                                ).copyWith(bottom: 1.h),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        child: Text(
-                                      e.text,
-                                      maxLines: 2,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    )),
-                                  ],
-                                ),
-                              );
-                            })
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: event.faqs.length,
+                              itemBuilder: (context, index) {
+                                final e = event.faqs[index];
+                                return Padding(
+                                  key: event.faqs.length - 1 == index
+                                      ? tileKeys[6]
+                                      : null,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 3.5.w,
+                                  ).copyWith(bottom: 1.h),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${(index + 1).toString()}. ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              e.question,
+                                              maxLines: 10,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
+                                           
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -370,77 +538,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         height: 10,
                       ),
 
-                      // Food
-                      Theme(
-                        data: Theme.of(context)
-                            .copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          onExpansionChanged: (value) {
-                            if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[3].currentContext!);
-                            }
-                          },
-                          iconColor: Theme.of(context).colorScheme.background,
-                          collapsedIconColor:
-                              Theme.of(context).colorScheme.background,
-                          collapsedBackgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          key: tileKeys[3],
-                          title: Text(
-                            EventScreenConstants.foodAndBeverages,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          children: [
-                            ...event.foodAndBeverages.map((e) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 3.5.w,
-                                ).copyWith(bottom: 1.h),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AssetConstants.extras[e.type]!,
-                                      height: 3.h,
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Expanded(
-                                        child: Text(
-                                      e.text,
-                                      maxLines: 2,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    )),
-                                  ],
-                                ),
-                              );
-                            })
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      // Food
+                      // FAQs
                       Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
@@ -475,7 +573,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                         .background,
                                     fontWeight: FontWeight.w600),
                           ),
-                          key: tileKeys[4],
+                          key: tileKeys[5],
                           children: [
                             ListView.builder(
                               shrinkWrap: true,

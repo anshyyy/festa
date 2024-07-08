@@ -118,13 +118,45 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                SvgPicture.asset(AssetConstants
-                                                    .hamBurgerMenu,width: 7.w),
-                                              ],
+                                            Container(
+                                              width: 32.px,
+                                              height: 32.px,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xff343434),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Stack(
+                                                children: [
+                                                  if(state.user!.email == null)
+                                                  Positioned(
+                                                    right: 5,
+                                                    top:4,
+                                                    child: Container(
+                                                      width: 7.px,
+                                                      height: 7.px,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(50),
+                                                          gradient:
+                                                              const LinearGradient(
+                                                            colors: <Color>[
+                                                              Color(0xffFF1759),
+                                                              Color(0xffBF0036)
+                                                            ],
+                                                          )),
+                                                    ),
+                                                  ),
+                                                  Center(
+                                                    child: SvgPicture.asset(
+                                                        AssetConstants
+                                                            .hamBurgerMenu,
+                                                        width: 6.w),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),

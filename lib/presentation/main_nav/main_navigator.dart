@@ -55,7 +55,11 @@ class MainNavigator extends StatelessWidget {
           child: const UserProfileScreenConsumer(),
         )
       ],
-      child: const MainNavigatorConsumer(),
+      child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        builder: (context, state) {
+          return  const MainNavigatorConsumer();
+        },
+      ),
     );
 
     // return BlocProvider(
@@ -67,6 +71,7 @@ class MainNavigator extends StatelessWidget {
 }
 
 class MainNavigatorConsumer extends StatelessWidget {
+
   const MainNavigatorConsumer({
     super.key,
   });
@@ -76,6 +81,8 @@ class MainNavigatorConsumer extends StatelessWidget {
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {},
       builder: (context, state) {
+        final userProfileState = context.watch<UserProfileCubit>().state;
+       // print(userProfileState.user);
         return ModalProgressHUD(
           inAsyncCall: state.isTabLoading,
           blur: 0,
@@ -84,6 +91,7 @@ class MainNavigatorConsumer extends StatelessWidget {
           ),
           child: Scaffold(
             bottomNavigationBar: CustomBottomNav(
+              isEmailNotProvided :  !userProfileState.isLoading && userProfileState.user?.email  == null,
               currentIndex: state.currentIndex,
               onTabChange: (i) async {
                 if (state.currentIndex == i) {

@@ -1,24 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../application/home/cubit/home_cubit.dart';
 import '../search_tabs/search_tab_screen.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  // Example data
-  final List<String> searchTerms = [
-    'Apple',
-    'Banana',
-    'Pear',
-    'Watermelon',
-    'Orange',
-    'Strawberry',
-    'Blueberry',
-    'Raspberry',
-  ];
+  final HomeCubit homeCubit;
+
+  CustomSearchDelegate({required this.homeCubit});
+  final Debouncer _debouncer = Debouncer(milliseconds: 500);
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    // Actions for the app bar, like a clear button
     return [
       IconButton(
         icon: const Icon(
@@ -27,12 +23,11 @@ class CustomSearchDelegate extends SearchDelegate {
         ),
         onPressed: () {
           query = '';
+          homeCubit.clearSearch();
         },
       ),
     ];
   }
-
-  
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -43,26 +38,25 @@ class CustomSearchDelegate extends SearchDelegate {
         elevation: 0,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        fillColor: const Color(0XFF171717),
-        hintStyle: const TextStyle(color: Colors.grey, fontSize: 18),
-       focusedBorder: OutlineInputBorder(
+          filled: true,
+          fillColor: const Color(0XFF171717),
+          hintStyle: const TextStyle(color: Colors.grey, fontSize: 18),
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
             borderSide: const BorderSide(
               color: Colors.transparent,
               width: 2.0,
             ),
           ),
-        // border: OutlineInputBorder(
-        //   borderRadius: BorderRadius.circular(8.0),
-        //   borderSide: const BorderSide(
-        //     color: Colors.white,
-        //     width: 2.0,
-        //   ),
-        // ),
-        constraints: BoxConstraints(maxHeight: 40.px,minHeight: 40.px,minWidth: 307.px)
-        
-      ),
+          // border: OutlineInputBorder(
+          //   borderRadius: BorderRadius.circular(8.0),
+          //   borderSide: const BorderSide(
+          //     color: Colors.white,
+          //     width: 2.0,
+          //   ),
+          // ),
+          constraints: BoxConstraints(
+              maxHeight: 40.px, minHeight: 40.px, minWidth: 307.px)),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white, fontSize: 18),
       ),
@@ -78,6 +72,7 @@ class CustomSearchDelegate extends SearchDelegate {
         color: Colors.white,
       ),
       onPressed: () {
+        homeCubit.clearSearch();
         close(context, null);
       },
     );
@@ -85,26 +80,38 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // Show some custom results based on the search query
-    List<String> matchQuery = [];
-    for (var fruit in searchTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(fruit);
-      }
-    }
-    return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-        );
+    homeCubit.onSearch(query.trim());
+    return BlocBuilder<HomeCubit, HomeState>(
+      bloc: homeCubit,
+      builder: (context, state) {
+        if (state.searchLoading!) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (!state.searchLoading! &&
+            state.searchResults!.pubs.isEmpty &&
+            state.searchResults!.events.isEmpty &&
+            state.searchResults!.artists.isEmpty &&
+            state.searchResults!.users.isEmpty) {
+          return const Center(
+              child: Text(
+            'No results found',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+          ));
+        } else {
+          return SearchesTabs(
+            clubs: state.searchResults!.pubs,
+            events: state.searchResults!.events,
+            users: state.searchResults!.users,
+            artists: state.searchResults!.artists,
+          );
+        }
       },
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    // print(query);
     if (query.isEmpty) {
       return const Center(
         child: Column(
@@ -121,26 +128,52 @@ class CustomSearchDelegate extends SearchDelegate {
         ),
       );
     } else {
-      return SearchesTabs();
-      // List<String> matchQuery = [];
-      // for (var fruit in searchTerms) {
-      //   if (fruit.toLowerCase().contains(query.toLowerCase())) {
-      //     matchQuery.add(fruit);
-      //   }
-      // }
-      // return ListView.builder(
-      //   itemCount: matchQuery.length,
-      //   itemBuilder: (context, index) {
-      //     var suggestion = matchQuery[index];
-      //     return ListTile(
-      //       title: Text(suggestion),
-      //       onTap: () {
-      //         query = suggestion;
-      //         showResults(context);
-      //       },
-      //     );
-      //   },
-      // );
+      _debouncer.run(
+        () {
+          homeCubit.onSearch(query.trim());
+        },
+      );
+      return BlocBuilder<HomeCubit, HomeState>(
+        bloc: homeCubit,
+        builder: (context, state) {
+          if (state.searchLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (!(state.searchLoading) &&
+              (state.searchResults?.pubs.isEmpty ?? true) &&
+              (state.searchResults?.events.isEmpty ?? true) &&
+              (state.searchResults?.artists.isEmpty ?? true) &&
+              (state.searchResults?.users.isEmpty ?? true)) {
+            return const Center(
+              child: Text(
+                'No results found',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16),
+              ),
+            );
+          } else {
+            return SearchesTabs(
+              clubs: state.searchResults?.pubs ?? [],
+              events: state.searchResults?.events ?? [],
+              users: state.searchResults?.users ?? [],
+              artists: state.searchResults?.artists ?? [],
+            );
+          }
+        },
+      );
     }
+  }
+}
+
+class Debouncer {
+  final int milliseconds;
+  Timer? _timer;
+  Debouncer({required this.milliseconds});
+  void run(VoidCallback action) {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }

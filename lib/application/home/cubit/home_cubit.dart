@@ -19,6 +19,8 @@ import '../../../infrastructure/event/dtos/filter_value/filter_value_dto.dart';
 import '../../../infrastructure/event/i_event_repository.dart';
 import '../../../infrastructure/location/dtos/suggestion/suggestion_dto.dart';
 import '../../../infrastructure/location/i_location_repository.dart';
+import '../../../infrastructure/search/dtos/search results/search_results.dart';
+import '../../../infrastructure/search/search_repository.dart';
 import '../../../presentation/home/widgets/dropdown_panel.dart';
 
 part 'home_cubit.freezed.dart';
@@ -187,7 +189,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void removeAppliedFilter({required String id}) {
-    for(int i=0;i<state.filters.length;i++){
+    for (int i = 0; i < state.filters.length; i++) {
       print(state.filters[i]);
     }
     List<FilterDto> filters = List.from(state.filters.map((e) {
@@ -204,13 +206,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   void updateFilterApplied({required List<FilterDto> filters}) {
     final sortFilter = filters.firstWhere((element) => element.name == 'sort');
+    
 
     final sortDisplayName = sortFilter.isApplied
         ? sortFilter.values
             .firstWhere((element) => element.isApplied)
             .displayName
         : 'Sort';
-
+   
     final categoryFilter =
         filters.firstWhere((element) => element.name == 'music');
 
@@ -220,6 +223,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     final appliedFilter = filters.where(
         (element) => (element.isApplied == true && element.name != 'sort'));
+    //print(appliedFilter);
 
     final newFilters = appliedFilter.map(
       (e) {
@@ -231,8 +235,10 @@ class HomeCubit extends Cubit<HomeState> {
         };
       },
     ).toList();
+    // print(appliedFilter);
 
     final tempExploreList = [...state.mainExploreList, ...newFilters];
+    
 
     for (int i = 0; i < tempExploreList.length; i++) {
       if (tempExploreList[i]['id'] == 'sort') {
@@ -279,17 +285,16 @@ class HomeCubit extends Cubit<HomeState> {
             left: dx - .5,
             child: DropView(
               onBack: (String name, String? value) {
-                final index = state.filters
-                    .indexWhere((element) => element.name == 'sort');
+                final index = state.filters.indexWhere((element) => element.name == 'sort');
                 final valueIndex = state.filters[index].values.indexWhere(
-                    (element) =>
-                        element.name == name && element.value == value);
+                    (element) =>element.name == name && element.value == value);
                 for (int i = 0; i < state.filters[index].values.length; i++) {
                   state.filters[index].values[i] =
                       state.filters[index].values[i].copyWith(
                     isApplied: false,
                   );
                 }
+                //todo
                 state.filters[index].values[valueIndex] = state
                     .filters[index].values[valueIndex]
                     .copyWith(isApplied: true);
@@ -404,4 +409,29 @@ class HomeCubit extends Cubit<HomeState> {
 
     emit(state.copyWith(events: updatedEvents));
   }
+
+  Future<void> onSearch(String query) async {
+    if (query.isEmpty) {
+      emit(state.copyWith(
+          searchResults:
+              const SearchResults(pubs: [], events: [], artists: [], users: []),
+          searchLoading: false));
+    }
+    emit(state.copyWith(searchLoading: true));
+    try {
+      final SearchResults results =
+          await state.searchRepository.getSearchResults(query);
+      emit(state.copyWith(searchResults: results, searchLoading: false));
+    } catch (e) {
+      emit(state.copyWith(searchLoading: false));
+      Fluttertoast.showToast(msg: 'Error fetching search results');
+    }
+  }
+
+  void clearSearch() {
+    emit(state.copyWith(
+        searchResults:
+            const SearchResults(pubs: [], events: [], artists: [], users: [])));
+  }
+ 
 }

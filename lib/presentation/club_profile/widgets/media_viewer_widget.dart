@@ -19,8 +19,10 @@ class MediaViewerWidget extends StatelessWidget {
   final String type;
   final String url;
   final int pubId;
+  final List<String>assets;
+  final int currentIndex;
   const MediaViewerWidget(
-      {super.key, required this.type, required this.url, required this.pubId});
+      {super.key, required this.type, required this.url, required this.pubId,required this.assets,required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class MediaViewerWidget extends StatelessWidget {
         type: type,
       ))
         ..init(),
-      child: MediaViewerWidgetConsumer(type: type, url: url),
+      child: MediaViewerWidgetConsumer(type: type, url: url,assets: assets,currentIndex:currentIndex),
     );
   }
 }
@@ -43,10 +45,14 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
     super.key,
     required this.type,
     required this.url,
+    required this.assets,
+    required this.currentIndex,
   });
 
   final String type;
   final String url;
+  final List<String> assets;
+  final int currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -62,48 +68,57 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                 child: CircularProgressIndicator(),
               )
             : Scaffold(
-                body: Stack(children: [
-                  type == MediaType.IMAGE
-                      ? PhotoView(
-                          imageProvider: CachedNetworkImageProvider(
-                              CustomImageProvider.getImageUrl(
-                                  url, ImageType.other)))
-                      : !state.isLoading &&
-                              state.videoPlayerController != null &&
-                              state.videoPlayerController!.value.isInitialized
-                          ? GestureDetector(
-                              onTap: () {
-                                if (state.isPlaying) {
-                                  context.read<MediaViewerCubit>().pause();
-                                } else {
-                                  context.read<MediaViewerCubit>().play();
-                                }
-                              },
-                              child: Center(
-                                child: AspectRatio(
-                                    aspectRatio: state.videoPlayerController!
-                                        .value.aspectRatio,
-                                    child: VideoPlayer(
-                                        state.videoPlayerController!)),
-                              ),
-                            )
-                          : const Center(child: CircularProgressIndicator()),
-                  if (type != MediaType.IMAGE &&
-                      !state.isPlaying)
-                    Positioned(
-                      top: MediaQuery.of(context).size.height * 0.48,
-                      left: MediaQuery.of(context).size.width * 0.45,
-                      child: GestureDetector(
-                        onTap: () {
-                          context.read<MediaViewerCubit>().play();
-                        },
-                        child: SvgPicture.asset(
-                          AssetConstants.mediaPlayIcon,
-                          width: 10.w,
+                body: Stack(
+                  children: [
+                    PageView.builder(
+                      itemCount: assets.length,
+                      controller: PageController(initialPage: currentIndex),
+                      itemBuilder: (context, index) {
+                        final assetUrl = assets[index];
+                        final isImage = type == MediaType.IMAGE;
+
+                        return isImage
+                            ? PhotoView(
+                                imageProvider: CachedNetworkImageProvider(
+                                    CustomImageProvider.getImageUrl(
+                                        assetUrl, ImageType.other)))
+                            : !state.isLoading &&
+                                    state.videoPlayerController != null &&
+                                    state.videoPlayerController!.value.isInitialized
+                                ? GestureDetector(
+                                    onTap: () {
+                                      if (state.isPlaying) {
+                                        context.read<MediaViewerCubit>().pause();
+                                      } else {
+                                        context.read<MediaViewerCubit>().play();
+                                      }
+                                    },
+                                    child: Center(
+                                      child: AspectRatio(
+                                          aspectRatio: state.videoPlayerController!
+                                              .value.aspectRatio,
+                                          child: VideoPlayer(
+                                              state.videoPlayerController!)),
+                                    ),
+                                  )
+                                : const Center(child: CircularProgressIndicator());
+                      },
+                    ),
+                    if (type != MediaType.IMAGE && !state.isPlaying)
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * 0.48,
+                        left: MediaQuery.of(context).size.width * 0.45,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.read<MediaViewerCubit>().play();
+                          },
+                          child: SvgPicture.asset(
+                            AssetConstants.mediaPlayIcon,
+                            width: 10.w,
+                          ),
                         ),
                       ),
-                    ),
-                  Positioned(
+                    Positioned(
                       top: 16.w,
                       child: SizedBox(
                         width: 100.w,
@@ -113,20 +128,19 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
-                                  onTap: () {
-                                    navigator<NavigationService>().goBack();
-                                    context
-                                        .read<MediaViewerCubit>()
-                                        .closePlayer();
-                                  },
-                                  child: SvgPicture.asset(
-                                      AssetConstants.arrowLeft)),
+                                onTap: () {
+                                  navigator<NavigationService>().goBack();
+                                  context.read<MediaViewerCubit>().closePlayer();
+                                },
+                                child: SvgPicture.asset(AssetConstants.arrowLeft),
+                              ),
                               // SvgPicture.asset(AssetConstants.hamBurgerMenu),
                             ],
                           ),
                         ),
-                      )),
-                  Positioned(
+                      ),
+                    ),
+                    Positioned(
                       bottom: 5.h,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -142,29 +156,27 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                     children: [
                                       CircleAvatar(
                                         radius: 3.w,
-                                        foregroundImage:
-                                            CachedNetworkImageProvider(
-                                                CustomImageProvider.getImageUrl(
-                                                    state.pub?.logo,
-                                                    ImageType.other)),
+                                        foregroundImage: CachedNetworkImageProvider(
+                                          CustomImageProvider.getImageUrl(
+                                            state.pub?.logo,
+                                            ImageType.other,
+                                          ),
+                                        ),
                                       ),
                                       SizedBox(width: 2.w),
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             state.pub!.fullName,
-                                            style: textTheme.bodySmall!
-                                                .copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    color:
-                                                        colorScheme.background),
+                                            style: textTheme.bodySmall!.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: colorScheme.background,
+                                            ),
                                           ),
                                           Text(
                                             '@${state.pub?.tag?.tag ?? ''}',
-                                            style:
-                                                textTheme.bodySmall!.copyWith(
+                                            style: textTheme.bodySmall!.copyWith(
                                               fontSize: 14.sp,
                                             ),
                                           ),
@@ -188,13 +200,14 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                   ),
                                   Container(
                                     padding: EdgeInsets.symmetric(
-                                        vertical: .7.w, horizontal: 1.5.w),
+                                      vertical: .7.w,
+                                      horizontal: 1.5.w,
+                                    ),
                                     width: 40.w,
                                     decoration: BoxDecoration(
-                                        color: colorScheme.background
-                                            .withOpacity(.1),
-                                        borderRadius:
-                                            BorderRadius.circular(50.w)),
+                                      color: colorScheme.background.withOpacity(.1),
+                                      borderRadius: BorderRadius.circular(50.w),
+                                    ),
                                     child: Row(
                                       children: [
                                         SvgPicture.asset(
@@ -209,16 +222,15 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                                             state.pub!.location!.vicinity,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: textTheme.bodySmall!
-                                                .copyWith(
-                                                    fontSize: 13.5.sp,
-                                                    color:
-                                                        colorScheme.background),
+                                            style: textTheme.bodySmall!.copyWith(
+                                              fontSize: 13.5.sp,
+                                              color: colorScheme.background,
+                                            ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -237,8 +249,10 @@ class MediaViewerWidgetConsumer extends StatelessWidget {
                             // ),
                           ],
                         ),
-                      ))
-                ]),
+                      ),
+                    ),
+                  ],
+                ),
               );
       },
     );

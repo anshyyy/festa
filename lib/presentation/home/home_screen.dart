@@ -8,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
+import '../../application/main_nav/main_nav_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
@@ -25,6 +26,7 @@ import '../core/primary_button.dart';
 import '../search/delegate/search_delegate.dart';
 import '../widgets/custom_textfield.dart';
 import '../widgets/gradient_text.dart';
+import 'widgets/data_modal_sheet.dart';
 import 'widgets/event_genre_card.dart';
 import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
@@ -50,7 +52,12 @@ class HomeScreenConsumer extends StatelessWidget {
     AppStateNotifier appStateNotifier = Provider.of<AppStateNotifier>(context);
 
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+       // print(state.showLocationDialog);
+       state.showLocationDialog?
+        BlocProvider.of<MainNavCubit>(context).hideNavBar():
+         BlocProvider.of<MainNavCubit>(context).showNavBar();
+      },
       builder: (context, state) {
         return RefreshIndicator(
           onRefresh: () async {
@@ -74,166 +81,158 @@ class HomeScreenConsumer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                         
+                          //             InkWell(
+                          //               onTap: (){
+                          //                  showSearch(
+                          //   context: context,
+                          //   delegate: MySearchDelegate(),
+                          // );
+                          //               },
+                          //               child:  SvgPicture.asset(
+                          //                       AssetConstants.searchIcon,
+                          //                       color: Theme.of(context)
+                          //                           .colorScheme
+                          //                           .background
+                          //                           .withOpacity(0.6),
+                          //                       width: 7.w,
+                          //                     ),
+                          //             ),
 
-              //             InkWell(
-              //               onTap: (){
-              //                  showSearch(
-              //   context: context,
-              //   delegate: MySearchDelegate(),
-              // );
-              //               },
-              //               child:  SvgPicture.asset(
-              //                       AssetConstants.searchIcon,
-              //                       color: Theme.of(context)
-              //                           .colorScheme
-              //                           .background
-              //                           .withOpacity(0.6),
-              //                       width: 7.w,
-              //                     ),
-              //             ),
-                          
-
-
-                          
-
-
-              //                 ? CustomTextField(
-              //                     autofocus: true,
-              //                     controller: state.searchController,
-              //                     onChanged: (val) {
-              //                       EasyDebounce.debounce('home-search-events',
-              //                           const Duration(milliseconds: 500), () {
-              //                         context
-              //                             .read<HomeCubit>()
-              //                             .onSearchChange();
-              //                       });
-              //                     },
-              //                     contentPadding: EdgeInsets.symmetric(
-              //                         horizontal: 4.w, vertical: 1.5.h),
-              //                     hintTextStyle: Theme.of(context)
-              //                         .textTheme
-              //                         .bodySmall!
-              //                         .copyWith(
-              //                             fontSize: 16.sp,
-              //                             color: Theme.of(context)
-              //                                 .colorScheme
-              //                                 .background
-              //                                 .withOpacity(0.6)),
-              //                     isFill: true,
-              //                     fillColor:
-              //                         Theme.of(context).colorScheme.surface,
-              //                     textStyle: Theme.of(context)
-              //                         .textTheme
-              //                         .bodySmall!
-              //                         .copyWith(
-              //                           fontSize: 16.sp,
-              //                           color: Theme.of(context)
-              //                               .colorScheme
-              //                               .background
-              //                               .withOpacity(0.6),
-              //                         ),
-              //                     hintText: HomeScreenConstants.searchEvent,
-              //                     prefixIcon: SvgPicture.asset(
-              //                       AssetConstants.searchIcon,
-              //                       color: Theme.of(context)
-              //                           .colorScheme
-              //                           .background
-              //                           .withOpacity(0.6),
-              //                       width: 7.w,
-              //                     ),
-              //                     suffixIcon: GestureDetector(
-              //                       onTap: () {
-              //                          showSearch(
-              //   context: context,
-              //   delegate: MySearchDelegate(),
-              // );
-              //                         // context
-              //                         //     .read<HomeCubit>()
-              //                         //     .onSearchChange(isSearchOn: false);
-              //                       },
-              //                       child: SvgPicture.asset(
-              //                         AssetConstants.closeIcon,
-              //                         width: 6.w,
-              //                       ),
-              //                     ),
-              //                   )
-                               Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          context
-                                              .read<HomeCubit>()
-                                              .toggleLocationDialog();
-                                        },
-                                        child: Row(
-                                          children: [
-                                            SvgPicture.asset(
-                                              AssetConstants.locationIconPink,
-                                            ),
-                                            SizedBox(
-                                              width: 3.w,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                StringExtension.displayAddress(
-                                                    state.location),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: themeData
-                                                    .textTheme.bodySmall!
-                                                    .copyWith(
-                                                        color: themeData
-                                                            .colorScheme
-                                                            .background,
-                                                        fontSize: 14.sp,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                          //                 ? CustomTextField(
+                          //                     autofocus: true,
+                          //                     controller: state.searchController,
+                          //                     onChanged: (val) {
+                          //                       EasyDebounce.debounce('home-search-events',
+                          //                           const Duration(milliseconds: 500), () {
+                          //                         context
+                          //                             .read<HomeCubit>()
+                          //                             .onSearchChange();
+                          //                       });
+                          //                     },
+                          //                     contentPadding: EdgeInsets.symmetric(
+                          //                         horizontal: 4.w, vertical: 1.5.h),
+                          //                     hintTextStyle: Theme.of(context)
+                          //                         .textTheme
+                          //                         .bodySmall!
+                          //                         .copyWith(
+                          //                             fontSize: 16.sp,
+                          //                             color: Theme.of(context)
+                          //                                 .colorScheme
+                          //                                 .background
+                          //                                 .withOpacity(0.6)),
+                          //                     isFill: true,
+                          //                     fillColor:
+                          //                         Theme.of(context).colorScheme.surface,
+                          //                     textStyle: Theme.of(context)
+                          //                         .textTheme
+                          //                         .bodySmall!
+                          //                         .copyWith(
+                          //                           fontSize: 16.sp,
+                          //                           color: Theme.of(context)
+                          //                               .colorScheme
+                          //                               .background
+                          //                               .withOpacity(0.6),
+                          //                         ),
+                          //                     hintText: HomeScreenConstants.searchEvent,
+                          //                     prefixIcon: SvgPicture.asset(
+                          //                       AssetConstants.searchIcon,
+                          //                       color: Theme.of(context)
+                          //                           .colorScheme
+                          //                           .background
+                          //                           .withOpacity(0.6),
+                          //                       width: 7.w,
+                          //                     ),
+                          //                     suffixIcon: GestureDetector(
+                          //                       onTap: () {
+                          //                          showSearch(
+                          //   context: context,
+                          //   delegate: MySearchDelegate(),
+                          // );
+                          //                         // context
+                          //                         //     .read<HomeCubit>()
+                          //                         //     .onSearchChange(isSearchOn: false);
+                          //                       },
+                          //                       child: SvgPicture.asset(
+                          //                         AssetConstants.closeIcon,
+                          //                         width: 6.w,
+                          //                       ),
+                          //                     ),
+                          //                   )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                   
+                                    context
+                                        .read<HomeCubit>()
+                                        .toggleLocationDialog();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AssetConstants.locationIconPink,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            // context
-                                            //     .read<HomeCubit>()
-                                            //     .toggleSearch(flag: true);
-                                            showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(),
-              );
-                                          },
-                                          child: SvgPicture.asset(
-                                            AssetConstants.searchIcon,
-                                          ),
+                                      SizedBox(
+                                        width: 3.w,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          StringExtension.displayAddress(
+                                              state.location),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: themeData.textTheme.bodySmall!
+                                              .copyWith(
+                                                  color: themeData
+                                                      .colorScheme.background,
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w600),
                                         ),
-                                        SizedBox(
-                                          width: 3.w,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            navigator<NavigationService>()
-                                                .navigateTo(UserRoutes
-                                                    .notificationsRoute)
-                                                .then((value) {});
-                                          },
-                                          child: SvgPicture.asset(
-                                              AssetConstants.notificationIcon),
-                                        )
-                                      ],
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      // context
+                                      //     .read<HomeCubit>()
+                                      //     .toggleSearch(flag: true);
+                                      showSearch(
+                                        context: context,
+                                        delegate: CustomSearchDelegate(
+                                            homeCubit:
+                                                context.read<HomeCubit>()),
+                                      );
+                                    },
+                                    child: SvgPicture.asset(
+                                      AssetConstants.searchIcon,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 3.w,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      navigator<NavigationService>()
+                                          .navigateTo(
+                                              UserRoutes.notificationsRoute)
+                                          .then((value) {});
+                                    },
+                                    child: SvgPicture.asset(
+                                        AssetConstants.notificationIcon),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                           if (!state.hasMoreEvents &&
                               state.events.isEmpty &&
                               !state.isRefresh)
@@ -323,16 +322,26 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   return;
                                                 }
                                                 for (int i = 0;i <state.categoryFilter!.values.length;i++) {
-                                                  state.categoryFilter!.values[i] =
-                                                      state.categoryFilter!.values[i].copyWith(isApplied: false);
+                                                  state.categoryFilter!
+                                                          .values[i] =
+                                                      state.categoryFilter!
+                                                          .values[i]
+                                                          .copyWith(
+                                                              isApplied: false);
                                                 }
                                                 state.categoryFilter!.values[index] =
-                                                    state.categoryFilter!.values[index].copyWith(isApplied: true);
+                                                    state.categoryFilter!
+                                                        .values[index]
+                                                        .copyWith(
+                                                            isApplied: true);
                                                 final indexTemp = state.filters
                                                     .indexWhere((element) {
-                                                  return element.name =='music';
+                                                  return element.name ==
+                                                      'music';
                                                 });
-                                                state.filters[indexTemp] = state.filters[indexTemp].copyWith(isApplied: true);
+                                                state.filters[indexTemp] = state
+                                                    .filters[indexTemp]
+                                                    .copyWith(isApplied: true);
                                                 context
                                                     .read<HomeCubit>()
                                                     .updateFilterApplied(
@@ -352,8 +361,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                                   .icon,
                                                               ImageType
                                                                   .profile),
-                                                      title: 
-                                                      categoryValue
+                                                      title: categoryValue
                                                           .displayName,
                                                     ),
                                             );
@@ -414,10 +422,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                             : Key(item['label']),
                                         onTap: () async {
                                           final builderContext = context;
-                                          if (item['label']
-                                                  .toString()
-                                                  .toLowerCase() ==
-                                              'filter') {
+                                          if (item['label'].toString().toLowerCase() =='filter') {
                                             showModalBottomSheet(
                                                 context: context,
                                                 isScrollControlled: true,
@@ -432,7 +437,9 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   );
                                                 }).then((value) {
                                               if (value != null) {
+                                               // print(value);
                                                 if (value is List<FilterDto>) {
+
                                                   builderContext
                                                       .read<HomeCubit>()
                                                       .updateFilterApplied(
@@ -450,8 +457,36 @@ class HomeScreenConsumer extends StatelessWidget {
                                                     key: state.sortKey,
                                                     overlayState:
                                                         Overlay.of(context));
+                                          } else if (item['label']
+                                                  .toString()
+                                                  .toLowerCase() ==
+                                              "today") {
+                                            print("today");
+                                          } else if (item['label']
+                                                  .toString()
+                                                  .toLowerCase() ==
+                                              "this weekend") {
+                                            print("weekend");
+                                          } else if (item['label']
+                                                  .toString()
+                                                  .toLowerCase() ==
+                                              "date") {
+                                            print("Date");
+
+                                              showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                builder: (context) {
+                                                  return DateModalSheet();
+                                                });
+
+
+                                          } else if (item['svgIcon'] ==
+                                              AssetConstants
+                                                  .heartOutlinedIcon) {
+                                            print("heart");
                                           } else {
-                                            print(item);
+                                            print(item['label']);
                                             context
                                                 .read<HomeCubit>()
                                                 .removeAppliedFilter(
@@ -468,6 +503,9 @@ class HomeScreenConsumer extends StatelessWidget {
                               height: 2.h,
                             ),
                             ListView.builder(
+                              // separatorBuilder: (context, index) {
+                              //   return Divider(color: Colors.red,);
+                              // },
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: state.isLoading
                                   ? 5

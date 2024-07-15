@@ -18,7 +18,8 @@ import '../widgets/setting_tile.dart';
 class AccountSettingScreen extends StatelessWidget {
   final int userId;
   final String email;
-  const AccountSettingScreen({super.key, required this.userId,required this.email});
+  const AccountSettingScreen(
+      {super.key, required this.userId, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +27,23 @@ class AccountSettingScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => AccountSettingsCubit(AccountSettingsState.initial(
           serverUrl: appConfig.serverUrl, userId: userId)),
-      child:  AccountSettingScreenConsumer(email: email,),
+      child: AccountSettingScreenConsumer(
+        email: email,
+      ),
     );
   }
 }
 
 class AccountSettingScreenConsumer extends StatelessWidget {
   final String email;
-  const AccountSettingScreenConsumer({
-    super.key,
-    required this.email
-  });
+  const AccountSettingScreenConsumer({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AccountSettingsCubit, AccountSettingsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print("this is $email");
+      },
       builder: (context, state) {
         final AppStateNotifier appStateNotifier =
             Provider.of<AppStateNotifier>(context);
@@ -84,15 +86,12 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                       isEmpty: email.isEmpty,
                       label: AccountSettingScreenConstants.email,
                       suffixIcon: AssetConstants.arrowRight,
-                      detail: user.email==null?(email.isEmpty?"Verify":email):"Verify",
-                      onTap: 
-                      
-                      user.email!=null || email.isNotEmpty?
-                      null:
-                      () => 
-                      navigator<NavigationService>().navigateTo(
-                        UserRoutes.emailScreenRoute,
-                      ),
+                      detail:  user.email ?? (email.isEmpty ? 'Verify' : email),
+                      onTap: user.email != null || email.isNotEmpty
+                          ? null
+                          : () => navigator<NavigationService>().navigateTo(
+                                UserRoutes.emailScreenRoute,
+                              ),
                     ),
                     SettingTile(
                         prefixIcon: AssetConstants.mobileIcon,
@@ -100,6 +99,8 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                         suffixIcon: AssetConstants.arrowRight,
                         detail: user.phoneNumber,
                         onTap: () {
+                          // print(user);
+                          // print(email);
                           //    navigator<NavigationService>().navigateTo(
                           //   UserRoutes.phoneScreenRoute,
                           // );

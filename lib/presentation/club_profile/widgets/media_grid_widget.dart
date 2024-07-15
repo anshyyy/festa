@@ -78,6 +78,8 @@ class MediaGridViewer extends StatelessWidget {
                                             'type': state.assets[index].type,
                                             'url': state.assets[index].url,
                                             'pubId':state.clubId.toString(),
+                                            'currentIndex': index.toString(),
+                                            'assets':state.assets.map((asset) => asset.url).join(','),
                                           });
                                     },
                               child: state.assets[index].type != MediaType.VIDEO

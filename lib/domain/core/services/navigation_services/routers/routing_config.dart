@@ -262,11 +262,15 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       final type = routingData.queryParameters['type'] ?? 'image';
       final url = routingData.queryParameters['url'] ?? '';
       final pubId = routingData.queryParameters['pubId'] ?? '';
+      final assets = routingData.queryParameters['assets']!.split(",")??[];
+      final currentIndex =  int.parse(routingData.queryParameters['currentIndex']!);
       return _getPageRoute(
           MediaViewerWidget(
             type: type,
             url: url,
             pubId: int.parse(pubId),
+            assets : assets,
+            currentIndex : currentIndex
           ),
           settings);
 

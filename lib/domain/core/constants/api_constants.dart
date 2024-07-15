@@ -12,6 +12,10 @@ class EventApiConstants {
   static const UNLIKE_EVENT = '$EVENTS/unlike';
 }
 
+class SearchApiConstants{
+  static const SEARCH ='/search';
+}
+
 class BookingApiConstants {
   static const BOOKING = '/booking';
   static const BOOKING_CREATE = '$BOOKING/event';

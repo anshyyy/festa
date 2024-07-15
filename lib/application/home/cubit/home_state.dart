@@ -37,13 +37,17 @@ class HomeState with _$HomeState {
     required List<SuggestionDto> suggestions,
     required TextEditingController searchController,
     required AppStateNotifier appStateNotifier,
+    required ISearchRepository searchRepository,
     required GlobalKey homeKey,
     UserDto? user,
+    SearchResults? searchResults,
+    required bool searchLoading,
   }) = _HomeState;
 
   factory HomeState.initial(
           {required AppStateNotifier appStateNotifier,
           required String serverUrl,
+          required String serverUrl2,
           required String mapsApiKey}) =>
       HomeState(
         page: 1,
@@ -53,7 +57,10 @@ class HomeState with _$HomeState {
         noUse: false,
         hasMoreEvents: true,
         searchController: TextEditingController(),
-        scrollController: ScrollController(keepScrollOffset: true,),
+        scrollController: ScrollController(
+          keepScrollOffset: true,
+        ),
+        searchRepository: ISearchRepository(serverUrl: serverUrl2),
         filters: [],
         user: appStateNotifier.user,
         events: [],
@@ -80,37 +87,7 @@ class HomeState with _$HomeState {
             'svgIcon': AssetConstants.arrowDown,
             'label': 'Sort',
           },
-           {
-            'id': 'today',
-            'isSelected': false,
-            'identifier': null,
-            'svgIcon': null,
-            'label': 'Today',
-          },
-            {
-            'id': 'weekend',
-            'isSelected': false,
-            'identifier': null,
-            'svgIcon': null,
-            'label': 'This Weekend',
-          },
-        ],
-        exploreList: [
           {
-            'id': 'filter',
-            'isSelected': false,
-            'identifier': AppConstants.filterKey,
-            'svgIcon': AssetConstants.filterIcon,
-            'label': 'Filter',
-          },
-          {
-            'id': 'sort',
-            'isSelected': false,
-            'identifier': AppConstants.otherKey,
-            'svgIcon': AssetConstants.arrowDown,
-            'label': 'Sort',
-          },
-           {
             'id': 'today',
             'isSelected': false,
             'identifier': null,
@@ -131,7 +108,51 @@ class HomeState with _$HomeState {
             'svgIcon': null,
             'label': 'Date',
           },
-           {
+          {
+            'id': 'like',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': AssetConstants.heartOutlinedIcon,
+            'label': '',
+          },
+        ],
+        exploreList: [
+          {
+            'id': 'filter',
+            'isSelected': false,
+            'identifier': AppConstants.filterKey,
+            'svgIcon': AssetConstants.filterIcon,
+            'label': 'Filter',
+          },
+          {
+            'id': 'sort',
+            'isSelected': false,
+            'identifier': AppConstants.otherKey,
+            'svgIcon': AssetConstants.arrowDown,
+            'label': 'Sort',
+          },
+          {
+            'id': 'today',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'Today',
+          },
+          {
+            'id': 'weekend',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'This Weekend',
+          },
+          {
+            'id': 'date',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'Date',
+          },
+          {
             'id': 'like',
             'isSelected': false,
             'identifier': null,
@@ -177,6 +198,7 @@ class HomeState with _$HomeState {
         isLocationSearchChanged: false,
         noFilteredEvents: false,
         noLocatedEvents: false,
+        searchLoading: false,
         locationRepository: ILocationRepository(
           mapsApiKey: mapsApiKey,
         ),

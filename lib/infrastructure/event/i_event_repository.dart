@@ -27,6 +27,8 @@ class IEventRepository extends EventRepository {
         throw ErrorConstants.unknownNetworkError;
       }
       final parsedBody = jsonDecode(response.body);
+      //print(parsedBody);
+     //TODO
       List<FilterDto> filters = (parsedBody as List).map((e) {
         final filter = FilterDto.fromJson(e);
         return filter;

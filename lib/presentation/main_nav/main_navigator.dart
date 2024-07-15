@@ -32,6 +32,7 @@ class MainNavigator extends StatelessWidget {
         BlocProvider(
           lazy: false,
           create: (context) => HomeCubit(HomeState.initial(
+            serverUrl2: appConfig.serverUrl2,
             appStateNotifier: appStateNotifier,
             serverUrl: appConfig.serverUrl,
             mapsApiKey: appConfig.googleMapsApiKey,
@@ -90,7 +91,11 @@ class MainNavigatorConsumer extends StatelessWidget {
             color: Colors.red,
           ),
           child: Scaffold(
-            bottomNavigationBar: CustomBottomNav(
+            bottomNavigationBar: 
+
+            !state.showNavBar?null:
+          
+            CustomBottomNav(
               isEmailNotProvided :  !userProfileState.isLoading && userProfileState.user?.email  == null,
               currentIndex: state.currentIndex,
               onTabChange: (i) async {

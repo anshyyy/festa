@@ -67,4 +67,5 @@ class DefaultFirebaseOptions {
     iosClientId: '154103086037-0nncc86gh56hmc9qu682qm598n1rg9cm.apps.googleusercontent.com',
     iosBundleId: 'com.festaworld.app',
   );
+
 }

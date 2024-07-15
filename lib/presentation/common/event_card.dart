@@ -155,6 +155,7 @@ class _EventCardState extends State<EventCard> {
                 ? '${words[0]} ${words[1]}'
                 : '${words[0]} ${words[1]} ...'
             : words[0];
+    
     return VisibilityDetector(
       key: Key(widget.vKey),
       onVisibilityChanged: (info) {
@@ -169,10 +170,10 @@ class _EventCardState extends State<EventCard> {
         }
       },
       child: Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.only(left: 6,right: 6,top:8,bottom: 26),
         decoration:BoxDecoration(
-          color: const Color(0xff302f3e),
-          borderRadius: BorderRadius.circular(20.px)
+          color:  !widget.isInListing? Colors.transparent : const Color(0xff0B0F0E),
+          borderRadius: BorderRadius.circular(25.px)
         ) ,
         child: Stack(
           children: [
@@ -295,6 +296,7 @@ class _EventCardState extends State<EventCard> {
                     ),
                     Positioned(
                       bottom: 0,
+                      left:-10,
                       child: Container(
                         padding: EdgeInsets.symmetric(
                             vertical: 2.5.h, horizontal: 4.w),
@@ -361,6 +363,7 @@ class _EventCardState extends State<EventCard> {
                                               )),
                                     ],
                                   ),
+                                 // const Spacer(),
                             widget.event.assets[pageIndex].type ==
                                         MediaEnum.video.name &&
                                     isPlaying
@@ -387,6 +390,9 @@ class _EventCardState extends State<EventCard> {
                                     width: 4.5.w,
                                     height: 3.h,
                                   ),
+                          
+                          // SizedBox(width: 2.5.w,)
+                          
                           ],
                         ),
                       ),
@@ -400,9 +406,11 @@ class _EventCardState extends State<EventCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    if(widget.isInListing)
+                    SizedBox(width: 2.w,),
                     Expanded(
                       child: Text(
-                        widget.isInListing ? eventTitle : eventFullName,
+                        widget.isInListing ? eventTitle.toUpperCase() : eventFullName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: themeData.textTheme.bodyMedium!.copyWith(
@@ -423,42 +431,45 @@ class _EventCardState extends State<EventCard> {
                             AppConstants.event, widget.event.id.toString()));
                       },
                       child: Padding(
-                        padding: EdgeInsets.only(right: 0.w),
+                        padding: EdgeInsets.only(left: 0.w),
                         child: SvgPicture.asset(AssetConstants.shareIcon),
                       ),
                     ),
+                    SizedBox(width: 2.5.w,)
                   ],
                 ),
                 SizedBox(height: 1.h),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: SingleChildScrollView(
-                //     scrollDirection: Axis.horizontal,
-                //     child: Row(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: widget.event.artists
-                //           .map((e) => ShortProfileTile(
-                //               onTap: () {
-                //                 AnalyticsService()
-                //                     .logEvent(eventName: 'view_artist', paras: {
-                //                   'artist_id': e.id.toString(),
-                //                 });
-                //                 navigator<NavigationService>().navigateTo(
-                //                     UserRoutes.artistProfileScreenRoute,
-                //                     queryParams: {
-                //                       'id': e.id.toString()
-                //                     }).then((value) {
-                //                   if (widget.loadData != null) {
-                //                     widget.loadData!();
-                //                   }
-                //                 });
-                //               },
-                //               artist: e,
-                //               themeData: themeData))
-                //           .toList(),
-                //     ),
-                //   ),
-                // ),
+                if(!widget.isInListing)
+                SizedBox(
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: widget.event.artists
+                          .map((e) => ShortProfileTile(
+                              onTap: () {
+                                AnalyticsService()
+                                    .logEvent(eventName: 'view_artist', paras: {
+                                  'artist_id': e.id.toString(),
+                                });
+                                navigator<NavigationService>().navigateTo(
+                                    UserRoutes.artistProfileScreenRoute,
+                                    queryParams: {
+                                      'id': e.id.toString()
+                                    }).then((value) {
+                                  if (widget.loadData != null) {
+                                    widget.loadData!();
+                                  }
+                                });
+                              },
+                              artist: e,
+                              themeData: themeData))
+                          .toList(),
+                    ),
+                  ),
+                ),
+                if(!widget.isInListing) SizedBox(height: 1.h,),
                 // if (widget.event.address != null)
                 // SizedBox(
                 //   height: 1.5.h,
@@ -526,6 +537,8 @@ class _EventCardState extends State<EventCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if(widget.isInListing)
+                    SizedBox(width: 2.w,),
                     Expanded(
                       child: Row(children: [
                         Row(
@@ -580,6 +593,7 @@ class _EventCardState extends State<EventCard> {
                             )
                           ],
                         ),
+                        SizedBox(width:3.w,)
                       ],
                     )
                   ],
@@ -635,6 +649,7 @@ class _EventCardState extends State<EventCard> {
                                   // fontSize: 14.sp,
                                 ),
                               ),
+                              SizedBox(width: 2.4.w,)
                             ],
                           ),
                         ],
@@ -650,7 +665,7 @@ class _EventCardState extends State<EventCard> {
                   if (widget.event.pub != null)
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                          EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -678,7 +693,7 @@ class _EventCardState extends State<EventCard> {
                                     backgroundImage: CachedNetworkImageProvider(
                                         CustomImageProvider.getImageUrl(
                                             widget.event.pub?.coverImageUrl ??
-                                                " ",
+                                                "",
                                             // widget.event.pub?.coverImageUrl ?? '',
                                             ImageType.profile)),
                                   ),
@@ -744,6 +759,8 @@ class _EventCardState extends State<EventCard> {
                                       borderRadius: BorderRadius.circular(50.w)),
                                   child: Row(
                                     children: [
+                
+                                      SvgPicture.asset(AssetConstants.locationIcon),
                                       Text(
                                         widget.event.distance <= 0
                                             ? widget.distance
@@ -791,6 +808,9 @@ class _EventCardState extends State<EventCard> {
           ],
         ),
       ),
+   
+     //todo
+   
     );
   }
 

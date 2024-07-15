@@ -12,7 +12,12 @@ class MainNavCubit extends Cubit<MainNavState> {
       currentIndex: index,
     ));
   }
-
+  void hideNavBar(){
+    emit(state.copyWith(showNavBar: false));
+  }
+  void showNavBar(){
+    emit(state.copyWith(showNavBar: true));
+  }
   void emitFromAnywhere(MainNavState state) async {
     emit(state);
   }

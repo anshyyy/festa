@@ -30,6 +30,8 @@ mixin _$ArtistDto {
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email')
+  String? get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +49,8 @@ abstract class $ArtistDtoCopyWith<$Res> {
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'username', defaultValue: '') String username,
       @JsonKey(name: 'description', defaultValue: '') String description,
-      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage});
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
+      @JsonKey(name: 'email') String? email});
 }
 
 /// @nodoc
@@ -68,6 +71,7 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
     Object? username = null,
     Object? description = null,
     Object? profileImage = null,
+    Object? email = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -90,6 +94,10 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -107,7 +115,8 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
       @JsonKey(name: 'fullName', defaultValue: '') String fullName,
       @JsonKey(name: 'username', defaultValue: '') String username,
       @JsonKey(name: 'description', defaultValue: '') String description,
-      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage});
+      @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
+      @JsonKey(name: 'email') String? email});
 }
 
 /// @nodoc
@@ -126,6 +135,7 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
     Object? username = null,
     Object? description = null,
     Object? profileImage = null,
+    Object? email = freezed,
   }) {
     return _then(_$ArtistDtoImpl(
       id: null == id
@@ -148,6 +158,10 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -161,7 +175,8 @@ class _$ArtistDtoImpl implements _ArtistDto {
       @JsonKey(name: 'username', defaultValue: '') required this.username,
       @JsonKey(name: 'description', defaultValue: '') required this.description,
       @JsonKey(name: 'profileImage', defaultValue: '')
-      required this.profileImage});
+      required this.profileImage,
+      @JsonKey(name: 'email') this.email});
 
   factory _$ArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArtistDtoImplFromJson(json);
@@ -181,10 +196,13 @@ class _$ArtistDtoImpl implements _ArtistDto {
   @override
   @JsonKey(name: 'profileImage', defaultValue: '')
   final String profileImage;
+  @override
+  @JsonKey(name: 'email')
+  final String? email;
 
   @override
   String toString() {
-    return 'ArtistDto(id: $id, fullName: $fullName, username: $username, description: $description, profileImage: $profileImage)';
+    return 'ArtistDto(id: $id, fullName: $fullName, username: $username, description: $description, profileImage: $profileImage, email: $email)';
   }
 
   @override
@@ -200,13 +218,14 @@ class _$ArtistDtoImpl implements _ArtistDto {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.profileImage, profileImage) ||
-                other.profileImage == profileImage));
+                other.profileImage == profileImage) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, fullName, username, description, profileImage);
+      runtimeType, id, fullName, username, description, profileImage, email);
 
   @JsonKey(ignore: true)
   @override
@@ -232,7 +251,8 @@ abstract class _ArtistDto implements ArtistDto {
       @JsonKey(name: 'description', defaultValue: '')
       required final String description,
       @JsonKey(name: 'profileImage', defaultValue: '')
-      required final String profileImage}) = _$ArtistDtoImpl;
+      required final String profileImage,
+      @JsonKey(name: 'email') final String? email}) = _$ArtistDtoImpl;
 
   factory _ArtistDto.fromJson(Map<String, dynamic> json) =
       _$ArtistDtoImpl.fromJson;
@@ -252,6 +272,9 @@ abstract class _ArtistDto implements ArtistDto {
   @override
   @JsonKey(name: 'profileImage', defaultValue: '')
   String get profileImage;
+  @override
+  @JsonKey(name: 'email')
+  String? get email;
   @override
   @JsonKey(ignore: true)
   _$$ArtistDtoImplCopyWith<_$ArtistDtoImpl> get copyWith =>

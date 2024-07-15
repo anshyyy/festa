@@ -39,209 +39,206 @@ class ClubProfileScreen extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
-class ClubProfileScreenConsumer extends StatelessWidget {
-  ClubProfileScreenConsumer({super.key});
-  ScrollController? scrollController;
+class ClubProfileScreenConsumer extends StatefulWidget {
+ const ClubProfileScreenConsumer({super.key});
+
+  @override
+  _ClubProfileScreenConsumerState createState() => _ClubProfileScreenConsumerState();
+}
+
+class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    final pixels = scrollController.position.pixels;
+    final maxScrollExtent = scrollController.position.maxScrollExtent;
+    final minScrollExtent = scrollController.position.minScrollExtent;
+    final breakPoint = maxScrollExtent * 0.7;
+    print("pixels : $pixels");
+    if (pixels <= breakPoint && !context.read<ClubProfileCubit>().state.showHamburger) {
+      // When scrolled up to the top, show the menu
+      context.read<ClubProfileCubit>().emitFromAnywhere(
+          state: context.read<ClubProfileCubit>().state.copyWith(showHamburger: true));
+    } else if (pixels > breakPoint && context.read<ClubProfileCubit>().state.showHamburger) {
+      // When scrolled down, hide the menu
+      context.read<ClubProfileCubit>().emitFromAnywhere(
+          state: context.read<ClubProfileCubit>().state.copyWith(showHamburger: false));
+    }
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_scrollListener);
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+      //  print(state);
+      },
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: CustomBottomNav(
             isTabScreen: false,
             onTabChange: (i) {},
-            currentIndex: Provider.of<AppStateNotifier>(context, listen: false)
-                    .menuIndex ??
-                0,
+            currentIndex: Provider.of<AppStateNotifier>(context, listen: false).menuIndex ?? 0,
           ),
           body: state.isLoading
               ? const ClubShimmer()
               : state.pub == null
-                  ? const Center(
-                      child: Text('Data not found'),
-                    )
-                  : NotificationListener<ScrollNotification>(
-                      onNotification: (scrollNotification) {
-                        final breakPoint = 30.h;
-                        final pixels = scrollController?.position.pixels ?? 0;
-                        if (pixels > breakPoint && !state.showHeader) {
-                          context.read<ClubProfileCubit>().emitFromAnywhere(
-                              state: state.copyWith(showHeader: true));
-                        } else if (pixels <= breakPoint && state.showHeader) {
-                          context.read<ClubProfileCubit>().emitFromAnywhere(
-                              state: state.copyWith(showHeader: false));
-                        }
-                        return true;
-                      },
-                      child: Stack(
-                        children: [
-                          const ImageCarousel(),
-                          SizedBox.expand(
-                            child: DraggableScrollableSheet(
-                              initialChildSize: .47,
-                              minChildSize: .47,
-                              controller: state.dragController,
-                              builder: (context, scrollController) {
-                                this.scrollController = scrollController;
-                                return SingleChildScrollView(
-                                  controller: scrollController,
+                  ? const Center(child: Text('Data not found'))
+                  : Stack(
+                      children: [
+                        const ImageCarousel(),
+                        SizedBox.expand(
+                          child: DraggableScrollableSheet(
+                            initialChildSize: .47,
+                            minChildSize: .47,
+                            controller: state.dragController,
+                            builder: (context, dragController) {
+                              return SingleChildScrollView(
+                                controller: dragController,
+                                child: Container(
+                                  color: Colors.transparent,
+                                  margin: EdgeInsets.only(top: 5.h),
+                                  child: Column(
+                                    children: [
+                                      AnimatedContainer(
+                                        curve: Curves.bounceInOut,
+                                        duration: const Duration(seconds: 4),
+                                        child: state.isAtTop
+                                            ? Container(
+                                                alignment: Alignment.center,
+                                                width: 100.w,
+                                                height: 0.h,
+                                                color: Theme.of(context).colorScheme.surface,
+                                              )
+                                            : Padding(
+                                                padding: const EdgeInsets.only(bottom:10.0),
+                                                child: ClubProfile(),
+                                              ),
+                                      ),
+                                      const MediaViewerTabs(),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        if (!state.isAtTop)
+                          Positioned(
+                            top: 6.5.h,
+                            left: 5.w,
+                            child: SizedBox(
+                              width: 90.w,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      navigator<NavigationService>().goBack();
+                                    },
+                                    child: Center(
+                                      child: SvgPicture.asset(
+                                        AssetConstants.arrowLeft,
+                                        width: 7.w,
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        backgroundColor: Theme.of(context).colorScheme.surface,
+                                        context: context,
+                                        builder: (context) {
+                                          return ProfileActionsModal(
+                                            profileType: 'pub',
+                                            profileId: state.clubId.toString(),
+                                            profileName: state.pub!.fullName,
+                                            isBlocked: state.isBlocked,
+                                            isFollowing: state.isFollowing,
+                                            onTapBlockOrUnBlock: (val) {
+                                              navigator<NavigationService>().goBack(responseObject: {
+                                                'key': 'blockOrUnblock',
+                                                'val': val,
+                                              });
+                                            },
+                                            onTapFollowOrUnfollow: (val) {
+                                              navigator<NavigationService>().goBack(responseObject: {
+                                                'key': 'followOrUnfollow',
+                                                'val': val,
+                                              });
+                                            },
+                                          );
+                                        },
+                                      ).then((value) {
+                                        if (value == null) return;
+                                        if (value['key'] == 'followOrUnfollow') {
+                                          context.read<ClubProfileCubit>().followUnfollowPub(pubId: state.clubId.toString());
+                                        } else if (value['key'] == 'blockOrUnblock') {
+                                          context.read<ClubProfileCubit>().blockOrUnblockPub(isBlock: value['val']);
+                                        }
+                                      });
+                                    },
+                                    child: SvgPicture.asset(
+                                      AssetConstants.hamBurgerMenu,
+                                      width: 7.w,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        if (state.isBlocked)
+                          Positioned(
+                            top: 11.h,
+                            child: SizedBox(
+                              width: 100.w,
+                              height: 100.h,
+                              child: ClipRect(
+                                child: BackdropFilter(
+                                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                                   child: Container(
-                                    color: Colors.transparent,
-                                    margin: EdgeInsets.only(top: 5.h),
+                                    color: Colors.black.withOpacity(0.1),
                                     child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        AnimatedContainer(
-                                          curve: Curves.bounceInOut,
-                                          duration: const Duration(seconds: 4),
-                                          child: state.isAtTop
-                                              ? Container(
-                                                  alignment: Alignment.center,
-                                                  width: 100.w,
-                                                  height: 0.h,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surface,
-                                                )
-                                              :  ClubProfile(),
+                                        Center(
+                                          child: Text(
+                                            '${state.pub!.fullName} is blocked!',
+                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Theme.of(context).colorScheme.background,
+                                                  fontSize: 18.sp,
+                                                ),
+                                          ),
                                         ),
-                                        const MediaViewerTabs(),
+                                        SizedBox(height: 5.h),
                                       ],
                                     ),
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             ),
                           ),
-                          Positioned(
-                              top: 6.5.h,
-                              left: 5.w,
-                              child: SizedBox(
-                                width: 90.w,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          navigator<NavigationService>()
-                                              .goBack();
-                                        },
-                                        child: Center(
-                                            child: SvgPicture.asset(
-                                          AssetConstants.arrowLeft,
-                                          width: 7.w,
-                                        ))),
-                                      GestureDetector(
-                                          onTap: () {
-                                            showModalBottomSheet(
-                                              context: context,
-                                              builder: (context) {
-                                                return ProfileActionsModal(
-                                                  profileType: 'pub',
-                                                  profileId:
-                                                      state.clubId.toString(),
-                                                  profileName:
-                                                      state.pub!.fullName,
-                                                  isBlocked: state.isBlocked,
-                                                  isFollowing:
-                                                      state.isFollowing,
-                                                  onTapBlockOrUnBlock: (val) {
-                                                    navigator<
-                                                            NavigationService>()
-                                                        .goBack(
-                                                            responseObject: {
-                                                          'key':
-                                                              'blockOrUnblock',
-                                                          'val': val,
-                                                        });
-                                                  },
-                                                  onTapFollowOrUnfollow: (val) {
-                                                    navigator<
-                                                            NavigationService>()
-                                                        .goBack(
-                                                            responseObject: {
-                                                          'key':
-                                                              'followOrUnfollow',
-                                                          'val': val,
-                                                        });
-                                                  },
-                                                );
-                                              },
-                                            ).then((value) {
-                                              if (value == null) return;
-
-                                              if (value['key'] ==
-                                                  'followOrUnfollow') {
-                                                context
-                                                    .read<ClubProfileCubit>()
-                                                    .followUnfollowPub(
-                                                        pubId: state.clubId
-                                                            .toString());
-                                              } else if (value['key'] ==
-                                                  'blockOrUnblock') {
-                                                context
-                                                    .read<ClubProfileCubit>()
-                                                    .blockOrUnblockPub(
-                                                        isBlock: value['val']);
-                                              }
-                                            });
-                                          },
-                                          child: SvgPicture.asset(
-                                            AssetConstants.hamBurgerMenu,
-                                            width: 7.w,
-                                          )),
-                                  ],
-                                ),
-                              )),
-                          if (state.isBlocked)
-                            Positioned(
-                                top: 11.h,
-                                child: SizedBox(
-                                  width: 100.w,
-                                  height: 100.h,
-                                  child: ClipRect(
-                                      child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                        sigmaX: 10.0, sigmaY: 10.0),
-                                    child: Container(
-                                      color: Colors.black.withOpacity(0.1),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Center(
-                                            child: Text(
-                                              '${state.pub!.fullName} is blocked!',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .background,
-                                                    fontSize: 18.sp,
-                                                  ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5.h,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                                ))
-                        ],
-                      ),
+                      ],
                     ),
         );
       },
     );
   }
 }
+
 
 class ClubShimmer extends StatelessWidget {
   const ClubShimmer({

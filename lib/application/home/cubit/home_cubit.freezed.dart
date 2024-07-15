@@ -57,9 +57,12 @@ mixin _$HomeState {
   TextEditingController get searchController =>
       throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
+  ISearchRepository get searchRepository => throw _privateConstructorUsedError;
   GlobalKey<State<StatefulWidget>> get homeKey =>
       throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
+  SearchResults? get searchResults => throw _privateConstructorUsedError;
+  bool get searchLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -106,12 +109,16 @@ abstract class $HomeStateCopyWith<$Res> {
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
       AppStateNotifier appStateNotifier,
+      ISearchRepository searchRepository,
       GlobalKey<State<StatefulWidget>> homeKey,
-      UserDto? user});
+      UserDto? user,
+      SearchResults? searchResults,
+      bool searchLoading});
 
   $FilterDtoCopyWith<$Res>? get categoryFilter;
   $LocationDtoCopyWith<$Res> get location;
   $UserDtoCopyWith<$Res>? get user;
+  $SearchResultsCopyWith<$Res>? get searchResults;
 }
 
 /// @nodoc
@@ -161,8 +168,11 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? suggestions = null,
     Object? searchController = null,
     Object? appStateNotifier = null,
+    Object? searchRepository = null,
     Object? homeKey = null,
     Object? user = freezed,
+    Object? searchResults = freezed,
+    Object? searchLoading = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -301,6 +311,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
+      searchRepository: null == searchRepository
+          ? _value.searchRepository
+          : searchRepository // ignore: cast_nullable_to_non_nullable
+              as ISearchRepository,
       homeKey: null == homeKey
           ? _value.homeKey
           : homeKey // ignore: cast_nullable_to_non_nullable
@@ -309,6 +323,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserDto?,
+      searchResults: freezed == searchResults
+          ? _value.searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as SearchResults?,
+      searchLoading: null == searchLoading
+          ? _value.searchLoading
+          : searchLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -341,6 +363,18 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
 
     return $UserDtoCopyWith<$Res>(_value.user!, (value) {
       return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SearchResultsCopyWith<$Res>? get searchResults {
+    if (_value.searchResults == null) {
+      return null;
+    }
+
+    return $SearchResultsCopyWith<$Res>(_value.searchResults!, (value) {
+      return _then(_value.copyWith(searchResults: value) as $Val);
     });
   }
 }
@@ -388,8 +422,11 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
       AppStateNotifier appStateNotifier,
+      ISearchRepository searchRepository,
       GlobalKey<State<StatefulWidget>> homeKey,
-      UserDto? user});
+      UserDto? user,
+      SearchResults? searchResults,
+      bool searchLoading});
 
   @override
   $FilterDtoCopyWith<$Res>? get categoryFilter;
@@ -397,6 +434,8 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   $LocationDtoCopyWith<$Res> get location;
   @override
   $UserDtoCopyWith<$Res>? get user;
+  @override
+  $SearchResultsCopyWith<$Res>? get searchResults;
 }
 
 /// @nodoc
@@ -444,8 +483,11 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? suggestions = null,
     Object? searchController = null,
     Object? appStateNotifier = null,
+    Object? searchRepository = null,
     Object? homeKey = null,
     Object? user = freezed,
+    Object? searchResults = freezed,
+    Object? searchLoading = null,
   }) {
     return _then(_$HomeStateImpl(
       isLoading: null == isLoading
@@ -584,6 +626,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
               as AppStateNotifier,
+      searchRepository: null == searchRepository
+          ? _value.searchRepository
+          : searchRepository // ignore: cast_nullable_to_non_nullable
+              as ISearchRepository,
       homeKey: null == homeKey
           ? _value.homeKey
           : homeKey // ignore: cast_nullable_to_non_nullable
@@ -592,6 +638,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserDto?,
+      searchResults: freezed == searchResults
+          ? _value.searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as SearchResults?,
+      searchLoading: null == searchLoading
+          ? _value.searchLoading
+          : searchLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -634,8 +688,11 @@ class _$HomeStateImpl implements _HomeState {
       required this.suggestions,
       required this.searchController,
       required this.appStateNotifier,
+      required this.searchRepository,
       required this.homeKey,
-      this.user});
+      this.user,
+      this.searchResults,
+      required this.searchLoading});
 
   @override
   final bool isLoading;
@@ -706,13 +763,19 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final AppStateNotifier appStateNotifier;
   @override
+  final ISearchRepository searchRepository;
+  @override
   final GlobalKey<State<StatefulWidget>> homeKey;
   @override
   final UserDto? user;
+  @override
+  final SearchResults? searchResults;
+  @override
+  final bool searchLoading;
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, homeKey: $homeKey, user: $user)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, searchRepository: $searchRepository, homeKey: $homeKey, user: $user, searchResults: $searchResults, searchLoading: $searchLoading)';
   }
 
   @override
@@ -784,8 +847,14 @@ class _$HomeStateImpl implements _HomeState {
                 other.searchController == searchController) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
+            (identical(other.searchRepository, searchRepository) ||
+                other.searchRepository == searchRepository) &&
             (identical(other.homeKey, homeKey) || other.homeKey == homeKey) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.searchResults, searchResults) ||
+                other.searchResults == searchResults) &&
+            (identical(other.searchLoading, searchLoading) ||
+                other.searchLoading == searchLoading));
   }
 
   @override
@@ -825,8 +894,11 @@ class _$HomeStateImpl implements _HomeState {
         const DeepCollectionEquality().hash(suggestions),
         searchController,
         appStateNotifier,
+        searchRepository,
         homeKey,
-        user
+        user,
+        searchResults,
+        searchLoading
       ]);
 
   @JsonKey(ignore: true)
@@ -872,8 +944,11 @@ abstract class _HomeState implements HomeState {
       required final List<SuggestionDto> suggestions,
       required final TextEditingController searchController,
       required final AppStateNotifier appStateNotifier,
+      required final ISearchRepository searchRepository,
       required final GlobalKey<State<StatefulWidget>> homeKey,
-      final UserDto? user}) = _$HomeStateImpl;
+      final UserDto? user,
+      final SearchResults? searchResults,
+      required final bool searchLoading}) = _$HomeStateImpl;
 
   @override
   bool get isLoading;
@@ -944,9 +1019,15 @@ abstract class _HomeState implements HomeState {
   @override
   AppStateNotifier get appStateNotifier;
   @override
+  ISearchRepository get searchRepository;
+  @override
   GlobalKey<State<StatefulWidget>> get homeKey;
   @override
   UserDto? get user;
+  @override
+  SearchResults? get searchResults;
+  @override
+  bool get searchLoading;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>

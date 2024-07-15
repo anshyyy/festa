@@ -170,6 +170,7 @@ Future appInitializer(AppConfig appConfig) async {
     appTitle: appConfig.appTitle,
     buildFlavor: appConfig.buildFlavor,
     serverUrl: appConfig.serverUrl,
+    serverUrl2: appConfig.serverUrl2,
     googleMapsApiKey: appConfig.googleMapsApiKey,
     razorPayApiKey: appConfig.razorPayApiKey,
     child: ChangeNotifierProvider<AppStateNotifier>(

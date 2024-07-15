@@ -84,18 +84,18 @@ class ClubProfile extends StatelessWidget {
                       SizedBox(
                         height: 1.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            AssetConstants.locationIcon,
-                            height: 2.h,
-                          ),
-                          SizedBox(
-                            width: 2.w,
-                          ),
-                          Expanded(
-                            child: Text(state.pub!.location!.vicinity,
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              AssetConstants.locationIcon,
+                              height: 2.h,
+                            ),
+                            SizedBox(
+                              width: 2.w,
+                            ),
+                            Text(state.pub!.location!.vicinity,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
@@ -107,8 +107,8 @@ class ClubProfile extends StatelessWidget {
                                           .background,
                                       fontSize: 15.sp,
                                     )),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 1.h,
@@ -127,25 +127,16 @@ class ClubProfile extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset(AssetConstants.durationIcon,
-                                  colorFilter: ColorFilter.mode(
-                                      colorScheme.inversePrimary,
-                                      BlendMode.srcIn)),
-                              SizedBox(
-                                width: 1.w,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                 showModalBottomSheet(
+                          InkWell(
+                            onTap: (){
+                               showModalBottomSheet(
   context: context,
   isScrollControlled: true,
   backgroundColor: Theme.of(context).colorScheme.surface,
   builder: (context) {
     return SizedBox(
       width: 100.w,
-      height: 130.w,
+      height: 100.w,
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10, top: 8),
         child: Stack(
@@ -176,16 +167,17 @@ class ClubProfile extends StatelessWidget {
                   ),
                   SizedBox(height: 1.h),
                   SizedBox(
-                    height: 80.h,
+                    height: 60.h,
                     child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: hours.length,
                       itemBuilder: (context, index) {
                         return ListTile(
+                          minTileHeight: 20,
                           title: Text(
                             hours[index]['day']!,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 16.px,
                               color: hours[index]['day'] == today
                                   ? Colors.green
                                   : Colors.white,
@@ -196,7 +188,7 @@ class ClubProfile extends StatelessWidget {
                             hours[index]['hours']!,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontSize: 16,
+                              fontSize: 16.px,
                               color: hours[index]['day'] == today
                                   ? Colors.green
                                   : Colors.white,
@@ -223,8 +215,18 @@ class ClubProfile extends StatelessWidget {
     );
   },
 );
-                                },
-                                child: Text(
+                                
+                            },
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(AssetConstants.durationIcon,
+                                    colorFilter: ColorFilter.mode(
+                                        colorScheme.inversePrimary,
+                                        BlendMode.srcIn)),
+                                SizedBox(
+                                  width: 1.w,
+                                ),
+                                Text(
                                   (state.pub!.openingHours ??
                                               const PubOpeningHours(
                                                   openNow: false))
@@ -239,8 +241,12 @@ class ClubProfile extends StatelessWidget {
                                               .colorScheme
                                               .background),
                                 ),
-                              ),
-                            ],
+                                 SvgPicture.asset(AssetConstants.arrowDown,
+                                   ),
+                                
+                              
+                              ],
+                            ),
                           ),
                           Row(
                             children: [

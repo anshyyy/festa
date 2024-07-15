@@ -150,10 +150,14 @@ class OtherUserProfileScreenConsumer extends StatelessWidget {
                               )
                             ],
                           )),
-                      const Column(
+                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          UserProfile(),
+                         const Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: UserProfile(),
+                          ),
+                          SizedBox(height: 3.h,)
                         ],
                       ),
                       // state.qrExpandedView

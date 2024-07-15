@@ -12,8 +12,8 @@ class ArtistDto with _$ArtistDto {
     @JsonKey(name: 'fullName', defaultValue: '') required String fullName,
     @JsonKey(name: 'username', defaultValue: '') required String username,
     @JsonKey(name: 'description', defaultValue: '') required String description,
-    @JsonKey(name: 'profileImage', defaultValue: '')
-    required String profileImage,
+    @JsonKey(name: 'profileImage', defaultValue: '') required String profileImage,
+    @JsonKey(name: 'email') String? email, // Add the non-required email field
   }) = _ArtistDto;
 
   factory ArtistDto.fromJson(Map<String, dynamic> json) =>

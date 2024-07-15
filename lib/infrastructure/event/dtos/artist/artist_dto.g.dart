@@ -13,6 +13,7 @@ _$ArtistDtoImpl _$$ArtistDtoImplFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String? ?? '',
       description: json['description'] as String? ?? '',
       profileImage: json['profileImage'] as String? ?? '',
+      email: json['email'] as String?,
     );
 
 Map<String, dynamic> _$$ArtistDtoImplToJson(_$ArtistDtoImpl instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$ArtistDtoImplToJson(_$ArtistDtoImpl instance) =>
       'username': instance.username,
       'description': instance.description,
       'profileImage': instance.profileImage,
+      'email': instance.email,
     };

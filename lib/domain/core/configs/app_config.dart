@@ -74,6 +74,7 @@ class AppConfig extends InheritedWidget {
   final String appTitle;
   final String buildFlavor;
   final String serverUrl;
+  final String serverUrl2;
   final String googleMapsApiKey;
   final String razorPayApiKey;
   @override
@@ -86,6 +87,7 @@ class AppConfig extends InheritedWidget {
       required this.buildFlavor,
       required this.child,
       required this.serverUrl,
+      required this.serverUrl2,
       required this.googleMapsApiKey,
       required this.razorPayApiKey})
       : super(child: child);

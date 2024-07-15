@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -108,8 +110,16 @@ Future appInitializer(AppConfig appConfig) async {
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
+  final bool isUserFirstTime = await AppUpdateService.isUserFirstTime();
+
+  if (isUserFirstTime) {
+    await FirebaseAuth.instance.signOut();
+    await AppUpdateService.setUserFirstTime(val: false);
+  }
+
   AuthRepository authRepository =
       IAuthRepository(serverUrl: appConfig.serverUrl);
+
   final user = await authRepository.authentication();
 
   bool isAuthorized = user != null;

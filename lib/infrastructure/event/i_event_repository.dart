@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart';
 
 import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
@@ -128,6 +129,7 @@ class IEventRepository extends EventRepository {
         'eventId': eventId,
         'tickets': tickets,
       };
+      print(bodyObj);
 
       final response = await RESTService.performPOSTRequest(
         httpUrl: url,
@@ -144,6 +146,8 @@ class IEventRepository extends EventRepository {
       final bookingDetails = EventBookingDetailsDto.fromJson(bookingDetailsRaw);
       return right(bookingDetails);
     } catch (e) {
+      var r = e as Response;
+      print(r.body);
       return left(null);
     }
   }

@@ -34,29 +34,29 @@ class EventsCalendarBuilderConsumer extends StatelessWidget {
     return BlocConsumer<EventsCalendarCubit, EventsCalendarState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return state.isLoading
-            ? Container(
-                color: Theme.of(context).colorScheme.surface,
-                child: const Center(child: CircularProgressIndicator()))
-            : ListView.builder(
-                shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                itemCount: state.pubEventsClubbed == null
-                    ? 0
-                    : state.pubEventsClubbed!.eventMonths.length,
-                itemBuilder: (context, index) {
-                  final currentMonth =
-                      state.pubEventsClubbed!.eventMonths[index];
+        if (state.isLoading) {
+          return Container(
+            color: Theme.of(context).colorScheme.surface,
+            child: const Center(child: CircularProgressIndicator()),
+          );
+        }
 
-                  return EventCalender(
-                      lsOfEvents: state.pubEventsClubbed!.events,
-                      startDate: DateTime.utc(
-                          DateTime.now().year, currentMonth + 1, 1),
-                      endDate: DateTime.utc(
-                          DateTime.now().year, currentMonth + 1 + index, 31));
-                });
+        if (state.pubEventsClubbed == null || state.pubEventsClubbed!.eventMonths.isEmpty) {
+          return Container(
+            color: Theme.of(context).colorScheme.surface,
+            child: const Center(child: Text("No events available")),
+          );
+        }
+
+        final eventMonths = state.pubEventsClubbed!.eventMonths;
+        final firstMonth = eventMonths.first;
+        final lastMonth = eventMonths.last;
+
+        return EventCalender(
+          lsOfEvents: state.pubEventsClubbed?.events ?? [],
+          startDate: DateTime.utc(DateTime.now().year, firstMonth + 1, 1),
+          endDate: DateTime.utc(DateTime.now().year, DateTime.now().month + 3, 1).subtract(Duration(days: 1)),
+        );  
       },
     );
   }

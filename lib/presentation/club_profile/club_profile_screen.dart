@@ -1,7 +1,4 @@
-// ignore_for_file: unused_local_variable
-
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,42 +37,31 @@ class ClubProfileScreen extends StatelessWidget {
 }
 
 class ClubProfileScreenConsumer extends StatefulWidget {
- const ClubProfileScreenConsumer({super.key});
+  const ClubProfileScreenConsumer({super.key});
 
   @override
-  _ClubProfileScreenConsumerState createState() => _ClubProfileScreenConsumerState();
+  _ClubProfileScreenConsumerState createState() =>
+      _ClubProfileScreenConsumerState();
 }
 
-class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
-  final ScrollController scrollController = ScrollController();
+class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(_scrollListener);
-  }
-
-  void _scrollListener() {
-    final pixels = scrollController.position.pixels;
-    final maxScrollExtent = scrollController.position.maxScrollExtent;
-    final minScrollExtent = scrollController.position.minScrollExtent;
-    final breakPoint = maxScrollExtent * 0.7;
-    print("pixels : $pixels");
-    if (pixels <= breakPoint && !context.read<ClubProfileCubit>().state.showHamburger) {
-      // When scrolled up to the top, show the menu
-      context.read<ClubProfileCubit>().emitFromAnywhere(
-          state: context.read<ClubProfileCubit>().state.copyWith(showHamburger: true));
-    } else if (pixels > breakPoint && context.read<ClubProfileCubit>().state.showHamburger) {
-      // When scrolled down, hide the menu
-      context.read<ClubProfileCubit>().emitFromAnywhere(
-          state: context.read<ClubProfileCubit>().state.copyWith(showHamburger: false));
-    }
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200));
+    _animation =
+        Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
   }
 
   @override
   void dispose() {
-    scrollController.removeListener(_scrollListener);
-    scrollController.dispose();
+    _animationController.dispose();
+
     super.dispose();
   }
 
@@ -83,14 +69,18 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
-      //  print(state);
+        //print(state.is)
+        if (state.isAtTop) _animationController.forward();
+        if (!state.isAtTop) _animationController.reset();
       },
       builder: (context, state) {
         return Scaffold(
           bottomNavigationBar: CustomBottomNav(
             isTabScreen: false,
             onTabChange: (i) {},
-            currentIndex: Provider.of<AppStateNotifier>(context, listen: false).menuIndex ?? 0,
+            currentIndex: Provider.of<AppStateNotifier>(context, listen: false)
+                    .menuIndex ??
+                0,
           ),
           body: state.isLoading
               ? const ClubShimmer()
@@ -99,41 +89,47 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
                   : Stack(
                       children: [
                         const ImageCarousel(),
-                        SizedBox.expand(
-                          child: DraggableScrollableSheet(
-                            initialChildSize: .47,
-                            minChildSize: .47,
-                            controller: state.dragController,
-                            builder: (context, dragController) {
-                              return SingleChildScrollView(
-                                controller: dragController,
-                                child: Container(
-                                  color: Colors.transparent,
-                                  margin: EdgeInsets.only(top: 5.h),
-                                  child: Column(
-                                    children: [
-                                      AnimatedContainer(
-                                        curve: Curves.bounceInOut,
-                                        duration: const Duration(seconds: 4),
-                                        child: state.isAtTop
-                                            ? Container(
-                                                alignment: Alignment.center,
-                                                width: 100.w,
-                                                height: 0.h,
-                                                color: Theme.of(context).colorScheme.surface,
-                                              )
-                                            : Padding(
-                                                padding: const EdgeInsets.only(bottom:10.0),
-                                                child: ClubProfile(),
-                                              ),
+                        AnimatedBuilder(
+                          animation: _animation,
+                          builder: (context, child) {
+                            return Positioned(
+                              child: DraggableScrollableSheet(
+                                initialChildSize: .47,
+                                minChildSize: .47,
+                                controller: state.dragController,
+                                builder: (context, dragController) {
+                                  return SingleChildScrollView(
+                                    controller: dragController,
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      margin: EdgeInsets.only(top: 5.h),
+                                      child: SafeArea(
+                                        child: Column(
+                                          children: [
+                                            state.isAtTop
+                                                ? Container(
+                                                    alignment: Alignment.center,
+                                                    width: 100.w,
+                                                    height:
+                                                        _animation.value * 200,
+                                                    color: Colors.transparent,
+                                                  )
+                                                : Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 10.0),
+                                                    child: ClubProfile(),
+                                                  ),
+                                            const MediaViewerTabs(),
+                                          ],
+                                        ),
                                       ),
-                                      const MediaViewerTabs(),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
                         ),
                         if (!state.isAtTop)
                           Positioned(
@@ -142,7 +138,8 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
                             child: SizedBox(
                               width: 90.w,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
                                     onTap: () {
@@ -158,7 +155,9 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
                                   GestureDetector(
                                     onTap: () {
                                       showModalBottomSheet(
-                                        backgroundColor: Theme.of(context).colorScheme.surface,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
                                         context: context,
                                         builder: (context) {
                                           return ProfileActionsModal(
@@ -168,13 +167,15 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
                                             isBlocked: state.isBlocked,
                                             isFollowing: state.isFollowing,
                                             onTapBlockOrUnBlock: (val) {
-                                              navigator<NavigationService>().goBack(responseObject: {
+                                              navigator<NavigationService>()
+                                                  .goBack(responseObject: {
                                                 'key': 'blockOrUnblock',
                                                 'val': val,
                                               });
                                             },
                                             onTapFollowOrUnfollow: (val) {
-                                              navigator<NavigationService>().goBack(responseObject: {
+                                              navigator<NavigationService>()
+                                                  .goBack(responseObject: {
                                                 'key': 'followOrUnfollow',
                                                 'val': val,
                                               });
@@ -183,10 +184,19 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
                                         },
                                       ).then((value) {
                                         if (value == null) return;
-                                        if (value['key'] == 'followOrUnfollow') {
-                                          context.read<ClubProfileCubit>().followUnfollowPub(pubId: state.clubId.toString());
-                                        } else if (value['key'] == 'blockOrUnblock') {
-                                          context.read<ClubProfileCubit>().blockOrUnblockPub(isBlock: value['val']);
+                                        if (value['key'] ==
+                                            'followOrUnfollow') {
+                                          context
+                                              .read<ClubProfileCubit>()
+                                              .followUnfollowPub(
+                                                  pubId:
+                                                      state.clubId.toString());
+                                        } else if (value['key'] ==
+                                            'blockOrUnblock') {
+                                          context
+                                              .read<ClubProfileCubit>()
+                                              .blockOrUnblockPub(
+                                                  isBlock: value['val']);
                                         }
                                       });
                                     },
@@ -207,18 +217,25 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
                               height: 100.h,
                               child: ClipRect(
                                 child: BackdropFilter(
-                                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                                  filter: ImageFilter.blur(
+                                      sigmaX: 10.0, sigmaY: 10.0),
                                   child: Container(
                                     color: Colors.black.withOpacity(0.1),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Center(
                                           child: Text(
                                             '${state.pub!.fullName} is blocked!',
-                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
                                                   fontWeight: FontWeight.w600,
-                                                  color: Theme.of(context).colorScheme.background,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .background,
                                                   fontSize: 18.sp,
                                                 ),
                                           ),
@@ -238,7 +255,6 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer> {
     );
   }
 }
-
 
 class ClubShimmer extends StatelessWidget {
   const ClubShimmer({

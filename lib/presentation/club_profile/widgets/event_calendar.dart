@@ -44,8 +44,9 @@ class EventCalender extends StatelessWidget {
                           color: Theme.of(context).colorScheme.background,
                         ),
                 formatButtonVisible: false,
-                leftChevronVisible: false,
-                rightChevronVisible: false,
+                leftChevronVisible: true,
+                titleCentered: true,
+                rightChevronVisible: true,
               ),
               calendarStyle: const CalendarStyle(
                 isTodayHighlighted: false,

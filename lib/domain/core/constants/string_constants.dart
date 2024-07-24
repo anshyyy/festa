@@ -143,6 +143,8 @@ class TicketScreenConstants {
   static String yourTickets = 'Your tickets';
   static String upcomingBtnText = 'Upcoming';
   static String historyBtnText = 'History';
+  static String myTickets =  'My Tickets';
+  static String pastTickets = "Past Tickets";
 }
 
 class BookingScreenConstants {

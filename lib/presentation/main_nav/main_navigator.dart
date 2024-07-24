@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
 import '../../application/main_nav/main_nav_cubit.dart';
@@ -10,6 +13,7 @@ import '../../application/user/user_profile/user_profile_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../home/home_screen.dart';
 import '../ticket/tickets_screen.dart';
+import '../ticket/tickets_screen1.dart';
 import '../user/user_profile_screen.dart';
 import 'bottom_nav.dart';
 
@@ -92,29 +96,30 @@ class MainNavigatorConsumer extends StatelessWidget {
           ),
           child: Scaffold(
             bottomNavigationBar: 
-
-            !state.showNavBar?null:
-          
-            CustomBottomNav(
-              isEmailNotProvided :  !userProfileState.isLoading && userProfileState.user?.email  == null,
-              currentIndex: state.currentIndex,
-              onTabChange: (i) async {
-                if (state.currentIndex == i) {
-                  if (i == 0) {
-                    // go to top
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: !state.showNavBar?0:(Platform.isAndroid ? 9.5.h : 12.h),
+              child: CustomBottomNav(
+                isEmailNotProvided :  !userProfileState.isLoading && userProfileState.user?.email  == null,
+                currentIndex: state.currentIndex,
+                onTabChange: (i) async {
+                  if (state.currentIndex == i) {
+                    if (i == 0) {
+                      // go to top
+                      Provider.of<AppStateNotifier>(context, listen: false)
+                          .onMenuChange(index: i, goToTop: true);
+                    }
+                  } else {
+                    context.read<MainNavCubit>().onIndexChange(index: i);
                     Provider.of<AppStateNotifier>(context, listen: false)
-                        .onMenuChange(index: i, goToTop: true);
+                        .onMenuChange(index: i);
                   }
-                } else {
-                  context.read<MainNavCubit>().onIndexChange(index: i);
-                  Provider.of<AppStateNotifier>(context, listen: false)
-                      .onMenuChange(index: i);
-                }
-
-                Future.delayed(const Duration(milliseconds: 400)).then((value) {
-                  FocusScope.of(context).unfocus();
-                });
-              },
+              
+                  Future.delayed(const Duration(milliseconds: 400)).then((value) {
+                    FocusScope.of(context).unfocus();
+                  });
+                },
+              ),
             ),
             body: AnimatedSwitcher(
               switchInCurve: Curves.easeIn,
@@ -122,7 +127,7 @@ class MainNavigatorConsumer extends StatelessWidget {
               child: state.currentIndex == 0
                   ? const HomeScreen()
                   : state.currentIndex == 2
-                      ? const TicketScreen()
+                      ? const TicketsScreen1()
                       : state.currentIndex == 3
                           ? const UserProfileScreen()
                           : null,

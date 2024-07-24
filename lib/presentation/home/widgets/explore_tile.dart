@@ -31,7 +31,7 @@ class ExploreTile extends StatelessWidget {
       builder: (context, state) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
-          margin: EdgeInsets.only(right: 2.w),
+          margin: EdgeInsets.only(right: 2.w,bottom: 1.w),
           width: label.toString().toLowerCase() == 'sort'
               ? state.sortDropdownOpen
                   ? 45.w

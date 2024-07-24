@@ -32,6 +32,8 @@ import 'widgets/explore_tile.dart';
 import 'widgets/filter_modal_sheet.dart';
 import 'widgets/location_dialog.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -53,10 +55,14 @@ class HomeScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-       // print(state.showLocationDialog);
-       state.showLocationDialog?
-        BlocProvider.of<MainNavCubit>(context).hideNavBar():
-         BlocProvider.of<MainNavCubit>(context).showNavBar();
+        print("show location : ${state.showLocationDialog}");
+        if (state.showLocationDialog ||
+          state.isScrollingUp
+        ) {
+          BlocProvider.of<MainNavCubit>(context).hideNavBar();
+        } else {
+          BlocProvider.of<MainNavCubit>(context).showNavBar();
+        }
       },
       builder: (context, state) {
         return RefreshIndicator(
@@ -73,179 +79,96 @@ class HomeScreenConsumer extends StatelessWidget {
                 ignoring: state.overlayEntry != null,
                 child: Stack(
                   children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
+                    CustomScrollView(
                       controller: state.scrollController,
-                      padding: EdgeInsets.all(3.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //             InkWell(
-                          //               onTap: (){
-                          //                  showSearch(
-                          //   context: context,
-                          //   delegate: MySearchDelegate(),
-                          // );
-                          //               },
-                          //               child:  SvgPicture.asset(
-                          //                       AssetConstants.searchIcon,
-                          //                       color: Theme.of(context)
-                          //                           .colorScheme
-                          //                           .background
-                          //                           .withOpacity(0.6),
-                          //                       width: 7.w,
-                          //                     ),
-                          //             ),
-
-                          //                 ? CustomTextField(
-                          //                     autofocus: true,
-                          //                     controller: state.searchController,
-                          //                     onChanged: (val) {
-                          //                       EasyDebounce.debounce('home-search-events',
-                          //                           const Duration(milliseconds: 500), () {
-                          //                         context
-                          //                             .read<HomeCubit>()
-                          //                             .onSearchChange();
-                          //                       });
-                          //                     },
-                          //                     contentPadding: EdgeInsets.symmetric(
-                          //                         horizontal: 4.w, vertical: 1.5.h),
-                          //                     hintTextStyle: Theme.of(context)
-                          //                         .textTheme
-                          //                         .bodySmall!
-                          //                         .copyWith(
-                          //                             fontSize: 16.sp,
-                          //                             color: Theme.of(context)
-                          //                                 .colorScheme
-                          //                                 .background
-                          //                                 .withOpacity(0.6)),
-                          //                     isFill: true,
-                          //                     fillColor:
-                          //                         Theme.of(context).colorScheme.surface,
-                          //                     textStyle: Theme.of(context)
-                          //                         .textTheme
-                          //                         .bodySmall!
-                          //                         .copyWith(
-                          //                           fontSize: 16.sp,
-                          //                           color: Theme.of(context)
-                          //                               .colorScheme
-                          //                               .background
-                          //                               .withOpacity(0.6),
-                          //                         ),
-                          //                     hintText: HomeScreenConstants.searchEvent,
-                          //                     prefixIcon: SvgPicture.asset(
-                          //                       AssetConstants.searchIcon,
-                          //                       color: Theme.of(context)
-                          //                           .colorScheme
-                          //                           .background
-                          //                           .withOpacity(0.6),
-                          //                       width: 7.w,
-                          //                     ),
-                          //                     suffixIcon: GestureDetector(
-                          //                       onTap: () {
-                          //                          showSearch(
-                          //   context: context,
-                          //   delegate: MySearchDelegate(),
-                          // );
-                          //                         // context
-                          //                         //     .read<HomeCubit>()
-                          //                         //     .onSearchChange(isSearchOn: false);
-                          //                       },
-                          //                       child: SvgPicture.asset(
-                          //                         AssetConstants.closeIcon,
-                          //                         width: 6.w,
-                          //                       ),
-                          //                     ),
-                          //                   )
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                   
-                                    context
-                                        .read<HomeCubit>()
-                                        .toggleLocationDialog();
-                                  },
-                                  child: Row(
+                      slivers: [
+                        SliverPadding(
+                          padding: EdgeInsets.all(3.w),
+                          sliver: SliverList(
+                            delegate: SliverChildListDelegate([
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        context
+                                            .read<HomeCubit>()
+                                            .toggleLocationDialog();
+                                      },
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            AssetConstants.locationIconPink,
+                                          ),
+                                          SizedBox(
+                                            width: 3.w,
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              StringExtension.displayAddress(
+                                                  state.location),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: themeData
+                                                  .textTheme.bodySmall!
+                                                  .copyWith(
+                                                color: themeData
+                                                    .colorScheme.background,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Row(
                                     children: [
-                                      SvgPicture.asset(
-                                        AssetConstants.locationIconPink,
+                                      GestureDetector(
+                                        onTap: () {
+                                          showSearch(
+                                            context: context,
+                                            delegate: CustomSearchDelegate(
+                                                homeCubit:
+                                                    context.read<HomeCubit>()),
+                                          );
+                                        },
+                                        child: SvgPicture.asset(
+                                          AssetConstants.searchIcon,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 3.w,
                                       ),
-                                      Expanded(
-                                        child: Text(
-                                          StringExtension.displayAddress(
-                                              state.location),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: themeData.textTheme.bodySmall!
-                                              .copyWith(
-                                                  color: themeData
-                                                      .colorScheme.background,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w600),
+                                      GestureDetector(
+                                        onTap: () {
+                                          navigator<NavigationService>()
+                                              .navigateTo(
+                                                  UserRoutes.notificationsRoute)
+                                              .then((value) {});
+                                        },
+                                        child: SvgPicture.asset(
+                                          AssetConstants.notificationIcon,
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      // context
-                                      //     .read<HomeCubit>()
-                                      //     .toggleSearch(flag: true);
-                                      showSearch(
-                                        context: context,
-                                        delegate: CustomSearchDelegate(
-                                            homeCubit:
-                                                context.read<HomeCubit>()),
-                                      );
-                                    },
-                                    child: SvgPicture.asset(
-                                      AssetConstants.searchIcon,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 3.w,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      navigator<NavigationService>()
-                                          .navigateTo(
-                                              UserRoutes.notificationsRoute)
-                                          .then((value) {});
-                                    },
-                                    child: SvgPicture.asset(
-                                        AssetConstants.notificationIcon),
-                                  )
                                 ],
-                              )
-                            ],
-                          ),
-                          if (!state.hasMoreEvents &&
-                              state.events.isEmpty &&
-                              !state.isRefresh)
-                            const EmptyEvents()
-                          else ...[
-                            state.isSearchOpen
-                                ? const SizedBox()
-                                : SizedBox(
-                                    height: 2.h,
-                                  ),
-                            state.isSearchOpen
-                                ? const SizedBox()
-                                : Text(
+                              ),
+                              if (!state.hasMoreEvents &&
+                                  state.events.isEmpty &&
+                                  !state.isRefresh)
+                                const EmptyEvents()
+                              else ...[
+                                if (!state.isSearchOpen) ...[
+                                  SizedBox(height: 2.h),
+                                  Text(
                                     '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
                                     style:
                                         themeData.textTheme.bodySmall!.copyWith(
@@ -256,16 +179,27 @@ class HomeScreenConsumer extends StatelessWidget {
                                       letterSpacing: 0,
                                     ),
                                   ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            state.isSearchOpen
+                                  SizedBox(height: 2.h),
+                                ],
+                              ],
+                            ]),
+                          ),
+                        ),
+                        SliverPersistentHeader(
+                          floating: true,
+                          delegate: FiltersPersistentHeaderDelegate(
+                            minExtent: 190.0,
+                            maxExtent: 210.0,
+                            child: state.isSearchOpen
                                 ? const SizedBox()
-                                : Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
+                                : Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 2, right: 2),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
                                           HomeScreenConstants
                                               .pickYourExperience,
                                           style: themeData.textTheme.bodyMedium!
@@ -273,36 +207,76 @@ class HomeScreenConsumer extends StatelessWidget {
                                             fontWeight: FontWeight.w600,
                                             color: themeData
                                                 .colorScheme.background,
-                                          )),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      SizedBox(
-                                        width: 100.w,
-                                        height: state.isLoading &&
-                                                !state.isSearchOpen
-                                            ? 12.h
-                                            : 9.5.h,
-                                        child: ListView.separated(
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) {
-                                            FilterValueDto? categoryValue;
-                                            if (state.categoryFilter != null) {
-                                              categoryValue = state
-                                                  .categoryFilter!
-                                                  .values[index];
-                                            }
+                                          ),
+                                        ),
+                                        SizedBox(height: 2.h),
+                                        SizedBox(
+                                          width: 100.w,
+                                          height: state.isLoading &&
+                                                  !state.isSearchOpen
+                                              ? 12.h
+                                              : 9.5.h,
+                                          child: ListView.separated(
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              FilterValueDto? categoryValue;
+                                              if (state.categoryFilter !=
+                                                  null) {
+                                                categoryValue = state
+                                                    .categoryFilter!
+                                                    .values[index];
+                                              }
 
-                                            return GestureDetector(
-                                              onTap: () {
-                                                if (state.categoryFilter!
-                                                    .values[index].isApplied) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  if (state
+                                                      .categoryFilter!
+                                                      .values[index]
+                                                      .isApplied) {
+                                                    state.categoryFilter!
+                                                            .values[index] =
+                                                        state.categoryFilter!
+                                                            .values[index]
+                                                            .copyWith(
+                                                                isApplied:
+                                                                    false);
+                                                    final indexTemp = state
+                                                        .filters
+                                                        .indexWhere((element) {
+                                                      return element.name ==
+                                                          'music';
+                                                    });
+                                                    state.filters[indexTemp] =
+                                                        state.filters[indexTemp]
+                                                            .copyWith(
+                                                                isApplied:
+                                                                    false);
+                                                    context
+                                                        .read<HomeCubit>()
+                                                        .updateFilterApplied(
+                                                            filters: List.from(
+                                                                state.filters));
+                                                    return;
+                                                  }
+                                                  for (int i = 0;
+                                                      i <
+                                                          state.categoryFilter!
+                                                              .values.length;
+                                                      i++) {
+                                                    state.categoryFilter!
+                                                            .values[i] =
+                                                        state.categoryFilter!
+                                                            .values[i]
+                                                            .copyWith(
+                                                                isApplied:
+                                                                    false);
+                                                  }
                                                   state.categoryFilter!
                                                           .values[index] =
                                                       state.categoryFilter!
                                                           .values[index]
                                                           .copyWith(
-                                                              isApplied: false);
+                                                              isApplied: true);
                                                   final indexTemp = state
                                                       .filters
                                                       .indexWhere((element) {
@@ -312,207 +286,162 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   state.filters[indexTemp] =
                                                       state.filters[indexTemp]
                                                           .copyWith(
-                                                              isApplied: false);
+                                                              isApplied: true);
                                                   context
                                                       .read<HomeCubit>()
                                                       .updateFilterApplied(
                                                           filters: List.from(
-                                                        state.filters,
-                                                      ));
-                                                  return;
-                                                }
-                                                for (int i = 0;i <state.categoryFilter!.values.length;i++) {
-                                                  state.categoryFilter!
-                                                          .values[i] =
-                                                      state.categoryFilter!
-                                                          .values[i]
-                                                          .copyWith(
-                                                              isApplied: false);
-                                                }
-                                                state.categoryFilter!.values[index] =
-                                                    state.categoryFilter!
-                                                        .values[index]
-                                                        .copyWith(
-                                                            isApplied: true);
-                                                final indexTemp = state.filters
-                                                    .indexWhere((element) {
-                                                  return element.name ==
-                                                      'music';
-                                                });
-                                                state.filters[indexTemp] = state
-                                                    .filters[indexTemp]
-                                                    .copyWith(isApplied: true);
-                                                context
-                                                    .read<HomeCubit>()
-                                                    .updateFilterApplied(
-                                                        filters: List.from(
-                                                      state.filters,
-                                                    ));
-                                              },
-                                              child: state.isLoading &&
-                                                      !state.isSearchOpen
-                                                  ? const EventTypeTileShimmer()
-                                                  : EventTypeTile(
-                                                      isSelected: categoryValue!
-                                                          .isApplied,
-                                                      image: CustomImageProvider
-                                                          .getImageUrl(
-                                                              categoryValue
-                                                                  .icon,
-                                                              ImageType
-                                                                  .profile),
-                                                      title: categoryValue
-                                                          .displayName,
-                                                    ),
-                                            );
-                                          },
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(
-                                              width: 3.w,
-                                            );
-                                          },
-                                          itemCount: state.isLoading
-                                              ? 5
-                                              : state.categoryFilter!.values
-                                                  .length,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                            state.isSearchOpen
-                                ? const SizedBox()
-                                : SizedBox(
-                                    height: 2.h,
-                                  ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                state.isSearchOpen
-                                    ? const SizedBox()
-                                    : GestureDetector(
-                                        onTap: () {},
-                                        child: Text(
-                                          HomeScreenConstants.explorerAll,
-                                          style: themeData.textTheme.bodyMedium!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: themeData
-                                                .colorScheme.background,
+                                                              state.filters));
+                                                },
+                                                child: state.isLoading &&
+                                                        !state.isSearchOpen
+                                                    ? const EventTypeTileShimmer()
+                                                    : EventTypeTile(
+                                                        isSelected:
+                                                            categoryValue!
+                                                                .isApplied,
+                                                        image: CustomImageProvider
+                                                            .getImageUrl(
+                                                                categoryValue
+                                                                    .icon,
+                                                                ImageType
+                                                                    .profile),
+                                                        title: categoryValue
+                                                            .displayName,
+                                                      ),
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return SizedBox(width: 3.w);
+                                            },
+                                            itemCount: state.isLoading
+                                                ? 5
+                                                : state.categoryFilter!.values
+                                                    .length,
                                           ),
                                         ),
-                                      ),
-                                state.isSearchOpen
-                                    ? const SizedBox()
-                                    : SizedBox(
-                                        height: 2.h,
-                                      ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: state.exploreList.map((Map item) {
-                                      return ExploreTile(
-                                        label: item['label'],
-                                        icon: item['svgIcon'] ?? " ",
-                                        isSelected: item['isSelected'],
-                                        key: item['label']
-                                                    .toString()
-                                                    .toLowerCase() ==
-                                                'sort'
-                                            ? state.sortKey
-                                            : Key(item['label']),
-                                        onTap: () async {
-                                          final builderContext = context;
-                                          if (item['label'].toString().toLowerCase() =='filter') {
-                                            showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                builder: (context) {
-                                                  return FilterModalSheet(
-                                                    filters: List.from(state
-                                                        .filters
-                                                        .map((e) => e.copyWith(
-                                                            values: List.from(
-                                                                e.values)))
-                                                        .toList()),
-                                                  );
-                                                }).then((value) {
-                                              if (value != null) {
-                                               // print(value);
-                                                if (value is List<FilterDto>) {
+                                        SizedBox(height: 2.h),
+                                        // GestureDetector(
+                                        //       onTap: () {},
+                                        //       child: Text(
+                                        //         HomeScreenConstants.explorerAll,
+                                        //         style: themeData.textTheme.bodyMedium!
+                                        //             .copyWith(
+                                        //           fontWeight: FontWeight.w600,
+                                        //           color: themeData
+                                        //               .colorScheme.background,
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: state.exploreList
+                                                .map((Map item) {
+                                              return ExploreTile(
+                                                label: item['label'],
+                                                icon: item['svgIcon'] ?? ' ',
+                                                isSelected: item['isSelected'],
+                                                key: item['label']
+                                                            .toString()
+                                                            .toLowerCase() ==
+                                                        'sort'
+                                                    ? state.sortKey
+                                                    : Key(item['label']),
+                                                onTap: () async {
+                                                  final builderContext =
+                                                      context;
+                                                  if (item['label']
+                                                          .toString()
+                                                          .toLowerCase() ==
+                                                      'filter') {
+                                                    showModalBottomSheet(
+                                                        context: context,
+                                                        isScrollControlled:
+                                                            true,
+                                                        builder: (context) {
+                                                          return FilterModalSheet(
+                                                            filters: List.from(state
+                                                                .filters
+                                                                .map((e) => e.copyWith(
+                                                                    values: List
+                                                                        .from(e
+                                                                            .values)))
+                                                                .toList()),
+                                                          );
+                                                        }).then((value) {
+                                                      if (value != null) {
+                                                        // print(value);
+                                                        if (value is List<
+                                                            FilterDto>) {
+                                                          builderContext
+                                                              .read<HomeCubit>()
+                                                              .updateFilterApplied(
+                                                                  filters:
+                                                                      value);
+                                                        }
+                                                      }
+                                                    });
+                                                  } else if (item['label']
+                                                          .toString()
+                                                          .toLowerCase() ==
+                                                      'sort') {
+                                                    context
+                                                        .read<HomeCubit>()
+                                                        .getChipPosition(
+                                                            key: state.sortKey,
+                                                            overlayState:
+                                                                Overlay.of(
+                                                                    context));
+                                                  } else if (item['label']
+                                                          .toString()
+                                                          .toLowerCase() ==
+                                                      'today') {
+                                                    print('today');
+                                                  } else if (item['label']
+                                                          .toString()
+                                                          .toLowerCase() ==
+                                                      'this weekend') {
+                                                    print('weekend');
+                                                  } else if (item['label']
+                                                          .toString()
+                                                          .toLowerCase() ==
+                                                      'date') {
+                                                    print('Date');
 
-                                                  builderContext
-                                                      .read<HomeCubit>()
-                                                      .updateFilterApplied(
-                                                          filters: value);
-                                                }
-                                              }
-                                            });
-                                          } else if (item['label']
-                                                  .toString()
-                                                  .toLowerCase() ==
-                                              'sort') {
-                                            context
-                                                .read<HomeCubit>()
-                                                .getChipPosition(
-                                                    key: state.sortKey,
-                                                    overlayState:
-                                                        Overlay.of(context));
-                                          } else if (item['label']
-                                                  .toString()
-                                                  .toLowerCase() ==
-                                              "today") {
-                                            print("today");
-                                          } else if (item['label']
-                                                  .toString()
-                                                  .toLowerCase() ==
-                                              "this weekend") {
-                                            print("weekend");
-                                          } else if (item['label']
-                                                  .toString()
-                                                  .toLowerCase() ==
-                                              "date") {
-                                            print("Date");
-
-                                              showModalBottomSheet(
-                                                context: context,
-                                                isScrollControlled: true,
-                                                builder: (context) {
-                                                  return DateModalSheet();
-                                                });
-
-
-                                          } else if (item['svgIcon'] ==
-                                              AssetConstants
-                                                  .heartOutlinedIcon) {
-                                            print("heart");
-                                          } else {
-                                            print(item['label']);
-                                            context
-                                                .read<HomeCubit>()
-                                                .removeAppliedFilter(
-                                                    id: item['id']);
-                                          }
-                                        },
-                                      );
-                                    }).toList(),
+                                                    showModalBottomSheet(
+                                                        context: context,
+                                                        isScrollControlled:
+                                                            true,
+                                                        builder: (context) {
+                                                          return DateModalSheet();
+                                                        });
+                                                  } else if (item['svgIcon'] ==
+                                                      AssetConstants
+                                                          .heartOutlinedIcon) {
+                                                    print('heart');
+                                                  } else {
+                                                    print(item['label']);
+                                                    context
+                                                        .read<HomeCubit>()
+                                                        .removeAppliedFilter(
+                                                            id: item['id']);
+                                                  }
+                                                },
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            ListView.builder(
-                              // separatorBuilder: (context, index) {
-                              //   return Divider(color: Colors.red,);
-                              // },
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: state.isLoading
-                                  ? 5
-                                  : (state.hasMoreEvents ? 1 : 0) +
-                                      state.events.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
+                          ),
+                        ),
+                        SliverPadding(
+                          padding: EdgeInsets.all(1.w),
+                          sliver: SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
                                 if (state.hasMoreEvents &&
                                     state.events.length <= index) {
                                   return const EventCardShimmer();
@@ -567,14 +496,20 @@ class HomeScreenConsumer extends StatelessWidget {
                                         ),
                                       );
                               },
-                            )
-                          ]
-                        ],
-                      ),
+                              childCount: state.isLoading
+                                  ? 5
+                                  : (state.hasMoreEvents ? 1 : 0) +
+                                      state.events.length,
+                            ),
+                          ),
+                        ),
+                        // if (state.showLocationDialog)
+                        //   SliverToBoxAdapter(child: LocationDialog()),
+                      ],
                     ),
                     state.showLocationDialog
                         ? const LocationDialog()
-                        : const SizedBox()
+                        : const SizedBox(),
                   ],
                 ),
               ),
@@ -583,6 +518,32 @@ class HomeScreenConsumer extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class FiltersPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minExtent;
+  final double maxExtent;
+  final Widget child;
+
+  FiltersPersistentHeaderDelegate({
+    required this.minExtent,
+    required this.maxExtent,
+    required this.child,
+  });
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: child,
+    );
+  }
+
+  @override
+  bool shouldRebuild(FiltersPersistentHeaderDelegate oldDelegate) {
+    return child != oldDelegate.child;
   }
 }
 

@@ -33,6 +33,7 @@ class HomeState with _$HomeState {
     required bool showPermissionDialog,
     required bool noFilteredEvents,
     required bool noLocatedEvents,
+    required bool isScrollingUp,
     required LocationRepository locationRepository,
     required List<SuggestionDto> suggestions,
     required TextEditingController searchController,
@@ -56,6 +57,7 @@ class HomeState with _$HomeState {
         homeKey: GlobalKey(),
         noUse: false,
         hasMoreEvents: true,
+        isScrollingUp: false,
         searchController: TextEditingController(),
         scrollController: ScrollController(
           keepScrollOffset: true,

@@ -51,6 +51,7 @@ mixin _$HomeState {
   bool get showPermissionDialog => throw _privateConstructorUsedError;
   bool get noFilteredEvents => throw _privateConstructorUsedError;
   bool get noLocatedEvents => throw _privateConstructorUsedError;
+  bool get isScrollingUp => throw _privateConstructorUsedError;
   LocationRepository get locationRepository =>
       throw _privateConstructorUsedError;
   List<SuggestionDto> get suggestions => throw _privateConstructorUsedError;
@@ -105,6 +106,7 @@ abstract class $HomeStateCopyWith<$Res> {
       bool showPermissionDialog,
       bool noFilteredEvents,
       bool noLocatedEvents,
+      bool isScrollingUp,
       LocationRepository locationRepository,
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
@@ -164,6 +166,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? showPermissionDialog = null,
     Object? noFilteredEvents = null,
     Object? noLocatedEvents = null,
+    Object? isScrollingUp = null,
     Object? locationRepository = null,
     Object? suggestions = null,
     Object? searchController = null,
@@ -295,6 +298,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.noLocatedEvents
           : noLocatedEvents // ignore: cast_nullable_to_non_nullable
               as bool,
+      isScrollingUp: null == isScrollingUp
+          ? _value.isScrollingUp
+          : isScrollingUp // ignore: cast_nullable_to_non_nullable
+              as bool,
       locationRepository: null == locationRepository
           ? _value.locationRepository
           : locationRepository // ignore: cast_nullable_to_non_nullable
@@ -418,6 +425,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool showPermissionDialog,
       bool noFilteredEvents,
       bool noLocatedEvents,
+      bool isScrollingUp,
       LocationRepository locationRepository,
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
@@ -479,6 +487,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? showPermissionDialog = null,
     Object? noFilteredEvents = null,
     Object? noLocatedEvents = null,
+    Object? isScrollingUp = null,
     Object? locationRepository = null,
     Object? suggestions = null,
     Object? searchController = null,
@@ -610,6 +619,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.noLocatedEvents
           : noLocatedEvents // ignore: cast_nullable_to_non_nullable
               as bool,
+      isScrollingUp: null == isScrollingUp
+          ? _value.isScrollingUp
+          : isScrollingUp // ignore: cast_nullable_to_non_nullable
+              as bool,
       locationRepository: null == locationRepository
           ? _value.locationRepository
           : locationRepository // ignore: cast_nullable_to_non_nullable
@@ -684,6 +697,7 @@ class _$HomeStateImpl implements _HomeState {
       required this.showPermissionDialog,
       required this.noFilteredEvents,
       required this.noLocatedEvents,
+      required this.isScrollingUp,
       required this.locationRepository,
       required this.suggestions,
       required this.searchController,
@@ -755,6 +769,8 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final bool noLocatedEvents;
   @override
+  final bool isScrollingUp;
+  @override
   final LocationRepository locationRepository;
   @override
   final List<SuggestionDto> suggestions;
@@ -775,7 +791,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, searchRepository: $searchRepository, homeKey: $homeKey, user: $user, searchResults: $searchResults, searchLoading: $searchLoading)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, isScrollingUp: $isScrollingUp, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, searchRepository: $searchRepository, homeKey: $homeKey, user: $user, searchResults: $searchResults, searchLoading: $searchLoading)';
   }
 
   @override
@@ -839,6 +855,8 @@ class _$HomeStateImpl implements _HomeState {
                 other.noFilteredEvents == noFilteredEvents) &&
             (identical(other.noLocatedEvents, noLocatedEvents) ||
                 other.noLocatedEvents == noLocatedEvents) &&
+            (identical(other.isScrollingUp, isScrollingUp) ||
+                other.isScrollingUp == isScrollingUp) &&
             (identical(other.locationRepository, locationRepository) ||
                 other.locationRepository == locationRepository) &&
             const DeepCollectionEquality()
@@ -890,6 +908,7 @@ class _$HomeStateImpl implements _HomeState {
         showPermissionDialog,
         noFilteredEvents,
         noLocatedEvents,
+        isScrollingUp,
         locationRepository,
         const DeepCollectionEquality().hash(suggestions),
         searchController,
@@ -940,6 +959,7 @@ abstract class _HomeState implements HomeState {
       required final bool showPermissionDialog,
       required final bool noFilteredEvents,
       required final bool noLocatedEvents,
+      required final bool isScrollingUp,
       required final LocationRepository locationRepository,
       required final List<SuggestionDto> suggestions,
       required final TextEditingController searchController,
@@ -1010,6 +1030,8 @@ abstract class _HomeState implements HomeState {
   bool get noFilteredEvents;
   @override
   bool get noLocatedEvents;
+  @override
+  bool get isScrollingUp;
   @override
   LocationRepository get locationRepository;
   @override

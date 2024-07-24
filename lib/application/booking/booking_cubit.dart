@@ -91,6 +91,8 @@ class BookingCubit extends Cubit<BookingState> {
   void createBooking() async {
     
       emit(state.copyWith(isLoading: true));
+      print(state.event!.id);
+    //  print(state.event!.eventTicketCategories);
     final List<Map<String, dynamic>> tickets =
         state.event!.eventTicketCategories.map((e) {
       return {
@@ -98,9 +100,12 @@ class BookingCubit extends Cubit<BookingState> {
         'noOfTickets': e.currentTicketsCount,
       };
     }).toList();
+    print(tickets);
 
     final response = await state.eventRepository
         .createBooking(eventId: state.event!.id, tickets: tickets);
+    
+    print(response);
     response.fold((l) {
       emit(state.copyWith(
         isLoading: false,

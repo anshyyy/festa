@@ -11,6 +11,7 @@ class AssetConstants {
   static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
 
   static const searchIcon = '${vectorsFolder}search-icon.svg';
+  static const tradingIcon = '${vectorsFolder}trading.svg';
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
   static const homeBobsBarImg = '${vectorsFolder}bobsbarimg.png';
   static const homeFilledLocation = '${vectorsFolder}home-filled-location.svg';

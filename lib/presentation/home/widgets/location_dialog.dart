@@ -47,7 +47,7 @@ class LocationDialog extends StatelessWidget {
 
                     Navigator.pop(context);
 
-                    // context.read<PermissionCubit>().requestStoragePermission();
+                    //context.read<PermissionCubit>().requestStoragePermission();
                   },
                   child: Text(
                     'OK',

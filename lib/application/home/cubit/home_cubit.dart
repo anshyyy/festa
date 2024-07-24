@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart' show Either;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geolocator/geolocator.dart';
@@ -58,6 +59,16 @@ class HomeCubit extends Cubit<HomeState> {
             getEvents();
           }
         }
+      }
+
+
+      if (state.scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+         emit(state.copyWith(isScrollingUp: true));
+      }
+      if (state.scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+       emit(state.copyWith(isScrollingUp: false));
       }
     });
 

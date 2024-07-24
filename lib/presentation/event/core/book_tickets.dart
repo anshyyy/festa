@@ -24,7 +24,7 @@ class TicketBookingWidget extends StatelessWidget {
       height: 12.5.h,
       width: 100.w,
       padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
-      color: Theme.of(context).colorScheme.background.withOpacity(.1),
+      
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

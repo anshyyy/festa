@@ -86,8 +86,11 @@ class BookTicketScreenConsumer extends StatelessWidget {
                               height: 2.h,
                             ),
                             ...state.event!.eventTicketCategories.map((e) {
-                              return TicketCategory(
-                                eventTicketCategory: e,
+                              return Padding(
+                                padding: const EdgeInsets.only(top:5,bottom: 5),
+                                child: TicketCategory(
+                                  eventTicketCategory: e,
+                                ),
                               );
                             })
                           ],

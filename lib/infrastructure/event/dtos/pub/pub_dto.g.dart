@@ -21,6 +21,12 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
       tag: json['tag'] == null
           ? null
           : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
+      barMenu: (json['barMenu'] as List<dynamic>?)
+          ?.map((e) => MenuDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      foodMenu: (json['foodMenu'] as List<dynamic>?)
+          ?.map((e) => MenuDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
       location: json['address'] == null
           ? null
           : PubLocationDto.fromJson(json['address'] as Map<String, dynamic>),
@@ -28,6 +34,10 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
           ? null
           : PubExtraDetailsDto.fromJson(
               json['extraDetails'] as Map<String, dynamic>),
+      happyHours: (json['happyHours'] as List<dynamic>?)
+              ?.map((e) => MenuDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       openingHours: json['openingHours'] == null
           ? null
           : PubOpeningHours.fromJson(
@@ -45,7 +55,10 @@ Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
       'coverImageUrl': instance.coverImageUrl,
       'assets': instance.assets,
       'tag': instance.tag,
+      'barMenu': instance.barMenu,
+      'foodMenu': instance.foodMenu,
       'address': instance.location,
       'extraDetails': instance.extraDetailsDto,
+      'happyHours': instance.happyHours,
       'openingHours': instance.openingHours,
     };

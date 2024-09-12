@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
 import '../../../domain/core/utils/image_provider.dart';
@@ -15,7 +16,7 @@ class ImageCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
-        
+         
       },
       builder: (context, state) {
         return Stack(
@@ -23,16 +24,27 @@ class ImageCarousel extends StatelessWidget {
             CarouselSlider.builder(
                 itemCount: state.pub!.assets.length,
                 itemBuilder: (context, imageIndex, realIndex) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(
-                          CustomImageProvider.getImageUrl(state.pub!.assets[imageIndex].url, ImageType.other),
+              
+                  final asset = state.pub!.assets[imageIndex];                  
+                  // (asset);
+                  // (asset.type);
+                  if (asset.type == 'image') {
+                    return Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: CachedNetworkImageProvider(
+                            CustomImageProvider.getImageUrl(
+                                asset.url,
+                                ImageType.other),
+                          ),
                         ),
                       ),
-                    ),
-                  );
+                    );
+                  } else if (asset.type == 'video') {
+                    return VideoPlayerWidget(videoUrl: asset.url);
+                  }
+                  return SizedBox();
                 },
                 options: CarouselOptions(
                   height: 60.h,
@@ -73,6 +85,77 @@ class ImageCarousel extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+
+class VideoPlayerWidget extends StatefulWidget {
+  final String videoUrl;
+
+  const VideoPlayerWidget({Key? key, required this.videoUrl}) : super(key: key);
+
+  @override
+  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
+}
+
+class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = 
+    
+    VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+      ..initialize().then((_) {
+        _controller.play();
+        _controller.setLooping(true);
+        setState(() {});
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _controller.value.isInitialized
+        ? AspectRatio(
+            aspectRatio: 16/9,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                VideoPlayer(_controller),
+                _ControlsOverlay(controller: _controller),
+              ],
+            ),
+          )
+        : Container(
+            color: Colors.black,
+            child: const Center(child: CircularProgressIndicator()),
+          );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+}
+
+class _ControlsOverlay extends StatelessWidget {
+  const _ControlsOverlay({Key? key, required this.controller}) : super(key: key);
+
+  final VideoPlayerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            controller.value.isPlaying ? controller.setVolume(0) : controller.setVolume(1);
+          },
+        ),
+      ],
     );
   }
 }

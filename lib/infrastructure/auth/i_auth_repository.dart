@@ -46,7 +46,6 @@ class IAuthRepository extends AuthRepository {
           // }
         },
         verificationFailed: (FirebaseAuthException exeption) {
-           print(exeption);
           _verifyPhoneException = exeption;
           if (!completer!.isCompleted) completer!.complete(false);
         },
@@ -83,6 +82,7 @@ class IAuthRepository extends AuthRepository {
     required String code,
   }) async {
     try {
+
       final AuthCredential authCredential = PhoneAuthProvider.credential(
         verificationId: verificationCode,
         smsCode: code,
@@ -135,7 +135,6 @@ class IAuthRepository extends AuthRepository {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
       final String? fcmToken = await getFCMToken();
       print(fcmToken);
-      // ignore: avoid_print
       print(token);
       if (token == null) {
         return null;
@@ -143,10 +142,13 @@ class IAuthRepository extends AuthRepository {
       final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
       final response = await RESTService.performGETRequest(
           httpUrl: url, isAuth: true, token: token);
+
+      print(response.body);
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
       final data = jsonDecode(response.body);
+      ("this is $data");
       return UserDto.fromJson(data);
     } catch (error) {
       return null;

@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
+import '../../../../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
 import '../../../../../presentation/artist_profile/artist_profile_screen.dart';
 import '../../../../../presentation/artist_profile/widgets/artist_community_screen.dart';
 import '../../../../../presentation/auth/auth_screen.dart';
@@ -25,6 +28,11 @@ import '../../../../../presentation/event/booking/payment_status_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/notifications/notification_screen.dart';
+import '../../../../../presentation/ticket/cover/cover_screen.dart';
+import '../../../../../presentation/ticket/cover/cover_transaction_history.dart';
+import '../../../../../presentation/ticket/history_tickets/past_ticket_history.dart';
+import '../../../../../presentation/ticket/history_tickets/past_ticket_screen.dart';
+import '../../../../../presentation/ticket/review/review_screen.dart';
 import '../../../../../presentation/user/other_user_profile_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_privacy/account_privacy_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_settings_screen.dart';
@@ -48,7 +56,6 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
   final routingData = settings.name!.getRoutingData;
 
   switch (routingData.route) {
-    
     case AuthRoutes.basicInfoRoute:
       return _getPageRoute(const BasicProfileScreen(), settings);
 
@@ -78,8 +85,9 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.profileAndSettingsRoute:
       final email = routingData.queryParameters['email'] ?? '';
-      //print("this is the $email");
-      return _getPageRoute(ProfileAndSettingsScreen(providedEmail: email.toString()), settings);
+      //("this is the $email");
+      return _getPageRoute(
+          ProfileAndSettingsScreen(providedEmail: email.toString()), settings);
 
     case UserRoutes.personalizeExperienceRoute:
       return _getPageRoute(const PersonalizeYourExperienceScreen(), settings);
@@ -185,7 +193,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.paymentDetailsRoute:
       return _getPageRoute(
           PaymentDetails(
-            arguments: settings.arguments,
+            bookingDetails: settings.arguments as EventBookingDetailsDto,
           ),
           settings);
 
@@ -199,7 +207,11 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           routingData.queryParameters['numberOfTickets'] ?? '0';
       final String totalAmount =
           routingData.queryParameters['totalAmount'] ?? '0';
-
+      final String? coverAmount =  routingData.queryParameters['coverAmount'];
+      double? cover = double.parse(coverAmount??'0');
+      if(cover == 0){
+        cover = null;
+      }
       return _getPageRoute(
           PaymentStatusScreen(
             isPaymentSuccess: isPaymentSuccess,
@@ -209,6 +221,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
               eventId,
             ),
             totalAmount: double.parse(totalAmount),
+            coverAmount: cover,
           ),
           settings);
 
@@ -257,21 +270,57 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.notificationsRoute:
       return _getPageRoute(const NotificationsScreen(), settings);
+    case UserRoutes.coverTransactionHistory:
+      var bookingId =
+          int.parse(routingData.queryParameters['bookingId'] ?? '0');
+      return _getPageRoute(
+          CoverTransactionHistory(bookingId: bookingId), settings);
+    case UserRoutes.pastTickets:
+      return _getPageRoute(const PastTicketScreen(), settings);
+    case UserRoutes.ticketHistory:
+      final String? ticketJsonString = routingData.queryParameters['ticket'];
+      final BookedTicketDetailsDto ticket =
+          BookedTicketDetailsDto.fromJson(jsonDecode(ticketJsonString ?? ""));
+      // Now you can use `ticket` as the original object
+
+
+      return _getPageRoute(PastTicketHistory(ticket: ticket), settings);
+
+    case UserRoutes.addCoverRoute:
+      var bookingId =
+          int.parse(routingData.queryParameters['bookingId'] ?? '0');
+      var eventId =
+          int.parse(routingData.queryParameters['eventId'] ?? '0');
+      var transactionId =
+                routingData.queryParameters['transactionId'] as String;
+      
+      return _getPageRoute(
+          CoverScreen(
+            bookingId: bookingId,
+            transactionId: transactionId,
+            eventId: eventId,
+          ),
+          settings);
+    case UserRoutes.reviewScreen:
+      final eventName = routingData.queryParameters['eventName'] ?? '0';
+      final eventTime = routingData.queryParameters['eventTime'] ?? '0';
+      return _getPageRoute(
+          ReviewScreen(eventName: eventName, eventTime: eventTime), settings);
 
     case UserRoutes.mediaViewerWidgetScreen:
       final type = routingData.queryParameters['type'] ?? 'image';
       final url = routingData.queryParameters['url'] ?? '';
       final pubId = routingData.queryParameters['pubId'] ?? '';
-      final assets = routingData.queryParameters['assets']!.split(",")??[];
-      final currentIndex =  int.parse(routingData.queryParameters['currentIndex']!);
+      final assets = routingData.queryParameters['assets']!.split(",") ?? [];
+      final currentIndex =
+          int.parse(routingData.queryParameters['currentIndex']!);
       return _getPageRoute(
           MediaViewerWidget(
-            type: type,
-            url: url,
-            pubId: int.parse(pubId),
-            assets : assets,
-            currentIndex : currentIndex
-          ),
+              type: type,
+              url: url,
+              pubId: int.parse(pubId),
+              assets: assets,
+              currentIndex: currentIndex),
           settings);
 
     default:

@@ -158,7 +158,8 @@ class NewReleaseAvailable extends StatelessWidget {
                   Text(
                     AppConstants.updateAvailable,
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Theme.of(context).colorScheme.primaryContainer,
+                          color: Theme.of(context).colorScheme.background,
+                          fontWeight: FontWeight.w700
                         ),
                   ),
                 ],
@@ -193,7 +194,7 @@ class NewReleaseAvailable extends StatelessWidget {
                           .copyWith(
                             fontSize: 16.sp,
                             color:
-                                Theme.of(context).colorScheme.primaryContainer,
+                                Theme.of(context).colorScheme.background,
                           ),
                       backgroundColor:
                           Theme.of(context).scaffoldBackgroundColor,
@@ -212,7 +213,7 @@ class NewReleaseAvailable extends StatelessWidget {
                           .bodySmall!
                           .copyWith(
                             fontSize: 16.sp,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Colors.white,
                           ),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       borderColor: Theme.of(context).colorScheme.primary,
@@ -225,6 +226,7 @@ class NewReleaseAvailable extends StatelessWidget {
                       }),
                 ],
               ),
+               SizedBox(height: 2.h),
             ],
           ),
         ),

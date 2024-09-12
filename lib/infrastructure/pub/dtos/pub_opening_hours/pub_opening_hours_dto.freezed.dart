@@ -20,8 +20,12 @@ PubOpeningHours _$PubOpeningHoursFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PubOpeningHours {
+  @JsonKey(name: 'periods')
+  List<Period> get periods => throw _privateConstructorUsedError;
   @JsonKey(name: 'open_now', defaultValue: false)
   bool get openNow => throw _privateConstructorUsedError;
+  @JsonKey(name: 'weekday_text')
+  List<String> get weekdayText => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +39,10 @@ abstract class $PubOpeningHoursCopyWith<$Res> {
           PubOpeningHours value, $Res Function(PubOpeningHours) then) =
       _$PubOpeningHoursCopyWithImpl<$Res, PubOpeningHours>;
   @useResult
-  $Res call({@JsonKey(name: 'open_now', defaultValue: false) bool openNow});
+  $Res call(
+      {@JsonKey(name: 'periods') List<Period> periods,
+      @JsonKey(name: 'open_now', defaultValue: false) bool openNow,
+      @JsonKey(name: 'weekday_text') List<String> weekdayText});
 }
 
 /// @nodoc
@@ -51,13 +58,23 @@ class _$PubOpeningHoursCopyWithImpl<$Res, $Val extends PubOpeningHours>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? periods = null,
     Object? openNow = null,
+    Object? weekdayText = null,
   }) {
     return _then(_value.copyWith(
+      periods: null == periods
+          ? _value.periods
+          : periods // ignore: cast_nullable_to_non_nullable
+              as List<Period>,
       openNow: null == openNow
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
               as bool,
+      weekdayText: null == weekdayText
+          ? _value.weekdayText
+          : weekdayText // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -70,7 +87,10 @@ abstract class _$$PubOpeningHoursImplCopyWith<$Res>
       __$$PubOpeningHoursImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'open_now', defaultValue: false) bool openNow});
+  $Res call(
+      {@JsonKey(name: 'periods') List<Period> periods,
+      @JsonKey(name: 'open_now', defaultValue: false) bool openNow,
+      @JsonKey(name: 'weekday_text') List<String> weekdayText});
 }
 
 /// @nodoc
@@ -84,13 +104,23 @@ class __$$PubOpeningHoursImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? periods = null,
     Object? openNow = null,
+    Object? weekdayText = null,
   }) {
     return _then(_$PubOpeningHoursImpl(
+      periods: null == periods
+          ? _value._periods
+          : periods // ignore: cast_nullable_to_non_nullable
+              as List<Period>,
       openNow: null == openNow
           ? _value.openNow
           : openNow // ignore: cast_nullable_to_non_nullable
               as bool,
+      weekdayText: null == weekdayText
+          ? _value._weekdayText
+          : weekdayText // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -99,18 +129,39 @@ class __$$PubOpeningHoursImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PubOpeningHoursImpl implements _PubOpeningHours {
   const _$PubOpeningHoursImpl(
-      {@JsonKey(name: 'open_now', defaultValue: false) required this.openNow});
+      {@JsonKey(name: 'periods') required final List<Period> periods,
+      @JsonKey(name: 'open_now', defaultValue: false) required this.openNow,
+      @JsonKey(name: 'weekday_text') required final List<String> weekdayText})
+      : _periods = periods,
+        _weekdayText = weekdayText;
 
   factory _$PubOpeningHoursImpl.fromJson(Map<String, dynamic> json) =>
       _$$PubOpeningHoursImplFromJson(json);
 
+  final List<Period> _periods;
+  @override
+  @JsonKey(name: 'periods')
+  List<Period> get periods {
+    if (_periods is EqualUnmodifiableListView) return _periods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_periods);
+  }
+
   @override
   @JsonKey(name: 'open_now', defaultValue: false)
   final bool openNow;
+  final List<String> _weekdayText;
+  @override
+  @JsonKey(name: 'weekday_text')
+  List<String> get weekdayText {
+    if (_weekdayText is EqualUnmodifiableListView) return _weekdayText;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_weekdayText);
+  }
 
   @override
   String toString() {
-    return 'PubOpeningHours(openNow: $openNow)';
+    return 'PubOpeningHours(periods: $periods, openNow: $openNow, weekdayText: $weekdayText)';
   }
 
   @override
@@ -118,12 +169,19 @@ class _$PubOpeningHoursImpl implements _PubOpeningHours {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PubOpeningHoursImpl &&
-            (identical(other.openNow, openNow) || other.openNow == openNow));
+            const DeepCollectionEquality().equals(other._periods, _periods) &&
+            (identical(other.openNow, openNow) || other.openNow == openNow) &&
+            const DeepCollectionEquality()
+                .equals(other._weekdayText, _weekdayText));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, openNow);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_periods),
+      openNow,
+      const DeepCollectionEquality().hash(_weekdayText));
 
   @JsonKey(ignore: true)
   @override
@@ -142,15 +200,24 @@ class _$PubOpeningHoursImpl implements _PubOpeningHours {
 
 abstract class _PubOpeningHours implements PubOpeningHours {
   const factory _PubOpeningHours(
-      {@JsonKey(name: 'open_now', defaultValue: false)
-      required final bool openNow}) = _$PubOpeningHoursImpl;
+      {@JsonKey(name: 'periods') required final List<Period> periods,
+      @JsonKey(name: 'open_now', defaultValue: false)
+      required final bool openNow,
+      @JsonKey(name: 'weekday_text')
+      required final List<String> weekdayText}) = _$PubOpeningHoursImpl;
 
   factory _PubOpeningHours.fromJson(Map<String, dynamic> json) =
       _$PubOpeningHoursImpl.fromJson;
 
   @override
+  @JsonKey(name: 'periods')
+  List<Period> get periods;
+  @override
   @JsonKey(name: 'open_now', defaultValue: false)
   bool get openNow;
+  @override
+  @JsonKey(name: 'weekday_text')
+  List<String> get weekdayText;
   @override
   @JsonKey(ignore: true)
   _$$PubOpeningHoursImplCopyWith<_$PubOpeningHoursImpl> get copyWith =>

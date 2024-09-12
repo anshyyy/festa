@@ -61,13 +61,14 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           showModalBottomSheet(
               context: context,
               builder: (context) => OpenMapsModal(
-                    title: state.event!.name,
+                    title: state.event?.pub?.fullName ?? '',
                     coords: state.eventLocation!,
                     mapsOptions: state.mapsOptions,
                   ));
         }
       },
       builder: (context, state) {
+        (state);
         final event = state.event;
         final List<GlobalKey> tileKeys = [
           GlobalKey(),
@@ -86,14 +87,15 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
-                        startDate: event.startDate,
-                        priceRangeStart: event.priceRangeStart,
-                        priceRangeEnd: event.priceRangeEnd!,
+                        startDate: event.startDate, // Provide a default value
+                        priceRangeStart: event.priceRangeStart ??
+                            0, // Provide a default value
+                        priceRangeEnd: event.priceRangeEnd ?? 0,
                         onClick: () {
                           navigator<NavigationService>().navigateTo(
                               UserRoutes.bookingRoute,
                               queryParams: {
-                                'eventId': state.event!.id.toString(),
+                                'eventId': state.event?.id.toString() ?? "",
                               });
                         },
                       ),
@@ -104,7 +106,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         .background
                         .withOpacity(.02),
                     leading: GestureDetector(
-                        onTap: () => navigator<NavigationService>().goBack(),
+                        onTap: () {
+                           navigator<NavigationService>().goBack();
+                        },
                         child: Center(
                             child: SvgPicture.asset(
                           AssetConstants.arrowLeft,
@@ -113,11 +117,13 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     actions: [
                       GestureDetector(
                         onTap: () {
+                        
                           showModalBottomSheet(
                             isScrollControlled: true,
                             context: context,
                             builder: (context) => EventOptionsModalSheet(
-                              eventId: state.event!.id,
+                              eventId: state.event?.id ?? 0,
+                              eventName: state.event?.name ?? "",
                             ),
                           );
                         },
@@ -132,7 +138,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 0.w),
                         child: EventCard(
                           vKey: event.id.toString(),
                           loadData: () {
@@ -140,7 +146,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               context
                                   .read<EventDetailsCubit>()
                                   .fetchEventDetails(
-                                      id: state.event!.id,
+                                      id: state.event?.id ?? 0,
                                       isUpdatedDetails: true);
                             }
                           },
@@ -163,7 +169,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               lat: state.event?.address?.lat ?? 0,
                               long: state.event?.address?.lng ?? 0,
                               isAndroid: Platform.isAndroid,
-                              eventTitle: state.event?.name ?? '');
+                              eventTitle: state.event?.pub?.fullName?? '');
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -237,208 +243,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      // LSD
-                      // Theme(
-                      //   data: Theme.of(context)
-                      //       .copyWith(dividerColor: Colors.transparent),
-                      //   child: ExpansionTile(
-                      //     initiallyExpanded: true,
-                      //     onExpansionChanged: (value) {
-                      //       if (value) {
-                      //         Scrollable.ensureVisible(
-                      //             tileKeys[1].currentContext!);
-                      //       }
-                      //     },
-                      //     iconColor: Theme.of(context).colorScheme.background,
-                      //     collapsedIconColor:
-                      //         Theme.of(context).colorScheme.background,
-                      //     collapsedBackgroundColor:
-                      //         Theme.of(context).colorScheme.primaryContainer,
-                      //     backgroundColor:
-                      //         Theme.of(context).colorScheme.primaryContainer,
-                      //     title: Text(
-                      //       EventScreenConstants.lsd,
-                      //       style: Theme.of(context)
-                      //           .textTheme
-                      //           .bodySmall!
-                      //           .copyWith(
-                      //               color: Theme.of(context)
-                      //                   .colorScheme
-                      //                   .background,
-                      //               fontWeight: FontWeight.w600),
-                      //     ),
-                      //     key: tileKeys[1],
-                      //     children: [
-                      //       ...event.lsd.map((e) {
-                      //         return Padding(
-                      //           padding: EdgeInsets.symmetric(horizontal: 3.5.w)
-                      //               .copyWith(bottom: 1.h),
-                      //           child: Row(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               SvgPicture.asset(
-                      //                 AssetConstants.extras[e.type]!,
-                      //                 height: 3.h,
-                      //               ),
-                      //               SizedBox(
-                      //                 width: 2.w,
-                      //               ),
-                      //               Expanded(
-                      //                   child: Text(
-                      //                 e.text,
-                      //                 maxLines: 2,
-                      //                 style: Theme.of(context)
-                      //                     .textTheme
-                      //                     .bodySmall!
-                      //                     .copyWith(
-                      //                       color: Theme.of(context)
-                      //                           .colorScheme
-                      //                           .background,
-                      //                     ),
-                      //               )),
-                      //             ],
-                      //           ),
-                      //         );
-                      //       })
-                      //     ],
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-
-                      // Ambience
-                      // Theme(
-                      //   data: Theme.of(context)
-                      //       .copyWith(dividerColor: Colors.transparent),
-                      //   child: ExpansionTile(
-                      //     initiallyExpanded: true,
-                      //     onExpansionChanged: (value) {
-                      //       if (value) {
-                      //         Scrollable.ensureVisible(
-                      //             tileKeys[2].currentContext!);
-                      //       }
-                      //     },
-                      //     iconColor: Theme.of(context).colorScheme.background,
-                      //     collapsedIconColor:
-                      //         Theme.of(context).colorScheme.background,
-                      //     collapsedBackgroundColor:
-                      //         Theme.of(context).colorScheme.primaryContainer,
-                      //     backgroundColor:
-                      //         Theme.of(context).colorScheme.primaryContainer,
-                      //     key: tileKeys[2],
-                      //     title: Text(
-                      //       EventScreenConstants.ambience,
-                      //       style: Theme.of(context)
-                      //           .textTheme
-                      //           .bodySmall!
-                      //           .copyWith(
-                      //               color: Theme.of(context)
-                      //                   .colorScheme
-                      //                   .background,
-                      //               fontWeight: FontWeight.w600),
-                      //     ),
-                      //     children: [
-                      //       ...event.ambience.map((e) {
-                      //         return Padding(
-                      //           padding: EdgeInsets.symmetric(
-                      //             horizontal: 3.5.w,
-                      //           ).copyWith(bottom: 1.h),
-                      //           child: Row(
-                      //             children: [
-                      //               Expanded(
-                      //                   child: Text(
-                      //                 e.text,
-                      //                 maxLines: 2,
-                      //                 style: Theme.of(context)
-                      //                     .textTheme
-                      //                     .bodySmall!
-                      //                     .copyWith(
-                      //                       color: Theme.of(context)
-                      //                           .colorScheme
-                      //                           .background,
-                      //                     ),
-                      //               )),
-                      //             ],
-                      //           ),
-                      //         );
-                      //       })
-                      //     ],
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-
-                      // Food
-                      //  Theme(
-                      //   data: Theme.of(context)
-                      //       .copyWith(dividerColor: Colors.transparent),
-                      //   child: ExpansionTile(
-                      //     initiallyExpanded: true,
-                      //     onExpansionChanged: (value) {
-                      //       if (value) {
-                      //         Scrollable.ensureVisible(
-                      //             tileKeys[3].currentContext!);
-                      //       }
-                      //     },
-                      //     iconColor: Theme.of(context).colorScheme.background,
-                      //     collapsedIconColor:
-                      //         Theme.of(context).colorScheme.background,
-                      //     collapsedBackgroundColor:
-                      //         Theme.of(context).colorScheme.primaryContainer,
-                      //     backgroundColor:
-                      //         Theme.of(context).colorScheme.primaryContainer,
-                      //     key: tileKeys[3],
-                      //     title: Text(
-                      //       EventScreenConstants.foodAndBeverages,
-                      //       style: Theme.of(context)
-                      //           .textTheme
-                      //           .bodySmall!
-                      //           .copyWith(
-                      //               color: Theme.of(context)
-                      //                   .colorScheme
-                      //                   .background,
-                      //               fontWeight: FontWeight.w600),
-                      //     ),
-                      //     children: [
-                      //       ...event.foodAndBeverages.map((e) {
-                      //         return Padding(
-                      //           padding: EdgeInsets.symmetric(
-                      //             horizontal: 3.5.w,
-                      //           ).copyWith(bottom: 1.h),
-                      //           child: Row(
-                      //             children: [
-                      //               SvgPicture.asset(
-                      //                 AssetConstants.extras[e.type]!,
-                      //                 height: 3.h,
-                      //               ),
-                      //               SizedBox(
-                      //                 width: 2.w,
-                      //               ),
-                      //               Expanded(
-                      //                   child: Text(
-                      //                 e.text,
-                      //                 maxLines: 2,
-                      //                 style: Theme.of(context)
-                      //                     .textTheme
-                      //                     .bodySmall!
-                      //                     .copyWith(
-                      //                       color: Theme.of(context)
-                      //                           .colorScheme
-                      //                           .background,
-                      //                     ),
-                      //               )),
-                      //             ],
-                      //           ),
-                      //         );
-                      //       })
-                      //     ],
-                      //   ),
-                      // ),
+                    
                       const SizedBox(height: 10),
                       // rules box
 
@@ -482,9 +287,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: event.faqs.length,
                               itemBuilder: (context, index) {
-                                final e = event.faqs[index];
+                                final e = event.termsAndConditions[index];
                                 return Padding(
-                                  key: event.faqs.length - 1 == index
+                                  key: event.termsAndConditions.length - 1 == index
                                       ? tileKeys[6]
                                       : null,
                                   padding:
@@ -513,7 +318,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              e.question,
+                                              e.text,
                                               maxLines: 10,
                                               style: Theme.of(context)
                                                   .textTheme

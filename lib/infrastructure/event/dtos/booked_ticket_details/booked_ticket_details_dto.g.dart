@@ -11,6 +11,7 @@ _$BookedTicketDetailsDtoImpl _$$BookedTicketDetailsDtoImplFromJson(
     _$BookedTicketDetailsDtoImpl(
       id: json['id'] as int? ?? 0,
       numberOfTickets: json['numberOfTickets'] as int? ?? 0,
+      remainingAmount: (json['remainingAmount'] as num?)?.toDouble() ?? 0,
       eventTicketDetails: (json['ticketDetails'] as List<dynamic>?)
               ?.map((e) =>
                   EventTicketDetailDto.fromJson(e as Map<String, dynamic>))
@@ -29,6 +30,7 @@ Map<String, dynamic> _$$BookedTicketDetailsDtoImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'numberOfTickets': instance.numberOfTickets,
+      'remainingAmount': instance.remainingAmount,
       'ticketDetails': instance.eventTicketDetails,
       'event': instance.eventDetails,
       'paymentMethod': instance.paymentMethod,

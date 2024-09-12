@@ -21,10 +21,18 @@ mixin _$BookingState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
+  bool get isCouponLoading => throw _privateConstructorUsedError;
+  bool get isCouponFailed => throw _privateConstructorUsedError;
+  bool get isCouponSuccess => throw _privateConstructorUsedError;
+  String get couponCode => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
+  CouponDTO? get coupon => throw _privateConstructorUsedError;
+  TextEditingController get discountController =>
+      throw _privateConstructorUsedError;
   double get totalPrice => throw _privateConstructorUsedError;
+  double get priceAfterCouponApplied => throw _privateConstructorUsedError;
   bool get isBookingEnabled => throw _privateConstructorUsedError;
   EventBookingDetailsDto? get bookingDetails =>
       throw _privateConstructorUsedError;
@@ -48,16 +56,24 @@ abstract class $BookingStateCopyWith<$Res> {
       bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool isCouponLoading,
+      bool isCouponFailed,
+      bool isCouponSuccess,
+      String couponCode,
       bool noUse,
       EventRepository eventRepository,
       EventDto? event,
+      CouponDTO? coupon,
+      TextEditingController discountController,
       double totalPrice,
+      double priceAfterCouponApplied,
       bool isBookingEnabled,
       EventBookingDetailsDto? bookingDetails,
       bool isBookingSuccess,
       bool isBookingFailure});
 
   $EventDtoCopyWith<$Res>? get event;
+  $CouponDTOCopyWith<$Res>? get coupon;
   $EventBookingDetailsDtoCopyWith<$Res>? get bookingDetails;
 }
 
@@ -79,10 +95,17 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? isCouponLoading = null,
+    Object? isCouponFailed = null,
+    Object? isCouponSuccess = null,
+    Object? couponCode = null,
     Object? noUse = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? coupon = freezed,
+    Object? discountController = null,
     Object? totalPrice = null,
+    Object? priceAfterCouponApplied = null,
     Object? isBookingEnabled = null,
     Object? bookingDetails = freezed,
     Object? isBookingSuccess = null,
@@ -109,6 +132,22 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
+      isCouponLoading: null == isCouponLoading
+          ? _value.isCouponLoading
+          : isCouponLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCouponFailed: null == isCouponFailed
+          ? _value.isCouponFailed
+          : isCouponFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCouponSuccess: null == isCouponSuccess
+          ? _value.isCouponSuccess
+          : isCouponSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      couponCode: null == couponCode
+          ? _value.couponCode
+          : couponCode // ignore: cast_nullable_to_non_nullable
+              as String,
       noUse: null == noUse
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
@@ -121,9 +160,21 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      coupon: freezed == coupon
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponDTO?,
+      discountController: null == discountController
+          ? _value.discountController
+          : discountController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
       totalPrice: null == totalPrice
           ? _value.totalPrice
           : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      priceAfterCouponApplied: null == priceAfterCouponApplied
+          ? _value.priceAfterCouponApplied
+          : priceAfterCouponApplied // ignore: cast_nullable_to_non_nullable
               as double,
       isBookingEnabled: null == isBookingEnabled
           ? _value.isBookingEnabled
@@ -158,6 +209,18 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
 
   @override
   @pragma('vm:prefer-inline')
+  $CouponDTOCopyWith<$Res>? get coupon {
+    if (_value.coupon == null) {
+      return null;
+    }
+
+    return $CouponDTOCopyWith<$Res>(_value.coupon!, (value) {
+      return _then(_value.copyWith(coupon: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $EventBookingDetailsDtoCopyWith<$Res>? get bookingDetails {
     if (_value.bookingDetails == null) {
       return null;
@@ -184,10 +247,17 @@ abstract class _$$$BookingStateImplCopyWith<$Res>
       bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool isCouponLoading,
+      bool isCouponFailed,
+      bool isCouponSuccess,
+      String couponCode,
       bool noUse,
       EventRepository eventRepository,
       EventDto? event,
+      CouponDTO? coupon,
+      TextEditingController discountController,
       double totalPrice,
+      double priceAfterCouponApplied,
       bool isBookingEnabled,
       EventBookingDetailsDto? bookingDetails,
       bool isBookingSuccess,
@@ -195,6 +265,8 @@ abstract class _$$$BookingStateImplCopyWith<$Res>
 
   @override
   $EventDtoCopyWith<$Res>? get event;
+  @override
+  $CouponDTOCopyWith<$Res>? get coupon;
   @override
   $EventBookingDetailsDtoCopyWith<$Res>? get bookingDetails;
 }
@@ -215,10 +287,17 @@ class __$$$BookingStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? isCouponLoading = null,
+    Object? isCouponFailed = null,
+    Object? isCouponSuccess = null,
+    Object? couponCode = null,
     Object? noUse = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? coupon = freezed,
+    Object? discountController = null,
     Object? totalPrice = null,
+    Object? priceAfterCouponApplied = null,
     Object? isBookingEnabled = null,
     Object? bookingDetails = freezed,
     Object? isBookingSuccess = null,
@@ -245,6 +324,22 @@ class __$$$BookingStateImplCopyWithImpl<$Res>
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
+      isCouponLoading: null == isCouponLoading
+          ? _value.isCouponLoading
+          : isCouponLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCouponFailed: null == isCouponFailed
+          ? _value.isCouponFailed
+          : isCouponFailed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCouponSuccess: null == isCouponSuccess
+          ? _value.isCouponSuccess
+          : isCouponSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      couponCode: null == couponCode
+          ? _value.couponCode
+          : couponCode // ignore: cast_nullable_to_non_nullable
+              as String,
       noUse: null == noUse
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
@@ -257,9 +352,21 @@ class __$$$BookingStateImplCopyWithImpl<$Res>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      coupon: freezed == coupon
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponDTO?,
+      discountController: null == discountController
+          ? _value.discountController
+          : discountController // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
       totalPrice: null == totalPrice
           ? _value.totalPrice
           : totalPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      priceAfterCouponApplied: null == priceAfterCouponApplied
+          ? _value.priceAfterCouponApplied
+          : priceAfterCouponApplied // ignore: cast_nullable_to_non_nullable
               as double,
       isBookingEnabled: null == isBookingEnabled
           ? _value.isBookingEnabled
@@ -290,10 +397,17 @@ class _$$BookingStateImpl implements $BookingState {
       required this.isLoading,
       required this.isSuccess,
       required this.isFailure,
+      required this.isCouponLoading,
+      required this.isCouponFailed,
+      required this.isCouponSuccess,
+      required this.couponCode,
       required this.noUse,
       required this.eventRepository,
       this.event,
+      this.coupon,
+      required this.discountController,
       required this.totalPrice,
+      required this.priceAfterCouponApplied,
       required this.isBookingEnabled,
       this.bookingDetails,
       required this.isBookingSuccess,
@@ -310,13 +424,27 @@ class _$$BookingStateImpl implements $BookingState {
   @override
   final bool isFailure;
   @override
+  final bool isCouponLoading;
+  @override
+  final bool isCouponFailed;
+  @override
+  final bool isCouponSuccess;
+  @override
+  final String couponCode;
+  @override
   final bool noUse;
   @override
   final EventRepository eventRepository;
   @override
   final EventDto? event;
   @override
+  final CouponDTO? coupon;
+  @override
+  final TextEditingController discountController;
+  @override
   final double totalPrice;
+  @override
+  final double priceAfterCouponApplied;
   @override
   final bool isBookingEnabled;
   @override
@@ -328,7 +456,7 @@ class _$$BookingStateImpl implements $BookingState {
 
   @override
   String toString() {
-    return 'BookingState(standardTicketCount: $standardTicketCount, earlyBirdTicketCount: $earlyBirdTicketCount, isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventRepository: $eventRepository, event: $event, totalPrice: $totalPrice, isBookingEnabled: $isBookingEnabled, bookingDetails: $bookingDetails, isBookingSuccess: $isBookingSuccess, isBookingFailure: $isBookingFailure)';
+    return 'BookingState(standardTicketCount: $standardTicketCount, earlyBirdTicketCount: $earlyBirdTicketCount, isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isCouponLoading: $isCouponLoading, isCouponFailed: $isCouponFailed, isCouponSuccess: $isCouponSuccess, couponCode: $couponCode, noUse: $noUse, eventRepository: $eventRepository, event: $event, coupon: $coupon, discountController: $discountController, totalPrice: $totalPrice, priceAfterCouponApplied: $priceAfterCouponApplied, isBookingEnabled: $isBookingEnabled, bookingDetails: $bookingDetails, isBookingSuccess: $isBookingSuccess, isBookingFailure: $isBookingFailure)';
   }
 
   @override
@@ -346,12 +474,26 @@ class _$$BookingStateImpl implements $BookingState {
                 other.isSuccess == isSuccess) &&
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
+            (identical(other.isCouponLoading, isCouponLoading) ||
+                other.isCouponLoading == isCouponLoading) &&
+            (identical(other.isCouponFailed, isCouponFailed) ||
+                other.isCouponFailed == isCouponFailed) &&
+            (identical(other.isCouponSuccess, isCouponSuccess) ||
+                other.isCouponSuccess == isCouponSuccess) &&
+            (identical(other.couponCode, couponCode) ||
+                other.couponCode == couponCode) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository) &&
             (identical(other.event, event) || other.event == event) &&
+            (identical(other.coupon, coupon) || other.coupon == coupon) &&
+            (identical(other.discountController, discountController) ||
+                other.discountController == discountController) &&
             (identical(other.totalPrice, totalPrice) ||
                 other.totalPrice == totalPrice) &&
+            (identical(
+                    other.priceAfterCouponApplied, priceAfterCouponApplied) ||
+                other.priceAfterCouponApplied == priceAfterCouponApplied) &&
             (identical(other.isBookingEnabled, isBookingEnabled) ||
                 other.isBookingEnabled == isBookingEnabled) &&
             (identical(other.bookingDetails, bookingDetails) ||
@@ -363,21 +505,29 @@ class _$$BookingStateImpl implements $BookingState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      standardTicketCount,
-      earlyBirdTicketCount,
-      isLoading,
-      isSuccess,
-      isFailure,
-      noUse,
-      eventRepository,
-      event,
-      totalPrice,
-      isBookingEnabled,
-      bookingDetails,
-      isBookingSuccess,
-      isBookingFailure);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        standardTicketCount,
+        earlyBirdTicketCount,
+        isLoading,
+        isSuccess,
+        isFailure,
+        isCouponLoading,
+        isCouponFailed,
+        isCouponSuccess,
+        couponCode,
+        noUse,
+        eventRepository,
+        event,
+        coupon,
+        discountController,
+        totalPrice,
+        priceAfterCouponApplied,
+        isBookingEnabled,
+        bookingDetails,
+        isBookingSuccess,
+        isBookingFailure
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -393,10 +543,17 @@ abstract class $BookingState implements BookingState {
       required final bool isLoading,
       required final bool isSuccess,
       required final bool isFailure,
+      required final bool isCouponLoading,
+      required final bool isCouponFailed,
+      required final bool isCouponSuccess,
+      required final String couponCode,
       required final bool noUse,
       required final EventRepository eventRepository,
       final EventDto? event,
+      final CouponDTO? coupon,
+      required final TextEditingController discountController,
       required final double totalPrice,
+      required final double priceAfterCouponApplied,
       required final bool isBookingEnabled,
       final EventBookingDetailsDto? bookingDetails,
       required final bool isBookingSuccess,
@@ -413,13 +570,27 @@ abstract class $BookingState implements BookingState {
   @override
   bool get isFailure;
   @override
+  bool get isCouponLoading;
+  @override
+  bool get isCouponFailed;
+  @override
+  bool get isCouponSuccess;
+  @override
+  String get couponCode;
+  @override
   bool get noUse;
   @override
   EventRepository get eventRepository;
   @override
   EventDto? get event;
   @override
+  CouponDTO? get coupon;
+  @override
+  TextEditingController get discountController;
+  @override
   double get totalPrice;
+  @override
+  double get priceAfterCouponApplied;
   @override
   bool get isBookingEnabled;
   @override

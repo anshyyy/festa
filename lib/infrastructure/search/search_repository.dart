@@ -21,14 +21,14 @@ class ISearchRepository {
         throw ErrorConstants.unknownNetworkError;
       }
       final parsedBody = jsonDecode(response.body);
-     // print(parsedBody['results']['events'][0]);
+     // (parsedBody['results']['events'][0]);
       if (parsedBody['results'] != null) {
         var results = parsedBody['results'];
         return SearchResults.fromJson(results);
       }
       return const SearchResults(pubs: [], events: [], artists: [], users: []);
     } catch (e) {
-      print(e.toString());
+      (e.toString());
       return const SearchResults(pubs: [], events: [], artists: [], users: []);
     }
   }

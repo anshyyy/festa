@@ -20,6 +20,7 @@ _$EventTicketDetailDtoImpl _$$EventTicketDetailDtoImplFromJson(
       priceCurrency: json['priceCurrency'] as String? ?? '',
       maxTicketsToBook: json['maxTicketsToBook'] as int? ?? 0,
       noOfTickets: json['noOfTickets'] as int? ?? 0,
+      coverChargeEnabled: json['coverChargeEnabled'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$EventTicketDetailDtoImplToJson(
@@ -36,4 +37,5 @@ Map<String, dynamic> _$$EventTicketDetailDtoImplToJson(
       'priceCurrency': instance.priceCurrency,
       'maxTicketsToBook': instance.maxTicketsToBook,
       'noOfTickets': instance.noOfTickets,
+      'coverChargeEnabled': instance.coverChargeEnabled,
     };

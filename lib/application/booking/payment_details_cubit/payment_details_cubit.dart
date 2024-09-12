@@ -7,6 +7,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../../domain/event/event_repository.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';
+import '../../../infrastructure/core/dtos/cover/cover_charge_details.dart';
 import '../../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
 import '../../../infrastructure/event/i_event_repository.dart';

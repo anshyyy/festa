@@ -51,10 +51,11 @@ class EventsCalendarBuilderConsumer extends StatelessWidget {
         final eventMonths = state.pubEventsClubbed!.eventMonths;
         final firstMonth = eventMonths.first;
         final lastMonth = eventMonths.last;
+        final currentMonth = DateTime.now();
 
         return EventCalender(
           lsOfEvents: state.pubEventsClubbed?.events ?? [],
-          startDate: DateTime.utc(DateTime.now().year, firstMonth + 1, 1),
+          startDate: DateTime.utc(DateTime.now().year, currentMonth.month, 1),
           endDate: DateTime.utc(DateTime.now().year, DateTime.now().month + 3, 1).subtract(Duration(days: 1)),
         );  
       },

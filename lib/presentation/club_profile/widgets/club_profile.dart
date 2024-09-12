@@ -16,6 +16,7 @@ import '../../../domain/core/services/navigation_services/navigation_service.dar
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/dtos/menu/menu_dto.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../../infrastructure/pub/dtos/pub_opening_hours/pub_opening_hours_dto.dart';
 import '../../widgets/gradient_button.dart';
@@ -23,23 +24,12 @@ import 'social_reach.dart';
 
 class ClubProfile extends StatelessWidget {
   ClubProfile({super.key});
-
-  List<Map<String, String>> hours = [
-    {'day': 'Monday', 'hours': '10:30 am - 1:00 am'},
-    {'day': 'Tuesday', 'hours': '10:30 am - 1:00 am'},
-    {'day': 'Wednesday', 'hours': '10:30 am - 1:00 am'},
-    {'day': 'Thursday', 'hours': '10:30 am - 1:00 pm'},
-    {'day': 'Friday', 'hours': '10:30 am - 1:00 pm'},
-    {'day': 'Saturday', 'hours': '10:30 am - 1:00 pm'},
-    {'day': 'Sunday', 'hours': 'Closed'},
-  ];
   String today = DateFormat('EEEE').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
-    final textTheme = themeData.textTheme;
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -68,7 +58,7 @@ class ClubProfile extends StatelessWidget {
                       SizedBox(
                         width: 65.w,
                         child: Text(
-                          state.pub!.fullName,
+                          state.pub?.fullName??"",
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -92,21 +82,25 @@ class ClubProfile extends StatelessWidget {
                               AssetConstants.locationIcon,
                               height: 2.h,
                             ),
-                            SizedBox(
-                              width: 2.w,
+                            // SizedBox(
+                            //   width: 1.w,
+                            // ),
+                            Flexible(
+                              //width: 40.w,
+                              child: Text(state.pub?.location?.vicinity ?? '',
+                                  maxLines: 3,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.fade,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                        fontSize: 15.sp,
+                                      )),
                             ),
-                            Text(state.pub!.location!.vicinity,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                      fontSize: 15.sp,
-                                    )),
                           ],
                         ),
                       ),
@@ -114,7 +108,7 @@ class ClubProfile extends StatelessWidget {
                         height: 1.h,
                       ),
                       Text(
-                        state.pub!.description,
+                        state.pub?.description??"",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: Theme.of(context).colorScheme.background),
                         textAlign: TextAlign.center,
@@ -128,94 +122,126 @@ class ClubProfile extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: (){
-                               showModalBottomSheet(
-  context: context,
-  isScrollControlled: true,
-  backgroundColor: Theme.of(context).colorScheme.surface,
-  builder: (context) {
-    return SizedBox(
-      width: 100.w,
-      height: 100.w,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10, top: 8),
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: Column(
-                children: [
-                  Container(
-                    width: 12.w,
-                    height: .5.h,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondaryContainer,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
-                  SizedBox(height: 2.h),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Business Hours',
-                      style: TextStyle(
-                        fontSize: 18.px,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 1.h),
-                  SizedBox(
-                    height: 60.h,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: hours.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          minTileHeight: 20,
-                          title: Text(
-                            hours[index]['day']!,
-                            style: TextStyle(
-                              fontSize: 16.px,
-                              color: hours[index]['day'] == today
-                                  ? Colors.green
-                                  : Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          trailing: Text(
-                            hours[index]['hours']!,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.px,
-                              color: hours[index]['day'] == today
-                                  ? Colors.green
-                                  : Colors.white,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              right: 8,
-              top: 8,
-              child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
-                child: SvgPicture.asset(AssetConstants.closeIcon),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  },
-);
-                                
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.surface,
+                                builder: (context) {
+                                  return SizedBox(
+                                    width: 100.w,
+                                    height: 100.w,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10.0, right: 10, top: 8),
+                                      child: Stack(
+                                        children: [
+                                          SingleChildScrollView(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  width: 12.w,
+                                                  height: .5.h,
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .secondaryContainer,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 2.h),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    'Business Hours',
+                                                    style: TextStyle(
+                                                      fontSize: 18.px,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: 1.h),
+                                                SizedBox(
+                                                  height: 60.h,
+                                                  child: ListView.builder(
+                                                    physics:
+                                                        NeverScrollableScrollPhysics(),
+                                                    itemCount: state
+                                                        .pub!
+                                                        .openingHours!
+                                                        .weekdayText
+                                                        .length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      var timing = state
+                                                          .pub!
+                                                          .openingHours!
+                                                          .weekdayText[index];
+                                                      (
+                                                          '$timing   ${timing.split("y:")}');
+
+                                                      return ListTile(
+                                                        minTileHeight: 20,
+                                                        title: Text(
+                                                          '${timing.split("y:")[0]}y',
+                                                          style: TextStyle(
+                                                            fontSize: 16.px,
+                                                            color:
+                                                                '${timing.split("y:")[0]}y' ==
+                                                                        today
+                                                                    ? Colors
+                                                                        .green
+                                                                    : Colors
+                                                                        .white,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        trailing: Text(
+                                                          '${timing.split("y:")[1]}',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 16.px,
+                                                            color:
+                                                                '${timing.split("y:")[0]}y' ==
+                                                                        today
+                                                                    ? Colors
+                                                                        .green
+                                                                    : Colors
+                                                                        .white,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Positioned(
+                                            right: 8,
+                                            top: 8,
+                                            child: GestureDetector(
+                                              onTap: () =>
+                                                  Navigator.of(context).pop(),
+                                              child: SvgPicture.asset(
+                                                  AssetConstants.closeIcon),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
                             },
                             child: Row(
                               children: [
@@ -227,10 +253,7 @@ class ClubProfile extends StatelessWidget {
                                   width: 1.w,
                                 ),
                                 Text(
-                                  (state.pub!.openingHours ??
-                                              const PubOpeningHours(
-                                                  openNow: false))
-                                          .openNow
+                                  (state.pub!.openingHours!.openNow ?? false)
                                       ? 'Open'
                                       : 'Closed',
                                   style: Theme.of(context)
@@ -241,10 +264,9 @@ class ClubProfile extends StatelessWidget {
                                               .colorScheme
                                               .background),
                                 ),
-                                 SvgPicture.asset(AssetConstants.arrowDown,
-                                   ),
-                                
-                              
+                                SvgPicture.asset(
+                                  AssetConstants.arrowDown,
+                                ),
                               ],
                             ),
                           ),
@@ -388,9 +410,13 @@ class ClubProfile extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet(
                     isScrollControlled: true,
+                    constraints: BoxConstraints(
+            maxHeight: 90.h, // Set your max height here
+          ),
                     backgroundColor: Theme.of(context).colorScheme.surface,
                     context: context,
                     builder: (context) {
+                      (state.pub!.happyHours?.isEmpty);
                       return DraggableScrollableSheet(
                         expand: false,
                         builder: (context, scrollController) {
@@ -398,6 +424,7 @@ class ClubProfile extends StatelessWidget {
                             length: 7, // Number of tabs (days of the week)
                             child: SizedBox(
                               width: 100.w,
+                              height: 100.h,
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 10.0, right: 10, top: 8),
@@ -497,28 +524,58 @@ class ClubProfile extends StatelessWidget {
                                           ),
                                           Container(
                                             height:
-                                                60.h, // Adjust height as needed
+                                                100.h, // Adjust height as needed
                                             child: TabBarView(
                                               children: [
-                                                MondayTab(),
-                                                Center(
-                                                    child: Text(
-                                                        'Tuesday Content')),
-                                                Center(
-                                                    child: Text(
-                                                        'Wednesday Content')),
-                                                Center(
-                                                    child: Text(
-                                                        'Thursday Content')),
-                                                Center(
-                                                    child:
-                                                        Text('Friday Content')),
-                                                Center(
-                                                    child: Text(
-                                                        'Saturday Content')),
-                                                Center(
-                                                    child:
-                                                        Text('Sunday Content')),
+                                                MondayTab(
+                                                  happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
+                                                 MondayTab(
+                                                  happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
+                                                  MondayTab(
+                                                  happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
+                                                 MondayTab(
+                                                   happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
+                                                 MondayTab(
+                                                   happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
+                                                  MondayTab(
+                                                   happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
+                                                MondayTab(
+                                                   happyhours:
+
+                                                  state.pub!.happyHours!.isNotEmpty?
+                                                      state.pub!.happyHours ?? []:
+                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -711,13 +768,15 @@ class ClubProfile extends StatelessWidget {
 }
 
 class MondayTab extends StatelessWidget {
-  const MondayTab({super.key});
+  final List<MenuDto> happyhours;
+  const MondayTab({super.key, required this.happyhours});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Center(
           child: Container(
             margin: EdgeInsets.only(top: 10.px, bottom: 10.px),
@@ -725,9 +784,8 @@ class MondayTab extends StatelessWidget {
             height: 42.75.h,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                    image: CachedNetworkImageProvider(
-                        "https://s3-alpha-sig.figma.com/img/7fcc/cbc1/ead3a4f059bcf025fd25d5ae0b732190?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=QDyMzdmZowtWTa3GV3pQJGyz-WtVhpiO8i8pWsilSD-WVJOGCwWsaKyBNu5jfcFkcncHD~cGv89ptXhjR1~3dnCxm1FLsVV~8iSYBSts1NNas9piHh284jzOIsb0UZ-qSHx2c8BnzDwzyw6pidLVZFg4Eqpie41MsWHjcgQtTU9peK~QzFGJcA6nSbpOMHmVW9DxhWZgh9J679kGHZapiNND42KH2WN7volBG3KNZNioeyAltpUEPAgB-rP6mT0q1-hRbk9giI0KTvQ~yDGu9hTSLWZkwoPEOLlH4rrt2WTVWVjtuEupEz1oeOwnR4oSEJ24qYia0mGGiitTfU-~~w__"),
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(happyhours[0].url),
                     fit: BoxFit.cover)),
           ),
         ),
@@ -744,7 +802,21 @@ class MondayTab extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 12.px,
               color: Colors.white),
-        )
+        ),
+        SizedBox(height: 1.h),
+         Center(
+          child: Container(
+            margin: EdgeInsets.only(top: 10.px, bottom: 10.px),
+            width: 42.75.h,
+            height: 20.75.h,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(happyhours[1].url),
+                    fit: BoxFit.cover)),
+          ),
+        ),
+       
       ],
     );
   }

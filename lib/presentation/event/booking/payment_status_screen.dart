@@ -27,6 +27,7 @@ class PaymentStatusScreen extends StatelessWidget {
   final int numberOfTickets;
   final int eventId;
   final double totalAmount;
+  final double? coverAmount;
   const PaymentStatusScreen({
     super.key,
     required this.isPaymentSuccess,
@@ -34,6 +35,7 @@ class PaymentStatusScreen extends StatelessWidget {
     required this.eventId,
     required this.totalAmount,
     required this.isPaymentPending,
+    this.coverAmount,
   });
 
   @override
@@ -47,6 +49,7 @@ class PaymentStatusScreen extends StatelessWidget {
         totalAmount: totalAmount,
         isPaymentSuccess: isPaymentSuccess,
         isPaymentPending: isPaymentPending,
+        coverAmount: coverAmount
       ))
         ..init(),
       child: const PaymentStatusConsumer(),
@@ -196,6 +199,9 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         ),
                                       ],
                                     ),
+
+
+                                    if(state.numberOfTickets != 0)...[
                                     SizedBox(
                                       height: 3.h,
                                     ),
@@ -224,10 +230,43 @@ class PaymentStatusConsumer extends StatelessWidget {
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    SizedBox(
+                                    ),],
+                                    
+                              
+                                    if(state.coverAmount != null) ...[
+                                      SizedBox(
                                       height: 3.h,
                                     ),
+                                     Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Cover Amount',
+                                          style: themeData.textTheme.bodySmall!
+                                              .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15.5.sp,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 1.h,
+                                        ),
+                                        Text(
+                                          state.coverAmount.toString(),
+                                          style: themeData.textTheme.bodyMedium!
+                                              .copyWith(
+                                            color: colorScheme.background,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.5.sp,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    ],
+
+
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -424,7 +463,14 @@ class PaymentStatusConsumer extends StatelessWidget {
                                       children: [
                                         GradientButton(
                                           text: 'Try again',
-                                          onTap: () {},
+                                          onTap: () {
+                                             navigator<NavigationService>().navigateTo(
+                              UserRoutes.bookingRoute,
+                            isClearStack: true,
+                              queryParams: {
+                                'eventId': state.event?.id.toString() ?? "",
+                              });
+                                          },
                                           height: 4.h,
                                           width: 27.w,
                                           textStyle: themeData

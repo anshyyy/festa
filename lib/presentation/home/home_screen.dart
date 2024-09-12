@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/home/cubit/home_cubit.dart';
@@ -43,10 +44,29 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class HomeScreenConsumer extends StatelessWidget {
+class HomeScreenConsumer extends StatefulWidget {
   const HomeScreenConsumer({
     super.key,
   });
+
+  @override
+  State<HomeScreenConsumer> createState() => _HomeScreenConsumerState();
+}
+
+class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
+  Future<void> _resetBrightness() async {
+    try {
+      await ScreenBrightness().resetScreenBrightness();
+    } catch (e) {
+      ('Failed to set brightness: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _resetBrightness();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +75,11 @@ class HomeScreenConsumer extends StatelessWidget {
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        print("show location : ${state.showLocationDialog}");
-        if (state.showLocationDialog ||
-          state.isScrollingUp
-        ) {
+        print("filters applied : ${state.noFilteredEvents} ${state.events.isEmpty} ${state.noEventsInTheLocation}");
+        if (state.isAtTop) {
+          BlocProvider.of<MainNavCubit>(context).showNavBar();
+        }
+        if (state.showLocationDialog || state.isScrollingUp) {
           BlocProvider.of<MainNavCubit>(context).hideNavBar();
         } else {
           BlocProvider.of<MainNavCubit>(context).showNavBar();
@@ -83,7 +104,8 @@ class HomeScreenConsumer extends StatelessWidget {
                       controller: state.scrollController,
                       slivers: [
                         SliverPadding(
-                          padding: EdgeInsets.all(3.w),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 1.h, vertical: 1.h),
                           sliver: SliverList(
                             delegate: SliverChildListDelegate([
                               Row(
@@ -161,11 +183,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              if (!state.hasMoreEvents &&
-                                  state.events.isEmpty &&
-                                  !state.isRefresh)
-                                const EmptyEvents()
-                              else ...[
+                              ...[
                                 if (!state.isSearchOpen) ...[
                                   SizedBox(height: 2.h),
                                   Text(
@@ -185,21 +203,21 @@ class HomeScreenConsumer extends StatelessWidget {
                             ]),
                           ),
                         ),
+                        
+                       if(state.noEventsInTheLocation == false)
                         SliverPersistentHeader(
                           floating: true,
                           delegate: FiltersPersistentHeaderDelegate(
-                            minExtent: 190.0,
-                            maxExtent: 210.0,
-                            child: state.isSearchOpen
-                                ? const SizedBox()
-                                : Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 2, right: 2),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
+                            minExtent: 22.h,
+                            maxExtent: 22.h,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 1.h, right: 1.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  state.isLoading
+                                      ? EventTileShimmerFilter()
+                                      : Text(
                                           HomeScreenConstants
                                               .pickYourExperience,
                                           style: themeData.textTheme.bodyMedium!
@@ -209,25 +227,38 @@ class HomeScreenConsumer extends StatelessWidget {
                                                 .colorScheme.background,
                                           ),
                                         ),
-                                        SizedBox(height: 2.h),
-                                        SizedBox(
-                                          width: 100.w,
-                                          height: state.isLoading &&
-                                                  !state.isSearchOpen
-                                              ? 12.h
-                                              : 9.5.h,
-                                          child: ListView.separated(
-                                            scrollDirection: Axis.horizontal,
-                                            itemBuilder: (context, index) {
-                                              FilterValueDto? categoryValue;
-                                              if (state.categoryFilter !=
-                                                  null) {
-                                                categoryValue = state
-                                                    .categoryFilter!
-                                                    .values[index];
-                                              }
+                                  SizedBox(height: 2.h),
+                                  SizedBox(
+                                    width: 100.w,
+                                    height: state.isLoading ? 9.5.h : 9.5.h,
+                                    child: ListView.separated(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        FilterValueDto? categoryValue;
+                                        if (state.categoryFilter != null) {
+                                          categoryValue = state
+                                              .categoryFilter!.values[index];
+                                        }
 
-                                              return GestureDetector(
+                                        return state.isLoading
+                                            ? Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!
+                                                    .withOpacity(0.5),
+                                                highlightColor: Colors
+                                                    .grey[400]!
+                                                    .withOpacity(0.5),
+                                                child: Container(
+                                                  // height: 50,
+                                                  width: 22.w,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    color: Colors.amber,
+                                                  ),
+                                                ),
+                                              )
+                                            : GestureDetector(
                                                 onTap: () {
                                                   if (state
                                                       .categoryFilter!
@@ -293,54 +324,51 @@ class HomeScreenConsumer extends StatelessWidget {
                                                           filters: List.from(
                                                               state.filters));
                                                 },
-                                                child: state.isLoading &&
-                                                        !state.isSearchOpen
-                                                    ? const EventTypeTileShimmer()
-                                                    : EventTypeTile(
-                                                        isSelected:
-                                                            categoryValue!
-                                                                .isApplied,
-                                                        image: CustomImageProvider
-                                                            .getImageUrl(
-                                                                categoryValue
-                                                                    .icon,
-                                                                ImageType
-                                                                    .profile),
-                                                        title: categoryValue
-                                                            .displayName,
-                                                      ),
+                                                child: EventTypeTile(
+                                                  isSelected:
+                                                      categoryValue!.isApplied,
+                                                  image: CustomImageProvider
+                                                      .getImageUrl(
+                                                          categoryValue.icon,
+                                                          ImageType.profile),
+                                                  title:
+                                                      categoryValue.displayName,
+                                                ),
                                               );
-                                            },
-                                            separatorBuilder: (context, index) {
-                                              return SizedBox(width: 3.w);
-                                            },
-                                            itemCount: state.isLoading
-                                                ? 5
-                                                : state.categoryFilter!.values
-                                                    .length,
-                                          ),
-                                        ),
-                                        SizedBox(height: 2.h),
-                                        // GestureDetector(
-                                        //       onTap: () {},
-                                        //       child: Text(
-                                        //         HomeScreenConstants.explorerAll,
-                                        //         style: themeData.textTheme.bodyMedium!
-                                        //             .copyWith(
-                                        //           fontWeight: FontWeight.w600,
-                                        //           color: themeData
-                                        //               .colorScheme.background,
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: state.exploreList
-                                                .map((Map item) {
-                                              return ExploreTile(
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return SizedBox(width: 3.w);
+                                      },
+                                      itemCount: state.isLoading
+                                          ? 5
+                                          : state.categoryFilter!.values.length,
+                                    ),
+                                  ),
+                                  SizedBox(height: 2.h),
+                                  // GestureDetector(
+                                  //       onTap: () {},
+                                  //       child: Text(
+                                  //         HomeScreenConstants.explorerAll,
+                                  //         style: themeData.textTheme.bodyMedium!
+                                  //             .copyWith(
+                                  //           fontWeight: FontWeight.w600,
+                                  //           color: themeData
+                                  //               .colorScheme.background,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+
+                                  //normal filters
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children:
+                                          state.exploreList.map((Map item) {
+                                        return state.isLoading
+                                            ? const EventTileShimmer()
+                                            : ExploreTile(
                                                 label: item['label'],
-                                                icon: item['svgIcon'] ?? ' ',
+                                                icon: item['svgIcon'] ?? '',
                                                 isSelected: item['isSelected'],
                                                 key: item['label']
                                                             .toString()
@@ -371,7 +399,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                                           );
                                                         }).then((value) {
                                                       if (value != null) {
-                                                        // print(value);
+                                                        // (value);
                                                         if (value is List<
                                                             FilterDto>) {
                                                           builderContext
@@ -397,31 +425,56 @@ class HomeScreenConsumer extends StatelessWidget {
                                                           .toString()
                                                           .toLowerCase() ==
                                                       'today') {
-                                                    print('today');
+                                                    ('today');
+                                                    context
+                                                        .read<HomeCubit>()
+                                                        .updateFilterToToday();
                                                   } else if (item['label']
                                                           .toString()
                                                           .toLowerCase() ==
                                                       'this weekend') {
-                                                    print('weekend');
+                                                    ('weekend');
+                                                    context
+                                                        .read<HomeCubit>()
+                                                        .updateFilterToThisWeekend();
                                                   } else if (item['label']
                                                           .toString()
                                                           .toLowerCase() ==
                                                       'date') {
-                                                    print('Date');
-
-                                                    showModalBottomSheet(
-                                                        context: context,
-                                                        isScrollControlled:
-                                                            true,
-                                                        builder: (context) {
-                                                          return DateModalSheet();
-                                                        });
+                                                    if (item['isSelected'] ==
+                                                        false) {
+                                                      showModalBottomSheet(
+                                                          context: context,
+                                                          isScrollControlled:
+                                                              true,
+                                                          builder: (context) {
+                                                            return DateModalSheet(
+                                                              filters: List.from(state
+                                                                  .filters
+                                                                  .map((e) => e
+                                                                      .copyWith(
+                                                                          values:
+                                                                              List.from(e.values)))
+                                                                  .toList()),
+                                                            );
+                                                          }).then((value) {
+                                                        context
+                                                            .read<HomeCubit>()
+                                                            .updateFilterToSelectedDates(
+                                                                value);
+                                                      });
+                                                    } else {
+                                                      context
+                                                          .read<HomeCubit>()
+                                                          .updateFilterToSelectedDates(
+                                                              []);
+                                                    }
                                                   } else if (item['svgIcon'] ==
                                                       AssetConstants
                                                           .heartOutlinedIcon) {
                                                     print('heart');
                                                   } else {
-                                                    print(item['label']);
+                                                    (item['label']);
                                                     context
                                                         .read<HomeCubit>()
                                                         .removeAppliedFilter(
@@ -429,16 +482,31 @@ class HomeScreenConsumer extends StatelessWidget {
                                                   }
                                                 },
                                               );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ],
+                                      }).toList(),
                                     ),
                                   ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
+
+                        if (!state.hasMoreEvents &&
+                            state.events.isEmpty &&
+                            !state.isRefresh)
+                          SliverPadding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 1.h, vertical: 1.h),
+                            sliver: SliverList(
+                              delegate: SliverChildListDelegate([
+                                const EmptyEvents(),
+                              ]),
+                            ),
+                          ),
+
                         SliverPadding(
-                          padding: EdgeInsets.all(1.w),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 1.h, vertical: 1.h),
                           sliver: SliverList(
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
@@ -447,11 +515,13 @@ class HomeScreenConsumer extends StatelessWidget {
                                   return const EventCardShimmer();
                                 }
                                 return state.isLoading
-                                    ? const EventCardShimmer()
+                                    ? const EventCardShimmer() //TODO
+
                                     : Padding(
                                         padding: EdgeInsets.only(bottom: 5.h),
                                         child: GestureDetector(
                                           onTap: () {
+                                            (state.events[index].pub);
                                             AnalyticsService().logEvent(
                                                 eventName: 'view_event',
                                                 paras: {
@@ -478,6 +548,7 @@ class HomeScreenConsumer extends StatelessWidget {
                                           },
                                           child: EventCard(
                                             vKey: index.toString(),
+                                            isVideoMute: state.isVideoMute,
                                             isInListing: true,
                                             event: state.events[index],
                                             isLiked:
@@ -517,6 +588,51 @@ class HomeScreenConsumer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class EventTileShimmerFilter extends StatelessWidget {
+  const EventTileShimmerFilter({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!.withOpacity(0.5),
+      highlightColor: Colors.grey[400]!.withOpacity(0.5),
+      child: Container(
+        height: 20,
+        width: 42.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.amber,
+        ),
+      ),
+    );
+  }
+}
+
+class EventTileShimmer extends StatelessWidget {
+  const EventTileShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!.withOpacity(0.5),
+      highlightColor: Colors.grey[400]!.withOpacity(0.5),
+      child: Container(
+        margin: EdgeInsets.only(right: 1.h),
+        height: 3.h,
+        width: 15.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.amber,
+        ),
+      ),
     );
   }
 }
@@ -567,7 +683,7 @@ class EmptyEvents extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 30.h,
+                    height: 20.h,
                   ),
                   SvgPicture.asset(AssetConstants.notFoundFilter),
                   Text(
@@ -837,6 +953,11 @@ class EventTypeTileShimmer extends StatelessWidget {
         children: [
           SizedBox(
             height: 1.h,
+          ),
+          Container(
+            height: 7.h,
+            width: 100.w,
+            color: Colors.grey[300],
           ),
           Container(
             height: 9.5.h,

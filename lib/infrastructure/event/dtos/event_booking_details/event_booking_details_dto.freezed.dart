@@ -36,6 +36,8 @@ mixin _$EventBookingDetailsDto {
   int get bookingId => throw _privateConstructorUsedError;
   @JsonKey(name: 'razorpayOrderId', defaultValue: null)
   String? get razorpayOrderId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coupon', defaultValue: null)
+  CouponDTO? get coupon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,9 +60,11 @@ abstract class $EventBookingDetailsDtoCopyWith<$Res> {
       @JsonKey(name: 'status', defaultValue: '') String status,
       @JsonKey(name: 'id', defaultValue: 0) int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      String? razorpayOrderId});
+      String? razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null) CouponDTO? coupon});
 
   $EventDtoCopyWith<$Res> get eventDetails;
+  $CouponDTOCopyWith<$Res>? get coupon;
 }
 
 /// @nodoc
@@ -84,6 +88,7 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
     Object? status = null,
     Object? bookingId = null,
     Object? razorpayOrderId = freezed,
+    Object? coupon = freezed,
   }) {
     return _then(_value.copyWith(
       numberOfTickets: null == numberOfTickets
@@ -114,6 +119,10 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
           ? _value.razorpayOrderId
           : razorpayOrderId // ignore: cast_nullable_to_non_nullable
               as String?,
+      coupon: freezed == coupon
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponDTO?,
     ) as $Val);
   }
 
@@ -122,6 +131,18 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
   $EventDtoCopyWith<$Res> get eventDetails {
     return $EventDtoCopyWith<$Res>(_value.eventDetails, (value) {
       return _then(_value.copyWith(eventDetails: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CouponDTOCopyWith<$Res>? get coupon {
+    if (_value.coupon == null) {
+      return null;
+    }
+
+    return $CouponDTOCopyWith<$Res>(_value.coupon!, (value) {
+      return _then(_value.copyWith(coupon: value) as $Val);
     });
   }
 }
@@ -144,10 +165,13 @@ abstract class _$$EventBookingDetailsDtoImplCopyWith<$Res>
       @JsonKey(name: 'status', defaultValue: '') String status,
       @JsonKey(name: 'id', defaultValue: 0) int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      String? razorpayOrderId});
+      String? razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null) CouponDTO? coupon});
 
   @override
   $EventDtoCopyWith<$Res> get eventDetails;
+  @override
+  $CouponDTOCopyWith<$Res>? get coupon;
 }
 
 /// @nodoc
@@ -170,6 +194,7 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
     Object? status = null,
     Object? bookingId = null,
     Object? razorpayOrderId = freezed,
+    Object? coupon = freezed,
   }) {
     return _then(_$EventBookingDetailsDtoImpl(
       numberOfTickets: null == numberOfTickets
@@ -200,6 +225,10 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
           ? _value.razorpayOrderId
           : razorpayOrderId // ignore: cast_nullable_to_non_nullable
               as String?,
+      coupon: freezed == coupon
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponDTO?,
     ));
   }
 }
@@ -217,7 +246,8 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
       @JsonKey(name: 'status', defaultValue: '') required this.status,
       @JsonKey(name: 'id', defaultValue: 0) required this.bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      this.razorpayOrderId});
+      this.razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null) this.coupon});
 
   factory _$EventBookingDetailsDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventBookingDetailsDtoImplFromJson(json);
@@ -243,10 +273,13 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
   @override
   @JsonKey(name: 'razorpayOrderId', defaultValue: null)
   final String? razorpayOrderId;
+  @override
+  @JsonKey(name: 'coupon', defaultValue: null)
+  final CouponDTO? coupon;
 
   @override
   String toString() {
-    return 'EventBookingDetailsDto(numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, status: $status, bookingId: $bookingId, razorpayOrderId: $razorpayOrderId)';
+    return 'EventBookingDetailsDto(numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, status: $status, bookingId: $bookingId, razorpayOrderId: $razorpayOrderId, coupon: $coupon)';
   }
 
   @override
@@ -266,7 +299,8 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
             (identical(other.bookingId, bookingId) ||
                 other.bookingId == bookingId) &&
             (identical(other.razorpayOrderId, razorpayOrderId) ||
-                other.razorpayOrderId == razorpayOrderId));
+                other.razorpayOrderId == razorpayOrderId) &&
+            (identical(other.coupon, coupon) || other.coupon == coupon));
   }
 
   @JsonKey(ignore: true)
@@ -279,7 +313,8 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
       const DeepCollectionEquality().hash(paymentMethod),
       status,
       bookingId,
-      razorpayOrderId);
+      razorpayOrderId,
+      coupon);
 
   @JsonKey(ignore: true)
   @override
@@ -307,7 +342,9 @@ abstract class _EventBookingDetailsDto implements EventBookingDetailsDto {
       @JsonKey(name: 'status', defaultValue: '') required final String status,
       @JsonKey(name: 'id', defaultValue: 0) required final int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      final String? razorpayOrderId}) = _$EventBookingDetailsDtoImpl;
+      final String? razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null)
+      final CouponDTO? coupon}) = _$EventBookingDetailsDtoImpl;
 
   factory _EventBookingDetailsDto.fromJson(Map<String, dynamic> json) =
       _$EventBookingDetailsDtoImpl.fromJson;
@@ -333,6 +370,9 @@ abstract class _EventBookingDetailsDto implements EventBookingDetailsDto {
   @override
   @JsonKey(name: 'razorpayOrderId', defaultValue: null)
   String? get razorpayOrderId;
+  @override
+  @JsonKey(name: 'coupon', defaultValue: null)
+  CouponDTO? get coupon;
   @override
   @JsonKey(ignore: true)
   _$$EventBookingDetailsDtoImplCopyWith<_$EventBookingDetailsDtoImpl>

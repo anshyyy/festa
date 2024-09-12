@@ -263,7 +263,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       showModalBottomSheet(
                                         context: context,
                                         builder: (context) {
-                                          return SizedBox(
+                                          return Container(
+                                            color: Colors.black,
                                             width: 100.w,
                                             height: 100.h,
                                             child: Padding(
@@ -548,8 +549,8 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     final currentMenu =
                                         OtherConstants.settingsMenu[index];
-                                    // print("${state.user}");
-                                    // print(state.appStateNotifier.user!.email);
+                                    // ("${state.user}");
+                                    // (state.appStateNotifier.user!.email);
                                   
                                   
                                     return SettingTile(

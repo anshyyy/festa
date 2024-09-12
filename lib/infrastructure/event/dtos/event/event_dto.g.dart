@@ -68,6 +68,7 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
                   EventTicketCategoryDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      coverChargeEnabled: json['coverChargeEnabled'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
@@ -100,4 +101,5 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'expensiveRating': instance.expensiveRating,
       'categories': instance.categories,
       'eventTicketCategories': instance.eventTicketCategories,
+      'coverChargeEnabled': instance.coverChargeEnabled,
     };

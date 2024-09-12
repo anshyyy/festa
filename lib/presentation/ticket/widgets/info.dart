@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
+
 class InfoWidget extends StatelessWidget {
-  const InfoWidget({super.key});
+
+  BookedTicketDetailsDto ticket;
+
+
+  InfoWidget({super.key,required this.ticket});
 
   @override
   Widget build(BuildContext context) {
@@ -14,84 +20,68 @@ class InfoWidget extends StatelessWidget {
           Text(
             'Transaction ID',
             style: TextStyle(
-                fontSize: 12.px,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey.shade500),
           ),
           Text(
-            '1198804794001625088',
+            ticket.transactionId,
             style: TextStyle(
-                fontSize: 16.px,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.white),
           ),
-          SizedBox(height: 1.h,),
+          SizedBox(height: 0.8.h,),
            Text(
             'Payment Method',
             style: TextStyle(
-                fontSize: 12.px,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey.shade500),
           ),
           Text(
-            'Google Pay 119880488',
+            ticket.paymentMethod,
             style: TextStyle(
-                fontSize: 16.px,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.white),
           ),
-          SizedBox(height: 1.h,),
+          SizedBox(height: 0.7.h,),
            Text(
             'Booking Reference ID',
             style: TextStyle(
-                fontSize: 12.px,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey.shade500),
           ),
           Text(
-            '119880AQ88',
+            ticket.id.toString()??'119880AQ88',
             style: TextStyle(
-                fontSize: 16.px,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.white),
           ),
 
-          SizedBox(height: 1.h,),
+          SizedBox(height: 0.8.h,),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Text(
-            'Seat No.',
-            style: TextStyle(
-                fontSize: 12.px,
-                fontWeight: FontWeight.w600,
-                color: Colors.grey.shade500),
-          ),
-          Text(
-            '1,2,3',
-            style: TextStyle(
-                fontSize: 16.px,
-                fontWeight: FontWeight.w600,
-                color: Colors.white),
-          ),
-                ],
-              ),
+              //put seat here if there is 
+             
                Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                    Text(
             'Total Amount',
             style: TextStyle(
-                fontSize: 12.px,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey.shade500),
           ),
           Text(
-            '₹4000',
+            '₹${ticket.paymentAmount}',
             style: TextStyle(
-                fontSize: 16.px,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.white),
           ),

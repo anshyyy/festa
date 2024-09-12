@@ -27,6 +27,7 @@ class AppConstants {
   static String seconds = 's';
   static String filterKey = 'filter';
   static String otherKey = 'other';
+  static String clearKey = 'clear';
   static String rupees = '₹';
   static String search = 'Search';
   static int otpTimer = 30;
@@ -49,13 +50,16 @@ class BasicProfileScreenConstants {
   static String addProfilePicture = 'Add your profile picture';
   static String addText =
       'Building your profile wil increase visibility and recommendations.';
+  static String detailsTrailingText = 'We protect our community by making sure everyone on Festa is real.';
   static String enterYourName = 'Enter your name';
   static String hintEnterYourName = 'Type here';
+  static String whatshouldWeCallYou = 'What should we call you?';
   static String continueText = 'Continue';
+  static String enterDetails = 'Enter your Details';
 }
 
 class BirthdayScreenConstants {
-  static String addBirthday = 'When’s your\nbirthday?';
+  static String addBirthday = 'When’s your birthday?';
 }
 
 class GenderSelectionScreenConstants {
@@ -67,7 +71,7 @@ class TermsAndConditionConstants {
   static String privacyMessage =
       'Your privacy is our top concern and we want you to know how we process your personal information. By continuing you confirm that you\'ve read and accepted our';
   static String privacyText = 'Privacy Policy';
-    static String EULA = 'End User License Agreement (EULA)';
+  static String EULA = 'End User License Agreement (EULA)';
   static String termsText = 'Terms';
   static String authTermsAcceptMessage =
       'By signing up, you agree to our Terms, See how we use your data in our Privacy Policy. We never post to Facebook. ';
@@ -82,7 +86,7 @@ class LoginScreenConstants {
   static String phoneConfirmation =
       'I affirm that the provided mobile number belongs to me.';
   static String affirmationPrompt =
-      'I affirm that the provided mobile number belongs to me.';
+      'I affirm that the provided details belongs to me.';
 
   static String verifyNumberHeader = 'Verify your number';
   static String verifyNumberDescription = 'Enter the OTP sent to';
@@ -143,8 +147,12 @@ class TicketScreenConstants {
   static String yourTickets = 'Your tickets';
   static String upcomingBtnText = 'Upcoming';
   static String historyBtnText = 'History';
-  static String myTickets =  'My Tickets';
-  static String pastTickets = "Past Tickets";
+  static String myTickets = 'My Tickets';
+  static String pastTickets = 'Past Tickets';
+  static String addCoverBalance = 'Add Cover Balance';
+  static String addCoverNotes = 'Add a message (optional)';
+  static String addCoverBalanceHint = 'Enter Cover Balance';
+  static String coverTransactionHistory = 'Cover transactions history';
 }
 
 class BookingScreenConstants {
@@ -235,6 +243,7 @@ class EventDetailsScreenConstants {
   static String viewOnMaps = 'View on maps';
   static String grabPasses = 'Grab Passes';
   static String description = 'Description';
+  static String completePayment = "Complete the Payment";
   static String descriptionText =
       'Hac amet amet nisl hendrerit metus vivamus a. Rhoncus nulla consequat est et. Dignissim fringilla in posuere lacus suspendisse diam diam pretium scelerisque. sdf . urwthfgn eugerh geurgh gerughr uerhg ergguo hreguhh.';
   static String lsd = 'LSD (Lights, Sound and Dancefloor)';
@@ -454,7 +463,7 @@ class DeleteAccountScreenConstants {
 
 class SetupLocationScreenConstants {
   static String setupYourLocation = 'Set your location';
-  static String seeWhatHappening = 'See what’s happening in your city';
+  static String seeWhatHappening = 'Explore happening events in your city !';
   static String useMyLocation = 'Use my location';
   static String save = 'Save';
   static String cancel = 'Cancel';

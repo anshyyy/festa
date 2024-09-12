@@ -22,8 +22,8 @@ MenuDto _$MenuDtoFromJson(Map<String, dynamic> json) {
 mixin _$MenuDto {
   @JsonKey(name: 'id')
   int get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'icon', defaultValue: '')
-  String get icon => throw _privateConstructorUsedError;
+  @JsonKey(name: 'url', defaultValue: '')
+  String get url => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $MenuDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id') int id,
-      @JsonKey(name: 'icon', defaultValue: '') String icon});
+      @JsonKey(name: 'url', defaultValue: '') String url});
 }
 
 /// @nodoc
@@ -54,16 +54,16 @@ class _$MenuDtoCopyWithImpl<$Res, $Val extends MenuDto>
   @override
   $Res call({
     Object? id = null,
-    Object? icon = null,
+    Object? url = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      icon: null == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -78,7 +78,7 @@ abstract class _$$MenuDtoImplCopyWith<$Res> implements $MenuDtoCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id') int id,
-      @JsonKey(name: 'icon', defaultValue: '') String icon});
+      @JsonKey(name: 'url', defaultValue: '') String url});
 }
 
 /// @nodoc
@@ -93,16 +93,16 @@ class __$$MenuDtoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? icon = null,
+    Object? url = null,
   }) {
     return _then(_$MenuDtoImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      icon: null == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -113,7 +113,7 @@ class __$$MenuDtoImplCopyWithImpl<$Res>
 class _$MenuDtoImpl implements _MenuDto {
   const _$MenuDtoImpl(
       {@JsonKey(name: 'id') required this.id,
-      @JsonKey(name: 'icon', defaultValue: '') required this.icon});
+      @JsonKey(name: 'url', defaultValue: '') required this.url});
 
   factory _$MenuDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$MenuDtoImplFromJson(json);
@@ -122,12 +122,12 @@ class _$MenuDtoImpl implements _MenuDto {
   @JsonKey(name: 'id')
   final int id;
   @override
-  @JsonKey(name: 'icon', defaultValue: '')
-  final String icon;
+  @JsonKey(name: 'url', defaultValue: '')
+  final String url;
 
   @override
   String toString() {
-    return 'MenuDto(id: $id, icon: $icon)';
+    return 'MenuDto(id: $id, url: $url)';
   }
 
   @override
@@ -136,12 +136,12 @@ class _$MenuDtoImpl implements _MenuDto {
         (other.runtimeType == runtimeType &&
             other is _$MenuDtoImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.icon, icon) || other.icon == icon));
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, icon);
+  int get hashCode => Object.hash(runtimeType, id, url);
 
   @JsonKey(ignore: true)
   @override
@@ -159,9 +159,9 @@ class _$MenuDtoImpl implements _MenuDto {
 
 abstract class _MenuDto implements MenuDto {
   const factory _MenuDto(
-      {@JsonKey(name: 'id') required final int id,
-      @JsonKey(name: 'icon', defaultValue: '')
-      required final String icon}) = _$MenuDtoImpl;
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'url', defaultValue: '') required final String url}) =
+      _$MenuDtoImpl;
 
   factory _MenuDto.fromJson(Map<String, dynamic> json) = _$MenuDtoImpl.fromJson;
 
@@ -169,8 +169,8 @@ abstract class _MenuDto implements MenuDto {
   @JsonKey(name: 'id')
   int get id;
   @override
-  @JsonKey(name: 'icon', defaultValue: '')
-  String get icon;
+  @JsonKey(name: 'url', defaultValue: '')
+  String get url;
   @override
   @JsonKey(ignore: true)
   _$$MenuDtoImplCopyWith<_$MenuDtoImpl> get copyWith =>

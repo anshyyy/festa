@@ -8,6 +8,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/user/user_profile/user_profile_cubit.dart';
@@ -102,12 +103,11 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                       onTap: () {
                                         navigator<NavigationService>()
                                             .navigateTo(
-                                          UserRoutes.profileAndSettingsRoute,
-                                          queryParams: {
-                                            'email': state.user!.email ?? ""
-                                          }
-                                        )
-                                        .then((value) {
+                                                UserRoutes
+                                                    .profileAndSettingsRoute,
+                                                queryParams: {
+                                              'email': state.user!.email ?? ""
+                                            }).then((value) {
                                           context
                                               .read<UserProfileCubit>()
                                               .fetchUserDetails(
@@ -132,26 +132,30 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                                           20)),
                                               child: Stack(
                                                 children: [
-                                                  if(state.user!.email == null)
-                                                  Positioned(
-                                                    right: 5,
-                                                    top:4,
-                                                    child: Container(
-                                                      width: 7.px,
-                                                      height: 7.px,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(50),
-                                                          gradient:
-                                                              const LinearGradient(
-                                                            colors: <Color>[
-                                                              Color(0xffFF1759),
-                                                              Color(0xffBF0036)
-                                                            ],
-                                                          )),
+                                                  if (state.user!.email == null)
+                                                    Positioned(
+                                                      right: 5,
+                                                      top: 4,
+                                                      child: Container(
+                                                        width: 7.px,
+                                                        height: 7.px,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50),
+                                                                gradient:
+                                                                    const LinearGradient(
+                                                                  colors: <Color>[
+                                                                    Color(
+                                                                        0xffFF1759),
+                                                                    Color(
+                                                                        0xffBF0036)
+                                                                  ],
+                                                                )),
+                                                      ),
                                                     ),
-                                                  ),
                                                   Center(
                                                     child: SvgPicture.asset(
                                                         AssetConstants

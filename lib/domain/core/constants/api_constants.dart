@@ -10,6 +10,7 @@ class EventApiConstants {
   static const GET_EVENTS_BY_PUB_ID = '$EVENTS/pub';
   static const LIKE_EVENT = '$EVENTS/like';
   static const UNLIKE_EVENT = '$EVENTS/unlike';
+  
 }
 
 class SearchApiConstants{
@@ -20,6 +21,8 @@ class BookingApiConstants {
   static const BOOKING = '/booking';
   static const BOOKING_CREATE = '$BOOKING/event';
   static const BOOKING_STATUS = '$BOOKING/payment/status';
+  static const COVER_CHARGE = '$BOOKING/cover';
+  static const COUPON = '/coupon';
 }
 
 class UserApiConstants {

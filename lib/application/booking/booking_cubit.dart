@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/event/event_repository.dart';
+import '../../infrastructure/event/dtos/coupon/coupon_dto.dart';
+import '../../infrastructure/event/dtos/cover_balance_history/cover_balance_history_dto.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
 import '../../infrastructure/event/i_event_repository.dart';
@@ -12,7 +15,6 @@ part 'booking_state.dart';
 
 class BookingCubit extends Cubit<BookingState> {
   BookingCubit(super.initialState);
-
 
   void emitFromAnywhere({
     required BookingState state,
@@ -41,9 +43,9 @@ class BookingCubit extends Cubit<BookingState> {
         totalPrice: total,
       ),
     );
-    final bool isBookingEnabled = state.event!.eventTicketCategories.any((element) => element.currentTicketsCount>0);
+    final bool isBookingEnabled = state.event!.eventTicketCategories
+        .any((element) => element.currentTicketsCount > 0);
     emit(state.copyWith(isBookingEnabled: isBookingEnabled));
-
   }
 
   void removeTickets({required int id}) {
@@ -64,7 +66,8 @@ class BookingCubit extends Cubit<BookingState> {
         totalPrice: total,
       ),
     );
-    final bool isBookingEnabled = state.event!.eventTicketCategories.any((element) => element.currentTicketsCount>0);
+    final bool isBookingEnabled = state.event!.eventTicketCategories
+        .any((element) => element.currentTicketsCount > 0);
     emit(state.copyWith(isBookingEnabled: isBookingEnabled));
   }
 
@@ -89,23 +92,19 @@ class BookingCubit extends Cubit<BookingState> {
   }
 
   void createBooking() async {
-    
-      emit(state.copyWith(isLoading: true));
-      print(state.event!.id);
-    //  print(state.event!.eventTicketCategories);
+    emit(state.copyWith(isLoading: true));
     final List<Map<String, dynamic>> tickets =
-        state.event!.eventTicketCategories.map((e) {
-      return {
-        'id': e.id,
-        'noOfTickets': e.currentTicketsCount,
-      };
-    }).toList();
-    print(tickets);
+        state.event!.eventTicketCategories
+            .where((e) => e.currentTicketsCount != 0)
+            .map((e) => {
+                  'id': e.id,
+                  'noOfTickets': e.currentTicketsCount,
+                })
+            .toList();
 
     final response = await state.eventRepository
-        .createBooking(eventId: state.event!.id, tickets: tickets);
-    
-    print(response);
+        .createBooking(eventId: state.event!.id, tickets: tickets,coupon: state.coupon,couponCode: state.couponCode);
+
     response.fold((l) {
       emit(state.copyWith(
         isLoading: false,
@@ -113,6 +112,7 @@ class BookingCubit extends Cubit<BookingState> {
         isBookingSuccess: false,
       ));
     }, (r) {
+     r = r.copyWith(coupon: state.coupon);
       emit(state.copyWith(
         isLoading: false,
         isBookingFailure: false,
@@ -120,6 +120,33 @@ class BookingCubit extends Cubit<BookingState> {
         bookingDetails: r,
       ));
     });
-    
+  }
+
+  void validateCoupon() async {
+    try {
+      emit(state.copyWith(isCouponLoading: true));
+      String couponCode = state.discountController.text.trim();
+      final response = await state.eventRepository
+          .validateCoupon(couponCode: couponCode, eventId: state.event!.id);
+        
+      double priceAfterCouponApplied = 0;
+      if(state.totalPrice<response.value){
+         priceAfterCouponApplied = 0;
+      } else{
+          priceAfterCouponApplied = state.totalPrice - response.value;
+      }
+      emit(state.copyWith(
+          isCouponLoading: false,
+          coupon: response,
+          couponCode: couponCode,
+          isCouponFailed: false,
+          isCouponSuccess: true,
+          priceAfterCouponApplied: priceAfterCouponApplied));
+    } catch (e) {
+      emit(state.copyWith(
+          isCouponFailed: true,
+          isCouponLoading: false,
+          isCouponSuccess: false));
+    }
   }
 }

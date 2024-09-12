@@ -42,7 +42,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AccountSettingsCubit, AccountSettingsState>(
       listener: (context, state) {
-        print("this is $email");
+        ("this is $email");
       },
       builder: (context, state) {
         final AppStateNotifier appStateNotifier =
@@ -99,8 +99,8 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                         suffixIcon: AssetConstants.arrowRight,
                         detail: user.phoneNumber,
                         onTap: () {
-                          // print(user);
-                          // print(email);
+                          // (user);
+                          // (email);
                           //    navigator<NavigationService>().navigateTo(
                           //   UserRoutes.phoneScreenRoute,
                           // );

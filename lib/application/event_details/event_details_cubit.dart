@@ -18,6 +18,7 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
     if (isUpdatedDetails) {
       Either<dynamic, EventDto> res =
           await state.eventRepository.getEventDetails(eventId: id);
+      
 
       res.fold((l) => null, (r) {
         emit(state.copyWith(event: r));
@@ -25,22 +26,27 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
       return;
     } else {
       emit(state.copyWith(isLoading: true));
-      await Future.delayed(const Duration(milliseconds: 300));
+     await Future.delayed(const Duration(milliseconds: 300));
       Either<dynamic, EventDto> res =
           await state.eventRepository.getEventDetails(eventId: id);
-
+      
+     
       res.fold(
         (l) => emit(state.copyWith(
           isLoading: false,
           isSuccess: false,
           isFailure: true,
         )),
-        (r) => emit(state.copyWith(
+        (r){ 
+          print("db : ${r.isLiked}");
+          emit(state.copyWith(
           isLoading: false,
           isSuccess: true,
           isFailure: false,
           event: r,
-        )),
+          isEventLiked: r.isLiked == true
+        ));
+        }
       );
     }
   }

@@ -19,7 +19,9 @@ class AuthRoutes {
 
 class UserRoutes {
   static const String mainNavRoute = 'mainNav';
+  static const String pastTickets = 'pastTicketScreen';
   static const String eventCardRoute = 'eventcardscreen';
+  static const String addCoverRoute = 'addCoverScreen';
   static const String ticketsRoute = 'tickets';
   static const String bookingRoute = 'booking';
   static const String freeBookingRoute = 'freeBooking';
@@ -31,6 +33,9 @@ class UserRoutes {
   static const String eventDetailsRoute = 'eventDetails';
   static const String otherUserProfileRoute = 'otherUserProfile';
   static const String userCommunityScreenRoute= 'userCommunity';
+  static const String coverTransactionHistory = 'coverTransactionHistory';
+  static const String ticketHistory = 'ticketHistoryScreen';
+  static const String reviewScreen = 'reviewScreen';
   
   static const String profileAndSettingsRoute = 'profileAndSettings';
   static const String personalizeExperienceRoute = 'personalizeExperienceRoute';

@@ -10,8 +10,25 @@ class AssetConstants {
   static const locationIconPink = '${vectorsFolder}location-icon.svg';
   static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
 
+  static const review1Icon = '${vectorsFolder}r1.svg';
+  static const review2Icon = '${vectorsFolder}r2.svg';
+  static const review3Icon = '${vectorsFolder}r3.svg';
+  static const review4Icon = '${vectorsFolder}r4.svg';
+  static const review5Icon = '${vectorsFolder}r5.svg';
+
+  static const supportIcon = '${vectorsFolder}support.svg';
+  static const calender = '${vectorsFolder}Calender.svg';
+  static const festa = '${vectorsFolder}festa.svg';
+  static const whatsappsupportIcon = '${vectorsFolder}whatsapp-support.svg';
+
+  static const onboardingGradient = '${vectorsFolder}gradient.svg';
+
+  static const sparkIcon = '${vectorsFolder}spark.svg';
+
   static const searchIcon = '${vectorsFolder}search-icon.svg';
   static const tradingIcon = '${vectorsFolder}trading.svg';
+  static const leaveIcon = '${vectorsFolder}leave.svg';
+
   static const notificationIcon = '${vectorsFolder}notification-icon.svg';
   static const homeBobsBarImg = '${vectorsFolder}bobsbarimg.png';
   static const homeFilledLocation = '${vectorsFolder}home-filled-location.svg';
@@ -54,7 +71,6 @@ class AssetConstants {
   static const arrowLeft = '${vectorsFolder}arrow-left.svg';
   static const happyhours = '${vectorsFolder}happy-hours.svg';
   static const happyHoursMain = '${vectorsFolder}happy-hours-main.svg';
-  
 
   static const editIcon = '${vectorsFolder}edit-icon.svg';
   static const shareIcon = '${vectorsFolder}share-icon.svg';

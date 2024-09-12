@@ -9,6 +9,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../application/home/cubit/home_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
 import '../../domain/core/constants/asset_constants.dart';
@@ -32,6 +33,7 @@ class EventCard extends StatefulWidget {
   final bool isInListing;
   final String distance;
   final String vKey;
+  final bool isVideoMute;
 
   final void Function()? onLike;
   final Function()? loadData;
@@ -43,6 +45,7 @@ class EventCard extends StatefulWidget {
       this.onLike,
       this.loadData,
       this.isInListing = false,
+      this.isVideoMute = false,
       required this.isLiked});
 
   @override
@@ -61,6 +64,7 @@ class _EventCardState extends State<EventCard> {
   @override
   void initState() {
     super.initState();
+    isMute = widget.isVideoMute;
     if (widget.event.assets[0].type == MediaEnum.video.name) {
       initVideoPlayer(videoUrl: widget.event.assets[0].url, isAutoPlay: false)
           .then((value) {
@@ -155,7 +159,7 @@ class _EventCardState extends State<EventCard> {
                 ? '${words[0]} ${words[1]}'
                 : '${words[0]} ${words[1]} ...'
             : words[0];
-    
+
     return VisibilityDetector(
       key: Key(widget.vKey),
       onVisibilityChanged: (info) {
@@ -170,11 +174,12 @@ class _EventCardState extends State<EventCard> {
         }
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 6,right: 6,top:8,bottom: 26),
-        decoration:BoxDecoration(
-          color:  !widget.isInListing? Colors.transparent : const Color(0xff0B0F0E),
-          borderRadius: BorderRadius.circular(25.px)
-        ) ,
+        padding: const EdgeInsets.only(left: 6, right: 6, top: 8, bottom: 26),
+        decoration: BoxDecoration(
+            color: !widget.isInListing
+                ? Colors.transparent
+                : const Color(0xff0B0F0E),
+            borderRadius: BorderRadius.circular(25.px)),
         child: Stack(
           children: [
             Column(
@@ -214,7 +219,8 @@ class _EventCardState extends State<EventCard> {
                                               GestureDetector(
                                                 onTap: () {
                                                   if (widget.isInListing) {
-                                                    navigator<NavigationService>()
+                                                    navigator<
+                                                            NavigationService>()
                                                         .navigateTo(
                                                             UserRoutes
                                                                 .eventDetailsRoute,
@@ -233,7 +239,8 @@ class _EventCardState extends State<EventCard> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.circular(20),
+                                                        BorderRadius.circular(
+                                                            20),
                                                   ),
                                                   child: AspectRatio(
                                                     aspectRatio: 2 / 3,
@@ -264,7 +271,8 @@ class _EventCardState extends State<EventCard> {
                                                             Theme.of(context)
                                                                 .colorScheme
                                                                 .shadow
-                                                                .withOpacity(0.5),
+                                                                .withOpacity(
+                                                                    0.5),
                                                         child: Icon(
                                                           Icons
                                                               .play_arrow_rounded,
@@ -288,7 +296,8 @@ class _EventCardState extends State<EventCard> {
                                           aspectRatio: 2 / 3,
                                           child: Image.network(
                                               CustomImageProvider.getImageUrl(
-                                                  widget.event.assets[index].url,
+                                                  widget
+                                                      .event.assets[index].url,
                                                   ImageType.other))),
                                     ),
                                   );
@@ -296,15 +305,19 @@ class _EventCardState extends State<EventCard> {
                     ),
                     Positioned(
                       bottom: 0,
-                      left:-10,
+                      left: -2,
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 2.5.h, horizontal: 4.w),
+                        // color: Colors.red,
+                        padding: EdgeInsets.only(
+                            left: 1.5.h,
+                            right: widget.isInListing ? 1.8.h : 0,
+                            bottom: 2.h),
                         width: 95.w,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            //play pause button
                             widget.event.assets[pageIndex].type ==
                                         MediaEnum.video.name &&
                                     widget.isInListing
@@ -315,8 +328,9 @@ class _EventCardState extends State<EventCard> {
                                     child: Center(
                                       child: CircleAvatar(
                                         radius: 3.5.w,
-                                        backgroundColor:
-                                            Theme.of(context).colorScheme.shadow,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .shadow,
                                         child: Icon(
                                           isPlaying
                                               ? Icons.pause_rounded
@@ -331,39 +345,47 @@ class _EventCardState extends State<EventCard> {
                                     width: 4.5.w,
                                     height: 3.h,
                                   ),
+
+                            //page indicator
                             widget.event.assets.length <= 1
                                 ? const SizedBox()
-                                : Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      ...List.generate(
-                                          widget.event.assets.length,
-                                          (dotIndex) => Padding(
-                                                padding: dotIndex ==
-                                                        widget.event.assets
-                                                                .length -
-                                                            1
-                                                    ? EdgeInsets.zero
-                                                    : EdgeInsets.only(
-                                                        right: 1.2.w),
-                                                child: Container(
-                                                  height: 2.w,
-                                                  width: 2.w,
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: pageIndex == dotIndex
-                                                          ? Theme.of(context)
-                                                              .colorScheme
-                                                              .background
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .secondaryContainer),
-                                                ),
-                                              )),
-                                    ],
+                                : Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ...List.generate(
+                                            widget.event.assets.length,
+                                            (dotIndex) => Padding(
+                                                  padding: dotIndex ==
+                                                          widget.event.assets
+                                                                  .length -
+                                                              1
+                                                      ? EdgeInsets.zero
+                                                      : EdgeInsets.only(
+                                                          right: 1.2.w),
+                                                  child: Container(
+                                                    height: 2.w,
+                                                    width: 2.w,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: pageIndex ==
+                                                                dotIndex
+                                                            ? Theme.of(context)
+                                                                .colorScheme
+                                                                .background
+                                                            : Theme.of(context)
+                                                                .colorScheme
+                                                                .secondaryContainer),
+                                                  ),
+                                                )),
+                                      ],
+                                    ),
                                   ),
-                                 // const Spacer(),
+
+                            // mute button
                             widget.event.assets[pageIndex].type ==
                                         MediaEnum.video.name &&
                                     isPlaying
@@ -374,8 +396,9 @@ class _EventCardState extends State<EventCard> {
                                     child: Center(
                                       child: CircleAvatar(
                                         radius: 3.5.w,
-                                        backgroundColor:
-                                            Theme.of(context).colorScheme.shadow,
+                                        backgroundColor: Theme.of(context)
+                                            .colorScheme
+                                            .shadow,
                                         child: Icon(
                                           isMute
                                               ? Icons.volume_off_rounded
@@ -390,28 +413,30 @@ class _EventCardState extends State<EventCard> {
                                     width: 4.5.w,
                                     height: 3.h,
                                   ),
-                          
-                          // SizedBox(width: 2.5.w,)
-                          
                           ],
                         ),
                       ),
                     )
                   ],
                 ),
-        
+
                 SizedBox(
                   height: 1.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if(widget.isInListing)
-                    SizedBox(width: 2.w,),
-                    Expanded(
+                    if (widget.isInListing)
+                      SizedBox(
+                        width: 2.w,
+                      ),
+                    SizedBox(
+                      width: 70.w,
                       child: Text(
-                        widget.isInListing ? eventTitle.toUpperCase() : eventFullName,
-                        maxLines: 1,
+                        widget.isInListing
+                            ? eventTitle.toUpperCase()
+                            : eventFullName.toUpperCase(),
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: themeData.textTheme.bodyMedium!.copyWith(
                           color: themeData.colorScheme.background,
@@ -420,13 +445,14 @@ class _EventCardState extends State<EventCard> {
                         ),
                       ),
                     ),
+                    const Spacer(),
                     GestureDetector(
                       onTap: () {
                         AnalyticsService()
                             .logEvent(eventName: 'share_event', paras: {
                           'event_id': widget.event.id.toString(),
                         });
-                        
+
                         Share.share(GenericHelpers().getDynamicLink(
                             AppConstants.event, widget.event.id.toString()));
                       },
@@ -435,41 +461,47 @@ class _EventCardState extends State<EventCard> {
                         child: SvgPicture.asset(AssetConstants.shareIcon),
                       ),
                     ),
-                    SizedBox(width: 2.5.w,)
+                    SizedBox(
+                      width: 2.5.w,
+                    )
                   ],
                 ),
                 SizedBox(height: 1.h),
-                if(!widget.isInListing)
-                SizedBox(
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.event.artists
-                          .map((e) => ShortProfileTile(
-                              onTap: () {
-                                AnalyticsService()
-                                    .logEvent(eventName: 'view_artist', paras: {
-                                  'artist_id': e.id.toString(),
-                                });
-                                navigator<NavigationService>().navigateTo(
-                                    UserRoutes.artistProfileScreenRoute,
-                                    queryParams: {
-                                      'id': e.id.toString()
-                                    }).then((value) {
-                                  if (widget.loadData != null) {
-                                    widget.loadData!();
-                                  }
-                                });
-                              },
-                              artist: e,
-                              themeData: themeData))
-                          .toList(),
+                if (!widget.isInListing)
+                  SizedBox(
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: widget.event.artists
+                            .map((e) => ShortProfileTile(
+                                onTap: () {
+                                  AnalyticsService().logEvent(
+                                      eventName: 'view_artist',
+                                      paras: {
+                                        'artist_id': e.id.toString(),
+                                      });
+                                  // navigator<NavigationService>().navigateTo(
+                                  //     UserRoutes.artistProfileScreenRoute,
+                                  //     queryParams: {
+                                  //       'id': e.id.toString()
+                                  //     }).then((value) {
+                                  //   if (widget.loadData != null) {
+                                  //     widget.loadData!();
+                                  //   }
+                                  // });
+                                },
+                                artist: e,
+                                themeData: themeData))
+                            .toList(),
+                      ),
                     ),
                   ),
-                ),
-                if(!widget.isInListing) SizedBox(height: 1.h,),
+                if (!widget.isInListing)
+                  SizedBox(
+                    height: 1.h,
+                  ),
                 // if (widget.event.address != null)
                 // SizedBox(
                 //   height: 1.5.h,
@@ -497,7 +529,7 @@ class _EventCardState extends State<EventCard> {
                 // SizedBox(
                 //   height: 1.h,
                 // ),
-        
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -529,7 +561,7 @@ class _EventCardState extends State<EventCard> {
                     // SizedBox(
                     //   height: 1.5.h,
                     // ),
-        
+
                     // getExpenseRating(rating: widget.event.id)
                   ],
                 ),
@@ -537,14 +569,18 @@ class _EventCardState extends State<EventCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if(widget.isInListing)
-                    SizedBox(width: 2.w,),
+                    if (widget.isInListing)
+                      SizedBox(
+                        width: 2.w,
+                      ),
                     Expanded(
                       child: Row(children: [
                         Row(
                           children: [
-                            SvgPicture.asset(AssetConstants.durationIcon,
-                               color: Colors.green,), 
+                            SvgPicture.asset(
+                              AssetConstants.durationIcon,
+                              color: Colors.green,
+                            ),
                             SizedBox(
                               width: 1.w,
                             ),
@@ -555,8 +591,9 @@ class _EventCardState extends State<EventCard> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.background,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -584,7 +621,7 @@ class _EventCardState extends State<EventCard> {
                             ),
                             Text(
                               '${widget.event.priceRangeStart.toIndianRupeeString()}',
-                              
+
                               //${widget.event.priceRangeEnd != null ? ' - ${widget.event.priceRangeEnd!.toIndianRupeeString()}' : ''}',
                               style: themeData.textTheme.bodySmall!.copyWith(
                                 fontWeight: FontWeight.w600,
@@ -593,12 +630,15 @@ class _EventCardState extends State<EventCard> {
                             )
                           ],
                         ),
-                        SizedBox(width:3.w,)
+                        SizedBox(
+                          width: 3.w,
+                        )
                       ],
                     )
                   ],
                 ),
-        
+
+                //TODO
                 !widget.isInListing
                     ? Column(
                         children: [
@@ -649,7 +689,9 @@ class _EventCardState extends State<EventCard> {
                                   // fontSize: 14.sp,
                                 ),
                               ),
-                              SizedBox(width: 2.4.w,)
+                              SizedBox(
+                                width: 2.4.w,
+                              )
                             ],
                           ),
                         ],
@@ -677,11 +719,13 @@ class _EventCardState extends State<EventCard> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    AnalyticsService()
-                                        .logEvent(eventName: 'view_club', paras: {
-                                      'club_id': widget.event.pub!.id.toString(),
-                                    });
-        
+                                    AnalyticsService().logEvent(
+                                        eventName: 'view_club',
+                                        paras: {
+                                          'club_id':
+                                              widget.event.pub!.id.toString(),
+                                        });
+
                                     navigator<NavigationService>().navigateTo(
                                         UserRoutes.clubProfileRoute,
                                         queryParams: {
@@ -692,8 +736,7 @@ class _EventCardState extends State<EventCard> {
                                     radius: 4.5.w,
                                     backgroundImage: CachedNetworkImageProvider(
                                         CustomImageProvider.getImageUrl(
-                                            widget.event.pub?.coverImageUrl ??
-                                                "",
+                                            widget.event.pub?.logo ?? "",
                                             // widget.event.pub?.coverImageUrl ?? '',
                                             ImageType.profile)),
                                   ),
@@ -703,7 +746,8 @@ class _EventCardState extends State<EventCard> {
                                 ),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       GestureDetector(
@@ -740,7 +784,8 @@ class _EventCardState extends State<EventCard> {
                                             .copyWith(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 14.sp,
-                                          color: themeData.colorScheme.background,
+                                          color:
+                                              themeData.colorScheme.background,
                                         ),
                                       ),
                                     ],
@@ -754,20 +799,22 @@ class _EventCardState extends State<EventCard> {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 2.w, vertical: .35.h),
                                   decoration: BoxDecoration(
-                                      color:
-                                          themeData.colorScheme.primaryContainer,
-                                      borderRadius: BorderRadius.circular(50.w)),
+                                      color: themeData
+                                          .colorScheme.primaryContainer,
+                                      borderRadius:
+                                          BorderRadius.circular(50.w)),
                                   child: Row(
                                     children: [
-                
-                                      SvgPicture.asset(AssetConstants.locationIcon),
+                                      SvgPicture.asset(
+                                          AssetConstants.locationIcon),
                                       Text(
                                         widget.event.distance <= 0
                                             ? widget.distance
                                             : '${widget.event.distance > 1000 ? (widget.event.distance / 1000).toStringAsFixed(1) : widget.event.distance.toStringAsFixed(0)}km',
                                         style: themeData.textTheme.bodySmall!
                                             .copyWith(
-                                          color: themeData.colorScheme.background,
+                                          color:
+                                              themeData.colorScheme.background,
                                           fontWeight: FontWeight.w600,
                                           fontSize: 14.sp,
                                         ),
@@ -776,7 +823,10 @@ class _EventCardState extends State<EventCard> {
                                   ),
                                 )
                               : GestureDetector(
-                                  onTap: widget.onLike,
+                                  onTap: 
+
+                                    widget.onLike,
+
                                   child: SvgPicture.asset(
                                     widget.isLiked
                                         ? AssetConstants.heartFilledIcon
@@ -793,8 +843,8 @@ class _EventCardState extends State<EventCard> {
                   Column(
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 0.h),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [],
@@ -808,9 +858,8 @@ class _EventCardState extends State<EventCard> {
           ],
         ),
       ),
-   
-     //todo
-   
+
+      //todo
     );
   }
 

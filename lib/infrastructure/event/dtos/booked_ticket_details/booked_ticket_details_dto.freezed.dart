@@ -25,6 +25,8 @@ mixin _$BookedTicketDetailsDto {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'numberOfTickets', defaultValue: 0)
   int get numberOfTickets => throw _privateConstructorUsedError;
+  @JsonKey(name: 'remainingAmount', defaultValue: 0)
+  double get remainingAmount => throw _privateConstructorUsedError;
   @JsonKey(name: 'ticketDetails', defaultValue: [])
   List<EventTicketDetailDto> get eventTicketDetails =>
       throw _privateConstructorUsedError;
@@ -56,6 +58,7 @@ abstract class $BookedTicketDetailsDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0) int numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0) double remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') EventDto eventDetails,
@@ -85,6 +88,7 @@ class _$BookedTicketDetailsDtoCopyWithImpl<$Res,
   $Res call({
     Object? id = null,
     Object? numberOfTickets = null,
+    Object? remainingAmount = null,
     Object? eventTicketDetails = null,
     Object? eventDetails = null,
     Object? paymentMethod = null,
@@ -102,6 +106,10 @@ class _$BookedTicketDetailsDtoCopyWithImpl<$Res,
           ? _value.numberOfTickets
           : numberOfTickets // ignore: cast_nullable_to_non_nullable
               as int,
+      remainingAmount: null == remainingAmount
+          ? _value.remainingAmount
+          : remainingAmount // ignore: cast_nullable_to_non_nullable
+              as double,
       eventTicketDetails: null == eventTicketDetails
           ? _value.eventTicketDetails
           : eventTicketDetails // ignore: cast_nullable_to_non_nullable
@@ -154,6 +162,7 @@ abstract class _$$BookedTicketDetailsDtoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0) int numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0) double remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') EventDto eventDetails,
@@ -183,6 +192,7 @@ class __$$BookedTicketDetailsDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? numberOfTickets = null,
+    Object? remainingAmount = null,
     Object? eventTicketDetails = null,
     Object? eventDetails = null,
     Object? paymentMethod = null,
@@ -200,6 +210,10 @@ class __$$BookedTicketDetailsDtoImplCopyWithImpl<$Res>
           ? _value.numberOfTickets
           : numberOfTickets // ignore: cast_nullable_to_non_nullable
               as int,
+      remainingAmount: null == remainingAmount
+          ? _value.remainingAmount
+          : remainingAmount // ignore: cast_nullable_to_non_nullable
+              as double,
       eventTicketDetails: null == eventTicketDetails
           ? _value.eventTicketDetails
           : eventTicketDetails // ignore: cast_nullable_to_non_nullable
@@ -239,6 +253,8 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0)
       required this.numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0)
+      required this.remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       required this.eventTicketDetails,
       @JsonKey(name: 'event') required this.eventDetails,
@@ -261,6 +277,9 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
   @override
   @JsonKey(name: 'numberOfTickets', defaultValue: 0)
   final int numberOfTickets;
+  @override
+  @JsonKey(name: 'remainingAmount', defaultValue: 0)
+  final double remainingAmount;
   @override
   @JsonKey(name: 'ticketDetails', defaultValue: [])
   final List<EventTicketDetailDto> eventTicketDetails;
@@ -285,7 +304,7 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
 
   @override
   String toString() {
-    return 'BookedTicketDetailsDto(id: $id, numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, transactionId: $transactionId, bookingReference: $bookingReference, paymentAmount: $paymentAmount, showTicketDetails: $showTicketDetails)';
+    return 'BookedTicketDetailsDto(id: $id, numberOfTickets: $numberOfTickets, remainingAmount: $remainingAmount, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, transactionId: $transactionId, bookingReference: $bookingReference, paymentAmount: $paymentAmount, showTicketDetails: $showTicketDetails)';
   }
 
   @override
@@ -296,6 +315,8 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.numberOfTickets, numberOfTickets) ||
                 other.numberOfTickets == numberOfTickets) &&
+            (identical(other.remainingAmount, remainingAmount) ||
+                other.remainingAmount == remainingAmount) &&
             const DeepCollectionEquality()
                 .equals(other.eventTicketDetails, eventTicketDetails) &&
             (identical(other.eventDetails, eventDetails) ||
@@ -318,6 +339,7 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
       runtimeType,
       id,
       numberOfTickets,
+      remainingAmount,
       const DeepCollectionEquality().hash(eventTicketDetails),
       eventDetails,
       paymentMethod,
@@ -346,6 +368,8 @@ abstract class _BookedTicketDetailsDto implements BookedTicketDetailsDto {
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0)
       required final int numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0)
+      required final double remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       required final List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') required final EventDto eventDetails,
@@ -369,6 +393,9 @@ abstract class _BookedTicketDetailsDto implements BookedTicketDetailsDto {
   @override
   @JsonKey(name: 'numberOfTickets', defaultValue: 0)
   int get numberOfTickets;
+  @override
+  @JsonKey(name: 'remainingAmount', defaultValue: 0)
+  double get remainingAmount;
   @override
   @JsonKey(name: 'ticketDetails', defaultValue: [])
   List<EventTicketDetailDto> get eventTicketDetails;

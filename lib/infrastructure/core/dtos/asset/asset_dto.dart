@@ -16,3 +16,8 @@ class AssetDto with _$AssetDto {
   factory AssetDto.fromJson(Map<String, dynamic> json) =>
       _$AssetDtoFromJson(json);
 }
+
+enum AssetType {
+  image,
+  video,
+}

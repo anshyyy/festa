@@ -22,10 +22,12 @@ class IUserRepository extends UserRepository {
     required Map<String, dynamic> input,
   }) async {
     try {
+      print(input);
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
       final url = '$serverUrl${EventApiConstants.USERS}';
       final response = await RESTService.performPATCHRequest(
           httpUrl: url, isAuth: true, token: token!, body: jsonEncode(input));
+      print(response.statusCode);
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
@@ -39,6 +41,7 @@ class IUserRepository extends UserRepository {
       final data = jsonDecode(userResponse.body);
       return right(UserDto.fromJson(data));
     } catch (error) {
+       print(error);
       return left(ErrorConstants.networkUnavailable);
     }
   }
@@ -137,7 +140,7 @@ class IUserRepository extends UserRepository {
       await RESTService.performPOSTRequest(
           httpUrl: url, isAuth: true, token: token!);
     } catch (e) {
-      print(e);
+      (e);
     }
   }
 
@@ -225,7 +228,7 @@ class IUserRepository extends UserRepository {
       return personalizedList;
     } catch (e) {
       return [];
-      // print(e);
+      // (e);
     }
   }
 
@@ -278,6 +281,7 @@ class IUserRepository extends UserRepository {
         return left(null);
       }
       final body = response.body;
+      (body);
       final ticketsRaw = jsonDecode(body) as Map<String, dynamic>;
       final allTickets = UserTicketsDto.fromJson(ticketsRaw);
       return right(allTickets);

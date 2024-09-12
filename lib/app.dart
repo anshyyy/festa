@@ -170,7 +170,6 @@ Future appInitializer(AppConfig appConfig) async {
     appTitle: appConfig.appTitle,
     buildFlavor: appConfig.buildFlavor,
     serverUrl: appConfig.serverUrl,
-    serverUrl2: appConfig.serverUrl2,
     googleMapsApiKey: appConfig.googleMapsApiKey,
     razorPayApiKey: appConfig.razorPayApiKey,
     child: ChangeNotifierProvider<AppStateNotifier>(
@@ -216,7 +215,7 @@ Future initMessagingService({
   FirebaseMessaging.instance.getInitialMessage().then((message) {
     if (message != null) {
       Future.delayed(const Duration(seconds: 2)).then(
-        (value) => {print(message)},
+        (value) => {(message)},
       );
     }
   });
@@ -252,7 +251,7 @@ Future initMessagingService({
       }
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print(message);
+      (message);
       //
     });
   }
@@ -331,6 +330,7 @@ Future checkForAppUpdate(GlobalKey<NavigatorState> navKey) async {
     minVersion = appUpdateData['min_version'];
     isForceUpdate = buildNumber < minVersion;
     isNewReleaseAvailable = buildNumber < latestVersion;
+    
 
     if (isForceUpdate) {
       showDialog(

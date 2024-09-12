@@ -36,7 +36,6 @@ class MainNavigator extends StatelessWidget {
         BlocProvider(
           lazy: false,
           create: (context) => HomeCubit(HomeState.initial(
-            serverUrl2: appConfig.serverUrl2,
             appStateNotifier: appStateNotifier,
             serverUrl: appConfig.serverUrl,
             mapsApiKey: appConfig.googleMapsApiKey,
@@ -46,10 +45,11 @@ class MainNavigator extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TicketCubit(TicketState.initial(
+             razorPayApiKey: appConfig.razorPayApiKey,
             serverUrl: appConfig.serverUrl,
           ))
             ..init(),
-          child: const TicketScreenConsumer(),
+          child: const TicketScreen(),
         ),
         BlocProvider(
           create: (context) => UserProfileCubit(UserProfileState.initial(
@@ -87,7 +87,7 @@ class MainNavigatorConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final userProfileState = context.watch<UserProfileCubit>().state;
-       // print(userProfileState.user);
+       // (userProfileState.user);
         return ModalProgressHUD(
           inAsyncCall: state.isTabLoading,
           blur: 0,
@@ -127,7 +127,7 @@ class MainNavigatorConsumer extends StatelessWidget {
               child: state.currentIndex == 0
                   ? const HomeScreen()
                   : state.currentIndex == 2
-                      ? const TicketsScreen1()
+                      ? const TicketScreen()
                       : state.currentIndex == 3
                           ? const UserProfileScreen()
                           : null,

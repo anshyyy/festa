@@ -96,5 +96,12 @@
     <string>tmap</string>
     <string>szn-mapy</string>
 	</array>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+    <string>whatsapp</string>
+    </array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We use your location to provide a better event discovery experience by showing nearby events and venues.</string>
+
 </dict>
 </plist>

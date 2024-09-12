@@ -7,13 +7,16 @@ class HomeState with _$HomeState {
     required bool hasMoreEvents,
     required bool isSuccessful,
     required bool isFailed,
+    required bool isAtTop,
     required bool noUse,
     FilterDto? categoryFilter,
     required int page,
+    required bool noEventsInTheLocation,
     required List<EventDto> events,
     required List<FilterDto> filters,
     required List<Map<String, dynamic>> exploreList,
     required List<Map<String, dynamic>> mainExploreList,
+    required List<Map<String, dynamic>> staticFilterList,
     required PageController pageController,
     required bool showLocationDialog,
     required List<Map<String, dynamic>> filterOptions,
@@ -34,6 +37,7 @@ class HomeState with _$HomeState {
     required bool noFilteredEvents,
     required bool noLocatedEvents,
     required bool isScrollingUp,
+    required bool isVideoMute,
     required LocationRepository locationRepository,
     required List<SuggestionDto> suggestions,
     required TextEditingController searchController,
@@ -48,12 +52,12 @@ class HomeState with _$HomeState {
   factory HomeState.initial(
           {required AppStateNotifier appStateNotifier,
           required String serverUrl,
-          required String serverUrl2,
           required String mapsApiKey}) =>
       HomeState(
         page: 1,
         isRefresh: false,
         showPermissionDialog: false,
+        noEventsInTheLocation: false,
         homeKey: GlobalKey(),
         noUse: false,
         hasMoreEvents: true,
@@ -62,7 +66,7 @@ class HomeState with _$HomeState {
         scrollController: ScrollController(
           keepScrollOffset: true,
         ),
-        searchRepository: ISearchRepository(serverUrl: serverUrl2),
+        searchRepository: ISearchRepository(serverUrl: serverUrl),
         filters: [],
         user: appStateNotifier.user,
         events: [],
@@ -71,8 +75,9 @@ class HomeState with _$HomeState {
         ),
         isLoading: true,
         isFailed: false,
+        isAtTop: true,
         isSuccessful: false,
-        location: OtherConstants.defaultLocation,
+        location: appStateNotifier.location ?? OtherConstants.defaultLocation,
         pageController: PageController(),
         mainExploreList: [
           {
@@ -103,7 +108,7 @@ class HomeState with _$HomeState {
             'svgIcon': null,
             'label': 'This Weekend',
           },
-           {
+          {
             'id': 'date',
             'isSelected': false,
             'identifier': null,
@@ -119,6 +124,50 @@ class HomeState with _$HomeState {
           },
         ],
         exploreList: [
+          {
+            'id': 'filter',
+            'isSelected': false,
+            'identifier': AppConstants.filterKey,
+            'svgIcon': AssetConstants.filterIcon,
+            'label': 'Filter',
+          },
+          {
+            'id': 'sort',
+            'isSelected': false,
+            'identifier': AppConstants.otherKey,
+            'svgIcon': AssetConstants.arrowDown,
+            'label': 'Sort',
+          },
+          {
+            'id': 'today',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'Today',
+          },
+          {
+            'id': 'weekend',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'This Weekend',
+          },
+          {
+            'id': 'date',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'Date',
+          },
+          {
+            'id': 'like',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': AssetConstants.heartOutlinedIcon,
+            'label': "",
+          },
+        ],
+        staticFilterList: [
           {
             'id': 'filter',
             'isSelected': false,
@@ -193,6 +242,7 @@ class HomeState with _$HomeState {
         ],
         sortDisplayName: 'Sort',
         sortDropdownOpen: false,
+        isVideoMute: false,
         sortKey: GlobalKey(),
         chipPosition: Offset.zero,
         isSearchOpen: false,

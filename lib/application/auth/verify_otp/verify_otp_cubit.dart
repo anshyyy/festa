@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -75,7 +76,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
       verificationCode: state.verificationCode!,
       code: state.otpController.text,
     );
-
+    log('$response');
     response.fold(
       (l) => emit(state.copyWith(
         isLoading: false,

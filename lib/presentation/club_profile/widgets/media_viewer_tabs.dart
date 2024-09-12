@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
+import 'club_menu_screen.dart';
 import 'events_calendar_builder.dart';
 import 'media_grid_widget.dart';
 
@@ -12,21 +13,17 @@ class MediaViewerTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return SizedBox(
           height: 83.h,
           child: DefaultTabController(
-            length: 2,
+            length: 3,
             child: Column(
               children: [
                 Container(
                   color: Theme.of(context).colorScheme.surface,
                   child: TabBar(
-                    
-                    
                     labelColor: Theme.of(context).colorScheme.background,
                     labelStyle: Theme.of(context)
                         .textTheme
@@ -38,12 +35,14 @@ class MediaViewerTabs extends StatelessWidget {
                         Theme.of(context).textTheme.bodySmall!.copyWith(),
                     tabs: const [
                       Tab(
-                  
                         child: Text('Photos'),
                       ),
                       Tab(
                         child: Text('Events'),
                       ),
+                      Tab(
+                        child: Text('Menu'),
+                      )
                     ],
                   ),
                 ),
@@ -51,6 +50,9 @@ class MediaViewerTabs extends StatelessWidget {
                   child: TabBarView(children: [
                     const MediaGridViewer(),
                     EventsCalendarBuilder(
+                      clubId: state.clubId,
+                    ),
+                    ClubMenuScreen(
                       clubId: state.clubId,
                     )
                   ]),
@@ -63,5 +65,3 @@ class MediaViewerTabs extends StatelessWidget {
     );
   }
 }
-
-

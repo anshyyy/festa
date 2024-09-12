@@ -11,12 +11,14 @@ class TicketBookingWidget extends StatelessWidget {
   final String startDate;
   final double priceRangeStart;
   final double? priceRangeEnd;
+  final int? couponAmount;
   const TicketBookingWidget(
       {super.key,
       required this.onClick,
       required this.startDate,
       required this.priceRangeStart,
-      this.priceRangeEnd});
+      this.priceRangeEnd,
+      this.couponAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,6 @@ class TicketBookingWidget extends StatelessWidget {
       height: 12.5.h,
       width: 100.w,
       padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
-      
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,9 +51,12 @@ class TicketBookingWidget extends StatelessWidget {
                   children: [
                     Text(
                         // '${event.priceRangeStart.toIndianRupeeString()} ',
-                        priceRangeStart == 0
+                        (priceRangeStart) == 0
                             ? 'Free'
-                            : priceRangeStart.toIndianRupeeString(),
+                            : couponAmount == 0
+                                ? (priceRangeStart ?? 0).toIndianRupeeString()
+                                : ((priceRangeStart ?? 0) - (couponAmount ?? 0))
+                                    .toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             height: 1,

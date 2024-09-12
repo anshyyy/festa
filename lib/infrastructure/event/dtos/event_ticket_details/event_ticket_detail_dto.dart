@@ -1,6 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:http/http.dart';
 part 'event_ticket_detail_dto.freezed.dart';
 part 'event_ticket_detail_dto.g.dart';
 
@@ -20,6 +21,7 @@ class EventTicketDetailDto with _$EventTicketDetailDto {
     @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
     required int maxTicketsToBook,
     @JsonKey(name: 'noOfTickets', defaultValue: 0) required int noOfTickets,
+    @JsonKey(name:'coverChargeEnabled',defaultValue: false) required bool coverChargeEnabled
   }) = _EventTicketDetailDto;
 
   factory EventTicketDetailDto.fromJson(Map<String, dynamic> json) =>

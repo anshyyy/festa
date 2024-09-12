@@ -13,6 +13,7 @@ class PaymentStatusState with _$PaymentStatusState {
     required bool isPaymentPending,
     required EventRepository eventRepository,
     required double totalAmount,
+    double? coverAmount,
     EventDto? event,
   }) = _PaymentStatusState;
 
@@ -23,12 +24,14 @@ class PaymentStatusState with _$PaymentStatusState {
     required bool isPaymentSuccess,
     required double totalAmount,
     required bool isPaymentPending,
+    double? coverAmount,
   }) =>  PaymentStatusState(
         noUse: false,
         isLoading: false,
         isFailure: false,
         isSuccess: false,
         eventId: eventId,
+        coverAmount: coverAmount,
         eventRepository: IEventRepository(serverUrl: serverUrl),
         isPaymentSuccess: isPaymentSuccess,
         numberOfTickets: numberOfTickets,

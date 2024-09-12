@@ -19,10 +19,9 @@ import 'follow_artist_modalsheet.dart';
 
 class EventOptionsModalSheet extends StatelessWidget {
   final int eventId;
-  const EventOptionsModalSheet({
-    super.key,
-    required this.eventId,
-  });
+  final String eventName;
+  const EventOptionsModalSheet(
+      {super.key, required this.eventId, required this.eventName});
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +32,19 @@ class EventOptionsModalSheet extends StatelessWidget {
         serverUrl: appConfig.serverUrl,
       ))
         ..init(),
-      child: const EventOptionsModalsheetConsumer(),
+      child: EventOptionsModalsheetConsumer(
+        eventId: eventId,
+        eventName: eventName,
+      ),
     );
   }
 }
 
 class EventOptionsModalsheetConsumer extends StatelessWidget {
-  const EventOptionsModalsheetConsumer({
-    super.key,
-  });
+  final int eventId;
+  final String eventName;
+  const EventOptionsModalsheetConsumer(
+      {super.key, required this.eventId, required this.eventName});
 
   @override
   Widget build(BuildContext context) {
@@ -60,154 +63,161 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: SingleChildScrollView(
-            child: !state.isLoading
-                ? Column(
-                    children: [
-                      Container(
-                        width: 12.w,
-                        height: .5.h,
-                        decoration: BoxDecoration(
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
+              child: Column(
+            children: [
+              Container(
+                width: 12.w,
+                height: .5.h,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              EventOptionsTile(
+                prefixIcon: SvgPicture.asset(
+                  AssetConstants.followIcon,
+                  height: 5.w,
+                ),
+                onTap: () {
+                  navigator<NavigationService>().goBack();
+                  if (!state.isLoading) {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => FollowArtistsModalSheet(
+                              artists: state.event!.artists,
+                            ));
+                  }
+                },
+                title: EventDetailsScreenConstants.followArtists,
+                suffixIcon: state.isLoading
+                    ? Image.asset(
+                        AssetConstants.bubbleLoader,
+                        height: 3.5.h,
+                      )
+                    : SvgPicture.asset(
+                        AssetConstants.arrowRight,
                       ),
-                      SizedBox(
-                        height: 3.h,
+              ),
+              EventOptionsTile(
+                  onTap: () {
+                    if(state.isLoading){
+                      return;
+                    }
+                    final Event event = Event(
+                      title: state.event!.name,
+                      description: state.event!.description,
+                      location: state.event!.address!.completeAddress,
+                      startDate:
+                          DateTime.parse(state.event!.startDate).toLocal(),
+                      endDate: DateTime.parse(state.event!.endDate!).toLocal(),
+                      iosParams: const IOSParams(
+                        reminder: Duration(hours: 1),
+                        url: 'https://www.festa.com',
                       ),
-                      EventOptionsTile(
-                        prefixIcon: SvgPicture.asset(
-                          AssetConstants.followIcon,
-                          height: 5.w,
-                        ),
-                        onTap: () {
-                          navigator<NavigationService>().goBack();
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => FollowArtistsModalSheet(
-                                    artists: state.event!.artists,
-                                  ));
-                        },
-                        title: EventDetailsScreenConstants.followArtists,
-                        suffixIcon: SvgPicture.asset(
-                          AssetConstants.arrowRight,
-                        ),
+                      androidParams: const AndroidParams(
+                        emailInvites: [],
                       ),
-                      EventOptionsTile(
-                          onTap: () {
-                            final Event event = Event(
-                              title: state.event!.name,
-                              description: state.event!.description,
-                              location: state.event!.address!.completeAddress,
-                              startDate: DateTime.parse(state.event!.startDate)
-                                  .toLocal(),
-                              endDate: DateTime.parse(state.event!.endDate!)
-                                  .toLocal(),
-                              iosParams: const IOSParams(
-                                reminder: Duration(hours: 1),
-                                url: 'https://www.festa.com',
-                              ),
-                              androidParams: const AndroidParams(
-                                emailInvites: [],
-                              ),
-                            );
-                            Add2Calendar.addEvent2Cal(event);
-                          },
-                          prefixIcon: SvgPicture.asset(
-                            AssetConstants.addToCalendar,
-                            height: 5.w,
-                          ),
-                          title: EventDetailsScreenConstants.addToCalendar),
-                      // EventOptionsTile(title: EventDetailsScreenConstants.shareEvent),
-                      EventOptionsTile(
-                          onTap: () {
-                            navigator<NavigationService>().goBack();
-                            showModalBottomSheet(
-                                useRootNavigator: true,
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return ReportModalSheet(
-                                    id: state.eventId.toString(),
-                                    name: state.event!.name,
-                                    type: 'event',
-                                  );
-                                });
-                          },
-                          prefixIcon: SvgPicture.asset(
-                            AssetConstants.gradientReport,
-                            height: 5.w,
-                          ),
-                          title: EventDetailsScreenConstants.report),
-
-                      EventOptionsTile(
-                        prefixIcon: SvgPicture.asset(
-                          AssetConstants.userBlock,
-                          height: 5.w,
-                        ),
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) => AgreeToBlock(
-                              name: state.event!.name,
-                            ),
-                          ).then((value) {
-                            if (value != null) {
-                              context.read<EventOptionsCubit>().blockEvent();
-                            }
-                          });
-                        },
-                        title: 'Block',
-                        suffixIcon: SvgPicture.asset(
-                          AssetConstants.arrowRight,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 12.w,
-                        height: .5.h,
-                        decoration: BoxDecoration(
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                      Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!.withOpacity(0.5),
-                        highlightColor: Colors.grey[400]!.withOpacity(0.5),
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 1.h),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              const MenuShimmer(),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              const MenuShimmer(),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              const MenuShimmer(),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                    );
+                    Add2Calendar.addEvent2Cal(event);
+                  },
+                  prefixIcon: SvgPicture.asset(
+                    AssetConstants.addToCalendar,
+                    height: 5.w,
                   ),
-          ),
+                  title: EventDetailsScreenConstants.addToCalendar),
+              // EventOptionsTile(title: EventDetailsScreenConstants.shareEvent),
+              EventOptionsTile(
+                  onTap: () {
+                    navigator<NavigationService>().goBack();
+                    showModalBottomSheet(
+                        useRootNavigator: true,
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return ReportModalSheet(
+                            id: eventId.toString(),
+                            name: eventName,
+                            type: 'event',
+                          );
+                        });
+                  },
+                  prefixIcon: SvgPicture.asset(
+                    AssetConstants.gradientReport,
+                    height: 5.w,
+                  ),
+                  title: EventDetailsScreenConstants.report),
+
+              EventOptionsTile(
+                prefixIcon: SvgPicture.asset(
+                  AssetConstants.userBlock,
+                  height: 5.w,
+                ),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => AgreeToBlock(
+                      name: eventName,
+                    ),
+                  ).then((value) {
+                    if (value != null) {
+                      context.read<EventOptionsCubit>().blockEvent();
+                    }
+                  });
+                },
+                title: 'Block',
+                suffixIcon: SvgPicture.asset(
+                  AssetConstants.arrowRight,
+                ),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+            ],
+          )
+              // : Column(
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       Container(
+              //         width: 12.w,
+              //         height: .5.h,
+              //         decoration: BoxDecoration(
+              //           color:
+              //               Theme.of(context).colorScheme.secondaryContainer,
+              //           borderRadius: BorderRadius.circular(50),
+              //         ),
+              //       ),
+              //       Shimmer.fromColors(
+              //         baseColor: Colors.grey[300]!.withOpacity(0.5),
+              //         highlightColor: Colors.grey[400]!.withOpacity(0.5),
+              //         child: Container(
+              //           margin: EdgeInsets.only(bottom: 1.h),
+              //           child: Column(
+              //             children: [
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //               const MenuShimmer(),
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //               const MenuShimmer(),
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //               const MenuShimmer(),
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              ),
         );
       },
     );

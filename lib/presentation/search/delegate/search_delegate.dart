@@ -9,7 +9,6 @@ import '../search_tabs/search_tab_screen.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final HomeCubit homeCubit;
-
   CustomSearchDelegate({required this.homeCubit});
   final Debouncer _debouncer = Debouncer(milliseconds: 500);
 
@@ -85,7 +84,9 @@ class CustomSearchDelegate extends SearchDelegate {
       bloc: homeCubit,
       builder: (context, state) {
         if (state.searchLoading!) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator(
+                color: Color(0xffFF1759),
+          ));
         } else if (!state.searchLoading! &&
             state.searchResults!.pubs.isEmpty &&
             state.searchResults!.events.isEmpty &&
@@ -111,7 +112,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // print(query);
+    // (query);
     if (query.isEmpty) {
       return const Center(
         child: Column(
@@ -137,7 +138,9 @@ class CustomSearchDelegate extends SearchDelegate {
         bloc: homeCubit,
         builder: (context, state) {
           if (state.searchLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return  Center(child: CircularProgressIndicator(
+                color: Color(0xffFF1759),
+            ));
           } else if (!(state.searchLoading) &&
               (state.searchResults?.pubs.isEmpty ?? true) &&
               (state.searchResults?.events.isEmpty ?? true) &&

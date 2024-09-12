@@ -26,6 +26,7 @@ mixin _$PaymentStatusState {
   bool get isPaymentPending => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   double get totalAmount => throw _privateConstructorUsedError;
+  double? get coverAmount => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -50,6 +51,7 @@ abstract class $PaymentStatusStateCopyWith<$Res> {
       bool isPaymentPending,
       EventRepository eventRepository,
       double totalAmount,
+      double? coverAmount,
       EventDto? event});
 
   $EventDtoCopyWith<$Res>? get event;
@@ -78,6 +80,7 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
     Object? isPaymentPending = null,
     Object? eventRepository = null,
     Object? totalAmount = null,
+    Object? coverAmount = freezed,
     Object? event = freezed,
   }) {
     return _then(_value.copyWith(
@@ -121,6 +124,10 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
+      coverAmount: freezed == coverAmount
+          ? _value.coverAmount
+          : coverAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
@@ -160,6 +167,7 @@ abstract class _$$PaymentStatusStateImplCopyWith<$Res>
       bool isPaymentPending,
       EventRepository eventRepository,
       double totalAmount,
+      double? coverAmount,
       EventDto? event});
 
   @override
@@ -187,6 +195,7 @@ class __$$PaymentStatusStateImplCopyWithImpl<$Res>
     Object? isPaymentPending = null,
     Object? eventRepository = null,
     Object? totalAmount = null,
+    Object? coverAmount = freezed,
     Object? event = freezed,
   }) {
     return _then(_$PaymentStatusStateImpl(
@@ -230,6 +239,10 @@ class __$$PaymentStatusStateImplCopyWithImpl<$Res>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
+      coverAmount: freezed == coverAmount
+          ? _value.coverAmount
+          : coverAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
@@ -252,6 +265,7 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
       required this.isPaymentPending,
       required this.eventRepository,
       required this.totalAmount,
+      this.coverAmount,
       this.event});
 
   @override
@@ -275,11 +289,13 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
   @override
   final double totalAmount;
   @override
+  final double? coverAmount;
+  @override
   final EventDto? event;
 
   @override
   String toString() {
-    return 'PaymentStatusState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventId: $eventId, numberOfTickets: $numberOfTickets, isPaymentSuccess: $isPaymentSuccess, isPaymentPending: $isPaymentPending, eventRepository: $eventRepository, totalAmount: $totalAmount, event: $event)';
+    return 'PaymentStatusState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventId: $eventId, numberOfTickets: $numberOfTickets, isPaymentSuccess: $isPaymentSuccess, isPaymentPending: $isPaymentPending, eventRepository: $eventRepository, totalAmount: $totalAmount, coverAmount: $coverAmount, event: $event)';
   }
 
   @override
@@ -305,6 +321,8 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
                 other.eventRepository == eventRepository) &&
             (identical(other.totalAmount, totalAmount) ||
                 other.totalAmount == totalAmount) &&
+            (identical(other.coverAmount, coverAmount) ||
+                other.coverAmount == coverAmount) &&
             (identical(other.event, event) || other.event == event));
   }
 
@@ -321,6 +339,7 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
       isPaymentPending,
       eventRepository,
       totalAmount,
+      coverAmount,
       event);
 
   @JsonKey(ignore: true)
@@ -343,6 +362,7 @@ abstract class _PaymentStatusState implements PaymentStatusState {
       required final bool isPaymentPending,
       required final EventRepository eventRepository,
       required final double totalAmount,
+      final double? coverAmount,
       final EventDto? event}) = _$PaymentStatusStateImpl;
 
   @override
@@ -365,6 +385,8 @@ abstract class _PaymentStatusState implements PaymentStatusState {
   EventRepository get eventRepository;
   @override
   double get totalAmount;
+  @override
+  double? get coverAmount;
   @override
   EventDto? get event;
   @override

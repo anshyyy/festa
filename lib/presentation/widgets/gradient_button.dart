@@ -11,6 +11,8 @@ class GradientButton extends StatelessWidget {
   final double? height;
   final double? width;
   final TextStyle? textStyle;
+  final bool isWidget;
+  final Widget? child;
   const GradientButton({
     super.key,
     required this.text,
@@ -22,6 +24,8 @@ class GradientButton extends StatelessWidget {
     this.gradientColor2,
     this.showColor,
     this.textStyle,
+    this.child,
+    this.isWidget = false,
   });
 
   @override
@@ -39,12 +43,13 @@ class GradientButton extends StatelessWidget {
         decoration: isEnabled
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(7),
+               // color: Theme.of(context).colorScheme.secondary,
                 boxShadow: [
                   BoxShadow(
                     color: showColor ??
                         Theme.of(context).colorScheme.secondary, // Shadow color
-                    blurRadius: 20, // Blur radius
-                    spreadRadius: 1,
+                    blurRadius: 5, // Blur radius
+                    spreadRadius: 0.5,
                     offset: const Offset(0, 0), // X,Y offset from the container
                   ),
                 ],
@@ -57,7 +62,10 @@ class GradientButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(7),
                 color: const Color(0xff373737)),
         child: Center(
-          child: Text(text,
+          child: 
+          isWidget?
+          child
+          :Text(text,
               style: textStyle ??
                   Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.background,

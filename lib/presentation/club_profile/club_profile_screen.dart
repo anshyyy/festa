@@ -69,19 +69,19 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
-        //print(state.is)
+        //(state.is)
         if (state.isAtTop) _animationController.forward();
         if (!state.isAtTop) _animationController.reset();
       },
       builder: (context, state) {
         return Scaffold(
-          bottomNavigationBar: CustomBottomNav(
-            isTabScreen: false,
-            onTabChange: (i) {},
-            currentIndex: Provider.of<AppStateNotifier>(context, listen: false)
-                    .menuIndex ??
-                0,
-          ),
+          // bottomNavigationBar: CustomBottomNav(
+          //   isTabScreen: false,
+          //   onTabChange: (i) {},
+          //   currentIndex: Provider.of<AppStateNotifier>(context, listen: false)
+          //           .menuIndex ??
+          //       0,
+          // ),
           body: state.isLoading
               ? const ClubShimmer()
               : state.pub == null
@@ -94,8 +94,8 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                           builder: (context, child) {
                             return Positioned(
                               child: DraggableScrollableSheet(
-                                initialChildSize: .47,
-                                minChildSize: .47,
+                                initialChildSize: .57,
+                                minChildSize: .57,
                                 controller: state.dragController,
                                 builder: (context, dragController) {
                                   return SingleChildScrollView(
@@ -116,11 +116,11 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                                                   )
                                                 : Padding(
                                                     padding:
-                                                        const EdgeInsets.only(
-                                                            bottom: 10.0),
+                                                         EdgeInsets.only(
+                                                            bottom: 1.h),
                                                     child: ClubProfile(),
                                                   ),
-                                            const MediaViewerTabs(),
+                                          const MediaViewerTabs(),
                                           ],
                                         ),
                                       ),
@@ -163,7 +163,7 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                                           return ProfileActionsModal(
                                             profileType: 'pub',
                                             profileId: state.clubId.toString(),
-                                            profileName: state.pub!.fullName,
+                                            profileName: state.pub?.fullName ?? "",
                                             isBlocked: state.isBlocked,
                                             isFollowing: state.isFollowing,
                                             onTapBlockOrUnBlock: (val) {
@@ -227,7 +227,7 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                                       children: [
                                         Center(
                                           child: Text(
-                                            '${state.pub!.fullName} is blocked!',
+                                            '${state.pub?.fullName} is blocked!',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall!
@@ -276,36 +276,7 @@ class ClubShimmer extends StatelessWidget {
             // SizedBox(
             //   height: 1.h,
             // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: .5.w,
-                    ),
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: .5.w,
-                    ),
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          
 
             const Spacer(),
             Stack(

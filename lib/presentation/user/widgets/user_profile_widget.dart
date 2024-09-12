@@ -226,8 +226,8 @@ class UserProfile extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return SizedBox(
-                          // color: colorS/cheme.surface,
+                        return Container(
+                         color: Colors.black,
                           width: 100.w,
                           height: 100.h,
                           child: Padding(

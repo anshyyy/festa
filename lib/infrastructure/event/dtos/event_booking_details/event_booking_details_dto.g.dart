@@ -20,6 +20,9 @@ _$EventBookingDetailsDtoImpl _$$EventBookingDetailsDtoImplFromJson(
       status: json['status'] as String? ?? '',
       bookingId: json['id'] as int? ?? 0,
       razorpayOrderId: json['razorpayOrderId'] as String?,
+      coupon: json['coupon'] == null
+          ? null
+          : CouponDTO.fromJson(json['coupon'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$EventBookingDetailsDtoImplToJson(
@@ -32,4 +35,5 @@ Map<String, dynamic> _$$EventBookingDetailsDtoImplToJson(
       'status': instance.status,
       'id': instance.bookingId,
       'razorpayOrderId': instance.razorpayOrderId,
+      'coupon': instance.coupon,
     };

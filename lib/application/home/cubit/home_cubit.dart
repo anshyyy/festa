@@ -51,6 +51,13 @@ class HomeCubit extends Cubit<HomeState> {
       final double currentScroll = state.scrollController.position.pixels;
       lastScrollPos = state.scrollController.position.pixels;
 
+      // Check if the scroll is at the top
+      if (currentScroll <= 10) {
+        emit(state.copyWith(isAtTop: true));
+      } else {
+        emit(state.copyWith(isAtTop: false));
+      }
+
       const double delta = 50;
       if (maxScroll - currentScroll <= delta) {
         if (state.hasMoreEvents) {
@@ -61,14 +68,13 @@ class HomeCubit extends Cubit<HomeState> {
         }
       }
 
-
       if (state.scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
-         emit(state.copyWith(isScrollingUp: true));
+        emit(state.copyWith(isScrollingUp: true));
       }
       if (state.scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
-       emit(state.copyWith(isScrollingUp: false));
+        emit(state.copyWith(isScrollingUp: false));
       }
     });
 
@@ -94,8 +100,16 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(isLoading: true, events: [], page: 1, isRefresh: true));
 
     await getEvents();
+    List<Map<String, dynamic>> updatedExploreList =
+        state.exploreList.map((exploreItem) {
+      if (['today', 'weekend', 'date'].contains(exploreItem['id'])) {
+        return {...exploreItem, 'svgIcon': null, 'isSelected': false};
+      }
+      return exploreItem;
+    }).toList();
 
-    emit(state.copyWith(isLoading: false, isRefresh: false));
+    emit(state.copyWith(
+        isLoading: false, isRefresh: false, exploreList: updatedExploreList));
   }
 
   Future getEvents({String? eventsFrom}) async {
@@ -155,7 +169,14 @@ class HomeCubit extends Cubit<HomeState> {
       range: range,
       otherFilters: otherFilters,
     );
+    print(events);
+    if(events.isEmpty){
+        emit(state.copyWith(noEventsInTheLocation: true));
+    } else{
+              emit(state.copyWith(noEventsInTheLocation: false));
+    }
     state.events.addAll(events);
+
     isFetching = false;
     emit(state.copyWith(
       noUse: !state.noUse,
@@ -182,7 +203,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(showLocationDialog: !state.showLocationDialog));
   }
 
-  void updateLocation({required LocationDto location}) {
+  void updateLocation({required LocationDto location}) async {
+    emit(state.copyWith(isLoading: true));
     List<FilterDto> filters = List.from(state.filters.map((e) => e.copyWith(
         isApplied: false,
         values: e.values
@@ -196,15 +218,13 @@ class HomeCubit extends Cubit<HomeState> {
         hasMoreEvents: true,
         exploreList: state.mainExploreList,
         page: 1));
-    getEvents(eventsFrom: 'location');
+    await getEvents(eventsFrom: 'location');
+    emit(state.copyWith(isLoading: false));
   }
 
   void removeAppliedFilter({required String id}) {
-    for (int i = 0; i < state.filters.length; i++) {
-      print(state.filters[i]);
-    }
     List<FilterDto> filters = List.from(state.filters.map((e) {
-      //print(e.name);
+      //(e.name);
       if (e.name == id) {
         return e.copyWith(
             isApplied: false,
@@ -215,16 +235,132 @@ class HomeCubit extends Cubit<HomeState> {
     updateFilterApplied(filters: filters);
   }
 
+  void updateFilterToToday() async {
+    bool isTodaySelected = state.exploreList
+        .any((item) => item['id'] == 'today' && item['isSelected'] == true);
+
+    if (isTodaySelected) {
+      await onPullToRefresh();
+    } else {
+      final now = DateTime.now().toLocal();
+      final todayStart = DateTime.utc(now.year, now.month, now.day);
+      final todayEnd = todayStart.add(const Duration(days: 1));
+
+      final filteredEvents = state.events.where((event) {
+        final startDate = DateTime.tryParse(event.startDate)?.toUtc();
+        //('Event date: $startDate');
+        if (startDate == null) return false;
+        return startDate.isAtSameMomentAs(todayStart) ||
+            (startDate.isAfter(todayStart) && startDate.isBefore(todayEnd));
+      }).toList();
+
+      filteredEvents.sort((a, b) {
+        final aDate = DateTime.tryParse(a.startDate);
+        final bDate = DateTime.tryParse(b.startDate);
+        if (aDate == null || bDate == null) return 0;
+        return aDate.compareTo(bDate);
+      });
+      final updatedExploreList = state.exploreList.map((item) {
+        if (item['id'] == 'weekend' || item['id'] == 'date') {
+          return {
+            ...item,
+            'svgIcon': null,
+            'isSelected': false,
+          };
+        }
+        if (item['id'] == 'today') {
+          return {
+            ...item,
+            'svgIcon': AssetConstants.closeIcon,
+            'isSelected': true,
+          };
+        } else {
+          return {
+            ...item,
+            'isSelected': false,
+          };
+        }
+      }).toList();
+      emit(state.copyWith(
+        events: filteredEvents,
+        exploreList: updatedExploreList,
+        noFilteredEvents: true,
+      ));
+    }
+  }
+
+  void updateFilterToThisWeekend() async {
+    bool isWeekendSelected = state.exploreList
+        .any((item) => item['id'] == 'weekend' && item['isSelected'] == true);
+
+    List<Map<String, dynamic>> updatedExploreList =
+        state.exploreList.map((exploreItem) {
+      if (['today', 'date'].contains(exploreItem['id'])) {
+        return {...exploreItem, 'svgIcon': null, 'isSelected': false};
+      }
+      return exploreItem;
+    }).toList();
+    emit(state.copyWith(exploreList: updatedExploreList));
+
+    if (isWeekendSelected) {
+      await onPullToRefresh();
+    } else {
+      final now = DateTime.now().toUtc();
+      final today = DateTime.utc(now.year, now.month, now.day);
+
+      // Find the next Friday (or today if it's already Friday)
+      final daysUntilFriday = (DateTime.friday - today.weekday + 7) % 7;
+      final thisWeekendStart = today
+          .add(Duration(days: daysUntilFriday))
+          .add(const Duration(hours: 17)); // Friday 5 PM
+
+      // Find the end of the weekend (Sunday night)
+      final thisWeekendEnd = thisWeekendStart
+          .add(const Duration(days: 2, hours: 7)); // Sunday 11:59 PM
+
+      final filteredEvents = state.events.where((event) {
+        final startDate = DateTime.tryParse(event.startDate)?.toUtc();
+        if (startDate == null) return false;
+        return startDate.isAfter(thisWeekendStart) &&
+            startDate.isBefore(thisWeekendEnd);
+      }).toList();
+
+      filteredEvents.sort((a, b) {
+        final aDate = DateTime.tryParse(a.startDate);
+        final bDate = DateTime.tryParse(b.startDate);
+        if (aDate == null || bDate == null) return 0;
+        return aDate.compareTo(bDate);
+      });
+
+      ('Filtered weekend events: ${filteredEvents.length}');
+
+      // Update the exploreList to set 'weekend' as selected
+      final updatedExploreList = state.exploreList.map((item) {
+        if (item['id'] == 'weekend') {
+          item['svgIcon'] = AssetConstants.closeIcon;
+          return {...item, 'isSelected': true};
+        } else {
+          return {...item, 'isSelected': false};
+        }
+      }).toList();
+
+      emit(state.copyWith(
+        events: filteredEvents,
+        exploreList: updatedExploreList,
+        noFilteredEvents: true,
+      ));
+    }
+  }
+
   void updateFilterApplied({required List<FilterDto> filters}) {
     final sortFilter = filters.firstWhere((element) => element.name == 'sort');
-    
 
     final sortDisplayName = sortFilter.isApplied
         ? sortFilter.values
             .firstWhere((element) => element.isApplied)
             .displayName
         : 'Sort';
-   
+
     final categoryFilter =
         filters.firstWhere((element) => element.name == 'music');
 
@@ -234,7 +370,8 @@ class HomeCubit extends Cubit<HomeState> {
 
     final appliedFilter = filters.where(
         (element) => (element.isApplied == true && element.name != 'sort'));
-    //print(appliedFilter);
+
+    //(appliedFilter);
 
     final newFilters = appliedFilter.map(
       (e) {
@@ -246,10 +383,9 @@ class HomeCubit extends Cubit<HomeState> {
         };
       },
     ).toList();
-    // print(appliedFilter);
+    // (appliedFilter);
 
     final tempExploreList = [...state.mainExploreList, ...newFilters];
-    
 
     for (int i = 0; i < tempExploreList.length; i++) {
       if (tempExploreList[i]['id'] == 'sort') {
@@ -271,6 +407,60 @@ class HomeCubit extends Cubit<HomeState> {
     ));
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => getEvents(eventsFrom: 'filters'));
+  }
+
+  void updateFilterToSelectedDates(List<DateTime> selectedDates) async {
+    bool isDateSelected = state.exploreList
+        .any((item) => item['id'] == 'date' && item['isSelected'] == true);
+    List<Map<String, dynamic>> updatedExploreList =
+        state.exploreList.map((exploreItem) {
+      if (['today', 'weekend'].contains(exploreItem['id'])) {
+        return {...exploreItem, 'svgIcon': null, 'isSelected': false};
+      }
+      return exploreItem;
+    }).toList();
+    emit(state.copyWith(exploreList: updatedExploreList));
+
+    if (isDateSelected) {
+      await onPullToRefresh();
+    } else {
+      final dates = selectedDates;
+      ('Selected dates: $dates');
+
+      final filteredEvents = state.events.where((event) {
+        final startDate = DateTime.tryParse(event.startDate)?.toUtc();
+        if (startDate == null) return false;
+
+        // Check if the event's start date falls on any of the selected dates
+        return dates.any((date) =>
+            startDate.year == date.year &&
+            startDate.month == date.month &&
+            startDate.day == date.day);
+      }).toList();
+
+      filteredEvents.sort((a, b) {
+        final aDate = DateTime.tryParse(a.startDate);
+        final bDate = DateTime.tryParse(b.startDate);
+        if (aDate == null || bDate == null) return 0;
+        return aDate.compareTo(bDate);
+      });
+
+      // Update the exploreList to set 'date' as selected
+      final updatedExploreList = state.exploreList.map((item) {
+        if (item['id'] == 'date') {
+          item['svgIcon'] = AssetConstants.closeIcon;
+          return {...item, 'isSelected': true};
+        } else {
+          return {...item, 'isSelected': false};
+        }
+      }).toList();
+
+      emit(state.copyWith(
+        events: filteredEvents,
+        exploreList: updatedExploreList,
+        noFilteredEvents: true,
+      ));
+    }
   }
 
   void emitFromEveryWhere({required HomeState currentState}) {
@@ -296,9 +486,11 @@ class HomeCubit extends Cubit<HomeState> {
             left: dx - .5,
             child: DropView(
               onBack: (String name, String? value) {
-                final index = state.filters.indexWhere((element) => element.name == 'sort');
+                final index = state.filters
+                    .indexWhere((element) => element.name == 'sort');
                 final valueIndex = state.filters[index].values.indexWhere(
-                    (element) =>element.name == name && element.value == value);
+                    (element) =>
+                        element.name == name && element.value == value);
                 for (int i = 0; i < state.filters[index].values.length; i++) {
                   state.filters[index].values[i] =
                       state.filters[index].values[i].copyWith(
@@ -320,6 +512,7 @@ class HomeCubit extends Cubit<HomeState> {
             ));
       },
     );
+    (overlayEntry);
     overlayState.insert(overlayEntry);
     toggleSort(flag: true);
     emit(state.copyWith(overlayEntry: overlayEntry));
@@ -421,6 +614,10 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(events: updatedEvents));
   }
 
+  void toggleSound() {
+    emit(state.copyWith(isVideoMute: !state.isVideoMute));
+  }
+
   Future<void> onSearch(String query) async {
     if (query.isEmpty) {
       emit(state.copyWith(
@@ -444,5 +641,4 @@ class HomeCubit extends Cubit<HomeState> {
         searchResults:
             const SearchResults(pubs: [], events: [], artists: [], users: [])));
   }
- 
 }

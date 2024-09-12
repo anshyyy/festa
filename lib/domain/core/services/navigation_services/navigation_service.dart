@@ -22,7 +22,7 @@ class NavigationService {
 
     newRouteName =
         Uri(path: newRouteName, queryParameters: queryParams).toString();
-    // print(navigatorKey.currentState.toString());
+    // (navigatorKey.currentState.toString());
 
     if (isClearStack) {
       return navigatorKey.currentState!.pushNamedAndRemoveUntil(

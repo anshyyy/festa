@@ -55,6 +55,8 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'expensiveRating', defaultValue: 0) required int expensiveRating,
     @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
     @JsonKey(name: 'eventTicketCategories', defaultValue: [])required List<EventTicketCategoryDto> eventTicketCategories,
+    @JsonKey(name: 'coverChargeEnabled',defaultValue: false) required bool coverChargeEnabled
+ 
   }) = _EventDto;
 
   factory EventDto.fromJson(Map<String, dynamic> json) =>

@@ -19,14 +19,15 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
+import '../../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/gradient_button.dart';
 import '../core/book_tickets.dart';
 import 'widgets/price_unit_tile.dart';
 
 class PaymentDetails extends StatelessWidget {
-  final dynamic arguments;
-  const PaymentDetails({super.key, this.arguments});
+  final EventBookingDetailsDto? bookingDetails;
+  const PaymentDetails({super.key, this.bookingDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class PaymentDetails extends StatelessWidget {
     return BlocProvider(
       create: (context) => PaymentDetailsCubit(
         PaymentDetailsState.initial(
-          eventBookingDetails: arguments,
+          eventBookingDetails: bookingDetails as EventBookingDetailsDto,
           serverUrl: appConfig.serverUrl,
           razorPayApiKey: appConfig.razorPayApiKey,
           user: appStateNotifier.user!,
@@ -59,13 +60,14 @@ class PaymentDetailsConsumer extends StatelessWidget {
         if (state.isPaymentFailure ||
             state.isPaymentSuccess ||
             state.isPaymentPending) {
+
           navigator<NavigationService>().navigateTo(
             UserRoutes.paymentStatusScreenRoute,
             queryParams: {
               'eventId': state.event!.id.toString(),
               'isPaymentSuccess': state.isPaymentSuccess.toString(),
               'isPaymentPending': state.isPaymentPending.toString(),
-              'totalAmount': state.totalAmount.toString(),
+              'totalAmount':     state.totalAmount.toString(),
               'numberOfTickets':
                   state.eventBookingDetails.numberOfTickets.toString(),
             },
@@ -82,6 +84,7 @@ class PaymentDetailsConsumer extends StatelessWidget {
                   bottomNavigationBar: TicketBookingWidget(
                     startDate: state.event!.startDate,
                     priceRangeStart: state.totalAmount,
+                    couponAmount : state.eventBookingDetails.coupon?.value ?? 0,
                     onClick: () {
                       context.read<PaymentDetailsCubit>().onBookingPayment();
                     },
@@ -390,7 +393,14 @@ class PaymentDestributionDetails extends StatelessWidget {
                             title: 'Quantity',
                             detail: e.noOfTickets.toString()),
                         SizedBox(
-                          height: 2.h,
+                          height: 1.h,
+                        ),
+                      if(state.eventBookingDetails.coupon != null)
+                        PriceUnit(
+                            title: 'Coupon',
+                            detail: state.eventBookingDetails.coupon!.value.toIndianRupeeString()),
+                        SizedBox(
+                          height: 1.h,
                         ),
                         Divider(
                           thickness: .05.w,
@@ -414,7 +424,10 @@ class PaymentDestributionDetails extends StatelessWidget {
                             ),
                       ),
                       Text(
-                        state.totalAmount.toIndianRupeeString(),
+                              state.eventBookingDetails.coupon?.value == 0 
+    ? state.totalAmount.toIndianRupeeString() 
+    : (state.totalAmount - (state.eventBookingDetails.coupon?.value ?? 0)).toIndianRupeeString()
+,
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 15.5.sp,
@@ -437,12 +450,15 @@ class BottomBookingBar extends StatelessWidget {
   final String startDate;
   final double priceRangeStart;
   final double priceRangeEnd;
+  final double? couponAmount;
   const BottomBookingBar(
       {super.key,
       this.onClick,
       required this.startDate,
       required this.priceRangeStart,
-      required this.priceRangeEnd});
+      required this.priceRangeEnd,
+      this.couponAmount
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -473,6 +489,7 @@ class BottomBookingBar extends StatelessWidget {
                 ),
                 Row(
                   children: [
+
                     Text('${priceRangeStart.toIndianRupeeString()} ',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,

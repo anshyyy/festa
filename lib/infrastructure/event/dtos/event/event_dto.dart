@@ -52,6 +52,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,
+    @JsonKey(name: 'isPaused', defaultValue: true) required bool isPaused,
     @JsonKey(name: 'expensiveRating', defaultValue: 0) required int expensiveRating,
     @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
     @JsonKey(name: 'eventTicketCategories', defaultValue: [])required List<EventTicketCategoryDto> eventTicketCategories,

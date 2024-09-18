@@ -18,6 +18,10 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String? ?? '',
       dob: json['dob'] as String? ?? '',
       email: json['email'] as String?,
+      highlight: (json['highlight'] as List<dynamic>?)
+              ?.map((e) => HighlightDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       tag: json['tag'] == null
           ? null
           : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
@@ -40,6 +44,7 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'phoneNumber': instance.phoneNumber,
       'dob': instance.dob,
       'email': instance.email,
+      'highlight': instance.highlight,
       'tag': instance.tag,
       'extraDetails': instance.extraDetailsDto,
       'isPrivateAccount': instance.isPrivateAccount,

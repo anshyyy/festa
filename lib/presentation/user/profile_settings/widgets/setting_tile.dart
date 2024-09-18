@@ -95,6 +95,7 @@ class SettingTile extends StatelessWidget {
                   SizedBox(
                     width: 2.w,
                   ),
+                  if(suffixIcon!= '')
                   SvgPicture.asset(
                     suffixIcon,
                     height: 2.5.h,

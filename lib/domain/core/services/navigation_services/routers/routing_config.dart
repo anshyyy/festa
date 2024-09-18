@@ -46,6 +46,7 @@ import '../../../../../presentation/user/profile_settings/account_settings/phone
 import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/username/username_settings_screen.dart';
 import '../../../../../presentation/user/profile_settings/edit_profile_screen/edit_profile_screen.dart';
+import '../../../../../presentation/user/profile_settings/edit_profile_screen/edit_profile_screen_new.dart';
 import '../../../../../presentation/user/profile_settings/personalise_your_experience/personalise_experience_screen.dart';
 import '../../../../../presentation/user/profile_settings/profile_and_settings.dart';
 import '../../../../../presentation/user/widgets/user_community_screen.dart';
@@ -92,15 +93,24 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.personalizeExperienceRoute:
       return _getPageRoute(const PersonalizeYourExperienceScreen(), settings);
 
-    case UserRoutes.editProfileRoute:
+    // case UserRoutes.editProfileRoute:
+    //   final userId = routingData.queryParameters['userId'] ?? '0';
+
+    //   return _getPageRoute(
+    //       EditProfileScreen(
+    //         userId: int.parse(userId),
+    //       ),
+    //       settings);
+
+
+      case UserRoutes.editProfileRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
 
       return _getPageRoute(
-          EditProfileScreen(
+          EditProfileScreenNew(
             userId: int.parse(userId),
           ),
           settings);
-
     case UserRoutes.accountSettingsRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
       final email = routingData.queryParameters['email'] ?? '';

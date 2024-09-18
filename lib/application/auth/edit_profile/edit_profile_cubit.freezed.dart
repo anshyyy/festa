@@ -22,8 +22,11 @@ mixin _$EditProfileState {
   int get userId => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
   CoreRepository get coreRepository => throw _privateConstructorUsedError;
+  CarouselController get caraouselController =>
+      throw _privateConstructorUsedError;
   String? get coverImageUrl => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
+  List<Widget> get highlightWidgets => throw _privateConstructorUsedError;
   TextEditingController get bioTextController =>
       throw _privateConstructorUsedError;
   TextEditingController get nameEditingController =>
@@ -49,8 +52,10 @@ abstract class $EditProfileStateCopyWith<$Res> {
       int userId,
       UserRepository userRepository,
       CoreRepository coreRepository,
+      CarouselController caraouselController,
       String? coverImageUrl,
       String? profileImageUrl,
+      List<Widget> highlightWidgets,
       TextEditingController bioTextController,
       TextEditingController nameEditingController,
       UserDto? user,
@@ -78,8 +83,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? userId = null,
     Object? userRepository = null,
     Object? coreRepository = null,
+    Object? caraouselController = null,
     Object? coverImageUrl = freezed,
     Object? profileImageUrl = freezed,
+    Object? highlightWidgets = null,
     Object? bioTextController = null,
     Object? nameEditingController = null,
     Object? user = freezed,
@@ -110,6 +117,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.coreRepository
           : coreRepository // ignore: cast_nullable_to_non_nullable
               as CoreRepository,
+      caraouselController: null == caraouselController
+          ? _value.caraouselController
+          : caraouselController // ignore: cast_nullable_to_non_nullable
+              as CarouselController,
       coverImageUrl: freezed == coverImageUrl
           ? _value.coverImageUrl
           : coverImageUrl // ignore: cast_nullable_to_non_nullable
@@ -118,6 +129,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      highlightWidgets: null == highlightWidgets
+          ? _value.highlightWidgets
+          : highlightWidgets // ignore: cast_nullable_to_non_nullable
+              as List<Widget>,
       bioTextController: null == bioTextController
           ? _value.bioTextController
           : bioTextController // ignore: cast_nullable_to_non_nullable
@@ -165,8 +180,10 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       int userId,
       UserRepository userRepository,
       CoreRepository coreRepository,
+      CarouselController caraouselController,
       String? coverImageUrl,
       String? profileImageUrl,
+      List<Widget> highlightWidgets,
       TextEditingController bioTextController,
       TextEditingController nameEditingController,
       UserDto? user,
@@ -193,8 +210,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? userRepository = null,
     Object? coreRepository = null,
+    Object? caraouselController = null,
     Object? coverImageUrl = freezed,
     Object? profileImageUrl = freezed,
+    Object? highlightWidgets = null,
     Object? bioTextController = null,
     Object? nameEditingController = null,
     Object? user = freezed,
@@ -225,6 +244,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.coreRepository
           : coreRepository // ignore: cast_nullable_to_non_nullable
               as CoreRepository,
+      caraouselController: null == caraouselController
+          ? _value.caraouselController
+          : caraouselController // ignore: cast_nullable_to_non_nullable
+              as CarouselController,
       coverImageUrl: freezed == coverImageUrl
           ? _value.coverImageUrl
           : coverImageUrl // ignore: cast_nullable_to_non_nullable
@@ -233,6 +256,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      highlightWidgets: null == highlightWidgets
+          ? _value._highlightWidgets
+          : highlightWidgets // ignore: cast_nullable_to_non_nullable
+              as List<Widget>,
       bioTextController: null == bioTextController
           ? _value.bioTextController
           : bioTextController // ignore: cast_nullable_to_non_nullable
@@ -263,12 +290,15 @@ class _$EditProfileStateImpl implements _EditProfileState {
       required this.userId,
       required this.userRepository,
       required this.coreRepository,
+      required this.caraouselController,
       this.coverImageUrl,
       this.profileImageUrl,
+      required final List<Widget> highlightWidgets,
       required this.bioTextController,
       required this.nameEditingController,
       this.user,
-      required this.isSaveEnabled});
+      required this.isSaveEnabled})
+      : _highlightWidgets = highlightWidgets;
 
   @override
   final bool isLoading;
@@ -283,9 +313,20 @@ class _$EditProfileStateImpl implements _EditProfileState {
   @override
   final CoreRepository coreRepository;
   @override
+  final CarouselController caraouselController;
+  @override
   final String? coverImageUrl;
   @override
   final String? profileImageUrl;
+  final List<Widget> _highlightWidgets;
+  @override
+  List<Widget> get highlightWidgets {
+    if (_highlightWidgets is EqualUnmodifiableListView)
+      return _highlightWidgets;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_highlightWidgets);
+  }
+
   @override
   final TextEditingController bioTextController;
   @override
@@ -297,7 +338,7 @@ class _$EditProfileStateImpl implements _EditProfileState {
 
   @override
   String toString() {
-    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user, isSaveEnabled: $isSaveEnabled)';
+    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, caraouselController: $caraouselController, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, highlightWidgets: $highlightWidgets, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user, isSaveEnabled: $isSaveEnabled)';
   }
 
   @override
@@ -316,10 +357,14 @@ class _$EditProfileStateImpl implements _EditProfileState {
                 other.userRepository == userRepository) &&
             (identical(other.coreRepository, coreRepository) ||
                 other.coreRepository == coreRepository) &&
+            (identical(other.caraouselController, caraouselController) ||
+                other.caraouselController == caraouselController) &&
             (identical(other.coverImageUrl, coverImageUrl) ||
                 other.coverImageUrl == coverImageUrl) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
                 other.profileImageUrl == profileImageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._highlightWidgets, _highlightWidgets) &&
             (identical(other.bioTextController, bioTextController) ||
                 other.bioTextController == bioTextController) &&
             (identical(other.nameEditingController, nameEditingController) ||
@@ -338,8 +383,10 @@ class _$EditProfileStateImpl implements _EditProfileState {
       userId,
       userRepository,
       coreRepository,
+      caraouselController,
       coverImageUrl,
       profileImageUrl,
+      const DeepCollectionEquality().hash(_highlightWidgets),
       bioTextController,
       nameEditingController,
       user,
@@ -361,8 +408,10 @@ abstract class _EditProfileState implements EditProfileState {
       required final int userId,
       required final UserRepository userRepository,
       required final CoreRepository coreRepository,
+      required final CarouselController caraouselController,
       final String? coverImageUrl,
       final String? profileImageUrl,
+      required final List<Widget> highlightWidgets,
       required final TextEditingController bioTextController,
       required final TextEditingController nameEditingController,
       final UserDto? user,
@@ -381,9 +430,13 @@ abstract class _EditProfileState implements EditProfileState {
   @override
   CoreRepository get coreRepository;
   @override
+  CarouselController get caraouselController;
+  @override
   String? get coverImageUrl;
   @override
   String? get profileImageUrl;
+  @override
+  List<Widget> get highlightWidgets;
   @override
   TextEditingController get bioTextController;
   @override

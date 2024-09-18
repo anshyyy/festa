@@ -42,7 +42,6 @@ class AccountSettingScreenConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AccountSettingsCubit, AccountSettingsState>(
       listener: (context, state) {
-        ("this is $email");
       },
       builder: (context, state) {
         final AppStateNotifier appStateNotifier =

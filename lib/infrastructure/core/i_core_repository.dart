@@ -10,7 +10,6 @@ import '../../domain/core/core_repository.dart';
 import '../../domain/core/services/network_service/rest_service.dart';
 
 class ICoreRepository extends CoreRepository {
-
   final String serverUrl;
 
   ICoreRepository({required this.serverUrl});
@@ -28,13 +27,26 @@ class ICoreRepository extends CoreRepository {
   }
 
   @override
+  Future<Either<PermissionStatus, File?>> openCamera() async {
+    final image = await ImagePicker()
+        .pickImage(source: ImageSource.camera, requestFullMetadata: false);
+    if (image == null) return right(null);
+
+    final path = image.path;
+    final file = File(path);
+
+    return right(file);
+  }
+
+  @override
   Future<Either<PermissionStatus, File?>> selectImage() async {
     // final permission = await permissionStatus();
     // if (permission.isPermanentlyDenied || permission.isDenied) {
 
     //   return left(PermissionStatus.permanentlyDenied);
     // }
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery,requestFullMetadata: false);
+    final image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, requestFullMetadata: false);
 
     if (image == null) return right(null);
 

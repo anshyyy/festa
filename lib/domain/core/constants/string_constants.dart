@@ -325,6 +325,8 @@ class EditProfileScreenConstants {
   static String editProfile = 'Edit Profile';
   static String profile = 'Profile';
   static String bio = 'Bio';
+  static String fullName = "Full Name";
+  static String gender = 'Gender';
 }
 
 class AccountSettingScreenConstants {

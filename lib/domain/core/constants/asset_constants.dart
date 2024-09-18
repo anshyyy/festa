@@ -16,6 +16,11 @@ class AssetConstants {
   static const review4Icon = '${vectorsFolder}r4.svg';
   static const review5Icon = '${vectorsFolder}r5.svg';
 
+  static const cameraIcon = '${vectorsFolder}camera.svg';
+  static const galleryIcon = '${vectorsFolder}gallery.svg';
+  static const editIcon2 = '${vectorsFolder}edit.svg';
+  static const genderIcon2 = '${vectorsFolder}gender1.svg';
+
   static const supportIcon = '${vectorsFolder}support.svg';
   static const calender = '${vectorsFolder}Calender.svg';
   static const festa = '${vectorsFolder}festa.svg';

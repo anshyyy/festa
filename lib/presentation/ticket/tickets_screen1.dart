@@ -54,19 +54,12 @@ class _TicketsScreen1State extends State<TicketsScreen1>
   int _currentIndex = 0;
   late TabController _tabController;
 
-  Future<void> _setMaxBrightness() async {
-    try {
-      await ScreenBrightness().setScreenBrightness(1.0);
-    } catch (e) {
-      ('Failed to set brightness: $e');
-    }
-  }
+ 
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _setMaxBrightness();
   }
 
   @override

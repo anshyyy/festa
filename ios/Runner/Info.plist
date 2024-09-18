@@ -102,6 +102,10 @@
     </array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>We use your location to provide a better event discovery experience by showing nearby events and venues.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>We need camera access to capture your profile picture.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library to select a profile picture.</string>
 
 </dict>
 </plist>

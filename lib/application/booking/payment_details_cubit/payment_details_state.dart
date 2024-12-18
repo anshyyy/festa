@@ -16,6 +16,7 @@ class PaymentDetailsState with _$PaymentDetailsState {
     required bool isPaymentFailure,
     required bool isPaymentPending,
     required double totalAmount,
+    PaletteGenerator? palette,
     UserDto? user,
   }) = _PaymentDetailsState;
 

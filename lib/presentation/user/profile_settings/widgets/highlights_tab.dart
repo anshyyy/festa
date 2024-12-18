@@ -1,6 +1,6 @@
 import 'package:app/presentation/user/profile_settings/widgets/edit_profile_tab1.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,7 +29,7 @@ class _HighlightsTabState extends State<HighlightsTab> {
       builder: (context, state) {
         final themeData = Theme.of(context);
         final colorScheme = themeData.colorScheme;
-
+       // print(state.highlightWidgets.length);
         return SizedBox(
           width: 100.w,
           height: 100.h,
@@ -41,7 +41,7 @@ class _HighlightsTabState extends State<HighlightsTab> {
               ] else ...[
                 // Carousel slider with images
                 CarouselSlider(
-                  carouselController: state.caraouselController,
+                  controller: state.carouselController,
                   options: CarouselOptions(
                     height: 59.125.h,
                     enableInfiniteScroll: false,
@@ -66,9 +66,12 @@ class _HighlightsTabState extends State<HighlightsTab> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: state.user!.highlight!.map((item) {
+                  
                       // Find the index of the current item in the highlight list
                       int index = state.user?.highlight?.indexWhere(
                               (highlight) => highlight.id == item.id) ??
+
+
                           0;
 
                       return Container(
@@ -87,41 +90,47 @@ class _HighlightsTabState extends State<HighlightsTab> {
                   ),
               ],
               SizedBox(height: 1.3.h),
-              InkWell(
-                onTap: () {
-                  context.read<EditProfileCubit>().addOneMoreHighlight();
-                },
-                child: Container(
-                  width: 100.w,
-                  height: 5.5.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: colorScheme.surfaceContainer)),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: colorScheme.background,
-                        ),
-                        Text(
-                          'Add one more highlight',
-                          style: TextStyle(color: colorScheme.background),
-                        )
-                      ],
+              Padding(
+                padding: EdgeInsets.only(left:1.5.h,right: 1.5.h),
+                child: InkWell(
+                  onTap: () {
+                    context.read<EditProfileCubit>().addOneMoreHighlight();
+                  },
+                  child: Container(
+                    width: 100.w,
+                    height: 5.5.h,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: colorScheme.surfaceContainer)),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add,
+                            color: colorScheme.background,
+                          ),
+                          Text(
+                            'Add one more highlight',
+                            style: TextStyle(color: colorScheme.background),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
               SizedBox(height: 1.h),
-              Text(
-                'Upload up to 6 images or videos, each with a resolution of 1920x1080 pixels.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: 14.px,
-                    fontWeight: FontWeight.w600),
+              Padding(
+                padding: EdgeInsets.only(left:1.7.h,right: 1.7.h),
+                child: Text(
+                  'Upload up to 7 images or videos, each with a resolution of 1920x1080 pixels.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 14.px,
+                      fontWeight: FontWeight.w600),
+                ),
               )
             ],
           ),
@@ -301,6 +310,7 @@ class ImageHighlight extends StatelessWidget {
                             ),
                           );
                         });
+                 
                     if (deleteOption == 'delete') {
                       context.read<EditProfileCubit>().deleteHighLight(item);
                     }

@@ -28,7 +28,7 @@ class ExploreTile extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
+          padding: EdgeInsets.symmetric(horizontal: 1.h, vertical: 0.8.h),
           margin: EdgeInsets.only(right: 2.w, bottom: 1.w),
           width: label.toString().toLowerCase() == 'sort'
               ? state.sortDropdownOpen
@@ -46,6 +46,8 @@ class ExploreTile extends StatelessWidget {
             color: themeData.colorScheme.primaryContainer,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 label.toString().toLowerCase() == 'sort'

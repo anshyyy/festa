@@ -22,6 +22,7 @@ import '../../domain/core/utils/dynamic_link.dart';
 import '../../domain/core/utils/image_provider.dart';
 import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../widgets/custom_outlined_button.dart';
+import 'widgets/user_highlightCaraousel.dart';
 import 'widgets/user_profile_widget.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -51,6 +52,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
     return BlocConsumer<UserProfileCubit, UserProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
+        // print(appStateNotifier.user);
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
@@ -60,29 +62,35 @@ class UserProfileScreenConsumer extends StatelessWidget {
                     Container(
                         height: 80.h,
                         decoration: BoxDecoration(
-                            color:
-                                colorScheme.secondaryContainer.withOpacity(.3)),
+                            color: ((state.user?.highlight != null) &&
+                                    (state.user?.highlight?.isNotEmpty == true))
+                                ? colorScheme.secondaryContainer.withOpacity(0)
+                                : colorScheme.secondaryContainer
+                                    .withOpacity(.3)),
                         child: Stack(
                           children: [
-                            state.coverImage != null &&
-                                    state.coverImage!.isNotEmpty
-                                ? SizedBox(
-                                    height: 100.h,
-                                    width: 100.w,
-                                    child: CachedNetworkImage(
-                                      imageUrl: CustomImageProvider.getImageUrl(
-                                          state.coverImage, ImageType.other),
-                                      fit: BoxFit.cover,
-                                    ),
+                            state.user?.highlight != null &&
+                                    state.user?.highlight?.isNotEmpty == true
+                                ? UserImageCarousel(
+                                    highlights: state.user?.highlight ?? [],
                                   )
                                 : appStateNotifier.user!.id != state.userId
                                     ? const SizedBox()
                                     : Center(
                                         child: CustomOutlinedButton(
                                           onTap: () {
-                                            context
-                                                .read<UserProfileCubit>()
-                                                .onSelectCoverImage();
+                                            navigator<NavigationService>()
+                                                .navigateTo(
+                                                    UserRoutes.editProfileRoute,
+                                                    queryParams: {
+                                                  'userId':
+                                                      state.user!.id.toString()
+                                                }).then((value) {
+                                              context
+                                                  .read<UserProfileCubit>()
+                                                  .fetchUserDetails(
+                                                      id: state.userId);
+                                            });
                                           },
                                           text: UserProfileScreenConstants
                                               .uploadYourHighlight,
@@ -249,36 +257,36 @@ class UserShimmer extends StatelessWidget {
             // SizedBox(
             //   height: 1.h,
             // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: .5.w,
-                    ),
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: .5.w,
-                    ),
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Column(
+            //       children: [
+            //         Container(
+            //           height: .5.w,
+            //           width: 3.w,
+            //           color: Colors.grey,
+            //         ),
+            //         SizedBox(
+            //           height: .5.w,
+            //         ),
+            //         Container(
+            //           height: .5.w,
+            //           width: 3.w,
+            //           color: Colors.grey,
+            //         ),
+            //         SizedBox(
+            //           height: .5.w,
+            //         ),
+            //         Container(
+            //           height: .5.w,
+            //           width: 3.w,
+            //           color: Colors.grey,
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
 
             const Spacer(),
             Stack(

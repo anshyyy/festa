@@ -23,7 +23,7 @@ class CoverTransactionHistory extends StatelessWidget {
     AppConfig appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) => TicketCubit(TicketState.initial(
-         razorPayApiKey: appConfig.razorPayApiKey,
+        razorPayApiKey: appConfig.razorPayApiKey,
         serverUrl: appConfig.serverUrl,
       ))
         ..fetchCoverBalanceHistory(bookingId: bookingId),
@@ -57,95 +57,100 @@ class CoverTransactionHistory extends StatelessWidget {
                         child: CoverShimmer(),
                       );
                     })
-                : state.coverHistory.isEmpty?
-                  const Center(
-                    child:  Text('No Cover Charge History!!!'),
-                  )
-                :
-                 Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: state.coverHistory.length,
-                          itemBuilder: (context, index) {
-                            var cover = state.coverHistory[index];
-                            var sign = cover.transactionDirection == 'credit'
-                                ? '+'
-                                : '-';
+                : state.coverHistory.isEmpty
+                    ? const Center(
+                        child: Text('No Cover Charge History!!!'),
+                      )
+                    : Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: state.coverHistory.length,
+                              itemBuilder: (context, index) {
+                                var cover = state.coverHistory[state.coverHistory.length - index - 1];
+                                var sign =
+                                    cover.transactionDirection == 'credit'
+                                        ? '+'
+                                        : '-';
 
-                            return ListTile(
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                return ListTile(
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        StringExtension.formatTime(
-                                            cover.createdAt),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.px,
-                                            fontWeight: FontWeight.w600),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            StringExtension.formatTime(
+                                                cover.createdAt),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.px,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          Text(
+                                            cover.notes ?? "",
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14.px,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
                                       ),
                                       Text(
-                                        cover.notes ?? "",
+                                        "$sign${cover.amount}",
                                         style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 14.px,
-                                            fontWeight: FontWeight.w400),
+                                            color: cover.transactionDirection ==
+                                                    'credit'
+                                                ? Colors.green
+                                                : Colors.white,
+                                            fontSize: 26.px,
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    "$sign${cover.amount}",
-                                    style: TextStyle(
-                                        color: cover.transactionDirection ==
-                                                'credit'
-                                            ? Colors.green
-                                            : Colors.white,
-                                        fontSize: 26.px,
-                                        fontWeight: FontWeight.w700),
+                                );
+                              },
+                            ),
+                          ),
+                          const Divider(
+                              color: const Color.fromARGB(255, 68, 65, 65)),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 4.w, vertical: 2.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Total',
+                                  style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 16.px,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  '₹ ${state.coverHistory.fold(0.0, (sum, item) {
+                                    double amount = double.parse(item.amount);
+                                    return item.transactionDirection == 'credit'
+                                        ? sum + amount
+                                        : sum - amount;
+                                  }).toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 26.px,
+                                    fontWeight: FontWeight.w700,
                                   ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      const Divider(
-                          color: const Color.fromARGB(255, 68, 65, 65)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 4.w, vertical: 2.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Total',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16.px,
-                                  fontWeight: FontWeight.bold),
+                                ),
+                              ],
                             ),
-                            Text(
-                              '₹ ${state.coverHistory.fold(0.0, (sum, item) => sum + double.parse(item.amount)).toStringAsFixed(2)}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 26.px,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        height: 3.h,
-                      )
-                    ],
-                  ),
           );
         },
       ),

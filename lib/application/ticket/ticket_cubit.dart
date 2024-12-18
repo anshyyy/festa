@@ -51,14 +51,16 @@ class TicketCubit extends Cubit<TicketState> {
     }
   }
 
-  void fetchCoverBalance({required int bookingId}) async {
+  Future<void> fetchCoverBalance({required int bookingId}) async {
     try {
       emit(state.copyWith(isCoverLoading: true));
       double remainingAmount =
           await state.eventRepository.fetchCoverBalance(bookingId: bookingId);
-     // print("remaining amoutn $remainingAmount");
+      //print("remaining amoutn $remainingAmount");
       int indexToUpdate = state.userTickets!.upcomingTickets
           .indexWhere((b) => b.id == bookingId);
+
+     // print(state.userTickets!.upcomingTickets);
       if (indexToUpdate != -1) {
         BookedTicketDetailsDto updatedTicket = state
             .userTickets!.upcomingTickets[indexToUpdate]
@@ -68,6 +70,7 @@ class TicketCubit extends Cubit<TicketState> {
         List<BookedTicketDetailsDto> updatedTickets =
             List.from(state.userTickets!.upcomingTickets);
         updatedTickets[indexToUpdate] = updatedTicket;
+      //  print("updated tickets : $updatedTickets");
 
         // Emit the new state with the updated ticket list
         emit(state.copyWith(
@@ -76,6 +79,7 @@ class TicketCubit extends Cubit<TicketState> {
             isCoverLoading: false));
       }
     } catch (e) {
+  //    print(e);
       emit(state.copyWith(isFailure: true, isCoverLoading: false));
     }
   }
@@ -118,8 +122,12 @@ class TicketCubit extends Cubit<TicketState> {
     emit(state.copyWith(showTicketHistory: flag));
   }
 
-  void init() {
-    fetchAllUserTickets();
+  void init({int? bookingId}) async{
+   await fetchAllUserTickets();
+   if(bookingId != null){    
+   await fetchCoverBalance(bookingId:bookingId);
+   }
+   
     state.razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
     state.razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
   }
@@ -165,12 +173,14 @@ class TicketCubit extends Cubit<TicketState> {
     required String message,
     required int bookingId,
     required int coverAmount,
+    required String userPhoneNumber,
   }) async {
     try {
       emit(state.copyWith(isAddCoverLoading: true));
+  
       CoverChargeDetails response = await state.eventRepository.addCoverBalance(
           note: message, coverAmount: coverAmount, bookingId: bookingId);
-      (response);
+//      print(response);
 
       emit(state.copyWith(coverChargeDetails: response));
 
@@ -179,6 +189,7 @@ class TicketCubit extends Cubit<TicketState> {
         'key': razorpayKey,
         'name': 'Festa',
         'order_id': response.razorpayId,
+        'prefill': {'contact': userPhoneNumber},
       };
       AnalyticsService().logEvent(eventName: 'payment_init', paras: {
         'order_id': response.razorpayId,
@@ -189,6 +200,7 @@ class TicketCubit extends Cubit<TicketState> {
         debugPrint(e.toString());
       }
     } catch (e) {
+    //  print(e);
       emit(state.copyWith(
         isPaymentSuccess: false,
         isPaymentFailure: true,

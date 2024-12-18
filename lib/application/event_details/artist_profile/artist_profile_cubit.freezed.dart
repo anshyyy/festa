@@ -12,7 +12,7 @@ part of 'artist_profile_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistProfileState {
@@ -23,7 +23,9 @@ mixin _$ArtistProfileState {
   ArtistRepository get artistRepository => throw _privateConstructorUsedError;
   List<ArtistProfileDto> get artists => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArtistProfileStateCopyWith<ArtistProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$ArtistProfileStateCopyWithImpl<$Res, $Val extends ArtistProfileState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ArtistProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,6 +121,8 @@ class __$$ArtistProfileStateImplCopyWithImpl<$Res>
       $Res Function(_$ArtistProfileStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ArtistProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -212,7 +218,9 @@ class _$ArtistProfileStateImpl implements _ArtistProfileState {
   int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
       noUse, artistRepository, const DeepCollectionEquality().hash(_artists));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArtistProfileStateImplCopyWith<_$ArtistProfileStateImpl> get copyWith =>
@@ -242,8 +250,11 @@ abstract class _ArtistProfileState implements ArtistProfileState {
   ArtistRepository get artistRepository;
   @override
   List<ArtistProfileDto> get artists;
+
+  /// Create a copy of ArtistProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArtistProfileStateImplCopyWith<_$ArtistProfileStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

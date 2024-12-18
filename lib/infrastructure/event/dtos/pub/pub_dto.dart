@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/dtos/asset/asset_dto.dart';
+import '../../../core/dtos/happyhours/happyhours.dart';
 import '../../../core/dtos/menu/menu_dto.dart';
 import '../../../core/dtos/tag/tag_dto.dart';
 import '../../../pub/dtos/pub_extra_details/pub_extra_details_dto.dart';
@@ -25,15 +26,17 @@ class PubDto with _$PubDto {
     @JsonKey(name: 'coverImageUrl', defaultValue: '')
     required String coverImageUrl,
     @JsonKey(name: 'assets', defaultValue: []) required List<AssetDto> assets,
+    @JsonKey(name: 'highlights', defaultValue: []) required List<AssetDto> highlights,
     @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
     @JsonKey(name: 'barMenu')  List<MenuDto> ?barMenu,
     @JsonKey(name: 'foodMenu')  List<MenuDto> ?foodMenu,
     @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
     @JsonKey(name: 'extraDetails', defaultValue: null)
     PubExtraDetailsDto? extraDetailsDto,
-    @JsonKey(name:'happyHours',defaultValue: []) List<MenuDto> ?happyHours,
+    @JsonKey(name:'happyHours',defaultValue: []) List<HappyhoursDto> ?happyHours,
     @JsonKey(name: 'openingHours', defaultValue: null)
     PubOpeningHours? openingHours,
+    @JsonKey(name:'completedEventsCount',defaultValue: 0) int? completedEventsCount
   }) = _PubDto;
 
   factory PubDto.fromJson(Map<String, dynamic> json) => _$PubDtoFromJson(json);

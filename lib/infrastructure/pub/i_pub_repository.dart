@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import '../../domain/core/constants/api_constants.dart';
 import '../../domain/core/constants/string_constants.dart';
@@ -15,6 +17,7 @@ import 'dtos/pub_events_clubbed/pub_events_clubbed_dto.dart';
 class IPubRepository extends PubRepository {
   final String serverUrl;
   IPubRepository({required this.serverUrl});
+
   @override
   Future<Either<String, PubDto>> getPubById({required int pubId}) async {
     try {
@@ -35,6 +38,38 @@ class IPubRepository extends PubRepository {
       return right(pub);
     } catch (e) {
       return left(e.toString());
+    }
+  }
+
+  @override
+  Future<int> followPub({required int pubId}) async {
+    try {
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+
+      final url = '$serverUrl${PubApiConstants.PUBS}/follow/$pubId';
+      final response = await RESTService.performPOSTRequest(
+          httpUrl: url, isAuth: true, token: token!);
+      return 1;
+    } catch (e) {
+      var r = e as Response;
+      print(r.body);
+      return 0;
+    }
+  }
+
+  @override
+  Future<int> unfollowPub({required int pubId}) async {
+    try {
+      String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+
+      final url = '$serverUrl${PubApiConstants.PUBS}/unfollow/$pubId';
+      final response = await RESTService.performPOSTRequest(
+          httpUrl: url, isAuth: true, token: token!);
+      return 1;
+    } catch (e) {
+      var r = e as Response;
+      print(r.body);
+      return 0;
     }
   }
 
@@ -124,7 +159,7 @@ class IPubRepository extends PubRepository {
       final assets = pubAssetsRaw['assets'] as List;
       var pubAssets = assets.map((e) => AssetDto.fromJson(e)).toList();
       //(pubAssets);
-    
+
       return pubAssets;
     } catch (e) {
       (e);

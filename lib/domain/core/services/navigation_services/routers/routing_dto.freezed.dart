@@ -12,7 +12,7 @@ part of 'routing_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 RoutingDto _$RoutingDtoFromJson(Map<String, dynamic> json) {
   return _RoutingDto.fromJson(json);
@@ -23,8 +23,12 @@ mixin _$RoutingDto {
   String get route => throw _privateConstructorUsedError;
   Map<String, String> get queryParameters => throw _privateConstructorUsedError;
 
+  /// Serializes this RoutingDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RoutingDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RoutingDtoCopyWith<RoutingDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$RoutingDtoCopyWithImpl<$Res, $Val extends RoutingDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RoutingDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$RoutingDtoImplCopyWithImpl<$Res>
       _$RoutingDtoImpl _value, $Res Function(_$RoutingDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RoutingDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,12 +148,14 @@ class _$RoutingDtoImpl implements _RoutingDto {
                 .equals(other._queryParameters, _queryParameters));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, route,
       const DeepCollectionEquality().hash(_queryParameters));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RoutingDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RoutingDtoImplCopyWith<_$RoutingDtoImpl> get copyWith =>
@@ -171,8 +181,11 @@ abstract class _RoutingDto implements RoutingDto {
   String get route;
   @override
   Map<String, String> get queryParameters;
+
+  /// Create a copy of RoutingDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RoutingDtoImplCopyWith<_$RoutingDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

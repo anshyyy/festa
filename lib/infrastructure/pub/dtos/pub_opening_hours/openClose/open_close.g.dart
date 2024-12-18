@@ -8,7 +8,7 @@ part of 'open_close.dart';
 
 _$OpenCloseImpl _$$OpenCloseImplFromJson(Map<String, dynamic> json) =>
     _$OpenCloseImpl(
-      day: json['day'] as int,
+      day: (json['day'] as num).toInt(),
       time: json['time'] as String,
     );
 

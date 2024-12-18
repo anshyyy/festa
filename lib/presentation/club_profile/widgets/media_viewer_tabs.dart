@@ -16,15 +16,17 @@ class MediaViewerTabs extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return SizedBox(
-          height: 83.h,
-          child: DefaultTabController(
-            length: 3,
+            height: 90.h,
             child: Column(
               children: [
                 Container(
                   color: Theme.of(context).colorScheme.surface,
                   child: TabBar(
+                    
+                    controller:
+                        state.tabController, // Provide custom TabController
                     labelColor: Theme.of(context).colorScheme.background,
+                    indicatorSize: TabBarIndicatorSize.tab,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .bodySmall!
@@ -35,7 +37,7 @@ class MediaViewerTabs extends StatelessWidget {
                         Theme.of(context).textTheme.bodySmall!.copyWith(),
                     tabs: const [
                       Tab(
-                        child: Text('Photos'),
+                        child: Text('Gallery'),
                       ),
                       Tab(
                         child: Text('Events'),
@@ -47,20 +49,23 @@ class MediaViewerTabs extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: TabBarView(children: [
-                    const MediaGridViewer(),
-                    EventsCalendarBuilder(
-                      clubId: state.clubId,
-                    ),
-                    ClubMenuScreen(
-                      clubId: state.clubId,
-                    )
-                  ]),
+                  child: TabBarView(
+                    
+                    controller: state
+                        .tabController,
+                    children: [
+                      const MediaGridViewer(),
+                      EventsCalendarBuilder(
+                        clubId: state.clubId,
+                      ),
+                      ClubMenuScreen(
+                        clubId: state.clubId,
+                      )
+                    ],
+                  ),
                 )
               ],
-            ),
-          ),
-        );
+            ));
       },
     );
   }

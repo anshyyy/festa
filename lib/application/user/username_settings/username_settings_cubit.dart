@@ -34,7 +34,7 @@ class UsernameSettingsCubit extends Cubit<UsernameSettingsState> {
 
   void showUsernameSuccessToast() {
     Fluttertoast.showToast(
-      msg: UsernameSettingsScreenConstants.userNameUpdated,
+      msg: FullNameSettingsScreenConstants.userNameUpdated,
       gravity: ToastGravity.CENTER,
       fontSize: 15.sp,
     );
@@ -48,9 +48,7 @@ class UsernameSettingsCubit extends Cubit<UsernameSettingsState> {
   void onUpdateUsername() async {
     emit(state.copyWith(isLoading: true));
     final response = await state.userRepository.patchProfile(input: {
-      'tag': {
-        'tag': state.usernameInputController.text,
-      }
+        'fullName': state.usernameInputController.text,
     });
     response.fold((l) {
       emit(state.copyWith(
@@ -65,7 +63,7 @@ class UsernameSettingsCubit extends Cubit<UsernameSettingsState> {
         user: r,
         isUsernameUpdateFailure: false,
         isUsernameUpdateSuccess: true,
-        isUpdateEnabled:false,
+        isUpdateEnabled: false,
       ));
       showUsernameSuccessToast();
     });

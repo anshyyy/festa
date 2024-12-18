@@ -10,8 +10,11 @@ import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/extensions/string_extension.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../infrastructure/artist/dtos/artist/artist_dto.dart';
+import '../../../infrastructure/event/dtos/artist/artist_dto.dart';
 import '../../core/agree_to_block_modal.dart';
 import '../../core/report_modal.dart';
 import 'event_option_tile.dart';
@@ -20,8 +23,20 @@ import 'follow_artist_modalsheet.dart';
 class EventOptionsModalSheet extends StatelessWidget {
   final int eventId;
   final String eventName;
+  final List<ArtistProfileDto> artists;
+  final String eventStartDate;
+  final String eventEndDate;
+  final String eventDescription;
+  final String eventCompleteAddress;
   const EventOptionsModalSheet(
-      {super.key, required this.eventId, required this.eventName});
+      {super.key,
+      required this.eventId,
+      required this.eventName,
+      required this.artists,
+      required this.eventDescription,
+      required this.eventCompleteAddress,
+      required this.eventEndDate,
+      required this.eventStartDate});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +45,15 @@ class EventOptionsModalSheet extends StatelessWidget {
       create: (context) => EventOptionsCubit(EventOptionsState.initial(
         eventId: eventId,
         serverUrl: appConfig.serverUrl,
-      ))
-        ..init(),
+      )),
       child: EventOptionsModalsheetConsumer(
         eventId: eventId,
         eventName: eventName,
+        artists: artists,
+        eventDescription: eventDescription,
+        eventCompleteAddress: eventCompleteAddress,
+        eventStartDate: eventStartDate,
+        eventEndDate: eventEndDate,
       ),
     );
   }
@@ -43,8 +62,20 @@ class EventOptionsModalSheet extends StatelessWidget {
 class EventOptionsModalsheetConsumer extends StatelessWidget {
   final int eventId;
   final String eventName;
+  final List<ArtistProfileDto> artists;
+  final String eventStartDate,
+      eventEndDate,
+      eventDescription,
+      eventCompleteAddress;
   const EventOptionsModalsheetConsumer(
-      {super.key, required this.eventId, required this.eventName});
+      {super.key,
+      required this.eventId,
+      required this.artists,
+      required this.eventName,
+      required this.eventDescription,
+      required this.eventCompleteAddress,
+      required this.eventEndDate,
+      required this.eventStartDate});
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +113,17 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
                   height: 5.w,
                 ),
                 onTap: () {
-                  navigator<NavigationService>().goBack();
                   if (!state.isLoading) {
                     showModalBottomSheet(
-                        context: context,
-                        builder: (context) => FollowArtistsModalSheet(
-                              artists: state.event!.artists,
-                            ));
+                            isDismissible: false,
+                            context: context,
+                            builder: (context) =>
+                                FollowArtistsModalSheet(artists: artists))
+                        .then((v) {
+                      // print(v);
+                      navigator<NavigationService>()
+                          .goBack(responseObject: {'artists': v['artists']});
+                    });
                   }
                 },
                 title: EventDetailsScreenConstants.followArtists,
@@ -103,16 +138,33 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
               ),
               EventOptionsTile(
                   onTap: () {
-                    if(state.isLoading){
+                    if (state.isLoading) {
                       return;
                     }
+
+                    // print(eventStartDate);
+                    // print(eventEndDate);
+
+                    // Parse UTC time and subtract 5 hours and 30 minutes (IST)
+                    DateTime sd = DateTime.parse(eventStartDate)
+                        .toUtc()
+                        .subtract(Duration(hours: 5, minutes: 30));
+                    print(
+                        'Adjusted UTC Start Date: $sd'); // Show adjusted UTC time
+
+                    DateTime ed = DateTime.parse(eventEndDate)
+                        .toUtc()
+                        .subtract(Duration(hours: 5, minutes: 30));
+                    print(
+                        'Adjusted UTC End Date: $ed'); // Show adjusted UTC time
+
+                    // Prepare the event with the adjusted UTC times
                     final Event event = Event(
-                      title: state.event!.name,
-                      description: state.event!.description,
-                      location: state.event!.address!.completeAddress,
-                      startDate:
-                          DateTime.parse(state.event!.startDate).toLocal(),
-                      endDate: DateTime.parse(state.event!.endDate!).toLocal(),
+                      title: eventName ?? "",
+                      description: eventDescription ?? "",
+                      location: eventCompleteAddress ?? '',
+                      startDate: sd, // Pass the pre-adjusted UTC time
+                      endDate: ed, // Pass the pre-adjusted UTC time
                       iosParams: const IOSParams(
                         reminder: Duration(hours: 1),
                         url: 'https://www.festa.com',
@@ -121,7 +173,10 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
                         emailInvites: [],
                       ),
                     );
+
+                    // Add the event to the calendar
                     Add2Calendar.addEvent2Cal(event);
+                    Navigator.pop(context);
                   },
                   prefixIcon: SvgPicture.asset(
                     AssetConstants.addToCalendar,

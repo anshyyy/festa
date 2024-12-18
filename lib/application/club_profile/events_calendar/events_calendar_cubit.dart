@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/pub/pub_repository.dart';
 import '../../../infrastructure/pub/dtos/pub_events_clubbed/pub_events_clubbed_dto.dart';
 import '../../../infrastructure/pub/i_pub_repository.dart';
@@ -37,8 +38,9 @@ class EventsCalendarCubit extends Cubit<EventsCalendarState> {
 
   String getEventImageByDate(DateTime date) {
     try {
+      
       final event = state.pubEventsClubbed!.events
-        .firstWhere((element) => element.startDate.day == date.day && element.startDate.month == date.month);
+        .firstWhere((element) => element.startDate.day == date.day && element.startDate.month == date.month); 
         return event.coverImageUrl;
     } catch (e) {
       return '';

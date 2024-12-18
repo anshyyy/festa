@@ -12,8 +12,8 @@ class ArtistProfileCubit extends Cubit<ArtistProfileState> {
   ArtistProfileCubit(super.initialState);
 
   void followUnfollowArtist(
-      {required int artistId, required bool isFollowing}) {
-    state.artistRepository
+      {required int artistId, required bool isFollowing}) async {
+     state.artistRepository
         .followUnfollowArtist(artistId: artistId, isFollowing: isFollowing);
     final updated = state.artists.map((e) {
       if (e.id == artistId) {
@@ -21,6 +21,7 @@ class ArtistProfileCubit extends Cubit<ArtistProfileState> {
       }
       return e;
     }).toList();
+   
     emit(state.copyWith(noUse: !state.noUse, artists: updated));
   }
 

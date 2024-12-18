@@ -24,7 +24,7 @@ class UserDto with _$UserDto {
     @JsonKey(name: 'phoneNumber', defaultValue: '') required String phoneNumber,
     @JsonKey(name: 'dob', defaultValue: '') required String dob,
     @JsonKey(name: 'email') String? email,
-    @JsonKey(name: 'highlight', defaultValue:[])
+    @JsonKey(name: 'highlights', defaultValue:[])
     List<HighlightDto>? highlight,
     @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
     @JsonKey(name: 'extraDetails', defaultValue: null)

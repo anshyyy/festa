@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../../domain/core/services/analytics_service/analytics_service.dart';
@@ -26,10 +27,22 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
     state.razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
   }
 
+  Future<void> getPalette() async {
+    final palette = await PaletteGenerator.fromImageProvider(
+      NetworkImage(state.event?.coverImage ?? ''),
+    );
+    print(palette);
+    emit(state.copyWith(
+      palette: palette,
+      isLoading: false,
+    ));
+  }
+
   void calculateTotalAmount() {
     double totalAmount = 0;
     for (var element in state.eventBookingDetails.eventTicketDetails) {
-      totalAmount += element.noOfTickets * element.price;
+      totalAmount += (element.noOfTickets * element.price) +
+          (element.coverCharge * element.noOfTickets);
     }
     emit(state.copyWith(totalAmount: totalAmount));
   }
@@ -44,13 +57,13 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
               isLoading: false,
               isSuccess: false,
               isFailure: true,
-            )), (r) {
+            )), (r) async {
       emit(state.copyWith(
-        isLoading: false,
         isSuccess: true,
         isFailure: false,
         event: r,
       ));
+      await getPalette();
     });
   }
 
@@ -81,10 +94,10 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
     }
   }
 
-  void handlePaymentSuccess(PaymentSuccessResponse response) async {
-    final response = await state.eventRepository
-        .fetchPaymentStatusById(bookingId: state.eventBookingDetails.bookingId);
-    if (!response.isDone) {
+  void handlePaymentSuccess(PaymentSuccessResponse? response) async {
+    // final response = await state.eventRepository
+    //     .fetchPaymentStatusById(bookingId: state.eventBookingDetails.bookingId);
+    if (!true) {
       emit(state.copyWith(
         isPaymentSuccess: false,
         isPaymentFailure: false,
@@ -92,9 +105,15 @@ class PaymentDetailsCubit extends Cubit<PaymentDetailsState> {
         isLoading: false,
       ));
     } else {
-      AnalyticsService().logEvent(eventName: 'payment_success', paras: {
-        'order_id': state.eventBookingDetails.razorpayOrderId,
-      });
+      if (state.eventBookingDetails.razorpayOrderId?.isNotEmpty ?? true) {
+        AnalyticsService().logEvent(eventName: 'payment_success', paras: {
+          'order_id': state.eventBookingDetails.razorpayOrderId,
+        });
+      } else {
+        AnalyticsService().logEvent(eventName: 'free_ticket_success', paras: {
+          'order': state.eventBookingDetails,
+        });
+      }
       emit(state.copyWith(
         isPaymentSuccess: true,
         isPaymentFailure: false,

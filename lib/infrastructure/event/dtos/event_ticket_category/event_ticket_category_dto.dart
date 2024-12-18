@@ -19,6 +19,7 @@ class EventTicketCategoryDto with _$EventTicketCategoryDto {
     required String priceCurrency,
     @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
     required int maxTicketsToBook,
+    @JsonKey(name:'bookedByMe',defaultValue: 0) required int bookedByMe
   }) = _EventTicketCategoryDto;
 
   factory EventTicketCategoryDto.fromJson(Map<String, dynamic> json) =>

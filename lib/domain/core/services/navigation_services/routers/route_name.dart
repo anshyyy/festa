@@ -51,6 +51,7 @@ class UserRoutes {
   static const String usernameSettingsScreenRoute = 'usernameSettings';
   static const String dateOfBirthSettingsScreenRoute = 'dateOfBirthSettings';
   static const String deleteAccountScreenRoute = 'deleteAccountScreen';
+  static const String unblockAccountScreenRoute = 'unblockAccountScreen';
   static const String notificationsRoute = 'notifications';
   static const String artistProfileScreenRoute = 'artistProfileScreen';
   static const String artistCommunityScreenRoute = 'artistCommunityRoute';

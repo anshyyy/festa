@@ -12,7 +12,7 @@ part of 'pub_location_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PubLocationDto _$PubLocationDtoFromJson(Map<String, dynamic> json) {
   return _PubLocationDto.fromJson(json);
@@ -33,8 +33,12 @@ mixin _$PubLocationDto {
   @JsonKey(name: 'state', defaultValue: '')
   String get state => throw _privateConstructorUsedError;
 
+  /// Serializes this PubLocationDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PubLocationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PubLocationDtoCopyWith<PubLocationDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -64,6 +68,8 @@ class _$PubLocationDtoCopyWithImpl<$Res, $Val extends PubLocationDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PubLocationDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,6 +134,8 @@ class __$$PubLocationDtoImplCopyWithImpl<$Res>
       _$PubLocationDtoImpl _value, $Res Function(_$PubLocationDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PubLocationDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -219,12 +227,14 @@ class _$PubLocationDtoImpl implements _PubLocationDto {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, lat, lng, pinCode, city, vicinity, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PubLocationDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PubLocationDtoImplCopyWith<_$PubLocationDtoImpl> get copyWith =>
@@ -271,8 +281,11 @@ abstract class _PubLocationDto implements PubLocationDto {
   @override
   @JsonKey(name: 'state', defaultValue: '')
   String get state;
+
+  /// Create a copy of PubLocationDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PubLocationDtoImplCopyWith<_$PubLocationDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

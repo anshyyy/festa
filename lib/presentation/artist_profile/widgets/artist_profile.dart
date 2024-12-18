@@ -155,16 +155,16 @@ class ArtistProfile extends StatelessWidget {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  SocialReach(
-                                    totalParties: state.artistProfile!
-                                        .extraDetailsDto!.totalParties,
-                                    totalFollowers: state.artistProfile!
-                                        .extraDetailsDto!.totalFollowers,
-                                    totalFriends: state.artistProfile!
-                                        .extraDetailsDto!.totalFriends,
-                                    totalFootFall: state.artistProfile!
-                                        .extraDetailsDto!.totalFootFall,
-                                  ),
+                                  // SocialReach(
+                                  //   totalParties: state.artistProfile!
+                                  //       .extraDetailsDto!.totalParties,
+                                  //   totalFollowers: state.artistProfile!
+                                  //       .extraDetailsDto!.totalFollowers,
+                                  //   totalFriends: state.artistProfile!
+                                  //       .extraDetailsDto!.totalFriends,
+                                  //   totalFootFall: state.artistProfile!
+                                  //       .extraDetailsDto!.totalFootFall,
+                                  // ),
                                 ],
                               ),
                             )

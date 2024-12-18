@@ -43,7 +43,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          height: 72.h,
+          height: 76.h,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.vertical(
@@ -63,7 +63,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                         vertical: 2.h,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 2.w, right: 2.w, top: 1.w),
+                        padding:
+                            EdgeInsets.only(left: 2.w, right: 2.w, top: 1.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -76,7 +77,11 @@ class FilterModalSheetConsumer extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                navigator<NavigationService>().goBack(responseObject: state.filters);
+                                navigator<NavigationService>()
+                                   .goBack();
+                                
+                                // navigator<NavigationService>()
+                                //     .goBack(responseObject: state.filters);
                               },
                               child: SvgPicture.asset(
                                 AssetConstants.closeIcon,
@@ -94,7 +99,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.5.w),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 4.w, vertical: 1.5.w),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +116,9 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        ...state.filters.map((e) => Padding(
+                                        ...state.filters
+                                        .where((e) => e.name != 'date')
+                                        .map((e) => Padding(
                                               padding: EdgeInsets.only(
                                                   bottom: 2.7.h),
                                               child: GestureDetector(
@@ -118,8 +126,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                   context
                                                       .read<FilterCubit>()
                                                       .onFilterChanged(
-                                                          filterValue:
-                                                              e.name);
+                                                          filterValue: e.name);
                                                 },
                                                 child: Row(
                                                   children: [
@@ -155,8 +162,8 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                               state
                                                                   .currentActive
                                                           ? GradientText(
-                                                              text: e
-                                                                  .displayName,
+                                                              text:
+                                                                  e.displayName,
                                                               colors: [
                                                                 themeData
                                                                     .colorScheme
@@ -221,8 +228,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                   top: 1.w,
                                 ),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'FILTER BY',
@@ -297,12 +303,13 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                     //     ],
                                     //   ),
                                     // ),
-        
+
                                     ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: state.filterValues.length,
                                       itemBuilder: (context, index) {
                                         final e = state.filterValues[index];
+                                        //print(e);
                                         return GestureDetector(
                                           onTap: () {
                                             context
@@ -312,17 +319,22 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                           },
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: 1.h,
-                                                horizontal: 0.w),
+                                                vertical: 1.h, horizontal: 0.w),
                                             child: Row(
                                               children: [
                                                 SvgPicture.asset(
-                                                  e.isApplied
-                                                      ? AssetConstants
-                                                          .selectedRadio
-                                                      : AssetConstants
-                                                          .unSelectedRadio,
-                                                  height: 6.5.w,
+                                                  e.name == 'event_category.id'
+                                                      ? (e.isApplied
+                                                          ? AssetConstants
+                                                              .multiSelectIcon
+                                                          : AssetConstants
+                                                              .multiUnselectIcon)
+                                                      : (e.isApplied
+                                                          ? AssetConstants
+                                                              .selectedRadio
+                                                          : AssetConstants
+                                                              .unSelectedRadio),
+                                                  height: 6.2.w,
                                                 ),
                                                 SizedBox(
                                                   width: 2.5.w,
@@ -341,8 +353,7 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                                         : FontWeight.w400,
                                                     fontSize: 16.5.sp,
                                                     color: themeData
-                                                        .colorScheme
-                                                        .background,
+                                                        .colorScheme.background,
                                                   ),
                                                 ))
                                               ],
@@ -376,50 +387,43 @@ class FilterModalSheetConsumer extends StatelessWidget {
                                 Expanded(
                                     child: MaterialButton(
                                   onPressed: () {
-                                    context
-                                        .read<FilterCubit>()
-                                        .clearFilters();
-        
-                                    CustomToast.show(context,
-                                        'All the filters are cleared');
+                                    context.read<FilterCubit>().clearFilters();
+
+                                    CustomToast.show(
+                                        context, 'All the filters are cleared');
                                   },
                                   child: Text(
                                     'Clear All',
-                                    style: themeData.textTheme.bodySmall!
-                                        .copyWith(
+                                    style:
+                                        themeData.textTheme.bodySmall!.copyWith(
                                       color: themeData.colorScheme.background,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 )),
-                                  Expanded(
-                                    child: GradientButton(
-                                        textStyle: themeData
-                                            .textTheme.bodySmall!
-                                            .copyWith(
-                                                color:
-                                                    state.isFilterOptionSelected
-                                                        ? themeData
-                                                            .colorScheme
-                                                            .background
-                                                        : themeData
-                                                            .colorScheme
-                                                            .background
-                                                            .withOpacity(.5),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 3.5.w),
-                                        isEnabled:
-                                            state.isFilterOptionSelected,
-                                        width: 100.w,
-                                        height: 5.5.h,
-                                        text: 'Apply filters',
-                                        onTap: () {
-                                          navigator<NavigationService>()
-                                              .goBack(
-                                            responseObject: state.filters,
-                                          );
-                                        }),
-                                  )
+                                Expanded(
+                                  child: GradientButton(
+                                      textStyle: themeData.textTheme.bodySmall!
+                                          .copyWith(
+                                              color:
+                                                  state.isFilterOptionSelected
+                                                      ? themeData.colorScheme
+                                                          .background
+                                                      : themeData.colorScheme
+                                                          .background
+                                                          .withOpacity(.5),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 3.5.w),
+                                      isEnabled: state.isFilterOptionSelected,
+                                      width: 100.w,
+                                      height: 5.5.h,
+                                      text: 'Apply filters',
+                                      onTap: () {
+                                        navigator<NavigationService>().goBack(
+                                          responseObject: state.filters,
+                                        );
+                                      }),
+                                )
                               ],
                             ),
                           )

@@ -6,10 +6,13 @@ import '../../../artist/dtos/artist/artist_dto.dart';
 import '../../../core/dtos/address/address_dto.dart';
 import '../../../core/dtos/asset/asset_dto.dart';
 import '../../../core/dtos/bullet/bullet_dto.dart';
+import '../../../core/dtos/event_rules/event_rules.dart';
 import '../../../core/dtos/faq/faq_dto.dart';
 import '../category/category_dto.dart';
+import '../event_activity/event_activity.dart';
 import '../event_ticket_category/event_ticket_category_dto.dart';
 import '../pub/pub_dto.dart';
+import '../social_media/social_media_dto.dart';
 
 part 'event_dto.freezed.dart';
 part 'event_dto.g.dart';
@@ -46,15 +49,17 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'eventStatus', defaultValue: 'ACTIVE')
     required String eventStatus,
     @JsonKey(name: 'assets', defaultValue: []) required List<AssetDto> assets,
-    @JsonKey(name: 'artists', defaultValue: [])
-    required List<ArtistProfileDto> artists,
+    @JsonKey(name: 'artists', defaultValue: [])    required List<ArtistProfileDto> artists,
+    @JsonKey(name:'eventRules',defaultValue: []) required List<EventRules> eventRules,
     @JsonKey(name: 'address') AddressDto? address,    
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
+    @JsonKey(name:'cancellationPolicy',defaultValue: '') required String cancellationPolicy,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,
     @JsonKey(name: 'isPaused', defaultValue: true) required bool isPaused,
     @JsonKey(name: 'expensiveRating', defaultValue: 0) required int expensiveRating,
-    @JsonKey(name: 'categories', defaultValue: [])required List<CategoryDto> categories,
+    @JsonKey(name: 'category', defaultValue: [])required List<CategoryDto> categories,
+    @JsonKey(name:'eventActivities',defaultValue: []) required List<EventActivity> eventActivities,
     @JsonKey(name: 'eventTicketCategories', defaultValue: [])required List<EventTicketCategoryDto> eventTicketCategories,
     @JsonKey(name: 'coverChargeEnabled',defaultValue: false) required bool coverChargeEnabled
  

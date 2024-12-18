@@ -12,7 +12,7 @@ part of 'notification_content_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 NotificationContentDto _$NotificationContentDtoFromJson(
     Map<String, dynamic> json) {
@@ -26,8 +26,12 @@ mixin _$NotificationContentDto {
   @JsonKey(name: 'title', defaultValue: '')
   String get title => throw _privateConstructorUsedError;
 
+  /// Serializes this NotificationContentDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NotificationContentDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotificationContentDtoCopyWith<NotificationContentDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +58,8 @@ class _$NotificationContentDtoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NotificationContentDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -97,6 +103,8 @@ class __$$NotificationContentDtoImplCopyWithImpl<$Res>
       $Res Function(_$NotificationContentDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NotificationContentDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -147,11 +155,13 @@ class _$NotificationContentDtoImpl implements _NotificationContentDto {
             (identical(other.title, title) || other.title == title));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, body, title);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationContentDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotificationContentDtoImplCopyWith<_$NotificationContentDtoImpl>
@@ -181,8 +191,11 @@ abstract class _NotificationContentDto implements NotificationContentDto {
   @override
   @JsonKey(name: 'title', defaultValue: '')
   String get title;
+
+  /// Create a copy of NotificationContentDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotificationContentDtoImplCopyWith<_$NotificationContentDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -119,25 +119,25 @@ class DeleteAccountScreenConsumer extends StatelessWidget {
                         ),
                       );
                     }),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        DeleteAccountScreenConstants.other,
-                        style: textTheme.bodySmall!.copyWith(
-                          color: colorScheme.background,
-                          fontSize: 16.2.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      AssetConstants.arrowRight,
-                      height: 3.h,
-                    )
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Expanded(
+                //       child: Text(
+                //         DeleteAccountScreenConstants.other,
+                //         style: textTheme.bodySmall!.copyWith(
+                //           color: colorScheme.background,
+                //           fontSize: 16.2.sp,
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //     ),
+                //     SvgPicture.asset(
+                //       AssetConstants.arrowRight,
+                //       height: 3.h,
+                //     )
+                //   ],
+                // ),
               ],
             ),
           ),

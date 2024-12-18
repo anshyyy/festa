@@ -40,7 +40,7 @@ class UserTabScreen extends StatelessWidget {
           itemBuilder: (context, index) {
           return  UserCard(
             id:users[index].id,
-            email: users[index].email??"null",
+            email: users[index].tag?.tag??"null",
             fullName: users[index].fullName,
             profileImage: users[index].profileImage,
           );

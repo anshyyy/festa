@@ -1,5 +1,7 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/home/cubit/home_cubit.dart';
 import '../configs/injection.dart';
 import '../constants/string_constants.dart';
 import '../services/navigation_services/navigation_service.dart';
@@ -8,7 +10,7 @@ import '../services/storage_service/dynamic_link_storage_service.dart';
 
 class DynamicLinkUtil {
   static FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-
+  
   static String generateLink(String category, String id) {
     return AppConstants.dynamicUrl
         .replaceAll('<category>', category)
@@ -33,6 +35,7 @@ class DynamicLinkUtil {
   static void handleDynamicLink(
       {required Uri url, required bool isAuthorized}) {
     final pathSegments = url.pathSegments;
+
     if (pathSegments.isNotEmpty) {
       final category = pathSegments[0];
       final id = pathSegments[1];
@@ -45,10 +48,19 @@ class DynamicLinkUtil {
         // textColor: Colors.black,
         // backgroundColor: Colors.green,
         // );
-        String route = getDynamicRoute(category, id);
-          navigator<NavigationService>().navigateTo(route, queryParams: {
-            'id': id,
-          });
+        if (category == 'weekend') {
+          navigator<NavigationService>().navigateTo(UserRoutes.mainNavRoute,
+              queryParams: {'filter': 'weekend'});
+        } else {
+          navigator<NavigationService>().navigateTo(
+              getDynamicRoute(category, id),
+              queryParams: {'id': id});
+        }
+
+        // String route = getDynamicRoute(category, id);
+        //   navigator<NavigationService>().navigateTo(route, queryParams: {
+        //     'id': id,
+        //   });
       }
     }
   }
@@ -61,6 +73,8 @@ class DynamicLinkUtil {
         return UserRoutes.artistProfileScreenRoute;
       case 'pub':
         return UserRoutes.clubProfileRoute;
+      case 'weekend':
+        return UserRoutes.mainNavRoute;
       default:
         UserRoutes.mainNavRoute;
     }

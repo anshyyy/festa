@@ -9,8 +9,8 @@ part of 'booked_ticket_details_dto.dart';
 _$BookedTicketDetailsDtoImpl _$$BookedTicketDetailsDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$BookedTicketDetailsDtoImpl(
-      id: json['id'] as int? ?? 0,
-      numberOfTickets: json['numberOfTickets'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      numberOfTickets: (json['numberOfTickets'] as num?)?.toInt() ?? 0,
       remainingAmount: (json['remainingAmount'] as num?)?.toDouble() ?? 0,
       eventTicketDetails: (json['ticketDetails'] as List<dynamic>?)
               ?.map((e) =>
@@ -22,6 +22,8 @@ _$BookedTicketDetailsDtoImpl _$$BookedTicketDetailsDtoImplFromJson(
       transactionId: json['transactionId'] as String? ?? '',
       bookingReference: json['bookingReference'] as String? ?? '',
       paymentAmount: json['paymentAmount'] as String? ?? '',
+      checkInStatus: json['checkinStatus'] as String? ?? '',
+      isReviewed: json['isReviewed'] as bool? ?? false,
       showTicketDetails: json['showTicketDetails'] as bool? ?? false,
     );
 
@@ -37,5 +39,7 @@ Map<String, dynamic> _$$BookedTicketDetailsDtoImplToJson(
       'transactionId': instance.transactionId,
       'bookingReference': instance.bookingReference,
       'paymentAmount': instance.paymentAmount,
+      'checkinStatus': instance.checkInStatus,
+      'isReviewed': instance.isReviewed,
       'showTicketDetails': instance.showTicketDetails,
     };

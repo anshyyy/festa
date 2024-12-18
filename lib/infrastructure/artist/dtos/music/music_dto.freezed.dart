@@ -12,7 +12,7 @@ part of 'music_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MusicDto _$MusicDtoFromJson(Map<String, dynamic> json) {
   return _MusicDto.fromJson(json);
@@ -35,8 +35,12 @@ mixin _$MusicDto {
   @JsonKey(name: 'length', defaultValue: 0)
   int get length => throw _privateConstructorUsedError;
 
+  /// Serializes this MusicDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MusicDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MusicDtoCopyWith<MusicDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -66,6 +70,8 @@ class _$MusicDtoCopyWithImpl<$Res, $Val extends MusicDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MusicDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,6 +142,8 @@ class __$$MusicDtoImplCopyWithImpl<$Res>
       _$MusicDtoImpl _value, $Res Function(_$MusicDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MusicDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -239,12 +247,14 @@ class _$MusicDtoImpl implements _MusicDto {
             (identical(other.length, length) || other.length == length));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, audioUrl, imageUrl, isLiked, isPlaying, name, length);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MusicDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MusicDtoImplCopyWith<_$MusicDtoImpl> get copyWith =>
@@ -297,8 +307,11 @@ abstract class _MusicDto implements MusicDto {
   @override
   @JsonKey(name: 'length', defaultValue: 0)
   int get length;
+
+  /// Create a copy of MusicDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MusicDtoImplCopyWith<_$MusicDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -70,7 +70,7 @@ class AccountSettingScreenConsumer extends StatelessWidget {
               : Column(
                   children: [
                     SettingTile(
-                      prefixIcon: AssetConstants.emailIcon,
+                      prefixIcon: AssetConstants.privacyIcon,
                       label: AccountSettingScreenConstants.accountPrivacy,
                       suffixIcon: AssetConstants.arrowRight,
                       detail: user!.isPrivateAccount ? 'Private' : 'Public',
@@ -109,11 +109,12 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                       label: AccountSettingScreenConstants.username,
                       suffixIcon: AssetConstants.arrowRight,
                       detail: user.tag != null ? '@${user.tag!.tag}' : '',
-                      onTap: () => navigator<NavigationService>().navigateTo(
-                          UserRoutes.usernameSettingsScreenRoute,
-                          queryParams: {
-                            'username': user.tag != null ? user.tag!.tag : '',
-                          }),
+                      onTap: (){},
+                      // onTap: () => navigator<NavigationService>().navigateTo(
+                      //     UserRoutes.usernameSettingsScreenRoute,
+                      //     queryParams: {
+                      //       'username': user.tag != null ? user.tag!.tag : '',
+                      //     }),
                     ),
                     SettingTile(
                       prefixIcon: AssetConstants.candleIcon,
@@ -121,9 +122,10 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                       suffixIcon: AssetConstants.arrowRight,
                       detail: StringExtension.formatDateTimeNormal(
                           DateTime.parse(user.dob)),
-                      onTap: () => navigator<NavigationService>().navigateTo(
-                          UserRoutes.dateOfBirthSettingsScreenRoute,
-                          queryParams: {'dob': user.dob}),
+                      onTap: (){},
+                      // onTap: () => navigator<NavigationService>().navigateTo(
+                      //     UserRoutes.dateOfBirthSettingsScreenRoute,
+                      //     queryParams: {'dob': user.dob}),
                     ),
                     // SettingTile(
                     //   prefixIcon: AssetConstants.lockIcon,
@@ -132,6 +134,16 @@ class AccountSettingScreenConsumer extends StatelessWidget {
                     //   detail: 'Change',
                     //   onTap: () {},
                     // ),
+                                        SettingTile(
+                        prefixIcon: AssetConstants.blockIcon,
+                        label: AccountSettingScreenConstants.block,
+                        suffixIcon: AssetConstants.arrowRight,
+
+                        onTap: () {
+                             navigator<NavigationService>().navigateTo(
+                        UserRoutes.unblockAccountScreenRoute,
+                      );
+                        }),
                     SettingTile(
                       prefixIcon: AssetConstants.deleteBinIcon,
                       label: AccountSettingScreenConstants.deleteAccount,

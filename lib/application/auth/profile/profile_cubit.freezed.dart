@@ -12,7 +12,7 @@ part of 'profile_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ProfileState {
@@ -28,9 +28,13 @@ mixin _$ProfileState {
   TextEditingController get menuSearchController =>
       throw _privateConstructorUsedError;
   List<SettingsMenuDto> get settingsMenu => throw _privateConstructorUsedError;
+  LocationStorageService get locationStorage =>
+      throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProfileStateCopyWith<ProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +57,7 @@ abstract class $ProfileStateCopyWith<$Res> {
       AppStateNotifier appStateNotifier,
       TextEditingController menuSearchController,
       List<SettingsMenuDto> settingsMenu,
+      LocationStorageService locationStorage,
       UserDto? user});
 
   $UserDtoCopyWith<$Res>? get user;
@@ -68,6 +73,8 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -82,6 +89,7 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     Object? appStateNotifier = null,
     Object? menuSearchController = null,
     Object? settingsMenu = null,
+    Object? locationStorage = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -129,6 +137,10 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
           ? _value.settingsMenu
           : settingsMenu // ignore: cast_nullable_to_non_nullable
               as List<SettingsMenuDto>,
+      locationStorage: null == locationStorage
+          ? _value.locationStorage
+          : locationStorage // ignore: cast_nullable_to_non_nullable
+              as LocationStorageService,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -136,6 +148,8 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
     ) as $Val);
   }
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -169,6 +183,7 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
       AppStateNotifier appStateNotifier,
       TextEditingController menuSearchController,
       List<SettingsMenuDto> settingsMenu,
+      LocationStorageService locationStorage,
       UserDto? user});
 
   @override
@@ -183,6 +198,8 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
       _$ProfileStateImpl _value, $Res Function(_$ProfileStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -197,6 +214,7 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
     Object? appStateNotifier = null,
     Object? menuSearchController = null,
     Object? settingsMenu = null,
+    Object? locationStorage = null,
     Object? user = freezed,
   }) {
     return _then(_$ProfileStateImpl(
@@ -244,6 +262,10 @@ class __$$ProfileStateImplCopyWithImpl<$Res>
           ? _value._settingsMenu
           : settingsMenu // ignore: cast_nullable_to_non_nullable
               as List<SettingsMenuDto>,
+      locationStorage: null == locationStorage
+          ? _value.locationStorage
+          : locationStorage // ignore: cast_nullable_to_non_nullable
+              as LocationStorageService,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -267,6 +289,7 @@ class _$ProfileStateImpl implements _ProfileState {
       required this.appStateNotifier,
       required this.menuSearchController,
       required final List<SettingsMenuDto> settingsMenu,
+      required this.locationStorage,
       this.user})
       : _settingsMenu = settingsMenu;
 
@@ -299,11 +322,13 @@ class _$ProfileStateImpl implements _ProfileState {
   }
 
   @override
+  final LocationStorageService locationStorage;
+  @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'ProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, isAccountDelete: $isAccountDelete, isLogout: $isLogout, responseMsg: $responseMsg, authRepository: $authRepository, appStateNotifier: $appStateNotifier, menuSearchController: $menuSearchController, settingsMenu: $settingsMenu, user: $user)';
+    return 'ProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, isAccountDelete: $isAccountDelete, isLogout: $isLogout, responseMsg: $responseMsg, authRepository: $authRepository, appStateNotifier: $appStateNotifier, menuSearchController: $menuSearchController, settingsMenu: $settingsMenu, locationStorage: $locationStorage, user: $user)';
   }
 
   @override
@@ -332,6 +357,8 @@ class _$ProfileStateImpl implements _ProfileState {
                 other.menuSearchController == menuSearchController) &&
             const DeepCollectionEquality()
                 .equals(other._settingsMenu, _settingsMenu) &&
+            (identical(other.locationStorage, locationStorage) ||
+                other.locationStorage == locationStorage) &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -349,9 +376,12 @@ class _$ProfileStateImpl implements _ProfileState {
       appStateNotifier,
       menuSearchController,
       const DeepCollectionEquality().hash(_settingsMenu),
+      locationStorage,
       user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProfileStateImplCopyWith<_$ProfileStateImpl> get copyWith =>
@@ -371,6 +401,7 @@ abstract class _ProfileState implements ProfileState {
       required final AppStateNotifier appStateNotifier,
       required final TextEditingController menuSearchController,
       required final List<SettingsMenuDto> settingsMenu,
+      required final LocationStorageService locationStorage,
       final UserDto? user}) = _$ProfileStateImpl;
 
   @override
@@ -396,9 +427,14 @@ abstract class _ProfileState implements ProfileState {
   @override
   List<SettingsMenuDto> get settingsMenu;
   @override
-  UserDto? get user;
+  LocationStorageService get locationStorage;
   @override
-  @JsonKey(ignore: true)
+  UserDto? get user;
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProfileStateImplCopyWith<_$ProfileStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

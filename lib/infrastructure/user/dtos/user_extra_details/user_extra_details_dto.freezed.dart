@@ -12,7 +12,7 @@ part of 'user_extra_details_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserExtraDetailsDto _$UserExtraDetailsDtoFromJson(Map<String, dynamic> json) {
   return _UserExtraDetailsDto.fromJson(json);
@@ -37,8 +37,12 @@ mixin _$UserExtraDetailsDto {
   @JsonKey(name: 'totalFootFall', defaultValue: 0)
   int get totalFootFall => throw _privateConstructorUsedError;
 
+  /// Serializes this UserExtraDetailsDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserExtraDetailsDtoCopyWith<UserExtraDetailsDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,6 +76,8 @@ class _$UserExtraDetailsDtoCopyWithImpl<$Res, $Val extends UserExtraDetailsDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -120,6 +126,8 @@ class _$UserExtraDetailsDtoCopyWithImpl<$Res, $Val extends UserExtraDetailsDto>
     ) as $Val);
   }
 
+  /// Create a copy of UserExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CommunityDtoCopyWith<$Res> get followedBy {
@@ -159,6 +167,8 @@ class __$$UserExtraDetailsDtoImplCopyWithImpl<$Res>
       $Res Function(_$UserExtraDetailsDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -282,7 +292,7 @@ class _$UserExtraDetailsDtoImpl implements _UserExtraDetailsDto {
                 other.totalFootFall == totalFootFall));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -295,7 +305,9 @@ class _$UserExtraDetailsDtoImpl implements _UserExtraDetailsDto {
       totalParties,
       totalFootFall);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserExtraDetailsDtoImplCopyWith<_$UserExtraDetailsDtoImpl> get copyWith =>
@@ -355,8 +367,11 @@ abstract class _UserExtraDetailsDto implements UserExtraDetailsDto {
   @override
   @JsonKey(name: 'totalFootFall', defaultValue: 0)
   int get totalFootFall;
+
+  /// Create a copy of UserExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserExtraDetailsDtoImplCopyWith<_$UserExtraDetailsDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -22,17 +22,22 @@ import 'widgets/events_options_modal_sheet.dart';
 class EventDetailsScreen extends StatelessWidget {
   final String id;
   final String distance;
+  final bool isVideoMute;
+  final bool isMutedNotifierValue;
 
   const EventDetailsScreen({
     super.key,
     required this.id,
     required this.distance,
+    required this.isVideoMute,
+    required this.isMutedNotifierValue,
   });
 
   @override
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
-
+    final ValueNotifier<bool> isMutedNotifier =
+        ValueNotifier<bool>(isMutedNotifierValue);
     return BlocProvider(
       create: (context) => EventDetailsCubit(
         EventDetailsState.initial(
@@ -40,15 +45,19 @@ class EventDetailsScreen extends StatelessWidget {
           eventDistance: distance,
         ),
       )..fetchEventDetails(id: int.parse(id)),
-      child: const EventDetailsScreenConsumer(),
+      child: EventDetailsScreenConsumer(
+        isVideoMute: isVideoMute,
+        isMutedNotifier: isMutedNotifier,
+      ),
     );
   }
 }
 
 class EventDetailsScreenConsumer extends StatelessWidget {
-  const EventDetailsScreenConsumer({
-    super.key,
-  });
+  final bool isVideoMute;
+  final ValueNotifier<bool> isMutedNotifier;
+  EventDetailsScreenConsumer(
+      {super.key, required this.isVideoMute, required this.isMutedNotifier});
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +96,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
+                      endDate: event.endDate,
+                        title: "Let's Go",
                         startDate: event.startDate, // Provide a default value
                         priceRangeStart: event.priceRangeStart ??
                             0, // Provide a default value
@@ -101,13 +112,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       ),
                 appBar: CustomAppBar(
                     title: event.name,
-                    scaffoldBackgroundColor: Theme.of(context)
-                        .colorScheme
-                        .background
-                        .withOpacity(.02),
+                    surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+                    scaffoldBackgroundColor:
+                        Theme.of(context).scaffoldBackgroundColor,
                     leading: GestureDetector(
                         onTap: () {
-                           navigator<NavigationService>().goBack();
+                          navigator<NavigationService>().goBack();
                         },
                         child: Center(
                             child: SvgPicture.asset(
@@ -117,15 +127,22 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     actions: [
                       GestureDetector(
                         onTap: () {
-                        
                           showModalBottomSheet(
                             isScrollControlled: true,
                             context: context,
                             builder: (context) => EventOptionsModalSheet(
-                              eventId: state.event?.id ?? 0,
-                              eventName: state.event?.name ?? "",
-                            ),
-                          );
+                                eventStartDate:event.startDate,
+                                eventDescription:event.description,
+                                eventCompleteAddress:event.address?.completeAddress??'',
+                                eventEndDate:event.endDate??'',
+                                eventId: state.event?.id ?? 0,
+                                eventName: state.event?.name ?? "",
+                                artists: state.event?.artists ?? []),
+                          ).then((v) {
+                            context
+                                .read<EventDetailsCubit>()
+                                .updateArtists(artists: v['artists']);
+                          });
                         },
                         child: Padding(
                           padding: EdgeInsets.only(right: 5.w),
@@ -141,6 +158,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 0.w),
                         child: EventCard(
                           vKey: event.id.toString(),
+                          isVideoMute: isVideoMute,
+                          isMutedNotifier: isMutedNotifier,
                           loadData: () {
                             if (state.event != null) {
                               context
@@ -160,16 +179,14 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
+
                       GestureDetector(
                         onTap: () {
                           context.read<EventDetailsCubit>().viewOnMaps(
                               lat: state.event?.address?.lat ?? 0,
                               long: state.event?.address?.lng ?? 0,
                               isAndroid: Platform.isAndroid,
-                              eventTitle: state.event?.pub?.fullName?? '');
+                              eventTitle: state.event?.pub?.fullName ?? '');
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -199,10 +216,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           child: ExpansionTile(
                             initiallyExpanded: true,
                             onExpansionChanged: (value) {
-                              if (value) {
-                                Scrollable.ensureVisible(
-                                    tileKeys[0].currentContext!);
-                              }
+                              //if (value) {
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[0].currentContext!);
+                              //}
                             },
                             iconColor: Theme.of(context).colorScheme.background,
                             collapsedIconColor:
@@ -217,12 +234,18 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
+                                      fontSize: 15.5.sp,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .background,
                                       fontWeight: FontWeight.w600),
                             ),
                             key: tileKeys[0],
+                            tilePadding: EdgeInsets.only(
+                                right: 6.0.w,
+                                left: 3.9.w,
+                                top: 0.45.h,
+                                bottom: 0.3.h),
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.5.w)
@@ -233,6 +256,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
+                                        fontSize: 15.5.sp,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .background,
@@ -243,8 +267,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ),
                         ),
                       ),
-                    
-                      const SizedBox(height: 10),
+
+                      SizedBox(height: 1.2.h),
                       // rules box
 
                       Theme(
@@ -254,12 +278,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           initiallyExpanded: true,
                           onExpansionChanged: (value) async {
                             if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[4].currentContext!);
-                              await Future.delayed(
-                                  const Duration(milliseconds: 200));
-                              Scrollable.ensureVisible(
-                                  tileKeys[4].currentContext!);
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[4].currentContext!);
+                              // await Future.delayed(
+                              //     const Duration(milliseconds: 200));
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[4].currentContext!);
                             }
                           },
                           iconColor: Theme.of(context).colorScheme.background,
@@ -275,6 +299,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
+                                    fontSize: 15.5.sp,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .background,
@@ -289,7 +314,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final e = event.termsAndConditions[index];
                                 return Padding(
-                                  key: event.termsAndConditions.length - 1 == index
+                                  key: event.termsAndConditions.length - 1 ==
+                                          index
                                       ? tileKeys[6]
                                       : null,
                                   padding:
@@ -306,6 +332,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(
+                                              fontSize: 15.5.sp,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .background,
@@ -324,6 +351,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                   .textTheme
                                                   .bodySmall!
                                                   .copyWith(
+                                                    fontSize: 15.5.sp,
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .background,
@@ -341,8 +369,8 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 1.2.h,
                       ),
 
 // FAQs box
@@ -353,12 +381,12 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           initiallyExpanded: true,
                           onExpansionChanged: (value) async {
                             if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[7].currentContext!);
-                              await Future.delayed(
-                                  const Duration(milliseconds: 200));
-                              Scrollable.ensureVisible(
-                                  tileKeys[7].currentContext!);
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[7].currentContext!);
+                              // await Future.delayed(
+                              //     const Duration(milliseconds: 200));
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[7].currentContext!);
                             }
                           },
                           iconColor: Theme.of(context).colorScheme.background,
@@ -377,6 +405,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .background,
+                                    fontSize: 15.5.sp,
                                     fontWeight: FontWeight.w600),
                           ),
                           key: tileKeys[7],
@@ -405,6 +434,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(
+                                              fontSize: 15.5.sp,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .background,
@@ -423,6 +453,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                   .textTheme
                                                   .bodySmall!
                                                   .copyWith(
+                                                    fontSize: 15.5.sp,
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .background,
@@ -439,6 +470,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                         .textTheme
                                                         .bodySmall!
                                                         .copyWith(
+                                                          fontSize: 15.5.sp,
                                                           color:
                                                               Theme.of(context)
                                                                   .colorScheme

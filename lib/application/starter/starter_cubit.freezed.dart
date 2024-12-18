@@ -12,7 +12,7 @@ part of 'starter_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$StarterState {
@@ -20,7 +20,9 @@ mixin _$StarterState {
   bool get isTermsAndConditionChecked => throw _privateConstructorUsedError;
   bool get isOnboardingComplete => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of StarterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $StarterStateCopyWith<StarterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +49,8 @@ class _$StarterStateCopyWithImpl<$Res, $Val extends StarterState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of StarterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -93,6 +97,8 @@ class __$$StarterStateImplCopyWithImpl<$Res>
       _$StarterStateImpl _value, $Res Function(_$StarterStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of StarterState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,7 +173,9 @@ class _$StarterStateImpl with DiagnosticableTreeMixin implements _StarterState {
   int get hashCode => Object.hash(
       runtimeType, isLoading, isTermsAndConditionChecked, isOnboardingComplete);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of StarterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$StarterStateImplCopyWith<_$StarterStateImpl> get copyWith =>
@@ -186,8 +194,11 @@ abstract class _StarterState implements StarterState {
   bool get isTermsAndConditionChecked;
   @override
   bool get isOnboardingComplete;
+
+  /// Create a copy of StarterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StarterStateImplCopyWith<_$StarterStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

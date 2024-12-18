@@ -12,6 +12,7 @@ import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../infrastructure/event/dtos/event_ticket/event_ticket.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/custom_textfield.dart';
 import 'widgets/ticket_category_tile.dart';
@@ -67,6 +68,7 @@ class BookTicketScreenConsumer extends StatelessWidget {
                     startDate: state.event!.startDate,
                     priceRangeStart: state.event!.priceRangeStart,
                     onClick: () {
+                      
                       context.read<BookingCubit>().createBooking();
                     },
                   ),
@@ -104,10 +106,11 @@ class BookTicketScreenConsumer extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(top: 5, bottom: 5),
                                 child: TicketCategory(
-                                  eventTicketCategory: e,
+                                  eventTicketCategory: e as EventTicketDto, //FIx this
                                 ),
                               );
                             }),
+                            
                             if (state.isBookingEnabled) ...[
                               SizedBox(height: 1.h),
                               Divider(
@@ -169,7 +172,12 @@ class BookTicketScreenConsumer extends StatelessWidget {
                                 hintTextStyle: TextStyle(
                                     fontSize: 16.sp, color: Colors.grey[700]),
                                 suffixTap: () {
-                                  context.read<BookingCubit>().validateCoupon();
+                                  if (state
+                                      .discountController.text.isNotEmpty) {
+                                    context
+                                        .read<BookingCubit>()
+                                        .validateCoupon();
+                                  }
                                 },
                               ),
                               if (state.isCouponFailed &&
@@ -290,7 +298,7 @@ class BottomBookingBar extends StatelessWidget {
                                                   .colorScheme
                                                   .background,
                                               fontSize: 16.sp)),
-                                  
+
                                   // Text(priceRangeEnd?.toIndianRupeeString() ?? '',
                                   //     style: Theme.of(context)
                                   //         .textTheme
@@ -307,17 +315,19 @@ class BottomBookingBar extends StatelessWidget {
                                 ],
                               )
                             : SizedBox(
-                              height: 1.h,
-                            ),
+                                height: 1.h,
+                              ),
 
-                        SizedBox(height: state.isBookingEnabled?1.h:1.h,)
+                        SizedBox(
+                          height: state.isBookingEnabled ? 1.h : 1.h,
+                        )
                       ],
                     ),
                   ),
                 ],
               ),
               GradientButton(
-                text: EventDetailsScreenConstants.completePayment,
+                text: 'Select Your Experience',
                 onTap: onClick,
                 isEnabled: state.isBookingEnabled,
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(

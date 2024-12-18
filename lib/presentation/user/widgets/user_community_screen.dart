@@ -93,7 +93,7 @@ class UserCommunityConsumer extends StatelessWidget {
                       ),
                       Tab(
                         child: Text(
-                          '${state.userFriends.totalCount} friends',
+                          '${state.userFriends.totalCount} Following',
                           style: textTheme.bodySmall!.copyWith(
                               color: colorScheme.background,
                               fontWeight: FontWeight.w600),

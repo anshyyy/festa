@@ -28,7 +28,7 @@ import 'widgets/setting_tile.dart';
 
 class ProfileAndSettingsScreen extends StatelessWidget {
   final String providedEmail;
-  const ProfileAndSettingsScreen({super.key,required this.providedEmail});
+  const ProfileAndSettingsScreen({super.key, required this.providedEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +38,15 @@ class ProfileAndSettingsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => ProfileCubit(ProfileState.initial(
           appStateNotifier: appStateNotifier, serverUrl: appConfig.serverUrl)),
-      child:  ProfileAndSettingsScreenConsumer(providedEmail : providedEmail),
+      child: ProfileAndSettingsScreenConsumer(providedEmail: providedEmail),
     );
   }
 }
 
 class ProfileAndSettingsScreenConsumer extends StatelessWidget {
   final String providedEmail;
-  const ProfileAndSettingsScreenConsumer({
-
-    super.key,
-    required this.providedEmail
-  });
+  const ProfileAndSettingsScreenConsumer(
+      {super.key, required this.providedEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +214,11 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            state.user!.fullName,
+                                            state.user!.fullName.length > 30
+                                                ? state.user!.fullName
+                                                    .substring(0, 20)
+                                                : state.user!.fullName,
+                                            overflow: TextOverflow.ellipsis,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium!
@@ -315,14 +316,14 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                           color: Theme.of(
                                                                   context)
                                                               .colorScheme
-                                                              .secondaryContainer,
+                                                              .background,
                                                           eyeShape: QrEyeShape
                                                               .square),
                                                       dataModuleStyle:
                                                           QrDataModuleStyle(
                                                         color: Theme.of(context)
                                                             .colorScheme
-                                                            .secondaryContainer,
+                                                            .background,
                                                         dataModuleShape:
                                                             QrDataModuleShape
                                                                 .square,
@@ -551,10 +552,9 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                         OtherConstants.settingsMenu[index];
                                     // ("${state.user}");
                                     // (state.appStateNotifier.user!.email);
-                                  
-                                  
+
                                     return SettingTile(
-                                        isEmpty:  providedEmail.isEmpty,
+                                        isEmpty: providedEmail.isEmpty,
                                         prefixIcon: currentMenu.icon,
                                         label: currentMenu.title,
                                         suffixIcon: AssetConstants.arrowRight,
@@ -567,7 +567,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                         currentMenu
                                                             .navigationRoute,
                                                         queryParams: {
-                                                      'email':providedEmail,
+                                                      'email': providedEmail,
                                                       'userId': state.user!.id
                                                           .toString()
                                                     });
@@ -589,10 +589,70 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
                                   child: GestureDetector(
-                                    onTap: () {
-                                      AnalyticsService().logEvent(
+                                    onTap: ()async {
+
+
+                                                                                    var option = await showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                      'Logout',
+                                                      style: TextStyle(
+                                                          color: colorScheme
+                                                              .background,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 18.sp),
+                                                    ),
+                                                    content: Text(
+                                                      'Are you sure you want to log out?',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 15.sp),
+                                                    ),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          // Cancel logout and close the dialog
+                                                          navigator<
+                                                                  NavigationService>()
+                                                              .goBack(
+                                                                  responseObject:
+                                                                      'Cancel');
+                                                        },
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
+                                                              color: Colors.grey
+                                                                  .shade600),
+                                                        ),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          // Confirm logout and close the dialog
+                                                          navigator<
+                                                                  NavigationService>()
+                                                              .goBack(
+                                                                  responseObject:
+                                                                      'Logout');
+                                                        },
+                                                        child: Text('Logout'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+
+                                      if(option == 'Logout'){
+                                        AnalyticsService().logEvent(
                                           eventName: 'logout', paras: {});
-                                      context.read<ProfileCubit>().logout();
+                                         context.read<ProfileCubit>().logout();
+
+                                      }
+
                                     },
                                     child: Row(
                                       children: [
@@ -637,7 +697,9 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       suffixIcon: AssetConstants.arrowRight,
                                       onTap: currentMenu.navigationRoute.isEmpty
                                           ? null
-                                          : () {
+                                          : ()  {
+
+
                                               context
                                                   .read<ProfileCubit>()
                                                   .clearMenuSearch();

@@ -42,8 +42,8 @@ class BirthdayScreenConsumer extends StatelessWidget {
     return BlocConsumer<BirthdaySelectionCubit, BirthdaySelectionState>(
         listener: (context, state) {
       if (state.isSuccessful) {
-        navigator<NavigationService>()
-            .navigateTo(AuthRoutes.genderRoute, isClearStack: true);
+        // navigator<NavigationService>()
+        //     .navigateTo(AuthRoutes.genderRoute, isClearStack: true);
       } else if (state.isFailed) {
         CustomScaffoldMessenger.clearSnackBars(context);
         CustomScaffoldMessenger.showSnackBar(

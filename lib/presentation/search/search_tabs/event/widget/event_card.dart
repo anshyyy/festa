@@ -54,12 +54,15 @@ class EventCard extends StatelessWidget {
               children: [
                 SizedBox(
                     width: 228.px,
-                    child: Text(
-                      event.name.toUpperCase(),
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                    child: Padding(
+                      padding:  EdgeInsets.only(left:0.9.h),
+                      child: Text(
+                        event.name.toUpperCase(),
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
                     )),
                 SizedBox(
                   height: 5.sp,
@@ -75,8 +78,8 @@ class EventCard extends StatelessWidget {
                   Text(
                     StringExtension.formatDateTimeLongNew(
                         DateTime.parse(event.startDate)),
-                    style: const TextStyle(
-                        fontSize: 14,
+                    style:  TextStyle(
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.white),
                   )
@@ -90,7 +93,7 @@ class EventCard extends StatelessWidget {
                     width: 10.sp,
                   ),
                   Text(
-                    event.vicinity,
+                    event.address?.vicinity??'',
                     style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

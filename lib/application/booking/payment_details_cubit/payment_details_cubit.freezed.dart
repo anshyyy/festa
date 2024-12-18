@@ -12,7 +12,7 @@ part of 'payment_details_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PaymentDetailsState {
@@ -30,9 +30,12 @@ mixin _$PaymentDetailsState {
   bool get isPaymentFailure => throw _privateConstructorUsedError;
   bool get isPaymentPending => throw _privateConstructorUsedError;
   double get totalAmount => throw _privateConstructorUsedError;
+  PaletteGenerator? get palette => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentDetailsStateCopyWith<PaymentDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +60,7 @@ abstract class $PaymentDetailsStateCopyWith<$Res> {
       bool isPaymentFailure,
       bool isPaymentPending,
       double totalAmount,
+      PaletteGenerator? palette,
       UserDto? user});
 
   $EventBookingDetailsDtoCopyWith<$Res> get eventBookingDetails;
@@ -74,6 +78,8 @@ class _$PaymentDetailsStateCopyWithImpl<$Res, $Val extends PaymentDetailsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -90,6 +96,7 @@ class _$PaymentDetailsStateCopyWithImpl<$Res, $Val extends PaymentDetailsState>
     Object? isPaymentFailure = null,
     Object? isPaymentPending = null,
     Object? totalAmount = null,
+    Object? palette = freezed,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -145,6 +152,10 @@ class _$PaymentDetailsStateCopyWithImpl<$Res, $Val extends PaymentDetailsState>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
+      palette: freezed == palette
+          ? _value.palette
+          : palette // ignore: cast_nullable_to_non_nullable
+              as PaletteGenerator?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -152,6 +163,8 @@ class _$PaymentDetailsStateCopyWithImpl<$Res, $Val extends PaymentDetailsState>
     ) as $Val);
   }
 
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventBookingDetailsDtoCopyWith<$Res> get eventBookingDetails {
@@ -161,6 +174,8 @@ class _$PaymentDetailsStateCopyWithImpl<$Res, $Val extends PaymentDetailsState>
     });
   }
 
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventDtoCopyWith<$Res>? get event {
@@ -173,6 +188,8 @@ class _$PaymentDetailsStateCopyWithImpl<$Res, $Val extends PaymentDetailsState>
     });
   }
 
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -208,6 +225,7 @@ abstract class _$$PaymentDetailsStateImplCopyWith<$Res>
       bool isPaymentFailure,
       bool isPaymentPending,
       double totalAmount,
+      PaletteGenerator? palette,
       UserDto? user});
 
   @override
@@ -226,6 +244,8 @@ class __$$PaymentDetailsStateImplCopyWithImpl<$Res>
       $Res Function(_$PaymentDetailsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -242,6 +262,7 @@ class __$$PaymentDetailsStateImplCopyWithImpl<$Res>
     Object? isPaymentFailure = null,
     Object? isPaymentPending = null,
     Object? totalAmount = null,
+    Object? palette = freezed,
     Object? user = freezed,
   }) {
     return _then(_$PaymentDetailsStateImpl(
@@ -297,6 +318,10 @@ class __$$PaymentDetailsStateImplCopyWithImpl<$Res>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
+      palette: freezed == palette
+          ? _value.palette
+          : palette // ignore: cast_nullable_to_non_nullable
+              as PaletteGenerator?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -322,6 +347,7 @@ class _$PaymentDetailsStateImpl implements _PaymentDetailsState {
       required this.isPaymentFailure,
       required this.isPaymentPending,
       required this.totalAmount,
+      this.palette,
       this.user});
 
   @override
@@ -351,11 +377,13 @@ class _$PaymentDetailsStateImpl implements _PaymentDetailsState {
   @override
   final double totalAmount;
   @override
+  final PaletteGenerator? palette;
+  @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'PaymentDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventBookingDetails: $eventBookingDetails, eventRepository: $eventRepository, event: $event, razorpay: $razorpay, razorPayApiKey: $razorPayApiKey, isPaymentSuccess: $isPaymentSuccess, isPaymentFailure: $isPaymentFailure, isPaymentPending: $isPaymentPending, totalAmount: $totalAmount, user: $user)';
+    return 'PaymentDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventBookingDetails: $eventBookingDetails, eventRepository: $eventRepository, event: $event, razorpay: $razorpay, razorPayApiKey: $razorPayApiKey, isPaymentSuccess: $isPaymentSuccess, isPaymentFailure: $isPaymentFailure, isPaymentPending: $isPaymentPending, totalAmount: $totalAmount, palette: $palette, user: $user)';
   }
 
   @override
@@ -387,6 +415,7 @@ class _$PaymentDetailsStateImpl implements _PaymentDetailsState {
                 other.isPaymentPending == isPaymentPending) &&
             (identical(other.totalAmount, totalAmount) ||
                 other.totalAmount == totalAmount) &&
+            (identical(other.palette, palette) || other.palette == palette) &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -406,9 +435,12 @@ class _$PaymentDetailsStateImpl implements _PaymentDetailsState {
       isPaymentFailure,
       isPaymentPending,
       totalAmount,
+      palette,
       user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentDetailsStateImplCopyWith<_$PaymentDetailsStateImpl> get copyWith =>
@@ -431,6 +463,7 @@ abstract class _PaymentDetailsState implements PaymentDetailsState {
       required final bool isPaymentFailure,
       required final bool isPaymentPending,
       required final double totalAmount,
+      final PaletteGenerator? palette,
       final UserDto? user}) = _$PaymentDetailsStateImpl;
 
   @override
@@ -460,9 +493,14 @@ abstract class _PaymentDetailsState implements PaymentDetailsState {
   @override
   double get totalAmount;
   @override
-  UserDto? get user;
+  PaletteGenerator? get palette;
   @override
-  @JsonKey(ignore: true)
+  UserDto? get user;
+
+  /// Create a copy of PaymentDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentDetailsStateImplCopyWith<_$PaymentDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

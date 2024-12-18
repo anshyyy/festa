@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../../infrastructure/core/dtos/asset/asset_dto.dart';
 import '../../../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
 import '../../../../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
 import '../../../../../presentation/artist_profile/artist_profile_screen.dart';
@@ -22,9 +23,11 @@ import '../../../../../presentation/club_profile/widgets/media_viewer_widget.dar
 import '../../../../../presentation/common/default_widget.dart';
 import '../../../../../presentation/common/network_unavailable_screen.dart';
 import '../../../../../presentation/event/booking/book_ticket_screen.dart';
+import '../../../../../presentation/event/booking/book_ticket_screen2.dart';
 import '../../../../../presentation/event/booking/free_booking_screen.dart';
 import '../../../../../presentation/event/booking/payment_details_screen.dart';
 import '../../../../../presentation/event/booking/payment_status_screen.dart';
+import '../../../../../presentation/event/event_details2_screen.dart';
 import '../../../../../presentation/event/event_details_screen.dart';
 import '../../../../../presentation/main_nav/main_navigator.dart';
 import '../../../../../presentation/notifications/notification_screen.dart';
@@ -36,6 +39,7 @@ import '../../../../../presentation/ticket/review/review_screen.dart';
 import '../../../../../presentation/user/other_user_profile_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_privacy/account_privacy_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/account_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/block_account/block_account_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/delete_account/delete_account_screen.dart';
 import '../../../../../presentation/user/profile_settings/account_settings/email/email_details_screen.dart';
@@ -79,6 +83,9 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           UserCommunity(userId: int.parse(userId), username: username),
           settings);
 
+    case UserRoutes.unblockAccountScreenRoute:
+      return _getPageRoute(const UnblockAccountScreen(), settings);
+
     case UserRoutes.otherUserProfileRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
       return _getPageRoute(
@@ -102,8 +109,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     //       ),
     //       settings);
 
-
-      case UserRoutes.editProfileRoute:
+    case UserRoutes.editProfileRoute:
       final userId = routingData.queryParameters['userId'] ?? '0';
 
       return _getPageRoute(
@@ -163,10 +169,10 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           settings);
 
     case UserRoutes.usernameSettingsScreenRoute:
-      final username = routingData.queryParameters['username'];
+      final fullname = routingData.queryParameters['fullname'];
       return _getPageRoute(
           UsernameSettingsScreen(
-            username: username!,
+            fullname: fullname!,
           ),
           settings);
 
@@ -183,7 +189,9 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
     case UserRoutes.eventDetailsRoute:
       return _getPageRoute(
-          EventDetailsScreen(
+          EventDetailsScreen2(
+            isMutedNotifierValue: routingData.queryParameters['valueListener'] == 'true',
+            isVideoMute: routingData.queryParameters['isVideoMuted'] == 'true',
             id: routingData.queryParameters['id'] ?? '',
             distance: routingData.queryParameters['distance'] ?? '',
           ),
@@ -192,7 +200,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.bookingRoute:
       final String eventId = routingData.queryParameters['eventId'] ?? '';
       return _getPageRoute(
-          BookTicketScreen(
+          BookTicketScreen2(
             eventId: int.parse(eventId),
           ),
           settings);
@@ -217,13 +225,17 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
           routingData.queryParameters['numberOfTickets'] ?? '0';
       final String totalAmount =
           routingData.queryParameters['totalAmount'] ?? '0';
-      final String? coverAmount =  routingData.queryParameters['coverAmount'];
-      double? cover = double.parse(coverAmount??'0');
-      if(cover == 0){
+      final String? coverAmount = routingData.queryParameters['coverAmount'];
+      final String? bookingId = routingData.queryParameters['bookingId'];
+      final String? transactionId = routingData.queryParameters['transactionId'];
+      double? cover = double.parse(coverAmount ?? '0');
+      if (cover == 0) {
         cover = null;
       }
       return _getPageRoute(
           PaymentStatusScreen(
+            bookindId: int.parse(bookingId??'0'),
+            transactionId: transactionId??'',
             isPaymentSuccess: isPaymentSuccess,
             isPaymentPending: isPaymentPending,
             numberOfTickets: int.parse(numberOfTickets),
@@ -289,21 +301,25 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       return _getPageRoute(const PastTicketScreen(), settings);
     case UserRoutes.ticketHistory:
       final String? ticketJsonString = routingData.queryParameters['ticket'];
+      // Now you can use `ticket` as the original object
+      final bool isRecent = routingData.queryParameters['isRecent'] == 'true';
       final BookedTicketDetailsDto ticket =
           BookedTicketDetailsDto.fromJson(jsonDecode(ticketJsonString ?? ""));
-      // Now you can use `ticket` as the original object
 
-
-      return _getPageRoute(PastTicketHistory(ticket: ticket), settings);
+      return _getPageRoute(
+          PastTicketHistory(
+            ticket: ticket,
+            isRecent: isRecent,
+          ),
+          settings);
 
     case UserRoutes.addCoverRoute:
       var bookingId =
           int.parse(routingData.queryParameters['bookingId'] ?? '0');
-      var eventId =
-          int.parse(routingData.queryParameters['eventId'] ?? '0');
+      var eventId = int.parse(routingData.queryParameters['eventId'] ?? '0');
       var transactionId =
-                routingData.queryParameters['transactionId'] as String;
-      
+          routingData.queryParameters['transactionId'] as String;
+
       return _getPageRoute(
           CoverScreen(
             bookingId: bookingId,
@@ -321,7 +337,14 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
       final type = routingData.queryParameters['type'] ?? 'image';
       final url = routingData.queryParameters['url'] ?? '';
       final pubId = routingData.queryParameters['pubId'] ?? '';
-      final assets = routingData.queryParameters['assets']!.split(",") ?? [];
+      final String? assetsString = routingData.queryParameters['assets'];
+      final List<AssetDto> assets = assetsString != null
+          ? (jsonDecode(assetsString) as List)
+              .map((assetJson) =>
+                  AssetDto.fromJson(assetJson as Map<String, dynamic>))
+              .toList()
+          : [];
+
       final currentIndex =
           int.parse(routingData.queryParameters['currentIndex']!);
       return _getPageRoute(

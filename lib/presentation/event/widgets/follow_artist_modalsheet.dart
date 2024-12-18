@@ -72,7 +72,9 @@ class FollowArtistsModalSheetConsumer extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        navigator<NavigationService>().goBack();
+                        navigator<NavigationService>().goBack(responseObject: {
+                          'artists':state.artists
+                        });
                       },
                       child: SvgPicture.asset(AssetConstants.closeIcon))
                 ],

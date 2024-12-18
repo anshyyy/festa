@@ -54,7 +54,7 @@ class ClubCard extends StatelessWidget {
                       color: Colors.white),
                 ),
                 Text(
-                  club.userName,
+                  club.location?.city??'',
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,

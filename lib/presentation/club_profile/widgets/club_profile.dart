@@ -16,20 +16,32 @@ import '../../../domain/core/services/navigation_services/navigation_service.dar
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../../domain/core/utils/dynamic_link.dart';
 import '../../../domain/core/utils/image_provider.dart';
+import '../../../infrastructure/core/dtos/happyhours/happyhours.dart';
 import '../../../infrastructure/core/dtos/menu/menu_dto.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 import '../../../infrastructure/pub/dtos/pub_opening_hours/pub_opening_hours_dto.dart';
+import '../../artist_profile/widgets/mutual_followers.dart';
 import '../../widgets/gradient_button.dart';
 import 'social_reach.dart';
 
 class ClubProfile extends StatelessWidget {
   ClubProfile({super.key});
-  String today = DateFormat('EEEE').format(DateTime.now());
+  final String today = DateFormat('EEEE').format(DateTime.now());
+  static const Map<int, String> dayNames = {
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday',
+    0: 'Sunday',
+  };
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final colorScheme = themeData.colorScheme;
+
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -58,7 +70,7 @@ class ClubProfile extends StatelessWidget {
                       SizedBox(
                         width: 65.w,
                         child: Text(
-                          state.pub?.fullName??"",
+                          state.pub?.fullName ?? "",
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -108,7 +120,7 @@ class ClubProfile extends StatelessWidget {
                         height: 1.h,
                       ),
                       Text(
-                        state.pub?.description??"",
+                        state.pub?.description ?? "",
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: Theme.of(context).colorScheme.background),
                         textAlign: TextAlign.center,
@@ -184,8 +196,7 @@ class ClubProfile extends StatelessWidget {
                                                           .pub!
                                                           .openingHours!
                                                           .weekdayText[index];
-                                                      (
-                                                          '$timing   ${timing.split("y:")}');
+                                                      print('$timing   ${timing.split("y:")}');
 
                                                       return ListTile(
                                                         minTileHeight: 20,
@@ -253,7 +264,7 @@ class ClubProfile extends StatelessWidget {
                                   width: 1.w,
                                 ),
                                 Text(
-                                  (state.pub!.openingHours!.openNow ?? false)
+                                  (state.isOpenNow)
                                       ? 'Open'
                                       : 'Closed',
                                   style: Theme.of(context)
@@ -264,6 +275,14 @@ class ClubProfile extends StatelessWidget {
                                               .colorScheme
                                               .background),
                                 ),
+                                SvgPicture.asset(AssetConstants.pipeIcon,color: Colors.grey,),
+                                Text(state.isOpenNow?"Closes ${state?.todayClosingTime??''}":"Opens ${state?.todayOpeningTime??''}",style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .background),),
                                 SvgPicture.asset(
                                   AssetConstants.arrowDown,
                                 ),
@@ -293,34 +312,37 @@ class ClubProfile extends StatelessWidget {
                           )
                         ],
                       ),
-                      Divider(
-                        thickness: .05.w,
-                        // color: Colors.white,
-                      ),
+                      
+                      // Divider(
+                      //   thickness: .05.w,
+                      //   // color: Colors.white,
+                      // ),
                       // state.pub!.extraDetailsDto!.followedBy.isNotEmpty
                       //     ? MutualFollowers()
                       //     : const SizedBox(),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          navigator<NavigationService>().navigateTo(
-                              UserRoutes.clubCommunityScreenRoute,
-                              queryParams: {
-                                'clubId': state.clubId.toString(),
-                                'clubName': state.pub!.fullName,
-                              });
-                        },
-                        child: SocialReach(
-                          totalFollowers:
-                              state.pub!.extraDetailsDto!.totalFollowers,
-                          totalFriends:
-                              state.pub!.extraDetailsDto!.totalFriends,
-                          totalParties:
-                              state.pub!.extraDetailsDto!.totalParties,
-                        ),
-                      )
+                      // SizedBox(
+                      //   height: 1.h,
+                      // ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     navigator<NavigationService>().navigateTo(
+                      //         UserRoutes.clubCommunityScreenRoute,
+                      //         queryParams: {
+                      //           'clubId': state.clubId.toString(),
+                      //           'clubName': state.pub!.fullName,
+                      //         });
+                      //   },
+                      //   child: MutualFollowers(artistCommunityDto: state.pub.extraDetailsDto!.followedBy)
+                        
+                      //   //  SocialReach(
+                      //   //   totalFollowers:
+                      //   //       state.pub!.extraDetailsDto!.totalFollowers,
+                      //   //   totalFriends:
+                      //   //       state.pub!.extraDetailsDto!.totalFriends,
+                      //   //   totalParties:
+                      //   //       state.pub!.extraDetailsDto!.totalParties,
+                      //   // ),
+                      // )
                     ],
                   ),
                 ),
@@ -357,7 +379,7 @@ class ClubProfile extends StatelessWidget {
                       onTap: () {
                         context
                             .read<ClubProfileCubit>()
-                            .followUnfollowPub(pubId: state.pub!.id.toString());
+                            .followUnfollowPub(pubId: state.pub!.id,isFollowing: state.isFollowing);
                       },
                       textStyle:
                           Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -410,13 +432,14 @@ class ClubProfile extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet(
                     isScrollControlled: true,
+                    useSafeArea: true,
                     constraints: BoxConstraints(
-            maxHeight: 90.h, // Set your max height here
-          ),
+                      maxHeight: 90.h, // Set your max height here
+                    ),
                     backgroundColor: Theme.of(context).colorScheme.surface,
                     context: context,
                     builder: (context) {
-                      (state.pub!.happyHours?.isEmpty);
+                    
                       return DraggableScrollableSheet(
                         expand: false,
                         builder: (context, scrollController) {
@@ -482,6 +505,12 @@ class ClubProfile extends StatelessWidget {
                                                 width: 48.px,
                                                 height: 28.px,
                                                 alignment: Alignment.center,
+                                                child: Tab(text: "Sun"),
+                                              ),
+                                              Container(
+                                                width: 48.px,
+                                                height: 28.px,
+                                                alignment: Alignment.center,
                                                 child: Tab(text: "Mon"),
                                               ),
                                               Container(
@@ -514,71 +543,51 @@ class ClubProfile extends StatelessWidget {
                                                 alignment: Alignment.center,
                                                 child: Tab(text: "Sat"),
                                               ),
-                                              Container(
-                                                width: 48.px,
-                                                height: 28.px,
-                                                alignment: Alignment.center,
-                                                child: Tab(text: "Sun"),
-                                              ),
                                             ],
                                           ),
                                           Container(
-                                            height:
-                                                100.h, // Adjust height as needed
+                                            height: 100
+                                                .h, // Adjust height as needed
                                             child: TabBarView(
-                                              children: [
-                                                MondayTab(
-                                                  happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                                 MondayTab(
-                                                  happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                                  MondayTab(
-                                                  happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                                 MondayTab(
-                                                   happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                                 MondayTab(
-                                                   happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                                  MondayTab(
-                                                   happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                                MondayTab(
-                                                   happyhours:
-
-                                                  state.pub!.happyHours!.isNotEmpty?
-                                                      state.pub!.happyHours ?? []:
-                                                          [MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/image_152_faskzh.png"),MenuDto(id: 1, url: "https://res.cloudinary.com/dltfyyjib/image/upload/v1723719528/Frame_1171275935_l3ukn4.png")],
-                                                ),
-                                              ],
+                                              children: ((state.pub?.happyHours
+                                                                  ?.length ??
+                                                              0) ==
+                                                          1 &&
+                                                      (state.pub?.happyHours
+                                                              ?.first.id ==
+                                                          7))
+                                                  ? List.generate(7, (index) {
+                                                      return MondayTab(
+                                                        happyhours: state
+                                                                .pub
+                                                                ?.happyHours
+                                                                ?.first ??
+                                                            HappyhoursDto(
+                                                                id: index,
+                                                                urls: []),
+                                                      );
+                                                    })
+                                                  : List.generate(7, (index) {
+                                                      return MondayTab(
+                                                        happyhours: state
+                                                                .pub?.happyHours
+                                                                ?.firstWhere(
+                                                              (hour) =>
+                                                                  hour.id ==
+                                                                  index ,
+                                                              orElse: () =>
+                                                                  HappyhoursDto(
+                                                                id: index,
+                                                                urls: [],
+                                                              ),
+                                                            ) ??
+                                                            HappyhoursDto(
+                                                                id: index,
+                                                                urls: []),
+                                                      );
+                                                    }),
                                             ),
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -768,56 +777,67 @@ class ClubProfile extends StatelessWidget {
 }
 
 class MondayTab extends StatelessWidget {
-  final List<MenuDto> happyhours;
+  final HappyhoursDto happyhours;
   const MondayTab({super.key, required this.happyhours});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        
-        Center(
-          child: Container(
-            margin: EdgeInsets.only(top: 10.px, bottom: 10.px),
-            width: 42.75.h,
-            height: 42.75.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: CachedNetworkImageProvider(happyhours[0].url),
-                    fit: BoxFit.cover)),
-          ),
-        ),
-        Text(
-          "Amazing!",
-          style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14.px,
-              color: Colors.white),
-        ),
-        Text(
-          "It's a nice place to hang out with friends. We enjoyed our time here! The ambiance was looking good.",
-          style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 12.px,
-              color: Colors.white),
-        ),
-        SizedBox(height: 1.h),
-         Center(
-          child: Container(
-            margin: EdgeInsets.only(top: 10.px, bottom: 10.px),
-            width: 42.75.h,
-            height: 20.75.h,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: CachedNetworkImageProvider(happyhours[1].url),
-                    fit: BoxFit.cover)),
-          ),
-        ),
-       
-      ],
-    );
+    return happyhours.urls.isEmpty
+        ? Container(
+            margin: EdgeInsets.only(top: 10.h),
+            child: Text(
+              'No Happy Hours Available for this day!!! 🥸🥸',
+              textAlign: TextAlign.center,
+            ),
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 1.h),
+              Text(
+                'Amazing!',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.px,
+                    color: Colors.white),
+              ),
+              Text(
+                "It's a nice place to hang out with friends. We enjoyed our time here! The ambiance was looking good.",
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12.px,
+                    color: Colors.white),
+              ),
+              SizedBox(height: 1.h),
+
+              // Use Expanded or SizedBox to prevent unbounded height error
+              Expanded(
+                child: ListView.separated(
+                  //  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    print(happyhours.urls.length);
+                    return Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 10.px, bottom: 10.px),
+                        width: 42.75.h,
+                        height: 42.75.h,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                    happyhours.urls[index]),
+                                fit: BoxFit.cover)),
+                        //child: Center(child: Text('$index'),),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(height: 1.h);
+                  },
+                  itemCount: happyhours.urls.length,
+                ),
+              ),
+            ],
+          );
   }
 }

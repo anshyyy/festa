@@ -11,6 +11,7 @@ class GenderSelectionState with _$GenderSelectionState {
     required List<String> lsOFSexValue,
     required bool isSaveDetailsEnable,
     required String errorMessage,
+    required String userGender,
     required AppStateNotifier appStateNotifier,
     required AuthRepository authRepository,
     required UserRepository userRepository,
@@ -23,15 +24,18 @@ class GenderSelectionState with _$GenderSelectionState {
   factory GenderSelectionState.initial({
     required final AppStateNotifier appStateNotifier,
     required String serverUrl,
+    required String userGender,
   }) =>
       GenderSelectionState(
+        selectedSex: 2,
         isFailed: false,
+        userGender: userGender,
         isSuccessful: false,
         isLoading: false,
         isSaveDetailsEnable: false,
         isSaveEnable: false,
-        lsOFSex: ['Woman', 'Man', 'Nonbinary'],
-        lsOFSexValue: ['female', 'male', 'other'],
+        lsOFSex: ['Woman', 'Man','Other','Intersex man','Trans man','Transmasculine','Man and Non-Binary','Cis Man'],
+        lsOFSexValue: ['woman', 'man', 'other','intersex_man','trans_man','transmasculine','man_and_non_binary','cis_man'],
         authRepository: IAuthRepository(serverUrl: serverUrl),
         userRepository: IUserRepository(serverUrl: serverUrl),
         appStateNotifier: appStateNotifier,

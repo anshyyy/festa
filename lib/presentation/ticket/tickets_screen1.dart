@@ -54,8 +54,6 @@ class _TicketsScreen1State extends State<TicketsScreen1>
   int _currentIndex = 0;
   late TabController _tabController;
 
- 
-
   @override
   void initState() {
     super.initState();
@@ -82,25 +80,27 @@ class _TicketsScreen1State extends State<TicketsScreen1>
             leadingWidth: 0,
             centerTitle: false,
             actions: [
-              InkWell(
-                onTap: () {
-                  navigator<NavigationService>()
-                      .navigateTo(UserRoutes.pastTickets);
-                },
-                child: Container(
-                  height: 4.h,
-                  width: 25.66.w,
-                  margin: const EdgeInsets.only(right: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                  ),
-                  child: Center(
-                    child: Text(
-                      TicketScreenConstants.pastTickets,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14.px,
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: InkWell(
+                  onTap: () {
+                    navigator<NavigationService>()
+                        .navigateTo(UserRoutes.pastTickets);
+                  },
+                  child: Container(
+                    height: 4.h,
+                    width: 25.66.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                    child: Center(
+                      child: Text(
+                        TicketScreenConstants.pastTickets,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14.px,
+                        ),
                       ),
                     ),
                   ),
@@ -108,7 +108,7 @@ class _TicketsScreen1State extends State<TicketsScreen1>
               ),
               InkWell(
                 onTap: () async {
-                  var contact = '+919686649241';
+                  var contact = '+918197038027';
                   var androidUrl =
                       "whatsapp://send?phone=$contact&text=Hi, I need some help";
                   var iosUrl =
@@ -121,7 +121,7 @@ class _TicketsScreen1State extends State<TicketsScreen1>
                       await launchUrl(Uri.parse(androidUrl));
                     }
                   } on Exception {
-                  print('WhatsApp is not installed.');
+                   // print('WhatsApp is not installed.');
                   }
                 },
                 child: Container(
@@ -200,16 +200,16 @@ class _TicketsScreen1State extends State<TicketsScreen1>
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SmoothPageIndicator(
-                            controller: _pageController, // PageController
+                            controller: _pageController,
                             count: state.userTickets!.upcomingTickets
-                                .length, // Number of cards
-                            effect: const WormEffect(
+                                .length, 
+                            effect: const ScrollingDotsEffect(
                               dotHeight: 6.0,
                               dotWidth: 6.0,
                               radius: 8,
                               spacing: 5.0,
                               dotColor:
-                                  const Color.fromARGB(255, 111, 108, 108),
+                                   Color.fromARGB(255, 111, 108, 108),
                               activeDotColor: Colors.white,
                             ),
                           ),
@@ -224,6 +224,7 @@ class _TicketsScreen1State extends State<TicketsScreen1>
   LayoutBuilder TicketUI(BookedTicketDetailsDto ticket, int bookingId) {
     // context.read<TicketCubit>().fetchCoverBalance(
     //     bookingId: bookingId);
+  
     return LayoutBuilder(builder: (context, constraint) {
       return Stack(
         children: [
@@ -282,9 +283,13 @@ class _TicketsScreen1State extends State<TicketsScreen1>
                           SizedBox(
                               width: 50.66.w,
                               child: Text(
-                                ticket.eventDetails.address?.vicinity ??
+                                ticket.eventDetails.pub?.location?.vicinity ??
                                     "Bangalore",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
                                 style: TextStyle(
+
+
                                     color: Colors.white,
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),
@@ -347,15 +352,15 @@ class _TicketsScreen1State extends State<TicketsScreen1>
                         TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
                     unselectedLabelStyle:
                         TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-                    tabs: const [Tab(text: 'Info'), Tab(text: 'Qr Code')]),
+                    tabs: const [Tab(text: 'QR Code'), Tab(text: 'Info')]),
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
                     children: [
+                      QrViewer(bookingReferenceId: ticket.id.toString()),
                       InfoWidget(
                         ticket: ticket,
                       ),
-                      QrViewer(bookingReferenceId: ticket.id.toString()),
                     ],
                   ),
                 ),

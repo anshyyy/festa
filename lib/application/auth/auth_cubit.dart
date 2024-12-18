@@ -57,7 +57,9 @@ class AuthCubit extends Cubit<AuthState> {
       dialCode: state.selectedDialCode.toString(),
     );
 
+
     response.fold((l) {
+    //  print("error: $l");
       emit(state.copyWith(
         isLoading: false,
         isOTPSentFailed: true,

@@ -11,7 +11,7 @@ class QrViewer extends StatelessWidget {
     try {
       await ScreenBrightness().setScreenBrightness(brightness);
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("error: ${e.toString()}");
     }
   }
 
@@ -60,7 +60,7 @@ class QrViewer extends StatelessWidget {
         child: Center(
           child: QrImageView(
             data: bookingReferenceId,
-            size: 25.h,
+            size: 22.h,
             backgroundColor: Colors.white,
             eyeStyle: const QrEyeStyle(
               color: Colors.black,

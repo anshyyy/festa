@@ -11,6 +11,7 @@ class FilterValueDto with _$FilterValueDto {
     @JsonKey(name: 'name', defaultValue: '') required String name,
     @JsonKey(name: 'rule', defaultValue: '') required String rule,
     @JsonKey(name: 'icon', defaultValue: '') required String icon,
+    @JsonKey(name: 'emoji') String? emoji,
     @JsonKey(defaultValue: false) required bool isApplied,
     @JsonKey(name: 'value') dynamic value,
     @JsonKey(name: 'categoryId') int? categoryId,

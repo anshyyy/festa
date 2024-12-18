@@ -12,7 +12,7 @@ part of 'artist_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ArtistDto _$ArtistDtoFromJson(Map<String, dynamic> json) {
   return _ArtistDto.fromJson(json);
@@ -32,9 +32,15 @@ mixin _$ArtistDto {
   String get profileImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'email')
   String? get email => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tag', defaultValue: null)
+  TagDto? get tag => throw _privateConstructorUsedError;
 
+  /// Serializes this ArtistDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ArtistDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArtistDtoCopyWith<ArtistDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,7 +56,10 @@ abstract class $ArtistDtoCopyWith<$Res> {
       @JsonKey(name: 'username', defaultValue: '') String username,
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
-      @JsonKey(name: 'email') String? email});
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag});
+
+  $TagDtoCopyWith<$Res>? get tag;
 }
 
 /// @nodoc
@@ -63,6 +72,8 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ArtistDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -72,6 +83,7 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
     Object? description = null,
     Object? profileImage = null,
     Object? email = freezed,
+    Object? tag = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -98,7 +110,25 @@ class _$ArtistDtoCopyWithImpl<$Res, $Val extends ArtistDto>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagDto?,
     ) as $Val);
+  }
+
+  /// Create a copy of ArtistDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TagDtoCopyWith<$Res>? get tag {
+    if (_value.tag == null) {
+      return null;
+    }
+
+    return $TagDtoCopyWith<$Res>(_value.tag!, (value) {
+      return _then(_value.copyWith(tag: value) as $Val);
+    });
   }
 }
 
@@ -116,7 +146,11 @@ abstract class _$$ArtistDtoImplCopyWith<$Res>
       @JsonKey(name: 'username', defaultValue: '') String username,
       @JsonKey(name: 'description', defaultValue: '') String description,
       @JsonKey(name: 'profileImage', defaultValue: '') String profileImage,
-      @JsonKey(name: 'email') String? email});
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'tag', defaultValue: null) TagDto? tag});
+
+  @override
+  $TagDtoCopyWith<$Res>? get tag;
 }
 
 /// @nodoc
@@ -127,6 +161,8 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
       _$ArtistDtoImpl _value, $Res Function(_$ArtistDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ArtistDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,6 +172,7 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
     Object? description = null,
     Object? profileImage = null,
     Object? email = freezed,
+    Object? tag = freezed,
   }) {
     return _then(_$ArtistDtoImpl(
       id: null == id
@@ -162,6 +199,10 @@ class __$$ArtistDtoImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      tag: freezed == tag
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as TagDto?,
     ));
   }
 }
@@ -176,7 +217,8 @@ class _$ArtistDtoImpl implements _ArtistDto {
       @JsonKey(name: 'description', defaultValue: '') required this.description,
       @JsonKey(name: 'profileImage', defaultValue: '')
       required this.profileImage,
-      @JsonKey(name: 'email') this.email});
+      @JsonKey(name: 'email') this.email,
+      @JsonKey(name: 'tag', defaultValue: null) this.tag});
 
   factory _$ArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArtistDtoImplFromJson(json);
@@ -199,10 +241,13 @@ class _$ArtistDtoImpl implements _ArtistDto {
   @override
   @JsonKey(name: 'email')
   final String? email;
+  @override
+  @JsonKey(name: 'tag', defaultValue: null)
+  final TagDto? tag;
 
   @override
   String toString() {
-    return 'ArtistDto(id: $id, fullName: $fullName, username: $username, description: $description, profileImage: $profileImage, email: $email)';
+    return 'ArtistDto(id: $id, fullName: $fullName, username: $username, description: $description, profileImage: $profileImage, email: $email, tag: $tag)';
   }
 
   @override
@@ -219,15 +264,18 @@ class _$ArtistDtoImpl implements _ArtistDto {
                 other.description == description) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.tag, tag) || other.tag == tag));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, fullName, username, description, profileImage, email);
+  int get hashCode => Object.hash(runtimeType, id, fullName, username,
+      description, profileImage, email, tag);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArtistDtoImplCopyWith<_$ArtistDtoImpl> get copyWith =>
@@ -243,16 +291,18 @@ class _$ArtistDtoImpl implements _ArtistDto {
 
 abstract class _ArtistDto implements ArtistDto {
   const factory _ArtistDto(
-      {@JsonKey(name: 'id', defaultValue: 0) required final int id,
-      @JsonKey(name: 'fullName', defaultValue: '')
-      required final String fullName,
-      @JsonKey(name: 'username', defaultValue: '')
-      required final String username,
-      @JsonKey(name: 'description', defaultValue: '')
-      required final String description,
-      @JsonKey(name: 'profileImage', defaultValue: '')
-      required final String profileImage,
-      @JsonKey(name: 'email') final String? email}) = _$ArtistDtoImpl;
+          {@JsonKey(name: 'id', defaultValue: 0) required final int id,
+          @JsonKey(name: 'fullName', defaultValue: '')
+          required final String fullName,
+          @JsonKey(name: 'username', defaultValue: '')
+          required final String username,
+          @JsonKey(name: 'description', defaultValue: '')
+          required final String description,
+          @JsonKey(name: 'profileImage', defaultValue: '')
+          required final String profileImage,
+          @JsonKey(name: 'email') final String? email,
+          @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag}) =
+      _$ArtistDtoImpl;
 
   factory _ArtistDto.fromJson(Map<String, dynamic> json) =
       _$ArtistDtoImpl.fromJson;
@@ -276,7 +326,13 @@ abstract class _ArtistDto implements ArtistDto {
   @JsonKey(name: 'email')
   String? get email;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'tag', defaultValue: null)
+  TagDto? get tag;
+
+  /// Create a copy of ArtistDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArtistDtoImplCopyWith<_$ArtistDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

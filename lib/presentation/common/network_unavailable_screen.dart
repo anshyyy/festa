@@ -70,13 +70,13 @@ class _NetworkUnavailableScreenState extends State<NetworkUnavailableScreen> {
                 setState(() {
                   isLoading = true;
                 });
-                ConnectivityResult connectivityResult =
+                List<ConnectivityResult> connectivityResult =
                     await Connectivity().checkConnectivity();
 
                 await Future.delayed(const Duration(milliseconds: 300));
 
                 bool isNetworkAvailable =
-                    connectivityResult != ConnectivityResult.none;
+                    connectivityResult.contains(ConnectivityResult.none);
 
                 if (isNetworkAvailable) {
                   if (widget.isStartRoute) {

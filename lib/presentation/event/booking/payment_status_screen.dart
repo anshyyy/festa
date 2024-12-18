@@ -28,6 +28,9 @@ class PaymentStatusScreen extends StatelessWidget {
   final int eventId;
   final double totalAmount;
   final double? coverAmount;
+  final int? bookindId;
+  final String transactionId;
+
   const PaymentStatusScreen({
     super.key,
     required this.isPaymentSuccess,
@@ -36,6 +39,8 @@ class PaymentStatusScreen extends StatelessWidget {
     required this.totalAmount,
     required this.isPaymentPending,
     this.coverAmount,
+    this.bookindId,
+    this.transactionId = '',
   });
 
   @override
@@ -43,24 +48,33 @@ class PaymentStatusScreen extends StatelessWidget {
     final AppConfig appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) => PaymentStatusCubit(PaymentStatusState.initial(
-        serverUrl: appConfig.serverUrl,
-        eventId: eventId,
-        numberOfTickets: numberOfTickets,
-        totalAmount: totalAmount,
-        isPaymentSuccess: isPaymentSuccess,
-        isPaymentPending: isPaymentPending,
-        coverAmount: coverAmount
-      ))
+          serverUrl: appConfig.serverUrl,
+          eventId: eventId,
+          numberOfTickets: numberOfTickets,
+          totalAmount: totalAmount,
+          isPaymentSuccess: isPaymentSuccess,
+          isPaymentPending: isPaymentPending,
+          coverAmount: coverAmount))
         ..init(),
-      child: const PaymentStatusConsumer(),
+      child: PaymentStatusConsumer(
+        isCoverCharge: coverAmount != 0,
+        bookindId: bookindId,
+        transactionId: transactionId,
+      ),
     );
   }
 }
 
 class PaymentStatusConsumer extends StatelessWidget {
-  const PaymentStatusConsumer({
-    super.key,
-  });
+  final bool isCoverCharge;
+  final int? bookindId;
+  final String transactionId;
+
+  const PaymentStatusConsumer(
+      {super.key,
+      required this.isCoverCharge,
+      this.bookindId,
+      required this.transactionId});
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +103,15 @@ class PaymentStatusConsumer extends StatelessWidget {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: 9.h,
+                                height: 12.h,
                                 child: Row(
                                   children: [
+                                    
                                     ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: SizedBox(
                                             height: 100.h,
-                                            width: 15.5.w,
+                                            width: 17.5.w,
                                             child: CachedNetworkImage(
                                                 fit: BoxFit.cover,
                                                 imageUrl: CustomImageProvider
@@ -112,15 +127,19 @@ class PaymentStatusConsumer extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text(
-                                          state.event?.name ?? '',
+                                        SizedBox(
+                                          width: 70.w,
+                                          child: Text(
+                                            state.event?.name ?? '',
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
                                           style: themeData.textTheme.bodyMedium!
                                               .copyWith(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 18.sp,
                                                   color:
                                                       colorScheme.background),
-                                        ),
+                                        )),
                                         Text(
                                           state.totalAmount == 0
                                               ? 'Free'
@@ -200,72 +219,73 @@ class PaymentStatusConsumer extends StatelessWidget {
                                       ],
                                     ),
 
-
-                                    if(state.numberOfTickets != 0)...[
-                                    SizedBox(
-                                      height: 3.h,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Number of tickets',
-                                          style: themeData.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15.5.sp,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        Text(
-                                          state.numberOfTickets.toString(),
-                                          style: themeData.textTheme.bodyMedium!
-                                              .copyWith(
-                                            color: colorScheme.background,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.5.sp,
-                                          ),
-                                        ),
-                                      ],
-                                    ),],
-                                    
-                              
-                                    if(state.coverAmount != null) ...[
+                                    if (state.numberOfTickets != 0) ...[
                                       SizedBox(
-                                      height: 3.h,
-                                    ),
-                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Cover Amount',
-                                          style: themeData.textTheme.bodySmall!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 15.5.sp,
+                                        height: 3.h,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Number of tickets',
+                                            style: themeData
+                                                .textTheme.bodySmall!
+                                                .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.5.sp,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        Text(
-                                          state.coverAmount.toString(),
-                                          style: themeData.textTheme.bodyMedium!
-                                              .copyWith(
-                                            color: colorScheme.background,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 16.5.sp,
+                                          SizedBox(
+                                            height: 1.h,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-
+                                          Text(
+                                            state.numberOfTickets.toString(),
+                                            style: themeData
+                                                .textTheme.bodyMedium!
+                                                .copyWith(
+                                              color: colorScheme.background,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.5.sp,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
 
+                                    if (state.coverAmount != null) ...[
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Cover Amount',
+                                            style: themeData
+                                                .textTheme.bodySmall!
+                                                .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.5.sp,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 1.h,
+                                          ),
+                                          Text(
+                                            state.coverAmount.toString(),
+                                            style: themeData
+                                                .textTheme.bodyMedium!
+                                                .copyWith(
+                                              color: colorScheme.background,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 16.5.sp,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
 
                                     Column(
                                       crossAxisAlignment:
@@ -464,12 +484,57 @@ class PaymentStatusConsumer extends StatelessWidget {
                                         GradientButton(
                                           text: 'Try again',
                                           onTap: () {
-                                             navigator<NavigationService>().navigateTo(
-                              UserRoutes.bookingRoute,
-                            isClearStack: true,
-                              queryParams: {
-                                'eventId': state.event?.id.toString() ?? "",
-                              });
+                                            if (isCoverCharge) {
+                                              if (transactionId.isNotEmpty &&
+                                                  bookindId != 0) {
+                                                navigator<NavigationService>()
+                                                    .navigateTo(
+                                                        UserRoutes
+                                                            .addCoverRoute,
+                                                        isReplace: true,
+                                                        queryParams: {
+                                                      'eventId': state.eventId
+                                                          .toString(),
+                                                      'bookingId':
+                                                          bookindId.toString(),
+                                                      'transactionId':
+                                                          transactionId
+                                                    });
+                                              }
+                                            } else {
+                                              navigator<NavigationService>()
+                                                  .navigateTo(
+                                                      UserRoutes.bookingRoute,
+                                                      isClearStack: true,
+                                                      queryParams: {
+                                                    'eventId': state.event?.id
+                                                            .toString() ??
+                                                        "",
+                                                  });
+                                            }
+                                          },
+                                          height: 4.h,
+                                          width: 27.w,
+                                          textStyle: themeData
+                                              .textTheme.bodySmall!
+                                              .copyWith(
+                                            color: colorScheme.background,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 2.w,
+                                        ),
+                                        CustomOutlinedButton(
+                                          text: 'Home',
+                                          onTap: () {
+                                            navigator<NavigationService>()
+                                                .navigateTo(
+                                                    UserRoutes.mainNavRoute,
+                                                    isClearStack: true,
+                                                    queryParams: {
+                                                  'routeIndex': '0'
+                                                });
                                           },
                                           height: 4.h,
                                           width: 27.w,

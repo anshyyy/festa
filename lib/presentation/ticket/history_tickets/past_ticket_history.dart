@@ -15,7 +15,8 @@ import '../../widgets/gradient_button.dart';
 
 class PastTicketHistory extends StatelessWidget {
   final BookedTicketDetailsDto ticket;
-  const PastTicketHistory({super.key, required this.ticket});
+  final bool isRecent;
+  const PastTicketHistory({super.key, required this.ticket,required this.isRecent});
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +51,9 @@ class PastTicketHistory extends StatelessWidget {
                     height: 18.h,
                     width: 28.42.w,
                     decoration: BoxDecoration(
-                        image:  DecorationImage(
+                        image: DecorationImage(
                             image: CachedNetworkImageProvider(
-                                                       ticket.eventDetails.coverImage),
+                                ticket.eventDetails.coverImage),
                             fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
@@ -66,7 +67,7 @@ class PastTicketHistory extends StatelessWidget {
                       SizedBox(
                           width: 50.66.w,
                           child: Text(
-                               ticket.eventDetails.name,
+                            ticket.eventDetails.name,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.px,
@@ -78,7 +79,7 @@ class PastTicketHistory extends StatelessWidget {
                       SizedBox(
                           width: 50.66.w,
                           child: Text(
-                               ticket.eventDetails.address?.city ?? "Bangalore",
+                            ticket.eventDetails.address?.city ?? "Bangalore",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.px,
@@ -87,27 +88,27 @@ class PastTicketHistory extends StatelessWidget {
                       SizedBox(
                         height: 1.h,
                       ),
-                     SizedBox(
-                              width: 50.66.w,
-                              child: Text(
-                                StringExtension.formatDateString(
-                                    ticket.eventDetails.startDate),
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.px,
-                                    fontWeight: FontWeight.w600),
-                              )),
-                          SizedBox(
-                              width: 50.66.w,
-                              child: Text(
-                                StringExtension.formatTimeRange(
-                                    ticket.eventDetails.startDate,
-                                    ticket.eventDetails.endDate ?? ""),
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12.px,
-                                    fontWeight: FontWeight.w600),
-                              ))
+                      SizedBox(
+                          width: 50.66.w,
+                          child: Text(
+                            StringExtension.formatDateString(
+                                ticket.eventDetails.startDate),
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12.px,
+                                fontWeight: FontWeight.w600),
+                          )),
+                      SizedBox(
+                          width: 50.66.w,
+                          child: Text(
+                            StringExtension.formatTimeRange(
+                                ticket.eventDetails.startDate,
+                                ticket.eventDetails.endDate ?? ""),
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12.px,
+                                fontWeight: FontWeight.w600),
+                          ))
                     ],
                   ),
                 ],
@@ -168,6 +169,7 @@ class PastTicketHistory extends StatelessWidget {
                   height: 1.h,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Total Amount',
@@ -177,7 +179,7 @@ class PastTicketHistory extends StatelessWidget {
                           color: Colors.grey.shade500),
                     ),
                     Text(
-                 '₹${ticket.paymentAmount}',
+                      '₹${ticket.paymentAmount}',
                       style: TextStyle(
                           fontSize: 16.px,
                           fontWeight: FontWeight.w600,
@@ -186,18 +188,22 @@ class PastTicketHistory extends StatelessWidget {
                   ],
                 )
               ],
+            ),
+            Spacer(),
+            if(isRecent)
+            GradientButton(
+                text: 'Write A Review',
+                onTap: () {
+                  navigator<NavigationService>()
+                      .navigateTo(UserRoutes.reviewScreen, queryParams: {
+                    'eventName': ticket.eventDetails.name,
+                    'eventTime':
+                        '${StringExtension.formatDateString(ticket.eventDetails.startDate)} ${StringExtension.formatTimeRange(ticket.eventDetails.startDate, ticket.eventDetails.endDate ?? "")}'
+                  });
+                }),
+            SizedBox(
+              height: 2.h,
             )
-            ,Spacer()
-            ,GradientButton(text: 'Write A Review', onTap: (){
-              navigator<NavigationService>().navigateTo(UserRoutes.reviewScreen,queryParams: {
-                'eventName':ticket.eventDetails.name,
-                'eventTime': '${ StringExtension.formatDateString(
-                                    ticket.eventDetails.startDate)} ${                                StringExtension.formatTimeRange(
-                                    ticket.eventDetails.startDate,
-                                    ticket.eventDetails.endDate ?? "")}'
-              });
-            })
-            ,SizedBox(height: 2.h,)
           ],
         ),
       ),

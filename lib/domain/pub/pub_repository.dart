@@ -13,6 +13,8 @@ abstract class PubRepository {
     required int limit,
     required String searchQuery,
   });
+  Future<int>followPub({required int pubId});
+  Future<int>unfollowPub({required int pubId});
   Future<CommunityDto> getPubFriends({
     required int pubId,
     required int page,

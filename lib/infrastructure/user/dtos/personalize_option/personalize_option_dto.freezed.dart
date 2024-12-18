@@ -12,7 +12,7 @@ part of 'personalize_option_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PersonalizationOptionDto _$PersonalizationOptionDtoFromJson(
     Map<String, dynamic> json) {
@@ -28,8 +28,12 @@ mixin _$PersonalizationOptionDto {
   @JsonKey(name: 'isSelected', defaultValue: false)
   bool get isSelected => throw _privateConstructorUsedError;
 
+  /// Serializes this PersonalizationOptionDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PersonalizationOptionDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PersonalizationOptionDtoCopyWith<PersonalizationOptionDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +61,8 @@ class _$PersonalizationOptionDtoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PersonalizationOptionDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,6 +112,8 @@ class __$$PersonalizationOptionDtoImplCopyWithImpl<$Res>
       $Res Function(_$PersonalizationOptionDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PersonalizationOptionDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -168,11 +176,13 @@ class _$PersonalizationOptionDtoImpl implements _PersonalizationOptionDto {
                 other.isSelected == isSelected));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, type, text, isSelected);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PersonalizationOptionDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PersonalizationOptionDtoImplCopyWith<_$PersonalizationOptionDtoImpl>
@@ -206,8 +216,11 @@ abstract class _PersonalizationOptionDto implements PersonalizationOptionDto {
   @override
   @JsonKey(name: 'isSelected', defaultValue: false)
   bool get isSelected;
+
+  /// Create a copy of PersonalizationOptionDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PersonalizationOptionDtoImplCopyWith<_$PersonalizationOptionDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

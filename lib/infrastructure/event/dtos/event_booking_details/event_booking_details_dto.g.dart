@@ -9,7 +9,7 @@ part of 'event_booking_details_dto.dart';
 _$EventBookingDetailsDtoImpl _$$EventBookingDetailsDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$EventBookingDetailsDtoImpl(
-      numberOfTickets: json['numberOfTickets'] as int? ?? 0,
+      numberOfTickets: (json['numberOfTickets'] as num?)?.toInt() ?? 0,
       eventTicketDetails: (json['ticketDetails'] as List<dynamic>?)
               ?.map((e) =>
                   EventTicketDetailDto.fromJson(e as Map<String, dynamic>))
@@ -18,7 +18,7 @@ _$EventBookingDetailsDtoImpl _$$EventBookingDetailsDtoImplFromJson(
       eventDetails: EventDto.fromJson(json['event'] as Map<String, dynamic>),
       paymentMethod: json['paymentMethod'],
       status: json['status'] as String? ?? '',
-      bookingId: json['id'] as int? ?? 0,
+      bookingId: (json['id'] as num?)?.toInt() ?? 0,
       razorpayOrderId: json['razorpayOrderId'] as String?,
       coupon: json['coupon'] == null
           ? null

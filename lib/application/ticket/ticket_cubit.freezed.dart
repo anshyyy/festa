@@ -12,7 +12,7 @@ part of 'ticket_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TicketState {
@@ -44,7 +44,9 @@ mixin _$TicketState {
   List<CoverBalanceHistoryDto> get coverHistory =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TicketStateCopyWith<TicketState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -95,6 +97,8 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -218,6 +222,8 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
     ) as $Val);
   }
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserTicketsDtoCopyWith<$Res>? get userTickets {
@@ -230,6 +236,8 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
     });
   }
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket {
@@ -243,6 +251,8 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
     });
   }
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CoverChargeDetailsCopyWith<$Res>? get coverChargeDetails {
@@ -306,6 +316,8 @@ class __$$TicketStateImplCopyWithImpl<$Res>
       _$TicketStateImpl _value, $Res Function(_$TicketStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -598,7 +610,9 @@ class _$TicketStateImpl implements _TicketState {
         const DeepCollectionEquality().hash(_coverHistory)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TicketStateImplCopyWith<_$TicketStateImpl> get copyWith =>
@@ -678,8 +692,11 @@ abstract class _TicketState implements TicketState {
   CoverChargeDetails? get coverChargeDetails;
   @override
   List<CoverBalanceHistoryDto> get coverHistory;
+
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TicketStateImplCopyWith<_$TicketStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

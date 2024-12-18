@@ -8,7 +8,7 @@ part of 'address_dto.dart';
 
 _$AddressDtoImpl _$$AddressDtoImplFromJson(Map<String, dynamic> json) =>
     _$AddressDtoImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       lat: (json['lat'] as num?)?.toDouble() ?? 0,
       lng: (json['lng'] as num?)?.toDouble() ?? 0,
       pinCode: json['pinCode'] as String? ?? '',

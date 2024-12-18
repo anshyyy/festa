@@ -19,17 +19,86 @@ extension StringExtension on String {
 
     return currentStatus;
   }
-  static String formatTime(DateTime dateTime) {
-  return DateFormat('hh:mm a').format(dateTime);
-}
 
-static String formatDateTimeWithTime(String dateTimeString) {
+  static String formatTime(DateTime dateTime) {
+    return DateFormat('hh:mm a').format(dateTime);
+  }
+
+  
+  static String durationRange(String startDateTime, String endDateTime) {
+    DateTime start = DateTime.parse(startDateTime);
+    DateTime end = DateTime.parse(endDateTime);
+    // Calculate duration between start and end time
+    Duration difference = end.difference(start);
+    // Convert to hours and round to nearest hour
+    int hours = (difference.inMinutes / 60).round();
+    return '${hours}hrs';
+  }
+  static String formatArea(String area) {
+    // print(area);
+    List<String> location = area.split(',');
+    if (location.length == 1) {
+      return location[0];
+    }
+    if (location.length > 2) {
+      return '${location[0]} ${location[1]}';
+    }
+    return '';
+  }
+
+   static String formatDateForNewEventCard(String dateString) {
+    // Format the date to include the day with suffix and month
+    DateTime dateTime = DateTime.parse(dateString).toLocal();
+    String dayWithSuffix = DateFormat('d').format(dateTime) + _getDaySuffix(dateTime.day);
+    String month = DateFormat('MMM').format(dateTime);
+
+    // Format the time to 12-hour format with AM/PM
+    String time = DateFormat('h a').format(dateTime);
+
+    // Combine the formatted date and time
+    return '$dayWithSuffix $month, Starts from $time';
+  }
+  static String _getDaySuffix(int day) {
+    if (day >= 11 && day <= 13) {
+      return 'th';
+    }
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
+  static String capitalize(String name) {
+    if (name.isEmpty) return '';
+
+    List<String> arr = name.split(' ');
+    List<String> temp = [];
+
+    for (var word in arr) {
+      if (word.isNotEmpty) {
+        // Capitalize the first letter and add the rest of the word in lowercase
+        String capitalizedWord =
+            word[0].toUpperCase() + word.substring(1).toLowerCase();
+        temp.add(capitalizedWord);
+      }
+    }
+
+    return temp.join(' ');
+  }
+
+  static String formatDateTimeWithTime(String dateTimeString) {
     try {
       // Parse the input string to DateTime
       DateTime dateTime = DateTime.parse(dateTimeString);
 
       // Convert to local time zone
-      dateTime = dateTime.toLocal();
+      // dateTime = dateTime.toLocal();
 
       // Format the date and time to 'd MMM yyyy at h:mma'
       DateFormat formatter = DateFormat('d MMM yyyy \'at\' h:mma');
@@ -46,62 +115,80 @@ static String formatDateTimeWithTime(String dateTimeString) {
     return DateFormat('EEE, d MMMM').format(dateTime);
   }
 
- static  String formatDateString(String dateString) {
-  try {
-    // Parse the input string to DateTime
-    // DateTime.parse() can handle ISO 8601 format directly
-    DateTime dateTime = DateTime.parse(dateString);
-    
-    // Convert to local time zone
-    dateTime = dateTime.toLocal();
-    
-    // Create a formatter for the desired output
-    final DateFormat formatter = DateFormat('EEEE d MMMM yyyy');
-    
-    // Format the date and return the result
-    return formatter.format(dateTime);
-  } catch (e) {
-    // Return an error message if parsing fails
-    return 'Invalid date format';
-  }
-}
+  static String formatDateStringIST(String dateString) {
+    try {
+      // Parse the input string to DateTime
+      // DateTime.parse() can handle ISO 8601 format directly
+      // print(dateString);
+      DateTime dateTime = DateTime.parse(dateString).toUtc();
 
+      // Convert to IST (UTC+5:30)
+      dateTime = dateTime.toUtc().add(const Duration(hours: 5, minutes: 30));
+      //print(dateTime);
 
-static String formatTimeRange(String startDateTime, String endDateTime) {
-  try {
-    // Parse the input strings to DateTime
-    DateTime start = DateTime.parse(startDateTime);
-    DateTime end = DateTime.parse(endDateTime);
-    
-    // Convert to local time zone
-    start = start.toLocal();
-    end = end.toLocal();
-    
-    // Create formatter for 12-hour time
-    final timeFormatter = DateFormat('h:mma');
-    
-    // Format start and end times
-    String startFormatted = timeFormatter.format(start);
-    String endFormatted = timeFormatter.format(end);
-    
-    // Remove leading zero from hour if present
-    startFormatted = startFormatted.replaceFirst(RegExp(r'^0'), '');
-    endFormatted = endFormatted.replaceFirst(RegExp(r'^0'), '');
-    
-    // Capitalize AM/PM
-    startFormatted = startFormatted.toUpperCase();
-    endFormatted = endFormatted.toUpperCase();
-    
-    // Return the formatted time range
-    return '$startFormatted - $endFormatted';
-  } catch (e) {
-    return 'Invalid date format';
+      // Create a formatter for the desired output
+      final DateFormat formatter = DateFormat('EEEE d MMMM yyyy');
+
+      // Format the date and return the result
+      return formatter.format(dateTime);
+    } catch (e) {
+      // Return an error message if parsing fails
+      return 'Invalid date format';
+    }
   }
-}
+
+  static String formatDateString(String dateString) {
+    try {
+      // Parse the input string to DateTime
+      // DateTime.parse() can handle ISO 8601 format directly
+    //  print(dateString);
+      DateTime dateTime = DateTime.parse(dateString).toUtc();
+
+      // Convert to local time zone
+      DateTime istTime = dateTime.add(Duration(hours: 5, minutes: 30));
+      // dateTime = dateTime.toLocal();
+   //   print(istTime);
+
+      // Create a formatter for the desired output
+      final DateFormat formatter = DateFormat('EEEE d MMMM yyyy');
+
+      // Format the date and return the result
+      return formatter.format(istTime);
+    } catch (e) {
+      // Return an error message if parsing fails
+      return 'Invalid date format';
+    }
+  }
+  
+
+  static String formatTimeRange(String startDateTime, String endDateTime) {
+    try {
+      // Parse the input strings to DateTime
+      DateTime start = DateTime.parse(startDateTime).toLocal();
+      DateTime end = DateTime.parse(endDateTime).toLocal();
+
+      // Create formatter for 12-hour time
+      final timeFormatter = DateFormat('h:mma');
+
+      // Format start and end times
+      String startFormatted = timeFormatter.format(start);
+      String endFormatted = timeFormatter.format(end);
+      startFormatted = startFormatted.replaceFirst(RegExp(r'^0'), '');
+      endFormatted = endFormatted.replaceFirst(RegExp(r'^0'), '');
+
+      startFormatted = startFormatted.toUpperCase();
+      endFormatted = endFormatted.toUpperCase();
+
+    
+      return '$startFormatted - $endFormatted';
+    } catch (e) {
+      return 'Invalid date format';
+    }
+  }
 
   static String formatDateTimeLongWithYear(DateTime dateTime) {
-  return DateFormat('EEE, d MMM yyyy').format(dateTime);
-}
+    return DateFormat('EEE, d MMM yyyy').format(dateTime);
+  }
 
   static String formatAmount(int amount) {
     if (amount < 1000) {
@@ -155,32 +242,39 @@ static String formatTimeRange(String startDateTime, String endDateTime) {
 
   static String formatDateTimeNormal(DateTime dateTime) {
     DateFormat formatter = DateFormat('dd MMM yyyy');
-    return formatter.format(dateTime);
+    return formatter.format(dateTime.toLocal());
   }
 
   static String formatDateTimeWithDash(DateTime dateTime) {
     DateFormat formatter = DateFormat('yyyy-MM-dd');
-    return formatter.format(dateTime);
+    return formatter.format(dateTime.toLocal());
   }
 
   static String formatDateTimeLong(DateTime dateTime) {
     DateFormat formatter = DateFormat('MMM dd, yyyy hh:mma');
-    return formatter.format(dateTime);
+    return formatter.format(dateTime.toLocal());
   }
 
   static String formatDateTimeMedium(DateTime dateTime) {
     DateFormat formatter = DateFormat('MMM dd, hh:mma');
-    return formatter.format(dateTime);
+    return formatter.format(dateTime.toLocal());
   }
 
   static String formatDateTimeShort(DateTime dateTime) {
     DateFormat formatter = DateFormat('dd MMM, hh:mma');
-    return formatter.format(dateTime);
+    return formatter.format(dateTime.toLocal());
+  }
+
+  static String formatDateTimeShortIST(DateTime dateTime) {
+    final istDateTime =
+        dateTime.toUtc().add(const Duration(hours: 5, minutes: 30));
+    final DateFormat formatter = DateFormat('dd MMM, hh:mma');
+    return formatter.format(istDateTime);
   }
 
   static String formatDateTimeWithDay(DateTime dateTime) {
     DateFormat formatter = DateFormat('EEE dd MMM, yyyy   hh:mm a');
-    return formatter.format(dateTime);
+    return formatter.format(dateTime.toLocal());
   }
 }
 

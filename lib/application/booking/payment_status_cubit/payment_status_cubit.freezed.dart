@@ -12,7 +12,7 @@ part of 'payment_status_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PaymentStatusState {
@@ -29,7 +29,9 @@ mixin _$PaymentStatusState {
   double? get coverAmount => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentStatusStateCopyWith<PaymentStatusState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -67,6 +69,8 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -135,6 +139,8 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
     ) as $Val);
   }
 
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventDtoCopyWith<$Res>? get event {
@@ -182,6 +188,8 @@ class __$$PaymentStatusStateImplCopyWithImpl<$Res>
       $Res Function(_$PaymentStatusStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -342,7 +350,9 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
       coverAmount,
       event);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentStatusStateImplCopyWith<_$PaymentStatusStateImpl> get copyWith =>
@@ -389,8 +399,11 @@ abstract class _PaymentStatusState implements PaymentStatusState {
   double? get coverAmount;
   @override
   EventDto? get event;
+
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentStatusStateImplCopyWith<_$PaymentStatusStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

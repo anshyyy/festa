@@ -5,9 +5,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget leading;
+
   final List<Widget> actions;
   Color? scaffoldBackgroundColor;
   Color? surfaceTintColor;
+  Widget? bottom;
 
   CustomAppBar({
     super.key,
@@ -16,6 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.actions,
     this.scaffoldBackgroundColor,
     this.surfaceTintColor,
+    this.bottom,
   });
 
   @override
@@ -24,9 +27,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: scaffoldBackgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor:
+          scaffoldBackgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       leading: leading,
-    surfaceTintColor: surfaceTintColor,
+      surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
       title: Text(
         title,
         maxLines: 1,
@@ -39,6 +43,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       actions: actions,
+      bottom: PreferredSize(
+          preferredSize: preferredSize,
+          child: bottom ?? const SizedBox.shrink()),
     );
   }
 }

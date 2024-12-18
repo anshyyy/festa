@@ -9,7 +9,7 @@ part of 'cover_balance_history_dto.dart';
 _$CoverBalanceHistoryDtoImpl _$$CoverBalanceHistoryDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$CoverBalanceHistoryDtoImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       amount: json['amount'] as String,
       transactionType: json['transactionType'] as String? ?? 'admin_recharge',
       notes: json['notes'] as String?,

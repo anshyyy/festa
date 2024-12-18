@@ -12,7 +12,7 @@ part of 'otp_verification_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$EmailOtpVerificationState {
@@ -26,7 +26,9 @@ mixin _$EmailOtpVerificationState {
   UserRepository get userRepository => throw _privateConstructorUsedError;
   TextEditingController get otpController => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EmailOtpVerificationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EmailOtpVerificationStateCopyWith<EmailOtpVerificationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +62,8 @@ class _$EmailOtpVerificationStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EmailOtpVerificationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,6 +149,8 @@ class __$$EmailOtpVerificationStateImplCopyWithImpl<$Res>
       $Res Function(_$EmailOtpVerificationStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EmailOtpVerificationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -278,7 +284,9 @@ class _$EmailOtpVerificationStateImpl implements _EmailOtpVerificationState {
       userRepository,
       otpController);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EmailOtpVerificationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EmailOtpVerificationStateImplCopyWith<_$EmailOtpVerificationStateImpl>
@@ -317,8 +325,11 @@ abstract class _EmailOtpVerificationState implements EmailOtpVerificationState {
   UserRepository get userRepository;
   @override
   TextEditingController get otpController;
+
+  /// Create a copy of EmailOtpVerificationState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EmailOtpVerificationStateImplCopyWith<_$EmailOtpVerificationStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

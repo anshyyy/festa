@@ -12,7 +12,7 @@ part of 'home_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$HomeState {
@@ -22,10 +22,12 @@ mixin _$HomeState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get isAtTop => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
+  bool get showSearchOnPick => throw _privateConstructorUsedError;
   FilterDto? get categoryFilter => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
   bool get noEventsInTheLocation => throw _privateConstructorUsedError;
   List<EventDto> get events => throw _privateConstructorUsedError;
+  List<EventDto> get cachedEvents => throw _privateConstructorUsedError;
   List<FilterDto> get filters => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get exploreList =>
       throw _privateConstructorUsedError;
@@ -57,6 +59,9 @@ mixin _$HomeState {
   bool get noLocatedEvents => throw _privateConstructorUsedError;
   bool get isScrollingUp => throw _privateConstructorUsedError;
   bool get isVideoMute => throw _privateConstructorUsedError;
+  bool get isTodayFilterApplied => throw _privateConstructorUsedError;
+  bool get isThisWeekendFilterApplied => throw _privateConstructorUsedError;
+  bool get isSpecificDateFilterApplied => throw _privateConstructorUsedError;
   LocationRepository get locationRepository =>
       throw _privateConstructorUsedError;
   List<SuggestionDto> get suggestions => throw _privateConstructorUsedError;
@@ -66,11 +71,16 @@ mixin _$HomeState {
   ISearchRepository get searchRepository => throw _privateConstructorUsedError;
   GlobalKey<State<StatefulWidget>> get homeKey =>
       throw _privateConstructorUsedError;
+  LocationStorageService get locationStorage =>
+      throw _privateConstructorUsedError;
+  List<DateTime> get selectedDates => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
   SearchResults? get searchResults => throw _privateConstructorUsedError;
   bool get searchLoading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $HomeStateCopyWith<HomeState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -87,10 +97,12 @@ abstract class $HomeStateCopyWith<$Res> {
       bool isFailed,
       bool isAtTop,
       bool noUse,
+      bool showSearchOnPick,
       FilterDto? categoryFilter,
       int page,
       bool noEventsInTheLocation,
       List<EventDto> events,
+      List<EventDto> cachedEvents,
       List<FilterDto> filters,
       List<Map<String, dynamic>> exploreList,
       List<Map<String, dynamic>> mainExploreList,
@@ -116,12 +128,17 @@ abstract class $HomeStateCopyWith<$Res> {
       bool noLocatedEvents,
       bool isScrollingUp,
       bool isVideoMute,
+      bool isTodayFilterApplied,
+      bool isThisWeekendFilterApplied,
+      bool isSpecificDateFilterApplied,
       LocationRepository locationRepository,
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
       AppStateNotifier appStateNotifier,
       ISearchRepository searchRepository,
       GlobalKey<State<StatefulWidget>> homeKey,
+      LocationStorageService locationStorage,
+      List<DateTime> selectedDates,
       UserDto? user,
       SearchResults? searchResults,
       bool searchLoading});
@@ -142,6 +159,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -151,10 +170,12 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? isFailed = null,
     Object? isAtTop = null,
     Object? noUse = null,
+    Object? showSearchOnPick = null,
     Object? categoryFilter = freezed,
     Object? page = null,
     Object? noEventsInTheLocation = null,
     Object? events = null,
+    Object? cachedEvents = null,
     Object? filters = null,
     Object? exploreList = null,
     Object? mainExploreList = null,
@@ -180,12 +201,17 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? noLocatedEvents = null,
     Object? isScrollingUp = null,
     Object? isVideoMute = null,
+    Object? isTodayFilterApplied = null,
+    Object? isThisWeekendFilterApplied = null,
+    Object? isSpecificDateFilterApplied = null,
     Object? locationRepository = null,
     Object? suggestions = null,
     Object? searchController = null,
     Object? appStateNotifier = null,
     Object? searchRepository = null,
     Object? homeKey = null,
+    Object? locationStorage = null,
+    Object? selectedDates = null,
     Object? user = freezed,
     Object? searchResults = freezed,
     Object? searchLoading = null,
@@ -215,6 +241,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
+      showSearchOnPick: null == showSearchOnPick
+          ? _value.showSearchOnPick
+          : showSearchOnPick // ignore: cast_nullable_to_non_nullable
+              as bool,
       categoryFilter: freezed == categoryFilter
           ? _value.categoryFilter
           : categoryFilter // ignore: cast_nullable_to_non_nullable
@@ -230,6 +260,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       events: null == events
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
+              as List<EventDto>,
+      cachedEvents: null == cachedEvents
+          ? _value.cachedEvents
+          : cachedEvents // ignore: cast_nullable_to_non_nullable
               as List<EventDto>,
       filters: null == filters
           ? _value.filters
@@ -331,6 +365,18 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.isVideoMute
           : isVideoMute // ignore: cast_nullable_to_non_nullable
               as bool,
+      isTodayFilterApplied: null == isTodayFilterApplied
+          ? _value.isTodayFilterApplied
+          : isTodayFilterApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isThisWeekendFilterApplied: null == isThisWeekendFilterApplied
+          ? _value.isThisWeekendFilterApplied
+          : isThisWeekendFilterApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSpecificDateFilterApplied: null == isSpecificDateFilterApplied
+          ? _value.isSpecificDateFilterApplied
+          : isSpecificDateFilterApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
       locationRepository: null == locationRepository
           ? _value.locationRepository
           : locationRepository // ignore: cast_nullable_to_non_nullable
@@ -355,6 +401,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.homeKey
           : homeKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
+      locationStorage: null == locationStorage
+          ? _value.locationStorage
+          : locationStorage // ignore: cast_nullable_to_non_nullable
+              as LocationStorageService,
+      selectedDates: null == selectedDates
+          ? _value.selectedDates
+          : selectedDates // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -370,6 +424,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     ) as $Val);
   }
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FilterDtoCopyWith<$Res>? get categoryFilter {
@@ -382,6 +438,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     });
   }
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocationDtoCopyWith<$Res> get location {
@@ -390,6 +448,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     });
   }
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -402,6 +462,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     });
   }
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SearchResultsCopyWith<$Res>? get searchResults {
@@ -430,10 +492,12 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool isFailed,
       bool isAtTop,
       bool noUse,
+      bool showSearchOnPick,
       FilterDto? categoryFilter,
       int page,
       bool noEventsInTheLocation,
       List<EventDto> events,
+      List<EventDto> cachedEvents,
       List<FilterDto> filters,
       List<Map<String, dynamic>> exploreList,
       List<Map<String, dynamic>> mainExploreList,
@@ -459,12 +523,17 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       bool noLocatedEvents,
       bool isScrollingUp,
       bool isVideoMute,
+      bool isTodayFilterApplied,
+      bool isThisWeekendFilterApplied,
+      bool isSpecificDateFilterApplied,
       LocationRepository locationRepository,
       List<SuggestionDto> suggestions,
       TextEditingController searchController,
       AppStateNotifier appStateNotifier,
       ISearchRepository searchRepository,
       GlobalKey<State<StatefulWidget>> homeKey,
+      LocationStorageService locationStorage,
+      List<DateTime> selectedDates,
       UserDto? user,
       SearchResults? searchResults,
       bool searchLoading});
@@ -487,6 +556,8 @@ class __$$HomeStateImplCopyWithImpl<$Res>
       _$HomeStateImpl _value, $Res Function(_$HomeStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -496,10 +567,12 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? isAtTop = null,
     Object? noUse = null,
+    Object? showSearchOnPick = null,
     Object? categoryFilter = freezed,
     Object? page = null,
     Object? noEventsInTheLocation = null,
     Object? events = null,
+    Object? cachedEvents = null,
     Object? filters = null,
     Object? exploreList = null,
     Object? mainExploreList = null,
@@ -525,12 +598,17 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? noLocatedEvents = null,
     Object? isScrollingUp = null,
     Object? isVideoMute = null,
+    Object? isTodayFilterApplied = null,
+    Object? isThisWeekendFilterApplied = null,
+    Object? isSpecificDateFilterApplied = null,
     Object? locationRepository = null,
     Object? suggestions = null,
     Object? searchController = null,
     Object? appStateNotifier = null,
     Object? searchRepository = null,
     Object? homeKey = null,
+    Object? locationStorage = null,
+    Object? selectedDates = null,
     Object? user = freezed,
     Object? searchResults = freezed,
     Object? searchLoading = null,
@@ -560,6 +638,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.noUse
           : noUse // ignore: cast_nullable_to_non_nullable
               as bool,
+      showSearchOnPick: null == showSearchOnPick
+          ? _value.showSearchOnPick
+          : showSearchOnPick // ignore: cast_nullable_to_non_nullable
+              as bool,
       categoryFilter: freezed == categoryFilter
           ? _value.categoryFilter
           : categoryFilter // ignore: cast_nullable_to_non_nullable
@@ -575,6 +657,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
       events: null == events
           ? _value.events
           : events // ignore: cast_nullable_to_non_nullable
+              as List<EventDto>,
+      cachedEvents: null == cachedEvents
+          ? _value.cachedEvents
+          : cachedEvents // ignore: cast_nullable_to_non_nullable
               as List<EventDto>,
       filters: null == filters
           ? _value.filters
@@ -676,6 +762,18 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.isVideoMute
           : isVideoMute // ignore: cast_nullable_to_non_nullable
               as bool,
+      isTodayFilterApplied: null == isTodayFilterApplied
+          ? _value.isTodayFilterApplied
+          : isTodayFilterApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isThisWeekendFilterApplied: null == isThisWeekendFilterApplied
+          ? _value.isThisWeekendFilterApplied
+          : isThisWeekendFilterApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSpecificDateFilterApplied: null == isSpecificDateFilterApplied
+          ? _value.isSpecificDateFilterApplied
+          : isSpecificDateFilterApplied // ignore: cast_nullable_to_non_nullable
+              as bool,
       locationRepository: null == locationRepository
           ? _value.locationRepository
           : locationRepository // ignore: cast_nullable_to_non_nullable
@@ -700,6 +798,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.homeKey
           : homeKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<State<StatefulWidget>>,
+      locationStorage: null == locationStorage
+          ? _value.locationStorage
+          : locationStorage // ignore: cast_nullable_to_non_nullable
+              as LocationStorageService,
+      selectedDates: null == selectedDates
+          ? _value.selectedDates
+          : selectedDates // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -726,10 +832,12 @@ class _$HomeStateImpl implements _HomeState {
       required this.isFailed,
       required this.isAtTop,
       required this.noUse,
+      required this.showSearchOnPick,
       this.categoryFilter,
       required this.page,
       required this.noEventsInTheLocation,
       required this.events,
+      required this.cachedEvents,
       required this.filters,
       required this.exploreList,
       required this.mainExploreList,
@@ -755,12 +863,17 @@ class _$HomeStateImpl implements _HomeState {
       required this.noLocatedEvents,
       required this.isScrollingUp,
       required this.isVideoMute,
+      required this.isTodayFilterApplied,
+      required this.isThisWeekendFilterApplied,
+      required this.isSpecificDateFilterApplied,
       required this.locationRepository,
       required this.suggestions,
       required this.searchController,
       required this.appStateNotifier,
       required this.searchRepository,
       required this.homeKey,
+      required this.locationStorage,
+      required this.selectedDates,
       this.user,
       this.searchResults,
       required this.searchLoading});
@@ -778,6 +891,8 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final bool noUse;
   @override
+  final bool showSearchOnPick;
+  @override
   final FilterDto? categoryFilter;
   @override
   final int page;
@@ -785,6 +900,8 @@ class _$HomeStateImpl implements _HomeState {
   final bool noEventsInTheLocation;
   @override
   final List<EventDto> events;
+  @override
+  final List<EventDto> cachedEvents;
   @override
   final List<FilterDto> filters;
   @override
@@ -836,6 +953,12 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final bool isVideoMute;
   @override
+  final bool isTodayFilterApplied;
+  @override
+  final bool isThisWeekendFilterApplied;
+  @override
+  final bool isSpecificDateFilterApplied;
+  @override
   final LocationRepository locationRepository;
   @override
   final List<SuggestionDto> suggestions;
@@ -848,6 +971,10 @@ class _$HomeStateImpl implements _HomeState {
   @override
   final GlobalKey<State<StatefulWidget>> homeKey;
   @override
+  final LocationStorageService locationStorage;
+  @override
+  final List<DateTime> selectedDates;
+  @override
   final UserDto? user;
   @override
   final SearchResults? searchResults;
@@ -856,7 +983,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, isAtTop: $isAtTop, noUse: $noUse, categoryFilter: $categoryFilter, page: $page, noEventsInTheLocation: $noEventsInTheLocation, events: $events, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, staticFilterList: $staticFilterList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, isScrollingUp: $isScrollingUp, isVideoMute: $isVideoMute, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, searchRepository: $searchRepository, homeKey: $homeKey, user: $user, searchResults: $searchResults, searchLoading: $searchLoading)';
+    return 'HomeState(isLoading: $isLoading, hasMoreEvents: $hasMoreEvents, isSuccessful: $isSuccessful, isFailed: $isFailed, isAtTop: $isAtTop, noUse: $noUse, showSearchOnPick: $showSearchOnPick, categoryFilter: $categoryFilter, page: $page, noEventsInTheLocation: $noEventsInTheLocation, events: $events, cachedEvents: $cachedEvents, filters: $filters, exploreList: $exploreList, mainExploreList: $mainExploreList, staticFilterList: $staticFilterList, pageController: $pageController, showLocationDialog: $showLocationDialog, filterOptions: $filterOptions, locationSuggestions: $locationSuggestions, location: $location, eventRepository: $eventRepository, scrollController: $scrollController, sortDisplayName: $sortDisplayName, sortDropdownOpen: $sortDropdownOpen, sortKey: $sortKey, chipPosition: $chipPosition, overlayEntry: $overlayEntry, isSearchOpen: $isSearchOpen, isRefresh: $isRefresh, isSearchChanged: $isSearchChanged, isLocationSearchChanged: $isLocationSearchChanged, showPermissionDialog: $showPermissionDialog, noFilteredEvents: $noFilteredEvents, noLocatedEvents: $noLocatedEvents, isScrollingUp: $isScrollingUp, isVideoMute: $isVideoMute, isTodayFilterApplied: $isTodayFilterApplied, isThisWeekendFilterApplied: $isThisWeekendFilterApplied, isSpecificDateFilterApplied: $isSpecificDateFilterApplied, locationRepository: $locationRepository, suggestions: $suggestions, searchController: $searchController, appStateNotifier: $appStateNotifier, searchRepository: $searchRepository, homeKey: $homeKey, locationStorage: $locationStorage, selectedDates: $selectedDates, user: $user, searchResults: $searchResults, searchLoading: $searchLoading)';
   }
 
   @override
@@ -874,12 +1001,16 @@ class _$HomeStateImpl implements _HomeState {
                 other.isFailed == isFailed) &&
             (identical(other.isAtTop, isAtTop) || other.isAtTop == isAtTop) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
+            (identical(other.showSearchOnPick, showSearchOnPick) ||
+                other.showSearchOnPick == showSearchOnPick) &&
             (identical(other.categoryFilter, categoryFilter) ||
                 other.categoryFilter == categoryFilter) &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.noEventsInTheLocation, noEventsInTheLocation) ||
                 other.noEventsInTheLocation == noEventsInTheLocation) &&
             const DeepCollectionEquality().equals(other.events, events) &&
+            const DeepCollectionEquality()
+                .equals(other.cachedEvents, cachedEvents) &&
             const DeepCollectionEquality().equals(other.filters, filters) &&
             const DeepCollectionEquality()
                 .equals(other.exploreList, exploreList) &&
@@ -916,8 +1047,7 @@ class _$HomeStateImpl implements _HomeState {
                 other.isRefresh == isRefresh) &&
             (identical(other.isSearchChanged, isSearchChanged) ||
                 other.isSearchChanged == isSearchChanged) &&
-            (identical(
-                    other.isLocationSearchChanged, isLocationSearchChanged) ||
+            (identical(other.isLocationSearchChanged, isLocationSearchChanged) ||
                 other.isLocationSearchChanged == isLocationSearchChanged) &&
             (identical(other.showPermissionDialog, showPermissionDialog) ||
                 other.showPermissionDialog == showPermissionDialog) &&
@@ -929,6 +1059,14 @@ class _$HomeStateImpl implements _HomeState {
                 other.isScrollingUp == isScrollingUp) &&
             (identical(other.isVideoMute, isVideoMute) ||
                 other.isVideoMute == isVideoMute) &&
+            (identical(other.isTodayFilterApplied, isTodayFilterApplied) ||
+                other.isTodayFilterApplied == isTodayFilterApplied) &&
+            (identical(other.isThisWeekendFilterApplied, isThisWeekendFilterApplied) ||
+                other.isThisWeekendFilterApplied ==
+                    isThisWeekendFilterApplied) &&
+            (identical(other.isSpecificDateFilterApplied, isSpecificDateFilterApplied) ||
+                other.isSpecificDateFilterApplied ==
+                    isSpecificDateFilterApplied) &&
             (identical(other.locationRepository, locationRepository) ||
                 other.locationRepository == locationRepository) &&
             const DeepCollectionEquality()
@@ -937,14 +1075,13 @@ class _$HomeStateImpl implements _HomeState {
                 other.searchController == searchController) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
-            (identical(other.searchRepository, searchRepository) ||
-                other.searchRepository == searchRepository) &&
+            (identical(other.searchRepository, searchRepository) || other.searchRepository == searchRepository) &&
             (identical(other.homeKey, homeKey) || other.homeKey == homeKey) &&
+            (identical(other.locationStorage, locationStorage) || other.locationStorage == locationStorage) &&
+            const DeepCollectionEquality().equals(other.selectedDates, selectedDates) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.searchResults, searchResults) ||
-                other.searchResults == searchResults) &&
-            (identical(other.searchLoading, searchLoading) ||
-                other.searchLoading == searchLoading));
+            (identical(other.searchResults, searchResults) || other.searchResults == searchResults) &&
+            (identical(other.searchLoading, searchLoading) || other.searchLoading == searchLoading));
   }
 
   @override
@@ -956,10 +1093,12 @@ class _$HomeStateImpl implements _HomeState {
         isFailed,
         isAtTop,
         noUse,
+        showSearchOnPick,
         categoryFilter,
         page,
         noEventsInTheLocation,
         const DeepCollectionEquality().hash(events),
+        const DeepCollectionEquality().hash(cachedEvents),
         const DeepCollectionEquality().hash(filters),
         const DeepCollectionEquality().hash(exploreList),
         const DeepCollectionEquality().hash(mainExploreList),
@@ -985,18 +1124,25 @@ class _$HomeStateImpl implements _HomeState {
         noLocatedEvents,
         isScrollingUp,
         isVideoMute,
+        isTodayFilterApplied,
+        isThisWeekendFilterApplied,
+        isSpecificDateFilterApplied,
         locationRepository,
         const DeepCollectionEquality().hash(suggestions),
         searchController,
         appStateNotifier,
         searchRepository,
         homeKey,
+        locationStorage,
+        const DeepCollectionEquality().hash(selectedDates),
         user,
         searchResults,
         searchLoading
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
@@ -1011,10 +1157,12 @@ abstract class _HomeState implements HomeState {
       required final bool isFailed,
       required final bool isAtTop,
       required final bool noUse,
+      required final bool showSearchOnPick,
       final FilterDto? categoryFilter,
       required final int page,
       required final bool noEventsInTheLocation,
       required final List<EventDto> events,
+      required final List<EventDto> cachedEvents,
       required final List<FilterDto> filters,
       required final List<Map<String, dynamic>> exploreList,
       required final List<Map<String, dynamic>> mainExploreList,
@@ -1040,12 +1188,17 @@ abstract class _HomeState implements HomeState {
       required final bool noLocatedEvents,
       required final bool isScrollingUp,
       required final bool isVideoMute,
+      required final bool isTodayFilterApplied,
+      required final bool isThisWeekendFilterApplied,
+      required final bool isSpecificDateFilterApplied,
       required final LocationRepository locationRepository,
       required final List<SuggestionDto> suggestions,
       required final TextEditingController searchController,
       required final AppStateNotifier appStateNotifier,
       required final ISearchRepository searchRepository,
       required final GlobalKey<State<StatefulWidget>> homeKey,
+      required final LocationStorageService locationStorage,
+      required final List<DateTime> selectedDates,
       final UserDto? user,
       final SearchResults? searchResults,
       required final bool searchLoading}) = _$HomeStateImpl;
@@ -1063,6 +1216,8 @@ abstract class _HomeState implements HomeState {
   @override
   bool get noUse;
   @override
+  bool get showSearchOnPick;
+  @override
   FilterDto? get categoryFilter;
   @override
   int get page;
@@ -1070,6 +1225,8 @@ abstract class _HomeState implements HomeState {
   bool get noEventsInTheLocation;
   @override
   List<EventDto> get events;
+  @override
+  List<EventDto> get cachedEvents;
   @override
   List<FilterDto> get filters;
   @override
@@ -1121,6 +1278,12 @@ abstract class _HomeState implements HomeState {
   @override
   bool get isVideoMute;
   @override
+  bool get isTodayFilterApplied;
+  @override
+  bool get isThisWeekendFilterApplied;
+  @override
+  bool get isSpecificDateFilterApplied;
+  @override
   LocationRepository get locationRepository;
   @override
   List<SuggestionDto> get suggestions;
@@ -1133,13 +1296,20 @@ abstract class _HomeState implements HomeState {
   @override
   GlobalKey<State<StatefulWidget>> get homeKey;
   @override
+  LocationStorageService get locationStorage;
+  @override
+  List<DateTime> get selectedDates;
+  @override
   UserDto? get user;
   @override
   SearchResults? get searchResults;
   @override
   bool get searchLoading;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

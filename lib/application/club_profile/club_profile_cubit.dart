@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:intl/intl.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import '../../domain/pub/pub_repository.dart';
 import '../../domain/user/user_repository.dart';
 import '../../infrastructure/core/dtos/asset/asset_dto.dart';
 import '../../infrastructure/event/dtos/pub/pub_dto.dart';
+import '../../infrastructure/pub/dtos/pub_opening_hours/pub_opening_hours_dto.dart';
 import '../../infrastructure/pub/i_pub_repository.dart';
 import '../../infrastructure/user/i_user_repository.dart';
 
@@ -23,7 +25,6 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
   void init() async {
     emit(state.copyWith(isLoading: true));
     final club = await state.pubRepository.getPubById(pubId: state.clubId);
-   print(club);
 
     final assets = await state.pubRepository.getPubAssets(
       pubId: state.clubId,
@@ -38,30 +39,47 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
           responseMsg: l,
           assets: assets));
     }, (r) {
-    
-      if (r.coverImageUrl.isNotEmpty) {
-        final coverImageAsset =
-            AssetDto(type: 'image', url: r.coverImageUrl, thumbnail: '');
-        r.assets.insert(0, coverImageAsset);
+      // if (r.coverImageUrl.isNotEmpty) {
+      //   final coverImageAsset =
+      //       AssetDto(type: 'image', url: r.coverImageUrl, thumbnail: '');
+      //   r.assets.insert(0, coverImageAsset);
+      // }
+      
+      if(r.highlights.isEmpty){
+        r.highlights.insert(0, const AssetDto(type: 'video', url: 'https://res.cloudinary.com/dltfyyjib/video/upload/v1731394196/bqe6dodvvnarwe3pgodr.mp4', thumbnail: ''));
       }
-     // r.assets.insert(0, const AssetDto(type: 'video', url: 'https://rr2---sn-h5576nsz.googlevideo.com/videoplayback?expire=1724154660&ei=xC7EZtKYLOSWvcAP656pkQs&ip=2405%3A4802%3Aa47b%3Ab8c0%3A55a3%3Ad8f2%3Ab96b%3A9278&id=o-ADv16UvnCZEzgYXm0ZcHrvQsheBEXSahi7u0zmgtF2mY&itag=18&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AQmm2expeoDDsbW440qwRKCdHd8oyFWnfO2VhiTwJJEStwjo47GIZGxjc9BA7lRdYB4Njm-xhblAI24Z&spc=Mv1m9tvzE3QeE2XWCWqfbe6Ud6kaIEDJfzeGyTWra6YXcue56HRGk-o&vprv=1&svpuc=1&mime=video%2Fmp4&ns=8YdeVxChryiAlYnacmOBaFwQ&rqh=1&gir=yes&clen=9798541&ratebypass=yes&dur=146.053&lmt=1716094580575773&c=WEB_CREATOR&sefc=1&txp=4538434&n=O0p8k1yktZlW8w&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&sig=AJfQdSswRQIgXFKJ4SEgyItaCriaGH7lufTsGGlvbQWPPIrWHwxvgYMCIQDe7cE3igf1ms2Q9FvIsE0i-NXYak_EK-tSyPhoI37z4w%3D%3D&title=Sajni%20(Song)%3A%20Arijit%20Singh%2C%20Ram%20Sampath%20%7C%20Laapataa%20Ladies%20%7C%20%20Aamir%20Khan%20Productions&rm=sn-42u-nboze7d,sn-i3bd67l&rrc=79,104&fexp=24350516,24350518,24350557,24350561&req_id=21f36445cb0da3ee&cmsv=e&redirect_counter=2&cms_redirect=yes&ipbypass=yes&mh=Sg&mip=2405:201:d030:b80a:dcd3:ca50:5eb0:7d63&mm=30&mn=sn-h5576nsz&ms=nxu&mt=1724134605&mv=m&mvi=2&pl=49&lsparams=ipbypass,mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AGtxev0wRQIhAJeRY2WDmgGKF8GzRX4LZnpiCtR9fid1qFItcbbDrOi1AiBXUH9ok5_91t_kmkXN_Pq1a-LMmORmMLl7Woai5Suxng%3D%3D', thumbnail: ''));
+
       emit(state.copyWith(
         isLoading: false,
         isFailed: false,
         isSuccessful: true,
+        highlights: r.highlights,
+        assetToDisplay: r.highlights.isEmpty ? assets : r.highlights,
         pub: r,
         assets: assets,
         isBlocked: r.extraDetailsDto!.isBlocked,
         isFollowing: r.extraDetailsDto!.isFollowing,
       ));
+      bool isOpenNow = isClubOpenNow(r.openingHours as PubOpeningHours);
+      emit(state.copyWith(isOpenNow: isOpenNow));
     });
 
+    mediaScrollControllerChange();
+
     state.dragController.addListener(() {
-     // (state.dragController.size);
       emit(state.copyWith(
         isAtTop: state.dragController.size >= 1,
       ));
     });
+  }
+
+  void initializeTab(TickerProvider provider) {
+    emit(state.copyWith(
+        tabController: TabController(length: 3, vsync: provider)));
+  }
+
+  void toggleMute() {
+    emit(state.copyWith(isMuted: !state.isMuted));
   }
 
   void emitFromAnywhere({
@@ -74,13 +92,36 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
     emit(state.copyWith(currentImageIndex: index));
   }
 
+  void mediaScrollControllerChange() {
+      // state.dragController?.addListener(() {
+      //     print("state.dragController!.size: ${state.dragController.size}");
+      //     print("state.dragController!.pixels: ${state.dragController!.pixels}");
+
+      // });
+      state.scrollController?.addListener(() {
+          if(state.scrollController!.position.pixels < 0){
+           // print("state.scrollController!.pixels: ${state.scrollController!.position.pixels}");
+            emit(state.copyWith(isAtTabTop: state.scrollController.position.pixels <= 0));
+          }
+      });
+  }
+
+
+
+
   void onControllerChange(ScrollController controller) {
     emit(state.copyWith(parentController: controller));
   }
 
-  void followUnfollowPub({required String pubId}) {
+  void followUnfollowPub({required int pubId, required bool isFollowing}) {
     emit(state.copyWith(isLoading: true));
-    emit(state.copyWith(isLoading: false, isFollowing: !state.isFollowing));
+    if (isFollowing) {
+      state.pubRepository.unfollowPub(pubId: pubId);
+      emit(state.copyWith(isLoading: false, isFollowing: false));
+    } else {
+      state.pubRepository.followPub(pubId: pubId);
+      emit(state.copyWith(isLoading: false, isFollowing: true));
+    }
   }
 
   void blockOrUnblockPub({bool isBlock = true}) async {
@@ -97,6 +138,118 @@ class ClubProfileCubit extends Cubit<ClubProfileState> {
         type: 'pub',
         id: state.clubId.toString(),
       );
+    }
+  }
+
+  bool isClubOpenNow(PubOpeningHours openingHours) {
+    final List<String> weekdayText = openingHours.weekdayText;
+
+    final DateTime now = DateTime.now();
+    final String currentDay = DateFormat('EEEE').format(now);
+
+    // Find the current day's schedule
+    String? todaySchedule = weekdayText.firstWhere(
+      (day) => day.toLowerCase().startsWith(currentDay.toLowerCase()),
+      orElse: () => '',
+    );
+
+
+    if (todaySchedule.isEmpty) return false;
+
+    // Extract the time range
+    List<String> parts = todaySchedule.split(': ');
+  
+    if (parts.length != 2) return false;
+
+    List<String> timeRange = parts[1].split('–');
+  
+    if (timeRange.length != 2) return false;
+
+    String openTime = _normalizeTime(timeRange[0].trim());
+    String closeTime = _normalizeTime(timeRange[1].trim());
+
+    emit(state.copyWith(todayOpeningTime: openTime,todayClosingTime: closeTime));
+
+    // Parse times
+    DateTime openDateTime = _parseTime(openTime);
+    DateTime closeDateTime = _parseTime(closeTime);
+
+    // Adjust times to today's date for comparison
+    DateTime today = DateTime(now.year, now.month, now.day);
+    openDateTime = today
+        .add(Duration(hours: openDateTime.hour, minutes: openDateTime.minute));
+    closeDateTime = today.add(
+        Duration(hours: closeDateTime.hour, minutes: closeDateTime.minute));
+    // If close time is earlier than or equal to open time, it means it's on the next day
+    if (closeDateTime.isBefore(openDateTime) ||
+        closeDateTime.isAtSameMomentAs(openDateTime)) {
+      closeDateTime = closeDateTime.add(const Duration(days: 1));
+    }
+
+    // Adjust for midnight crossing
+    if (closeDateTime.isBefore(openDateTime)) {
+      closeDateTime = closeDateTime.add(const Duration(days: 1));
+    }
+
+    // Compare current time
+    DateTime currentDateTime =
+        DateTime(now.year, now.month, now.day, now.hour, now.minute);
+    return currentDateTime.isAfter(openDateTime) &&
+        currentDateTime.isBefore(closeDateTime);
+  }
+
+  String _normalizeTime(String time) {
+    // Remove any leading/trailing whitespace
+    time = time.trim();
+
+    // If AM/PM is not specified
+    if (!time.toLowerCase().endsWith('am') &&
+        !time.toLowerCase().endsWith('pm')) {
+      // If it's 12:something, assume it's PM unless it's exactly 12:00
+      if (time.startsWith('12:') && time != '12:00') {
+        time += ' PM';
+      }
+      // For times after 12:00 and before 12:00, assume PM
+      else if (!time.startsWith('12:00')) {
+        time += ' PM';
+      }
+      // 12:00 is assumed to be PM, but we'll add it explicitly
+      else {
+        time += ' PM';
+      }
+    }
+
+    // Ensure proper formatting for parsing
+    return time.toUpperCase();
+  }
+
+  DateTime _parseTime(String time) {
+    // First, try parsing with the expected format
+    try {
+      return DateFormat('h:mm a').parse(time);
+    } catch (e) {
+      // If that fails, try a more lenient parsing
+      final RegExp timeRegex = RegExp(r'(\d{1,2}):(\d{2})\s*(AM|PM)?');
+      final match = timeRegex.firstMatch(time);
+      if (match != null) {
+        int hour = int.parse(match.group(1)!);
+        int minute = int.parse(match.group(2)!);
+        String? amPm = match.group(3);
+
+        if (amPm == null && hour < 12) {
+          amPm = 'PM';
+        }
+
+        if (amPm == 'PM' && hour < 12) {
+          hour += 12;
+        } else if (amPm == 'AM' && hour == 12) {
+          hour = 0;
+        }
+
+        return DateTime(2000, 1, 1, hour, minute);
+      }
+      // If all parsing attempts fail, rethrow the exception
+      throw FormatException('Unable to parse time: $time');
     }
   }
 }

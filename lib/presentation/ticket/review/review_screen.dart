@@ -190,6 +190,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   child: TextField(
                     maxLines: null,
                     expands: true,
+                    textAlignVertical: TextAlignVertical.top,
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
                       fontSize: 14.px,
@@ -199,6 +200,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       filled: true,
                       isDense: true,
                       hintText: "Type Here",
+                      
                       // helperStyle: helperTextStyle,
                       helperMaxLines: 1,
                       fillColor: Theme.of(context).colorScheme.primaryContainer,

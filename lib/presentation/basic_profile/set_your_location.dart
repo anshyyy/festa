@@ -40,6 +40,8 @@ class SetYourLocation extends StatelessWidget {
           if (state.isSuccess) {
             Provider.of<AppStateNotifier>(context, listen: false)
                 .updateLocation(location: state.location);
+
+            print(state.location);
             navigator<NavigationService>().navigateTo(
               UserRoutes.mainNavRoute,
               queryParams: {'routeIndex': '0'},
@@ -62,10 +64,10 @@ class SetYourLocation extends StatelessWidget {
                       ),
                       SvgPicture.asset(AssetConstants.festaIconSvg),
                       SizedBox(
-                        height: 13.h,
+                        height: 10.h,
                       ),
                       Text(
-                        'Explore happening events in your city!',
+                        'Let’s Get This Party Started!',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                             color: Theme.of(context).colorScheme.background,
@@ -75,15 +77,17 @@ class SetYourLocation extends StatelessWidget {
                       SizedBox(
                         height: 1.h,
                       ),
-                      Text(
-                        SetupLocationScreenConstants.setupYourLocation,
+                      Padding(padding: EdgeInsets.only(left: 7.w, right: 7.w),
+                      child: Text(
+                        'music nights to theme parties, find everything near you!',
+                        textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!
                             .copyWith(fontSize: 15.5.sp),
-                      ),
+                      ),  ),
                       SizedBox(
-                        height: 5.h,
+                        height: 3.h,
                       ),
                       GestureDetector(
                         onTap: () {
@@ -195,15 +199,15 @@ class LocationDialogInitial extends StatelessWidget {
               title: Text(
                 'Location Permission Required',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 18.sp,
+                    color: Theme.of(context).colorScheme.background,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.w700),
               ),
               content: Text(
                 'Please grant location permission to use this feature.',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.surface,
-                    fontSize: 16.sp,
+                    color: Theme.of(context).colorScheme.background,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500),
               ),
               actions: <Widget>[
@@ -443,6 +447,11 @@ class LocationDialogInitial extends StatelessWidget {
                                               SizedBox(
                                                 width: 3.5.w,
                                               ),
+                                                                                            const LocationTileInitial(
+                                                location:
+                                                    OtherConstants.hyderabad,
+                                              ),
+                                              
                                               const LocationTileInitial(
                                                 location: OtherConstants.mumbai,
                                               ),
@@ -452,13 +461,8 @@ class LocationDialogInitial extends StatelessWidget {
                                               const LocationTileInitial(
                                                 location: OtherConstants.delhi,
                                               ),
-                                              SizedBox(
-                                                width: 3.5.w,
-                                              ),
-                                              const LocationTileInitial(
-                                                location:
-                                                    OtherConstants.hyderabad,
-                                              ),
+
+
                                             ],
                                           ),
                                         ))

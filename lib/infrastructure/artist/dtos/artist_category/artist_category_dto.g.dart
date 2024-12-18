@@ -9,7 +9,7 @@ part of 'artist_category_dto.dart';
 _$ArtistCategoryDtoImpl _$$ArtistCategoryDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$ArtistCategoryDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       name: json['name'] as String? ?? '',
       type: json['type'] as String? ?? '',
     );

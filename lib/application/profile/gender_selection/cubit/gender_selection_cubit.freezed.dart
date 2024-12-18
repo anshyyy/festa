@@ -12,7 +12,7 @@ part of 'gender_selection_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$GenderSelectionState {
@@ -24,6 +24,7 @@ mixin _$GenderSelectionState {
   List<String> get lsOFSexValue => throw _privateConstructorUsedError;
   bool get isSaveDetailsEnable => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  String get userGender => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
@@ -32,7 +33,9 @@ mixin _$GenderSelectionState {
   bool get genderUpdateSuccess => throw _privateConstructorUsedError;
   bool get genderUpdateFailure => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GenderSelectionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GenderSelectionStateCopyWith<GenderSelectionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +55,7 @@ abstract class $GenderSelectionStateCopyWith<$Res> {
       List<String> lsOFSexValue,
       bool isSaveDetailsEnable,
       String errorMessage,
+      String userGender,
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
       UserRepository userRepository,
@@ -74,6 +78,8 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GenderSelectionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -85,6 +91,7 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
     Object? lsOFSexValue = null,
     Object? isSaveDetailsEnable = null,
     Object? errorMessage = null,
+    Object? userGender = null,
     Object? appStateNotifier = null,
     Object? authRepository = null,
     Object? userRepository = null,
@@ -126,6 +133,10 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      userGender: null == userGender
+          ? _value.userGender
+          : userGender // ignore: cast_nullable_to_non_nullable
+              as String,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
           : appStateNotifier // ignore: cast_nullable_to_non_nullable
@@ -157,6 +168,8 @@ class _$GenderSelectionStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of GenderSelectionState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -187,6 +200,7 @@ abstract class _$$GenderSelectionStateImplCopyWith<$Res>
       List<String> lsOFSexValue,
       bool isSaveDetailsEnable,
       String errorMessage,
+      String userGender,
       AppStateNotifier appStateNotifier,
       AuthRepository authRepository,
       UserRepository userRepository,
@@ -207,6 +221,8 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
       $Res Function(_$GenderSelectionStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GenderSelectionState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -218,6 +234,7 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
     Object? lsOFSexValue = null,
     Object? isSaveDetailsEnable = null,
     Object? errorMessage = null,
+    Object? userGender = null,
     Object? appStateNotifier = null,
     Object? authRepository = null,
     Object? userRepository = null,
@@ -258,6 +275,10 @@ class __$$GenderSelectionStateImplCopyWithImpl<$Res>
       errorMessage: null == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+      userGender: null == userGender
+          ? _value.userGender
+          : userGender // ignore: cast_nullable_to_non_nullable
               as String,
       appStateNotifier: null == appStateNotifier
           ? _value.appStateNotifier
@@ -303,6 +324,7 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       required final List<String> lsOFSexValue,
       required this.isSaveDetailsEnable,
       required this.errorMessage,
+      required this.userGender,
       required this.appStateNotifier,
       required this.authRepository,
       required this.userRepository,
@@ -342,6 +364,8 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
   @override
   final String errorMessage;
   @override
+  final String userGender;
+  @override
   final AppStateNotifier appStateNotifier;
   @override
   final AuthRepository authRepository;
@@ -358,7 +382,7 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
 
   @override
   String toString() {
-    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository, selectedSex: $selectedSex, user: $user, genderUpdateSuccess: $genderUpdateSuccess, genderUpdateFailure: $genderUpdateFailure)';
+    return 'GenderSelectionState(isFailed: $isFailed, isSuccessful: $isSuccessful, isLoading: $isLoading, isSaveEnable: $isSaveEnable, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, isSaveDetailsEnable: $isSaveDetailsEnable, errorMessage: $errorMessage, userGender: $userGender, appStateNotifier: $appStateNotifier, authRepository: $authRepository, userRepository: $userRepository, selectedSex: $selectedSex, user: $user, genderUpdateSuccess: $genderUpdateSuccess, genderUpdateFailure: $genderUpdateFailure)';
   }
 
   @override
@@ -381,6 +405,8 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
                 other.isSaveDetailsEnable == isSaveDetailsEnable) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
+            (identical(other.userGender, userGender) ||
+                other.userGender == userGender) &&
             (identical(other.appStateNotifier, appStateNotifier) ||
                 other.appStateNotifier == appStateNotifier) &&
             (identical(other.authRepository, authRepository) ||
@@ -407,6 +433,7 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       const DeepCollectionEquality().hash(_lsOFSexValue),
       isSaveDetailsEnable,
       errorMessage,
+      userGender,
       appStateNotifier,
       authRepository,
       userRepository,
@@ -415,7 +442,9 @@ class _$GenderSelectionStateImpl implements _GenderSelectionState {
       genderUpdateSuccess,
       genderUpdateFailure);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GenderSelectionState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GenderSelectionStateImplCopyWith<_$GenderSelectionStateImpl>
@@ -434,6 +463,7 @@ abstract class _GenderSelectionState implements GenderSelectionState {
       required final List<String> lsOFSexValue,
       required final bool isSaveDetailsEnable,
       required final String errorMessage,
+      required final String userGender,
       required final AppStateNotifier appStateNotifier,
       required final AuthRepository authRepository,
       required final UserRepository userRepository,
@@ -459,6 +489,8 @@ abstract class _GenderSelectionState implements GenderSelectionState {
   @override
   String get errorMessage;
   @override
+  String get userGender;
+  @override
   AppStateNotifier get appStateNotifier;
   @override
   AuthRepository get authRepository;
@@ -472,8 +504,11 @@ abstract class _GenderSelectionState implements GenderSelectionState {
   bool get genderUpdateSuccess;
   @override
   bool get genderUpdateFailure;
+
+  /// Create a copy of GenderSelectionState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GenderSelectionStateImplCopyWith<_$GenderSelectionStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

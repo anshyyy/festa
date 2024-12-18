@@ -10,6 +10,7 @@ class AccountSettingsState with _$AccountSettingsState {
     required bool isPrivate,
     required UserRepository userRepository,
     required int userId,
+    BlockedUsers? blockedUsers,
     UserDto? user,
   }) = _AccountSettingsState;
   

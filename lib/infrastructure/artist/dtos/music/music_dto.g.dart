@@ -8,13 +8,13 @@ part of 'music_dto.dart';
 
 _$MusicDtoImpl _$$MusicDtoImplFromJson(Map<String, dynamic> json) =>
     _$MusicDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       audioUrl: json['audioUrl'] as String? ?? '',
       imageUrl: json['imageUrl'] as String? ?? '',
       isLiked: json['isLiked'] as bool? ?? false,
       isPlaying: json['isPlaying'] as bool? ?? false,
       name: json['name'] as String? ?? '',
-      length: json['length'] as int? ?? 0,
+      length: (json['length'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$MusicDtoImplToJson(_$MusicDtoImpl instance) =>

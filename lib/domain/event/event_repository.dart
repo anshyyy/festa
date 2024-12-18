@@ -7,9 +7,11 @@ import '../../infrastructure/event/dtos/payment_status/payment_status_dto.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
+import '../../infrastructure/event/dtos/ticket/ticket_dto.dart';
 
 abstract class EventRepository {
   Future<List<FilterDto>> getFilter();
+  Future<TicketDto> getTickets({required int eventId});
   Future<List<EventDto>> getEvents(
       {required int page,
       required int limit,

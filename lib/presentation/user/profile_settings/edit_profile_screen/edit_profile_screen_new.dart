@@ -66,26 +66,88 @@ class EditProfileScreenConsumer extends StatelessWidget {
               : Scaffold(
                   appBar: CustomAppBar(
                       title: EditProfileScreenConstants.editProfile,
-
                       leading: GestureDetector(
-                          onTap: () {
-                            navigator<NavigationService>().goBack();
+                          onTap: () async {
+                            if (state.isSaveEnabled) {
+                              // Show dialog asking if the user wants to save or discard changes
+                              var option = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Unsaved Changes',
+                                      style: TextStyle(
+                                          color: colorScheme.background,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18.sp),
+                                    ),
+                                    content: Text(
+                                        'Do you want to save your changes before leaving?',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15.sp)),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          // Discard changes and go back
+                                          navigator<NavigationService>().goBack(
+                                              responseObject: 'Discard');
+                                        },
+                                        child: Text(
+                                          'Discard',
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          navigator<NavigationService>()
+                                              .goBack(responseObject: 'Save');
+                                        },
+                                        child: Text('Save'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              if (option == "Discard") {
+                                navigator<NavigationService>().goBack();
+                                navigator<NavigationService>().goBack();
+                              } else {
+                                context.read<EditProfileCubit>().onSave();
+                                Future.delayed(
+                                    const Duration(milliseconds: 300), () {
+                                  navigator<NavigationService>().goBack();
+                                });
+                              }
+                            } else {
+                              navigator<NavigationService>().goBack();
+                            }
                           },
                           child: Center(
                               child: SvgPicture.asset(
                             AssetConstants.arrowLeft,
                             width: 7.w,
                           ))),
-                      actions:  [
-                        InkWell(
-                          onTap: (){
-                                                              context.read<EditProfileCubit>().onSave();
-                          },
-                          child: Text('Update Profile',style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.primary
-                          ),),
+                      actions: [
+                        Padding(
+                          padding:EdgeInsets.only(right:1.h),
+                          child: InkWell(
+                            onTap: state.isSaveEnabled
+                                ? () {
+                                    context.read<EditProfileCubit>().onSave();
+                                  }
+                                : null,
+                            child: Text(
+                              'Update Profile',
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: state.isSaveEnabled
+                                      ? colorScheme.primary
+                                      :Colors.black),
+                            ),
+                          ),
                         )
                       ]),
                   body: SingleChildScrollView(
@@ -114,14 +176,12 @@ class EditProfileScreenConsumer extends StatelessWidget {
                               Tab(text: 'Highlights'),
                             ],
                           ),
-                          SizedBox(
-                              height:
-                                  1.h),
+                          SizedBox(height: 1.h),
 
                           SizedBox(
                             height: 100.h, // Adjust height as needed
-                            child:const TabBarView(
-                              children:  [
+                            child: const TabBarView(
+                              children: [
                                 // Tab 1: Profile Picture Content
                                 EditProfileTab1(),
                                 // Tab 2: Highlights Content

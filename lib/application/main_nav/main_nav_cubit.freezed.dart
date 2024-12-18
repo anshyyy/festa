@@ -12,7 +12,7 @@ part of 'main_nav_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$MainNavState {
@@ -21,7 +21,9 @@ mixin _$MainNavState {
   bool get isGoToTop => throw _privateConstructorUsedError;
   bool get showNavBar => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MainNavStateCopyWith<MainNavState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,6 +48,8 @@ class _$MainNavStateCopyWithImpl<$Res, $Val extends MainNavState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -95,6 +99,8 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
       _$MainNavStateImpl _value, $Res Function(_$MainNavStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -166,7 +172,9 @@ class _$MainNavStateImpl implements _MainNavState {
   int get hashCode => Object.hash(
       runtimeType, currentIndex, isTabLoading, isGoToTop, showNavBar);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MainNavStateImplCopyWith<_$MainNavStateImpl> get copyWith =>
@@ -188,8 +196,11 @@ abstract class _MainNavState implements MainNavState {
   bool get isGoToTop;
   @override
   bool get showNavBar;
+
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MainNavStateImplCopyWith<_$MainNavStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

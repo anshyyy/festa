@@ -12,7 +12,7 @@ part of 'artist_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistState {
@@ -30,7 +30,9 @@ mixin _$ArtistState {
   bool get isFollowing => throw _privateConstructorUsedError;
   bool get isBlocked => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArtistStateCopyWith<ArtistState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -68,6 +70,8 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ArtistState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,6 +140,8 @@ class _$ArtistStateCopyWithImpl<$Res, $Val extends ArtistState>
     ) as $Val);
   }
 
+  /// Create a copy of ArtistState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ArtistProfileDtoCopyWith<$Res>? get artistProfile {
@@ -183,6 +189,8 @@ class __$$ArtistStateImplCopyWithImpl<$Res>
       _$ArtistStateImpl _value, $Res Function(_$ArtistStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ArtistState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -344,7 +352,9 @@ class _$ArtistStateImpl implements _ArtistState {
       isFollowing,
       isBlocked);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArtistStateImplCopyWith<_$ArtistStateImpl> get copyWith =>
@@ -390,8 +400,11 @@ abstract class _ArtistState implements ArtistState {
   bool get isFollowing;
   @override
   bool get isBlocked;
+
+  /// Create a copy of ArtistState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArtistStateImplCopyWith<_$ArtistStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

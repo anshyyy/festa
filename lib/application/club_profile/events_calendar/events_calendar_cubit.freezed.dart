@@ -12,7 +12,7 @@ part of 'events_calendar_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$EventsCalendarState {
@@ -21,11 +21,14 @@ mixin _$EventsCalendarState {
   bool get isFailed => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   int get clubId => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>> get filter => throw _privateConstructorUsedError;
   PubRepository get pubRepository => throw _privateConstructorUsedError;
   PubEventsClubbedDto? get pubEventsClubbed =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventsCalendarState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventsCalendarStateCopyWith<EventsCalendarState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +45,7 @@ abstract class $EventsCalendarStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       int clubId,
+      List<Map<String, dynamic>> filter,
       PubRepository pubRepository,
       PubEventsClubbedDto? pubEventsClubbed});
 
@@ -58,6 +62,8 @@ class _$EventsCalendarStateCopyWithImpl<$Res, $Val extends EventsCalendarState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventsCalendarState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -66,6 +72,7 @@ class _$EventsCalendarStateCopyWithImpl<$Res, $Val extends EventsCalendarState>
     Object? isFailed = null,
     Object? noUse = null,
     Object? clubId = null,
+    Object? filter = null,
     Object? pubRepository = null,
     Object? pubEventsClubbed = freezed,
   }) {
@@ -90,6 +97,10 @@ class _$EventsCalendarStateCopyWithImpl<$Res, $Val extends EventsCalendarState>
           ? _value.clubId
           : clubId // ignore: cast_nullable_to_non_nullable
               as int,
+      filter: null == filter
+          ? _value.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
       pubRepository: null == pubRepository
           ? _value.pubRepository
           : pubRepository // ignore: cast_nullable_to_non_nullable
@@ -101,6 +112,8 @@ class _$EventsCalendarStateCopyWithImpl<$Res, $Val extends EventsCalendarState>
     ) as $Val);
   }
 
+  /// Create a copy of EventsCalendarState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubEventsClubbedDtoCopyWith<$Res>? get pubEventsClubbed {
@@ -129,6 +142,7 @@ abstract class _$$EventsCalendarStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       int clubId,
+      List<Map<String, dynamic>> filter,
       PubRepository pubRepository,
       PubEventsClubbedDto? pubEventsClubbed});
 
@@ -144,6 +158,8 @@ class __$$EventsCalendarStateImplCopyWithImpl<$Res>
       $Res Function(_$EventsCalendarStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EventsCalendarState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -152,6 +168,7 @@ class __$$EventsCalendarStateImplCopyWithImpl<$Res>
     Object? isFailed = null,
     Object? noUse = null,
     Object? clubId = null,
+    Object? filter = null,
     Object? pubRepository = null,
     Object? pubEventsClubbed = freezed,
   }) {
@@ -176,6 +193,10 @@ class __$$EventsCalendarStateImplCopyWithImpl<$Res>
           ? _value.clubId
           : clubId // ignore: cast_nullable_to_non_nullable
               as int,
+      filter: null == filter
+          ? _value._filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as List<Map<String, dynamic>>,
       pubRepository: null == pubRepository
           ? _value.pubRepository
           : pubRepository // ignore: cast_nullable_to_non_nullable
@@ -197,8 +218,10 @@ class _$EventsCalendarStateImpl implements _EventsCalendarState {
       required this.isFailed,
       required this.noUse,
       required this.clubId,
+      required final List<Map<String, dynamic>> filter,
       required this.pubRepository,
-      this.pubEventsClubbed});
+      this.pubEventsClubbed})
+      : _filter = filter;
 
   @override
   final bool isLoading;
@@ -210,6 +233,14 @@ class _$EventsCalendarStateImpl implements _EventsCalendarState {
   final bool noUse;
   @override
   final int clubId;
+  final List<Map<String, dynamic>> _filter;
+  @override
+  List<Map<String, dynamic>> get filter {
+    if (_filter is EqualUnmodifiableListView) return _filter;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_filter);
+  }
+
   @override
   final PubRepository pubRepository;
   @override
@@ -217,7 +248,7 @@ class _$EventsCalendarStateImpl implements _EventsCalendarState {
 
   @override
   String toString() {
-    return 'EventsCalendarState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, clubId: $clubId, pubRepository: $pubRepository, pubEventsClubbed: $pubEventsClubbed)';
+    return 'EventsCalendarState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, clubId: $clubId, filter: $filter, pubRepository: $pubRepository, pubEventsClubbed: $pubEventsClubbed)';
   }
 
   @override
@@ -233,6 +264,7 @@ class _$EventsCalendarStateImpl implements _EventsCalendarState {
                 other.isFailed == isFailed) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.clubId, clubId) || other.clubId == clubId) &&
+            const DeepCollectionEquality().equals(other._filter, _filter) &&
             (identical(other.pubRepository, pubRepository) ||
                 other.pubRepository == pubRepository) &&
             (identical(other.pubEventsClubbed, pubEventsClubbed) ||
@@ -240,10 +272,20 @@ class _$EventsCalendarStateImpl implements _EventsCalendarState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isSuccessful,
-      isFailed, noUse, clubId, pubRepository, pubEventsClubbed);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      isSuccessful,
+      isFailed,
+      noUse,
+      clubId,
+      const DeepCollectionEquality().hash(_filter),
+      pubRepository,
+      pubEventsClubbed);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventsCalendarState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EventsCalendarStateImplCopyWith<_$EventsCalendarStateImpl> get copyWith =>
@@ -258,6 +300,7 @@ abstract class _EventsCalendarState implements EventsCalendarState {
       required final bool isFailed,
       required final bool noUse,
       required final int clubId,
+      required final List<Map<String, dynamic>> filter,
       required final PubRepository pubRepository,
       final PubEventsClubbedDto? pubEventsClubbed}) = _$EventsCalendarStateImpl;
 
@@ -272,11 +315,16 @@ abstract class _EventsCalendarState implements EventsCalendarState {
   @override
   int get clubId;
   @override
+  List<Map<String, dynamic>> get filter;
+  @override
   PubRepository get pubRepository;
   @override
   PubEventsClubbedDto? get pubEventsClubbed;
+
+  /// Create a copy of EventsCalendarState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EventsCalendarStateImplCopyWith<_$EventsCalendarStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

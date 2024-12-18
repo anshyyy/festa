@@ -12,7 +12,7 @@ part of 'pub_extra_details_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PubExtraDetailsDto _$PubExtraDetailsDtoFromJson(Map<String, dynamic> json) {
   return _PubExtraDetailsDto.fromJson(json);
@@ -35,8 +35,12 @@ mixin _$PubExtraDetailsDto {
   @JsonKey(name: 'totalParties', defaultValue: 0)
   int get totalParties => throw _privateConstructorUsedError;
 
+  /// Serializes this PubExtraDetailsDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PubExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PubExtraDetailsDtoCopyWith<PubExtraDetailsDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -67,6 +71,8 @@ class _$PubExtraDetailsDtoCopyWithImpl<$Res, $Val extends PubExtraDetailsDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PubExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,6 +143,8 @@ class __$$PubExtraDetailsDtoImplCopyWithImpl<$Res>
       $Res Function(_$PubExtraDetailsDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PubExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -248,7 +256,7 @@ class _$PubExtraDetailsDtoImpl implements _PubExtraDetailsDto {
                 other.totalParties == totalParties));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -260,7 +268,9 @@ class _$PubExtraDetailsDtoImpl implements _PubExtraDetailsDto {
       totalFriends,
       totalParties);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PubExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PubExtraDetailsDtoImplCopyWith<_$PubExtraDetailsDtoImpl> get copyWith =>
@@ -316,8 +326,11 @@ abstract class _PubExtraDetailsDto implements PubExtraDetailsDto {
   @override
   @JsonKey(name: 'totalParties', defaultValue: 0)
   int get totalParties;
+
+  /// Create a copy of PubExtraDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PubExtraDetailsDtoImplCopyWith<_$PubExtraDetailsDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

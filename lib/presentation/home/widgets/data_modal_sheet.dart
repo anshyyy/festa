@@ -44,7 +44,7 @@ class _DateModalSheetState extends State<DateModalSheet> {
         },
         builder: (context, state) {
           return Container(
-            height: 70.75.h,
+            height: 72.75.h,
             padding: EdgeInsets.only(left: 1.h, right: 1.h),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
@@ -84,7 +84,8 @@ class _DateModalSheetState extends State<DateModalSheet> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          navigator<NavigationService>().goBack(responseObject: state.filters);
+                          navigator<NavigationService>()
+                              .goBack(responseObject: state.filters);
                         },
                         child: SvgPicture.asset(
                           AssetConstants.closeIcon,
@@ -111,6 +112,7 @@ class _DateModalSheetState extends State<DateModalSheet> {
                 ),
               ),
               Container(
+                height: 47.h,
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surface,
                 ),
@@ -131,11 +133,24 @@ class _DateModalSheetState extends State<DateModalSheet> {
                       });
                     },
                     availableGestures: AvailableGestures.none,
+
+                    // enabledDayPredicate: (day) {
+                    //   // This will disable all days before today
+                    //   return day
+                    //       .isAfter(DateTime.now().subtract(Duration(days: 1)));
+                    // },
                     firstDay: DateTime.utc(2010, 10, 16),
                     lastDay: DateTime.utc(2030, 3, 14),
-                    focusedDay: _focusedDay, // Use focusedDay state
+                    focusedDay: _focusedDay,
+                    // Use focusedDay state
                     headerStyle: HeaderStyle(
-                      titleCentered: true,
+                      titleCentered: _focusedDay.month > DateTime.now().month ||
+                          _focusedDay.year > DateTime.now().year,
+                      headerPadding:
+                          !(_focusedDay.month > DateTime.now().month ||
+                                  _focusedDay.year > DateTime.now().year)
+                              ? EdgeInsets.only(left: 1.2.h)
+                              : const EdgeInsets.symmetric(vertical: 8.0),
                       leftChevronIcon: SvgPicture.asset(
                         AssetConstants.backArrowIcon,
                       ),
@@ -148,17 +163,26 @@ class _DateModalSheetState extends State<DateModalSheet> {
                                 color: Theme.of(context).colorScheme.background,
                               ),
                       formatButtonVisible: false,
-                      leftChevronVisible: true,
+                      leftChevronVisible:
+                          _focusedDay.month > DateTime.now().month ||
+                              _focusedDay.year > DateTime.now().year,
                       rightChevronVisible: true,
                     ),
+                    onPageChanged: (focusedDay) {
+                      setState(() {
+                        _focusedDay = focusedDay;
+                      });
+                    },
                     calendarStyle: CalendarStyle(
                       isTodayHighlighted: false,
                       outsideDaysVisible: false,
                       selectedDecoration: BoxDecoration(
                         color: themeData.colorScheme.primary,
+                      
                         shape: BoxShape.circle,
                       ),
                       selectedTextStyle: const TextStyle(
+                        
                         color: Colors.white,
                       ),
                     ),
@@ -198,6 +222,8 @@ class _DateModalSheetState extends State<DateModalSheet> {
                         ),
                       ),
                       defaultBuilder: (context, day, focusedDay) {
+                        final bool isPastDate = day.isBefore(
+                            DateTime.now().subtract(Duration(days: 1)));
                         return GestureDetector(
                           onTap: () {
                             setState(() {
@@ -219,15 +245,34 @@ class _DateModalSheetState extends State<DateModalSheet> {
                                   : null,
                             ),
                             child: Center(
-                              child: Text(
-                                '${day.day}',
-                                style: themeData.textTheme.bodySmall!.copyWith(
-                                  color: _selectedDays.contains(day)
-                                      ? Colors.white
-                                      : themeData.colorScheme.background,
-                                  fontSize: 14.5.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child: Stack(
+                                children: [
+                                  Text(
+                                    '${day.day}',
+                                    style:
+                                        themeData.textTheme.bodySmall!.copyWith(
+                                      //  decoration: TextDecoration.lineThrough,
+                                      color: _selectedDays.contains(day)
+                                          ? Colors.white
+                                          : themeData.colorScheme.background,
+                                      fontSize: 14.5.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  // if (isPastDate)
+                                  //   Positioned(
+
+                                  //     child: Container(
+                                  //       width: 20,
+                                  //       height: 20,
+                                  //       decoration: BoxDecoration(
+                                  //         color: const Color.fromARGB(255, 33, 33, 33).withOpacity(0.6),
+                                  //         shape: BoxShape.circle,
+                                  //       ),
+                                  //       child: SvgPicture.asset(AssetConstants.closeIcon),
+                                  //     ),
+                                  //   ),
+                                ],
                               ),
                             ),
                           ),
@@ -240,6 +285,7 @@ class _DateModalSheetState extends State<DateModalSheet> {
               Divider(
                 thickness: .035.w,
               ),
+              SizedBox(height: 1.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 3.w),
                 child: Row(
@@ -250,8 +296,7 @@ class _DateModalSheetState extends State<DateModalSheet> {
                         setState(() {
                           _selectedDays.clear();
                         });
-                        CustomToast.show(
-                            context, 'All the filters are cleared');
+                        CustomToast.show(context, 'All the Dates are cleared');
                       },
                       child: Text(
                         'Clear All',
@@ -274,12 +319,14 @@ class _DateModalSheetState extends State<DateModalSheet> {
                           onTap: () {
                             (_selectedDays);
                             navigator<NavigationService>()
-                                              .goBack(
-                                            responseObject: _selectedDays);
+                                .goBack(responseObject: _selectedDays);
                           }),
                     )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 3.h,
               )
             ]),
           );

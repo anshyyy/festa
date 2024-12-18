@@ -12,7 +12,7 @@ part of 'user_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) {
   return _UserDto.fromJson(json);
@@ -40,7 +40,7 @@ mixin _$UserDto {
   String get dob => throw _privateConstructorUsedError;
   @JsonKey(name: 'email')
   String? get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'highlight', defaultValue: [])
+  @JsonKey(name: 'highlights', defaultValue: [])
   List<HighlightDto>? get highlight => throw _privateConstructorUsedError;
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag => throw _privateConstructorUsedError;
@@ -50,8 +50,12 @@ mixin _$UserDto {
   @JsonKey(name: 'isPrivateAccount', defaultValue: false)
   bool get isPrivateAccount => throw _privateConstructorUsedError;
 
+  /// Serializes this UserDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserDtoCopyWith<UserDto> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -71,7 +75,7 @@ abstract class $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'phoneNumber', defaultValue: '') String phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') String dob,
       @JsonKey(name: 'email') String? email,
-      @JsonKey(name: 'highlight', defaultValue: [])
+      @JsonKey(name: 'highlights', defaultValue: [])
       List<HighlightDto>? highlight,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
@@ -93,6 +97,8 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,6 +177,8 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     ) as $Val);
   }
 
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TagDtoCopyWith<$Res>? get tag {
@@ -183,6 +191,8 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     });
   }
 
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto {
@@ -214,7 +224,7 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       @JsonKey(name: 'phoneNumber', defaultValue: '') String phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') String dob,
       @JsonKey(name: 'email') String? email,
-      @JsonKey(name: 'highlight', defaultValue: [])
+      @JsonKey(name: 'highlights', defaultValue: [])
       List<HighlightDto>? highlight,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
@@ -236,6 +246,8 @@ class __$$UserDtoImplCopyWithImpl<$Res>
       _$UserDtoImpl _value, $Res Function(_$UserDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -331,7 +343,7 @@ class _$UserDtoImpl implements _UserDto {
       @JsonKey(name: 'phoneNumber', defaultValue: '') required this.phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') required this.dob,
       @JsonKey(name: 'email') this.email,
-      @JsonKey(name: 'highlight', defaultValue: [])
+      @JsonKey(name: 'highlights', defaultValue: [])
       final List<HighlightDto>? highlight,
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
       @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto,
@@ -374,7 +386,7 @@ class _$UserDtoImpl implements _UserDto {
   final String? email;
   final List<HighlightDto>? _highlight;
   @override
-  @JsonKey(name: 'highlight', defaultValue: [])
+  @JsonKey(name: 'highlights', defaultValue: [])
   List<HighlightDto>? get highlight {
     final value = _highlight;
     if (value == null) return null;
@@ -428,7 +440,7 @@ class _$UserDtoImpl implements _UserDto {
                 other.isPrivateAccount == isPrivateAccount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -447,7 +459,9 @@ class _$UserDtoImpl implements _UserDto {
       extraDetailsDto,
       isPrivateAccount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>
@@ -479,7 +493,7 @@ abstract class _UserDto implements UserDto {
       required final String phoneNumber,
       @JsonKey(name: 'dob', defaultValue: '') required final String dob,
       @JsonKey(name: 'email') final String? email,
-      @JsonKey(name: 'highlight', defaultValue: [])
+      @JsonKey(name: 'highlights', defaultValue: [])
       final List<HighlightDto>? highlight,
       @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
       @JsonKey(name: 'extraDetails', defaultValue: null)
@@ -520,7 +534,7 @@ abstract class _UserDto implements UserDto {
   @JsonKey(name: 'email')
   String? get email;
   @override
-  @JsonKey(name: 'highlight', defaultValue: [])
+  @JsonKey(name: 'highlights', defaultValue: [])
   List<HighlightDto>? get highlight;
   @override
   @JsonKey(name: 'tag', defaultValue: null)
@@ -531,8 +545,11 @@ abstract class _UserDto implements UserDto {
   @override
   @JsonKey(name: 'isPrivateAccount', defaultValue: false)
   bool get isPrivateAccount;
+
+  /// Create a copy of UserDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserDtoImplCopyWith<_$UserDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

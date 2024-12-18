@@ -12,7 +12,7 @@ part of 'category_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CategoryDto _$CategoryDtoFromJson(Map<String, dynamic> json) {
   return _CategoryDto.fromJson(json);
@@ -20,13 +20,23 @@ CategoryDto _$CategoryDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CategoryDto {
+  @JsonKey(name: 'id', defaultValue: 0)
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name', defaultValue: '')
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'type', defaultValue: '')
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'emoji', defaultValue: '')
+  String get emoji => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url', defaultValue: '')
+  String get imageUrl => throw _privateConstructorUsedError;
 
+  /// Serializes this CategoryDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CategoryDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CategoryDtoCopyWith<CategoryDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -38,8 +48,11 @@ abstract class $CategoryDtoCopyWith<$Res> {
       _$CategoryDtoCopyWithImpl<$Res, CategoryDto>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'name', defaultValue: '') String name,
-      @JsonKey(name: 'type', defaultValue: '') String type});
+      {@JsonKey(name: 'id', defaultValue: 0) int id,
+      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'type', defaultValue: '') String type,
+      @JsonKey(name: 'emoji', defaultValue: '') String emoji,
+      @JsonKey(name: 'image_url', defaultValue: '') String imageUrl});
 }
 
 /// @nodoc
@@ -52,13 +65,22 @@ class _$CategoryDtoCopyWithImpl<$Res, $Val extends CategoryDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CategoryDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? type = null,
+    Object? emoji = null,
+    Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -66,6 +88,14 @@ class _$CategoryDtoCopyWithImpl<$Res, $Val extends CategoryDto>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -80,8 +110,11 @@ abstract class _$$CategoryDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'name', defaultValue: '') String name,
-      @JsonKey(name: 'type', defaultValue: '') String type});
+      {@JsonKey(name: 'id', defaultValue: 0) int id,
+      @JsonKey(name: 'name', defaultValue: '') String name,
+      @JsonKey(name: 'type', defaultValue: '') String type,
+      @JsonKey(name: 'emoji', defaultValue: '') String emoji,
+      @JsonKey(name: 'image_url', defaultValue: '') String imageUrl});
 }
 
 /// @nodoc
@@ -92,13 +125,22 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
       _$CategoryDtoImpl _value, $Res Function(_$CategoryDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CategoryDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? name = null,
     Object? type = null,
+    Object? emoji = null,
+    Object? imageUrl = null,
   }) {
     return _then(_$CategoryDtoImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -106,6 +148,14 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -115,22 +165,34 @@ class __$$CategoryDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CategoryDtoImpl implements _CategoryDto {
   const _$CategoryDtoImpl(
-      {@JsonKey(name: 'name', defaultValue: '') required this.name,
-      @JsonKey(name: 'type', defaultValue: '') required this.type});
+      {@JsonKey(name: 'id', defaultValue: 0) required this.id,
+      @JsonKey(name: 'name', defaultValue: '') required this.name,
+      @JsonKey(name: 'type', defaultValue: '') required this.type,
+      @JsonKey(name: 'emoji', defaultValue: '') required this.emoji,
+      @JsonKey(name: 'image_url', defaultValue: '') required this.imageUrl});
 
   factory _$CategoryDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryDtoImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'id', defaultValue: 0)
+  final int id;
   @override
   @JsonKey(name: 'name', defaultValue: '')
   final String name;
   @override
   @JsonKey(name: 'type', defaultValue: '')
   final String type;
+  @override
+  @JsonKey(name: 'emoji', defaultValue: '')
+  final String emoji;
+  @override
+  @JsonKey(name: 'image_url', defaultValue: '')
+  final String imageUrl;
 
   @override
   String toString() {
-    return 'CategoryDto(name: $name, type: $type)';
+    return 'CategoryDto(id: $id, name: $name, type: $type, emoji: $emoji, imageUrl: $imageUrl)';
   }
 
   @override
@@ -138,15 +200,21 @@ class _$CategoryDtoImpl implements _CategoryDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CategoryDtoImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.emoji, emoji) || other.emoji == emoji) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, type);
+  int get hashCode => Object.hash(runtimeType, id, name, type, emoji, imageUrl);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CategoryDtoImplCopyWith<_$CategoryDtoImpl> get copyWith =>
@@ -162,13 +230,19 @@ class _$CategoryDtoImpl implements _CategoryDto {
 
 abstract class _CategoryDto implements CategoryDto {
   const factory _CategoryDto(
-      {@JsonKey(name: 'name', defaultValue: '') required final String name,
-      @JsonKey(name: 'type', defaultValue: '')
-      required final String type}) = _$CategoryDtoImpl;
+      {@JsonKey(name: 'id', defaultValue: 0) required final int id,
+      @JsonKey(name: 'name', defaultValue: '') required final String name,
+      @JsonKey(name: 'type', defaultValue: '') required final String type,
+      @JsonKey(name: 'emoji', defaultValue: '') required final String emoji,
+      @JsonKey(name: 'image_url', defaultValue: '')
+      required final String imageUrl}) = _$CategoryDtoImpl;
 
   factory _CategoryDto.fromJson(Map<String, dynamic> json) =
       _$CategoryDtoImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'id', defaultValue: 0)
+  int get id;
   @override
   @JsonKey(name: 'name', defaultValue: '')
   String get name;
@@ -176,7 +250,16 @@ abstract class _CategoryDto implements CategoryDto {
   @JsonKey(name: 'type', defaultValue: '')
   String get type;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'emoji', defaultValue: '')
+  String get emoji;
+  @override
+  @JsonKey(name: 'image_url', defaultValue: '')
+  String get imageUrl;
+
+  /// Create a copy of CategoryDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CategoryDtoImplCopyWith<_$CategoryDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

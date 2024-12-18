@@ -12,7 +12,7 @@ part of 'tag_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TagDto _$TagDtoFromJson(Map<String, dynamic> json) {
   return _TagDto.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$TagDto {
   @JsonKey(name: 'tag', defaultValue: '')
   String get tag => throw _privateConstructorUsedError;
 
+  /// Serializes this TagDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TagDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TagDtoCopyWith<TagDto> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -50,6 +54,8 @@ class _$TagDtoCopyWithImpl<$Res, $Val extends TagDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TagDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,6 +95,8 @@ class __$$TagDtoImplCopyWithImpl<$Res>
       _$TagDtoImpl _value, $Res Function(_$TagDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TagDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -139,11 +147,13 @@ class _$TagDtoImpl implements _TagDto {
             (identical(other.tag, tag) || other.tag == tag));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, tag);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TagDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TagDtoImplCopyWith<_$TagDtoImpl> get copyWith =>
@@ -171,8 +181,11 @@ abstract class _TagDto implements TagDto {
   @override
   @JsonKey(name: 'tag', defaultValue: '')
   String get tag;
+
+  /// Create a copy of TagDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TagDtoImplCopyWith<_$TagDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

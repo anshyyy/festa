@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
 import '../../application/auth/verify_otp/verify_otp_cubit.dart';
@@ -20,6 +21,7 @@ import '../../infrastructure/core/enum/profile_state.enum.dart';
 import '../widgets/rounded_arrow_button.dart';
 import '../widgets/snackbar_alert.dart';
 import 'login_with_phone_screen.dart';
+import 'widget/otp_pin.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
   final String verificationCode;
@@ -48,8 +50,25 @@ class VerifyOtpScreen extends StatelessWidget {
   }
 }
 
-class VerifyOtpScreenConsumer extends StatelessWidget {
+class VerifyOtpScreenConsumer extends StatefulWidget {
   const VerifyOtpScreenConsumer({super.key});
+
+  @override
+  State<VerifyOtpScreenConsumer> createState() =>
+      _VerifyOtpScreenConsumerState();
+}
+
+class _VerifyOtpScreenConsumerState extends State<VerifyOtpScreenConsumer> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +137,8 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 AnalyticsService().logEvent(eventName: 'login', paras: {});
               }
 
+      
+
               Future.delayed(const Duration(milliseconds: 100))
                   .then((value) async {
                 navigator<NavigationService>()
@@ -126,7 +147,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                 });
               });
             } catch (e) {
-              (e);
+              print('error $e');
             }
           });
           context.read<VerifyOtpCubit>().emitFromAnywhere(
@@ -176,7 +197,7 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
-            OnboardingGradient(),
+              OnboardingGradient(),
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
@@ -201,9 +222,8 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                         children: [
                           Text(
                             '${LoginScreenConstants.verifyNumberDescription} ${state.dialCode} ${state.phoneNumber}',
-                            style: themeData.textTheme.bodySmall!.copyWith(
-                              fontWeight: FontWeight.w400
-                            ),
+                            style: themeData.textTheme.bodySmall!
+                                .copyWith(fontWeight: FontWeight.w400),
                           ),
                           SizedBox(
                             width: 2.w,
@@ -221,48 +241,53 @@ class VerifyOtpScreenConsumer extends StatelessWidget {
                       SizedBox(
                         height: 5.h,
                       ),
-                      PinCodeTextField(
-                        controller: state.otpController,
-                        appContext: context,
-                        length: 6,
-                        showCursor: false,
-                        obscureText: false,
-                        animationType: AnimationType.fade,
-                        enableActiveFill: true,
-                        enablePinAutofill: false,
-                        hintCharacter: '-',
-                        keyboardType: TextInputType.number,
-                        hintStyle: themeData.textTheme.bodyLarge!.copyWith(
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.bold,
-                          color: themeData.colorScheme.background,
-                        ),
-                        textStyle: themeData.textTheme.bodyLarge!.copyWith(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w500,
-                          color: themeData.scaffoldBackgroundColor,
-                        ),
-                        pinTheme: PinTheme(
-                            inactiveColor:
-                                themeData.colorScheme.primaryContainer.withOpacity(0.4),
-                            borderWidth: 0,
-                            inactiveBorderWidth: 0,
-                            activeBorderWidth: 0,
-                            shape: PinCodeFieldShape.box,
-                            borderRadius: BorderRadius.circular(40),
-                            fieldHeight: 8.h,
-                            fieldWidth: 13.5.w,
-                            selectedFillColor:
-                                themeData.colorScheme.primaryContainer.withOpacity(0.5),
-                            inactiveFillColor:
-                                themeData.colorScheme.primaryContainer.withOpacity(0.5),
-                            activeFillColor: themeData.colorScheme.background,
-                            selectedBorderWidth: 0.6,
-                            selectedColor: themeData.colorScheme.primary),
-                        onChanged: (value) {
-                          context.read<VerifyOtpCubit>().onOtpChange();
-                        },
-                      ),
+                    const OtpPinField(),
+
+                      // PinCodeTextField(
+                      //   controller: state.otpController,
+                      //   appContext: context,
+                      //   length: 6,
+                      //   showCursor: false,
+                      //   obscureText: false,
+                      //   animationType: AnimationType.fade,
+                      //   enableActiveFill: true,
+                      //   enablePinAutofill: false,
+                      //   hintCharacter: '-',
+                      //   keyboardType: TextInputType.number,
+                      //   hintStyle: themeData.textTheme.bodyLarge!.copyWith(
+                      //     fontSize: 22.sp,
+                      //     fontWeight: FontWeight.bold,
+                      //     color: themeData.colorScheme.background,
+                      //   ),
+                      //   textStyle: themeData.textTheme.bodyLarge!.copyWith(
+                      //     fontSize: 20.sp,
+                      //     fontWeight: FontWeight.w500,
+                      //     color: themeData.scaffoldBackgroundColor,
+                      //   ),
+                      //   pinTheme: PinTheme(
+                      //       inactiveColor: themeData
+                      //           .colorScheme.primaryContainer
+                      //           .withOpacity(0.4),
+                      //       borderWidth: 0,
+                      //       inactiveBorderWidth: 0,
+                      //       activeBorderWidth: 0,
+                      //       shape: PinCodeFieldShape.box,
+                      //       borderRadius: BorderRadius.circular(40),
+                      //       fieldHeight: 8.h,
+                      //       fieldWidth: 13.5.w,
+                      //       selectedFillColor: themeData
+                      //           .colorScheme.primaryContainer
+                      //           .withOpacity(0.5),
+                      //       inactiveFillColor: themeData
+                      //           .colorScheme.primaryContainer
+                      //           .withOpacity(0.5),
+                      //       activeFillColor: themeData.colorScheme.background,
+                      //       selectedBorderWidth: 0.6,
+                      //       selectedColor: themeData.colorScheme.primary),
+                      //   onChanged: (value) {
+                      //     context.read<VerifyOtpCubit>().onOtpChange();
+                      //   },
+                      // ),
                       SizedBox(
                         height: 1.5.h,
                       ),

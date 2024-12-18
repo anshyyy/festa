@@ -12,7 +12,7 @@ part of 'artist_music_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistMusicState {
@@ -25,7 +25,9 @@ mixin _$ArtistMusicState {
   ArtistRepository get artistRepository => throw _privateConstructorUsedError;
   AudioPlayer get audioPlayer => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistMusicState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArtistMusicStateCopyWith<ArtistMusicState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +59,8 @@ class _$ArtistMusicStateCopyWithImpl<$Res, $Val extends ArtistMusicState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ArtistMusicState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,6 +137,8 @@ class __$$ArtistMusicStateImplCopyWithImpl<$Res>
       $Res Function(_$ArtistMusicStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ArtistMusicState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,7 +264,9 @@ class _$ArtistMusicStateImpl implements _ArtistMusicState {
       artistRepository,
       audioPlayer);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistMusicState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArtistMusicStateImplCopyWith<_$ArtistMusicStateImpl> get copyWith =>
@@ -293,8 +301,11 @@ abstract class _ArtistMusicState implements ArtistMusicState {
   ArtistRepository get artistRepository;
   @override
   AudioPlayer get audioPlayer;
+
+  /// Create a copy of ArtistMusicState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArtistMusicStateImplCopyWith<_$ArtistMusicStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

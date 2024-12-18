@@ -7,14 +7,17 @@ import '../../../../infrastructure/event/dtos/booked_ticket_details/booked_ticke
 
 class PastTicket extends StatelessWidget {
   final BookedTicketDetailsDto ticket;
+
   const PastTicket({super.key, required this.ticket});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 2.h, bottom: 1.h),
+      margin: EdgeInsets.only(top: 1.h, bottom: 1.h),
       height: 9.875.h,
       width: 82.75.w,
+
+    
       child: Row(
         children: [
           Container(

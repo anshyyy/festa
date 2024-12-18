@@ -12,7 +12,7 @@ part of 'coupon_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CouponDTO _$CouponDTOFromJson(Map<String, dynamic> json) {
   return _CouponDTO.fromJson(json);
@@ -33,8 +33,12 @@ mixin _$CouponDTO {
   @JsonKey(name: 'eventId', defaultValue: 0)
   int get eventId => throw _privateConstructorUsedError;
 
+  /// Serializes this CouponDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CouponDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CouponDTOCopyWith<CouponDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +67,8 @@ class _$CouponDTOCopyWithImpl<$Res, $Val extends CouponDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CouponDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -127,6 +133,8 @@ class __$$CouponDTOImplCopyWithImpl<$Res>
       _$CouponDTOImpl _value, $Res Function(_$CouponDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CouponDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -220,12 +228,14 @@ class _$CouponDTOImpl implements _CouponDTO {
             (identical(other.eventId, eventId) || other.eventId == eventId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, message, couponId, value, status, redeemedById, eventId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CouponDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CouponDTOImplCopyWith<_$CouponDTOImpl> get copyWith =>
@@ -272,8 +282,11 @@ abstract class _CouponDTO implements CouponDTO {
   @override
   @JsonKey(name: 'eventId', defaultValue: 0)
   int get eventId;
+
+  /// Create a copy of CouponDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CouponDTOImplCopyWith<_$CouponDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

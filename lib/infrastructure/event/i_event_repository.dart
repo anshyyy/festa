@@ -15,6 +15,7 @@ import 'dtos/event/event_dto.dart';
 import 'dtos/event_booking_details/event_booking_details_dto.dart';
 import 'dtos/filter/filter_dto.dart';
 import 'dtos/payment_status/payment_status_dto.dart';
+import 'dtos/ticket/ticket_dto.dart';
 
 class IEventRepository extends EventRepository {
   final String serverUrl;
@@ -98,8 +99,7 @@ class IEventRepository extends EventRepository {
         throw ErrorConstants.unknownNetworkError;
       }
       final parsedBody = jsonDecode(response.body);
-      //(parsedBody);
-      //TODO
+  
       List<FilterDto> filters = (parsedBody as List).map((e) {
         final filter = FilterDto.fromJson(e);
         return filter;
@@ -109,6 +109,26 @@ class IEventRepository extends EventRepository {
       return [];
     }
   }
+
+   
+   Future<TicketDto> getTickets({required int eventId})async{
+      try {
+       final url = '$serverUrl${EventApiConstants.TICKET}/$eventId';
+             String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
+      final response = await RESTService.performGETRequest(
+          httpUrl: url, token: token!, isAuth: true);
+      if (response.statusCode != 200) {
+        throw ErrorConstants.unknownNetworkError;
+      }
+      final parsedBody = jsonDecode(response.body);
+      print(parsedBody);
+      return TicketDto.fromJson(parsedBody);
+      } catch (e) {
+        print("error: $e");
+        return TicketDto([], [], []);
+      }
+   }
+
 
   @override
   Future<List<EventDto>> getEvents(
@@ -148,7 +168,6 @@ class IEventRepository extends EventRepository {
       }
       final body = response.body;
       final eventsRaw = jsonDecode(body) as List;
-      (eventsRaw);
 
       final events = eventsRaw.map((e) => EventDto.fromJson(e)).toList();
       ('serialized $events');
@@ -166,7 +185,7 @@ class IEventRepository extends EventRepository {
     required int eventId,
   }) async {
     try {
-      final url = '$serverUrl${EventApiConstants.EVENTS}/$eventId';
+      final url = '$serverUrl${EventApiConstants.EVENTS}/v2/$eventId';
       String? token = await FirebaseAuth.instance.currentUser!.getIdToken(true);
       final response = await RESTService.performGETRequest(
           httpUrl: url, token: token!, isAuth: true);
@@ -176,6 +195,7 @@ class IEventRepository extends EventRepository {
       }
       final body = response.body;
       final eventRaw = jsonDecode(body);
+      print("eventRaw: ${eventRaw['category']}");
       final eventDetails = EventDto.fromJson(eventRaw);
       return right(eventDetails);
     } catch (e) {
@@ -208,7 +228,6 @@ class IEventRepository extends EventRepository {
         'note': note,
         'coverAmount': coverAmount,
       };
-      (jsonEncode(bodyObj));
 
       final response = await RESTService.performPOSTRequest(
         httpUrl: url,
@@ -228,7 +247,9 @@ class IEventRepository extends EventRepository {
           CoverChargeDetails.fromJson(coverDetailsRaw);
       return coverChargeDetails;
     } catch (e) {
-      (e);
+      var r = e as Response;
+      print(r.statusCode);
+      print(r.body);
       return CoverChargeDetails(
           id: 0, razorpayId: '', transactionId: '', bookingId: -1);
     }
@@ -268,7 +289,7 @@ class IEventRepository extends EventRepository {
       return right(bookingDetails);
     } catch (e) {
       var r = e as Response;
-      (r.body);
+      print(r.body);
       return left(null);
     }
   }

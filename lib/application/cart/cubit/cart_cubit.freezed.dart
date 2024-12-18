@@ -12,7 +12,7 @@ part of 'cart_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CartState {
@@ -21,7 +21,9 @@ mixin _$CartState {
   bool get isFailure => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CartStateCopyWith<CartState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$CartStateCopyWithImpl<$Res, $Val extends CartState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +96,8 @@ class __$$CartStateImplCopyWithImpl<$Res>
       _$CartStateImpl _value, $Res Function(_$CartStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,7 +168,9 @@ class _$CartStateImpl implements _CartState {
   int get hashCode =>
       Object.hash(runtimeType, isLoading, isSuccess, isFailure, noUse);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CartStateImplCopyWith<_$CartStateImpl> get copyWith =>
@@ -184,8 +192,11 @@ abstract class _CartState implements CartState {
   bool get isFailure;
   @override
   bool get noUse;
+
+  /// Create a copy of CartState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CartStateImplCopyWith<_$CartStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

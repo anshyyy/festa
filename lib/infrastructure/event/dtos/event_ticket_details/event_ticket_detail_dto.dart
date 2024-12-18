@@ -14,8 +14,10 @@ class EventTicketDetailDto with _$EventTicketDetailDto {
     @JsonKey(name: 'price', defaultValue: 0) required double price,
     @JsonKey(name: 'bookedSeats', defaultValue: 0) required int bookedSeats,
     @JsonKey(name: 'totalCapacity', defaultValue: 0) required int totalCapacity,
+    @JsonKey(name: 'category',defaultValue: '') required String category,
     @JsonKey(defaultValue: 0) required int currentTicketsCount,
     @JsonKey(name: 'isPaid', defaultValue: false) required bool isPaid,
+    @JsonKey(name:'coverCharge',defaultValue: 0) required num coverCharge,
     @JsonKey(name: 'priceCurrency', defaultValue: '')
     required String priceCurrency,
     @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)

@@ -13,7 +13,6 @@ class BookedTicketDetailsDto with _$BookedTicketDetailsDto {
     @JsonKey(name: 'id', defaultValue: 0) required int id,
     @JsonKey(name: 'numberOfTickets', defaultValue: 0)
     required int numberOfTickets,
-    
     @JsonKey(name: 'remainingAmount', defaultValue: 0)
     required double remainingAmount,
     @JsonKey(name: 'ticketDetails', defaultValue: [])
@@ -27,6 +26,12 @@ class BookedTicketDetailsDto with _$BookedTicketDetailsDto {
     required String bookingReference,
     @JsonKey(name: 'paymentAmount', defaultValue: '')
     required String paymentAmount,
+    @JsonKey(name: 'checkinStatus', defaultValue: '')
+    required String checkInStatus,
+
+    @JsonKey(name:'isReviewed',defaultValue: false)
+    required bool isReviewed,
+  
     @JsonKey(defaultValue: false) required bool showTicketDetails,
   }) = _BookedTicketDetailsDto;
 

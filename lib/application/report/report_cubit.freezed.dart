@@ -12,7 +12,7 @@ part of 'report_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ReportState {
@@ -28,7 +28,9 @@ mixin _$ReportState {
   bool get isEnableSubmit => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ReportStateCopyWith<ReportState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +64,8 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ReportState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -150,6 +154,8 @@ class __$$ReportStateImplCopyWithImpl<$Res>
       _$ReportStateImpl _value, $Res Function(_$ReportStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ReportState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -287,7 +293,9 @@ class _$ReportStateImpl implements _ReportState {
       isEnableSubmit,
       userRepository);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReportState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportStateImplCopyWith<_$ReportStateImpl> get copyWith =>
@@ -327,8 +335,11 @@ abstract class _ReportState implements ReportState {
   bool get isEnableSubmit;
   @override
   UserRepository get userRepository;
+
+  /// Create a copy of ReportState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReportStateImplCopyWith<_$ReportStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

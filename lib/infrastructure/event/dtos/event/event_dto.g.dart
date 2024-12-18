@@ -8,7 +8,7 @@ part of 'event_dto.dart';
 
 _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
     _$EventDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       name: json['fullName'] as String? ?? 'BE ISSUE',
       coverImage: json['coverImageUrl'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -39,8 +39,8 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       isPaid: json['isPaid'] as bool? ?? false,
-      totalCapacity: json['totalCapacity'] as int? ?? 0,
-      bookedSeats: json['bookedSeats'] as int? ?? 0,
+      totalCapacity: (json['totalCapacity'] as num?)?.toInt() ?? 0,
+      bookedSeats: (json['bookedSeats'] as num?)?.toInt() ?? 0,
       eventStatus: json['eventStatus'] as String? ?? 'ACTIVE',
       assets: (json['assets'] as List<dynamic>?)
               ?.map((e) => AssetDto.fromJson(e as Map<String, dynamic>))
@@ -50,6 +50,10 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => ArtistProfileDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      eventRules: (json['eventRules'] as List<dynamic>?)
+              ?.map((e) => EventRules.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       address: json['address'] == null
           ? null
           : AddressDto.fromJson(json['address'] as Map<String, dynamic>),
@@ -57,11 +61,16 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
           ? null
           : PubDto.fromJson(json['pub'] as Map<String, dynamic>),
       isApplied: json['isApplied'] as bool? ?? false,
+      cancellationPolicy: json['cancellationPolicy'] as String? ?? '',
       isLiked: json['isLiked'] as bool? ?? false,
       isPaused: json['isPaused'] as bool? ?? true,
-      expensiveRating: json['expensiveRating'] as int? ?? 0,
-      categories: (json['categories'] as List<dynamic>?)
+      expensiveRating: (json['expensiveRating'] as num?)?.toInt() ?? 0,
+      categories: (json['category'] as List<dynamic>?)
               ?.map((e) => CategoryDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      eventActivities: (json['eventActivities'] as List<dynamic>?)
+              ?.map((e) => EventActivity.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       eventTicketCategories: (json['eventTicketCategories'] as List<dynamic>?)
@@ -95,13 +104,16 @@ Map<String, dynamic> _$$EventDtoImplToJson(_$EventDtoImpl instance) =>
       'eventStatus': instance.eventStatus,
       'assets': instance.assets,
       'artists': instance.artists,
+      'eventRules': instance.eventRules,
       'address': instance.address,
       'pub': instance.pub,
       'isApplied': instance.isApplied,
+      'cancellationPolicy': instance.cancellationPolicy,
       'isLiked': instance.isLiked,
       'isPaused': instance.isPaused,
       'expensiveRating': instance.expensiveRating,
-      'categories': instance.categories,
+      'category': instance.categories,
+      'eventActivities': instance.eventActivities,
       'eventTicketCategories': instance.eventTicketCategories,
       'coverChargeEnabled': instance.coverChargeEnabled,
     };

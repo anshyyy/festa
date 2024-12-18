@@ -43,7 +43,8 @@ class EventOptionsCubit extends Cubit<EventOptionsState> {
     emit(state.copyWith(
       goToHome: true,
     ));
+  
     await state.userRepository
-        .block(id: state.event!.id.toString(), type: 'event');
+        .block(id: state.eventId.toString(), type: 'event');
   }
 }

@@ -10,6 +10,7 @@ class EventApiConstants {
   static const GET_EVENTS_BY_PUB_ID = '$EVENTS/pub';
   static const LIKE_EVENT = '$EVENTS/like';
   static const UNLIKE_EVENT = '$EVENTS/unlike';
+  static const TICKET = '$EVENTS/ticket';
   
 }
 
@@ -37,6 +38,7 @@ class UserApiConstants {
   static const DELETE_REASON = '/feedback/delete/user';
   static const REPORT = '/feedback/report';
   static const BLOCK = '/block';
+  static const BLOCKED_USERS = '$BLOCK/blocked';
 }
 
 class AuthApiConstants {

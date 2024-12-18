@@ -23,6 +23,7 @@ import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
 import 'domain/core/themes/app_theme.dart';
+import 'domain/core/utils/app_link.dart';
 import 'domain/core/utils/dynamic_link.dart';
 import 'infrastructure/auth/i_auth_repository.dart';
 import 'infrastructure/core/dtos/location/location_dto.dart';
@@ -201,6 +202,7 @@ Future appInitializer(AppConfig appConfig) async {
   initMessagingService(navigationKey: navKey);
 
   Future.delayed(const Duration(seconds: 2)).then((value) {
+    AppLinkUtil.initDeepLinks(isAuthorized: isAuthorized);
     DynamicLinkUtil.initDynamicLinks(isAuthorized: isAuthorized);
   });
   return runApp(configuredApp);
@@ -310,7 +312,9 @@ Future<Map<String, dynamic>> getRemoteConfigs() async {
       'min_version': minVersion,
       'latest_version': latestVersion,
     };
+   
   });
+
 
   return configs;
 }
@@ -372,6 +376,6 @@ Future checkForAppUpdate(GlobalKey<NavigatorState> navKey) async {
       }
     }
   } catch (error) {
-    debugPrint(error.toString());
+    debugPrint("error: ${error.toString()}");
   }
 }

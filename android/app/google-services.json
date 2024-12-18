@@ -38,6 +38,14 @@
           }
         },
         {
+          "client_id": "154103086037-gaaa8uvgsec393bsho8frvm9u0pisnof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.festaworld.app",
+            "certificate_hash": "01fe8f3799762f3e6822805686a4a996733a0d21"
+          }
+        },
+        {
           "client_id": "154103086037-gcuh24omjfhaiktn20bn1c1dlvhio0nf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

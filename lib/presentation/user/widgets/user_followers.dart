@@ -33,6 +33,7 @@ class UserFollowers extends StatelessWidget {
     return BlocConsumer<UserCommunityCubit, UserCommunityState>(
       listener: (context, state) {},
       builder: (context, state) {
+        //print("state.userFollowers.users.length: ${state.userFollowers.users[0]}");
         return Column(
           children: [
             CustomTextField(
@@ -109,6 +110,7 @@ class UserFollowers extends StatelessWidget {
                                           height: 14.w,
                                           width: 14.w,
                                           decoration: BoxDecoration(
+                                            
                                               border: Border.all(
                                                   color: colorScheme.background,
                                                   width: .5.w),
@@ -139,7 +141,7 @@ class UserFollowers extends StatelessWidget {
                                                 )),
                                             Text(
                                               currentUser.tag?.tag != null
-                                                  ? currentUser.tag!.tag
+                                                  ? '@'+currentUser.tag!.tag
                                                   : '',
                                               style: textTheme.bodySmall,
                                             )

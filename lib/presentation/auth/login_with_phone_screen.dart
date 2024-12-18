@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+
 import '../../application/auth/auth_cubit.dart';
 import '../../domain/core/configs/app_config.dart';
 import '../../domain/core/configs/injection.dart';
@@ -87,6 +88,8 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
               fit: StackFit.expand,
               children: [
               const OnboardingGradient(),
+           //   const PhoneFieldHint(),
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.h, vertical: 2.h),
                   child: Column(
@@ -188,6 +191,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                           Expanded(
                             child: CustomTextField(
                               autofocus: true,
+                              maxLength: 10,
                               controller: state.phoneController,
                               keyboardType: TextInputType.number,
                               maxLines: 1,
@@ -224,7 +228,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                             
                               validator: (value) {
                                 if (value!.isEmpty ||
-                                    value.length <= 9 ||
+                                    value.length <= 9 || value.length>10||
                                     !GenericHelpers().isValidMobile(value)) {
                                   return ErrorConstants
                                       .invalidMobileNumberError;
@@ -331,7 +335,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                 SizedBox(height: 1.h),
                 Text.rich(
                   TextSpan(
-                    text: 'We need to make sure that ', // Normal text
+                    text: 'Is ', // Normal text
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.background,
                       fontSize: 14.px,
@@ -344,7 +348,7 @@ class LoginPhoneScreenConsumer extends StatelessWidget {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const TextSpan(
-                        text: ' is your number.', // Normal text
+                        text: ' is your mobile numer? We’re just making sure one last time.', // Normal text
                       ),
                     ],
                   ),

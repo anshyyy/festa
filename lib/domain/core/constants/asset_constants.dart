@@ -9,12 +9,52 @@ class AssetConstants {
   static const profileIcon = '${vectorsFolder}bprofile-icon.png';
   static const locationIconPink = '${vectorsFolder}location-icon.svg';
   static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
+  static const giftIcon = '${vectorsFolder}gift.svg';
+
+
+  static const blockIcon = '${vectorsFolder}block-icon.svg';
+  static const shareIcon2 = '${vectorsFolder}share.svg';
+
+  static const roundRight = '${vectorsFolder}round-right.svg';
+
+  static const privacyIcon = '${vectorsFolder}privacy.svg';
+
+  static const multiUnselectIcon = '${vectorsFolder}munselect.svg';
+  static const multiSelectIcon = '${vectorsFolder}mutli-select.svg';
+
+
+  static const infoIcon = '${vectorsFolder}info.svg';
+  static const dotIcon = '${vectorsFolder}dot.svg';
+  static const pipeIcon = '${vectorsFolder}pipe.svg';
+
+
+
+  static const tickIcon = '${vectorsFolder}tick.svg';
+  static const unTickIcon = '${vectorsFolder}cross.svg';
+
+
+
+
+
+  static const dressRuleIcon = '${vectorsFolder}dress_rule.svg';
+  static const smokingRuleIcon = '${vectorsFolder}smoking_rule.svg';
+  static const stagsRuleIcon = '${vectorsFolder}stags_rule.svg';
+  static const ageRuleIcon = '${vectorsFolder}age_rule.svg';
+  static const cameraRuleIcon = '${vectorsFolder}camera_rule.svg';
+  
+
 
   static const review1Icon = '${vectorsFolder}r1.svg';
   static const review2Icon = '${vectorsFolder}r2.svg';
   static const review3Icon = '${vectorsFolder}r3.svg';
   static const review4Icon = '${vectorsFolder}r4.svg';
   static const review5Icon = '${vectorsFolder}r5.svg';
+
+  static const arrowUp = '${vectorsFolder}arrow-up.svg';
+  static const multipleTick = '${vectorsFolder}multiple_tick.svg';
+
+  static const muteFillIcon = '${vectorsFolder}Mute.svg';
+  static const unmuteFillIcon = '${vectorsFolder}Unmute 2.svg';
 
   static const cameraIcon = '${vectorsFolder}camera.svg';
   static const galleryIcon = '${vectorsFolder}gallery.svg';
@@ -188,7 +228,27 @@ class AssetConstants {
     'food': foodIcon,
     'beverage': drinkIcon,
   };
+  static const instagramIcon = '${vectorsFolder}instagram.svg';
+  static const facebookIcon = '${vectorsFolder}facebook.svg';
+  static const twitterIcon = '${imageFolder}twitter.jpg';
+  static const youtubeIcon = '${vectorsFolder}youtube.svg';  
+  static const soundcloudIcon = '${vectorsFolder}soundcloud.svg';
+  static const spotifyIcon = '${vectorsFolder}spotify.svg';
+  static const tiktokIcon = '${vectorsFolder}tiktok.svg';
+
+  static const socialMediaIcons = {
+    'instagram': instagramIcon,
+    'facebook': facebookIcon,
+    'twitter': twitterIcon,
+    'youtube': youtubeIcon,
+    'soundcloud': soundcloudIcon,
+    'spotify': spotifyIcon,
+    'tiktok': tiktokIcon,
+  };
+
 
   static const scaffoldBcg = '${imageFolder}screen-bcg.png';
   static const personalizeBcg = '${imageFolder}personalize-bg.png';
 }
+
+

@@ -8,7 +8,7 @@ part of 'user_dto.dart';
 
 _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
     _$UserDtoImpl(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       externalUserId: json['externalUserId'] as String? ?? '',
       fullName: json['fullName'] as String? ?? '',
       profileImage: json['profileImage'] as String? ?? '',
@@ -18,7 +18,7 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String? ?? '',
       dob: json['dob'] as String? ?? '',
       email: json['email'] as String?,
-      highlight: (json['highlight'] as List<dynamic>?)
+      highlight: (json['highlights'] as List<dynamic>?)
               ?.map((e) => HighlightDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
@@ -44,7 +44,7 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'phoneNumber': instance.phoneNumber,
       'dob': instance.dob,
       'email': instance.email,
-      'highlight': instance.highlight,
+      'highlights': instance.highlight,
       'tag': instance.tag,
       'extraDetails': instance.extraDetailsDto,
       'isPrivateAccount': instance.isPrivateAccount,

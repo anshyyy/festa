@@ -31,28 +31,6 @@ class ClubMenuScreen extends StatelessWidget {
 }
 
 class ClubMenuConsumer extends StatefulWidget {
-  final List<MenuDto> foodMenuImages = const [
-    MenuDto(
-        id: 1,
-        url:
-            "https://b.zmtcdn.com/data/menus/418/20609418/8eada7186d231fdc83e2e39c65d81be2.jpg"),
-    MenuDto(
-        id: 1,
-        url:
-            "https://b.zmtcdn.com/data/menus/418/20609418/a5bb51c765a4a4164d6c4b7794a9a979.jpg"),
-  ];
-
-  final List<MenuDto> barMenuImages = const [
-    MenuDto(
-        id: 1,
-        url:
-            "https://b.zmtcdn.com/data/menus/418/20609418/fee49acc17de3f0ccad08a770f2923f0.jpg"),
-    MenuDto(
-        id: 1,
-        url:
-            "https://b.zmtcdn.com/data/menus/418/20609418/185732d0869085ff28c4be3d8ed3e6a6.jpg"),
-  ];
-
   const ClubMenuConsumer({super.key});
 
   @override
@@ -83,60 +61,67 @@ class _ClubMenuConsumerState extends State<ClubMenuConsumer> {
   Widget _buildMenuPage(
       List<MenuDto> images, PageController pageController, int currentPage) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(height: 2.h),
-        SizedBox(
-          height: 60.h,
-          child: NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              if (notification is ScrollEndNotification) {
-                // If we're at the last page of the food menu and swiped right
-                if (_selectedIndex == 0 &&
-                    _foodPageController.page == images.length - 1) {
-                  double pixels = _foodPageController.position.pixels;
-                  double maxScrollExtent =
-                      _foodPageController.position.maxScrollExtent;
+        images.isEmpty
+            ? const Center(
+                child: Text("No Menu Available"),
+              )
+            : SizedBox(
+                height: 60.h,
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (notification) {
+                    if (notification is ScrollEndNotification) {
+                      // If we're at the last page of the food menu and swiped right
+                      if (_selectedIndex == 0 &&
+                          _foodPageController.page == images.length - 1) {
+                        double pixels = _foodPageController.position.pixels;
+                        double maxScrollExtent =
+                            _foodPageController.position.maxScrollExtent;
 
-                  if (pixels >= maxScrollExtent) {
-                    // The user swiped past the last page
-                    // setState(() {
-                    //   _selectedIndex = 1;
-                    // });
-                  // _barPageController.jumpToPage(0); 
-                    // Jump to the first bar menu page
-                  }
-                }
-              }
-              return false;
-            },
-            child: PageView.builder(
-              controller: pageController,
-              itemCount: images.length,
-              onPageChanged: (index) {
-                setState(() {
-                  if (pageController == _foodPageController) {
-                    _currentFoodPage = index;
-                  } else {
-                    _currentBarPage = index;
-                  }
-                });
+                        if (pixels >= maxScrollExtent) {
+                          // The user swiped past the last page
+                          // setState(() {
+                          //   _selectedIndex = 1;
+                          // });
+                          // _barPageController.jumpToPage(0);
+                          // Jump to the first bar menu page
+                        }
+                      }
+                    }
+                    return false;
+                  },
+                  child: PageView.builder(
+                    controller: pageController,
+                    itemCount: images.length,
+                    onPageChanged: (index) {
+                      setState(() {
+                        if (pageController == _foodPageController) {
+                          _currentFoodPage = index;
+                        } else {
+                          _currentBarPage = index;
+                        }
+                      });
 
-                context.read<ClubProfileCubit>().onCarouselChange(index: index);
-              },
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.all(5),
-                  child: PhotoView(
-                    imageProvider: CachedNetworkImageProvider(
-                      CustomImageProvider.getImageUrl(
-                          images[index].url, ImageType.other),
-                    ),
+                      context
+                          .read<ClubProfileCubit>()
+                          .onCarouselChange(index: index);
+                    },
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.all(5),
+                        child: PhotoView(
+                          imageProvider: CachedNetworkImageProvider(
+                            CustomImageProvider.getImageUrl(
+                                images[index].url, ImageType.other),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
-        ),
+                ),
+              ),
         SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -165,13 +150,13 @@ class _ClubMenuConsumerState extends State<ClubMenuConsumer> {
     );
   }
 
-  String _getCurrentPageLabel() {
-    if (_selectedIndex == 0) {
-      return '${_currentFoodPage + 1}/${widget.foodMenuImages.length}';
-    } else {
-      return '${_currentBarPage + 1}/${widget.barMenuImages.length}';
-    }
-  }
+  // String _getCurrentPageLabel() {
+  //   if (_selectedIndex == 0) {
+  //     return '${_currentFoodPage + 1}/${widget.foodMenuImages.length}';
+  //   } else {
+  //     return '${_currentBarPage + 1}/${widget.barMenuImages.length}';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -185,10 +170,10 @@ class _ClubMenuConsumerState extends State<ClubMenuConsumer> {
             child: IndexedStack(
               index: _selectedIndex,
               children: [
-                _buildMenuPage(state.pub!.foodMenu ?? widget.foodMenuImages,
-                    _foodPageController, _currentFoodPage),
-                _buildMenuPage(state.pub!.barMenu ?? widget.barMenuImages,
-                    _barPageController, _currentBarPage),
+                _buildMenuPage(state.pub!.foodMenu ?? [], _foodPageController,
+                    _currentFoodPage),
+                _buildMenuPage(state.pub!.barMenu ?? [], _barPageController,
+                    _currentBarPage),
               ],
             ),
           ),
@@ -207,12 +192,12 @@ class _ClubMenuConsumerState extends State<ClubMenuConsumer> {
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.restaurant_menu),
                   label:
-                      'Food Menu (${_currentFoodPage + 1}/${widget.foodMenuImages.length})',
+                      'Food Menu ${state.pub?.foodMenu?.isEmpty ?? true ? '' : '(${_currentFoodPage + 1}/${state.pub?.foodMenu?.length ?? 0})'}',
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.local_bar),
                   label:
-                      'Bar Menu (${_currentBarPage + 1}/${widget.barMenuImages.length})',
+                      'Bar Menu ${state.pub?.barMenu?.isEmpty ?? true ? '' : '(${_currentBarPage + 1}/${state.pub?.barMenu?.length ?? 0})'}',
                 ),
               ],
             ),

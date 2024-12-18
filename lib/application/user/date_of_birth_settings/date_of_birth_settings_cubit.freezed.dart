@@ -12,7 +12,7 @@ part of 'date_of_birth_settings_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DateOfBirthSettingsState {
@@ -24,7 +24,9 @@ mixin _$DateOfBirthSettingsState {
   UserDto? get user => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DateOfBirthSettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DateOfBirthSettingsStateCopyWith<DateOfBirthSettingsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +60,8 @@ class _$DateOfBirthSettingsStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DateOfBirthSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class _$DateOfBirthSettingsStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of DateOfBirthSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -146,6 +152,8 @@ class __$$DateOfBirthSettingsStateImplCopyWithImpl<$Res>
       $Res Function(_$DateOfBirthSettingsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DateOfBirthSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -246,7 +254,9 @@ class _$DateOfBirthSettingsStateImpl implements _DateOfBirthSettingsState {
   int get hashCode => Object.hash(runtimeType, openDatePicker, selectedDate,
       updatedDate, currentDob, userRepository, user, isLoading);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DateOfBirthSettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DateOfBirthSettingsStateImplCopyWith<_$DateOfBirthSettingsStateImpl>
@@ -278,8 +288,11 @@ abstract class _DateOfBirthSettingsState implements DateOfBirthSettingsState {
   UserDto? get user;
   @override
   bool get isLoading;
+
+  /// Create a copy of DateOfBirthSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DateOfBirthSettingsStateImplCopyWith<_$DateOfBirthSettingsStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

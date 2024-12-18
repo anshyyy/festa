@@ -45,17 +45,21 @@ class ClubProfileScreenConsumer extends StatefulWidget {
 }
 
 class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
+    // Initialize the animation controller
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
     _animation =
         Tween<double>(begin: 1.0, end: 0.0).animate(_animationController);
+
+    // Initialize the tab using 'this' as the TickerProvider
+    context.read<ClubProfileCubit>().initializeTab(this);
   }
 
   @override
@@ -69,19 +73,11 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
       listener: (context, state) {
-        //(state.is)
         if (state.isAtTop) _animationController.forward();
         if (!state.isAtTop) _animationController.reset();
       },
       builder: (context, state) {
         return Scaffold(
-          // bottomNavigationBar: CustomBottomNav(
-          //   isTabScreen: false,
-          //   onTabChange: (i) {},
-          //   currentIndex: Provider.of<AppStateNotifier>(context, listen: false)
-          //           .menuIndex ??
-          //       0,
-          // ),
           body: state.isLoading
               ? const ClubShimmer()
               : state.pub == null
@@ -106,21 +102,12 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                                       child: SafeArea(
                                         child: Column(
                                           children: [
-                                            state.isAtTop
-                                                ? Container(
-                                                    alignment: Alignment.center,
-                                                    width: 100.w,
-                                                    height:
-                                                        _animation.value * 200,
-                                                    color: Colors.transparent,
-                                                  )
-                                                : Padding(
-                                                    padding:
-                                                         EdgeInsets.only(
-                                                            bottom: 1.h),
-                                                    child: ClubProfile(),
-                                                  ),
-                                          const MediaViewerTabs(),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: 0.5.h),
+                                              child: ClubProfile(),
+                                            ),
+                                            const MediaViewerTabs(),
                                           ],
                                         ),
                                       ),
@@ -163,7 +150,8 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                                           return ProfileActionsModal(
                                             profileType: 'pub',
                                             profileId: state.clubId.toString(),
-                                            profileName: state.pub?.fullName ?? "",
+                                            profileName:
+                                                state.pub?.fullName ?? "",
                                             isBlocked: state.isBlocked,
                                             isFollowing: state.isFollowing,
                                             onTapBlockOrUnBlock: (val) {
@@ -189,8 +177,8 @@ class _ClubProfileScreenConsumerState extends State<ClubProfileScreenConsumer>
                                           context
                                               .read<ClubProfileCubit>()
                                               .followUnfollowPub(
-                                                  pubId:
-                                                      state.clubId.toString());
+                                                  pubId: state.clubId,
+                                                  isFollowing: state.isFollowing);
                                         } else if (value['key'] ==
                                             'blockOrUnblock') {
                                           context
@@ -273,11 +261,6 @@ class ClubShimmer extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // SizedBox(
-            //   height: 1.h,
-            // ),
-          
-
             const Spacer(),
             Stack(
               clipBehavior: Clip.none,
@@ -306,6 +289,18 @@ class ClubShimmer extends StatelessWidget {
                   ),
                 )
               ],
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Container(
+              height: 10.h,
+              width: 100.w,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8))),
             )
           ],
         ),

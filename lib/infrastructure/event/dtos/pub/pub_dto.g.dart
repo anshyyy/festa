@@ -7,7 +7,7 @@ part of 'pub_dto.dart';
 // **************************************************************************
 
 _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       fullName: json['fullName'] as String? ?? '',
       description: json['description'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
@@ -15,6 +15,10 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
       averageRating: (json['averageRating'] as num?)?.toDouble() ?? 0.0,
       coverImageUrl: json['coverImageUrl'] as String? ?? '',
       assets: (json['assets'] as List<dynamic>?)
+              ?.map((e) => AssetDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      highlights: (json['highlights'] as List<dynamic>?)
               ?.map((e) => AssetDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
@@ -35,13 +39,15 @@ _$PubDtoImpl _$$PubDtoImplFromJson(Map<String, dynamic> json) => _$PubDtoImpl(
           : PubExtraDetailsDto.fromJson(
               json['extraDetails'] as Map<String, dynamic>),
       happyHours: (json['happyHours'] as List<dynamic>?)
-              ?.map((e) => MenuDto.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => HappyhoursDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       openingHours: json['openingHours'] == null
           ? null
           : PubOpeningHours.fromJson(
               json['openingHours'] as Map<String, dynamic>),
+      completedEventsCount:
+          (json['completedEventsCount'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
@@ -54,6 +60,7 @@ Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
       'averageRating': instance.averageRating,
       'coverImageUrl': instance.coverImageUrl,
       'assets': instance.assets,
+      'highlights': instance.highlights,
       'tag': instance.tag,
       'barMenu': instance.barMenu,
       'foodMenu': instance.foodMenu,
@@ -61,4 +68,5 @@ Map<String, dynamic> _$$PubDtoImplToJson(_$PubDtoImpl instance) =>
       'extraDetails': instance.extraDetailsDto,
       'happyHours': instance.happyHours,
       'openingHours': instance.openingHours,
+      'completedEventsCount': instance.completedEventsCount,
     };

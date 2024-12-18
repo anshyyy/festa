@@ -9,7 +9,7 @@ part of 'notification_dto.dart';
 _$NotificationDtoImpl _$$NotificationDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$NotificationDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       actionTaken: json['actionTaken'] as String? ?? '',
       status: json['status'] as String? ?? '',
       content: NotificationContentDto.fromJson(

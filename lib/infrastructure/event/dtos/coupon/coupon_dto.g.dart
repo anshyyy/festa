@@ -9,11 +9,11 @@ part of 'coupon_dto.dart';
 _$CouponDTOImpl _$$CouponDTOImplFromJson(Map<String, dynamic> json) =>
     _$CouponDTOImpl(
       message: json['message'] as String? ?? '',
-      couponId: json['couponId'] as int? ?? 0,
-      value: json['value'] as int? ?? 0,
+      couponId: (json['couponId'] as num?)?.toInt() ?? 0,
+      value: (json['value'] as num?)?.toInt() ?? 0,
       status: json['status'] as String? ?? '',
-      redeemedById: json['redeemedById'] as int? ?? 0,
-      eventId: json['eventId'] as int? ?? 0,
+      redeemedById: (json['redeemedById'] as num?)?.toInt() ?? 0,
+      eventId: (json['eventId'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$CouponDTOImplToJson(_$CouponDTOImpl instance) =>

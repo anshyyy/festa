@@ -81,56 +81,70 @@ class MainNavigatorConsumer extends StatelessWidget {
     super.key,
   });
 
+  Future<bool> _onWillPop(BuildContext context, int currentIndex) async {
+    if (currentIndex != 0) {
+      context.read<MainNavCubit>().onIndexChange(index: 0);
+      return Future.value(false); // Prevent the app from exiting
+    } else {
+      return Future.value(true);
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainNavCubit, MainNavState>(
       listener: (context, state) {},
       builder: (context, state) {
         final userProfileState = context.watch<UserProfileCubit>().state;
+        
        // (userProfileState.user);
-        return ModalProgressHUD(
-          inAsyncCall: state.isTabLoading,
-          blur: 0,
-          progressIndicator: Container(
-            color: Colors.red,
-          ),
-          child: Scaffold(
-            bottomNavigationBar: 
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: !state.showNavBar?0:(Platform.isAndroid ? 9.5.h : 12.h),
-              child: CustomBottomNav(
-                isEmailNotProvided :  !userProfileState.isLoading && userProfileState.user?.email  == null,
-                currentIndex: state.currentIndex,
-                onTabChange: (i) async {
-                  if (state.currentIndex == i) {
-                    if (i == 0) {
-                      // go to top
-                      Provider.of<AppStateNotifier>(context, listen: false)
-                          .onMenuChange(index: i, goToTop: true);
-                    }
-                  } else {
-                    context.read<MainNavCubit>().onIndexChange(index: i);
-                    Provider.of<AppStateNotifier>(context, listen: false)
-                        .onMenuChange(index: i);
-                  }
-              
-                  Future.delayed(const Duration(milliseconds: 400)).then((value) {
-                    FocusScope.of(context).unfocus();
-                  });
-                },
-              ),
+        return WillPopScope(
+          onWillPop: () => _onWillPop(context, state.currentIndex),
+          child: ModalProgressHUD(
+            inAsyncCall: state.isTabLoading,
+            blur: 0,
+            progressIndicator: Container(
+              color: Colors.red,
             ),
-            body: AnimatedSwitcher(
-              switchInCurve: Curves.easeIn,
-              duration: const Duration(milliseconds: 500),
-              child: state.currentIndex == 0
-                  ? const HomeScreen()
-                  : state.currentIndex == 2
-                      ? const TicketScreen()
-                      : state.currentIndex == 3
-                          ? const UserProfileScreen()
-                          : null,
+            child: Scaffold(
+              bottomNavigationBar: 
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: !state.showNavBar?0:(Platform.isAndroid ? 9.5.h : 12.h),
+                child: CustomBottomNav(
+                  isEmailNotProvided :  !userProfileState.isLoading && userProfileState.user?.email  == null,
+                  currentIndex: state.currentIndex,
+                  onTabChange: (i) async {
+                    if (state.currentIndex == i) {
+                      if (i == 0) {
+                        // go to top
+                        Provider.of<AppStateNotifier>(context, listen: false)
+                            .onMenuChange(index: i, goToTop: true);
+                      }
+                    } else {
+                      context.read<MainNavCubit>().onIndexChange(index: i);
+                      Provider.of<AppStateNotifier>(context, listen: false)
+                          .onMenuChange(index: i);
+                    }
+                
+                    Future.delayed(const Duration(milliseconds: 400)).then((value) {
+                      FocusScope.of(context).unfocus();
+                    });
+                  },
+                ),
+              ),
+              body: AnimatedSwitcher(
+                switchInCurve: Curves.easeIn,
+                duration: const Duration(milliseconds: 500),
+                child: state.currentIndex == 0
+                    ? const HomeScreen()
+                    : state.currentIndex == 2
+                        ? const TicketScreen()
+                        : state.currentIndex == 3
+                            ? const UserProfileScreen()
+                            : null,
+              ),
             ),
           ),
         );

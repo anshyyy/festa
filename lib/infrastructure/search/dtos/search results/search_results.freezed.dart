@@ -12,7 +12,7 @@ part of 'search_results.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SearchResults _$SearchResultsFromJson(Map<String, dynamic> json) {
   return _SearchResults.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$SearchResults {
   List<ArtistDto> get artists => throw _privateConstructorUsedError;
   List<UserDto> get users => throw _privateConstructorUsedError;
 
+  /// Serializes this SearchResults to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchResults
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SearchResultsCopyWith<SearchResults> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +58,8 @@ class _$SearchResultsCopyWithImpl<$Res, $Val extends SearchResults>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SearchResults
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,6 +112,8 @@ class __$$SearchResultsImplCopyWithImpl<$Res>
       _$SearchResultsImpl _value, $Res Function(_$SearchResultsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchResults
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -199,7 +207,7 @@ class _$SearchResultsImpl implements _SearchResults {
             const DeepCollectionEquality().equals(other._users, _users));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -208,7 +216,9 @@ class _$SearchResultsImpl implements _SearchResults {
       const DeepCollectionEquality().hash(_artists),
       const DeepCollectionEquality().hash(_users));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchResults
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchResultsImplCopyWith<_$SearchResultsImpl> get copyWith =>
@@ -240,8 +250,11 @@ abstract class _SearchResults implements SearchResults {
   List<ArtistDto> get artists;
   @override
   List<UserDto> get users;
+
+  /// Create a copy of SearchResults
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchResultsImplCopyWith<_$SearchResultsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

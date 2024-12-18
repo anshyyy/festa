@@ -93,7 +93,7 @@ class EventCalender extends StatelessWidget {
                                 'id': pubEventDto.id.toString(),
                               });
                         } else {
-                          print("heyyy");
+
                           CustomScaffoldMessenger.clearSnackBars(context);
                           CustomScaffoldMessenger.showSnackBar(
                             context,
@@ -106,8 +106,9 @@ class EventCalender extends StatelessWidget {
                     child: Container(
                       height: 3.5.h,
                       decoration: BoxDecoration(
+                          color: imageUrl.contains('.mp4') ?Theme.of(context).primaryColor:Colors.transparent,
                           shape: BoxShape.circle,
-                          image: imageUrl.isNotEmpty
+                          image: imageUrl.isNotEmpty && !imageUrl.contains('.mp4')
                               ? DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(

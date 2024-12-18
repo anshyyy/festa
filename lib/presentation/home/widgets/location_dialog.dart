@@ -29,14 +29,14 @@ class LocationDialog extends StatelessWidget {
               title: Text(
                 'Location Permission Required',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.background,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700),
               ),
               content: Text(
                 'Please grant location permission to use this feature.',
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.background,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500),
               ),
@@ -271,6 +271,13 @@ class LocationDialog extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               const LocationTile(
+                                                location:
+                                                    OtherConstants.hyderabad,
+                                              ),
+                                               SizedBox(
+                                                width: 3.5.w,
+                                              ),
+                                              const LocationTile(
                                                 location: OtherConstants
                                                     .defaultLocation,
                                               ),
@@ -286,13 +293,7 @@ class LocationDialog extends StatelessWidget {
                                               const LocationTile(
                                                 location: OtherConstants.delhi,
                                               ),
-                                              SizedBox(
-                                                width: 3.5.w,
-                                              ),
-                                              const LocationTile(
-                                                location:
-                                                    OtherConstants.hyderabad,
-                                              ),
+
                                             ],
                                           ),
                                         ))

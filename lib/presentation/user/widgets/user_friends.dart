@@ -129,9 +129,9 @@ class UserFriends extends StatelessWidget {
                                                 )),
                                             Text(
                                               currentUser.tag?.tag != null
-                                                  ? currentUser.tag!.tag
+                                                  ? '@'+currentUser.tag!.tag
                                                   : '',
-                                              style: textTheme.bodySmall,
+                                                                                            style: textTheme.bodySmall,
                                             )
                                           ],
                                         )

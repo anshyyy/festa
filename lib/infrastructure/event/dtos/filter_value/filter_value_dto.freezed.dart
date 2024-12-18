@@ -12,7 +12,7 @@ part of 'filter_value_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 FilterValueDto _$FilterValueDtoFromJson(Map<String, dynamic> json) {
   return _FilterValueDto.fromJson(json);
@@ -28,6 +28,8 @@ mixin _$FilterValueDto {
   String get rule => throw _privateConstructorUsedError;
   @JsonKey(name: 'icon', defaultValue: '')
   String get icon => throw _privateConstructorUsedError;
+  @JsonKey(name: 'emoji')
+  String? get emoji => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get isApplied => throw _privateConstructorUsedError;
   @JsonKey(name: 'value')
@@ -35,8 +37,12 @@ mixin _$FilterValueDto {
   @JsonKey(name: 'categoryId')
   int? get categoryId => throw _privateConstructorUsedError;
 
+  /// Serializes this FilterValueDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FilterValueDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FilterValueDtoCopyWith<FilterValueDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +58,7 @@ abstract class $FilterValueDtoCopyWith<$Res> {
       @JsonKey(name: 'name', defaultValue: '') String name,
       @JsonKey(name: 'rule', defaultValue: '') String rule,
       @JsonKey(name: 'icon', defaultValue: '') String icon,
+      @JsonKey(name: 'emoji') String? emoji,
       @JsonKey(defaultValue: false) bool isApplied,
       @JsonKey(name: 'value') dynamic value,
       @JsonKey(name: 'categoryId') int? categoryId});
@@ -67,6 +74,8 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FilterValueDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -74,6 +83,7 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
     Object? name = null,
     Object? rule = null,
     Object? icon = null,
+    Object? emoji = freezed,
     Object? isApplied = null,
     Object? value = freezed,
     Object? categoryId = freezed,
@@ -95,6 +105,10 @@ class _$FilterValueDtoCopyWithImpl<$Res, $Val extends FilterValueDto>
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String,
+      emoji: freezed == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String?,
       isApplied: null == isApplied
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
@@ -124,6 +138,7 @@ abstract class _$$FilterValueDtoImplCopyWith<$Res>
       @JsonKey(name: 'name', defaultValue: '') String name,
       @JsonKey(name: 'rule', defaultValue: '') String rule,
       @JsonKey(name: 'icon', defaultValue: '') String icon,
+      @JsonKey(name: 'emoji') String? emoji,
       @JsonKey(defaultValue: false) bool isApplied,
       @JsonKey(name: 'value') dynamic value,
       @JsonKey(name: 'categoryId') int? categoryId});
@@ -137,6 +152,8 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
       _$FilterValueDtoImpl _value, $Res Function(_$FilterValueDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FilterValueDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -144,6 +161,7 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
     Object? name = null,
     Object? rule = null,
     Object? icon = null,
+    Object? emoji = freezed,
     Object? isApplied = null,
     Object? value = freezed,
     Object? categoryId = freezed,
@@ -165,6 +183,10 @@ class __$$FilterValueDtoImplCopyWithImpl<$Res>
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
               as String,
+      emoji: freezed == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String?,
       isApplied: null == isApplied
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
@@ -190,6 +212,7 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
       @JsonKey(name: 'name', defaultValue: '') required this.name,
       @JsonKey(name: 'rule', defaultValue: '') required this.rule,
       @JsonKey(name: 'icon', defaultValue: '') required this.icon,
+      @JsonKey(name: 'emoji') this.emoji,
       @JsonKey(defaultValue: false) required this.isApplied,
       @JsonKey(name: 'value') this.value,
       @JsonKey(name: 'categoryId') this.categoryId});
@@ -210,6 +233,9 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
   @JsonKey(name: 'icon', defaultValue: '')
   final String icon;
   @override
+  @JsonKey(name: 'emoji')
+  final String? emoji;
+  @override
   @JsonKey(defaultValue: false)
   final bool isApplied;
   @override
@@ -221,7 +247,7 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
 
   @override
   String toString() {
-    return 'FilterValueDto(displayName: $displayName, name: $name, rule: $rule, icon: $icon, isApplied: $isApplied, value: $value, categoryId: $categoryId)';
+    return 'FilterValueDto(displayName: $displayName, name: $name, rule: $rule, icon: $icon, emoji: $emoji, isApplied: $isApplied, value: $value, categoryId: $categoryId)';
   }
 
   @override
@@ -234,6 +260,7 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.rule, rule) || other.rule == rule) &&
             (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.isApplied, isApplied) ||
                 other.isApplied == isApplied) &&
             const DeepCollectionEquality().equals(other.value, value) &&
@@ -241,12 +268,14 @@ class _$FilterValueDtoImpl implements _FilterValueDto {
                 other.categoryId == categoryId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, displayName, name, rule, icon,
-      isApplied, const DeepCollectionEquality().hash(value), categoryId);
+      emoji, isApplied, const DeepCollectionEquality().hash(value), categoryId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FilterValueDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FilterValueDtoImplCopyWith<_$FilterValueDtoImpl> get copyWith =>
@@ -268,6 +297,7 @@ abstract class _FilterValueDto implements FilterValueDto {
           @JsonKey(name: 'name', defaultValue: '') required final String name,
           @JsonKey(name: 'rule', defaultValue: '') required final String rule,
           @JsonKey(name: 'icon', defaultValue: '') required final String icon,
+          @JsonKey(name: 'emoji') final String? emoji,
           @JsonKey(defaultValue: false) required final bool isApplied,
           @JsonKey(name: 'value') final dynamic value,
           @JsonKey(name: 'categoryId') final int? categoryId}) =
@@ -289,6 +319,9 @@ abstract class _FilterValueDto implements FilterValueDto {
   @JsonKey(name: 'icon', defaultValue: '')
   String get icon;
   @override
+  @JsonKey(name: 'emoji')
+  String? get emoji;
+  @override
   @JsonKey(defaultValue: false)
   bool get isApplied;
   @override
@@ -297,8 +330,11 @@ abstract class _FilterValueDto implements FilterValueDto {
   @override
   @JsonKey(name: 'categoryId')
   int? get categoryId;
+
+  /// Create a copy of FilterValueDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FilterValueDtoImplCopyWith<_$FilterValueDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

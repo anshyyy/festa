@@ -23,6 +23,7 @@ import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../../infrastructure/event/dtos/filter/filter_dto.dart';
 import '../../infrastructure/event/dtos/filter_value/filter_value_dto.dart';
 import '../common/event_card.dart';
+import '../common/event_card2.dart';
 import '../core/primary_button.dart';
 import '../search/delegate/search_delegate.dart';
 import '../widgets/custom_textfield.dart';
@@ -54,18 +55,27 @@ class HomeScreenConsumer extends StatefulWidget {
 }
 
 class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
-  Future<void> _resetBrightness() async {
-    try {
-      await ScreenBrightness().resetScreenBrightness();
-    } catch (e) {
-      ('Failed to set brightness: $e');
-    }
-  }
+  final ValueNotifier<bool> _isMutedNotifier = ValueNotifier<bool>(true);
 
   @override
   void initState() {
     super.initState();
-    _resetBrightness();
+
+    // Get the route settings from navigation service
+    final settings = navigator<NavigationService>().getQueryParams();
+
+    if (settings != null && settings['filter'] == 'weekend') {
+      // Slight delay to ensure proper initialization and check loading state
+      //TODO: remove this delay
+      Future.delayed(Duration(milliseconds: 3000), () {
+        final state = context.read<HomeCubit>().state;
+        if (!state.isLoading) {
+          context
+              .read<HomeCubit>()
+              .updateFilterToThisWeekendBackend(apply: true);
+        }
+      });
+    }
   }
 
   @override
@@ -75,15 +85,16 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-        print("filters applied : ${state.noFilteredEvents} ${state.events.isEmpty} ${state.noEventsInTheLocation}");
         if (state.isAtTop) {
           BlocProvider.of<MainNavCubit>(context).showNavBar();
         }
-        if (state.showLocationDialog || state.isScrollingUp) {
+        if (state.showLocationDialog ||
+            (state.isScrollingUp && state.events.isNotEmpty)) {
           BlocProvider.of<MainNavCubit>(context).hideNavBar();
         } else {
           BlocProvider.of<MainNavCubit>(context).showNavBar();
         }
+        // print("mute status : ${state.isVideoMute}");
       },
       builder: (context, state) {
         return RefreshIndicator(
@@ -102,6 +113,9 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                   children: [
                     CustomScrollView(
                       controller: state.scrollController,
+                      physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
+                      ),
                       slivers: [
                         SliverPadding(
                           padding: EdgeInsets.symmetric(
@@ -128,19 +142,60 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                             width: 3.w,
                                           ),
                                           Expanded(
-                                            child: Text(
-                                              StringExtension.displayAddress(
-                                                  state.location),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: themeData
-                                                  .textTheme.bodySmall!
-                                                  .copyWith(
-                                                color: themeData
-                                                    .colorScheme.background,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600,
-                                              ),
+                                            child: Row(
+                                              children: [
+                                                state.isLoading
+                                                    ? Shimmer.fromColors(
+                                                        baseColor: Colors
+                                                            .grey[300]!
+                                                            .withOpacity(0.5),
+                                                        highlightColor: Colors
+                                                            .grey[400]!
+                                                            .withOpacity(0.5),
+                                                        child: Container(
+                                                          width: 25.w,
+                                                          height: 1.5.h,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                        ))
+                                                    : Text(
+                                                        StringExtension
+                                                            .formatArea(state
+                                                                .location.area),
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: themeData
+                                                            .textTheme
+                                                            .bodySmall!
+                                                            .copyWith(
+                                                          color: themeData
+                                                              .colorScheme
+                                                              .background,
+                                                          fontSize: 15.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 0.3.h),
+                                                  child: SvgPicture.asset(
+                                                    AssetConstants.arrowRight,
+                                                    height: 22.px,
+                                                    width: 22.px,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                  ),
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -161,8 +216,15 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                     context.read<HomeCubit>()),
                                           );
                                         },
-                                        child: SvgPicture.asset(
-                                          AssetConstants.searchIcon,
+                                        child: Container(
+                                          height: 4.h,
+                                          width: 7.5.w,
+                                          // color: Colors.red,
+                                          child: SvgPicture.asset(
+                                            AssetConstants.searchIcon,
+                                            height: 3.0.h,
+                                            width: 3.0.h,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -175,8 +237,15 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                   UserRoutes.notificationsRoute)
                                               .then((value) {});
                                         },
-                                        child: SvgPicture.asset(
-                                          AssetConstants.notificationIcon,
+                                        child: Container(
+                                          height: 4.0.h,
+                                          width: 7.5.w,
+                                          //color: Colors.red,
+                                          child: SvgPicture.asset(
+                                            AssetConstants.notificationIcon,
+                                            height: 3.0.h,
+                                            width: 2.8.h,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -187,7 +256,8 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                 if (!state.isSearchOpen) ...[
                                   SizedBox(height: 2.h),
                                   Text(
-                                    '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
+                                    '${HomeScreenConstants.hey} ${appStateNotifier.user!.fullName.length >= 30 ? appStateNotifier.user!.fullName.substring(0, 27) : appStateNotifier.user!.fullName.split(' ')[0]}, ${HomeScreenConstants.welcomeText}',
+                                    overflow: TextOverflow.ellipsis,
                                     style:
                                         themeData.textTheme.bodySmall!.copyWith(
                                       fontWeight: FontWeight.w700,
@@ -203,8 +273,8 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                             ]),
                           ),
                         ),
-                        
-                       if(state.noEventsInTheLocation == false)
+
+                        //if(state.noEventsInTheLocation == false)
                         SliverPersistentHeader(
                           floating: true,
                           delegate: FiltersPersistentHeaderDelegate(
@@ -217,21 +287,52 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                 children: [
                                   state.isLoading
                                       ? EventTileShimmerFilter()
-                                      : Text(
-                                          HomeScreenConstants
-                                              .pickYourExperience,
-                                          style: themeData.textTheme.bodyMedium!
-                                              .copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: themeData
-                                                .colorScheme.background,
-                                          ),
+                                      : Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              HomeScreenConstants
+                                                  .pickYourExperience,
+                                              style: themeData
+                                                  .textTheme.bodyMedium!
+                                                  .copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                color: themeData
+                                                    .colorScheme.background,
+                                              ),
+                                            ),
+                                            if (state.showSearchOnPick)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  showSearch(
+                                                    context: context,
+                                                    delegate:
+                                                        CustomSearchDelegate(
+                                                            homeCubit:
+                                                                context.read<
+                                                                    HomeCubit>()),
+                                                  );
+                                                },
+                                                child: Container(
+                                                  height: 4.0.h,
+                                                  width: 7.5.w,
+                                                  child: SvgPicture.asset(
+                                                    AssetConstants.searchIcon,
+                                                    height: 3.0.h,
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
                                         ),
                                   SizedBox(height: 2.h),
                                   SizedBox(
                                     width: 100.w,
-                                    height: state.isLoading ? 9.5.h : 9.5.h,
+                                    height: 9.5.h,
                                     child: ListView.separated(
+                                      key: const PageStorageKey('categoryList'),
+                                      physics: const BouncingScrollPhysics(),
+                                      cacheExtent: 10.0,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
                                         FilterValueDto? categoryValue;
@@ -241,7 +342,8 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                         }
 
                                         return state.isLoading
-                                            ? Shimmer.fromColors(
+                                            ? RepaintBoundary(
+                                                child: Shimmer.fromColors(
                                                 baseColor: Colors.grey[300]!
                                                     .withOpacity(0.5),
                                                 highlightColor: Colors
@@ -257,76 +359,27 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                     color: Colors.amber,
                                                   ),
                                                 ),
-                                              )
-                                            : GestureDetector(
+                                              ))
+                                            : RepaintBoundary(
+                                                child: GestureDetector(
                                                 onTap: () {
-                                                  if (state
-                                                      .categoryFilter!
-                                                      .values[index]
-                                                      .isApplied) {
-                                                    state.categoryFilter!
-                                                            .values[index] =
-                                                        state.categoryFilter!
-                                                            .values[index]
-                                                            .copyWith(
-                                                                isApplied:
-                                                                    false);
-                                                    final indexTemp = state
-                                                        .filters
-                                                        .indexWhere((element) {
-                                                      return element.name ==
-                                                          'music';
-                                                    });
-                                                    state.filters[indexTemp] =
-                                                        state.filters[indexTemp]
-                                                            .copyWith(
-                                                                isApplied:
-                                                                    false);
-                                                    context
-                                                        .read<HomeCubit>()
-                                                        .updateFilterApplied(
-                                                            filters: List.from(
-                                                                state.filters));
-                                                    return;
-                                                  }
-                                                  for (int i = 0;
-                                                      i <
-                                                          state.categoryFilter!
-                                                              .values.length;
-                                                      i++) {
-                                                    state.categoryFilter!
-                                                            .values[i] =
-                                                        state.categoryFilter!
-                                                            .values[i]
-                                                            .copyWith(
-                                                                isApplied:
-                                                                    false);
-                                                  }
-                                                  state.categoryFilter!
-                                                          .values[index] =
-                                                      state.categoryFilter!
-                                                          .values[index]
-                                                          .copyWith(
-                                                              isApplied: true);
-                                                  final indexTemp = state
-                                                      .filters
-                                                      .indexWhere((element) {
-                                                    return element.name ==
-                                                        'music';
-                                                  });
-                                                  state.filters[indexTemp] =
-                                                      state.filters[indexTemp]
-                                                          .copyWith(
-                                                              isApplied: true);
+                                                  AnalyticsService().logEvent(
+                                                      eventName:
+                                                          'filter_selected',
+                                                      paras: {
+                                                        'filter': categoryValue
+                                                            ?.displayName,
+                                                      });
                                                   context
                                                       .read<HomeCubit>()
-                                                      .updateFilterApplied(
-                                                          filters: List.from(
-                                                              state.filters));
+                                                      .onEventCategoryFilterChange(
+                                                          index);
                                                 },
                                                 child: EventTypeTile(
+                                                  key: ValueKey(categoryValue!
+                                                      .displayName),
                                                   isSelected:
-                                                      categoryValue!.isApplied,
+                                                      categoryValue.isApplied,
                                                   image: CustomImageProvider
                                                       .getImageUrl(
                                                           categoryValue.icon,
@@ -334,7 +387,7 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                   title:
                                                       categoryValue.displayName,
                                                 ),
-                                              );
+                                              ));
                                       },
                                       separatorBuilder: (context, index) {
                                         return SizedBox(width: 3.w);
@@ -399,7 +452,7 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                           );
                                                         }).then((value) {
                                                       if (value != null) {
-                                                        // (value);
+                                                        // print(value);
                                                         if (value is List<
                                                             FilterDto>) {
                                                           builderContext
@@ -410,7 +463,9 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                         }
                                                       }
                                                     });
-                                                  } else if (item['label']
+                                                  }
+                                                  // label sorting and filters
+                                                  else if (item['label']
                                                           .toString()
                                                           .toLowerCase() ==
                                                       'sort') {
@@ -425,10 +480,13 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                           .toString()
                                                           .toLowerCase() ==
                                                       'today') {
-                                                    ('today');
                                                     context
                                                         .read<HomeCubit>()
-                                                        .updateFilterToToday();
+                                                        .updateFilterToTodayBackend(
+                                                            apply: state
+                                                                    .isTodayFilterApplied
+                                                                ? false
+                                                                : true);
                                                   } else if (item['label']
                                                           .toString()
                                                           .toLowerCase() ==
@@ -436,7 +494,11 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                     ('weekend');
                                                     context
                                                         .read<HomeCubit>()
-                                                        .updateFilterToThisWeekend();
+                                                        .updateFilterToThisWeekendBackend(
+                                                            apply: state
+                                                                    .isThisWeekendFilterApplied
+                                                                ? false
+                                                                : true);
                                                   } else if (item['label']
                                                           .toString()
                                                           .toLowerCase() ==
@@ -460,26 +522,45 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                           }).then((value) {
                                                         context
                                                             .read<HomeCubit>()
-                                                            .updateFilterToSelectedDates(
+                                                            .updateSelectedDates(
                                                                 value);
+                                                        context
+                                                            .read<HomeCubit>()
+                                                            .updateFilterToSelectedDatesBackend(
+                                                                apply: state
+                                                                        .isSpecificDateFilterApplied
+                                                                    ? false
+                                                                    : true);
                                                       });
                                                     } else {
                                                       context
                                                           .read<HomeCubit>()
-                                                          .updateFilterToSelectedDates(
+                                                          .updateSelectedDates(
                                                               []);
+                                                      context
+                                                          .read<HomeCubit>()
+                                                          .updateFilterToSelectedDates(
+                                                              apply: state
+                                                                      .isSpecificDateFilterApplied
+                                                                  ? false
+                                                                  : true);
                                                     }
                                                   } else if (item['svgIcon'] ==
                                                       AssetConstants
                                                           .heartOutlinedIcon) {
                                                     print('heart');
                                                   } else {
-                                                    (item['label']);
                                                     context
                                                         .read<HomeCubit>()
                                                         .removeAppliedFilter(
                                                             id: item['id']);
                                                   }
+                                                  AnalyticsService().logEvent(
+                                                      eventName:
+                                                          'filter_selected',
+                                                      paras: {
+                                                        'filter': item['label'],
+                                                      });
                                                 },
                                               );
                                       }).toList(),
@@ -504,24 +585,29 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                             ),
                           ),
 
+                        //----------------------------------
+
                         SliverPadding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 1.h, vertical: 1.h),
                           sliver: SliverList(
                             delegate: SliverChildBuilderDelegate(
                               (context, index) {
+                                // print(
+                                //     "state.events.length ${state.events.length}, state.hasMoreEvents ${state.hasMoreEvents},state.isLoading ${state.isLoading}");
                                 if (state.hasMoreEvents &&
                                     state.events.length <= index) {
-                                  return const EventCardShimmer();
+                                  return const RepaintBoundary(
+                                      child: EventCardShimmer());
                                 }
                                 return state.isLoading
-                                    ? const EventCardShimmer() //TODO
-
-                                    : Padding(
+                                    ? const RepaintBoundary(
+                                        child: EventCardShimmer())
+                                    : RepaintBoundary(
+                                        child: Padding(
                                         padding: EdgeInsets.only(bottom: 5.h),
                                         child: GestureDetector(
                                           onTap: () {
-                                            (state.events[index].pub);
                                             AnalyticsService().logEvent(
                                                 eventName: 'view_event',
                                                 paras: {
@@ -534,11 +620,19 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                     UserRoutes
                                                         .eventDetailsRoute,
                                                     queryParams: {
+                                                  'valueListenerValue':
+                                                      _isMutedNotifier.value
+                                                          .toString(),
+                                                  'isVideoMuted': state
+                                                      .isVideoMute
+                                                      .toString(),
                                                   'id': state.events[index].id
                                                       .toString(),
                                                   'distance':
                                                       '${state.events[index].distance > 1000 ? (state.events[index].distance / 1000).toStringAsFixed(1) : state.events[index].distance.toStringAsFixed(0)}km',
-                                                }).then((value) {});
+                                                }).then((value) {
+                                              print(value);
+                                            });
                                           },
                                           onDoubleTap: () {
                                             context
@@ -546,13 +640,24 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                                 .onEventLiked(
                                                     id: state.events[index].id);
                                           },
-                                          child: EventCard(
-                                            vKey: index.toString(),
+                                          child: EventCard2(
+                                            key: ValueKey(
+                                                state.events[index].id),
+                                            vKey: state.events[index].id
+                                                .toString(),
                                             isVideoMute: state.isVideoMute,
+                                            isMutedNotifier: _isMutedNotifier,
                                             isInListing: true,
                                             event: state.events[index],
                                             isLiked:
                                                 state.events[index].isLiked,
+                                            onMute: () {
+                                              _isMutedNotifier.value =
+                                                  !_isMutedNotifier.value;
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .onMute();
+                                            },
                                             onLike: () {
                                               context
                                                   .read<HomeCubit>()
@@ -565,7 +670,7 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                                             },
                                           ),
                                         ),
-                                      );
+                                      ));
                               },
                               childCount: state.isLoading
                                   ? 5
@@ -574,6 +679,101 @@ class _HomeScreenConsumerState extends State<HomeScreenConsumer> {
                             ),
                           ),
                         ),
+
+                        //----------------------------------
+
+                        // SliverPadding(
+                        //   padding: EdgeInsets.symmetric(
+                        //       horizontal: 1.h, vertical: 1.h),
+                        //   sliver: SliverList(
+                        //     delegate: SliverChildBuilderDelegate(
+                        //       (context, index) {
+                        //         // print(
+                        //         //     "state.events.length ${state.events.length}, state.hasMoreEvents ${state.hasMoreEvents},state.isLoading ${state.isLoading}");
+                        //         if (state.hasMoreEvents &&
+                        //             state.events.length <= index) {
+                        //           return const RepaintBoundary(
+                        //               child: EventCardShimmer());
+                        //         }
+                        //         return state.isLoading
+                        //             ? const RepaintBoundary(
+                        //                 child: EventCardShimmer())
+                        //             : RepaintBoundary(
+                        //                 child: Padding(
+                        //                 padding: EdgeInsets.only(bottom: 5.h),
+                        //                 child: GestureDetector(
+                        //                   onTap: () {
+                        //                     AnalyticsService().logEvent(
+                        //                         eventName: 'view_event',
+                        //                         paras: {
+                        //                           'event_id': state
+                        //                               .events[index].id
+                        //                               .toString(),
+                        //                         });
+                        //                     navigator<NavigationService>()
+                        //                         .navigateTo(
+                        //                             UserRoutes
+                        //                                 .eventDetailsRoute,
+                        //                             queryParams: {
+                        //                           'valueListenerValue':
+                        //                               _isMutedNotifier.value
+                        //                                   .toString(),
+                        //                           'isVideoMuted': state
+                        //                               .isVideoMute
+                        //                               .toString(),
+                        //                           'id': state.events[index].id
+                        //                               .toString(),
+                        //                           'distance':
+                        //                               '${state.events[index].distance > 1000 ? (state.events[index].distance / 1000).toStringAsFixed(1) : state.events[index].distance.toStringAsFixed(0)}km',
+                        //                         }).then((value) {
+                        //                       print(value);
+                        //                     });
+                        //                   },
+                        //                   onDoubleTap: () {
+                        //                     context
+                        //                         .read<HomeCubit>()
+                        //                         .onEventLiked(
+                        //                             id: state.events[index].id);
+                        //                   },
+                        //                   child: EventCard(
+                        //                     key: ValueKey(
+                        //                         state.events[index].id),
+                        //                     vKey: state.events[index].id
+                        //                         .toString(),
+                        //                     isVideoMute: state.isVideoMute,
+                        //                     isMutedNotifier: _isMutedNotifier,
+                        //                     isInListing: true,
+                        //                     event: state.events[index],
+                        //                     isLiked:
+                        //                         state.events[index].isLiked,
+                        //                     onMute: () {
+                        //                       _isMutedNotifier.value =
+                        //                           !_isMutedNotifier.value;
+                        //                       context
+                        //                           .read<HomeCubit>()
+                        //                           .onMute();
+                        //                     },
+                        //                     onLike: () {
+                        //                       context
+                        //                           .read<HomeCubit>()
+                        //                           .onEventLiked(
+                        //                               id: state
+                        //                                   .events[index].id,
+                        //                               isLiked: !state
+                        //                                   .events[index]
+                        //                                   .isLiked);
+                        //                     },
+                        //                   ),
+                        //                 ),
+                        //               ));
+                        //       },
+                        //       childCount: state.isLoading
+                        //           ? 5
+                        //           : (state.hasMoreEvents ? 1 : 0) +
+                        //               state.events.length,
+                        //     ),
+                        //   ),
+                        // ),
                         // if (state.showLocationDialog)
                         //   SliverToBoxAdapter(child: LocationDialog()),
                       ],
@@ -627,10 +827,10 @@ class EventTileShimmer extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(right: 1.h),
         height: 3.h,
-        width: 15.w,
+        width: 17.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.amber,
+          color: Colors.black,
         ),
       ),
     );
@@ -659,7 +859,9 @@ class FiltersPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(FiltersPersistentHeaderDelegate oldDelegate) {
-    return child != oldDelegate.child;
+    return child != oldDelegate.child ||
+        minExtent != oldDelegate.minExtent ||
+        maxExtent != oldDelegate.maxExtent;
   }
 }
 
@@ -683,13 +885,21 @@ class EmptyEvents extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 20.h,
+                    height: state.noFilteredEvents ? 10.h : 20.h,
                   ),
                   SvgPicture.asset(AssetConstants.notFoundFilter),
-                  Text(
-                    '${HomeScreenConstants.noEventsFound}${state.noFilteredEvents ? HomeScreenConstants.filters : HomeScreenConstants.area}',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
+                  if (state.noFilteredEvents)
+                    Text(
+                      "Uh-No, you are not losing the party this time- Adjust those filters and find what's buzzing.",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  if (!state.noFilteredEvents)
+                    Text(
+                      'No action here, but the party’s probably just a few clicks away. Try different location!',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   SizedBox(
                     height: 2.h,
                   ),
@@ -911,31 +1121,24 @@ class EventWidget extends StatelessWidget {
 }
 
 class EventCardShimmer extends StatelessWidget {
-  const EventCardShimmer({super.key});
+  const EventCardShimmer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!.withOpacity(0.5),
-      highlightColor: Colors.grey[400]!.withOpacity(0.5),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 1.h,
+    return RepaintBoundary(
+      child: Shimmer.fromColors(
+        period: const Duration(milliseconds: 1500), // Slower animation
+        baseColor: Colors.grey[300]!.withOpacity(0.5),
+        highlightColor: Colors.grey[400]!.withOpacity(0.5),
+        child: Container(
+          height: 45.h,
+          width: 100.w,
+          margin: EdgeInsets.symmetric(vertical: 1.h),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.w),
+            color: Colors.grey[300],
           ),
-          Container(
-            height: 45.h,
-            width: 100.w,
-            padding: EdgeInsets.all(4.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5.w),
-              color: Colors.grey[300],
-            ),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-        ],
+        ),
       ),
     );
   }

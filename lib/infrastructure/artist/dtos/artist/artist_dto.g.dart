@@ -9,7 +9,7 @@ part of 'artist_dto.dart';
 _$ArtistProfileDtoImpl _$$ArtistProfileDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$ArtistProfileDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       fullName: json['fullName'] as String? ?? '',
       description: json['description'] as String? ?? '',
       profileImage: json['profileImage'] as String? ?? '',
@@ -23,6 +23,10 @@ _$ArtistProfileDtoImpl _$$ArtistProfileDtoImplFromJson(
       tag: json['tag'] == null
           ? null
           : TagDto.fromJson(json['tag'] as Map<String, dynamic>),
+      socialMediaLinks:
+          (json['socialMediaLinks'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
       isFollowing: json['isFollowing'] as bool? ?? false,
       extraDetailsDto: json['extraDetails'] == null
           ? null
@@ -41,6 +45,7 @@ Map<String, dynamic> _$$ArtistProfileDtoImplToJson(
       'category': instance.categories,
       'city': instance.city,
       'tag': instance.tag,
+      'socialMediaLinks': instance.socialMediaLinks,
       'isFollowing': instance.isFollowing,
       'extraDetails': instance.extraDetailsDto,
     };

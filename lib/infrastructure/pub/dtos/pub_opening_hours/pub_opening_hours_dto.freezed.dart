@@ -12,7 +12,7 @@ part of 'pub_opening_hours_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PubOpeningHours _$PubOpeningHoursFromJson(Map<String, dynamic> json) {
   return _PubOpeningHours.fromJson(json);
@@ -27,8 +27,12 @@ mixin _$PubOpeningHours {
   @JsonKey(name: 'weekday_text')
   List<String> get weekdayText => throw _privateConstructorUsedError;
 
+  /// Serializes this PubOpeningHours to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PubOpeningHours
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PubOpeningHoursCopyWith<PubOpeningHours> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +59,8 @@ class _$PubOpeningHoursCopyWithImpl<$Res, $Val extends PubOpeningHours>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PubOpeningHours
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +107,8 @@ class __$$PubOpeningHoursImplCopyWithImpl<$Res>
       _$PubOpeningHoursImpl _value, $Res Function(_$PubOpeningHoursImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PubOpeningHours
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -175,7 +183,7 @@ class _$PubOpeningHoursImpl implements _PubOpeningHours {
                 .equals(other._weekdayText, _weekdayText));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -183,7 +191,9 @@ class _$PubOpeningHoursImpl implements _PubOpeningHours {
       openNow,
       const DeepCollectionEquality().hash(_weekdayText));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PubOpeningHours
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PubOpeningHoursImplCopyWith<_$PubOpeningHoursImpl> get copyWith =>
@@ -218,8 +228,11 @@ abstract class _PubOpeningHours implements PubOpeningHours {
   @override
   @JsonKey(name: 'weekday_text')
   List<String> get weekdayText;
+
+  /// Create a copy of PubOpeningHours
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PubOpeningHoursImplCopyWith<_$PubOpeningHoursImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

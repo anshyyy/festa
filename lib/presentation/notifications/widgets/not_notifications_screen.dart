@@ -21,7 +21,7 @@ class NoNotificationsWidget extends StatelessWidget {
             height: 10.h,
           ),
           SizedBox(
-            height: 6.h,
+            height: 1.h,
           ),
           Text(
             NotificationsScreenConstants.noNotifications,
@@ -31,7 +31,7 @@ class NoNotificationsWidget extends StatelessWidget {
                 ),
           ),
           SizedBox(
-            height: 2.h,
+            height:1.h,
           ),
           SizedBox(
             width: 70.w,

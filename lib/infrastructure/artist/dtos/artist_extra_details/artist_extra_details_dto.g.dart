@@ -14,10 +14,10 @@ _$ArtistExtraDetailsDtoImpl _$$ArtistExtraDetailsDtoImplFromJson(
       isBlocked: json['isBlocked'] as bool? ?? false,
       isFollowing: json['isFollowing'] as bool? ?? false,
       isHidden: json['isHidden'] as bool? ?? false,
-      totalFollowers: json['totalFollowers'] as int? ?? 0,
-      totalFriends: json['totalFriends'] as int? ?? 0,
-      totalParties: json['totalParties'] as int? ?? 0,
-      totalFootFall: json['totalFootFall'] as int? ?? 0,
+      totalFollowers: (json['totalFollowers'] as num?)?.toInt() ?? 0,
+      totalFriends: (json['totalFriends'] as num?)?.toInt() ?? 0,
+      totalParties: (json['totalParties'] as num?)?.toInt() ?? 0,
+      totalFootFall: (json['totalFootFall'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$ArtistExtraDetailsDtoImplToJson(

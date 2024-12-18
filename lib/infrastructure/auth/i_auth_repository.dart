@@ -33,19 +33,22 @@ class IAuthRepository extends AuthRepository {
   }) async {
     try {
       completer = Completer<bool>();
-
+    
       String updatedMobileNumber = mobileNumber.trim();
       updatedMobileNumber = '$dialCode$updatedMobileNumber';
       _verifyPhoneException = null;
+  
 
       await _firebaseAuth.verifyPhoneNumber(
         phoneNumber: updatedMobileNumber,
         verificationCompleted: (authCredential) {
+    //      print("authCredential.smsCode: ${authCredential.smsCode}");
           // if (!otpAutoFill.isCompleted) {
           //   otpAutoFill.complete(authCredential.smsCode);
           // }
         },
         verificationFailed: (FirebaseAuthException exeption) {
+
           _verifyPhoneException = exeption;
           if (!completer!.isCompleted) completer!.complete(false);
         },
@@ -72,6 +75,7 @@ class IAuthRepository extends AuthRepository {
       }
       return left(ErrorConstants.unexpectedForMobileNumberError);
     } catch (error) {
+      print("error: $error");
       return left(ErrorConstants.unexpectedForMobileNumberError);
     }
   }
@@ -110,6 +114,7 @@ class IAuthRepository extends AuthRepository {
       }
       return left(ErrorConstants.failedToLogin);
     } catch (error) {
+      print('error $error');
       return left(ErrorConstants.failedToLogin);
     }
   }
@@ -134,23 +139,21 @@ class IAuthRepository extends AuthRepository {
     try {
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
       final String? fcmToken = await getFCMToken();
-      print(fcmToken);
-      print(token);
+      print("fcmToken: $fcmToken");
+      print("token: $token");
       if (token == null) {
         return null;
       }
       final url = '$serverUrl${EventApiConstants.GET_USER_DETAILS}';
       final response = await RESTService.performGETRequest(
           httpUrl: url, isAuth: true, token: token);
-
-      print(response.body);
       if (response.statusCode != 200) {
         throw ErrorConstants.unknownNetworkError;
       }
       final data = jsonDecode(response.body);
-      ("this is $data");
       return UserDto.fromJson(data);
     } catch (error) {
+      print('error $error');
       return null;
     }
   }
@@ -222,6 +225,7 @@ class IAuthRepository extends AuthRepository {
     try {
       return await FirebaseMessaging.instance.getToken();
     } catch (e) {
+      print("error: $e");
       return e.toString();
     }
   }

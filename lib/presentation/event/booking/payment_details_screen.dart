@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,14 +62,13 @@ class PaymentDetailsConsumer extends StatelessWidget {
         if (state.isPaymentFailure ||
             state.isPaymentSuccess ||
             state.isPaymentPending) {
-
           navigator<NavigationService>().navigateTo(
             UserRoutes.paymentStatusScreenRoute,
             queryParams: {
               'eventId': state.event!.id.toString(),
               'isPaymentSuccess': state.isPaymentSuccess.toString(),
               'isPaymentPending': state.isPaymentPending.toString(),
-              'totalAmount':     state.totalAmount.toString(),
+              'totalAmount': state.totalAmount.toString(),
               'numberOfTickets':
                   state.eventBookingDetails.numberOfTickets.toString(),
             },
@@ -76,16 +77,35 @@ class PaymentDetailsConsumer extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        log('${state.eventBookingDetails.eventTicketDetails}');
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
               ? const Scaffold(body: SizedBox())
               : Scaffold(
                   bottomNavigationBar: TicketBookingWidget(
+                    endDate: state.event!.endDate,
+                    title: state.totalAmount == 0
+                        ? 'Claim Free Passes'
+                        : 'Pay Now',
                     startDate: state.event!.startDate,
                     priceRangeStart: state.totalAmount,
-                    couponAmount : state.eventBookingDetails.coupon?.value ?? 0,
+                    couponAmount: state.eventBookingDetails.coupon?.value ?? 0,
                     onClick: () {
+                      AnalyticsService().logEvent(
+                          eventName: state.totalAmount == 0
+                              ? 'Claim Free Passes'
+                              : 'Pay Now',
+                          paras: {
+                            'eventId': state.event?.id,
+                          });
+
+                      if (state.totalAmount == 0) {
+                        context
+                            .read<PaymentDetailsCubit>()
+                            .handlePaymentSuccess(null);
+                        return;
+                      }
                       context.read<PaymentDetailsCubit>().onBookingPayment();
                     },
                   ),
@@ -102,134 +122,138 @@ class PaymentDetailsConsumer extends StatelessWidget {
                   body: SafeArea(
                       child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Column(
-                      children: [
-                        const EventDetails(),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        const PaymentDestributionDetails(),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     Text(PaymentScreenConstants.offersAndBenfit),
-                        //     SizedBox(
-                        //       height: 1.h,
-                        //     ),
-                        //     Container(
-                        //       padding: EdgeInsets.all(4.w),
-                        //       decoration: BoxDecoration(
-                        //           borderRadius: BorderRadius.circular(10),
-                        //           color: Theme.of(context).colorScheme.primaryContainer),
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //         children: [
-                        //           Row(
-                        //             children: [
-                        //               SvgPicture.asset(AssetConstants.shareIcon),
-                        //               SizedBox(
-                        //                 width: 2.w,
-                        //               ),
-                        //               Text(PaymentScreenConstants.applyCoupon),
-                        //             ],
-                        //           ),
-                        //           SvgPicture.asset(AssetConstants.arrowRight)
-                        //         ],
-                        //       ),
-                        //     )
-                        //   ],
-                        // )
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     Text(
-                        //       'Choose your payment method',
-                        //       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        //           fontWeight: FontWeight.w600,
-                        //           color: Theme.of(context).colorScheme.background),
-                        //     ),
-                        //     SizedBox(
-                        //       height: 1.2.h,
-                        //     ),
-                        //     Container(
-                        //       padding:
-                        //           EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.w),
-                        //       height: 12.h,
-                        //       decoration: BoxDecoration(
-                        //           color: Theme.of(context).colorScheme.surface,
-                        //           borderRadius: BorderRadius.circular(10)),
-                        //       child: Column(
-                        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //         children: [
-                        //           Row(
-                        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //             children: [
-                        //               Row(
-                        //                 children: [
-                        //                   SvgPicture.asset(AssetConstants.upiIcon),
-                        //                   SizedBox(
-                        //                     width: 3.w,
-                        //                   ),
-                        //                   Text(
-                        //                     'UPI',
-                        //                     style: Theme.of(context)
-                        //                         .textTheme
-                        //                         .bodySmall!
-                        //                         .copyWith(
-                        //                             fontWeight: FontWeight.w500,
-                        //                             fontSize: 15.5.sp,
-                        //                             color: Theme.of(context)
-                        //                                 .colorScheme
-                        //                                 .background),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //               SvgPicture.asset(AssetConstants.arrowRight),
-                        //             ],
-                        //           ),
-                        //           Divider(
-                        //             thickness: .05.w,
-                        //             height: 0.w,
-                        //           ),
-                        //           Row(
-                        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //             children: [
-                        //               Row(
-                        //                 children: [
-                        //                   SvgPicture.asset(
-                        //                       AssetConstants.debitCreditWalletIcon),
-                        //                   SizedBox(
-                        //                     width: 3.w,
-                        //                   ),
-                        //                   Text(
-                        //                     'Debit/Credit Card',
-                        //                     style: Theme.of(context)
-                        //                         .textTheme
-                        //                         .bodySmall!
-                        //                         .copyWith(
-                        //                             fontWeight: FontWeight.w500,
-                        //                             fontSize: 15.5.sp,
-                        //                             color: Theme.of(context)
-                        //                                 .colorScheme
-                        //                                 .background),
-                        //                   ),
-                        //                 ],
-                        //               ),
-                        //               SvgPicture.asset(AssetConstants.arrowRight),
-                        //             ],
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ],
-                        // )
-                      ],
+                    child: 
+                    
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const EventDetails(),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          const PaymentDestributionDetails(),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          //     Text(PaymentScreenConstants.offersAndBenfit),
+                          //     SizedBox(
+                          //       height: 1.h,
+                          //     ),
+                          //     Container(
+                          //       padding: EdgeInsets.all(4.w),
+                          //       decoration: BoxDecoration(
+                          //           borderRadius: BorderRadius.circular(10),
+                          //           color: Theme.of(context).colorScheme.primaryContainer),
+                          //       child: Row(
+                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //         children: [
+                          //           Row(
+                          //             children: [
+                          //               SvgPicture.asset(AssetConstants.shareIcon),
+                          //               SizedBox(
+                          //                 width: 2.w,
+                          //               ),
+                          //               Text(PaymentScreenConstants.applyCoupon),
+                          //             ],
+                          //           ),
+                          //           SvgPicture.asset(AssetConstants.arrowRight)
+                          //         ],
+                          //       ),
+                          //     )
+                          //   ],
+                          // )
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          // Column(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          //     Text(
+                          //       'Choose your payment method',
+                          //       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          //           fontWeight: FontWeight.w600,
+                          //           color: Theme.of(context).colorScheme.background),
+                          //     ),
+                          //     SizedBox(
+                          //       height: 1.2.h,
+                          //     ),
+                          //     Container(
+                          //       padding:
+                          //           EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.w),
+                          //       height: 12.h,
+                          //       decoration: BoxDecoration(
+                          //           color: Theme.of(context).colorScheme.surface,
+                          //           borderRadius: BorderRadius.circular(10)),
+                          //       child: Column(
+                          //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          //         children: [
+                          //           Row(
+                          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //             children: [
+                          //               Row(
+                          //                 children: [
+                          //                   SvgPicture.asset(AssetConstants.upiIcon),
+                          //                   SizedBox(
+                          //                     width: 3.w,
+                          //                   ),
+                          //                   Text(
+                          //                     'UPI',
+                          //                     style: Theme.of(context)
+                          //                         .textTheme
+                          //                         .bodySmall!
+                          //                         .copyWith(
+                          //                             fontWeight: FontWeight.w500,
+                          //                             fontSize: 15.5.sp,
+                          //                             color: Theme.of(context)
+                          //                                 .colorScheme
+                          //                                 .background),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //               SvgPicture.asset(AssetConstants.arrowRight),
+                          //             ],
+                          //           ),
+                          //           Divider(
+                          //             thickness: .05.w,
+                          //             height: 0.w,
+                          //           ),
+                          //           Row(
+                          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //             children: [
+                          //               Row(
+                          //                 children: [
+                          //                   SvgPicture.asset(
+                          //                       AssetConstants.debitCreditWalletIcon),
+                          //                   SizedBox(
+                          //                     width: 3.w,
+                          //                   ),
+                          //                   Text(
+                          //                     'Debit/Credit Card',
+                          //                     style: Theme.of(context)
+                          //                         .textTheme
+                          //                         .bodySmall!
+                          //                         .copyWith(
+                          //                             fontWeight: FontWeight.w500,
+                          //                             fontSize: 15.5.sp,
+                          //                             color: Theme.of(context)
+                          //                                 .colorScheme
+                          //                                 .background),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //               SvgPicture.asset(AssetConstants.arrowRight),
+                          //             ],
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ],
+                          // )
+                        ],
+                      ),
                     ),
                   )),
                 ),
@@ -251,89 +275,180 @@ class EventDetails extends StatelessWidget {
       builder: (context, state) {
         final event = state.event;
         return Container(
-          height: 32.w,
+          height: 56.w,
           width: 100.w,
           padding: EdgeInsets.all(2.w),
           decoration: BoxDecoration(
-            border: Border.all(
-                width: .3.w, color: Theme.of(context).colorScheme.primary),
+            gradient: LinearGradient(
+              begin: Alignment(0.94, -0.34),
+              end: Alignment(-0.94, 0.34),
+              colors: state.palette?.colors.take(2).toList() ??
+                  [Color(0xFF4D0736), Color(0xFF4B0736), Color(0xFF001849)],
+            ),
+            // border: Border.all(
+            //     width: .3.w, color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Row(
+          child: Column(
             children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: SizedBox(
-                      height: 100.h,
-                      width: 22.5.w,
-                      child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: CustomImageProvider.getImageUrl(
-                              event?.coverImage, ImageType.other)))),
-              SizedBox(
-                width: 4.w,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      event?.name ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18.sp,
-                          color: Theme.of(context).colorScheme.background),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            StringExtension.formatDateTimeWithDay(
-                                DateTime.parse(event?.startDate ?? '')),
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background
-                                          .withOpacity(.7),
-                                      fontSize: 14.5.sp,
-                                    ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
+              Row(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: SizedBox(
+                          height: 30.w,
+                          width: 22.5.w,
+                          child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: CustomImageProvider.getImageUrl(
+                                  event?.coverImage, ImageType.other)))),
+                  SizedBox(
+                    width: 4.w,
+                  ),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SvgPicture.asset(
-                          AssetConstants.locationIcon,
-                          height: 2.h,
+                        Text(
+                          event?.name ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
+                                  color:
+                                      Theme.of(context).colorScheme.background),
                         ),
-                        SizedBox(
-                          width: 1.w,
-                        ),
-                        Expanded(
-                          child: Text(
-                            event?.pub?.fullName ?? '',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                StringExtension.formatDateTimeWithDay(
+                                    DateTime.parse(event?.startDate ?? '')),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
                                           .background
                                           .withOpacity(.7),
                                       fontSize: 14.5.sp,
                                     ),
-                          ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset(
+                              AssetConstants.locationIcon,
+                              height: 2.h,
+                            ),
+                            SizedBox(
+                              width: 1.w,
+                            ),
+                            Expanded(
+                              child: Text(
+                                event?.pub?.fullName ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .background
+                                          .withOpacity(.7),
+                                      fontSize: 14.5.sp,
+                                    ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  )
+                ],
+              ),
+              Divider(
+                color: Colors.white.withOpacity(0.10000000149011612),
+              ),
+              SizedBox(height: 1.2.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${state.eventBookingDetails.eventTicketDetails.fold(0, (sum, e) => sum + e.noOfTickets)} tickets',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0.09,
+                      letterSpacing: -0.50,
+                    ),
+                  ),
+                  Text(
+                    state.eventBookingDetails.coupon?.value == 0
+                        ? state.totalAmount.toIndianRupeeString()
+                        : (state.totalAmount -
+                                (state.eventBookingDetails.coupon?.value ?? 0))
+                            .toIndianRupeeString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      height: 0.09,
+                      letterSpacing: -0.50,
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 1.9.h),
+              
+              GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  width: 100.w,
+                  height: 4.5.h,
+                  padding:
+                       EdgeInsets.symmetric(horizontal: 2.h, vertical: 1.h),
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1, color: Color(0xFFEEEEEE)),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Buy more tickets',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.sp,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                          height: 0.10,
+                          letterSpacing: -0.50,
+                        ),
+                      ),
+                
+                      SvgPicture.asset(AssetConstants.longArrowRight)
+                    ],
+                  ),
                 ),
               )
             ],
@@ -363,7 +478,9 @@ class PaymentDestributionDetails extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Column(
+          child: 
+          
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -373,6 +490,7 @@ class PaymentDestributionDetails extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 1.h),
                         Text(
                           e.name,
                           style: textTheme.bodySmall!.copyWith(
@@ -386,6 +504,14 @@ class PaymentDestributionDetails extends StatelessWidget {
                         PriceUnit(
                             title: 'Ticket Price',
                             detail: e.price.toIndianRupeeString()),
+                        if (e.coverCharge != 0) ...[
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          PriceUnit(
+                              title: 'Cover Price',
+                              detail: e.coverCharge.toIndianRupeeString()),
+                        ],
                         SizedBox(
                           height: 1.h,
                         ),
@@ -395,10 +521,11 @@ class PaymentDestributionDetails extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-                      if(state.eventBookingDetails.coupon != null)
-                        PriceUnit(
-                            title: 'Coupon',
-                            detail: state.eventBookingDetails.coupon!.value.toIndianRupeeString()),
+                        if (state.eventBookingDetails.coupon != null)
+                          PriceUnit(
+                              title: 'Coupon',
+                              detail: state.eventBookingDetails.coupon!.value
+                                  .toIndianRupeeString()),
                         SizedBox(
                           height: 1.h,
                         ),
@@ -424,10 +551,12 @@ class PaymentDestributionDetails extends StatelessWidget {
                             ),
                       ),
                       Text(
-                              state.eventBookingDetails.coupon?.value == 0 
-    ? state.totalAmount.toIndianRupeeString() 
-    : (state.totalAmount - (state.eventBookingDetails.coupon?.value ?? 0)).toIndianRupeeString()
-,
+                        state.eventBookingDetails.coupon?.value == 0
+                            ? state.totalAmount.toIndianRupeeString()
+                            : (state.totalAmount -
+                                    (state.eventBookingDetails.coupon?.value ??
+                                        0))
+                                .toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 15.5.sp,
@@ -457,8 +586,7 @@ class BottomBookingBar extends StatelessWidget {
       required this.startDate,
       required this.priceRangeStart,
       required this.priceRangeEnd,
-      this.couponAmount
-      });
+      this.couponAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -489,7 +617,6 @@ class BottomBookingBar extends StatelessWidget {
                 ),
                 Row(
                   children: [
-
                     Text('${priceRangeStart.toIndianRupeeString()} ',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,

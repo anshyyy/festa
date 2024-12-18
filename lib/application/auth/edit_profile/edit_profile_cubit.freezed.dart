@@ -12,20 +12,22 @@ part of 'edit_profile_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$EditProfileState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
+  bool get bioSaveEnabled => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
   CoreRepository get coreRepository => throw _privateConstructorUsedError;
-  CarouselController get caraouselController =>
+  custom_carousel.CarouselSliderController get carouselController =>
       throw _privateConstructorUsedError;
   String? get coverImageUrl => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
+  bool get showBottomSheet => throw _privateConstructorUsedError;
   List<Widget> get highlightWidgets => throw _privateConstructorUsedError;
   TextEditingController get bioTextController =>
       throw _privateConstructorUsedError;
@@ -33,8 +35,14 @@ mixin _$EditProfileState {
       throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
   bool get isSaveEnabled => throw _privateConstructorUsedError;
+  List<String> get lsOFSex => throw _privateConstructorUsedError;
+  List<String> get lsOFSexValue => throw _privateConstructorUsedError;
+  String? get userGender => throw _privateConstructorUsedError;
+  String? get gendertToRender => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EditProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EditProfileStateCopyWith<EditProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,17 +57,23 @@ abstract class $EditProfileStateCopyWith<$Res> {
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool bioSaveEnabled,
       int userId,
       UserRepository userRepository,
       CoreRepository coreRepository,
-      CarouselController caraouselController,
+      custom_carousel.CarouselSliderController carouselController,
       String? coverImageUrl,
       String? profileImageUrl,
+      bool showBottomSheet,
       List<Widget> highlightWidgets,
       TextEditingController bioTextController,
       TextEditingController nameEditingController,
       UserDto? user,
-      bool isSaveEnabled});
+      bool isSaveEnabled,
+      List<String> lsOFSex,
+      List<String> lsOFSexValue,
+      String? userGender,
+      String? gendertToRender});
 
   $UserDtoCopyWith<$Res>? get user;
 }
@@ -74,23 +88,31 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EditProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? bioSaveEnabled = null,
     Object? userId = null,
     Object? userRepository = null,
     Object? coreRepository = null,
-    Object? caraouselController = null,
+    Object? carouselController = null,
     Object? coverImageUrl = freezed,
     Object? profileImageUrl = freezed,
+    Object? showBottomSheet = null,
     Object? highlightWidgets = null,
     Object? bioTextController = null,
     Object? nameEditingController = null,
     Object? user = freezed,
     Object? isSaveEnabled = null,
+    Object? lsOFSex = null,
+    Object? lsOFSexValue = null,
+    Object? userGender = freezed,
+    Object? gendertToRender = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -105,6 +127,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
+      bioSaveEnabled: null == bioSaveEnabled
+          ? _value.bioSaveEnabled
+          : bioSaveEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -117,10 +143,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.coreRepository
           : coreRepository // ignore: cast_nullable_to_non_nullable
               as CoreRepository,
-      caraouselController: null == caraouselController
-          ? _value.caraouselController
-          : caraouselController // ignore: cast_nullable_to_non_nullable
-              as CarouselController,
+      carouselController: null == carouselController
+          ? _value.carouselController
+          : carouselController // ignore: cast_nullable_to_non_nullable
+              as custom_carousel.CarouselSliderController,
       coverImageUrl: freezed == coverImageUrl
           ? _value.coverImageUrl
           : coverImageUrl // ignore: cast_nullable_to_non_nullable
@@ -129,6 +155,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      showBottomSheet: null == showBottomSheet
+          ? _value.showBottomSheet
+          : showBottomSheet // ignore: cast_nullable_to_non_nullable
+              as bool,
       highlightWidgets: null == highlightWidgets
           ? _value.highlightWidgets
           : highlightWidgets // ignore: cast_nullable_to_non_nullable
@@ -149,9 +179,27 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.isSaveEnabled
           : isSaveEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      lsOFSex: null == lsOFSex
+          ? _value.lsOFSex
+          : lsOFSex // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      lsOFSexValue: null == lsOFSexValue
+          ? _value.lsOFSexValue
+          : lsOFSexValue // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      userGender: freezed == userGender
+          ? _value.userGender
+          : userGender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gendertToRender: freezed == gendertToRender
+          ? _value.gendertToRender
+          : gendertToRender // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
+  /// Create a copy of EditProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -177,17 +225,23 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool bioSaveEnabled,
       int userId,
       UserRepository userRepository,
       CoreRepository coreRepository,
-      CarouselController caraouselController,
+      custom_carousel.CarouselSliderController carouselController,
       String? coverImageUrl,
       String? profileImageUrl,
+      bool showBottomSheet,
       List<Widget> highlightWidgets,
       TextEditingController bioTextController,
       TextEditingController nameEditingController,
       UserDto? user,
-      bool isSaveEnabled});
+      bool isSaveEnabled,
+      List<String> lsOFSex,
+      List<String> lsOFSexValue,
+      String? userGender,
+      String? gendertToRender});
 
   @override
   $UserDtoCopyWith<$Res>? get user;
@@ -201,23 +255,31 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
       $Res Function(_$EditProfileStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EditProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? bioSaveEnabled = null,
     Object? userId = null,
     Object? userRepository = null,
     Object? coreRepository = null,
-    Object? caraouselController = null,
+    Object? carouselController = null,
     Object? coverImageUrl = freezed,
     Object? profileImageUrl = freezed,
+    Object? showBottomSheet = null,
     Object? highlightWidgets = null,
     Object? bioTextController = null,
     Object? nameEditingController = null,
     Object? user = freezed,
     Object? isSaveEnabled = null,
+    Object? lsOFSex = null,
+    Object? lsOFSexValue = null,
+    Object? userGender = freezed,
+    Object? gendertToRender = freezed,
   }) {
     return _then(_$EditProfileStateImpl(
       isLoading: null == isLoading
@@ -232,6 +294,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
               as bool,
+      bioSaveEnabled: null == bioSaveEnabled
+          ? _value.bioSaveEnabled
+          : bioSaveEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -244,10 +310,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.coreRepository
           : coreRepository // ignore: cast_nullable_to_non_nullable
               as CoreRepository,
-      caraouselController: null == caraouselController
-          ? _value.caraouselController
-          : caraouselController // ignore: cast_nullable_to_non_nullable
-              as CarouselController,
+      carouselController: null == carouselController
+          ? _value.carouselController
+          : carouselController // ignore: cast_nullable_to_non_nullable
+              as custom_carousel.CarouselSliderController,
       coverImageUrl: freezed == coverImageUrl
           ? _value.coverImageUrl
           : coverImageUrl // ignore: cast_nullable_to_non_nullable
@@ -256,6 +322,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      showBottomSheet: null == showBottomSheet
+          ? _value.showBottomSheet
+          : showBottomSheet // ignore: cast_nullable_to_non_nullable
+              as bool,
       highlightWidgets: null == highlightWidgets
           ? _value._highlightWidgets
           : highlightWidgets // ignore: cast_nullable_to_non_nullable
@@ -276,6 +346,22 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.isSaveEnabled
           : isSaveEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
+      lsOFSex: null == lsOFSex
+          ? _value._lsOFSex
+          : lsOFSex // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      lsOFSexValue: null == lsOFSexValue
+          ? _value._lsOFSexValue
+          : lsOFSexValue // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      userGender: freezed == userGender
+          ? _value.userGender
+          : userGender // ignore: cast_nullable_to_non_nullable
+              as String?,
+      gendertToRender: freezed == gendertToRender
+          ? _value.gendertToRender
+          : gendertToRender // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -287,18 +373,26 @@ class _$EditProfileStateImpl implements _EditProfileState {
       {required this.isLoading,
       required this.isSuccess,
       required this.isFailure,
+      required this.bioSaveEnabled,
       required this.userId,
       required this.userRepository,
       required this.coreRepository,
-      required this.caraouselController,
+      required this.carouselController,
       this.coverImageUrl,
       this.profileImageUrl,
+      required this.showBottomSheet,
       required final List<Widget> highlightWidgets,
       required this.bioTextController,
       required this.nameEditingController,
       this.user,
-      required this.isSaveEnabled})
-      : _highlightWidgets = highlightWidgets;
+      required this.isSaveEnabled,
+      required final List<String> lsOFSex,
+      required final List<String> lsOFSexValue,
+      required this.userGender,
+      required this.gendertToRender})
+      : _highlightWidgets = highlightWidgets,
+        _lsOFSex = lsOFSex,
+        _lsOFSexValue = lsOFSexValue;
 
   @override
   final bool isLoading;
@@ -307,17 +401,21 @@ class _$EditProfileStateImpl implements _EditProfileState {
   @override
   final bool isFailure;
   @override
+  final bool bioSaveEnabled;
+  @override
   final int userId;
   @override
   final UserRepository userRepository;
   @override
   final CoreRepository coreRepository;
   @override
-  final CarouselController caraouselController;
+  final custom_carousel.CarouselSliderController carouselController;
   @override
   final String? coverImageUrl;
   @override
   final String? profileImageUrl;
+  @override
+  final bool showBottomSheet;
   final List<Widget> _highlightWidgets;
   @override
   List<Widget> get highlightWidgets {
@@ -335,10 +433,30 @@ class _$EditProfileStateImpl implements _EditProfileState {
   final UserDto? user;
   @override
   final bool isSaveEnabled;
+  final List<String> _lsOFSex;
+  @override
+  List<String> get lsOFSex {
+    if (_lsOFSex is EqualUnmodifiableListView) return _lsOFSex;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lsOFSex);
+  }
+
+  final List<String> _lsOFSexValue;
+  @override
+  List<String> get lsOFSexValue {
+    if (_lsOFSexValue is EqualUnmodifiableListView) return _lsOFSexValue;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lsOFSexValue);
+  }
+
+  @override
+  final String? userGender;
+  @override
+  final String? gendertToRender;
 
   @override
   String toString() {
-    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, caraouselController: $caraouselController, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, highlightWidgets: $highlightWidgets, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user, isSaveEnabled: $isSaveEnabled)';
+    return 'EditProfileState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, bioSaveEnabled: $bioSaveEnabled, userId: $userId, userRepository: $userRepository, coreRepository: $coreRepository, carouselController: $carouselController, coverImageUrl: $coverImageUrl, profileImageUrl: $profileImageUrl, showBottomSheet: $showBottomSheet, highlightWidgets: $highlightWidgets, bioTextController: $bioTextController, nameEditingController: $nameEditingController, user: $user, isSaveEnabled: $isSaveEnabled, lsOFSex: $lsOFSex, lsOFSexValue: $lsOFSexValue, userGender: $userGender, gendertToRender: $gendertToRender)';
   }
 
   @override
@@ -352,17 +470,21 @@ class _$EditProfileStateImpl implements _EditProfileState {
                 other.isSuccess == isSuccess) &&
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
+            (identical(other.bioSaveEnabled, bioSaveEnabled) ||
+                other.bioSaveEnabled == bioSaveEnabled) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.userRepository, userRepository) ||
                 other.userRepository == userRepository) &&
             (identical(other.coreRepository, coreRepository) ||
                 other.coreRepository == coreRepository) &&
-            (identical(other.caraouselController, caraouselController) ||
-                other.caraouselController == caraouselController) &&
+            (identical(other.carouselController, carouselController) ||
+                other.carouselController == carouselController) &&
             (identical(other.coverImageUrl, coverImageUrl) ||
                 other.coverImageUrl == coverImageUrl) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
                 other.profileImageUrl == profileImageUrl) &&
+            (identical(other.showBottomSheet, showBottomSheet) ||
+                other.showBottomSheet == showBottomSheet) &&
             const DeepCollectionEquality()
                 .equals(other._highlightWidgets, _highlightWidgets) &&
             (identical(other.bioTextController, bioTextController) ||
@@ -371,28 +493,44 @@ class _$EditProfileStateImpl implements _EditProfileState {
                 other.nameEditingController == nameEditingController) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.isSaveEnabled, isSaveEnabled) ||
-                other.isSaveEnabled == isSaveEnabled));
+                other.isSaveEnabled == isSaveEnabled) &&
+            const DeepCollectionEquality().equals(other._lsOFSex, _lsOFSex) &&
+            const DeepCollectionEquality()
+                .equals(other._lsOFSexValue, _lsOFSexValue) &&
+            (identical(other.userGender, userGender) ||
+                other.userGender == userGender) &&
+            (identical(other.gendertToRender, gendertToRender) ||
+                other.gendertToRender == gendertToRender));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      isSuccess,
-      isFailure,
-      userId,
-      userRepository,
-      coreRepository,
-      caraouselController,
-      coverImageUrl,
-      profileImageUrl,
-      const DeepCollectionEquality().hash(_highlightWidgets),
-      bioTextController,
-      nameEditingController,
-      user,
-      isSaveEnabled);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isLoading,
+        isSuccess,
+        isFailure,
+        bioSaveEnabled,
+        userId,
+        userRepository,
+        coreRepository,
+        carouselController,
+        coverImageUrl,
+        profileImageUrl,
+        showBottomSheet,
+        const DeepCollectionEquality().hash(_highlightWidgets),
+        bioTextController,
+        nameEditingController,
+        user,
+        isSaveEnabled,
+        const DeepCollectionEquality().hash(_lsOFSex),
+        const DeepCollectionEquality().hash(_lsOFSexValue),
+        userGender,
+        gendertToRender
+      ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EditProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EditProfileStateImplCopyWith<_$EditProfileStateImpl> get copyWith =>
@@ -405,17 +543,24 @@ abstract class _EditProfileState implements EditProfileState {
       {required final bool isLoading,
       required final bool isSuccess,
       required final bool isFailure,
+      required final bool bioSaveEnabled,
       required final int userId,
       required final UserRepository userRepository,
       required final CoreRepository coreRepository,
-      required final CarouselController caraouselController,
+      required final custom_carousel.CarouselSliderController
+          carouselController,
       final String? coverImageUrl,
       final String? profileImageUrl,
+      required final bool showBottomSheet,
       required final List<Widget> highlightWidgets,
       required final TextEditingController bioTextController,
       required final TextEditingController nameEditingController,
       final UserDto? user,
-      required final bool isSaveEnabled}) = _$EditProfileStateImpl;
+      required final bool isSaveEnabled,
+      required final List<String> lsOFSex,
+      required final List<String> lsOFSexValue,
+      required final String? userGender,
+      required final String? gendertToRender}) = _$EditProfileStateImpl;
 
   @override
   bool get isLoading;
@@ -424,17 +569,21 @@ abstract class _EditProfileState implements EditProfileState {
   @override
   bool get isFailure;
   @override
+  bool get bioSaveEnabled;
+  @override
   int get userId;
   @override
   UserRepository get userRepository;
   @override
   CoreRepository get coreRepository;
   @override
-  CarouselController get caraouselController;
+  custom_carousel.CarouselSliderController get carouselController;
   @override
   String? get coverImageUrl;
   @override
   String? get profileImageUrl;
+  @override
+  bool get showBottomSheet;
   @override
   List<Widget> get highlightWidgets;
   @override
@@ -446,7 +595,18 @@ abstract class _EditProfileState implements EditProfileState {
   @override
   bool get isSaveEnabled;
   @override
-  @JsonKey(ignore: true)
+  List<String> get lsOFSex;
+  @override
+  List<String> get lsOFSexValue;
+  @override
+  String? get userGender;
+  @override
+  String? get gendertToRender;
+
+  /// Create a copy of EditProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EditProfileStateImplCopyWith<_$EditProfileStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

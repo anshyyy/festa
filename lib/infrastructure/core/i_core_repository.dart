@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -13,6 +15,27 @@ class ICoreRepository extends CoreRepository {
   final String serverUrl;
 
   ICoreRepository({required this.serverUrl});
+
+  @override
+  Future<CroppedFile?> cropPhoto({required File file}) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: file.path,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Festa',
+          toolbarColor: Colors.black,
+          toolbarWidgetColor: Colors.white,
+          activeControlsWidgetColor:const Color(0xffff1759),
+          statusBarColor: Colors.black,
+
+        ),
+        IOSUiSettings(
+          title: 'Festa',
+        ),
+      ],
+    );
+    return croppedFile;
+  }
 
   @override
   Future<PermissionStatus> permissionStatus() async {

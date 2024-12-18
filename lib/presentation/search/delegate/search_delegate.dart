@@ -11,20 +11,12 @@ class CustomSearchDelegate extends SearchDelegate {
   final HomeCubit homeCubit;
   CustomSearchDelegate({required this.homeCubit});
   final Debouncer _debouncer = Debouncer(milliseconds: 500);
+  String _lastQuery = ''; // Add this line to store the last query
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        icon: const Icon(
-          Icons.clear,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          query = '';
-          homeCubit.clearSearch();
-        },
-      ),
+    
     ];
   }
 
@@ -41,12 +33,17 @@ class CustomSearchDelegate extends SearchDelegate {
           fillColor: const Color(0XFF171717),
           hintStyle: const TextStyle(color: Colors.grey, fontSize: 18),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: const BorderSide(
-              color: Colors.transparent,
-              width: 2.0,
-            ),
-          ),
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide.none, // Remove the focused border
+      ),
+      
+      // No border when not focused
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide.none, // Remove the enabled border as well
+      ),
+
+
           // border: OutlineInputBorder(
           //   borderRadius: BorderRadius.circular(8.0),
           //   borderSide: const BorderSide(
@@ -55,7 +52,7 @@ class CustomSearchDelegate extends SearchDelegate {
           //   ),
           // ),
           constraints: BoxConstraints(
-              maxHeight: 40.px, minHeight: 40.px, minWidth: 307.px)),
+              maxHeight: 6.2.h, minHeight: 6.2.h, minWidth: 307.px)),
       textTheme: const TextTheme(
         titleLarge: TextStyle(color: Colors.white, fontSize: 18),
       ),
@@ -84,8 +81,9 @@ class CustomSearchDelegate extends SearchDelegate {
       bloc: homeCubit,
       builder: (context, state) {
         if (state.searchLoading!) {
-          return  Center(child: CircularProgressIndicator(
-                color: Color(0xffFF1759),
+          return Center(
+              child: CircularProgressIndicator(
+            color: Color(0xffFF1759),
           ));
         } else if (!state.searchLoading! &&
             state.searchResults!.pubs.isEmpty &&
@@ -94,7 +92,8 @@ class CustomSearchDelegate extends SearchDelegate {
             state.searchResults!.users.isEmpty) {
           return const Center(
               child: Text(
-            'No results found',
+            'Uh-No, search came up empty? try searching something else.',
+            textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
           ));
@@ -112,7 +111,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // (query);
     if (query.isEmpty) {
       return const Center(
         child: Column(
@@ -129,17 +127,20 @@ class CustomSearchDelegate extends SearchDelegate {
         ),
       );
     } else {
-      _debouncer.run(
-        () {
-          homeCubit.onSearch(query.trim());
-        },
-      );
+      _debouncer.run(() {
+        if (query.trim() != _lastQuery) { // Add this condition
+          _lastQuery = query.trim(); // Update the last query
+          homeCubit.onSearch(_lastQuery);
+        }
+      });
+      
       return BlocBuilder<HomeCubit, HomeState>(
         bloc: homeCubit,
         builder: (context, state) {
           if (state.searchLoading) {
-            return  Center(child: CircularProgressIndicator(
-                color: Color(0xffFF1759),
+            return Center(
+                child: CircularProgressIndicator(
+              color: Color(0xffFF1759),
             ));
           } else if (!(state.searchLoading) &&
               (state.searchResults?.pubs.isEmpty ?? true) &&
@@ -148,7 +149,8 @@ class CustomSearchDelegate extends SearchDelegate {
               (state.searchResults?.users.isEmpty ?? true)) {
             return const Center(
               child: Text(
-                'No results found',
+                'Uh-No, search came up empty? try searching something else.',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,

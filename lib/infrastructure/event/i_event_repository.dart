@@ -262,6 +262,7 @@ class IEventRepository extends EventRepository {
       CouponDTO? coupon,
       String? couponCode}) async {
     try {
+
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
 
       final url = '$serverUrl${BookingApiConstants.BOOKING_CREATE}';
@@ -272,7 +273,6 @@ class IEventRepository extends EventRepository {
         'coupon': coupon?.toJson(),
         'couponCode': couponCode
       };
-
       final response = await RESTService.performPOSTRequest(
         httpUrl: url,
         isAuth: true,

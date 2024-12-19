@@ -9,9 +9,16 @@ import '../../../../infrastructure/event/dtos/event/event_dto.dart';
 
 class PastTicketReview extends StatelessWidget {
   final EventDto event;
+  final bool isReviewed;
   final VoidCallback onReview;
-    final VoidCallback onDetail;
-  const PastTicketReview({super.key, required this.event,required this.onReview,required this.onDetail});
+  final VoidCallback onDetail;
+  const PastTicketReview({
+    super.key,
+    required this.event,
+    required this.isReviewed,
+    required this.onReview,
+    required this.onDetail,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +77,8 @@ class PastTicketReview extends StatelessWidget {
                     SizedBox(
                         width: 50.66.w,
                         child: Text(
-                          StringExtension.formatDateTimeWithTime(event.startDate),
+                          StringExtension.formatDateTimeWithTime(
+                              event.startDate),
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 14.px,
@@ -81,30 +89,47 @@ class PastTicketReview extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 2.h),
-          
-          GestureDetector(
-            onTap: onReview,
-            child: Container(
-              height: 4.5.h,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  borderRadius: BorderRadius.circular(8)),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AssetConstants.starIcon),
-                    Text(
-                      ' Tell Us Your Experience',
-                      style:
-                          TextStyle(fontSize: 14.px, fontWeight: FontWeight.w400),
-                    ),
-                  ],
-                ),
+          if (isReviewed)
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(AssetConstants.reviewTick),
+                  Text(
+                    "Review submitted",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.px,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
             ),
-          )
+          if (!isReviewed) ...[
+            SizedBox(height: 2.h),
+            GestureDetector(
+              onTap: onReview,
+              child: Container(
+                height: 4.5.h,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(8)),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(AssetConstants.starIcon),
+                      Text(
+                        ' Tell Us Your Experience',
+                        style: TextStyle(
+                            fontSize: 14.px, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ]
         ],
       ),
     );

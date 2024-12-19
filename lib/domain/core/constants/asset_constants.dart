@@ -10,6 +10,7 @@ class AssetConstants {
   static const locationIconPink = '${vectorsFolder}location-icon.svg';
   static const notFoundFilter = '${vectorsFolder}not-found-filter.svg';
   static const giftIcon = '${vectorsFolder}gift.svg';
+  static const reviewTick = '${vectorsFolder}rTick.svg';
 
 
   static const blockIcon = '${vectorsFolder}block-icon.svg';

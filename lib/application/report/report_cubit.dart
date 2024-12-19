@@ -15,6 +15,43 @@ class ReportCubit extends Cubit<ReportState> {
     emit(state.copyWith(type: state.type));
   }
 
+  void onReview()async {
+    if (state.reportDescController.text.trim().isEmpty) {
+      state.reportDescController.clear();
+      return;
+    }
+    if (state.selectedTags.isEmpty) {
+      return;
+    }
+    if (state.rating == 0) {
+      return;
+    }
+    emit(state.copyWith(isLoading: true));
+
+    await state.userRepository.review(
+      type: state.type, 
+      id: state.id,
+      msg: state.reportDescController.text.trim(),
+      tags: state.selectedTags,
+      rating: state.rating,
+    );
+    emit(state.copyWith(isLoading: false,isSuccess: true));
+  }
+
+  void onRatingChanged(double rating) {
+    emit(state.copyWith(rating: rating));
+  }
+
+  void onTagSelected(String tag) {
+    if (state.selectedTags.contains(tag)) return;
+    emit(state.copyWith(selectedTags: [...state.selectedTags, tag]));
+  }
+
+  void onTagUnSelect(String tag) {
+    emit(state.copyWith(
+        selectedTags: state.selectedTags.where((t) => t != tag).toList()));
+  }
+
   void onSubmit() async {
     if (state.reportDescController.text.trim().isEmpty) {
       state.reportDescController.clear();

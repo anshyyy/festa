@@ -330,8 +330,14 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
     case UserRoutes.reviewScreen:
       final eventName = routingData.queryParameters['eventName'] ?? '0';
       final eventTime = routingData.queryParameters['eventTime'] ?? '0';
+      final eventId = routingData.queryParameters['eventId'] ?? '0';
       return _getPageRoute(
-          ReviewScreen(eventName: eventName, eventTime: eventTime), settings);
+          ReviewScreen(
+            eventName: eventName,
+            eventTime: eventTime,
+            eventId: eventId,
+          ),
+          settings);
 
     case UserRoutes.mediaViewerWidgetScreen:
       final type = routingData.queryParameters['type'] ?? 'image';

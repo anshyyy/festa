@@ -102,6 +102,36 @@ class IUserRepository extends UserRepository {
       return const FollowerDto(totalCount: 0, users: []);
     }
   }
+   
+  @override
+  Future<void> review({
+    required String type,
+    required String msg,
+    required String id,
+    required List<String> tags,
+    required double rating,
+  }) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final url = '$serverUrl${UserApiConstants.REVIEW}';
+      final reqBody = {
+        'type': type,
+        'eventId': int.parse(id),
+        'feedback': msg,
+        'tags': tags,
+        'rating': rating,
+      };
+
+      final res = await RESTService.performPOSTRequest(body: jsonEncode(reqBody), httpUrl: url, isAuth: true, token: token!);
+      if(res.statusCode~/100 != 2){
+        throw Exception(res.body);
+      }
+    } catch (e) {
+      var r = e as Response;
+      print("error: ${r.body}");
+    }
+  }
+  
 
   @override
   Future<FollowingDto> getUserFollowing({

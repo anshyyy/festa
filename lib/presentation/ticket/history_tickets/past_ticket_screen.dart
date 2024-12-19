@@ -120,18 +120,54 @@ class PastTicketScreen extends StatelessWidget {
 
                                               return is24HoursAndAttended
                                                   ? PastTicketReview(
+                                                      isReviewed: ticket.isReviewed,
                                                       event:
-                                                          ticket!.eventDetails,
-                                                      onReview: () {},
+                                                          ticket.eventDetails,
+                                                      onReview: () {
+                                                        navigator<
+                                                                NavigationService>()
+                                                            .navigateTo(
+                                                                UserRoutes
+                                                                    .reviewScreen,
+                                                                queryParams: {
+                                                                  'eventId': ticket
+                                                                      .eventDetails
+                                                                      .id
+                                                                      .toString(),
+                                                                  'eventName': ticket
+                                                                      .eventDetails
+                                                                      .name,
+                                                              'eventTime':
+                                                                  '${StringExtension.formatDateString(ticket.eventDetails.startDate)} ${StringExtension.formatTimeRange(ticket.eventDetails.startDate, ticket.eventDetails.endDate ?? "")}'
+                                                            });
+                                                      },
                                                       onDetail: () {
-                                                        navigator<NavigationService>().navigateTo(
-                                                          UserRoutes.eventDetailsRoute,
-                                                          queryParams: {
-                                                            'id': ticket!.eventDetails.id.toString()
-                                                          }
-                                                        );
+                                                        navigator<
+                                                                NavigationService>()
+                                                            .navigateTo(
+                                                                UserRoutes
+                                                                    .ticketHistory,
+                                                                queryParams: {
+                                                              'ticket': jsonEncode(
+                                                                  ticket!
+                                                                      .toJson()),
+                                                              'isRecent':
+                                                                  is24HoursAndAttended
+                                                                      .toString()
+                                                            });
                                                       })
-                                                  : PastTicket(ticket: ticket!);
+                                                  : 
+                                                  GestureDetector(
+                                                    onTap: (){
+                                                      navigator<NavigationService>().navigateTo(
+                                                      UserRoutes.ticketHistory,
+                                                      queryParams: {
+                                                        'ticket': jsonEncode(ticket!.toJson()),
+                                                        'isRecent': is24HoursAndAttended.toString()
+                                                      });
+                                                    },
+                                                    child: PastTicket(ticket: ticket!),
+                                                  );
                                             },
                                             separatorBuilder: (context, index) {
                                               return const Divider(
@@ -150,10 +186,105 @@ class PastTicketScreen extends StatelessWidget {
                                     ),
 
                           // Attended Tab
-                          _buildEmptyState(context),
+                          state.isLoading
+                              ? ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return const TicketShimmerHistory();
+                                  },
+                                  itemCount: 4,
+                                )
+                              : state.userTickets?.bookedTicketsHistory
+                                      .where((ticket) => ticket.checkInStatus == CheckinStatus.Attended.value)
+                                      .isEmpty ?? true
+                                  ? _buildEmptyState(context)
+                                  : ListView.separated(
+                                      itemBuilder: (context, index) {
+                                        var attendedTickets = state.userTickets!.bookedTicketsHistory
+                                            .where((ticket) => ticket.checkInStatus == CheckinStatus.Attended.value)
+                                            .toList();
+                                        var ticket = attendedTickets[index];
+                                        
+                                        bool is24HoursAndAttended = DateTime.parse(ticket.eventDetails.endDate!)
+                                                .isBefore(DateTime.now().add(const Duration(hours: 24))) &&
+                                            ticket.checkInStatus == CheckinStatus.Attended.value;
+
+                                        return is24HoursAndAttended
+                                            ? PastTicketReview(
+                                                isReviewed: ticket.isReviewed,
+                                                event: ticket.eventDetails,
+                                                onReview: () {
+                                                  navigator<NavigationService>().navigateTo(
+                                                      UserRoutes.reviewScreen,
+                                                      queryParams: {
+                                                        'eventId': ticket.eventDetails.id.toString(),
+                                                        'eventName': ticket.eventDetails.name,
+                                                        'eventTime':
+                                                            '${StringExtension.formatDateString(ticket.eventDetails.startDate)} ${StringExtension.formatTimeRange(ticket.eventDetails.startDate, ticket.eventDetails.endDate ?? "")}'
+                                                      });
+                                                },
+                                                onDetail: () {
+                                                  navigator<NavigationService>().navigateTo(
+                                                      UserRoutes.ticketHistory,
+                                                      queryParams: {
+                                                        'ticket': jsonEncode(ticket.toJson()),
+                                                        'isRecent': is24HoursAndAttended.toString()
+                                                      });
+                                                })
+                                            : 
+                                            GestureDetector(
+                                              onTap: (){
+                                                                                                  navigator<NavigationService>().navigateTo(
+                                                      UserRoutes.ticketHistory,
+                                                      queryParams: {
+                                                        'ticket': jsonEncode(ticket.toJson()),
+                                                        'isRecent': is24HoursAndAttended.toString()
+                                                      });
+                                              },
+                                              child: PastTicket(ticket: ticket),
+                                            );
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return const Divider(
+                                          height: 1,
+                                          color: Color(0xff171717),
+                                        );
+                                      },
+                                      itemCount: state.userTickets!.bookedTicketsHistory
+                                          .where((ticket) => ticket.checkInStatus == CheckinStatus.Attended.value)
+                                          .length,
+                                    ),
 
                           // Missed Tab
-                          _buildEmptyState(context)
+                          state.isLoading
+                              ? ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    return const TicketShimmerHistory();
+                                  },
+                                  itemCount: 4,
+                                )
+                              : state.userTickets?.bookedTicketsHistory
+                                      .where((ticket) => ticket.checkInStatus != CheckinStatus.Attended.value)
+                                      .isEmpty ?? true
+                                  ? _buildEmptyState(context)
+                                  : ListView.separated(
+                                      itemBuilder: (context, index) {
+                                        var missedTickets = state.userTickets!.bookedTicketsHistory
+                                            .where((ticket) => ticket.checkInStatus != CheckinStatus.Attended.value)
+                                            .toList();
+                                        var ticket = missedTickets[index];
+                                        
+                                        return PastTicket(ticket: ticket);
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return const Divider(
+                                          height: 1,
+                                          color: Color(0xff171717),
+                                        );
+                                      },
+                                      itemCount: state.userTickets!.bookedTicketsHistory
+                                          .where((ticket) => ticket.checkInStatus != CheckinStatus.Attended.value)
+                                          .length,
+                                    ),
                         ],
                       ),
                     ),

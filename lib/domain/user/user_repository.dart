@@ -65,6 +65,14 @@ abstract class UserRepository {
     required String id,
   });
 
+  Future<void> review({
+    required String type,
+    required String msg,
+    required String id,
+    required List<String> tags,
+    required double rating,
+  });
+
   Future<bool> block({
     required String type,
     required String id,

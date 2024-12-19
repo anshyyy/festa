@@ -23,6 +23,9 @@ mixin _$ReportState {
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  List<String> get selectedTags => throw _privateConstructorUsedError;
+  List<String> get tags => throw _privateConstructorUsedError;
   TextEditingController get reportDescController =>
       throw _privateConstructorUsedError;
   bool get isEnableSubmit => throw _privateConstructorUsedError;
@@ -49,6 +52,9 @@ abstract class $ReportStateCopyWith<$Res> {
       String name,
       String type,
       String id,
+      double rating,
+      List<String> selectedTags,
+      List<String> tags,
       TextEditingController reportDescController,
       bool isEnableSubmit,
       UserRepository userRepository});
@@ -76,6 +82,9 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
     Object? name = null,
     Object? type = null,
     Object? id = null,
+    Object? rating = null,
+    Object? selectedTags = null,
+    Object? tags = null,
     Object? reportDescController = null,
     Object? isEnableSubmit = null,
     Object? userRepository = null,
@@ -109,6 +118,18 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+      selectedTags: null == selectedTags
+          ? _value.selectedTags
+          : selectedTags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      tags: null == tags
+          ? _value.tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       reportDescController: null == reportDescController
           ? _value.reportDescController
           : reportDescController // ignore: cast_nullable_to_non_nullable
@@ -141,6 +162,9 @@ abstract class _$$ReportStateImplCopyWith<$Res>
       String name,
       String type,
       String id,
+      double rating,
+      List<String> selectedTags,
+      List<String> tags,
       TextEditingController reportDescController,
       bool isEnableSubmit,
       UserRepository userRepository});
@@ -166,6 +190,9 @@ class __$$ReportStateImplCopyWithImpl<$Res>
     Object? name = null,
     Object? type = null,
     Object? id = null,
+    Object? rating = null,
+    Object? selectedTags = null,
+    Object? tags = null,
     Object? reportDescController = null,
     Object? isEnableSubmit = null,
     Object? userRepository = null,
@@ -199,6 +226,18 @@ class __$$ReportStateImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+      selectedTags: null == selectedTags
+          ? _value._selectedTags
+          : selectedTags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      tags: null == tags
+          ? _value._tags
+          : tags // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       reportDescController: null == reportDescController
           ? _value.reportDescController
           : reportDescController // ignore: cast_nullable_to_non_nullable
@@ -226,9 +265,14 @@ class _$ReportStateImpl implements _ReportState {
       required this.name,
       required this.type,
       required this.id,
+      required this.rating,
+      required final List<String> selectedTags,
+      required final List<String> tags,
       required this.reportDescController,
       required this.isEnableSubmit,
-      required this.userRepository});
+      required this.userRepository})
+      : _selectedTags = selectedTags,
+        _tags = tags;
 
   @override
   final bool isLoading;
@@ -245,6 +289,24 @@ class _$ReportStateImpl implements _ReportState {
   @override
   final String id;
   @override
+  final double rating;
+  final List<String> _selectedTags;
+  @override
+  List<String> get selectedTags {
+    if (_selectedTags is EqualUnmodifiableListView) return _selectedTags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedTags);
+  }
+
+  final List<String> _tags;
+  @override
+  List<String> get tags {
+    if (_tags is EqualUnmodifiableListView) return _tags;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tags);
+  }
+
+  @override
   final TextEditingController reportDescController;
   @override
   final bool isEnableSubmit;
@@ -253,7 +315,7 @@ class _$ReportStateImpl implements _ReportState {
 
   @override
   String toString() {
-    return 'ReportState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, name: $name, type: $type, id: $id, reportDescController: $reportDescController, isEnableSubmit: $isEnableSubmit, userRepository: $userRepository)';
+    return 'ReportState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, name: $name, type: $type, id: $id, rating: $rating, selectedTags: $selectedTags, tags: $tags, reportDescController: $reportDescController, isEnableSubmit: $isEnableSubmit, userRepository: $userRepository)';
   }
 
   @override
@@ -271,6 +333,10 @@ class _$ReportStateImpl implements _ReportState {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedTags, _selectedTags) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
             (identical(other.reportDescController, reportDescController) ||
                 other.reportDescController == reportDescController) &&
             (identical(other.isEnableSubmit, isEnableSubmit) ||
@@ -289,6 +355,9 @@ class _$ReportStateImpl implements _ReportState {
       name,
       type,
       id,
+      rating,
+      const DeepCollectionEquality().hash(_selectedTags),
+      const DeepCollectionEquality().hash(_tags),
       reportDescController,
       isEnableSubmit,
       userRepository);
@@ -311,6 +380,9 @@ abstract class _ReportState implements ReportState {
       required final String name,
       required final String type,
       required final String id,
+      required final double rating,
+      required final List<String> selectedTags,
+      required final List<String> tags,
       required final TextEditingController reportDescController,
       required final bool isEnableSubmit,
       required final UserRepository userRepository}) = _$ReportStateImpl;
@@ -329,6 +401,12 @@ abstract class _ReportState implements ReportState {
   String get type;
   @override
   String get id;
+  @override
+  double get rating;
+  @override
+  List<String> get selectedTags;
+  @override
+  List<String> get tags;
   @override
   TextEditingController get reportDescController;
   @override

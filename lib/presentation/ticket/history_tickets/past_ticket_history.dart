@@ -197,6 +197,7 @@ class PastTicketHistory extends StatelessWidget {
                   navigator<NavigationService>()
                       .navigateTo(UserRoutes.reviewScreen, queryParams: {
                     'eventName': ticket.eventDetails.name,
+                    'eventId': ticket.eventDetails.id.toString(),
                     'eventTime':
                         '${StringExtension.formatDateString(ticket.eventDetails.startDate)} ${StringExtension.formatTimeRange(ticket.eventDetails.startDate, ticket.eventDetails.endDate ?? "")}'
                   });

@@ -152,7 +152,7 @@ class PastTicketScreen extends StatelessWidget {
                                                                   ticket!
                                                                       .toJson()),
                                                               'isRecent':
-                                                                  is24HoursAndAttended
+                                                                  (is24HoursAndAttended&&!ticket.isReviewed)
                                                                       .toString()
                                                             });
                                                       })

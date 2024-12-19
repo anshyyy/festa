@@ -43,9 +43,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
             ))
               ..init(),
         child: BlocConsumer<ReportCubit, ReportState>(
-          listenWhen: (previous, current) => previous.isLoading != current.isLoading,
+          listenWhen: (previous, current) =>
+              previous.isLoading != current.isLoading,
           listener: (BuildContext context, ReportState state) {
-            if(state.isSuccess){
+            if (state.isSuccess) {
               navigator<NavigationService>().goBack();
             }
           },
@@ -85,193 +86,208 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ),
                 ),
               ),
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 1.h, vertical: .5.h),
-                child: Column(
-                  children: [
-                    const Divider(
-                      color: Color.fromARGB(255, 92, 90, 90),
-                      height: 1,
-                    ),
-                    SizedBox(height: 2.h),
-                    Center(
-                      child: Text(
-                        'How was your overall experience?',
-                        style: TextStyle(
-                          fontSize: 16.px,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+              body: SafeArea(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 1.h, vertical: .5.h),
+                  child: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
                       ),
-                    ),
-                    SizedBox(height: 1.h),
-                    StarRating(
-                      starCount: 5,
-                      rating: 0,
-                      onRatingChanged: (rating) {
-                        // Handle the rating change
-                        context.read<ReportCubit>().onRatingChanged(rating);
-                      },
-                    ),
-                    SizedBox(height: 2.h),
-                    Center(
-                      child: Text(
-                        'What went Great?',
-                        style: TextStyle(
-                          fontSize: 16.px,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 1.h),
-                    SizedBox(
-                      height: 22.33.h,
-                      child: Wrap(
-                        spacing: 8.0, // Space between tags horizontally
-                        runSpacing: 8.0, // Space between rows vertically
-                        children: state.tags.map((tag) {
-                          final isSelected = state.selectedTags.contains(tag);
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (!isSelected) {
-                                  context
-                                      .read<ReportCubit>()
-                                      .onTagSelected(tag);
-                                } else {
-                                  context
-                                      .read<ReportCubit>()
-                                      .onTagUnSelect(tag);
-                                }
-                              });
+                    child: SingleChildScrollView(
+                      
+                      child: Column(
+                        children: [
+                          const Divider(
+                            color: Color.fromARGB(255, 92, 90, 90),
+                            height: 1,
+                          ),
+                          SizedBox(height: 2.h),
+                          Center(
+                            child: Text(
+                              'How was your overall experience?',
+                              style: TextStyle(
+                                fontSize: 16.px,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 1.h),
+                          StarRating(
+                            starCount: 5,
+                            rating: 0,
+                            onRatingChanged: (rating) {
+                              // Handle the rating change
+                              context
+                                  .read<ReportCubit>()
+                                  .onRatingChanged(rating);
                             },
-                            child: IntrinsicWidth(
-                              child: Container(
-                                height: 3.58.h,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal:
-                                        10.0), // Adjust padding as needed
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer,
-                                  borderRadius: BorderRadius.circular(30),
-                                  border: isSelected
-                                      ? Border.all(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 1.5)
-                                      : null,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    tag,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14.px,
-                                      fontWeight: FontWeight.w600,
+                          ),
+                          SizedBox(height: 2.h),
+                          Center(
+                            child: Text(
+                              'What went Great?',
+                              style: TextStyle(
+                                fontSize: 16.px,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 1.h),
+                          SizedBox(
+                            height: 22.33.h,
+                            child: Wrap(
+                              spacing: 8.0, // Space between tags horizontally
+                              runSpacing: 8.0, // Space between rows vertically
+                              children: state.tags.map((tag) {
+                                final isSelected =
+                                    state.selectedTags.contains(tag);
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (!isSelected) {
+                                        context
+                                            .read<ReportCubit>()
+                                            .onTagSelected(tag);
+                                      } else {
+                                        context
+                                            .read<ReportCubit>()
+                                            .onTagUnSelect(tag);
+                                      }
+                                    });
+                                  },
+                                  child: IntrinsicWidth(
+                                    child: Container(
+                                      height: 3.58.h,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal:
+                                              10.0), // Adjust padding as needed
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer,
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: isSelected
+                                            ? Border.all(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                width: 1.5)
+                                            : null,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          tag,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.px,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          const Divider(
+                            color: Color.fromARGB(255, 92, 90, 90),
+                            height: 1,
+                          ),
+                          SizedBox(height: 1.h),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Write you experience',
+                                style: TextStyle(
+                                  fontSize: 16.px,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
                                 ),
                               ),
-                            ),
-                          );
-                        }).toList(),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Container(
+                                height: 15.125.h,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12)),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer),
+                                child: TextField(
+                                  maxLines: null,
+                                  expands: true,
+                                  controller: state.reportDescController,
+                                  textAlignVertical: TextAlignVertical.top,
+                                  style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 14.px,
+                                    color: Colors.white,
+                                  ),
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    isDense: true,
+                                    hintText: "Type Here",
+                    
+                                    // helperStyle: helperTextStyle,
+                                    helperMaxLines: 1,
+                                    fillColor: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                    counter: const Offstage(),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 1.8.h, horizontal: 4.w),
+                                    hintStyle: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      color: const Color(0xFFABB3BB),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16.px,
+                                    ),
+                                    errorStyle: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                          color: Colors.red,
+                                          fontSize: 10.sp,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 3.h),
+                          const Divider(
+                            color: Color.fromARGB(255, 92, 90, 90),
+                            height: 1,
+                          ),
+                          SizedBox(height: 3.h),
+                          GradientButton(
+                              text: 'Submit Your Feedback',
+                              onTap: () {
+                                context.read<ReportCubit>().onReview();
+                              }),
+                          //Spacer(),
+                        ],
                       ),
                     ),
-                    const Divider(
-                      color: Color.fromARGB(255, 92, 90, 90),
-                      height: 1,
-                    ),
-                    SizedBox(height: 1.h),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Write you experience',
-                          style: TextStyle(
-                            fontSize: 16.px,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
-                        Container(
-                          height: 15.125.h,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer),
-                          child: TextField(
-                            maxLines: null,
-                            expands: true,
-                            controller: state.reportDescController,
-                            textAlignVertical: TextAlignVertical.top,
-                            style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              fontSize: 14.px,
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              filled: true,
-                              isDense: true,
-                              hintText: "Type Here",
-
-                              // helperStyle: helperTextStyle,
-                              helperMaxLines: 1,
-                              fillColor: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              counter: const Offstage(),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 1.8.h, horizontal: 4.w),
-                              hintStyle: TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                color: const Color(0xFFABB3BB),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16.px,
-                              ),
-                              errorStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                    color: Colors.red,
-                                    fontSize: 10.sp,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 3.h),
-                    const Divider(
-                      color: Color.fromARGB(255, 92, 90, 90),
-                      height: 1,
-                    ),
-                    SizedBox(height: 3.h),
-                    GradientButton(
-                        text: 'Submit Your Feedback',
-                        onTap: () {
-                          context.read<ReportCubit>().onReview();
-                        }),
-                    Spacer(),
-                  ],
+                  ),
                 ),
               ),
             );

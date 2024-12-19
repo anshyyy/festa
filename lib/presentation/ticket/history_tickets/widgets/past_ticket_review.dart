@@ -24,7 +24,7 @@ class PastTicketReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 2.h, bottom: 1.h),
-      height: 15.875.h,
+      //height: 15.875.h,
       width: 82.75.w,
       child: Column(
         children: [
@@ -89,6 +89,7 @@ class PastTicketReview extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 1.h),
           if (isReviewed)
             Center(
               child: Row(
@@ -106,7 +107,7 @@ class PastTicketReview extends StatelessWidget {
               ),
             ),
           if (!isReviewed) ...[
-            SizedBox(height: 2.h),
+            SizedBox(height: 1.h),
             GestureDetector(
               onTap: onReview,
               child: Container(

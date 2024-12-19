@@ -37,36 +37,36 @@ class InfoWidget extends StatelessWidget {
                   ),
                 ],
               ),
-                           Container(
-                width: 76,
-                height: 24,
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: ShapeDecoration(
-                  color: Color(0xFF5B480B),
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Color(0xFFD7B64B)),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Only cover',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        height: 0.11,
-                        letterSpacing: -0.50,
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              //              Container(
+              //   width: 76,
+              //   height: 24,
+              //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              //   decoration: ShapeDecoration(
+              //     color: Color(0xFF5B480B),
+              //     shape: RoundedRectangleBorder(
+              //       side: BorderSide(width: 1, color: Color(0xFFD7B64B)),
+              //       borderRadius: BorderRadius.circular(4),
+              //     ),
+              //   ),
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       Text(
+              //         'Only cover',
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: 12,
+              //           fontFamily: 'Inter',
+              //           fontWeight: FontWeight.w600,
+              //           height: 0.11,
+              //           letterSpacing: -0.50,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // )
             ],
           ),
           SizedBox(

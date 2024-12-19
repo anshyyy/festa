@@ -12,7 +12,7 @@ part of 'club_profile_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ClubProfileState {
@@ -21,6 +21,7 @@ mixin _$ClubProfileState {
   bool get isSuccessful => throw _privateConstructorUsedError;
   bool get showHamburger => throw _privateConstructorUsedError;
   String get responseMsg => throw _privateConstructorUsedError;
+  bool get isAtTabTop => throw _privateConstructorUsedError;
   GlobalKey<State<StatefulWidget>> get key =>
       throw _privateConstructorUsedError;
   int get clubId => throw _privateConstructorUsedError;
@@ -28,14 +29,22 @@ mixin _$ClubProfileState {
   int get currentImageIndex => throw _privateConstructorUsedError;
   ScrollController get scrollController => throw _privateConstructorUsedError;
   ScrollController get parentController => throw _privateConstructorUsedError;
+  TabController? get tabController => throw _privateConstructorUsedError;
+  PageController get caraouselController => throw _privateConstructorUsedError;
+  String? get todayOpeningTime => throw _privateConstructorUsedError;
+  String? get todayClosingTime => throw _privateConstructorUsedError;
   bool get isAtTop => throw _privateConstructorUsedError;
+  bool get isOpenNow => throw _privateConstructorUsedError;
   String get apiBaseUrl => throw _privateConstructorUsedError;
   PubRepository get pubRepository => throw _privateConstructorUsedError;
   List<String> get images => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
+  bool get isMuted => throw _privateConstructorUsedError;
   DraggableScrollableController get dragController =>
       throw _privateConstructorUsedError;
   List<AssetDto> get assets => throw _privateConstructorUsedError;
+  List<AssetDto> get highlights => throw _privateConstructorUsedError;
+  List<AssetDto> get assetToDisplay => throw _privateConstructorUsedError;
   PubDto? get pub => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
@@ -43,7 +52,9 @@ mixin _$ClubProfileState {
   bool get openPhotoViewer => throw _privateConstructorUsedError;
   bool get showHeader => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ClubProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ClubProfileStateCopyWith<ClubProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,19 +71,28 @@ abstract class $ClubProfileStateCopyWith<$Res> {
       bool isSuccessful,
       bool showHamburger,
       String responseMsg,
+      bool isAtTabTop,
       GlobalKey<State<StatefulWidget>> key,
       int clubId,
       double viewPortHeight,
       int currentImageIndex,
       ScrollController scrollController,
       ScrollController parentController,
+      TabController? tabController,
+      PageController caraouselController,
+      String? todayOpeningTime,
+      String? todayClosingTime,
       bool isAtTop,
+      bool isOpenNow,
       String apiBaseUrl,
       PubRepository pubRepository,
       List<String> images,
       int page,
+      bool isMuted,
       DraggableScrollableController dragController,
       List<AssetDto> assets,
+      List<AssetDto> highlights,
+      List<AssetDto> assetToDisplay,
       PubDto? pub,
       UserRepository userRepository,
       bool isFollowing,
@@ -93,6 +113,8 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ClubProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,19 +123,28 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     Object? isSuccessful = null,
     Object? showHamburger = null,
     Object? responseMsg = null,
+    Object? isAtTabTop = null,
     Object? key = null,
     Object? clubId = null,
     Object? viewPortHeight = null,
     Object? currentImageIndex = null,
     Object? scrollController = null,
     Object? parentController = null,
+    Object? tabController = freezed,
+    Object? caraouselController = null,
+    Object? todayOpeningTime = freezed,
+    Object? todayClosingTime = freezed,
     Object? isAtTop = null,
+    Object? isOpenNow = null,
     Object? apiBaseUrl = null,
     Object? pubRepository = null,
     Object? images = null,
     Object? page = null,
+    Object? isMuted = null,
     Object? dragController = null,
     Object? assets = null,
+    Object? highlights = null,
+    Object? assetToDisplay = null,
     Object? pub = freezed,
     Object? userRepository = null,
     Object? isFollowing = null,
@@ -142,6 +173,10 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.responseMsg
           : responseMsg // ignore: cast_nullable_to_non_nullable
               as String,
+      isAtTabTop: null == isAtTabTop
+          ? _value.isAtTabTop
+          : isAtTabTop // ignore: cast_nullable_to_non_nullable
+              as bool,
       key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
@@ -166,9 +201,29 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.parentController
           : parentController // ignore: cast_nullable_to_non_nullable
               as ScrollController,
+      tabController: freezed == tabController
+          ? _value.tabController
+          : tabController // ignore: cast_nullable_to_non_nullable
+              as TabController?,
+      caraouselController: null == caraouselController
+          ? _value.caraouselController
+          : caraouselController // ignore: cast_nullable_to_non_nullable
+              as PageController,
+      todayOpeningTime: freezed == todayOpeningTime
+          ? _value.todayOpeningTime
+          : todayOpeningTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      todayClosingTime: freezed == todayClosingTime
+          ? _value.todayClosingTime
+          : todayClosingTime // ignore: cast_nullable_to_non_nullable
+              as String?,
       isAtTop: null == isAtTop
           ? _value.isAtTop
           : isAtTop // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOpenNow: null == isOpenNow
+          ? _value.isOpenNow
+          : isOpenNow // ignore: cast_nullable_to_non_nullable
               as bool,
       apiBaseUrl: null == apiBaseUrl
           ? _value.apiBaseUrl
@@ -186,6 +241,10 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      isMuted: null == isMuted
+          ? _value.isMuted
+          : isMuted // ignore: cast_nullable_to_non_nullable
+              as bool,
       dragController: null == dragController
           ? _value.dragController
           : dragController // ignore: cast_nullable_to_non_nullable
@@ -193,6 +252,14 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
       assets: null == assets
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
+      highlights: null == highlights
+          ? _value.highlights
+          : highlights // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
+      assetToDisplay: null == assetToDisplay
+          ? _value.assetToDisplay
+          : assetToDisplay // ignore: cast_nullable_to_non_nullable
               as List<AssetDto>,
       pub: freezed == pub
           ? _value.pub
@@ -221,6 +288,8 @@ class _$ClubProfileStateCopyWithImpl<$Res, $Val extends ClubProfileState>
     ) as $Val);
   }
 
+  /// Create a copy of ClubProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubDtoCopyWith<$Res>? get pub {
@@ -248,19 +317,28 @@ abstract class _$$ClubProfileStateImplCopyWith<$Res>
       bool isSuccessful,
       bool showHamburger,
       String responseMsg,
+      bool isAtTabTop,
       GlobalKey<State<StatefulWidget>> key,
       int clubId,
       double viewPortHeight,
       int currentImageIndex,
       ScrollController scrollController,
       ScrollController parentController,
+      TabController? tabController,
+      PageController caraouselController,
+      String? todayOpeningTime,
+      String? todayClosingTime,
       bool isAtTop,
+      bool isOpenNow,
       String apiBaseUrl,
       PubRepository pubRepository,
       List<String> images,
       int page,
+      bool isMuted,
       DraggableScrollableController dragController,
       List<AssetDto> assets,
+      List<AssetDto> highlights,
+      List<AssetDto> assetToDisplay,
       PubDto? pub,
       UserRepository userRepository,
       bool isFollowing,
@@ -280,6 +358,8 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
       $Res Function(_$ClubProfileStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ClubProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -288,19 +368,28 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
     Object? isSuccessful = null,
     Object? showHamburger = null,
     Object? responseMsg = null,
+    Object? isAtTabTop = null,
     Object? key = null,
     Object? clubId = null,
     Object? viewPortHeight = null,
     Object? currentImageIndex = null,
     Object? scrollController = null,
     Object? parentController = null,
+    Object? tabController = freezed,
+    Object? caraouselController = null,
+    Object? todayOpeningTime = freezed,
+    Object? todayClosingTime = freezed,
     Object? isAtTop = null,
+    Object? isOpenNow = null,
     Object? apiBaseUrl = null,
     Object? pubRepository = null,
     Object? images = null,
     Object? page = null,
+    Object? isMuted = null,
     Object? dragController = null,
     Object? assets = null,
+    Object? highlights = null,
+    Object? assetToDisplay = null,
     Object? pub = freezed,
     Object? userRepository = null,
     Object? isFollowing = null,
@@ -329,6 +418,10 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.responseMsg
           : responseMsg // ignore: cast_nullable_to_non_nullable
               as String,
+      isAtTabTop: null == isAtTabTop
+          ? _value.isAtTabTop
+          : isAtTabTop // ignore: cast_nullable_to_non_nullable
+              as bool,
       key: null == key
           ? _value.key
           : key // ignore: cast_nullable_to_non_nullable
@@ -353,9 +446,29 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.parentController
           : parentController // ignore: cast_nullable_to_non_nullable
               as ScrollController,
+      tabController: freezed == tabController
+          ? _value.tabController
+          : tabController // ignore: cast_nullable_to_non_nullable
+              as TabController?,
+      caraouselController: null == caraouselController
+          ? _value.caraouselController
+          : caraouselController // ignore: cast_nullable_to_non_nullable
+              as PageController,
+      todayOpeningTime: freezed == todayOpeningTime
+          ? _value.todayOpeningTime
+          : todayOpeningTime // ignore: cast_nullable_to_non_nullable
+              as String?,
+      todayClosingTime: freezed == todayClosingTime
+          ? _value.todayClosingTime
+          : todayClosingTime // ignore: cast_nullable_to_non_nullable
+              as String?,
       isAtTop: null == isAtTop
           ? _value.isAtTop
           : isAtTop // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isOpenNow: null == isOpenNow
+          ? _value.isOpenNow
+          : isOpenNow // ignore: cast_nullable_to_non_nullable
               as bool,
       apiBaseUrl: null == apiBaseUrl
           ? _value.apiBaseUrl
@@ -373,6 +486,10 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      isMuted: null == isMuted
+          ? _value.isMuted
+          : isMuted // ignore: cast_nullable_to_non_nullable
+              as bool,
       dragController: null == dragController
           ? _value.dragController
           : dragController // ignore: cast_nullable_to_non_nullable
@@ -380,6 +497,14 @@ class __$$ClubProfileStateImplCopyWithImpl<$Res>
       assets: null == assets
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
+      highlights: null == highlights
+          ? _value.highlights
+          : highlights // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
+      assetToDisplay: null == assetToDisplay
+          ? _value.assetToDisplay
+          : assetToDisplay // ignore: cast_nullable_to_non_nullable
               as List<AssetDto>,
       pub: freezed == pub
           ? _value.pub
@@ -418,19 +543,28 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
       required this.isSuccessful,
       required this.showHamburger,
       required this.responseMsg,
+      required this.isAtTabTop,
       required this.key,
       required this.clubId,
       required this.viewPortHeight,
       required this.currentImageIndex,
       required this.scrollController,
       required this.parentController,
+      required this.tabController,
+      required this.caraouselController,
+      this.todayOpeningTime,
+      this.todayClosingTime,
       required this.isAtTop,
+      required this.isOpenNow,
       required this.apiBaseUrl,
       required this.pubRepository,
       required this.images,
       required this.page,
+      required this.isMuted,
       required this.dragController,
       required this.assets,
+      required this.highlights,
+      required this.assetToDisplay,
       this.pub,
       required this.userRepository,
       required this.isFollowing,
@@ -449,6 +583,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   @override
   final String responseMsg;
   @override
+  final bool isAtTabTop;
+  @override
   final GlobalKey<State<StatefulWidget>> key;
   @override
   final int clubId;
@@ -461,7 +597,17 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   @override
   final ScrollController parentController;
   @override
+  final TabController? tabController;
+  @override
+  final PageController caraouselController;
+  @override
+  final String? todayOpeningTime;
+  @override
+  final String? todayClosingTime;
+  @override
   final bool isAtTop;
+  @override
+  final bool isOpenNow;
   @override
   final String apiBaseUrl;
   @override
@@ -471,9 +617,15 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
   @override
   final int page;
   @override
+  final bool isMuted;
+  @override
   final DraggableScrollableController dragController;
   @override
   final List<AssetDto> assets;
+  @override
+  final List<AssetDto> highlights;
+  @override
+  final List<AssetDto> assetToDisplay;
   @override
   final PubDto? pub;
   @override
@@ -489,7 +641,7 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
 
   @override
   String toString() {
-    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, showHamburger: $showHamburger, responseMsg: $responseMsg, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, isAtTop: $isAtTop, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, dragController: $dragController, assets: $assets, pub: $pub, userRepository: $userRepository, isFollowing: $isFollowing, isBlocked: $isBlocked, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
+    return 'ClubProfileState(isLoading: $isLoading, isFailed: $isFailed, isSuccessful: $isSuccessful, showHamburger: $showHamburger, responseMsg: $responseMsg, isAtTabTop: $isAtTabTop, key: $key, clubId: $clubId, viewPortHeight: $viewPortHeight, currentImageIndex: $currentImageIndex, scrollController: $scrollController, parentController: $parentController, tabController: $tabController, caraouselController: $caraouselController, todayOpeningTime: $todayOpeningTime, todayClosingTime: $todayClosingTime, isAtTop: $isAtTop, isOpenNow: $isOpenNow, apiBaseUrl: $apiBaseUrl, pubRepository: $pubRepository, images: $images, page: $page, isMuted: $isMuted, dragController: $dragController, assets: $assets, highlights: $highlights, assetToDisplay: $assetToDisplay, pub: $pub, userRepository: $userRepository, isFollowing: $isFollowing, isBlocked: $isBlocked, openPhotoViewer: $openPhotoViewer, showHeader: $showHeader)';
   }
 
   @override
@@ -507,6 +659,8 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
                 other.showHamburger == showHamburger) &&
             (identical(other.responseMsg, responseMsg) ||
                 other.responseMsg == responseMsg) &&
+            (identical(other.isAtTabTop, isAtTabTop) ||
+                other.isAtTabTop == isAtTabTop) &&
             (identical(other.key, key) || other.key == key) &&
             (identical(other.clubId, clubId) || other.clubId == clubId) &&
             (identical(other.viewPortHeight, viewPortHeight) ||
@@ -517,16 +671,31 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
                 other.scrollController == scrollController) &&
             (identical(other.parentController, parentController) ||
                 other.parentController == parentController) &&
+            (identical(other.tabController, tabController) ||
+                other.tabController == tabController) &&
+            (identical(other.caraouselController, caraouselController) ||
+                other.caraouselController == caraouselController) &&
+            (identical(other.todayOpeningTime, todayOpeningTime) ||
+                other.todayOpeningTime == todayOpeningTime) &&
+            (identical(other.todayClosingTime, todayClosingTime) ||
+                other.todayClosingTime == todayClosingTime) &&
             (identical(other.isAtTop, isAtTop) || other.isAtTop == isAtTop) &&
+            (identical(other.isOpenNow, isOpenNow) ||
+                other.isOpenNow == isOpenNow) &&
             (identical(other.apiBaseUrl, apiBaseUrl) ||
                 other.apiBaseUrl == apiBaseUrl) &&
             (identical(other.pubRepository, pubRepository) ||
                 other.pubRepository == pubRepository) &&
             const DeepCollectionEquality().equals(other.images, images) &&
             (identical(other.page, page) || other.page == page) &&
+            (identical(other.isMuted, isMuted) || other.isMuted == isMuted) &&
             (identical(other.dragController, dragController) ||
                 other.dragController == dragController) &&
             const DeepCollectionEquality().equals(other.assets, assets) &&
+            const DeepCollectionEquality()
+                .equals(other.highlights, highlights) &&
+            const DeepCollectionEquality()
+                .equals(other.assetToDisplay, assetToDisplay) &&
             (identical(other.pub, pub) || other.pub == pub) &&
             (identical(other.userRepository, userRepository) ||
                 other.userRepository == userRepository) &&
@@ -548,19 +717,28 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
         isSuccessful,
         showHamburger,
         responseMsg,
+        isAtTabTop,
         key,
         clubId,
         viewPortHeight,
         currentImageIndex,
         scrollController,
         parentController,
+        tabController,
+        caraouselController,
+        todayOpeningTime,
+        todayClosingTime,
         isAtTop,
+        isOpenNow,
         apiBaseUrl,
         pubRepository,
         const DeepCollectionEquality().hash(images),
         page,
+        isMuted,
         dragController,
         const DeepCollectionEquality().hash(assets),
+        const DeepCollectionEquality().hash(highlights),
+        const DeepCollectionEquality().hash(assetToDisplay),
         pub,
         userRepository,
         isFollowing,
@@ -569,7 +747,9 @@ class _$ClubProfileStateImpl implements _ClubProfileState {
         showHeader
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ClubProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ClubProfileStateImplCopyWith<_$ClubProfileStateImpl> get copyWith =>
@@ -584,19 +764,28 @@ abstract class _ClubProfileState implements ClubProfileState {
       required final bool isSuccessful,
       required final bool showHamburger,
       required final String responseMsg,
+      required final bool isAtTabTop,
       required final GlobalKey<State<StatefulWidget>> key,
       required final int clubId,
       required final double viewPortHeight,
       required final int currentImageIndex,
       required final ScrollController scrollController,
       required final ScrollController parentController,
+      required final TabController? tabController,
+      required final PageController caraouselController,
+      final String? todayOpeningTime,
+      final String? todayClosingTime,
       required final bool isAtTop,
+      required final bool isOpenNow,
       required final String apiBaseUrl,
       required final PubRepository pubRepository,
       required final List<String> images,
       required final int page,
+      required final bool isMuted,
       required final DraggableScrollableController dragController,
       required final List<AssetDto> assets,
+      required final List<AssetDto> highlights,
+      required final List<AssetDto> assetToDisplay,
       final PubDto? pub,
       required final UserRepository userRepository,
       required final bool isFollowing,
@@ -615,6 +804,8 @@ abstract class _ClubProfileState implements ClubProfileState {
   @override
   String get responseMsg;
   @override
+  bool get isAtTabTop;
+  @override
   GlobalKey<State<StatefulWidget>> get key;
   @override
   int get clubId;
@@ -627,7 +818,17 @@ abstract class _ClubProfileState implements ClubProfileState {
   @override
   ScrollController get parentController;
   @override
+  TabController? get tabController;
+  @override
+  PageController get caraouselController;
+  @override
+  String? get todayOpeningTime;
+  @override
+  String? get todayClosingTime;
+  @override
   bool get isAtTop;
+  @override
+  bool get isOpenNow;
   @override
   String get apiBaseUrl;
   @override
@@ -637,9 +838,15 @@ abstract class _ClubProfileState implements ClubProfileState {
   @override
   int get page;
   @override
+  bool get isMuted;
+  @override
   DraggableScrollableController get dragController;
   @override
   List<AssetDto> get assets;
+  @override
+  List<AssetDto> get highlights;
+  @override
+  List<AssetDto> get assetToDisplay;
   @override
   PubDto? get pub;
   @override
@@ -652,8 +859,11 @@ abstract class _ClubProfileState implements ClubProfileState {
   bool get openPhotoViewer;
   @override
   bool get showHeader;
+
+  /// Create a copy of ClubProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClubProfileStateImplCopyWith<_$ClubProfileStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

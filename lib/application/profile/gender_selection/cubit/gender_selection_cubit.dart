@@ -19,9 +19,10 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
   }
 
   void init({String? gender}) {
-    emit(state.copyWith(
-        selectedSex:
-            state.lsOFSexValue.indexWhere((element) => element == gender)));
+    //  print(" this is the init state ${state.userGender}");
+    int indexOfUserGender =
+        state.lsOFSexValue.indexWhere((e) => e == state.userGender);
+    emit(state.copyWith(selectedSex: indexOfUserGender));
   }
 
   // on add patient
@@ -35,23 +36,38 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
 
     response.fold((l) {
       emit(state.copyWith(
-         errorMessage: l,
-              isFailed: true,
-              isLoading: false,
+        errorMessage: l,
+        isFailed: true,
+        isLoading: false,
         genderUpdateSuccess: false,
         genderUpdateFailure: true,
         // isSaveDetailsEnable:true,
       ));
     }, (r) {
+      int indexofGender = state.lsOFSexValue.indexOf(r.gender);
+      // print("this is user gender ${r.gender} $indexofGender");
       emit(state.copyWith(
         genderUpdateSuccess: true,
         genderUpdateFailure: false,
         user: r,
-        isSaveDetailsEnable:true,
+        selectedSex: indexofGender == -1 ? 2 : indexofGender,
+        isSaveDetailsEnable: true,
         isSuccessful: true,
         isLoading: false,
       ));
     });
+  }
+
+  void onSelectGender(String gender) {
+    int indexOfSelected = state.lsOFSex.indexOf(gender);
+    if (indexOfSelected == -1) {
+      emit(state.copyWith(errorMessage: "gender not found"));
+    }
+    emit(state.copyWith(
+        selectedSex: indexOfSelected,
+        userGender: state.lsOFSex[indexOfSelected],
+        isSaveDetailsEnable: true));
+    //onContinue();
   }
 
   void onSexSelect(int selectedSex) async {
@@ -59,6 +75,5 @@ class GenderSelectionCubit extends Cubit<GenderSelectionState> {
       selectedSex: selectedSex,
       isSaveDetailsEnable: true,
     ));
-    
   }
 }

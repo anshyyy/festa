@@ -12,7 +12,7 @@ part of 'user_tickets_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserTicketsDto _$UserTicketsDtoFromJson(Map<String, dynamic> json) {
   return _UserTicketsDto.fromJson(json);
@@ -27,8 +27,12 @@ mixin _$UserTicketsDto {
   List<BookedTicketDetailsDto> get upcomingTickets =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this UserTicketsDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserTicketsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserTicketsDtoCopyWith<UserTicketsDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +59,8 @@ class _$UserTicketsDtoCopyWithImpl<$Res, $Val extends UserTicketsDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserTicketsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,6 +102,8 @@ class __$$UserTicketsDtoImplCopyWithImpl<$Res>
       _$UserTicketsDtoImpl _value, $Res Function(_$UserTicketsDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserTicketsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,14 +156,16 @@ class _$UserTicketsDtoImpl implements _UserTicketsDto {
                 .equals(other.upcomingTickets, upcomingTickets));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(bookedTicketsHistory),
       const DeepCollectionEquality().hash(upcomingTickets));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserTicketsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserTicketsDtoImplCopyWith<_$UserTicketsDtoImpl> get copyWith =>
@@ -187,8 +197,11 @@ abstract class _UserTicketsDto implements UserTicketsDto {
   @override
   @JsonKey(name: 'upcoming')
   List<BookedTicketDetailsDto> get upcomingTickets;
+
+  /// Create a copy of UserTicketsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserTicketsDtoImplCopyWith<_$UserTicketsDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

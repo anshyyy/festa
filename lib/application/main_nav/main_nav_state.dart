@@ -6,6 +6,7 @@ class MainNavState with _$MainNavState {
     required int currentIndex,
     required bool  isTabLoading,
     required bool  isGoToTop,
+    required bool showNavBar,
   }) = _MainNavState;
   
   factory MainNavState.initial({
@@ -13,5 +14,6 @@ class MainNavState with _$MainNavState {
   }) => MainNavState(currentIndex: currentIndex,
   isTabLoading: false,
   isGoToTop: false,
+  showNavBar: true
   );
 }

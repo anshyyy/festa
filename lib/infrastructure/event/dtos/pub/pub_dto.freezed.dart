@@ -12,7 +12,7 @@ part of 'pub_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 PubDto _$PubDtoFromJson(Map<String, dynamic> json) {
   return _PubDto.fromJson(json);
@@ -36,17 +36,31 @@ mixin _$PubDto {
   String get coverImageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'assets', defaultValue: [])
   List<AssetDto> get assets => throw _privateConstructorUsedError;
+  @JsonKey(name: 'highlights', defaultValue: [])
+  List<AssetDto> get highlights => throw _privateConstructorUsedError;
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag => throw _privateConstructorUsedError;
+  @JsonKey(name: 'barMenu')
+  List<MenuDto>? get barMenu => throw _privateConstructorUsedError;
+  @JsonKey(name: 'foodMenu')
+  List<MenuDto>? get foodMenu => throw _privateConstructorUsedError;
   @JsonKey(name: 'address', defaultValue: null)
   PubLocationDto? get location => throw _privateConstructorUsedError;
   @JsonKey(name: 'extraDetails', defaultValue: null)
   PubExtraDetailsDto? get extraDetailsDto => throw _privateConstructorUsedError;
+  @JsonKey(name: 'happyHours', defaultValue: [])
+  List<HappyhoursDto>? get happyHours => throw _privateConstructorUsedError;
   @JsonKey(name: 'openingHours', defaultValue: null)
   PubOpeningHours? get openingHours => throw _privateConstructorUsedError;
+  @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+  int? get completedEventsCount => throw _privateConstructorUsedError;
 
+  /// Serializes this PubDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PubDtoCopyWith<PubDto> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -64,12 +78,19 @@ abstract class $PubDtoCopyWith<$Res> {
       @JsonKey(name: 'averageRating', defaultValue: 0.0) double averageRating,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
+      @JsonKey(name: 'highlights', defaultValue: []) List<AssetDto> highlights,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'barMenu') List<MenuDto>? barMenu,
+      @JsonKey(name: 'foodMenu') List<MenuDto>? foodMenu,
       @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       PubExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'happyHours', defaultValue: [])
+      List<HappyhoursDto>? happyHours,
       @JsonKey(name: 'openingHours', defaultValue: null)
-      PubOpeningHours? openingHours});
+      PubOpeningHours? openingHours,
+      @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+      int? completedEventsCount});
 
   $TagDtoCopyWith<$Res>? get tag;
   $PubLocationDtoCopyWith<$Res>? get location;
@@ -87,6 +108,8 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,10 +121,15 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
     Object? averageRating = null,
     Object? coverImageUrl = null,
     Object? assets = null,
+    Object? highlights = null,
     Object? tag = freezed,
+    Object? barMenu = freezed,
+    Object? foodMenu = freezed,
     Object? location = freezed,
     Object? extraDetailsDto = freezed,
+    Object? happyHours = freezed,
     Object? openingHours = freezed,
+    Object? completedEventsCount = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -136,10 +164,22 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as List<AssetDto>,
+      highlights: null == highlights
+          ? _value.highlights
+          : highlights // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
       tag: freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagDto?,
+      barMenu: freezed == barMenu
+          ? _value.barMenu
+          : barMenu // ignore: cast_nullable_to_non_nullable
+              as List<MenuDto>?,
+      foodMenu: freezed == foodMenu
+          ? _value.foodMenu
+          : foodMenu // ignore: cast_nullable_to_non_nullable
+              as List<MenuDto>?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -148,13 +188,23 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
               as PubExtraDetailsDto?,
+      happyHours: freezed == happyHours
+          ? _value.happyHours
+          : happyHours // ignore: cast_nullable_to_non_nullable
+              as List<HappyhoursDto>?,
       openingHours: freezed == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
               as PubOpeningHours?,
+      completedEventsCount: freezed == completedEventsCount
+          ? _value.completedEventsCount
+          : completedEventsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TagDtoCopyWith<$Res>? get tag {
@@ -167,6 +217,8 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
     });
   }
 
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubLocationDtoCopyWith<$Res>? get location {
@@ -179,6 +231,8 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
     });
   }
 
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto {
@@ -191,6 +245,8 @@ class _$PubDtoCopyWithImpl<$Res, $Val extends PubDto>
     });
   }
 
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubOpeningHoursCopyWith<$Res>? get openingHours {
@@ -220,12 +276,19 @@ abstract class _$$PubDtoImplCopyWith<$Res> implements $PubDtoCopyWith<$Res> {
       @JsonKey(name: 'averageRating', defaultValue: 0.0) double averageRating,
       @JsonKey(name: 'coverImageUrl', defaultValue: '') String coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
+      @JsonKey(name: 'highlights', defaultValue: []) List<AssetDto> highlights,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'barMenu') List<MenuDto>? barMenu,
+      @JsonKey(name: 'foodMenu') List<MenuDto>? foodMenu,
       @JsonKey(name: 'address', defaultValue: null) PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       PubExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'happyHours', defaultValue: [])
+      List<HappyhoursDto>? happyHours,
       @JsonKey(name: 'openingHours', defaultValue: null)
-      PubOpeningHours? openingHours});
+      PubOpeningHours? openingHours,
+      @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+      int? completedEventsCount});
 
   @override
   $TagDtoCopyWith<$Res>? get tag;
@@ -245,6 +308,8 @@ class __$$PubDtoImplCopyWithImpl<$Res>
       _$PubDtoImpl _value, $Res Function(_$PubDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -256,10 +321,15 @@ class __$$PubDtoImplCopyWithImpl<$Res>
     Object? averageRating = null,
     Object? coverImageUrl = null,
     Object? assets = null,
+    Object? highlights = null,
     Object? tag = freezed,
+    Object? barMenu = freezed,
+    Object? foodMenu = freezed,
     Object? location = freezed,
     Object? extraDetailsDto = freezed,
+    Object? happyHours = freezed,
     Object? openingHours = freezed,
+    Object? completedEventsCount = freezed,
   }) {
     return _then(_$PubDtoImpl(
       id: null == id
@@ -294,10 +364,22 @@ class __$$PubDtoImplCopyWithImpl<$Res>
           ? _value.assets
           : assets // ignore: cast_nullable_to_non_nullable
               as List<AssetDto>,
+      highlights: null == highlights
+          ? _value.highlights
+          : highlights // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
       tag: freezed == tag
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagDto?,
+      barMenu: freezed == barMenu
+          ? _value.barMenu
+          : barMenu // ignore: cast_nullable_to_non_nullable
+              as List<MenuDto>?,
+      foodMenu: freezed == foodMenu
+          ? _value.foodMenu
+          : foodMenu // ignore: cast_nullable_to_non_nullable
+              as List<MenuDto>?,
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -306,10 +388,18 @@ class __$$PubDtoImplCopyWithImpl<$Res>
           ? _value.extraDetailsDto
           : extraDetailsDto // ignore: cast_nullable_to_non_nullable
               as PubExtraDetailsDto?,
+      happyHours: freezed == happyHours
+          ? _value.happyHours
+          : happyHours // ignore: cast_nullable_to_non_nullable
+              as List<HappyhoursDto>?,
       openingHours: freezed == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
               as PubOpeningHours?,
+      completedEventsCount: freezed == completedEventsCount
+          ? _value.completedEventsCount
+          : completedEventsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -328,10 +418,16 @@ class _$PubDtoImpl implements _PubDto {
       @JsonKey(name: 'coverImageUrl', defaultValue: '')
       required this.coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: []) required this.assets,
+      @JsonKey(name: 'highlights', defaultValue: []) required this.highlights,
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
+      @JsonKey(name: 'barMenu') this.barMenu,
+      @JsonKey(name: 'foodMenu') this.foodMenu,
       @JsonKey(name: 'address', defaultValue: null) this.location,
       @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto,
-      @JsonKey(name: 'openingHours', defaultValue: null) this.openingHours});
+      @JsonKey(name: 'happyHours', defaultValue: []) this.happyHours,
+      @JsonKey(name: 'openingHours', defaultValue: null) this.openingHours,
+      @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+      this.completedEventsCount});
 
   factory _$PubDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$PubDtoImplFromJson(json);
@@ -361,8 +457,17 @@ class _$PubDtoImpl implements _PubDto {
   @JsonKey(name: 'assets', defaultValue: [])
   final List<AssetDto> assets;
   @override
+  @JsonKey(name: 'highlights', defaultValue: [])
+  final List<AssetDto> highlights;
+  @override
   @JsonKey(name: 'tag', defaultValue: null)
   final TagDto? tag;
+  @override
+  @JsonKey(name: 'barMenu')
+  final List<MenuDto>? barMenu;
+  @override
+  @JsonKey(name: 'foodMenu')
+  final List<MenuDto>? foodMenu;
   @override
   @JsonKey(name: 'address', defaultValue: null)
   final PubLocationDto? location;
@@ -370,12 +475,18 @@ class _$PubDtoImpl implements _PubDto {
   @JsonKey(name: 'extraDetails', defaultValue: null)
   final PubExtraDetailsDto? extraDetailsDto;
   @override
+  @JsonKey(name: 'happyHours', defaultValue: [])
+  final List<HappyhoursDto>? happyHours;
+  @override
   @JsonKey(name: 'openingHours', defaultValue: null)
   final PubOpeningHours? openingHours;
+  @override
+  @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+  final int? completedEventsCount;
 
   @override
   String toString() {
-    return 'PubDto(id: $id, fullName: $fullName, description: $description, userName: $userName, logo: $logo, averageRating: $averageRating, coverImageUrl: $coverImageUrl, assets: $assets, tag: $tag, location: $location, extraDetailsDto: $extraDetailsDto, openingHours: $openingHours)';
+    return 'PubDto(id: $id, fullName: $fullName, description: $description, userName: $userName, logo: $logo, averageRating: $averageRating, coverImageUrl: $coverImageUrl, assets: $assets, highlights: $highlights, tag: $tag, barMenu: $barMenu, foodMenu: $foodMenu, location: $location, extraDetailsDto: $extraDetailsDto, happyHours: $happyHours, openingHours: $openingHours, completedEventsCount: $completedEventsCount)';
   }
 
   @override
@@ -396,16 +507,24 @@ class _$PubDtoImpl implements _PubDto {
             (identical(other.coverImageUrl, coverImageUrl) ||
                 other.coverImageUrl == coverImageUrl) &&
             const DeepCollectionEquality().equals(other.assets, assets) &&
+            const DeepCollectionEquality()
+                .equals(other.highlights, highlights) &&
             (identical(other.tag, tag) || other.tag == tag) &&
+            const DeepCollectionEquality().equals(other.barMenu, barMenu) &&
+            const DeepCollectionEquality().equals(other.foodMenu, foodMenu) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.extraDetailsDto, extraDetailsDto) ||
                 other.extraDetailsDto == extraDetailsDto) &&
+            const DeepCollectionEquality()
+                .equals(other.happyHours, happyHours) &&
             (identical(other.openingHours, openingHours) ||
-                other.openingHours == openingHours));
+                other.openingHours == openingHours) &&
+            (identical(other.completedEventsCount, completedEventsCount) ||
+                other.completedEventsCount == completedEventsCount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -417,12 +536,19 @@ class _$PubDtoImpl implements _PubDto {
       averageRating,
       coverImageUrl,
       const DeepCollectionEquality().hash(assets),
+      const DeepCollectionEquality().hash(highlights),
       tag,
+      const DeepCollectionEquality().hash(barMenu),
+      const DeepCollectionEquality().hash(foodMenu),
       location,
       extraDetailsDto,
-      openingHours);
+      const DeepCollectionEquality().hash(happyHours),
+      openingHours,
+      completedEventsCount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PubDtoImplCopyWith<_$PubDtoImpl> get copyWith =>
@@ -452,13 +578,21 @@ abstract class _PubDto implements PubDto {
       required final String coverImageUrl,
       @JsonKey(name: 'assets', defaultValue: [])
       required final List<AssetDto> assets,
+      @JsonKey(name: 'highlights', defaultValue: [])
+      required final List<AssetDto> highlights,
       @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
+      @JsonKey(name: 'barMenu') final List<MenuDto>? barMenu,
+      @JsonKey(name: 'foodMenu') final List<MenuDto>? foodMenu,
       @JsonKey(name: 'address', defaultValue: null)
       final PubLocationDto? location,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       final PubExtraDetailsDto? extraDetailsDto,
+      @JsonKey(name: 'happyHours', defaultValue: [])
+      final List<HappyhoursDto>? happyHours,
       @JsonKey(name: 'openingHours', defaultValue: null)
-      final PubOpeningHours? openingHours}) = _$PubDtoImpl;
+      final PubOpeningHours? openingHours,
+      @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+      final int? completedEventsCount}) = _$PubDtoImpl;
 
   factory _PubDto.fromJson(Map<String, dynamic> json) = _$PubDtoImpl.fromJson;
 
@@ -487,8 +621,17 @@ abstract class _PubDto implements PubDto {
   @JsonKey(name: 'assets', defaultValue: [])
   List<AssetDto> get assets;
   @override
+  @JsonKey(name: 'highlights', defaultValue: [])
+  List<AssetDto> get highlights;
+  @override
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag;
+  @override
+  @JsonKey(name: 'barMenu')
+  List<MenuDto>? get barMenu;
+  @override
+  @JsonKey(name: 'foodMenu')
+  List<MenuDto>? get foodMenu;
   @override
   @JsonKey(name: 'address', defaultValue: null)
   PubLocationDto? get location;
@@ -496,10 +639,19 @@ abstract class _PubDto implements PubDto {
   @JsonKey(name: 'extraDetails', defaultValue: null)
   PubExtraDetailsDto? get extraDetailsDto;
   @override
+  @JsonKey(name: 'happyHours', defaultValue: [])
+  List<HappyhoursDto>? get happyHours;
+  @override
   @JsonKey(name: 'openingHours', defaultValue: null)
   PubOpeningHours? get openingHours;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'completedEventsCount', defaultValue: 0)
+  int? get completedEventsCount;
+
+  /// Create a copy of PubDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PubDtoImplCopyWith<_$PubDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

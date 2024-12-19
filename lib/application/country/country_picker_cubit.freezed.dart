@@ -12,7 +12,7 @@ part of 'country_picker_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CountryPickerState {
@@ -24,7 +24,9 @@ mixin _$CountryPickerState {
   List<Map<String, dynamic>> get tempCountryList =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryPickerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CountryPickerStateCopyWith<CountryPickerState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$CountryPickerStateCopyWithImpl<$Res, $Val extends CountryPickerState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CountryPickerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,6 +115,8 @@ class __$$CountryPickerStateImplCopyWithImpl<$Res>
       $Res Function(_$CountryPickerStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CountryPickerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -211,7 +217,9 @@ class _$CountryPickerStateImpl implements _CountryPickerState {
       const DeepCollectionEquality().hash(_countryList),
       const DeepCollectionEquality().hash(_tempCountryList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryPickerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CountryPickerStateImplCopyWith<_$CountryPickerStateImpl> get copyWith =>
@@ -238,8 +246,11 @@ abstract class _CountryPickerState implements CountryPickerState {
   List<Map<String, dynamic>> get countryList;
   @override
   List<Map<String, dynamic>> get tempCountryList;
+
+  /// Create a copy of CountryPickerState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CountryPickerStateImplCopyWith<_$CountryPickerStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

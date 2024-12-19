@@ -12,15 +12,18 @@ part of 'main_nav_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$MainNavState {
   int get currentIndex => throw _privateConstructorUsedError;
   bool get isTabLoading => throw _privateConstructorUsedError;
   bool get isGoToTop => throw _privateConstructorUsedError;
+  bool get showNavBar => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MainNavStateCopyWith<MainNavState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -31,7 +34,8 @@ abstract class $MainNavStateCopyWith<$Res> {
           MainNavState value, $Res Function(MainNavState) then) =
       _$MainNavStateCopyWithImpl<$Res, MainNavState>;
   @useResult
-  $Res call({int currentIndex, bool isTabLoading, bool isGoToTop});
+  $Res call(
+      {int currentIndex, bool isTabLoading, bool isGoToTop, bool showNavBar});
 }
 
 /// @nodoc
@@ -44,12 +48,15 @@ class _$MainNavStateCopyWithImpl<$Res, $Val extends MainNavState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? currentIndex = null,
     Object? isTabLoading = null,
     Object? isGoToTop = null,
+    Object? showNavBar = null,
   }) {
     return _then(_value.copyWith(
       currentIndex: null == currentIndex
@@ -64,6 +71,10 @@ class _$MainNavStateCopyWithImpl<$Res, $Val extends MainNavState>
           ? _value.isGoToTop
           : isGoToTop // ignore: cast_nullable_to_non_nullable
               as bool,
+      showNavBar: null == showNavBar
+          ? _value.showNavBar
+          : showNavBar // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -76,7 +87,8 @@ abstract class _$$MainNavStateImplCopyWith<$Res>
       __$$MainNavStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int currentIndex, bool isTabLoading, bool isGoToTop});
+  $Res call(
+      {int currentIndex, bool isTabLoading, bool isGoToTop, bool showNavBar});
 }
 
 /// @nodoc
@@ -87,12 +99,15 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
       _$MainNavStateImpl _value, $Res Function(_$MainNavStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? currentIndex = null,
     Object? isTabLoading = null,
     Object? isGoToTop = null,
+    Object? showNavBar = null,
   }) {
     return _then(_$MainNavStateImpl(
       currentIndex: null == currentIndex
@@ -107,6 +122,10 @@ class __$$MainNavStateImplCopyWithImpl<$Res>
           ? _value.isGoToTop
           : isGoToTop // ignore: cast_nullable_to_non_nullable
               as bool,
+      showNavBar: null == showNavBar
+          ? _value.showNavBar
+          : showNavBar // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$MainNavStateImpl implements _MainNavState {
   const _$MainNavStateImpl(
       {required this.currentIndex,
       required this.isTabLoading,
-      required this.isGoToTop});
+      required this.isGoToTop,
+      required this.showNavBar});
 
   @override
   final int currentIndex;
@@ -125,10 +145,12 @@ class _$MainNavStateImpl implements _MainNavState {
   final bool isTabLoading;
   @override
   final bool isGoToTop;
+  @override
+  final bool showNavBar;
 
   @override
   String toString() {
-    return 'MainNavState(currentIndex: $currentIndex, isTabLoading: $isTabLoading, isGoToTop: $isGoToTop)';
+    return 'MainNavState(currentIndex: $currentIndex, isTabLoading: $isTabLoading, isGoToTop: $isGoToTop, showNavBar: $showNavBar)';
   }
 
   @override
@@ -141,14 +163,18 @@ class _$MainNavStateImpl implements _MainNavState {
             (identical(other.isTabLoading, isTabLoading) ||
                 other.isTabLoading == isTabLoading) &&
             (identical(other.isGoToTop, isGoToTop) ||
-                other.isGoToTop == isGoToTop));
+                other.isGoToTop == isGoToTop) &&
+            (identical(other.showNavBar, showNavBar) ||
+                other.showNavBar == showNavBar));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, currentIndex, isTabLoading, isGoToTop);
+  int get hashCode => Object.hash(
+      runtimeType, currentIndex, isTabLoading, isGoToTop, showNavBar);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MainNavStateImplCopyWith<_$MainNavStateImpl> get copyWith =>
@@ -159,7 +185,8 @@ abstract class _MainNavState implements MainNavState {
   const factory _MainNavState(
       {required final int currentIndex,
       required final bool isTabLoading,
-      required final bool isGoToTop}) = _$MainNavStateImpl;
+      required final bool isGoToTop,
+      required final bool showNavBar}) = _$MainNavStateImpl;
 
   @override
   int get currentIndex;
@@ -168,7 +195,12 @@ abstract class _MainNavState implements MainNavState {
   @override
   bool get isGoToTop;
   @override
-  @JsonKey(ignore: true)
+  bool get showNavBar;
+
+  /// Create a copy of MainNavState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MainNavStateImplCopyWith<_$MainNavStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,7 @@ part of 'event_details_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$EventDetailsState {
@@ -22,6 +22,7 @@ mixin _$EventDetailsState {
   String get apiBaseUrl => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
+  List<AssetDto> get pubassetsForTheEvent => throw _privateConstructorUsedError;
   String get eventDistance => throw _privateConstructorUsedError;
   bool get lsdExpanded => throw _privateConstructorUsedError;
   bool get ambExpanded => throw _privateConstructorUsedError;
@@ -29,10 +30,13 @@ mixin _$EventDetailsState {
   bool get faqExpanded => throw _privateConstructorUsedError;
   bool get isEventLiked => throw _privateConstructorUsedError;
   bool get isOpenMapModal => throw _privateConstructorUsedError;
-  List<AvailableMap> get mapsOptions => throw _privateConstructorUsedError;
+  List<AvailableMap> get mapsOptions =>
+      throw _privateConstructorUsedError; //required List<>
   Coords? get eventLocation => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventDetailsStateCopyWith<EventDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,7 @@ abstract class $EventDetailsStateCopyWith<$Res> {
       String apiBaseUrl,
       EventRepository eventRepository,
       EventDto? event,
+      List<AssetDto> pubassetsForTheEvent,
       String eventDistance,
       bool lsdExpanded,
       bool ambExpanded,
@@ -73,6 +78,8 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -82,6 +89,7 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
     Object? apiBaseUrl = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? pubassetsForTheEvent = null,
     Object? eventDistance = null,
     Object? lsdExpanded = null,
     Object? ambExpanded = null,
@@ -117,6 +125,10 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      pubassetsForTheEvent: null == pubassetsForTheEvent
+          ? _value.pubassetsForTheEvent
+          : pubassetsForTheEvent // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
       eventDistance: null == eventDistance
           ? _value.eventDistance
           : eventDistance // ignore: cast_nullable_to_non_nullable
@@ -156,6 +168,8 @@ class _$EventDetailsStateCopyWithImpl<$Res, $Val extends EventDetailsState>
     ) as $Val);
   }
 
+  /// Create a copy of EventDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventDtoCopyWith<$Res>? get event {
@@ -184,6 +198,7 @@ abstract class _$$EventDetailsStateImplCopyWith<$Res>
       String apiBaseUrl,
       EventRepository eventRepository,
       EventDto? event,
+      List<AssetDto> pubassetsForTheEvent,
       String eventDistance,
       bool lsdExpanded,
       bool ambExpanded,
@@ -206,6 +221,8 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
       $Res Function(_$EventDetailsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EventDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -215,6 +232,7 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
     Object? apiBaseUrl = null,
     Object? eventRepository = null,
     Object? event = freezed,
+    Object? pubassetsForTheEvent = null,
     Object? eventDistance = null,
     Object? lsdExpanded = null,
     Object? ambExpanded = null,
@@ -250,6 +268,10 @@ class __$$EventDetailsStateImplCopyWithImpl<$Res>
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
               as EventDto?,
+      pubassetsForTheEvent: null == pubassetsForTheEvent
+          ? _value._pubassetsForTheEvent
+          : pubassetsForTheEvent // ignore: cast_nullable_to_non_nullable
+              as List<AssetDto>,
       eventDistance: null == eventDistance
           ? _value.eventDistance
           : eventDistance // ignore: cast_nullable_to_non_nullable
@@ -300,6 +322,7 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       required this.apiBaseUrl,
       required this.eventRepository,
       required this.event,
+      required final List<AssetDto> pubassetsForTheEvent,
       required this.eventDistance,
       required this.lsdExpanded,
       required this.ambExpanded,
@@ -309,7 +332,8 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       required this.isOpenMapModal,
       required final List<AvailableMap> mapsOptions,
       this.eventLocation})
-      : _mapsOptions = mapsOptions;
+      : _pubassetsForTheEvent = pubassetsForTheEvent,
+        _mapsOptions = mapsOptions;
 
   @override
   final bool isLoading;
@@ -323,6 +347,15 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
   final EventRepository eventRepository;
   @override
   final EventDto? event;
+  final List<AssetDto> _pubassetsForTheEvent;
+  @override
+  List<AssetDto> get pubassetsForTheEvent {
+    if (_pubassetsForTheEvent is EqualUnmodifiableListView)
+      return _pubassetsForTheEvent;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pubassetsForTheEvent);
+  }
+
   @override
   final String eventDistance;
   @override
@@ -345,12 +378,13 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
     return EqualUnmodifiableListView(_mapsOptions);
   }
 
+//required List<>
   @override
   final Coords? eventLocation;
 
   @override
   String toString() {
-    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, eventDistance: $eventDistance, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked, isOpenMapModal: $isOpenMapModal, mapsOptions: $mapsOptions, eventLocation: $eventLocation)';
+    return 'EventDetailsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, apiBaseUrl: $apiBaseUrl, eventRepository: $eventRepository, event: $event, pubassetsForTheEvent: $pubassetsForTheEvent, eventDistance: $eventDistance, lsdExpanded: $lsdExpanded, ambExpanded: $ambExpanded, fnbExpanded: $fnbExpanded, faqExpanded: $faqExpanded, isEventLiked: $isEventLiked, isOpenMapModal: $isOpenMapModal, mapsOptions: $mapsOptions, eventLocation: $eventLocation)';
   }
 
   @override
@@ -369,6 +403,8 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
             (identical(other.eventRepository, eventRepository) ||
                 other.eventRepository == eventRepository) &&
             (identical(other.event, event) || other.event == event) &&
+            const DeepCollectionEquality()
+                .equals(other._pubassetsForTheEvent, _pubassetsForTheEvent) &&
             (identical(other.eventDistance, eventDistance) ||
                 other.eventDistance == eventDistance) &&
             (identical(other.lsdExpanded, lsdExpanded) ||
@@ -398,6 +434,7 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       apiBaseUrl,
       eventRepository,
       event,
+      const DeepCollectionEquality().hash(_pubassetsForTheEvent),
       eventDistance,
       lsdExpanded,
       ambExpanded,
@@ -408,7 +445,9 @@ class _$EventDetailsStateImpl implements _EventDetailsState {
       const DeepCollectionEquality().hash(_mapsOptions),
       eventLocation);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EventDetailsStateImplCopyWith<_$EventDetailsStateImpl> get copyWith =>
@@ -424,6 +463,7 @@ abstract class _EventDetailsState implements EventDetailsState {
       required final String apiBaseUrl,
       required final EventRepository eventRepository,
       required final EventDto? event,
+      required final List<AssetDto> pubassetsForTheEvent,
       required final String eventDistance,
       required final bool lsdExpanded,
       required final bool ambExpanded,
@@ -447,6 +487,8 @@ abstract class _EventDetailsState implements EventDetailsState {
   @override
   EventDto? get event;
   @override
+  List<AssetDto> get pubassetsForTheEvent;
+  @override
   String get eventDistance;
   @override
   bool get lsdExpanded;
@@ -461,11 +503,14 @@ abstract class _EventDetailsState implements EventDetailsState {
   @override
   bool get isOpenMapModal;
   @override
-  List<AvailableMap> get mapsOptions;
+  List<AvailableMap> get mapsOptions; //required List<>
   @override
   Coords? get eventLocation;
+
+  /// Create a copy of EventDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EventDetailsStateImplCopyWith<_$EventDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

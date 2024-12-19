@@ -10,8 +10,11 @@ import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/configs/injection.dart';
 import '../../../domain/core/constants/asset_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/extensions/string_extension.dart';
 import '../../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../../domain/core/services/navigation_services/routers/route_name.dart';
+import '../../../infrastructure/artist/dtos/artist/artist_dto.dart';
+import '../../../infrastructure/event/dtos/artist/artist_dto.dart';
 import '../../core/agree_to_block_modal.dart';
 import '../../core/report_modal.dart';
 import 'event_option_tile.dart';
@@ -19,10 +22,21 @@ import 'follow_artist_modalsheet.dart';
 
 class EventOptionsModalSheet extends StatelessWidget {
   final int eventId;
-  const EventOptionsModalSheet({
-    super.key,
-    required this.eventId,
-  });
+  final String eventName;
+  final List<ArtistProfileDto> artists;
+  final String eventStartDate;
+  final String eventEndDate;
+  final String eventDescription;
+  final String eventCompleteAddress;
+  const EventOptionsModalSheet(
+      {super.key,
+      required this.eventId,
+      required this.eventName,
+      required this.artists,
+      required this.eventDescription,
+      required this.eventCompleteAddress,
+      required this.eventEndDate,
+      required this.eventStartDate});
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +45,37 @@ class EventOptionsModalSheet extends StatelessWidget {
       create: (context) => EventOptionsCubit(EventOptionsState.initial(
         eventId: eventId,
         serverUrl: appConfig.serverUrl,
-      ))
-        ..init(),
-      child: const EventOptionsModalsheetConsumer(),
+      )),
+      child: EventOptionsModalsheetConsumer(
+        eventId: eventId,
+        eventName: eventName,
+        artists: artists,
+        eventDescription: eventDescription,
+        eventCompleteAddress: eventCompleteAddress,
+        eventStartDate: eventStartDate,
+        eventEndDate: eventEndDate,
+      ),
     );
   }
 }
 
 class EventOptionsModalsheetConsumer extends StatelessWidget {
-  const EventOptionsModalsheetConsumer({
-    super.key,
-  });
+  final int eventId;
+  final String eventName;
+  final List<ArtistProfileDto> artists;
+  final String eventStartDate,
+      eventEndDate,
+      eventDescription,
+      eventCompleteAddress;
+  const EventOptionsModalsheetConsumer(
+      {super.key,
+      required this.eventId,
+      required this.artists,
+      required this.eventName,
+      required this.eventDescription,
+      required this.eventCompleteAddress,
+      required this.eventEndDate,
+      required this.eventStartDate});
 
   @override
   Widget build(BuildContext context) {
@@ -60,154 +94,185 @@ class EventOptionsModalsheetConsumer extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: SingleChildScrollView(
-            child: !state.isLoading
-                ? Column(
-                    children: [
-                      Container(
-                        width: 12.w,
-                        height: .5.h,
-                        decoration: BoxDecoration(
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      EventOptionsTile(
-                        prefixIcon: SvgPicture.asset(
-                          AssetConstants.followIcon,
-                          height: 5.w,
-                        ),
-                        onTap: () {
-                          navigator<NavigationService>().goBack();
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => FollowArtistsModalSheet(
-                                    artists: state.event!.artists,
-                                  ));
-                        },
-                        title: EventDetailsScreenConstants.followArtists,
-                        suffixIcon: SvgPicture.asset(
-                          AssetConstants.arrowRight,
-                        ),
-                      ),
-                      EventOptionsTile(
-                          onTap: () {
-                            final Event event = Event(
-                              title: state.event!.name,
-                              description: state.event!.description,
-                              location: state.event!.address!.completeAddress,
-                              startDate: DateTime.parse(state.event!.startDate)
-                                  .toLocal(),
-                              endDate: DateTime.parse(state.event!.endDate!)
-                                  .toLocal(),
-                              iosParams: const IOSParams(
-                                reminder: Duration(hours: 1),
-                                url: 'https://www.festa.com',
-                              ),
-                              androidParams: const AndroidParams(
-                                emailInvites: [],
-                              ),
-                            );
-                            Add2Calendar.addEvent2Cal(event);
-                          },
-                          prefixIcon: SvgPicture.asset(
-                            AssetConstants.addToCalendar,
-                            height: 5.w,
-                          ),
-                          title: EventDetailsScreenConstants.addToCalendar),
-                      // EventOptionsTile(title: EventDetailsScreenConstants.shareEvent),
-                      EventOptionsTile(
-                          onTap: () {
-                            navigator<NavigationService>().goBack();
-                            showModalBottomSheet(
-                                useRootNavigator: true,
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (context) {
-                                  return ReportModalSheet(
-                                    id: state.eventId.toString(),
-                                    name: state.event!.name,
-                                    type: 'event',
-                                  );
-                                });
-                          },
-                          prefixIcon: SvgPicture.asset(
-                            AssetConstants.gradientReport,
-                            height: 5.w,
-                          ),
-                          title: EventDetailsScreenConstants.report),
-
-                      EventOptionsTile(
-                        prefixIcon: SvgPicture.asset(
-                          AssetConstants.userBlock,
-                          height: 5.w,
-                        ),
-                        onTap: () {
-                          showModalBottomSheet(
+              child: Column(
+            children: [
+              Container(
+                width: 12.w,
+                height: .5.h,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+              EventOptionsTile(
+                prefixIcon: SvgPicture.asset(
+                  AssetConstants.followIcon,
+                  height: 5.w,
+                ),
+                onTap: () {
+                  if (!state.isLoading) {
+                    showModalBottomSheet(
+                            isDismissible: false,
                             context: context,
-                            builder: (context) => AgreeToBlock(
-                              name: state.event!.name,
-                            ),
-                          ).then((value) {
-                            if (value != null) {
-                              context.read<EventOptionsCubit>().blockEvent();
-                            }
-                          });
-                        },
-                        title: 'Block',
-                        suffixIcon: SvgPicture.asset(
-                          AssetConstants.arrowRight,
-                        ),
+                            builder: (context) =>
+                                FollowArtistsModalSheet(artists: artists))
+                        .then((v) {
+                      // print(v);
+                      navigator<NavigationService>()
+                          .goBack(responseObject: {'artists': v['artists']});
+                    });
+                  }
+                },
+                title: EventDetailsScreenConstants.followArtists,
+                suffixIcon: state.isLoading
+                    ? Image.asset(
+                        AssetConstants.bubbleLoader,
+                        height: 3.5.h,
+                      )
+                    : SvgPicture.asset(
+                        AssetConstants.arrowRight,
                       ),
-                      SizedBox(
-                        height: 3.h,
+              ),
+              EventOptionsTile(
+                  onTap: () {
+                    if (state.isLoading) {
+                      return;
+                    }
+
+                    // print(eventStartDate);
+                    // print(eventEndDate);
+
+                    // Parse UTC time and subtract 5 hours and 30 minutes (IST)
+                    DateTime sd = DateTime.parse(eventStartDate)
+                        .toUtc()
+                        .subtract(Duration(hours: 5, minutes: 30));
+                    print(
+                        'Adjusted UTC Start Date: $sd'); // Show adjusted UTC time
+
+                    DateTime ed = DateTime.parse(eventEndDate)
+                        .toUtc()
+                        .subtract(Duration(hours: 5, minutes: 30));
+                    print(
+                        'Adjusted UTC End Date: $ed'); // Show adjusted UTC time
+
+                    // Prepare the event with the adjusted UTC times
+                    final Event event = Event(
+                      title: eventName ?? "",
+                      description: eventDescription ?? "",
+                      location: eventCompleteAddress ?? '',
+                      startDate: sd, // Pass the pre-adjusted UTC time
+                      endDate: ed, // Pass the pre-adjusted UTC time
+                      iosParams: const IOSParams(
+                        reminder: Duration(hours: 1),
+                        url: 'https://www.festa.com',
                       ),
-                    ],
-                  )
-                : Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: 12.w,
-                        height: .5.h,
-                        decoration: BoxDecoration(
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
+                      androidParams: const AndroidParams(
+                        emailInvites: [],
                       ),
-                      Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!.withOpacity(0.5),
-                        highlightColor: Colors.grey[400]!.withOpacity(0.5),
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 1.h),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              const MenuShimmer(),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              const MenuShimmer(),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              const MenuShimmer(),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                    );
+
+                    // Add the event to the calendar
+                    Add2Calendar.addEvent2Cal(event);
+                    Navigator.pop(context);
+                  },
+                  prefixIcon: SvgPicture.asset(
+                    AssetConstants.addToCalendar,
+                    height: 5.w,
                   ),
-          ),
+                  title: EventDetailsScreenConstants.addToCalendar),
+              // EventOptionsTile(title: EventDetailsScreenConstants.shareEvent),
+              EventOptionsTile(
+                  onTap: () {
+                    navigator<NavigationService>().goBack();
+                    showModalBottomSheet(
+                        useRootNavigator: true,
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return ReportModalSheet(
+                            id: eventId.toString(),
+                            name: eventName,
+                            type: 'event',
+                          );
+                        });
+                  },
+                  prefixIcon: SvgPicture.asset(
+                    AssetConstants.gradientReport,
+                    height: 5.w,
+                  ),
+                  title: EventDetailsScreenConstants.report),
+
+              EventOptionsTile(
+                prefixIcon: SvgPicture.asset(
+                  AssetConstants.userBlock,
+                  height: 5.w,
+                ),
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => AgreeToBlock(
+                      name: eventName,
+                    ),
+                  ).then((value) {
+                    if (value != null) {
+                      context.read<EventOptionsCubit>().blockEvent();
+                    }
+                  });
+                },
+                title: 'Block',
+                suffixIcon: SvgPicture.asset(
+                  AssetConstants.arrowRight,
+                ),
+              ),
+              SizedBox(
+                height: 3.h,
+              ),
+            ],
+          )
+              // : Column(
+              //     mainAxisSize: MainAxisSize.max,
+              //     children: [
+              //       Container(
+              //         width: 12.w,
+              //         height: .5.h,
+              //         decoration: BoxDecoration(
+              //           color:
+              //               Theme.of(context).colorScheme.secondaryContainer,
+              //           borderRadius: BorderRadius.circular(50),
+              //         ),
+              //       ),
+              //       Shimmer.fromColors(
+              //         baseColor: Colors.grey[300]!.withOpacity(0.5),
+              //         highlightColor: Colors.grey[400]!.withOpacity(0.5),
+              //         child: Container(
+              //           margin: EdgeInsets.only(bottom: 1.h),
+              //           child: Column(
+              //             children: [
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //               const MenuShimmer(),
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //               const MenuShimmer(),
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //               const MenuShimmer(),
+              //               SizedBox(
+              //                 height: 2.h,
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              ),
         );
       },
     );

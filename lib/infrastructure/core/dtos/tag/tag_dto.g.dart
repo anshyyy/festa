@@ -7,7 +7,7 @@ part of 'tag_dto.dart';
 // **************************************************************************
 
 _$TagDtoImpl _$$TagDtoImplFromJson(Map<String, dynamic> json) => _$TagDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       tag: json['tag'] as String? ?? '',
     );
 

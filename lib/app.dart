@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ import 'domain/core/services/navigation_services/navigation_service.dart';
 import 'domain/core/services/navigation_services/routers/route_name.dart';
 import 'domain/core/services/navigation_services/routers/routing_config.dart';
 import 'domain/core/themes/app_theme.dart';
+import 'domain/core/utils/app_link.dart';
 import 'domain/core/utils/dynamic_link.dart';
 import 'infrastructure/auth/i_auth_repository.dart';
 import 'infrastructure/core/dtos/location/location_dto.dart';
@@ -108,8 +111,16 @@ Future appInitializer(AppConfig appConfig) async {
   final Directory appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
 
+  final bool isUserFirstTime = await AppUpdateService.isUserFirstTime();
+
+  if (isUserFirstTime) {
+    await FirebaseAuth.instance.signOut();
+    await AppUpdateService.setUserFirstTime(val: false);
+  }
+
   AuthRepository authRepository =
       IAuthRepository(serverUrl: appConfig.serverUrl);
+
   final user = await authRepository.authentication();
 
   bool isAuthorized = user != null;
@@ -191,6 +202,7 @@ Future appInitializer(AppConfig appConfig) async {
   initMessagingService(navigationKey: navKey);
 
   Future.delayed(const Duration(seconds: 2)).then((value) {
+    AppLinkUtil.initDeepLinks(isAuthorized: isAuthorized);
     DynamicLinkUtil.initDynamicLinks(isAuthorized: isAuthorized);
   });
   return runApp(configuredApp);
@@ -215,7 +227,7 @@ Future initMessagingService({
   FirebaseMessaging.instance.getInitialMessage().then((message) {
     if (message != null) {
       Future.delayed(const Duration(seconds: 2)).then(
-        (value) => {print(message)},
+        (value) => {(message)},
       );
     }
   });
@@ -251,7 +263,7 @@ Future initMessagingService({
       }
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print(message);
+      (message);
       //
     });
   }
@@ -300,7 +312,9 @@ Future<Map<String, dynamic>> getRemoteConfigs() async {
       'min_version': minVersion,
       'latest_version': latestVersion,
     };
+   
   });
+
 
   return configs;
 }
@@ -330,6 +344,7 @@ Future checkForAppUpdate(GlobalKey<NavigatorState> navKey) async {
     minVersion = appUpdateData['min_version'];
     isForceUpdate = buildNumber < minVersion;
     isNewReleaseAvailable = buildNumber < latestVersion;
+    
 
     if (isForceUpdate) {
       showDialog(
@@ -361,6 +376,6 @@ Future checkForAppUpdate(GlobalKey<NavigatorState> navKey) async {
       }
     }
   } catch (error) {
-    debugPrint(error.toString());
+    debugPrint("error: ${error.toString()}");
   }
 }

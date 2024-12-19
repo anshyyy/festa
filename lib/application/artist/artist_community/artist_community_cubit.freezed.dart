@@ -12,7 +12,7 @@ part of 'artist_community_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ArtistCommunityState {
@@ -39,7 +39,9 @@ mixin _$ArtistCommunityState {
   TextEditingController get friendsSearchController =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArtistCommunityStateCopyWith<ArtistCommunityState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -85,6 +87,8 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -183,6 +187,8 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CommunityDtoCopyWith<$Res>? get artistFollowers {
@@ -195,6 +201,8 @@ class _$ArtistCommunityStateCopyWithImpl<$Res,
     });
   }
 
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CommunityDtoCopyWith<$Res>? get artistFriends {
@@ -250,6 +258,8 @@ class __$$ArtistCommunityStateImplCopyWithImpl<$Res>
       $Res Function(_$ArtistCommunityStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -483,7 +493,9 @@ class _$ArtistCommunityStateImpl implements _ArtistCommunityState {
       followersSearchController,
       friendsSearchController);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArtistCommunityStateImplCopyWith<_$ArtistCommunityStateImpl>
@@ -550,8 +562,11 @@ abstract class _ArtistCommunityState implements ArtistCommunityState {
   TextEditingController get followersSearchController;
   @override
   TextEditingController get friendsSearchController;
+
+  /// Create a copy of ArtistCommunityState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArtistCommunityStateImplCopyWith<_$ArtistCommunityStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

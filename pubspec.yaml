@@ -16,7 +16,13 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.3.4+27
+
+
+#Ios :  1.4.3 - 1
+#Android : 1.4.2 - 46
+
+
+version: 1.4.3+1
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -34,21 +40,21 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: 1.0.6
+  cupertino_icons: ^1.0.8
 
   #ui
   modal_progress_hud_nsn: 0.5.1
-  persistent_bottom_nav_bar: 5.0.2
+  persistent_bottom_nav_bar: ^6.2.1
 
   # Util
-  freezed_annotation: 2.4.1
-  get_it: 7.6.7
-  provider: 6.1.1
-  json_annotation: 4.8.1
-  path_provider: 2.1.2
+  freezed_annotation: ^2.4.4
+  get_it: ^8.0.2
+  provider: ^6.1.2
+  json_annotation: ^4.9.0
+  path_provider: ^2.1.5
   dartz: 0.10.1
-  image_picker: 1.0.7
-  flutter_bloc: 8.1.3
+  image_picker: ^1.1.2
+  flutter_bloc: ^8.1.6
   add_2_calendar: 3.0.1
   dots_indicator: 3.0.0
   app_settings: 5.1.1
@@ -56,36 +62,36 @@ dependencies:
   awesome_notifications: 
 
   # Firebase Utils
-  firebase_core: 2.25.0
-  firebase_auth: 4.17.0
-  firebase_crashlytics: 3.4.10
-  firebase_analytics: 10.8.1
-  firebase_remote_config: 4.3.9
-  firebase_messaging: ^14.7.11
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  firebase_crashlytics: ^4.1.3
+  firebase_analytics: ^11.3.3
+  firebase_remote_config: ^5.1.3
+  firebase_messaging: ^15.1.3
 
   #Network
-  cached_network_image: 3.3.1
-  http: 1.2.0
+  cached_network_image: ^3.4.1
+  http: ^1.2.2
   # Local DB
   hive: 2.2.3
-  connectivity_plus: 5.0.2
-  package_info_plus: 5.0.1
-  url_launcher: 6.2.4
+  connectivity_plus: ^6.1.0
+  package_info_plus: ^8.1.0
+  url_launcher: ^6.3.1
 
   # UI
-  responsive_sizer: 3.3.0+1 
-  fluttertoast: 8.2.4 
-  flutter_svg: 2.0.9
-  bloc: 8.1.2
+  responsive_sizer: ^3.3.1 
+  fluttertoast: ^8.2.8 
+  flutter_svg: ^2.0.10+1
+  bloc: ^8.1.4
   pin_code_fields: 8.0.1
   timer_count_down: ^2.2.2
   qr_image: ^1.0.0
   qr_flutter: ^4.1.0
-  palette_generator: ^0.3.3+3
+  palette_generator: ^0.3.3+5
   flutter_staggered_grid_view: ^0.7.0
-  carousel_slider: ^4.2.1
+  carousel_slider_plus : ^7.0.1
   shimmer: 3.0.0
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
   expandable_page_view: 1.0.17
   visibility_detector: 0.4.0+2
 
@@ -95,33 +101,43 @@ dependencies:
   table_calendar: ^3.1.0
   dropdown_button2: ^2.3.9
 
-  geolocator: 11.0.0
-  device_info_plus: ^9.1.2
+  geolocator: ^13.0.1
+  device_info_plus: ^11.1.0
   easy_debounce: ^2.0.3
-  share_plus: ^7.2.2
-  firebase_dynamic_links: ^5.4.9
+  share_plus: ^10.1.1
+  firebase_dynamic_links: ^6.0.8
   dio: ^5.4.2
   http_parser: ^4.0.2
-  video_player: 2.8.6
-  razorpay_flutter: ^1.3.0
+  video_player: ^2.9.2
+  razorpay_flutter: ^1.3.7
   just_audio: ^0.9.37
-  map_launcher: ^3.3.0
-  widgets_to_image: ^0.0.2
+  map_launcher: ^3.5.0
+  widgets_to_image: ^1.0.0
   permission_handler: ^11.3.1
-  audio_video_progress_bar: 2.0.2
+  audio_video_progress_bar: ^2.0.3
+  smooth_page_indicator: ^1.2.0+3
+  screen_brightness: ^2.0.0+2
+  emoji_regex: ^0.0.5
+  image_cropper: ^8.0.2
+  sms_autofill: ^2.4.0
+  latlong2: ^0.9.1
+  flutter_map: ^7.0.2
+  app_links: ^6.3.2
+  mesh: ^0.4.2
+  soft_edge_blur: ^0.1.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: 3.0.1
-  build_runner: 2.4.8
-  injectable_generator: 2.4.1
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.13
+  injectable_generator: ^2.6.2
   hive_generator: 2.0.1
-  freezed: 2.4.6
-  json_serializable: 6.7.1
-  flutter_launcher_icons: 0.13.1
-  flutter_native_splash: 2.3.10
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  flutter_launcher_icons: ^0.14.1
+  flutter_native_splash: ^2.4.2
 
 
 flutter_icons:

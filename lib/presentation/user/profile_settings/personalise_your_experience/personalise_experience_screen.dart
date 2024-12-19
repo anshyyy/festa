@@ -97,18 +97,20 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
                           ),
                           scrollDirection: Axis.vertical,
                           children: [
-                            PersonalizedMenuCard(
-                                currentMenu: const PersonalizationMenuDto(
-                                    title: 'gender'),
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) {
-                                      return const GenderUpdationModalSheet();
-                                    },
-                                  );
-                                }),
+                            // PersonalizedMenuCard(
+                            //     currentMenu: const PersonalizationMenuDto(
+                            //         title: 'gender'),
+                            //     onTap: () {
+
+                            //       showModalBottomSheet(
+                            //         isScrollControlled: true,
+                            //         useSafeArea: true,
+                            //         context: context,
+                            //         builder: (context) {
+                            //           return const GenderUpdationModalSheet();
+                            //         },
+                            //       );
+                            //     }),
                             ...state.personalizationList.map((currentMenu) {
                               return PersonalizedMenuCard(
                                 currentMenu: currentMenu,
@@ -163,6 +165,7 @@ class PersonalizeYourExperienceConsumer extends StatelessWidget {
 }
 
 class GenderUpdationModalSheet extends StatelessWidget {
+  
   const GenderUpdationModalSheet({
     super.key,
   });
@@ -175,6 +178,7 @@ class GenderUpdationModalSheet extends StatelessWidget {
     return BlocProvider(
       create: (context) => GenderSelectionCubit(
         GenderSelectionState.initial(
+          userGender: '',
           appStateNotifier: appStateNotifier,
           serverUrl: appConfig.serverUrl,
           // selectedSex: appStateNotifier.user!.gender
@@ -206,122 +210,125 @@ class GenderUpdationConsumer extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: Container(
-                  width: 12.w,
-                  height: .5.h,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
-                    borderRadius: BorderRadius.circular(50),
+        return SafeArea(
+          child: Container(
+            height: 90.h,
+            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    width: 12.w,
+                    height: .5.h,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              Text(
-                'Gender',
-                style: textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.background,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
+                SizedBox(
+                  height: 1.h,
                 ),
-              ),
-              SizedBox(
-                height: 3.h,
-              ),
-              Center(
-                child: Text(
-                  PersonalizeExperienceScreenConstants.genderSettingChange,
-                  textAlign: TextAlign.center,
+                Text(
+                  'Gender',
                   style: textTheme.bodyMedium!.copyWith(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .background
-                        .withOpacity(.5),
+                    color: Theme.of(context).colorScheme.background,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      context.read<GenderSelectionCubit>().onSexSelect(index);
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 1.h),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(2.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(state.lsOFSex[index],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                      fontSize: 16.sp,
-                                    )),
-                            index == state.selectedSex
-                                ? SvgPicture.asset(AssetConstants.selectedRadio)
-                                : SvgPicture.asset(
-                                    AssetConstants.unSelectedRadio),
-                          ],
+                SizedBox(
+                  height: 1.1.h,
+                ),
+                Center(
+                  child: Text(
+                    PersonalizeExperienceScreenConstants.genderSettingChange,
+                    textAlign: TextAlign.center,
+                    style: textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .background
+                          .withOpacity(.5),
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        context.read<GenderSelectionCubit>().onSexSelect(index);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 0.5.h),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(2.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(state.lsOFSex[index],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                        fontSize: 16.sp,
+                                      )),
+                              index == state.selectedSex
+                                  ? SvgPicture.asset(AssetConstants.selectedRadio)
+                                  : SvgPicture.asset(
+                                      AssetConstants.unSelectedRadio),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-                itemCount: state.lsOFSex.length,
-              ),
-              SizedBox(
-                height: 2.h,
-              ),
-              GradientButton(
-                  width: 30.w,
-                  height: 12.w,
-                  textStyle: textTheme.bodySmall!.copyWith(
-                      color: colorScheme.background,
-                      fontWeight: FontWeight.w600),
-                  text: 'Save',
-                  onTap: () {
-                    context.read<GenderSelectionCubit>().onContinue();
-                  }),
-              SizedBox(
-                height: 2.h,
-              ),
-              Center(
-                child: Text(
-                  PersonalizeExperienceScreenConstants.changePersonlize,
-                  style: textTheme.bodySmall!.copyWith(
-                      color: colorScheme.background.withOpacity(.7),
-                      fontSize: 14.sp),
+                    );
+                  },
+                  itemCount: state.lsOFSex.length,
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 2.h,
+                ),
+                GradientButton(
+                    width: 30.w,
+                    height: 12.w,
+                    textStyle: textTheme.bodySmall!.copyWith(
+                        color: colorScheme.background,
+                        fontWeight: FontWeight.w600),
+                    text: 'Save',
+                    onTap: () {
+                      context.read<GenderSelectionCubit>().onContinue();
+                    }),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Center(
+                  child: Text(
+                    PersonalizeExperienceScreenConstants.changePersonlize,
+                    style: textTheme.bodySmall!.copyWith(
+                        color: colorScheme.background.withOpacity(.7),
+                        fontSize: 14.sp),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

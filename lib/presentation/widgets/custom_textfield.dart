@@ -48,6 +48,8 @@ class CustomTextField extends StatelessWidget {
     this.helperText,
     this.borderColor,
     this.helperTextStyle,
+    this.suffix,
+    this.suffixTap
   });
 
   final TextCapitalization? textCapitalization;
@@ -57,6 +59,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? errorStyle;
   final Function()? onTap;
   final Function()? suffixIconTap;
+  final Function()? suffixTap;
   final EdgeInsets? contentPadding;
   final bool enabled;
   final Key? textFieldKey;
@@ -81,6 +84,8 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final Widget? suffix;
+  
   final bool isUpload;
   final bool expands;
   final int? maxLength;
@@ -106,9 +111,12 @@ class CustomTextField extends StatelessWidget {
     );
 
     return TextFormField(
+    
+      
       autovalidateMode: AutovalidateMode.onUserInteraction,
       key: textFieldKey,
       autofocus: autofocus,
+      maxLength: maxLength,
       controller: controller,
       initialValue: initialVal,
       cursorColor: cursorColor ?? Theme.of(context).primaryColor,
@@ -161,6 +169,11 @@ class CustomTextField extends StatelessWidget {
                 ))
             : null,
         hintText: hintText,
+        suffix:suffix != null
+            ? GestureDetector(
+                onTap: suffixTap,
+                child: suffix)
+            : null,
         contentPadding: contentPadding ??
             EdgeInsets.symmetric(vertical: 1.8.h, horizontal: 4.w)
                 .copyWith(right: suffixIcon == null ? 10.sp : 0),

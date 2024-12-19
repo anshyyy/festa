@@ -9,7 +9,7 @@ part of 'community_user_dto.dart';
 _$CommunityUserDtoImpl _$$CommunityUserDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$CommunityUserDtoImpl(
-      id: json['id'] as int? ?? 0,
+      id: (json['id'] as num?)?.toInt() ?? 0,
       fullName: json['fullName'] as String? ?? '',
       profileImage: json['profileImage'] as String? ?? '',
       tag: json['tag'] == null

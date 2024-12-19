@@ -12,13 +12,15 @@ part of 'phone_details_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PhoneDetailsState {
   String get phoneNumber => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PhoneDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PhoneDetailsStateCopyWith<PhoneDetailsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,6 +44,8 @@ class _$PhoneDetailsStateCopyWithImpl<$Res, $Val extends PhoneDetailsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PhoneDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,6 +79,8 @@ class __$$PhoneDetailsStateImplCopyWithImpl<$Res>
       $Res Function(_$PhoneDetailsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PhoneDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,7 +120,9 @@ class _$PhoneDetailsStateImpl implements _PhoneDetailsState {
   @override
   int get hashCode => Object.hash(runtimeType, phoneNumber);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PhoneDetailsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PhoneDetailsStateImplCopyWith<_$PhoneDetailsStateImpl> get copyWith =>
@@ -128,8 +136,11 @@ abstract class _PhoneDetailsState implements PhoneDetailsState {
 
   @override
   String get phoneNumber;
+
+  /// Create a copy of PhoneDetailsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PhoneDetailsStateImplCopyWith<_$PhoneDetailsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

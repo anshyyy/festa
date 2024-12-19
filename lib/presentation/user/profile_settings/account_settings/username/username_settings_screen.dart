@@ -15,15 +15,15 @@ import '../../../../widgets/custom_textfield.dart';
 import '../../../../widgets/gradient_button.dart';
 
 class UsernameSettingsScreen extends StatelessWidget {
-  final String username;
-  const UsernameSettingsScreen({super.key, required this.username});
+  final String fullname;
+  const UsernameSettingsScreen({super.key, required this.fullname});
 
   @override
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) => UsernameSettingsCubit(UsernameSettingsState.initial(
-          serverUrl: appConfig.serverUrl, username: username)),
+          serverUrl: appConfig.serverUrl, username: fullname)),
       child: const UsernameSettingsScreenConsumer(),
     );
   }
@@ -55,7 +55,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-              title: AccountSettingScreenConstants.username,
+              title: AccountSettingScreenConstants.fullname,
               leading: GestureDetector(
                   onTap: () {
                     navigator<NavigationService>().goBack();
@@ -117,7 +117,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                   height: state.hasError ? 2.h : 0,
                 ),
                 Text(
-                  UsernameSettingsScreenConstants.chooseNewUsernameMessage,
+                  FullNameSettingsScreenConstants.chooseNewUsernameMessage,
                   style: textTheme.bodySmall!.copyWith(
                     color: colorScheme.background.withOpacity(.7),
                     fontSize: 15.5.sp,
@@ -127,7 +127,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                   height: 1.h,
                 ),
                 Text(
-                  UsernameSettingsScreenConstants.usernameCanConsistMessage,
+                  FullNameSettingsScreenConstants.usernameCanConsistMessage,
                   style: textTheme.bodySmall!.copyWith(
                     fontSize: 15.5.sp,
                     color: colorScheme.background.withOpacity(.7),
@@ -137,7 +137,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                   height: 1.h,
                 ),
                 Text(
-                  UsernameSettingsScreenConstants.inMostCasesMessage,
+                  FullNameSettingsScreenConstants.inMostCasesMessage,
                   style: textTheme.bodySmall!.copyWith(
                     fontSize: 15.5.sp,
                     color: colorScheme.background.withOpacity(.7),
@@ -149,7 +149,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                 const Spacer(),
                 GradientButton(
                   isEnabled: state.isUpdateEnabled,
-                  text: UsernameSettingsScreenConstants.updateUsername,
+                  text: "Update Name",
                   onTap: () {
                     context.read<UsernameSettingsCubit>().onUpdateUsername();
                   },
@@ -173,7 +173,7 @@ class UsernameSettingsScreenConsumer extends StatelessWidget {
                     navigator<NavigationService>().goBack();
                   },
                   child: Text(
-                    UsernameSettingsScreenConstants.cancel,
+                    FullNameSettingsScreenConstants.cancel,
                     style: themeData.textTheme.bodySmall!.copyWith(
                       color: themeData.colorScheme.background,
                       fontWeight: FontWeight.w600,

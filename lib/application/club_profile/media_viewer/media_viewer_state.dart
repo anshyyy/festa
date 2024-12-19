@@ -9,12 +9,14 @@ class MediaViewerState with _$MediaViewerState {
     required bool noUse,
     required int pubId,
     required bool isFollowing,
+    required bool isExpanded,
     PubDto? pub,
     required String mediaUrl,
     required String mediaType,
     required PubRepository pubRepository,
     required bool isPlaying,
     VideoPlayerController? videoPlayerController,
+    @Default(false) bool isVideoInitialized,
   }) = _MediaViewerState;
 
   factory MediaViewerState.initial({
@@ -26,6 +28,7 @@ class MediaViewerState with _$MediaViewerState {
       MediaViewerState(
         noUse: false,
         isLoading: false,
+        isExpanded: false,
         isFailed: false,
         isSuccessful: false,
         pubId: pubId,
@@ -34,7 +37,6 @@ class MediaViewerState with _$MediaViewerState {
         mediaUrl: url,
         isPlaying: false,
         mediaType: type,
-        // videoPlayerController:
-        //       VideoPlayerController.networkUrl(Uri.parse(url))
+        isVideoInitialized: false,
       );
 }

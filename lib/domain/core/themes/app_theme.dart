@@ -15,6 +15,8 @@ final appThemeData = {
           secondary: const Color(0xFFBF0036),
           background: const Color(0xFFFFFFFF),
           primaryContainer: const Color(0xFF1F1F1F),
+          surfaceContainer: const Color(0xFF444444),
+          surfaceContainerLow: const Color(0xff222222),
           secondaryContainer: const Color(0xFF9A9A9A),
           onSecondary: const Color(0XFF696969),
           onTertiary: const Color(0xFF9E9E9E),
@@ -23,9 +25,10 @@ final appThemeData = {
           onPrimary: const Color(0xffCBCBCB),
           onBackground: const Color(0xffFCFCFC),
           surface: const Color(0XFF171717),
+          surfaceVariant: const Color(0xFF1a1a1c),
           shadow: const Color(0xFF343434),
           error: const Color(0XFFDF1642),
-          inversePrimary:const Color(0XFF18A957), // success
+          inversePrimary: const Color(0XFF18A957), // success
           scrim: const Color(0XFF3D53F5),
           surfaceTint: const Color(0XFFFFBB38),
         ),
@@ -42,7 +45,6 @@ final appThemeData = {
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',
         letterSpacing: 0,
-
       ),
       bodyMedium: TextStyle(
         fontSize: 17.sp,
@@ -50,7 +52,6 @@ final appThemeData = {
         color: const Color(0xFF9A9A9A),
         fontFamily: 'Inter',
         letterSpacing: 0,
-
       ),
       bodySmall: TextStyle(
         fontSize: 15.sp,

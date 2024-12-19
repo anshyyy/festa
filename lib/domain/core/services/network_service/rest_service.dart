@@ -17,7 +17,7 @@ class RESTService {
     if (param.isNotEmpty) {
       httpUrl += paramParser(param: param);
     }
-
+    print("POST URL: $httpUrl");
     final request = http.Request('POST', Uri.parse(httpUrl));
     final Map<String, String> headers = {
       'Content-Type': contentType,
@@ -57,6 +57,7 @@ class RESTService {
     if (param.isNotEmpty) {
       httpUrl += paramParser(param: param);
     }
+    print("PATCH URL: $httpUrl");
 
     final request = http.Request('patch', Uri.parse(httpUrl));
     final Map<String, String> headers = {
@@ -97,7 +98,7 @@ class RESTService {
     if (param.isNotEmpty) {
       httpUrl += paramParser(param: param);
     }
-
+    print("PUT URL: $httpUrl");
     final request = http.Request('PUT', Uri.parse(httpUrl));
     final Map<String, String> headers = {
       'Content-Type': contentType,
@@ -137,6 +138,7 @@ class RESTService {
     if (param.isNotEmpty) {
       httpUrl += paramParser(param: param);
     }
+    print("DELETE URL: $httpUrl");
 
     final request = http.Request('DELETE', Uri.parse(httpUrl));
     final Map<String, String> headers = {
@@ -175,7 +177,7 @@ class RESTService {
     if (param.isNotEmpty) {
       httpUrl += paramParser(param: param);
     }
-
+    print("GET URL: $httpUrl");
     final request = http.Request('GET', Uri.parse(httpUrl));
     final Map<String, String> headers = {'Access-Control-Allow-Origin': '*'};
     if (isAuth) {
@@ -228,7 +230,7 @@ class RESTService {
         throw resultResponse;
       }
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("error: ${e.toString()}");
       rethrow;
     }
 
@@ -248,7 +250,7 @@ class RESTService {
     //  );
     //  return response.data;
     //  } catch (e) {
-    //    print(e);
+    //    (e);
     //    throw e;
     //  }
   }

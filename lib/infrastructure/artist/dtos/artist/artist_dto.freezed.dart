@@ -12,7 +12,7 @@ part of 'artist_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ArtistProfileDto _$ArtistProfileDtoFromJson(Map<String, dynamic> json) {
   return _ArtistProfileDto.fromJson(json);
@@ -36,14 +36,21 @@ mixin _$ArtistProfileDto {
   String get city => throw _privateConstructorUsedError;
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag => throw _privateConstructorUsedError;
+  @JsonKey(name: 'socialMediaLinks')
+  Map<String, String>? get socialMediaLinks =>
+      throw _privateConstructorUsedError;
   @JsonKey(name: 'isFollowing', defaultValue: false)
   bool get isFollowing => throw _privateConstructorUsedError;
   @JsonKey(name: 'extraDetails', defaultValue: null)
   ArtistExtraDetailsDto? get extraDetailsDto =>
       throw _privateConstructorUsedError;
 
+  /// Serializes this ArtistProfileDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ArtistProfileDtoCopyWith<ArtistProfileDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -64,6 +71,7 @@ abstract class $ArtistProfileDtoCopyWith<$Res> {
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'socialMediaLinks') Map<String, String>? socialMediaLinks,
       @JsonKey(name: 'isFollowing', defaultValue: false) bool isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       ArtistExtraDetailsDto? extraDetailsDto});
@@ -82,6 +90,8 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -93,6 +103,7 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
     Object? categories = null,
     Object? city = null,
     Object? tag = freezed,
+    Object? socialMediaLinks = freezed,
     Object? isFollowing = null,
     Object? extraDetailsDto = freezed,
   }) {
@@ -129,6 +140,10 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagDto?,
+      socialMediaLinks: freezed == socialMediaLinks
+          ? _value.socialMediaLinks
+          : socialMediaLinks // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
@@ -140,6 +155,8 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
     ) as $Val);
   }
 
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TagDtoCopyWith<$Res>? get tag {
@@ -152,6 +169,8 @@ class _$ArtistProfileDtoCopyWithImpl<$Res, $Val extends ArtistProfileDto>
     });
   }
 
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ArtistExtraDetailsDtoCopyWith<$Res>? get extraDetailsDto {
@@ -184,6 +203,7 @@ abstract class _$$ArtistProfileDtoImplCopyWith<$Res>
       List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') String city,
       @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+      @JsonKey(name: 'socialMediaLinks') Map<String, String>? socialMediaLinks,
       @JsonKey(name: 'isFollowing', defaultValue: false) bool isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null)
       ArtistExtraDetailsDto? extraDetailsDto});
@@ -202,6 +222,8 @@ class __$$ArtistProfileDtoImplCopyWithImpl<$Res>
       $Res Function(_$ArtistProfileDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -213,6 +235,7 @@ class __$$ArtistProfileDtoImplCopyWithImpl<$Res>
     Object? categories = null,
     Object? city = null,
     Object? tag = freezed,
+    Object? socialMediaLinks = freezed,
     Object? isFollowing = null,
     Object? extraDetailsDto = freezed,
   }) {
@@ -249,6 +272,10 @@ class __$$ArtistProfileDtoImplCopyWithImpl<$Res>
           ? _value.tag
           : tag // ignore: cast_nullable_to_non_nullable
               as TagDto?,
+      socialMediaLinks: freezed == socialMediaLinks
+          ? _value.socialMediaLinks
+          : socialMediaLinks // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
       isFollowing: null == isFollowing
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
@@ -274,6 +301,7 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
       @JsonKey(name: 'category', defaultValue: []) required this.categories,
       @JsonKey(name: 'city', defaultValue: '') required this.city,
       @JsonKey(name: 'tag', defaultValue: null) this.tag,
+      @JsonKey(name: 'socialMediaLinks') this.socialMediaLinks,
       @JsonKey(name: 'isFollowing', defaultValue: false)
       required this.isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null) this.extraDetailsDto});
@@ -306,6 +334,9 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
   @JsonKey(name: 'tag', defaultValue: null)
   final TagDto? tag;
   @override
+  @JsonKey(name: 'socialMediaLinks')
+  final Map<String, String>? socialMediaLinks;
+  @override
   @JsonKey(name: 'isFollowing', defaultValue: false)
   final bool isFollowing;
   @override
@@ -314,7 +345,7 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
 
   @override
   String toString() {
-    return 'ArtistProfileDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, coverImage: $coverImage, categories: $categories, city: $city, tag: $tag, isFollowing: $isFollowing, extraDetailsDto: $extraDetailsDto)';
+    return 'ArtistProfileDto(id: $id, fullName: $fullName, description: $description, profileImage: $profileImage, coverImage: $coverImage, categories: $categories, city: $city, tag: $tag, socialMediaLinks: $socialMediaLinks, isFollowing: $isFollowing, extraDetailsDto: $extraDetailsDto)';
   }
 
   @override
@@ -335,13 +366,15 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
                 .equals(other.categories, categories) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.tag, tag) || other.tag == tag) &&
+            const DeepCollectionEquality()
+                .equals(other.socialMediaLinks, socialMediaLinks) &&
             (identical(other.isFollowing, isFollowing) ||
                 other.isFollowing == isFollowing) &&
             (identical(other.extraDetailsDto, extraDetailsDto) ||
                 other.extraDetailsDto == extraDetailsDto));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -353,10 +386,13 @@ class _$ArtistProfileDtoImpl implements _ArtistProfileDto {
       const DeepCollectionEquality().hash(categories),
       city,
       tag,
+      const DeepCollectionEquality().hash(socialMediaLinks),
       isFollowing,
       extraDetailsDto);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ArtistProfileDtoImplCopyWith<_$ArtistProfileDtoImpl> get copyWith =>
@@ -386,6 +422,8 @@ abstract class _ArtistProfileDto implements ArtistProfileDto {
       required final List<ArtistCategoryDto> categories,
       @JsonKey(name: 'city', defaultValue: '') required final String city,
       @JsonKey(name: 'tag', defaultValue: null) final TagDto? tag,
+      @JsonKey(name: 'socialMediaLinks')
+      final Map<String, String>? socialMediaLinks,
       @JsonKey(name: 'isFollowing', defaultValue: false)
       required final bool isFollowing,
       @JsonKey(name: 'extraDetails', defaultValue: null)
@@ -419,13 +457,19 @@ abstract class _ArtistProfileDto implements ArtistProfileDto {
   @JsonKey(name: 'tag', defaultValue: null)
   TagDto? get tag;
   @override
+  @JsonKey(name: 'socialMediaLinks')
+  Map<String, String>? get socialMediaLinks;
+  @override
   @JsonKey(name: 'isFollowing', defaultValue: false)
   bool get isFollowing;
   @override
   @JsonKey(name: 'extraDetails', defaultValue: null)
   ArtistExtraDetailsDto? get extraDetailsDto;
+
+  /// Create a copy of ArtistProfileDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ArtistProfileDtoImplCopyWith<_$ArtistProfileDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

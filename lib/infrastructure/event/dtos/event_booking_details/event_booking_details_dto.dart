@@ -2,6 +2,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../coupon/coupon_dto.dart';
 import '../event/event_dto.dart';
 import '../event_ticket_details/event_ticket_detail_dto.dart';
 part 'event_booking_details_dto.freezed.dart';
@@ -21,6 +22,8 @@ class EventBookingDetailsDto with _$EventBookingDetailsDto {
     required int bookingId,
     @JsonKey(name: 'razorpayOrderId', defaultValue: null)
     String? razorpayOrderId,
+    @JsonKey(name:'coupon',defaultValue: null)
+    CouponDTO? coupon,
   }) = _EventBookingDetailsDto;
 
   factory EventBookingDetailsDto.fromJson(Map<String, dynamic> json) =>

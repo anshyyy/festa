@@ -10,7 +10,7 @@ part 'menu_dto.g.dart';
 class MenuDto with _$MenuDto{
   const factory MenuDto({
     @JsonKey(name: 'id') required int id,
-    @JsonKey(name: 'icon', defaultValue: '') required String icon,
+    @JsonKey(name: 'url', defaultValue: '') required String url,
   }) = _MenuDto;
 
 factory MenuDto.fromJson(Map<String, dynamic> json) =>

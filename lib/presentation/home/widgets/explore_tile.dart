@@ -25,13 +25,11 @@ class ExploreTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     final child = BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
-          margin: EdgeInsets.only(right: 2.w),
+          padding: EdgeInsets.symmetric(horizontal: 1.h, vertical: 0.8.h),
+          margin: EdgeInsets.only(right: 2.w, bottom: 1.w),
           width: label.toString().toLowerCase() == 'sort'
               ? state.sortDropdownOpen
                   ? 45.w
@@ -48,9 +46,13 @@ class ExploreTile extends StatelessWidget {
             color: themeData.colorScheme.primaryContainer,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                label.toString().toLowerCase() == 'sort' ? state.sortDisplayName :label!,
+                label.toString().toLowerCase() == 'sort'
+                    ? state.sortDisplayName
+                    : label!,
                 style: themeData.textTheme.bodySmall!.copyWith(
                   color: themeData.colorScheme.background,
                   fontSize: 14.5.sp,
@@ -60,13 +62,10 @@ class ExploreTile extends StatelessWidget {
                 width: 1.w,
               ),
               icon != null
-                  ? SvgPicture.asset(
-                      icon!,
-                      height: 2.1.h,
-                    )
-                  : SvgPicture.asset(AssetConstants.closeIcon,
-                    height: 4.w,
-                  )
+                  ? (icon!.isNotEmpty
+                      ? SvgPicture.asset(icon!, height: 2.1.h)
+                      : SizedBox.shrink())
+                  : SvgPicture.asset(AssetConstants.closeIcon, height: 4.w)
             ],
           ),
         );

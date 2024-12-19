@@ -12,7 +12,7 @@ part of 'delete_confirmation_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DeleteConfirmationState {
@@ -25,7 +25,9 @@ mixin _$DeleteConfirmationState {
   AuthRepository get authRepository => throw _privateConstructorUsedError;
   String get deleteReason => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeleteConfirmationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DeleteConfirmationStateCopyWith<DeleteConfirmationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,6 +60,8 @@ class _$DeleteConfirmationStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DeleteConfirmationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,6 +141,8 @@ class __$$DeleteConfirmationStateImplCopyWithImpl<$Res>
       $Res Function(_$DeleteConfirmationStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeleteConfirmationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -246,7 +252,9 @@ class _$DeleteConfirmationStateImpl implements _DeleteConfirmationState {
   int get hashCode => Object.hash(runtimeType, isLoading, noUse, deleteEnabled,
       deleteSuccess, deleteFailure, userId, authRepository, deleteReason);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeleteConfirmationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteConfirmationStateImplCopyWith<_$DeleteConfirmationStateImpl>
@@ -281,8 +289,11 @@ abstract class _DeleteConfirmationState implements DeleteConfirmationState {
   AuthRepository get authRepository;
   @override
   String get deleteReason;
+
+  /// Create a copy of DeleteConfirmationState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteConfirmationStateImplCopyWith<_$DeleteConfirmationStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

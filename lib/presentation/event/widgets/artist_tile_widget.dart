@@ -1,3 +1,4 @@
+import 'package:app/presentation/core/agree_to_unfollow_modal.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,14 +33,14 @@ class ArtistTile extends StatelessWidget {
             AnalyticsService().logEvent(eventName: 'view_artist', paras: {
               'artist_id': artist.id.toString(),
             });
-            navigator<NavigationService>().goBack();
-            navigator<NavigationService>().navigateTo(
-                UserRoutes.artistProfileScreenRoute,
-                queryParams: {'id': artist.id.toString()}).then((value) {
-              context
-                  .read<ArtistProfileCubit>()
-                  .emitFromAnywhere(state: state.copyWith());
-            });
+            //navigator<NavigationService>().goBack();
+            // navigator<NavigationService>().navigateTo(
+            //     UserRoutes.artistProfileScreenRoute,
+            //     queryParams: {'id': artist.id.toString()}).then((value) {
+            //   context
+            //       .read<ArtistProfileCubit>()
+            //       .emitFromAnywhere(state: state.copyWith());
+            // });
           },
           child: Row(
             children: [
@@ -113,19 +114,33 @@ class ArtistTile extends StatelessWidget {
                     )
                   : GestureDetector(
                       onTap: () {
-                        AnalyticsService()
-                            .logEvent(eventName: 'view_artist', paras: {
-                          'artist_id': artist.id.toString(),
-                        });
-                        navigator<NavigationService>().goBack();
-                        navigator<NavigationService>().navigateTo(
-                            UserRoutes.artistProfileScreenRoute,
-                            queryParams: {
-                              'id': artist.id.toString()
+                        // AnalyticsService()
+                        //     .logEvent(eventName: 'view_artist', paras: {
+                        //   'artist_id': artist.id.toString(),
+                        // });
+                        // navigator<NavigationService>().goBack();
+                        // navigator<NavigationService>().navigateTo(
+                        //     UserRoutes.artistProfileScreenRoute,
+                        //     queryParams: {
+                        //       'id': artist.id.toString()
+                        //     }).then((value) {
+                        //   context
+                        //       .read<ArtistProfileCubit>()
+                        //       .emitFromAnywhere(state: state.copyWith());
+                        // });
+
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return AgreeToUnfollowModalSheet(name: artist.fullName);
                             }).then((value) {
-                          context
-                              .read<ArtistProfileCubit>()
-                              .emitFromAnywhere(state: state.copyWith());
+
+                          if (value != null) {
+                            context
+                                .read<ArtistProfileCubit>()
+                                .followUnfollowArtist(
+                                    artistId: artist.id, isFollowing: true);
+                          }
                         });
                       },
                       child: Container(

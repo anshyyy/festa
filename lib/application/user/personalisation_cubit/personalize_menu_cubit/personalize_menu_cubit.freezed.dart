@@ -12,7 +12,7 @@ part of 'personalize_menu_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PersonalizeMenuState {
@@ -23,7 +23,9 @@ mixin _$PersonalizeMenuState {
   List<PersonalizationOptionDto> get menuOptionsList =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PersonalizeMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PersonalizeMenuStateCopyWith<PersonalizeMenuState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$PersonalizeMenuStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PersonalizeMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,6 +115,8 @@ class __$$PersonalizeMenuStateImplCopyWithImpl<$Res>
       $Res Function(_$PersonalizeMenuStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PersonalizeMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -197,7 +203,9 @@ class _$PersonalizeMenuStateImpl implements _PersonalizeMenuState {
   int get hashCode => Object.hash(runtimeType, isLoading, isSuccessful,
       isFailed, noUse, const DeepCollectionEquality().hash(_menuOptionsList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PersonalizeMenuState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PersonalizeMenuStateImplCopyWith<_$PersonalizeMenuStateImpl>
@@ -225,8 +233,11 @@ abstract class _PersonalizeMenuState implements PersonalizeMenuState {
   bool get noUse;
   @override
   List<PersonalizationOptionDto> get menuOptionsList;
+
+  /// Create a copy of PersonalizeMenuState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PersonalizeMenuStateImplCopyWith<_$PersonalizeMenuStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

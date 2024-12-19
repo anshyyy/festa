@@ -27,12 +27,20 @@ class AppConstants {
   static String seconds = 's';
   static String filterKey = 'filter';
   static String otherKey = 'other';
+  static String clearKey = 'clear';
   static String rupees = '₹';
   static String search = 'Search';
   static int otpTimer = 30;
 
   static String dynamicUrl =
       'https://festaworld.page.link/?link=https://www.festa.world/<category>/<id>&apn=com.festaworld.app&isi=6478425501&ibi=com.festaworld.app';
+  static String eventShareMessage = '''
+Hey fam, I just found the party that's gonna save us from another boring night: {eventName} featuring {artists}, on {eventDate}, at {eventLocation}
+Tap the link below & grab your passes!
+{eventLink}
+PS: Show up or we'll tag you in all the photos just to remind you what you missed.
+''';
+  
   static String pub = 'pub';
   static String artist = 'artist';
   static String event = 'event';
@@ -49,13 +57,16 @@ class BasicProfileScreenConstants {
   static String addProfilePicture = 'Add your profile picture';
   static String addText =
       'Building your profile wil increase visibility and recommendations.';
+  static String detailsTrailingText = "Festa’s only for the real ones, Let's have a quick check!";
   static String enterYourName = 'Enter your name';
   static String hintEnterYourName = 'Type here';
+  static String whatshouldWeCallYou = 'What do your friends call you?';
   static String continueText = 'Continue';
+  static String enterDetails = 'Let’s Get You in the Groove!';
 }
 
 class BirthdayScreenConstants {
-  static String addBirthday = 'When’s your\nbirthday?';
+  static String addBirthday = 'When’s your b-day bash?';
 }
 
 class GenderSelectionScreenConstants {
@@ -67,24 +78,24 @@ class TermsAndConditionConstants {
   static String privacyMessage =
       'Your privacy is our top concern and we want you to know how we process your personal information. By continuing you confirm that you\'ve read and accepted our';
   static String privacyText = 'Privacy Policy';
-    static String EULA = 'End User License Agreement (EULA)';
+  static String EULA = 'End User License Agreement (EULA)';
   static String termsText = 'Terms';
   static String authTermsAcceptMessage =
       'By signing up, you agree to our Terms, See how we use your data in our Privacy Policy. We never post to Facebook. ';
 }
 
 class LoginScreenConstants {
-  static String mobileLoginHeader = 'What\'s your mobile number?';
+  static String mobileLoginHeader = 'Drop your phone number';
   static String mobileLoginDescription =
-      'We protect our community by making sure everyone on Festa is real.';
+      'Just making sure everyone’s the real deal here at Festa';
   static String mobileLoginPrompt =
-      'We never share this with anyone and it won\'t be on your profile.';
+      'Don’t worry, your details are between us. no one else will see it!';
   static String phoneConfirmation =
       'I affirm that the provided mobile number belongs to me.';
   static String affirmationPrompt =
-      'I affirm that the provided mobile number belongs to me.';
+      'Cross my heart, these details are all correct!';
 
-  static String verifyNumberHeader = 'Verify your number';
+  static String verifyNumberHeader = 'Verify Your Number!';
   static String verifyNumberDescription = 'Enter the OTP sent to';
   static String appleContinue = 'Continue with Apple';
   static String googleContinue = 'Continue with Google';
@@ -143,6 +154,12 @@ class TicketScreenConstants {
   static String yourTickets = 'Your tickets';
   static String upcomingBtnText = 'Upcoming';
   static String historyBtnText = 'History';
+  static String myTickets = 'My Tickets';
+  static String pastTickets = 'Past Tickets';
+  static String addCoverBalance = 'Add Cover Balance';
+  static String addCoverNotes = 'Add a message (optional)';
+  static String addCoverBalanceHint = 'Enter Cover Balance';
+  static String coverTransactionHistory = 'Cover transactions history';
 }
 
 class BookingScreenConstants {
@@ -208,7 +225,7 @@ class EventScreenConstants {
   static String appBarTitle = 'THE GREYBOT ALL STARS/MIKE DILLON BAND';
   static String viewOnMaps = 'View on maps';
   static String grabPasses = 'Grab Passes';
-  static String description = 'Description';
+  static String description = 'About';
   static String descriptionText =
       'Hac amet amet nisl hendrerit metus vivamus a. Rhoncus nulla consequat est et. Dignissim fringilla in posuere lacus suspendisse diam diam pretium scelerisque. sdf . urwthfgn eugerh geurgh gerughr uerhg ergguo hreguhh.';
   static String lsd = 'LSD (Lights, Sound and Dancefloor)';
@@ -233,6 +250,7 @@ class EventDetailsScreenConstants {
   static String viewOnMaps = 'View on maps';
   static String grabPasses = 'Grab Passes';
   static String description = 'Description';
+  static String completePayment = "Proceed the Payment";
   static String descriptionText =
       'Hac amet amet nisl hendrerit metus vivamus a. Rhoncus nulla consequat est et. Dignissim fringilla in posuere lacus suspendisse diam diam pretium scelerisque. sdf . urwthfgn eugerh geurgh gerughr uerhg ergguo hreguhh.';
   static String lsd = 'LSD (Lights, Sound and Dancefloor)';
@@ -278,7 +296,7 @@ class UserProfileScreenConstants {
 
 class ProfileAndSettingsScreenConstants {
   static String personalizeYourExperience = 'Personalise your experience';
-  static String profileAndSettings = 'Profile and settings';
+  static String profileAndSettings = 'Profile and Settings';
   static String accountSettings = 'Account Settings';
   static String notifications = 'Notifications';
   static String yourActivities = 'Your Activities';
@@ -314,6 +332,8 @@ class EditProfileScreenConstants {
   static String editProfile = 'Edit Profile';
   static String profile = 'Profile';
   static String bio = 'Bio';
+  static String fullName = "Full Name";
+  static String gender = 'Gender';
 }
 
 class AccountSettingScreenConstants {
@@ -321,9 +341,11 @@ class AccountSettingScreenConstants {
   static String email = 'Email';
   static String phone = 'Phone';
   static String username = 'Username';
+  static String fullname = 'FullName';
   static String dateOfBirth = 'Date of Birth';
   static String password = 'Password';
   static String deleteAccount = 'Delete Account';
+  static String block = 'Unblock Accounts';
 }
 
 class AccountPrivacyScreenConstants {
@@ -405,6 +427,22 @@ class UsernameSettingsScreenConstants {
   static String userNameUpdated = 'Username updated successfully';
 }
 
+class FullNameSettingsScreenConstants {
+  static String title = 'FullName';
+  static String typeHere = 'Type here';
+  static String chooseNewUsernameMessage =
+      'Choose a new FullName to represent yourself on Festa.';
+  static String usernameCanConsistMessage =
+      'Username can consist of 3-15 characters with letters, numbers and underscores.';
+  static String inMostCasesMessage =
+      'In most cases, you’ll be able to change your Name once in 14 days.';
+  static String updateUsername = 'Update Name';
+  static String cancel = 'Cancel';
+  static String userNameIsntAvailable =
+      "This Name isn't available, please try another.";
+  static String userNameUpdated = 'Name updated successfully';
+}
+
 class DateOfBirthSettingsScreenConstants {
   static String title = 'Date of Birth';
   static String edit = 'Edit';
@@ -452,7 +490,7 @@ class DeleteAccountScreenConstants {
 
 class SetupLocationScreenConstants {
   static String setupYourLocation = 'Set your location';
-  static String seeWhatHappening = 'See what’s happening in your city';
+  static String seeWhatHappening = 'Explore happening events in your city !';
   static String useMyLocation = 'Use my location';
   static String save = 'Save';
   static String cancel = 'Cancel';

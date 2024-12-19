@@ -18,6 +18,8 @@ class UserCommunityCubit extends Cubit<UserCommunityState> {
   UserCommunityCubit(super.initialState);
 
   void init() async {
+
+
     state.followersScrollController.addListener(() {
       final double maxScroll =
           state.followersScrollController.position.maxScrollExtent;
@@ -79,7 +81,6 @@ class UserCommunityCubit extends Cubit<UserCommunityState> {
   Future getUserFollowers({
     required int page,
   }) async {
-   
       emit(state.copyWith(isFollowersFetching: true));
       final followers = await state.userRepository.getUserFollowers(
         userId: state.userId,
@@ -106,7 +107,7 @@ class UserCommunityCubit extends Cubit<UserCommunityState> {
   void searchUserFriends({required int page}) async {
     
       emit(state.copyWith(isFriendsFetching: true));
-      final friends = await state.userRepository.getUserFriends(
+      final friends = await state.userRepository.getUserFollowing(
         userId: state.userId,
         page: state.friendsPage,
         limit: limit,
@@ -126,7 +127,7 @@ class UserCommunityCubit extends Cubit<UserCommunityState> {
 
   Future getUserFriends({required int page}) async {
       emit(state.copyWith(isFriendsFetching: true));
-      final friends = await state.userRepository.getUserFriends(
+      final friends = await state.userRepository.getUserFollowing(
         userId: state.userId,
         page: page,
         limit: limit,

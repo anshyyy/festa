@@ -27,6 +27,30 @@ class MediaViewerCubit extends Cubit<MediaViewerState> {
     fetchPubDetails();
   }
 
+  void onTextExpandedToggle(){
+    emit(state.copyWith(isExpanded: !state.isExpanded));
+  }
+
+  Future<void>initilizeVideoAgain(String url) async {
+    try {
+      final videoPlayerController =
+          VideoPlayerController.networkUrl(Uri.parse(url));
+      await videoPlayerController.initialize();
+      emit(state.copyWith(videoPlayerController: videoPlayerController));
+      play();
+    } catch (e) {
+            emit(state.copyWith(videoPlayerController: null));
+    }
+  }
+  void onPageChanged(String newAssetUrl) async {
+    if (state.videoPlayerController != null) {
+      state.videoPlayerController!.pause();
+      state.videoPlayerController!.dispose();
+    }
+    await initilizeVideoAgain(newAssetUrl);
+  }
+
+
   //  void onLongPress(){
   //   pause();
   //  }
@@ -34,6 +58,13 @@ class MediaViewerCubit extends Cubit<MediaViewerState> {
   //  void onLongPressEnd(){
   //   play();
   //  }
+
+
+  void followPub(){
+       emit(state.copyWith(isLoading: true));
+       emit(state.copyWith(isFollowing: true));
+       emit(state.copyWith(isLoading: false));
+  }
 
   void play() {
     state.videoPlayerController!.play();
@@ -46,8 +77,10 @@ class MediaViewerCubit extends Cubit<MediaViewerState> {
   }
 
   void closePlayer() {
+    if(state.videoPlayerController != null){
     pause();
     emit(state.copyWith(videoPlayerController: null));
+    }
   }
 
   void fetchPubDetails() async {
@@ -75,9 +108,8 @@ class MediaViewerCubit extends Cubit<MediaViewerState> {
 
   @override
   Future<void> close() {
-    // Stop the video playback and dispose of the video player controller.
-    state.videoPlayerController?.pause(); // Ensure the video is paused first.
-    state.videoPlayerController?.dispose(); // Release the controller resources.
-    return super.close(); // Don't forget to call super.close() at the end.
+    state.videoPlayerController?.pause(); 
+    state.videoPlayerController?.dispose();
+    return super.close();
   }
 }

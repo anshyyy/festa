@@ -9,6 +9,7 @@ class EventDetailsState with _$EventDetailsState {
     required String apiBaseUrl,
     required EventRepository eventRepository,
     required EventDto? event,
+    required List<AssetDto> pubassetsForTheEvent,
     required String eventDistance,
     required bool lsdExpanded,
     required bool ambExpanded,
@@ -17,6 +18,7 @@ class EventDetailsState with _$EventDetailsState {
     required bool isEventLiked,
     required bool isOpenMapModal,
     required List<AvailableMap> mapsOptions,
+    //required List<>
     Coords? eventLocation,
   }) = _EventDetailsState;
 
@@ -25,6 +27,7 @@ class EventDetailsState with _$EventDetailsState {
     required String eventDistance,
   }) =>
       EventDetailsState(
+        pubassetsForTheEvent: [],
         isLoading: false,
         mapsOptions: [],
         isOpenMapModal: false,

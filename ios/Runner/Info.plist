@@ -48,6 +48,8 @@
 	<string>Festa app needs access to location when open.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need microphone access for uploading audio</string>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>This app requires access to SMS for OTP auto-fill.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your photo library to upload and share photos in the app.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -76,25 +78,33 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-    <string>comgooglemaps</string>
-    <string>baidumap</string>
-    <string>iosamap</string>
-    <string>waze</string>
-    <string>yandexmaps</string>
-    <string>yandexnavi</string>
-    <string>citymapper</string>
-    <string>mapswithme</string>
-    <string>osmandmaps</string>
-    <string>dgis</string>
-    <string>qqmap</string>
-    <string>here-location</string>
-    <string>tomtomgo</string>
-    <string>copilot</string>
-    <string>com.sygic.aura</string>
-    <string>nmap</string>
-    <string>kakaomap</string>
-    <string>tmap</string>
-    <string>szn-mapy</string>
+		<string>comgooglemaps</string>
+		<string>baidumap</string>
+		<string>iosamap</string>
+		<string>waze</string>
+		<string>yandexmaps</string>
+		<string>yandexnavi</string>
+		<string>citymapper</string>
+		<string>mapswithme</string>
+		<string>osmandmaps</string>
+		<string>dgis</string>
+		<string>qqmap</string>
+		<string>here-location</string>
+		<string>tomtomgo</string>
+		<string>copilot</string>
+		<string>com.sygic.aura</string>
+		<string>nmap</string>
+		<string>kakaomap</string>
+		<string>tmap</string>
+		<string>szn-mapy</string>
+		<string>mappls</string>
+		<string>whatsapp</string> <!-- Add whatsapp here -->
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We use your location to provide a better event discovery experience by showing nearby events and venues.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need camera access to capture your profile picture.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select a profile picture.</string>
 </dict>
 </plist>

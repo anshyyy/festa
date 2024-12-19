@@ -20,4 +20,15 @@ class AppUpdateService {
     final coreBox = await Hive.openBox(appUpdateBoxName);
     coreBox.put('hash', hashValue);
   }
+
+  static Future<bool> isUserFirstTime() async {
+    final coreBox = await Hive.openBox(appUpdateBoxName);
+    bool val = coreBox.get('isFirstTime', defaultValue: true);
+    return val;
+  }
+
+  static Future setUserFirstTime({bool? val}) async {
+    final coreBox = await Hive.openBox(appUpdateBoxName);
+    coreBox.put('isFirstTime', val);
+  }
 }

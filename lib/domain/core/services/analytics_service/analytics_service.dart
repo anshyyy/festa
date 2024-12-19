@@ -30,7 +30,7 @@ class AnalyticsService {
   }) async {
     await _analytics.logEvent(
       name: eventName,
-      parameters: paras,
+      parameters: paras.cast<String, Object>(),
     );
   }
 }

@@ -9,6 +9,7 @@ class PersonalisationState with _$PersonalisationState {
     required bool noUse,
     required List<PersonalizationMenuDto> personalizationList,
     required UserRepository userRepository,
+    required int selectedGender,
   }) = _PersonalisationState;
 
   factory PersonalisationState.initial({
@@ -17,6 +18,7 @@ class PersonalisationState with _$PersonalisationState {
         noUse: false,
         isLoading: false,
         isFailed: false,
+        selectedGender: 0,
         isSuccessful: false,
         personalizationList: [],
         userRepository: IUserRepository(serverUrl: serverUrl),

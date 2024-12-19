@@ -12,7 +12,7 @@ part of 'faq_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 FAQDto _$FAQDtoFromJson(Map<String, dynamic> json) {
   return _FAQDto.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$FAQDto {
   @JsonKey(name: 'question', defaultValue: '')
   String get question => throw _privateConstructorUsedError;
 
+  /// Serializes this FAQDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FAQDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FAQDtoCopyWith<FAQDto> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -50,6 +54,8 @@ class _$FAQDtoCopyWithImpl<$Res, $Val extends FAQDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FAQDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,6 +95,8 @@ class __$$FAQDtoImplCopyWithImpl<$Res>
       _$FAQDtoImpl _value, $Res Function(_$FAQDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FAQDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,11 +148,13 @@ class _$FAQDtoImpl implements _FAQDto {
                 other.question == question));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, answer, question);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FAQDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FAQDtoImplCopyWith<_$FAQDtoImpl> get copyWith =>
@@ -172,8 +182,11 @@ abstract class _FAQDto implements FAQDto {
   @override
   @JsonKey(name: 'question', defaultValue: '')
   String get question;
+
+  /// Create a copy of FAQDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FAQDtoImplCopyWith<_$FAQDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

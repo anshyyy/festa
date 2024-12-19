@@ -12,7 +12,7 @@ part of 'community_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CommunityDto _$CommunityDtoFromJson(Map<String, dynamic> json) {
   return _CommunityDto.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$CommunityDto {
   @JsonKey(name: 'users', defaultValue: [])
   List<CommunityUserDto> get users => throw _privateConstructorUsedError;
 
+  /// Serializes this CommunityDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommunityDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CommunityDtoCopyWith<CommunityDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$CommunityDtoCopyWithImpl<$Res, $Val extends CommunityDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CommunityDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$CommunityDtoImplCopyWithImpl<$Res>
       _$CommunityDtoImpl _value, $Res Function(_$CommunityDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommunityDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,12 +151,14 @@ class _$CommunityDtoImpl implements _CommunityDto {
             const DeepCollectionEquality().equals(other.users, users));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, totalCount, const DeepCollectionEquality().hash(users));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommunityDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommunityDtoImplCopyWith<_$CommunityDtoImpl> get copyWith =>
@@ -178,8 +188,11 @@ abstract class _CommunityDto implements CommunityDto {
   @override
   @JsonKey(name: 'users', defaultValue: [])
   List<CommunityUserDto> get users;
+
+  /// Create a copy of CommunityDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommunityDtoImplCopyWith<_$CommunityDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

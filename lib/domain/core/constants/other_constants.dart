@@ -10,7 +10,12 @@ class OtherConstants {
   static const int limit = 10;
   static const String termsOfService = 'https://dadlabs.in/terms-of-use';
   static const String privacyPolicy = 'https://dadlabs.in/privacy-policy';
-  static const LocationDto defaultLocation = LocationDto(
+  static const LocationDto defaultLocation = 
+  
+  
+  
+  
+  LocationDto(
     latitude: 12.9715987,
     longitude: 77.5945627,
     area: 'Bangalore',
@@ -39,8 +44,8 @@ class OtherConstants {
     icon: AssetConstants.delhiIcon,
   );
   static const LocationDto hyderabad = LocationDto(
-    latitude: 28.6818,
-    longitude: 77.2290,
+    latitude: 17.40636,
+    longitude: 78.46875,
     area: 'Hyderabad',
     city: 'Hyderabad',
     state: 'Hyderabad',

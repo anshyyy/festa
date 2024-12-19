@@ -42,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void onPhoneChange({required String text}) {
-    if (text.length >= 6) {
+    if (text.length == 10) {
       emit(state.copyWith(isLoginEnabled: true));
     } else {
       emit(state.copyWith(isLoginEnabled: false));
@@ -57,7 +57,9 @@ class AuthCubit extends Cubit<AuthState> {
       dialCode: state.selectedDialCode.toString(),
     );
 
+
     response.fold((l) {
+    //  print("error: $l");
       emit(state.copyWith(
         isLoading: false,
         isOTPSentFailed: true,

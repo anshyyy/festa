@@ -4,6 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 import '../../domain/event/event_repository.dart';
+import '../../infrastructure/artist/dtos/artist/artist_dto.dart';
+import '../../infrastructure/core/dtos/asset/asset_dto.dart';
 import '../../infrastructure/event/dtos/event/event_dto.dart';
 import '../../infrastructure/event/i_event_repository.dart';
 
@@ -20,28 +22,35 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
           await state.eventRepository.getEventDetails(eventId: id);
 
       res.fold((l) => null, (r) {
+
         emit(state.copyWith(event: r));
       });
       return;
     } else {
       emit(state.copyWith(isLoading: true));
-      await Future.delayed(const Duration(milliseconds: 300));
+      await Future.delayed(const Duration(milliseconds: 200));
       Either<dynamic, EventDto> res =
           await state.eventRepository.getEventDetails(eventId: id);
 
       res.fold(
-        (l) => emit(state.copyWith(
-          isLoading: false,
-          isSuccess: false,
-          isFailure: true,
-        )),
-        (r) => emit(state.copyWith(
-          isLoading: false,
-          isSuccess: true,
-          isFailure: false,
-          event: r,
-        )),
-      );
+          (l) => emit(state.copyWith(
+                isLoading: false,
+                isSuccess: false,
+                isFailure: true,
+              )), (r) {
+        //print("db : ${r.isLiked}");
+        print("event: ${r.categories}");
+        emit(state.copyWith(
+            pubassetsForTheEvent: [
+              ...r.pub?.assets ?? [],
+              ...r.pub?.highlights ?? [],
+            ],
+            isLoading: false,
+            isSuccess: true,
+            isFailure: false,
+            event: r,
+            isEventLiked: r.isLiked == true));
+      });
     }
   }
 
@@ -67,12 +76,16 @@ class EventDetailsCubit extends Cubit<EventDetailsState> {
     emit(state.copyWith(isEventLiked: !state.isEventLiked));
   }
 
+  void updateArtists({required List<ArtistProfileDto> artists}) {
+    emit(state.copyWith(event: state.event?.copyWith(artists: artists)));
+  }
+
   void viewOnMaps(
       {required double lat,
       required double long,
       required bool isAndroid,
       required String eventTitle}) async {
-    emit(state.copyWith(isLoading: true));
+    emit(state.copyWith(isLoading: false));
     final availableMaps = await MapLauncher.installedMaps;
 
     final coords = Coords(lat, long);

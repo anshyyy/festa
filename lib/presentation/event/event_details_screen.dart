@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,17 +22,22 @@ import 'widgets/events_options_modal_sheet.dart';
 class EventDetailsScreen extends StatelessWidget {
   final String id;
   final String distance;
+  final bool isVideoMute;
+  final bool isMutedNotifierValue;
 
   const EventDetailsScreen({
     super.key,
     required this.id,
     required this.distance,
+    required this.isVideoMute,
+    required this.isMutedNotifierValue,
   });
 
   @override
   Widget build(BuildContext context) {
     final AppConfig appConfig = AppConfig.of(context)!;
-
+    final ValueNotifier<bool> isMutedNotifier =
+        ValueNotifier<bool>(isMutedNotifierValue);
     return BlocProvider(
       create: (context) => EventDetailsCubit(
         EventDetailsState.initial(
@@ -41,15 +45,19 @@ class EventDetailsScreen extends StatelessWidget {
           eventDistance: distance,
         ),
       )..fetchEventDetails(id: int.parse(id)),
-      child: const EventDetailsScreenConsumer(),
+      child: EventDetailsScreenConsumer(
+        isVideoMute: isVideoMute,
+        isMutedNotifier: isMutedNotifier,
+      ),
     );
   }
 }
 
 class EventDetailsScreenConsumer extends StatelessWidget {
-  const EventDetailsScreenConsumer({
-    super.key,
-  });
+  final bool isVideoMute;
+  final ValueNotifier<bool> isMutedNotifier;
+  EventDetailsScreenConsumer(
+      {super.key, required this.isVideoMute, required this.isMutedNotifier});
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +70,14 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           showModalBottomSheet(
               context: context,
               builder: (context) => OpenMapsModal(
-                    title: state.event!.name,
+                    title: state.event?.pub?.fullName ?? '',
                     coords: state.eventLocation!,
                     mapsOptions: state.mapsOptions,
                   ));
         }
       },
       builder: (context, state) {
+        (state);
         final event = state.event;
         final List<GlobalKey> tileKeys = [
           GlobalKey(),
@@ -77,6 +86,9 @@ class EventDetailsScreenConsumer extends StatelessWidget {
           GlobalKey(),
           GlobalKey(),
           GlobalKey(),
+          GlobalKey(),
+          GlobalKey(),
+          GlobalKey()
         ];
         return state.isLoading
             ? const Scaffold(body: EventDetailsShimmer())
@@ -84,25 +96,29 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                 bottomNavigationBar: event!.eventTicketCategories.isEmpty
                     ? const SizedBox()
                     : TicketBookingWidget(
-                        startDate: event.startDate,
-                        priceRangeStart: event.priceRangeStart,
-                        priceRangeEnd: event.priceRangeEnd!,
+                      endDate: event.endDate,
+                        title: "Let's Go",
+                        startDate: event.startDate, // Provide a default value
+                        priceRangeStart: event.priceRangeStart ??
+                            0, // Provide a default value
+                        priceRangeEnd: event.priceRangeEnd ?? 0,
                         onClick: () {
                           navigator<NavigationService>().navigateTo(
                               UserRoutes.bookingRoute,
                               queryParams: {
-                                'eventId': state.event!.id.toString(),
+                                'eventId': state.event?.id.toString() ?? "",
                               });
                         },
                       ),
                 appBar: CustomAppBar(
                     title: event.name,
-                    scaffoldBackgroundColor: Theme.of(context)
-                        .colorScheme
-                        .background
-                        .withOpacity(.02),
+                    surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+                    scaffoldBackgroundColor:
+                        Theme.of(context).scaffoldBackgroundColor,
                     leading: GestureDetector(
-                        onTap: () => navigator<NavigationService>().goBack(),
+                        onTap: () {
+                          navigator<NavigationService>().goBack();
+                        },
                         child: Center(
                             child: SvgPicture.asset(
                           AssetConstants.arrowLeft,
@@ -115,9 +131,18 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                             isScrollControlled: true,
                             context: context,
                             builder: (context) => EventOptionsModalSheet(
-                              eventId: state.event!.id,
-                            ),
-                          );
+                                eventStartDate:event.startDate,
+                                eventDescription:event.description,
+                                eventCompleteAddress:event.address?.completeAddress??'',
+                                eventEndDate:event.endDate??'',
+                                eventId: state.event?.id ?? 0,
+                                eventName: state.event?.name ?? "",
+                                artists: state.event?.artists ?? []),
+                          ).then((v) {
+                            context
+                                .read<EventDetailsCubit>()
+                                .updateArtists(artists: v['artists']);
+                          });
                         },
                         child: Padding(
                           padding: EdgeInsets.only(right: 5.w),
@@ -130,18 +155,20 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        padding: EdgeInsets.symmetric(horizontal: 0.w),
                         child: EventCard(
                           vKey: event.id.toString(),
+                          isVideoMute: isVideoMute,
+                          isMutedNotifier: isMutedNotifier,
                           loadData: () {
                             if (state.event != null) {
                               context
                                   .read<EventDetailsCubit>()
                                   .fetchEventDetails(
-                                      id: state.event!.id,
+                                      id: state.event?.id ?? 0,
                                       isUpdatedDetails: true);
                             }
-                          },                          
+                          },
                           distance: state.eventDistance,
                           event: event,
                           isLiked: state.isEventLiked,
@@ -152,16 +179,14 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           },
                         ),
                       ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
+
                       GestureDetector(
                         onTap: () {
                           context.read<EventDetailsCubit>().viewOnMaps(
                               lat: state.event?.address?.lat ?? 0,
                               long: state.event?.address?.lng ?? 0,
                               isAndroid: Platform.isAndroid,
-                              eventTitle: state.event?.name ?? '');
+                              eventTitle: state.event?.pub?.fullName ?? '');
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 3.w),
@@ -182,6 +207,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                       SizedBox(
                         height: 2.h,
                       ),
+                      // description box
                       Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
@@ -190,10 +216,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           child: ExpansionTile(
                             initiallyExpanded: true,
                             onExpansionChanged: (value) {
-                              if (value) {
-                                Scrollable.ensureVisible(
-                                    tileKeys[0].currentContext!);
-                              }
+                              //if (value) {
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[0].currentContext!);
+                              //}
                             },
                             iconColor: Theme.of(context).colorScheme.background,
                             collapsedIconColor:
@@ -208,12 +234,18 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
+                                      fontSize: 15.5.sp,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .background,
                                       fontWeight: FontWeight.w600),
                             ),
                             key: tileKeys[0],
+                            tilePadding: EdgeInsets.only(
+                                right: 6.0.w,
+                                left: 3.9.w,
+                                top: 0.45.h,
+                                bottom: 0.3.h),
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.5.w)
@@ -224,6 +256,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
+                                        fontSize: 15.5.sp,
                                         color: Theme.of(context)
                                             .colorScheme
                                             .background,
@@ -234,213 +267,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // LSD
-                      Theme(
-                        data: Theme.of(context)
-                            .copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          onExpansionChanged: (value) {
-                            if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[1].currentContext!);
-                            }
-                          },
-                          iconColor: Theme.of(context).colorScheme.background,
-                          collapsedIconColor:
-                              Theme.of(context).colorScheme.background,
-                          collapsedBackgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          title: Text(
-                            EventScreenConstants.lsd,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          key: tileKeys[1],
-                          children: [
-                            ...event.lsd.map((e) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 3.5.w)
-                                    .copyWith(bottom: 1.h),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset(
-                                      AssetConstants.extras[e.type]!,
-                                      height: 3.h,
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Expanded(
-                                        child: Text(
-                                      e.text,
-                                      maxLines: 2,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    )),
-                                  ],
-                                ),
-                              );
-                            })
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
 
-                      // Ambience
-                      Theme(
-                        data: Theme.of(context)
-                            .copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          onExpansionChanged: (value) {
-                            if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[2].currentContext!);
-                            }
-                          },
-                          iconColor: Theme.of(context).colorScheme.background,
-                          collapsedIconColor:
-                              Theme.of(context).colorScheme.background,
-                          collapsedBackgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          key: tileKeys[2],
-                          title: Text(
-                            EventScreenConstants.ambience,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          children: [
-                            ...event.ambience.map((e) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 3.5.w,
-                                ).copyWith(bottom: 1.h),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        child: Text(
-                                      e.text,
-                                      maxLines: 2,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    )),
-                                  ],
-                                ),
-                              );
-                            })
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 1.2.h),
+                      // rules box
 
-                      // Food
-                      Theme(
-                        data: Theme.of(context)
-                            .copyWith(dividerColor: Colors.transparent),
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          onExpansionChanged: (value) {
-                            if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[3].currentContext!);
-                            }
-                          },
-                          iconColor: Theme.of(context).colorScheme.background,
-                          collapsedIconColor:
-                              Theme.of(context).colorScheme.background,
-                          collapsedBackgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          key: tileKeys[3],
-                          title: Text(
-                            EventScreenConstants.foodAndBeverages,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          children: [
-                            ...event.foodAndBeverages.map((e) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 3.5.w,
-                                ).copyWith(bottom: 1.h),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AssetConstants.extras[e.type]!,
-                                      height: 3.h,
-                                    ),
-                                    SizedBox(
-                                      width: 2.w,
-                                    ),
-                                    Expanded(
-                                        child: Text(
-                                      e.text,
-                                      maxLines: 2,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .background,
-                                          ),
-                                    )),
-                                  ],
-                                ),
-                              );
-                            })
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      // Food
                       Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.transparent),
@@ -448,13 +278,115 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           initiallyExpanded: true,
                           onExpansionChanged: (value) async {
                             if (value) {
-                              Scrollable.ensureVisible(
-                                  tileKeys[4].currentContext!);
-                              await Future.delayed(
-                                  const Duration(milliseconds: 200));
-                              Scrollable.ensureVisible(
-                                tileKeys[5].currentContext!,
-                              );
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[4].currentContext!);
+                              // await Future.delayed(
+                              //     const Duration(milliseconds: 200));
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[4].currentContext!);
+                            }
+                          },
+                          iconColor: Theme.of(context).colorScheme.background,
+                          collapsedIconColor:
+                              Theme.of(context).colorScheme.background,
+                          collapsedBackgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                          title: Text(
+                            "Rules",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                    fontSize: 15.5.sp,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                    fontWeight: FontWeight.w600),
+                          ),
+                          key: tileKeys[4],
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: event.faqs.length,
+                              itemBuilder: (context, index) {
+                                final e = event.termsAndConditions[index];
+                                return Padding(
+                                  key: event.termsAndConditions.length - 1 ==
+                                          index
+                                      ? tileKeys[6]
+                                      : null,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 3.5.w)
+                                          .copyWith(bottom: 1.h),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${(index + 1).toString()}. ',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                              fontSize: 15.5.sp,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .background,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              e.text,
+                                              maxLines: 10,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                    fontSize: 15.5.sp,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.2.h,
+                      ),
+
+// FAQs box
+                      Theme(
+                        data: Theme.of(context)
+                            .copyWith(dividerColor: Colors.transparent),
+                        child: ExpansionTile(
+                          initiallyExpanded: true,
+                          onExpansionChanged: (value) async {
+                            if (value) {
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[7].currentContext!);
+                              // await Future.delayed(
+                              //     const Duration(milliseconds: 200));
+                              // Scrollable.ensureVisible(
+                              //     tileKeys[7].currentContext!);
                             }
                           },
                           iconColor: Theme.of(context).colorScheme.background,
@@ -473,9 +405,10 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .background,
+                                    fontSize: 15.5.sp,
                                     fontWeight: FontWeight.w600),
                           ),
-                          key: tileKeys[4],
+                          key: tileKeys[7],
                           children: [
                             ListView.builder(
                               shrinkWrap: true,
@@ -485,11 +418,11 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                 final e = event.faqs[index];
                                 return Padding(
                                   key: event.faqs.length - 1 == index
-                                      ? tileKeys[5]
+                                      ? tileKeys[8]
                                       : null,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 3.5.w,
-                                  ).copyWith(bottom: 1.h),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 3.5.w)
+                                          .copyWith(bottom: 1.h),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -501,6 +434,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(
+                                              fontSize: 15.5.sp,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .background,
@@ -519,6 +453,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                   .textTheme
                                                   .bodySmall!
                                                   .copyWith(
+                                                    fontSize: 15.5.sp,
                                                     color: Theme.of(context)
                                                         .colorScheme
                                                         .background,
@@ -535,6 +470,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                                         .textTheme
                                                         .bodySmall!
                                                         .copyWith(
+                                                          fontSize: 15.5.sp,
                                                           color:
                                                               Theme.of(context)
                                                                   .colorScheme
@@ -555,6 +491,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       SizedBox(
                         height: 5.h,
                       )

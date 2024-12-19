@@ -84,14 +84,14 @@ class Consumer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                        onTap: () {
-                          navigator<NavigationService>().goBack();
-                        },
-                        child: SvgPicture.asset(AssetConstants.closeIcon)),
-                  )
+                  // Align(
+                  //   alignment: Alignment.centerRight,
+                  //   child: GestureDetector(
+                  //       onTap: () {
+                  //         navigator<NavigationService>().goBack();
+                  //       },
+                  //       child: SvgPicture.asset(AssetConstants.closeIcon)),
+                  // )
                 ],
               ),
               SizedBox(
@@ -166,7 +166,7 @@ class Consumer extends StatelessWidget {
                 height: 4.h,
               ),
               GradientButton(
-                text: 'Submit',
+                text: 'Save',
                 onTap: () {
                   navigator<NavigationService>().goBack(responseObject: {
                     'title': title,

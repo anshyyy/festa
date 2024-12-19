@@ -10,12 +10,20 @@ class EventApiConstants {
   static const GET_EVENTS_BY_PUB_ID = '$EVENTS/pub';
   static const LIKE_EVENT = '$EVENTS/like';
   static const UNLIKE_EVENT = '$EVENTS/unlike';
+  static const TICKET = '$EVENTS/ticket';
+  
+}
+
+class SearchApiConstants{
+  static const SEARCH ='/search';
 }
 
 class BookingApiConstants {
   static const BOOKING = '/booking';
   static const BOOKING_CREATE = '$BOOKING/event';
   static const BOOKING_STATUS = '$BOOKING/payment/status';
+  static const COVER_CHARGE = '$BOOKING/cover';
+  static const COUPON = '/coupon';
 }
 
 class UserApiConstants {
@@ -29,7 +37,9 @@ class UserApiConstants {
   static const GET_USER_TICKETS = '/booking/user';
   static const DELETE_REASON = '/feedback/delete/user';
   static const REPORT = '/feedback/report';
+  static const REVIEW = '/feedback/event';
   static const BLOCK = '/block';
+  static const BLOCKED_USERS = '$BLOCK/blocked';
 }
 
 class AuthApiConstants {

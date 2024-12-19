@@ -12,7 +12,7 @@ part of 'verify_otp_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$VerifyOtpState {
@@ -35,7 +35,9 @@ mixin _$VerifyOtpState {
   bool get isOTPSentFailed => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of VerifyOtpState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $VerifyOtpStateCopyWith<VerifyOtpState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -78,6 +80,8 @@ class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of VerifyOtpState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,6 +175,8 @@ class _$VerifyOtpStateCopyWithImpl<$Res, $Val extends VerifyOtpState>
     ) as $Val);
   }
 
+  /// Create a copy of VerifyOtpState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -223,6 +229,8 @@ class __$$VerifyOtpStateImplCopyWithImpl<$Res>
       _$VerifyOtpStateImpl _value, $Res Function(_$VerifyOtpStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of VerifyOtpState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -443,7 +451,9 @@ class _$VerifyOtpStateImpl implements _VerifyOtpState {
       isOTPSentFailed,
       user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of VerifyOtpState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$VerifyOtpStateImplCopyWith<_$VerifyOtpStateImpl> get copyWith =>
@@ -505,8 +515,11 @@ abstract class _VerifyOtpState implements VerifyOtpState {
   bool get isOTPSentFailed;
   @override
   UserDto? get user;
+
+  /// Create a copy of VerifyOtpState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$VerifyOtpStateImplCopyWith<_$VerifyOtpStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

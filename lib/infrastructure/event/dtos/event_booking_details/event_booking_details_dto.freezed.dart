@@ -12,7 +12,7 @@ part of 'event_booking_details_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 EventBookingDetailsDto _$EventBookingDetailsDtoFromJson(
     Map<String, dynamic> json) {
@@ -36,9 +36,15 @@ mixin _$EventBookingDetailsDto {
   int get bookingId => throw _privateConstructorUsedError;
   @JsonKey(name: 'razorpayOrderId', defaultValue: null)
   String? get razorpayOrderId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coupon', defaultValue: null)
+  CouponDTO? get coupon => throw _privateConstructorUsedError;
 
+  /// Serializes this EventBookingDetailsDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventBookingDetailsDtoCopyWith<EventBookingDetailsDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,9 +64,11 @@ abstract class $EventBookingDetailsDtoCopyWith<$Res> {
       @JsonKey(name: 'status', defaultValue: '') String status,
       @JsonKey(name: 'id', defaultValue: 0) int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      String? razorpayOrderId});
+      String? razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null) CouponDTO? coupon});
 
   $EventDtoCopyWith<$Res> get eventDetails;
+  $CouponDTOCopyWith<$Res>? get coupon;
 }
 
 /// @nodoc
@@ -74,6 +82,8 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +94,7 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
     Object? status = null,
     Object? bookingId = null,
     Object? razorpayOrderId = freezed,
+    Object? coupon = freezed,
   }) {
     return _then(_value.copyWith(
       numberOfTickets: null == numberOfTickets
@@ -114,14 +125,34 @@ class _$EventBookingDetailsDtoCopyWithImpl<$Res,
           ? _value.razorpayOrderId
           : razorpayOrderId // ignore: cast_nullable_to_non_nullable
               as String?,
+      coupon: freezed == coupon
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponDTO?,
     ) as $Val);
   }
 
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventDtoCopyWith<$Res> get eventDetails {
     return $EventDtoCopyWith<$Res>(_value.eventDetails, (value) {
       return _then(_value.copyWith(eventDetails: value) as $Val);
+    });
+  }
+
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CouponDTOCopyWith<$Res>? get coupon {
+    if (_value.coupon == null) {
+      return null;
+    }
+
+    return $CouponDTOCopyWith<$Res>(_value.coupon!, (value) {
+      return _then(_value.copyWith(coupon: value) as $Val);
     });
   }
 }
@@ -144,10 +175,13 @@ abstract class _$$EventBookingDetailsDtoImplCopyWith<$Res>
       @JsonKey(name: 'status', defaultValue: '') String status,
       @JsonKey(name: 'id', defaultValue: 0) int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      String? razorpayOrderId});
+      String? razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null) CouponDTO? coupon});
 
   @override
   $EventDtoCopyWith<$Res> get eventDetails;
+  @override
+  $CouponDTOCopyWith<$Res>? get coupon;
 }
 
 /// @nodoc
@@ -160,6 +194,8 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
       $Res Function(_$EventBookingDetailsDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -170,6 +206,7 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
     Object? status = null,
     Object? bookingId = null,
     Object? razorpayOrderId = freezed,
+    Object? coupon = freezed,
   }) {
     return _then(_$EventBookingDetailsDtoImpl(
       numberOfTickets: null == numberOfTickets
@@ -200,6 +237,10 @@ class __$$EventBookingDetailsDtoImplCopyWithImpl<$Res>
           ? _value.razorpayOrderId
           : razorpayOrderId // ignore: cast_nullable_to_non_nullable
               as String?,
+      coupon: freezed == coupon
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponDTO?,
     ));
   }
 }
@@ -217,7 +258,8 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
       @JsonKey(name: 'status', defaultValue: '') required this.status,
       @JsonKey(name: 'id', defaultValue: 0) required this.bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      this.razorpayOrderId});
+      this.razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null) this.coupon});
 
   factory _$EventBookingDetailsDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventBookingDetailsDtoImplFromJson(json);
@@ -243,10 +285,13 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
   @override
   @JsonKey(name: 'razorpayOrderId', defaultValue: null)
   final String? razorpayOrderId;
+  @override
+  @JsonKey(name: 'coupon', defaultValue: null)
+  final CouponDTO? coupon;
 
   @override
   String toString() {
-    return 'EventBookingDetailsDto(numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, status: $status, bookingId: $bookingId, razorpayOrderId: $razorpayOrderId)';
+    return 'EventBookingDetailsDto(numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, status: $status, bookingId: $bookingId, razorpayOrderId: $razorpayOrderId, coupon: $coupon)';
   }
 
   @override
@@ -266,10 +311,11 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
             (identical(other.bookingId, bookingId) ||
                 other.bookingId == bookingId) &&
             (identical(other.razorpayOrderId, razorpayOrderId) ||
-                other.razorpayOrderId == razorpayOrderId));
+                other.razorpayOrderId == razorpayOrderId) &&
+            (identical(other.coupon, coupon) || other.coupon == coupon));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -279,9 +325,12 @@ class _$EventBookingDetailsDtoImpl implements _EventBookingDetailsDto {
       const DeepCollectionEquality().hash(paymentMethod),
       status,
       bookingId,
-      razorpayOrderId);
+      razorpayOrderId,
+      coupon);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EventBookingDetailsDtoImplCopyWith<_$EventBookingDetailsDtoImpl>
@@ -307,7 +356,9 @@ abstract class _EventBookingDetailsDto implements EventBookingDetailsDto {
       @JsonKey(name: 'status', defaultValue: '') required final String status,
       @JsonKey(name: 'id', defaultValue: 0) required final int bookingId,
       @JsonKey(name: 'razorpayOrderId', defaultValue: null)
-      final String? razorpayOrderId}) = _$EventBookingDetailsDtoImpl;
+      final String? razorpayOrderId,
+      @JsonKey(name: 'coupon', defaultValue: null)
+      final CouponDTO? coupon}) = _$EventBookingDetailsDtoImpl;
 
   factory _EventBookingDetailsDto.fromJson(Map<String, dynamic> json) =
       _$EventBookingDetailsDtoImpl.fromJson;
@@ -334,7 +385,13 @@ abstract class _EventBookingDetailsDto implements EventBookingDetailsDto {
   @JsonKey(name: 'razorpayOrderId', defaultValue: null)
   String? get razorpayOrderId;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'coupon', defaultValue: null)
+  CouponDTO? get coupon;
+
+  /// Create a copy of EventBookingDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EventBookingDetailsDtoImplCopyWith<_$EventBookingDetailsDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Tick" filter="url(#filter0_b_710_11155)">
+<path id="Vector" d="M8.39234 4.65963C8.81438 4.23759 9.38648 4 9.98359 4H14.0164C14.6135 4 15.1856 4.23759 15.6077 4.65963L19.3404 8.39234C19.7624 8.81438 20 9.38648 20 9.98359V14.0164C20 14.6135 19.7624 15.1856 19.3404 15.6077L15.6077 19.3404C15.1856 19.7624 14.6135 20 14.0164 20H9.98359C9.38648 20 8.81438 19.7624 8.39234 19.3404L4.65963 15.6077C4.23759 15.1856 4 14.6135 4 14.0164V9.98359C4 9.38648 4.23759 8.81438 4.65963 8.39234L8.39234 4.65963ZM15.5326 10.5307C15.8265 10.2368 15.8265 9.76163 15.5326 9.47089C15.2388 9.18015 14.7636 9.17702 14.4728 9.47089L11.0027 12.941L9.53341 11.4717C9.23955 11.1778 8.76436 11.1778 8.47362 11.4717C8.18288 11.7655 8.17976 12.2407 8.47362 12.5315L10.4744 14.5322C10.7683 14.8261 11.2435 14.8261 11.5342 14.5322L15.5326 10.5307Z" fill="#17B26A"/>
+</g>
+<defs>
+<filter id="filter0_b_710_11155" x="-10" y="-10" width="44" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="5"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_710_11155"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_710_11155" result="shape"/>
+</filter>
+</defs>
+</svg>

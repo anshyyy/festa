@@ -77,6 +77,7 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                           controller: state.dragController,
                           builder: (context, scrollController) {
                             return SingleChildScrollView(
+                               physics: NeverScrollableScrollPhysics(),
                                 controller: scrollController,
                                 child: Container(
                                     margin: EdgeInsets.only(top: 5.h),
@@ -96,9 +97,9 @@ class ArtistProfileScreenConsumer extends StatelessWidget {
                                             : const ArtistProfile(),
                                       ),
                                       // MediaGrid(),
-                                      MediaViewerTabs(
-                                        artistId: state.artistId,
-                                      ),
+                                      // MediaViewerTabs(
+                                      //   artistId: state.artistId,
+                                      // ),
                                     ])));
                           },
                         ),

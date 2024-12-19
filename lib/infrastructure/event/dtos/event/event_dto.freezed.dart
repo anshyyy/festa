@@ -12,7 +12,7 @@ part of 'event_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 EventDto _$EventDtoFromJson(Map<String, dynamic> json) {
   return _EventDto.fromJson(json);
@@ -62,24 +62,38 @@ mixin _$EventDto {
   List<AssetDto> get assets => throw _privateConstructorUsedError;
   @JsonKey(name: 'artists', defaultValue: [])
   List<ArtistProfileDto> get artists => throw _privateConstructorUsedError;
+  @JsonKey(name: 'eventRules', defaultValue: [])
+  List<EventRules> get eventRules => throw _privateConstructorUsedError;
   @JsonKey(name: 'address')
   AddressDto? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'pub')
   PubDto? get pub => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get isApplied => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+  String get cancellationPolicy => throw _privateConstructorUsedError;
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isPaused', defaultValue: true)
+  bool get isPaused => throw _privateConstructorUsedError;
   @JsonKey(name: 'expensiveRating', defaultValue: 0)
   int get expensiveRating => throw _privateConstructorUsedError;
-  @JsonKey(name: 'categories', defaultValue: [])
+  @JsonKey(name: 'category', defaultValue: [])
   List<CategoryDto> get categories => throw _privateConstructorUsedError;
+  @JsonKey(name: 'eventActivities', defaultValue: [])
+  List<EventActivity> get eventActivities => throw _privateConstructorUsedError;
   @JsonKey(name: 'eventTicketCategories', defaultValue: [])
   List<EventTicketCategoryDto> get eventTicketCategories =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+  bool get coverChargeEnabled => throw _privateConstructorUsedError;
 
+  /// Serializes this EventDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventDtoCopyWith<EventDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -115,15 +129,23 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
       @JsonKey(name: 'artists', defaultValue: [])
       List<ArtistProfileDto> artists,
+      @JsonKey(name: 'eventRules', defaultValue: [])
+      List<EventRules> eventRules,
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+      String cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true) bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0) int expensiveRating,
-      @JsonKey(name: 'categories', defaultValue: [])
-      List<CategoryDto> categories,
+      @JsonKey(name: 'category', defaultValue: []) List<CategoryDto> categories,
+      @JsonKey(name: 'eventActivities', defaultValue: [])
+      List<EventActivity> eventActivities,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      List<EventTicketCategoryDto> eventTicketCategories});
+      List<EventTicketCategoryDto> eventTicketCategories,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      bool coverChargeEnabled});
 
   $AddressDtoCopyWith<$Res>? get address;
   $PubDtoCopyWith<$Res>? get pub;
@@ -139,6 +161,8 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -163,13 +187,18 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
     Object? eventStatus = null,
     Object? assets = null,
     Object? artists = null,
+    Object? eventRules = null,
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
+    Object? cancellationPolicy = null,
     Object? isLiked = null,
+    Object? isPaused = null,
     Object? expensiveRating = null,
     Object? categories = null,
+    Object? eventActivities = null,
     Object? eventTicketCategories = null,
+    Object? coverChargeEnabled = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -256,6 +285,10 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<ArtistProfileDto>,
+      eventRules: null == eventRules
+          ? _value.eventRules
+          : eventRules // ignore: cast_nullable_to_non_nullable
+              as List<EventRules>,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -268,9 +301,17 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
+      cancellationPolicy: null == cancellationPolicy
+          ? _value.cancellationPolicy
+          : cancellationPolicy // ignore: cast_nullable_to_non_nullable
+              as String,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPaused: null == isPaused
+          ? _value.isPaused
+          : isPaused // ignore: cast_nullable_to_non_nullable
               as bool,
       expensiveRating: null == expensiveRating
           ? _value.expensiveRating
@@ -280,13 +321,23 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<CategoryDto>,
+      eventActivities: null == eventActivities
+          ? _value.eventActivities
+          : eventActivities // ignore: cast_nullable_to_non_nullable
+              as List<EventActivity>,
       eventTicketCategories: null == eventTicketCategories
           ? _value.eventTicketCategories
           : eventTicketCategories // ignore: cast_nullable_to_non_nullable
               as List<EventTicketCategoryDto>,
+      coverChargeEnabled: null == coverChargeEnabled
+          ? _value.coverChargeEnabled
+          : coverChargeEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressDtoCopyWith<$Res>? get address {
@@ -299,6 +350,8 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
     });
   }
 
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubDtoCopyWith<$Res>? get pub {
@@ -346,15 +399,23 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'assets', defaultValue: []) List<AssetDto> assets,
       @JsonKey(name: 'artists', defaultValue: [])
       List<ArtistProfileDto> artists,
+      @JsonKey(name: 'eventRules', defaultValue: [])
+      List<EventRules> eventRules,
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
+      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+      String cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true) bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0) int expensiveRating,
-      @JsonKey(name: 'categories', defaultValue: [])
-      List<CategoryDto> categories,
+      @JsonKey(name: 'category', defaultValue: []) List<CategoryDto> categories,
+      @JsonKey(name: 'eventActivities', defaultValue: [])
+      List<EventActivity> eventActivities,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      List<EventTicketCategoryDto> eventTicketCategories});
+      List<EventTicketCategoryDto> eventTicketCategories,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      bool coverChargeEnabled});
 
   @override
   $AddressDtoCopyWith<$Res>? get address;
@@ -370,6 +431,8 @@ class __$$EventDtoImplCopyWithImpl<$Res>
       _$EventDtoImpl _value, $Res Function(_$EventDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -394,13 +457,18 @@ class __$$EventDtoImplCopyWithImpl<$Res>
     Object? eventStatus = null,
     Object? assets = null,
     Object? artists = null,
+    Object? eventRules = null,
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
+    Object? cancellationPolicy = null,
     Object? isLiked = null,
+    Object? isPaused = null,
     Object? expensiveRating = null,
     Object? categories = null,
+    Object? eventActivities = null,
     Object? eventTicketCategories = null,
+    Object? coverChargeEnabled = null,
   }) {
     return _then(_$EventDtoImpl(
       id: null == id
@@ -487,6 +555,10 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<ArtistProfileDto>,
+      eventRules: null == eventRules
+          ? _value.eventRules
+          : eventRules // ignore: cast_nullable_to_non_nullable
+              as List<EventRules>,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -499,9 +571,17 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
+      cancellationPolicy: null == cancellationPolicy
+          ? _value.cancellationPolicy
+          : cancellationPolicy // ignore: cast_nullable_to_non_nullable
+              as String,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPaused: null == isPaused
+          ? _value.isPaused
+          : isPaused // ignore: cast_nullable_to_non_nullable
               as bool,
       expensiveRating: null == expensiveRating
           ? _value.expensiveRating
@@ -511,10 +591,18 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<CategoryDto>,
+      eventActivities: null == eventActivities
+          ? _value.eventActivities
+          : eventActivities // ignore: cast_nullable_to_non_nullable
+              as List<EventActivity>,
       eventTicketCategories: null == eventTicketCategories
           ? _value.eventTicketCategories
           : eventTicketCategories // ignore: cast_nullable_to_non_nullable
               as List<EventTicketCategoryDto>,
+      coverChargeEnabled: null == coverChargeEnabled
+          ? _value.coverChargeEnabled
+          : coverChargeEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -550,15 +638,23 @@ class _$EventDtoImpl implements _EventDto {
       required this.eventStatus,
       @JsonKey(name: 'assets', defaultValue: []) required this.assets,
       @JsonKey(name: 'artists', defaultValue: []) required this.artists,
+      @JsonKey(name: 'eventRules', defaultValue: []) required this.eventRules,
       @JsonKey(name: 'address') this.address,
       @JsonKey(name: 'pub') this.pub,
       @JsonKey(defaultValue: false) required this.isApplied,
+      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+      required this.cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false) required this.isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true) required this.isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0)
       required this.expensiveRating,
-      @JsonKey(name: 'categories', defaultValue: []) required this.categories,
+      @JsonKey(name: 'category', defaultValue: []) required this.categories,
+      @JsonKey(name: 'eventActivities', defaultValue: [])
+      required this.eventActivities,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      required this.eventTicketCategories});
+      required this.eventTicketCategories,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      required this.coverChargeEnabled});
 
   factory _$EventDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventDtoImplFromJson(json);
@@ -627,6 +723,9 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(name: 'artists', defaultValue: [])
   final List<ArtistProfileDto> artists;
   @override
+  @JsonKey(name: 'eventRules', defaultValue: [])
+  final List<EventRules> eventRules;
+  @override
   @JsonKey(name: 'address')
   final AddressDto? address;
   @override
@@ -636,21 +735,33 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(defaultValue: false)
   final bool isApplied;
   @override
+  @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+  final String cancellationPolicy;
+  @override
   @JsonKey(name: 'isLiked', defaultValue: false)
   final bool isLiked;
+  @override
+  @JsonKey(name: 'isPaused', defaultValue: true)
+  final bool isPaused;
   @override
   @JsonKey(name: 'expensiveRating', defaultValue: 0)
   final int expensiveRating;
   @override
-  @JsonKey(name: 'categories', defaultValue: [])
+  @JsonKey(name: 'category', defaultValue: [])
   final List<CategoryDto> categories;
+  @override
+  @JsonKey(name: 'eventActivities', defaultValue: [])
+  final List<EventActivity> eventActivities;
   @override
   @JsonKey(name: 'eventTicketCategories', defaultValue: [])
   final List<EventTicketCategoryDto> eventTicketCategories;
+  @override
+  @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+  final bool coverChargeEnabled;
 
   @override
   String toString() {
-    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, address: $address, pub: $pub, isApplied: $isApplied, isLiked: $isLiked, expensiveRating: $expensiveRating, categories: $categories, eventTicketCategories: $eventTicketCategories)';
+    return 'EventDto(id: $id, name: $name, coverImage: $coverImage, description: $description, vicinity: $vicinity, distance: $distance, startDate: $startDate, endDate: $endDate, priceRangeStart: $priceRangeStart, priceRangeEnd: $priceRangeEnd, lsd: $lsd, ambience: $ambience, foodAndBeverages: $foodAndBeverages, termsAndConditions: $termsAndConditions, faqs: $faqs, isPaid: $isPaid, totalCapacity: $totalCapacity, bookedSeats: $bookedSeats, eventStatus: $eventStatus, assets: $assets, artists: $artists, eventRules: $eventRules, address: $address, pub: $pub, isApplied: $isApplied, cancellationPolicy: $cancellationPolicy, isLiked: $isLiked, isPaused: $isPaused, expensiveRating: $expensiveRating, categories: $categories, eventActivities: $eventActivities, eventTicketCategories: $eventTicketCategories, coverChargeEnabled: $coverChargeEnabled)';
   }
 
   @override
@@ -691,20 +802,30 @@ class _$EventDtoImpl implements _EventDto {
                 other.eventStatus == eventStatus) &&
             const DeepCollectionEquality().equals(other.assets, assets) &&
             const DeepCollectionEquality().equals(other.artists, artists) &&
+            const DeepCollectionEquality()
+                .equals(other.eventRules, eventRules) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.pub, pub) || other.pub == pub) &&
             (identical(other.isApplied, isApplied) ||
                 other.isApplied == isApplied) &&
+            (identical(other.cancellationPolicy, cancellationPolicy) ||
+                other.cancellationPolicy == cancellationPolicy) &&
             (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.isPaused, isPaused) ||
+                other.isPaused == isPaused) &&
             (identical(other.expensiveRating, expensiveRating) ||
                 other.expensiveRating == expensiveRating) &&
             const DeepCollectionEquality()
                 .equals(other.categories, categories) &&
             const DeepCollectionEquality()
-                .equals(other.eventTicketCategories, eventTicketCategories));
+                .equals(other.eventActivities, eventActivities) &&
+            const DeepCollectionEquality()
+                .equals(other.eventTicketCategories, eventTicketCategories) &&
+            (identical(other.coverChargeEnabled, coverChargeEnabled) ||
+                other.coverChargeEnabled == coverChargeEnabled));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -729,16 +850,23 @@ class _$EventDtoImpl implements _EventDto {
         eventStatus,
         const DeepCollectionEquality().hash(assets),
         const DeepCollectionEquality().hash(artists),
+        const DeepCollectionEquality().hash(eventRules),
         address,
         pub,
         isApplied,
+        cancellationPolicy,
         isLiked,
+        isPaused,
         expensiveRating,
         const DeepCollectionEquality().hash(categories),
-        const DeepCollectionEquality().hash(eventTicketCategories)
+        const DeepCollectionEquality().hash(eventActivities),
+        const DeepCollectionEquality().hash(eventTicketCategories),
+        coverChargeEnabled
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EventDtoImplCopyWith<_$EventDtoImpl> get copyWith =>
@@ -791,18 +919,27 @@ abstract class _EventDto implements EventDto {
       required final List<AssetDto> assets,
       @JsonKey(name: 'artists', defaultValue: [])
       required final List<ArtistProfileDto> artists,
+      @JsonKey(name: 'eventRules', defaultValue: [])
+      required final List<EventRules> eventRules,
       @JsonKey(name: 'address') final AddressDto? address,
       @JsonKey(name: 'pub') final PubDto? pub,
       @JsonKey(defaultValue: false) required final bool isApplied,
+      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+      required final String cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false)
       required final bool isLiked,
+      @JsonKey(name: 'isPaused', defaultValue: true)
+      required final bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0)
       required final int expensiveRating,
-      @JsonKey(name: 'categories', defaultValue: [])
+      @JsonKey(name: 'category', defaultValue: [])
       required final List<CategoryDto> categories,
+      @JsonKey(name: 'eventActivities', defaultValue: [])
+      required final List<EventActivity> eventActivities,
       @JsonKey(name: 'eventTicketCategories', defaultValue: [])
-      required final List<EventTicketCategoryDto>
-          eventTicketCategories}) = _$EventDtoImpl;
+      required final List<EventTicketCategoryDto> eventTicketCategories,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      required final bool coverChargeEnabled}) = _$EventDtoImpl;
 
   factory _EventDto.fromJson(Map<String, dynamic> json) =
       _$EventDtoImpl.fromJson;
@@ -871,6 +1008,9 @@ abstract class _EventDto implements EventDto {
   @JsonKey(name: 'artists', defaultValue: [])
   List<ArtistProfileDto> get artists;
   @override
+  @JsonKey(name: 'eventRules', defaultValue: [])
+  List<EventRules> get eventRules;
+  @override
   @JsonKey(name: 'address')
   AddressDto? get address;
   @override
@@ -880,19 +1020,34 @@ abstract class _EventDto implements EventDto {
   @JsonKey(defaultValue: false)
   bool get isApplied;
   @override
+  @JsonKey(name: 'cancellationPolicy', defaultValue: '')
+  String get cancellationPolicy;
+  @override
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked;
+  @override
+  @JsonKey(name: 'isPaused', defaultValue: true)
+  bool get isPaused;
   @override
   @JsonKey(name: 'expensiveRating', defaultValue: 0)
   int get expensiveRating;
   @override
-  @JsonKey(name: 'categories', defaultValue: [])
+  @JsonKey(name: 'category', defaultValue: [])
   List<CategoryDto> get categories;
+  @override
+  @JsonKey(name: 'eventActivities', defaultValue: [])
+  List<EventActivity> get eventActivities;
   @override
   @JsonKey(name: 'eventTicketCategories', defaultValue: [])
   List<EventTicketCategoryDto> get eventTicketCategories;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+  bool get coverChargeEnabled;
+
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EventDtoImplCopyWith<_$EventDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

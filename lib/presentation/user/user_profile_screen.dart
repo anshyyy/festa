@@ -8,6 +8,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../application/user/user_profile/user_profile_cubit.dart';
@@ -21,6 +22,7 @@ import '../../domain/core/utils/dynamic_link.dart';
 import '../../domain/core/utils/image_provider.dart';
 import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../widgets/custom_outlined_button.dart';
+import 'widgets/user_highlightCaraousel.dart';
 import 'widgets/user_profile_widget.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -50,6 +52,7 @@ class UserProfileScreenConsumer extends StatelessWidget {
     return BlocConsumer<UserProfileCubit, UserProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
+        // print(appStateNotifier.user);
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: state.isLoading
@@ -59,29 +62,35 @@ class UserProfileScreenConsumer extends StatelessWidget {
                     Container(
                         height: 80.h,
                         decoration: BoxDecoration(
-                            color:
-                                colorScheme.secondaryContainer.withOpacity(.3)),
+                            color: ((state.user?.highlight != null) &&
+                                    (state.user?.highlight?.isNotEmpty == true))
+                                ? colorScheme.secondaryContainer.withOpacity(0)
+                                : colorScheme.secondaryContainer
+                                    .withOpacity(.3)),
                         child: Stack(
                           children: [
-                            state.coverImage != null &&
-                                    state.coverImage!.isNotEmpty
-                                ? SizedBox(
-                                    height: 100.h,
-                                    width: 100.w,
-                                    child: CachedNetworkImage(
-                                      imageUrl: CustomImageProvider.getImageUrl(
-                                          state.coverImage, ImageType.other),
-                                      fit: BoxFit.cover,
-                                    ),
+                            state.user?.highlight != null &&
+                                    state.user?.highlight?.isNotEmpty == true
+                                ? UserImageCarousel(
+                                    highlights: state.user?.highlight ?? [],
                                   )
                                 : appStateNotifier.user!.id != state.userId
                                     ? const SizedBox()
                                     : Center(
                                         child: CustomOutlinedButton(
                                           onTap: () {
-                                            context
-                                                .read<UserProfileCubit>()
-                                                .onSelectCoverImage();
+                                            navigator<NavigationService>()
+                                                .navigateTo(
+                                                    UserRoutes.editProfileRoute,
+                                                    queryParams: {
+                                                  'userId':
+                                                      state.user!.id.toString()
+                                                }).then((value) {
+                                              context
+                                                  .read<UserProfileCubit>()
+                                                  .fetchUserDetails(
+                                                      id: state.userId);
+                                            });
                                           },
                                           text: UserProfileScreenConstants
                                               .uploadYourHighlight,
@@ -102,9 +111,11 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                       onTap: () {
                                         navigator<NavigationService>()
                                             .navigateTo(
-                                          UserRoutes.profileAndSettingsRoute,
-                                        )
-                                            .then((value) {
+                                                UserRoutes
+                                                    .profileAndSettingsRoute,
+                                                queryParams: {
+                                              'email': state.user!.email ?? ""
+                                            }).then((value) {
                                           context
                                               .read<UserProfileCubit>()
                                               .fetchUserDetails(
@@ -118,13 +129,49 @@ class UserProfileScreenConsumer extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                SvgPicture.asset(AssetConstants
-                                                    .hamBurgerMenu,width: 7.w),
-                                              ],
+                                            Container(
+                                              width: 32.px,
+                                              height: 32.px,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xff343434),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: Stack(
+                                                children: [
+                                                  if (state.user!.email == null)
+                                                    Positioned(
+                                                      right: 5,
+                                                      top: 4,
+                                                      child: Container(
+                                                        width: 7.px,
+                                                        height: 7.px,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50),
+                                                                gradient:
+                                                                    const LinearGradient(
+                                                                  colors: <Color>[
+                                                                    Color(
+                                                                        0xffFF1759),
+                                                                    Color(
+                                                                        0xffBF0036)
+                                                                  ],
+                                                                )),
+                                                      ),
+                                                    ),
+                                                  Center(
+                                                    child: SvgPicture.asset(
+                                                        AssetConstants
+                                                            .hamBurgerMenu,
+                                                        width: 6.w),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -210,36 +257,36 @@ class UserShimmer extends StatelessWidget {
             // SizedBox(
             //   height: 1.h,
             // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: .5.w,
-                    ),
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(
-                      height: .5.w,
-                    ),
-                    Container(
-                      height: .5.w,
-                      width: 3.w,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     Column(
+            //       children: [
+            //         Container(
+            //           height: .5.w,
+            //           width: 3.w,
+            //           color: Colors.grey,
+            //         ),
+            //         SizedBox(
+            //           height: .5.w,
+            //         ),
+            //         Container(
+            //           height: .5.w,
+            //           width: 3.w,
+            //           color: Colors.grey,
+            //         ),
+            //         SizedBox(
+            //           height: .5.w,
+            //         ),
+            //         Container(
+            //           height: .5.w,
+            //           width: 3.w,
+            //           color: Colors.grey,
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
 
             const Spacer(),
             Stack(

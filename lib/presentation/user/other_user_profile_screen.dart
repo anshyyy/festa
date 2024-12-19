@@ -25,6 +25,7 @@ import '../../infrastructure/core/enum/image_type.enum.dart';
 import '../core/profile_actions_modal.dart';
 import '../widgets/custom_outlined_button.dart';
 import 'widgets/user_profile_widget.dart';
+import 'widgets/user_highlightCaraousel.dart';
 
 class OtherUserProfileScreen extends StatelessWidget {
   final int userId;
@@ -73,22 +74,17 @@ class OtherUserProfileScreenConsumer extends StatelessWidget {
                       Container(
                           height: 80.h,
                           decoration: BoxDecoration(
-                              color: colorScheme.secondaryContainer
-                                  .withOpacity(.3)),
+                              color: ((state.user?.highlight != null) &&
+                                      (state.user?.highlight?.isNotEmpty == true))
+                                  ? colorScheme.secondaryContainer.withOpacity(0)
+                                  : colorScheme.secondaryContainer
+                                      .withOpacity(.3)),
                           child: Stack(
                             children: [
-                              state.coverImage != null &&
-                                      state.coverImage!.isNotEmpty
-                                  ? SizedBox(
-                                      height: 100.h,
-                                      width: 100.w,
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            CustomImageProvider.getImageUrl(
-                                                state.coverImage,
-                                                ImageType.other),
-                                        fit: BoxFit.cover,
-                                      ),
+                              state.user?.highlight != null &&
+                                      state.user?.highlight?.isNotEmpty == true
+                                  ? UserImageCarousel(
+                                      highlights: state.user?.highlight ?? [],
                                     )
                                   : appStateNotifier.user!.id != state.userId
                                       ? const SizedBox()
@@ -150,10 +146,14 @@ class OtherUserProfileScreenConsumer extends StatelessWidget {
                               )
                             ],
                           )),
-                      const Column(
+                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          UserProfile(),
+                         const Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: UserProfile(),
+                          ),
+                          SizedBox(height: 3.h,)
                         ],
                       ),
                       // state.qrExpandedView

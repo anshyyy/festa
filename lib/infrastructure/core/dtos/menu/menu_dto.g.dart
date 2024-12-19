@@ -8,12 +8,12 @@ part of 'menu_dto.dart';
 
 _$MenuDtoImpl _$$MenuDtoImplFromJson(Map<String, dynamic> json) =>
     _$MenuDtoImpl(
-      id: json['id'] as int,
-      icon: json['icon'] as String? ?? '',
+      id: (json['id'] as num).toInt(),
+      url: json['url'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$MenuDtoImplToJson(_$MenuDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'icon': instance.icon,
+      'url': instance.url,
     };

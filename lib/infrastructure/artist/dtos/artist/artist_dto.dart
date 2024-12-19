@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/dtos/tag/tag_dto.dart';
+import '../../../event/dtos/social_media/social_media_dto.dart';
 import '../artist_category/artist_category_dto.dart';
 import '../artist_extra_details/artist_extra_details_dto.dart';
 
@@ -21,6 +22,8 @@ class ArtistProfileDto with _$ArtistProfileDto {
     @JsonKey(name: 'category', defaultValue: []) required List<ArtistCategoryDto> categories,
     @JsonKey(name: 'city', defaultValue: '') required String city,
     @JsonKey(name: 'tag', defaultValue: null) TagDto? tag,
+     @JsonKey(name: 'socialMediaLinks')
+     Map<String,String>? socialMediaLinks,
     @JsonKey(name: 'isFollowing', defaultValue: false) required bool isFollowing,
     @JsonKey(name: 'extraDetails', defaultValue: null) ArtistExtraDetailsDto? extraDetailsDto,
   }) = _ArtistProfileDto;

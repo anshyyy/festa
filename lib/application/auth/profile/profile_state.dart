@@ -14,6 +14,7 @@ class ProfileState with _$ProfileState {
     required AppStateNotifier appStateNotifier,
     required TextEditingController menuSearchController,
     required List<SettingsMenuDto> settingsMenu,
+    required LocationStorageService locationStorage,
     UserDto? user,
   }) = _ProfileState;
 
@@ -28,6 +29,7 @@ class ProfileState with _$ProfileState {
         isLogout: false,
         responseMsg: '',
         user: appStateNotifier.user,
+        locationStorage: LocationStorageService(),
         authRepository: IAuthRepository(serverUrl: serverUrl),
         appStateNotifier: appStateNotifier,
         isAccountDelete: false,

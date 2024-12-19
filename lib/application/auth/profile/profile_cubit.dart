@@ -6,6 +6,7 @@ import '../../../domain/auth/auth_repository.dart';
 import '../../../domain/core/configs/app_config.dart';
 import '../../../domain/core/constants/other_constants.dart';
 import '../../../domain/core/constants/string_constants.dart';
+import '../../../domain/core/services/storage_service/location_storage_service.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/auth/i_auth_repository.dart';
 import '../../../infrastructure/user/dtos/settings_menu/settings_menu_dto.dart';
@@ -20,6 +21,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(state.copyWith(isLoading: true));
 
     final isLogoutSuccessfully = await state.authRepository.logout();
+    await state.locationStorage.deleteLocation();
     emit(state.copyWith(
       isLogout: isLogoutSuccessfully,
       isFailure: !isLogoutSuccessfully,

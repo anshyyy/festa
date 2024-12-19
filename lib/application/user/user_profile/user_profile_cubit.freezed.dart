@@ -12,7 +12,7 @@ part of 'user_profile_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$UserProfileState {
@@ -32,7 +32,9 @@ mixin _$UserProfileState {
   bool get qrExpandedView => throw _privateConstructorUsedError;
   AppStateNotifier get appStateNotifier => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserProfileStateCopyWith<UserProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +75,8 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,6 +160,8 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
     ) as $Val);
   }
 
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -206,6 +212,8 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
       $Res Function(_$UserProfileStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -399,7 +407,9 @@ class _$UserProfileStateImpl implements _UserProfileState {
       qrExpandedView,
       appStateNotifier);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserProfileStateImplCopyWith<_$UserProfileStateImpl> get copyWith =>
@@ -456,8 +466,11 @@ abstract class _UserProfileState implements UserProfileState {
   bool get qrExpandedView;
   @override
   AppStateNotifier get appStateNotifier;
+
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserProfileStateImplCopyWith<_$UserProfileStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

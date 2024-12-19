@@ -8,6 +8,7 @@ class EventsCalendarState with _$EventsCalendarState {
     required bool isFailed,
     required bool noUse,
     required int clubId,
+    required List<Map<String, dynamic>> filter,
     required PubRepository pubRepository,
     PubEventsClubbedDto? pubEventsClubbed,
   }) = _EventsCalendarState;
@@ -22,6 +23,22 @@ class EventsCalendarState with _$EventsCalendarState {
         isFailed: false,
         isSuccessful: false,
         clubId: clubId,
+        filter: [
+          {
+            'id': 'all_events',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': null,
+            'label': 'All Events',
+          },
+          {
+            'id': 'calender',
+            'isSelected': false,
+            'identifier': null,
+            'svgIcon': AssetConstants.calender,
+            'label': 'Calender',
+          }
+        ],
         pubRepository: IPubRepository(
           serverUrl: serverUrl,
         ),

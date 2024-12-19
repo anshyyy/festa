@@ -12,7 +12,7 @@ part of 'media_viewer_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$MediaViewerState {
@@ -22,6 +22,7 @@ mixin _$MediaViewerState {
   bool get noUse => throw _privateConstructorUsedError;
   int get pubId => throw _privateConstructorUsedError;
   bool get isFollowing => throw _privateConstructorUsedError;
+  bool get isExpanded => throw _privateConstructorUsedError;
   PubDto? get pub => throw _privateConstructorUsedError;
   String get mediaUrl => throw _privateConstructorUsedError;
   String get mediaType => throw _privateConstructorUsedError;
@@ -29,8 +30,11 @@ mixin _$MediaViewerState {
   bool get isPlaying => throw _privateConstructorUsedError;
   VideoPlayerController? get videoPlayerController =>
       throw _privateConstructorUsedError;
+  bool get isVideoInitialized => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MediaViewerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MediaViewerStateCopyWith<MediaViewerState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,12 +52,14 @@ abstract class $MediaViewerStateCopyWith<$Res> {
       bool noUse,
       int pubId,
       bool isFollowing,
+      bool isExpanded,
       PubDto? pub,
       String mediaUrl,
       String mediaType,
       PubRepository pubRepository,
       bool isPlaying,
-      VideoPlayerController? videoPlayerController});
+      VideoPlayerController? videoPlayerController,
+      bool isVideoInitialized});
 
   $PubDtoCopyWith<$Res>? get pub;
 }
@@ -68,6 +74,8 @@ class _$MediaViewerStateCopyWithImpl<$Res, $Val extends MediaViewerState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MediaViewerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -77,12 +85,14 @@ class _$MediaViewerStateCopyWithImpl<$Res, $Val extends MediaViewerState>
     Object? noUse = null,
     Object? pubId = null,
     Object? isFollowing = null,
+    Object? isExpanded = null,
     Object? pub = freezed,
     Object? mediaUrl = null,
     Object? mediaType = null,
     Object? pubRepository = null,
     Object? isPlaying = null,
     Object? videoPlayerController = freezed,
+    Object? isVideoInitialized = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -109,6 +119,10 @@ class _$MediaViewerStateCopyWithImpl<$Res, $Val extends MediaViewerState>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      isExpanded: null == isExpanded
+          ? _value.isExpanded
+          : isExpanded // ignore: cast_nullable_to_non_nullable
+              as bool,
       pub: freezed == pub
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
@@ -133,9 +147,15 @@ class _$MediaViewerStateCopyWithImpl<$Res, $Val extends MediaViewerState>
           ? _value.videoPlayerController
           : videoPlayerController // ignore: cast_nullable_to_non_nullable
               as VideoPlayerController?,
+      isVideoInitialized: null == isVideoInitialized
+          ? _value.isVideoInitialized
+          : isVideoInitialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
+  /// Create a copy of MediaViewerState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PubDtoCopyWith<$Res>? get pub {
@@ -164,12 +184,14 @@ abstract class _$$MediaViewerStateImplCopyWith<$Res>
       bool noUse,
       int pubId,
       bool isFollowing,
+      bool isExpanded,
       PubDto? pub,
       String mediaUrl,
       String mediaType,
       PubRepository pubRepository,
       bool isPlaying,
-      VideoPlayerController? videoPlayerController});
+      VideoPlayerController? videoPlayerController,
+      bool isVideoInitialized});
 
   @override
   $PubDtoCopyWith<$Res>? get pub;
@@ -183,6 +205,8 @@ class __$$MediaViewerStateImplCopyWithImpl<$Res>
       $Res Function(_$MediaViewerStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MediaViewerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -192,12 +216,14 @@ class __$$MediaViewerStateImplCopyWithImpl<$Res>
     Object? noUse = null,
     Object? pubId = null,
     Object? isFollowing = null,
+    Object? isExpanded = null,
     Object? pub = freezed,
     Object? mediaUrl = null,
     Object? mediaType = null,
     Object? pubRepository = null,
     Object? isPlaying = null,
     Object? videoPlayerController = freezed,
+    Object? isVideoInitialized = null,
   }) {
     return _then(_$MediaViewerStateImpl(
       isLoading: null == isLoading
@@ -224,6 +250,10 @@ class __$$MediaViewerStateImplCopyWithImpl<$Res>
           ? _value.isFollowing
           : isFollowing // ignore: cast_nullable_to_non_nullable
               as bool,
+      isExpanded: null == isExpanded
+          ? _value.isExpanded
+          : isExpanded // ignore: cast_nullable_to_non_nullable
+              as bool,
       pub: freezed == pub
           ? _value.pub
           : pub // ignore: cast_nullable_to_non_nullable
@@ -248,6 +278,10 @@ class __$$MediaViewerStateImplCopyWithImpl<$Res>
           ? _value.videoPlayerController
           : videoPlayerController // ignore: cast_nullable_to_non_nullable
               as VideoPlayerController?,
+      isVideoInitialized: null == isVideoInitialized
+          ? _value.isVideoInitialized
+          : isVideoInitialized // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -262,12 +296,14 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
       required this.noUse,
       required this.pubId,
       required this.isFollowing,
+      required this.isExpanded,
       this.pub,
       required this.mediaUrl,
       required this.mediaType,
       required this.pubRepository,
       required this.isPlaying,
-      this.videoPlayerController});
+      this.videoPlayerController,
+      this.isVideoInitialized = false});
 
   @override
   final bool isLoading;
@@ -282,6 +318,8 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
   @override
   final bool isFollowing;
   @override
+  final bool isExpanded;
+  @override
   final PubDto? pub;
   @override
   final String mediaUrl;
@@ -293,10 +331,13 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
   final bool isPlaying;
   @override
   final VideoPlayerController? videoPlayerController;
+  @override
+  @JsonKey()
+  final bool isVideoInitialized;
 
   @override
   String toString() {
-    return 'MediaViewerState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, pubId: $pubId, isFollowing: $isFollowing, pub: $pub, mediaUrl: $mediaUrl, mediaType: $mediaType, pubRepository: $pubRepository, isPlaying: $isPlaying, videoPlayerController: $videoPlayerController)';
+    return 'MediaViewerState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, pubId: $pubId, isFollowing: $isFollowing, isExpanded: $isExpanded, pub: $pub, mediaUrl: $mediaUrl, mediaType: $mediaType, pubRepository: $pubRepository, isPlaying: $isPlaying, videoPlayerController: $videoPlayerController, isVideoInitialized: $isVideoInitialized)';
   }
 
   @override
@@ -314,6 +355,8 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
             (identical(other.pubId, pubId) || other.pubId == pubId) &&
             (identical(other.isFollowing, isFollowing) ||
                 other.isFollowing == isFollowing) &&
+            (identical(other.isExpanded, isExpanded) ||
+                other.isExpanded == isExpanded) &&
             (identical(other.pub, pub) || other.pub == pub) &&
             (identical(other.mediaUrl, mediaUrl) ||
                 other.mediaUrl == mediaUrl) &&
@@ -324,7 +367,9 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
             (identical(other.isPlaying, isPlaying) ||
                 other.isPlaying == isPlaying) &&
             (identical(other.videoPlayerController, videoPlayerController) ||
-                other.videoPlayerController == videoPlayerController));
+                other.videoPlayerController == videoPlayerController) &&
+            (identical(other.isVideoInitialized, isVideoInitialized) ||
+                other.isVideoInitialized == isVideoInitialized));
   }
 
   @override
@@ -336,14 +381,18 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
       noUse,
       pubId,
       isFollowing,
+      isExpanded,
       pub,
       mediaUrl,
       mediaType,
       pubRepository,
       isPlaying,
-      videoPlayerController);
+      videoPlayerController,
+      isVideoInitialized);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MediaViewerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MediaViewerStateImplCopyWith<_$MediaViewerStateImpl> get copyWith =>
@@ -353,19 +402,20 @@ class _$MediaViewerStateImpl implements _MediaViewerState {
 
 abstract class _MediaViewerState implements MediaViewerState {
   const factory _MediaViewerState(
-          {required final bool isLoading,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          required final int pubId,
-          required final bool isFollowing,
-          final PubDto? pub,
-          required final String mediaUrl,
-          required final String mediaType,
-          required final PubRepository pubRepository,
-          required final bool isPlaying,
-          final VideoPlayerController? videoPlayerController}) =
-      _$MediaViewerStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      required final int pubId,
+      required final bool isFollowing,
+      required final bool isExpanded,
+      final PubDto? pub,
+      required final String mediaUrl,
+      required final String mediaType,
+      required final PubRepository pubRepository,
+      required final bool isPlaying,
+      final VideoPlayerController? videoPlayerController,
+      final bool isVideoInitialized}) = _$MediaViewerStateImpl;
 
   @override
   bool get isLoading;
@@ -380,6 +430,8 @@ abstract class _MediaViewerState implements MediaViewerState {
   @override
   bool get isFollowing;
   @override
+  bool get isExpanded;
+  @override
   PubDto? get pub;
   @override
   String get mediaUrl;
@@ -392,7 +444,12 @@ abstract class _MediaViewerState implements MediaViewerState {
   @override
   VideoPlayerController? get videoPlayerController;
   @override
-  @JsonKey(ignore: true)
+  bool get isVideoInitialized;
+
+  /// Create a copy of MediaViewerState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MediaViewerStateImplCopyWith<_$MediaViewerStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

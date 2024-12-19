@@ -13,7 +13,7 @@ class CustomScaffoldMessenger {
         ),
       );
     } catch (error) {
-      debugPrint(error.toString());
+      debugPrint("error: ${error.toString()}");
     }
   }
 
@@ -21,7 +21,7 @@ class CustomScaffoldMessenger {
     try {
       ScaffoldMessenger.of(context).clearSnackBars();
     } catch (error) {
-      debugPrint(error.toString());
+      debugPrint("error: ${error.toString()}");
     }
   }
 }

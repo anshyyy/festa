@@ -12,7 +12,7 @@ part of 'account_settings_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AccountSettingsState {
@@ -22,9 +22,12 @@ mixin _$AccountSettingsState {
   bool get isPrivate => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
+  BlockedUsers? get blockedUsers => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AccountSettingsStateCopyWith<AccountSettingsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -42,8 +45,10 @@ abstract class $AccountSettingsStateCopyWith<$Res> {
       bool isPrivate,
       UserRepository userRepository,
       int userId,
+      BlockedUsers? blockedUsers,
       UserDto? user});
 
+  $BlockedUsersCopyWith<$Res>? get blockedUsers;
   $UserDtoCopyWith<$Res>? get user;
 }
 
@@ -58,6 +63,8 @@ class _$AccountSettingsStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -67,6 +74,7 @@ class _$AccountSettingsStateCopyWithImpl<$Res,
     Object? isPrivate = null,
     Object? userRepository = null,
     Object? userId = null,
+    Object? blockedUsers = freezed,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -94,6 +102,10 @@ class _$AccountSettingsStateCopyWithImpl<$Res,
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
+      blockedUsers: freezed == blockedUsers
+          ? _value.blockedUsers
+          : blockedUsers // ignore: cast_nullable_to_non_nullable
+              as BlockedUsers?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -101,6 +113,22 @@ class _$AccountSettingsStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BlockedUsersCopyWith<$Res>? get blockedUsers {
+    if (_value.blockedUsers == null) {
+      return null;
+    }
+
+    return $BlockedUsersCopyWith<$Res>(_value.blockedUsers!, (value) {
+      return _then(_value.copyWith(blockedUsers: value) as $Val);
+    });
+  }
+
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -129,8 +157,11 @@ abstract class _$$AccountSettingsStateImplCopyWith<$Res>
       bool isPrivate,
       UserRepository userRepository,
       int userId,
+      BlockedUsers? blockedUsers,
       UserDto? user});
 
+  @override
+  $BlockedUsersCopyWith<$Res>? get blockedUsers;
   @override
   $UserDtoCopyWith<$Res>? get user;
 }
@@ -143,6 +174,8 @@ class __$$AccountSettingsStateImplCopyWithImpl<$Res>
       $Res Function(_$AccountSettingsStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -152,6 +185,7 @@ class __$$AccountSettingsStateImplCopyWithImpl<$Res>
     Object? isPrivate = null,
     Object? userRepository = null,
     Object? userId = null,
+    Object? blockedUsers = freezed,
     Object? user = freezed,
   }) {
     return _then(_$AccountSettingsStateImpl(
@@ -179,6 +213,10 @@ class __$$AccountSettingsStateImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int,
+      blockedUsers: freezed == blockedUsers
+          ? _value.blockedUsers
+          : blockedUsers // ignore: cast_nullable_to_non_nullable
+              as BlockedUsers?,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -197,6 +235,7 @@ class _$AccountSettingsStateImpl implements _AccountSettingsState {
       required this.isPrivate,
       required this.userRepository,
       required this.userId,
+      this.blockedUsers,
       this.user});
 
   @override
@@ -212,11 +251,13 @@ class _$AccountSettingsStateImpl implements _AccountSettingsState {
   @override
   final int userId;
   @override
+  final BlockedUsers? blockedUsers;
+  @override
   final UserDto? user;
 
   @override
   String toString() {
-    return 'AccountSettingsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isPrivate: $isPrivate, userRepository: $userRepository, userId: $userId, user: $user)';
+    return 'AccountSettingsState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isPrivate: $isPrivate, userRepository: $userRepository, userId: $userId, blockedUsers: $blockedUsers, user: $user)';
   }
 
   @override
@@ -235,14 +276,18 @@ class _$AccountSettingsStateImpl implements _AccountSettingsState {
             (identical(other.userRepository, userRepository) ||
                 other.userRepository == userRepository) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.blockedUsers, blockedUsers) ||
+                other.blockedUsers == blockedUsers) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
-      isPrivate, userRepository, userId, user);
+      isPrivate, userRepository, userId, blockedUsers, user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccountSettingsStateImplCopyWith<_$AccountSettingsStateImpl>
@@ -259,6 +304,7 @@ abstract class _AccountSettingsState implements AccountSettingsState {
       required final bool isPrivate,
       required final UserRepository userRepository,
       required final int userId,
+      final BlockedUsers? blockedUsers,
       final UserDto? user}) = _$AccountSettingsStateImpl;
 
   @override
@@ -274,9 +320,14 @@ abstract class _AccountSettingsState implements AccountSettingsState {
   @override
   int get userId;
   @override
-  UserDto? get user;
+  BlockedUsers? get blockedUsers;
   @override
-  @JsonKey(ignore: true)
+  UserDto? get user;
+
+  /// Create a copy of AccountSettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccountSettingsStateImplCopyWith<_$AccountSettingsStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

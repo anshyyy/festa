@@ -12,7 +12,7 @@ part of 'personalisation_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PersonalisationState {
@@ -23,8 +23,11 @@ mixin _$PersonalisationState {
   List<PersonalizationMenuDto> get personalizationList =>
       throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
+  int get selectedGender => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PersonalisationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PersonalisationStateCopyWith<PersonalisationState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -41,7 +44,8 @@ abstract class $PersonalisationStateCopyWith<$Res> {
       bool isFailed,
       bool noUse,
       List<PersonalizationMenuDto> personalizationList,
-      UserRepository userRepository});
+      UserRepository userRepository,
+      int selectedGender});
 }
 
 /// @nodoc
@@ -55,6 +59,8 @@ class _$PersonalisationStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PersonalisationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -64,6 +70,7 @@ class _$PersonalisationStateCopyWithImpl<$Res,
     Object? noUse = null,
     Object? personalizationList = null,
     Object? userRepository = null,
+    Object? selectedGender = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -90,6 +97,10 @@ class _$PersonalisationStateCopyWithImpl<$Res,
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      selectedGender: null == selectedGender
+          ? _value.selectedGender
+          : selectedGender // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -108,7 +119,8 @@ abstract class _$$PersonalisationStateImplCopyWith<$Res>
       bool isFailed,
       bool noUse,
       List<PersonalizationMenuDto> personalizationList,
-      UserRepository userRepository});
+      UserRepository userRepository,
+      int selectedGender});
 }
 
 /// @nodoc
@@ -119,6 +131,8 @@ class __$$PersonalisationStateImplCopyWithImpl<$Res>
       $Res Function(_$PersonalisationStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PersonalisationState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -128,6 +142,7 @@ class __$$PersonalisationStateImplCopyWithImpl<$Res>
     Object? noUse = null,
     Object? personalizationList = null,
     Object? userRepository = null,
+    Object? selectedGender = null,
   }) {
     return _then(_$PersonalisationStateImpl(
       isLoading: null == isLoading
@@ -154,6 +169,10 @@ class __$$PersonalisationStateImplCopyWithImpl<$Res>
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      selectedGender: null == selectedGender
+          ? _value.selectedGender
+          : selectedGender // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -167,7 +186,8 @@ class _$PersonalisationStateImpl implements _PersonalisationState {
       required this.isFailed,
       required this.noUse,
       required final List<PersonalizationMenuDto> personalizationList,
-      required this.userRepository})
+      required this.userRepository,
+      required this.selectedGender})
       : _personalizationList = personalizationList;
 
   @override
@@ -189,10 +209,12 @@ class _$PersonalisationStateImpl implements _PersonalisationState {
 
   @override
   final UserRepository userRepository;
+  @override
+  final int selectedGender;
 
   @override
   String toString() {
-    return 'PersonalisationState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, personalizationList: $personalizationList, userRepository: $userRepository)';
+    return 'PersonalisationState(isLoading: $isLoading, isSuccessful: $isSuccessful, isFailed: $isFailed, noUse: $noUse, personalizationList: $personalizationList, userRepository: $userRepository, selectedGender: $selectedGender)';
   }
 
   @override
@@ -210,7 +232,9 @@ class _$PersonalisationStateImpl implements _PersonalisationState {
             const DeepCollectionEquality()
                 .equals(other._personalizationList, _personalizationList) &&
             (identical(other.userRepository, userRepository) ||
-                other.userRepository == userRepository));
+                other.userRepository == userRepository) &&
+            (identical(other.selectedGender, selectedGender) ||
+                other.selectedGender == selectedGender));
   }
 
   @override
@@ -221,9 +245,12 @@ class _$PersonalisationStateImpl implements _PersonalisationState {
       isFailed,
       noUse,
       const DeepCollectionEquality().hash(_personalizationList),
-      userRepository);
+      userRepository,
+      selectedGender);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PersonalisationState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PersonalisationStateImplCopyWith<_$PersonalisationStateImpl>
@@ -234,13 +261,13 @@ class _$PersonalisationStateImpl implements _PersonalisationState {
 
 abstract class _PersonalisationState implements PersonalisationState {
   const factory _PersonalisationState(
-          {required final bool isLoading,
-          required final bool isSuccessful,
-          required final bool isFailed,
-          required final bool noUse,
-          required final List<PersonalizationMenuDto> personalizationList,
-          required final UserRepository userRepository}) =
-      _$PersonalisationStateImpl;
+      {required final bool isLoading,
+      required final bool isSuccessful,
+      required final bool isFailed,
+      required final bool noUse,
+      required final List<PersonalizationMenuDto> personalizationList,
+      required final UserRepository userRepository,
+      required final int selectedGender}) = _$PersonalisationStateImpl;
 
   @override
   bool get isLoading;
@@ -255,7 +282,12 @@ abstract class _PersonalisationState implements PersonalisationState {
   @override
   UserRepository get userRepository;
   @override
-  @JsonKey(ignore: true)
+  int get selectedGender;
+
+  /// Create a copy of PersonalisationState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PersonalisationStateImplCopyWith<_$PersonalisationStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

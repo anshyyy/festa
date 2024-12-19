@@ -12,7 +12,7 @@ part of 'booked_ticket_details_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 BookedTicketDetailsDto _$BookedTicketDetailsDtoFromJson(
     Map<String, dynamic> json) {
@@ -25,6 +25,8 @@ mixin _$BookedTicketDetailsDto {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'numberOfTickets', defaultValue: 0)
   int get numberOfTickets => throw _privateConstructorUsedError;
+  @JsonKey(name: 'remainingAmount', defaultValue: 0)
+  double get remainingAmount => throw _privateConstructorUsedError;
   @JsonKey(name: 'ticketDetails', defaultValue: [])
   List<EventTicketDetailDto> get eventTicketDetails =>
       throw _privateConstructorUsedError;
@@ -38,11 +40,19 @@ mixin _$BookedTicketDetailsDto {
   String get bookingReference => throw _privateConstructorUsedError;
   @JsonKey(name: 'paymentAmount', defaultValue: '')
   String get paymentAmount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'checkinStatus', defaultValue: '')
+  String get checkInStatus => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isReviewed', defaultValue: false)
+  bool get isReviewed => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get showTicketDetails => throw _privateConstructorUsedError;
 
+  /// Serializes this BookedTicketDetailsDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BookedTicketDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BookedTicketDetailsDtoCopyWith<BookedTicketDetailsDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +66,7 @@ abstract class $BookedTicketDetailsDtoCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0) int numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0) double remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') EventDto eventDetails,
@@ -64,6 +75,8 @@ abstract class $BookedTicketDetailsDtoCopyWith<$Res> {
       @JsonKey(name: 'bookingReference', defaultValue: '')
       String bookingReference,
       @JsonKey(name: 'paymentAmount', defaultValue: '') String paymentAmount,
+      @JsonKey(name: 'checkinStatus', defaultValue: '') String checkInStatus,
+      @JsonKey(name: 'isReviewed', defaultValue: false) bool isReviewed,
       @JsonKey(defaultValue: false) bool showTicketDetails});
 
   $EventDtoCopyWith<$Res> get eventDetails;
@@ -80,17 +93,22 @@ class _$BookedTicketDetailsDtoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BookedTicketDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? numberOfTickets = null,
+    Object? remainingAmount = null,
     Object? eventTicketDetails = null,
     Object? eventDetails = null,
     Object? paymentMethod = null,
     Object? transactionId = null,
     Object? bookingReference = null,
     Object? paymentAmount = null,
+    Object? checkInStatus = null,
+    Object? isReviewed = null,
     Object? showTicketDetails = null,
   }) {
     return _then(_value.copyWith(
@@ -102,6 +120,10 @@ class _$BookedTicketDetailsDtoCopyWithImpl<$Res,
           ? _value.numberOfTickets
           : numberOfTickets // ignore: cast_nullable_to_non_nullable
               as int,
+      remainingAmount: null == remainingAmount
+          ? _value.remainingAmount
+          : remainingAmount // ignore: cast_nullable_to_non_nullable
+              as double,
       eventTicketDetails: null == eventTicketDetails
           ? _value.eventTicketDetails
           : eventTicketDetails // ignore: cast_nullable_to_non_nullable
@@ -126,6 +148,14 @@ class _$BookedTicketDetailsDtoCopyWithImpl<$Res,
           ? _value.paymentAmount
           : paymentAmount // ignore: cast_nullable_to_non_nullable
               as String,
+      checkInStatus: null == checkInStatus
+          ? _value.checkInStatus
+          : checkInStatus // ignore: cast_nullable_to_non_nullable
+              as String,
+      isReviewed: null == isReviewed
+          ? _value.isReviewed
+          : isReviewed // ignore: cast_nullable_to_non_nullable
+              as bool,
       showTicketDetails: null == showTicketDetails
           ? _value.showTicketDetails
           : showTicketDetails // ignore: cast_nullable_to_non_nullable
@@ -133,6 +163,8 @@ class _$BookedTicketDetailsDtoCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of BookedTicketDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventDtoCopyWith<$Res> get eventDetails {
@@ -154,6 +186,7 @@ abstract class _$$BookedTicketDetailsDtoImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id', defaultValue: 0) int id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0) int numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0) double remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') EventDto eventDetails,
@@ -162,6 +195,8 @@ abstract class _$$BookedTicketDetailsDtoImplCopyWith<$Res>
       @JsonKey(name: 'bookingReference', defaultValue: '')
       String bookingReference,
       @JsonKey(name: 'paymentAmount', defaultValue: '') String paymentAmount,
+      @JsonKey(name: 'checkinStatus', defaultValue: '') String checkInStatus,
+      @JsonKey(name: 'isReviewed', defaultValue: false) bool isReviewed,
       @JsonKey(defaultValue: false) bool showTicketDetails});
 
   @override
@@ -178,17 +213,22 @@ class __$$BookedTicketDetailsDtoImplCopyWithImpl<$Res>
       $Res Function(_$BookedTicketDetailsDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BookedTicketDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? numberOfTickets = null,
+    Object? remainingAmount = null,
     Object? eventTicketDetails = null,
     Object? eventDetails = null,
     Object? paymentMethod = null,
     Object? transactionId = null,
     Object? bookingReference = null,
     Object? paymentAmount = null,
+    Object? checkInStatus = null,
+    Object? isReviewed = null,
     Object? showTicketDetails = null,
   }) {
     return _then(_$BookedTicketDetailsDtoImpl(
@@ -200,6 +240,10 @@ class __$$BookedTicketDetailsDtoImplCopyWithImpl<$Res>
           ? _value.numberOfTickets
           : numberOfTickets // ignore: cast_nullable_to_non_nullable
               as int,
+      remainingAmount: null == remainingAmount
+          ? _value.remainingAmount
+          : remainingAmount // ignore: cast_nullable_to_non_nullable
+              as double,
       eventTicketDetails: null == eventTicketDetails
           ? _value.eventTicketDetails
           : eventTicketDetails // ignore: cast_nullable_to_non_nullable
@@ -224,6 +268,14 @@ class __$$BookedTicketDetailsDtoImplCopyWithImpl<$Res>
           ? _value.paymentAmount
           : paymentAmount // ignore: cast_nullable_to_non_nullable
               as String,
+      checkInStatus: null == checkInStatus
+          ? _value.checkInStatus
+          : checkInStatus // ignore: cast_nullable_to_non_nullable
+              as String,
+      isReviewed: null == isReviewed
+          ? _value.isReviewed
+          : isReviewed // ignore: cast_nullable_to_non_nullable
+              as bool,
       showTicketDetails: null == showTicketDetails
           ? _value.showTicketDetails
           : showTicketDetails // ignore: cast_nullable_to_non_nullable
@@ -239,6 +291,8 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
       {@JsonKey(name: 'id', defaultValue: 0) required this.id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0)
       required this.numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0)
+      required this.remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       required this.eventTicketDetails,
       @JsonKey(name: 'event') required this.eventDetails,
@@ -250,6 +304,10 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
       required this.bookingReference,
       @JsonKey(name: 'paymentAmount', defaultValue: '')
       required this.paymentAmount,
+      @JsonKey(name: 'checkinStatus', defaultValue: '')
+      required this.checkInStatus,
+      @JsonKey(name: 'isReviewed', defaultValue: false)
+      required this.isReviewed,
       @JsonKey(defaultValue: false) required this.showTicketDetails});
 
   factory _$BookedTicketDetailsDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -261,6 +319,9 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
   @override
   @JsonKey(name: 'numberOfTickets', defaultValue: 0)
   final int numberOfTickets;
+  @override
+  @JsonKey(name: 'remainingAmount', defaultValue: 0)
+  final double remainingAmount;
   @override
   @JsonKey(name: 'ticketDetails', defaultValue: [])
   final List<EventTicketDetailDto> eventTicketDetails;
@@ -280,12 +341,18 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
   @JsonKey(name: 'paymentAmount', defaultValue: '')
   final String paymentAmount;
   @override
+  @JsonKey(name: 'checkinStatus', defaultValue: '')
+  final String checkInStatus;
+  @override
+  @JsonKey(name: 'isReviewed', defaultValue: false)
+  final bool isReviewed;
+  @override
   @JsonKey(defaultValue: false)
   final bool showTicketDetails;
 
   @override
   String toString() {
-    return 'BookedTicketDetailsDto(id: $id, numberOfTickets: $numberOfTickets, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, transactionId: $transactionId, bookingReference: $bookingReference, paymentAmount: $paymentAmount, showTicketDetails: $showTicketDetails)';
+    return 'BookedTicketDetailsDto(id: $id, numberOfTickets: $numberOfTickets, remainingAmount: $remainingAmount, eventTicketDetails: $eventTicketDetails, eventDetails: $eventDetails, paymentMethod: $paymentMethod, transactionId: $transactionId, bookingReference: $bookingReference, paymentAmount: $paymentAmount, checkInStatus: $checkInStatus, isReviewed: $isReviewed, showTicketDetails: $showTicketDetails)';
   }
 
   @override
@@ -296,6 +363,8 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.numberOfTickets, numberOfTickets) ||
                 other.numberOfTickets == numberOfTickets) &&
+            (identical(other.remainingAmount, remainingAmount) ||
+                other.remainingAmount == remainingAmount) &&
             const DeepCollectionEquality()
                 .equals(other.eventTicketDetails, eventTicketDetails) &&
             (identical(other.eventDetails, eventDetails) ||
@@ -308,25 +377,34 @@ class _$BookedTicketDetailsDtoImpl implements _BookedTicketDetailsDto {
                 other.bookingReference == bookingReference) &&
             (identical(other.paymentAmount, paymentAmount) ||
                 other.paymentAmount == paymentAmount) &&
+            (identical(other.checkInStatus, checkInStatus) ||
+                other.checkInStatus == checkInStatus) &&
+            (identical(other.isReviewed, isReviewed) ||
+                other.isReviewed == isReviewed) &&
             (identical(other.showTicketDetails, showTicketDetails) ||
                 other.showTicketDetails == showTicketDetails));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       id,
       numberOfTickets,
+      remainingAmount,
       const DeepCollectionEquality().hash(eventTicketDetails),
       eventDetails,
       paymentMethod,
       transactionId,
       bookingReference,
       paymentAmount,
+      checkInStatus,
+      isReviewed,
       showTicketDetails);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BookedTicketDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BookedTicketDetailsDtoImplCopyWith<_$BookedTicketDetailsDtoImpl>
@@ -346,6 +424,8 @@ abstract class _BookedTicketDetailsDto implements BookedTicketDetailsDto {
       {@JsonKey(name: 'id', defaultValue: 0) required final int id,
       @JsonKey(name: 'numberOfTickets', defaultValue: 0)
       required final int numberOfTickets,
+      @JsonKey(name: 'remainingAmount', defaultValue: 0)
+      required final double remainingAmount,
       @JsonKey(name: 'ticketDetails', defaultValue: [])
       required final List<EventTicketDetailDto> eventTicketDetails,
       @JsonKey(name: 'event') required final EventDto eventDetails,
@@ -357,6 +437,10 @@ abstract class _BookedTicketDetailsDto implements BookedTicketDetailsDto {
       required final String bookingReference,
       @JsonKey(name: 'paymentAmount', defaultValue: '')
       required final String paymentAmount,
+      @JsonKey(name: 'checkinStatus', defaultValue: '')
+      required final String checkInStatus,
+      @JsonKey(name: 'isReviewed', defaultValue: false)
+      required final bool isReviewed,
       @JsonKey(defaultValue: false)
       required final bool showTicketDetails}) = _$BookedTicketDetailsDtoImpl;
 
@@ -369,6 +453,9 @@ abstract class _BookedTicketDetailsDto implements BookedTicketDetailsDto {
   @override
   @JsonKey(name: 'numberOfTickets', defaultValue: 0)
   int get numberOfTickets;
+  @override
+  @JsonKey(name: 'remainingAmount', defaultValue: 0)
+  double get remainingAmount;
   @override
   @JsonKey(name: 'ticketDetails', defaultValue: [])
   List<EventTicketDetailDto> get eventTicketDetails;
@@ -388,10 +475,19 @@ abstract class _BookedTicketDetailsDto implements BookedTicketDetailsDto {
   @JsonKey(name: 'paymentAmount', defaultValue: '')
   String get paymentAmount;
   @override
+  @JsonKey(name: 'checkinStatus', defaultValue: '')
+  String get checkInStatus;
+  @override
+  @JsonKey(name: 'isReviewed', defaultValue: false)
+  bool get isReviewed;
+  @override
   @JsonKey(defaultValue: false)
   bool get showTicketDetails;
+
+  /// Create a copy of BookedTicketDetailsDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BookedTicketDetailsDtoImplCopyWith<_$BookedTicketDetailsDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

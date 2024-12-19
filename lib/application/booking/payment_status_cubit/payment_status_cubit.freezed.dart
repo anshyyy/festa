@@ -12,7 +12,7 @@ part of 'payment_status_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$PaymentStatusState {
@@ -26,9 +26,12 @@ mixin _$PaymentStatusState {
   bool get isPaymentPending => throw _privateConstructorUsedError;
   EventRepository get eventRepository => throw _privateConstructorUsedError;
   double get totalAmount => throw _privateConstructorUsedError;
+  double? get coverAmount => throw _privateConstructorUsedError;
   EventDto? get event => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentStatusStateCopyWith<PaymentStatusState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +53,7 @@ abstract class $PaymentStatusStateCopyWith<$Res> {
       bool isPaymentPending,
       EventRepository eventRepository,
       double totalAmount,
+      double? coverAmount,
       EventDto? event});
 
   $EventDtoCopyWith<$Res>? get event;
@@ -65,6 +69,8 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -78,6 +84,7 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
     Object? isPaymentPending = null,
     Object? eventRepository = null,
     Object? totalAmount = null,
+    Object? coverAmount = freezed,
     Object? event = freezed,
   }) {
     return _then(_value.copyWith(
@@ -121,6 +128,10 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
+      coverAmount: freezed == coverAmount
+          ? _value.coverAmount
+          : coverAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
@@ -128,6 +139,8 @@ class _$PaymentStatusStateCopyWithImpl<$Res, $Val extends PaymentStatusState>
     ) as $Val);
   }
 
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $EventDtoCopyWith<$Res>? get event {
@@ -160,6 +173,7 @@ abstract class _$$PaymentStatusStateImplCopyWith<$Res>
       bool isPaymentPending,
       EventRepository eventRepository,
       double totalAmount,
+      double? coverAmount,
       EventDto? event});
 
   @override
@@ -174,6 +188,8 @@ class __$$PaymentStatusStateImplCopyWithImpl<$Res>
       $Res Function(_$PaymentStatusStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -187,6 +203,7 @@ class __$$PaymentStatusStateImplCopyWithImpl<$Res>
     Object? isPaymentPending = null,
     Object? eventRepository = null,
     Object? totalAmount = null,
+    Object? coverAmount = freezed,
     Object? event = freezed,
   }) {
     return _then(_$PaymentStatusStateImpl(
@@ -230,6 +247,10 @@ class __$$PaymentStatusStateImplCopyWithImpl<$Res>
           ? _value.totalAmount
           : totalAmount // ignore: cast_nullable_to_non_nullable
               as double,
+      coverAmount: freezed == coverAmount
+          ? _value.coverAmount
+          : coverAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
       event: freezed == event
           ? _value.event
           : event // ignore: cast_nullable_to_non_nullable
@@ -252,6 +273,7 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
       required this.isPaymentPending,
       required this.eventRepository,
       required this.totalAmount,
+      this.coverAmount,
       this.event});
 
   @override
@@ -275,11 +297,13 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
   @override
   final double totalAmount;
   @override
+  final double? coverAmount;
+  @override
   final EventDto? event;
 
   @override
   String toString() {
-    return 'PaymentStatusState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventId: $eventId, numberOfTickets: $numberOfTickets, isPaymentSuccess: $isPaymentSuccess, isPaymentPending: $isPaymentPending, eventRepository: $eventRepository, totalAmount: $totalAmount, event: $event)';
+    return 'PaymentStatusState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, eventId: $eventId, numberOfTickets: $numberOfTickets, isPaymentSuccess: $isPaymentSuccess, isPaymentPending: $isPaymentPending, eventRepository: $eventRepository, totalAmount: $totalAmount, coverAmount: $coverAmount, event: $event)';
   }
 
   @override
@@ -305,6 +329,8 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
                 other.eventRepository == eventRepository) &&
             (identical(other.totalAmount, totalAmount) ||
                 other.totalAmount == totalAmount) &&
+            (identical(other.coverAmount, coverAmount) ||
+                other.coverAmount == coverAmount) &&
             (identical(other.event, event) || other.event == event));
   }
 
@@ -321,9 +347,12 @@ class _$PaymentStatusStateImpl implements _PaymentStatusState {
       isPaymentPending,
       eventRepository,
       totalAmount,
+      coverAmount,
       event);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentStatusStateImplCopyWith<_$PaymentStatusStateImpl> get copyWith =>
@@ -343,6 +372,7 @@ abstract class _PaymentStatusState implements PaymentStatusState {
       required final bool isPaymentPending,
       required final EventRepository eventRepository,
       required final double totalAmount,
+      final double? coverAmount,
       final EventDto? event}) = _$PaymentStatusStateImpl;
 
   @override
@@ -366,9 +396,14 @@ abstract class _PaymentStatusState implements PaymentStatusState {
   @override
   double get totalAmount;
   @override
-  EventDto? get event;
+  double? get coverAmount;
   @override
-  @JsonKey(ignore: true)
+  EventDto? get event;
+
+  /// Create a copy of PaymentStatusState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentStatusStateImplCopyWith<_$PaymentStatusStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

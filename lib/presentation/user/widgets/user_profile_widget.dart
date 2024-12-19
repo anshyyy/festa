@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:emoji_regex/emoji_regex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -29,9 +32,10 @@ class UserProfile extends StatelessWidget {
     final AppStateNotifier appStateNotifier =
         Provider.of<AppStateNotifier>(context);
 
+
     return BlocConsumer<UserProfileCubit, UserProfileState>(
       listener: (context, state) {},
-      builder: (context, state) {
+      builder: (context, state) {        
         return ModalProgressHUD(
           inAsyncCall: state.isLoading,
           child: Stack(
@@ -39,15 +43,17 @@ class UserProfile extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               Container(
+                width: 100.w,
+                margin: EdgeInsets.only(left: 0.1.h,right: 0.1.h),
                 padding: EdgeInsets.symmetric(
                   horizontal: 5.w,
                   vertical: 3.h,
                 ),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surface.withOpacity(0.98),
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
+                   // color: Theme.of(context).colorScheme.secondaryContainer,
                     width: .3,
                   ),
                 ),
@@ -59,7 +65,8 @@ class UserProfile extends StatelessWidget {
                           height: 3.h,
                         ),
                         Text(
-                          state.user!.fullName,
+                         state.user!.fullName.length>30?'${state.user!.fullName.substring(0,27)}...'  :state.user!.fullName,
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!
@@ -76,25 +83,28 @@ class UserProfile extends StatelessWidget {
                         SizedBox(
                           height: 1.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical:
-                                  state.user!.description.isEmpty ? 0 : 1.h),
-                          child: Text(
-                            state.user!.description,
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background
-                                          .withOpacity(.7),
-                                      fontSize: 14.5.sp,
-                                    ),
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                        UserDescription(description: state.user!.description),
+                        // Padding(
+                        //   padding: EdgeInsets.symmetric(
+                        //       vertical:
+                        //           state.user!.description.isEmpty ? 0 : 1.h),
+                        //   child: Text(
+                        //     state.user!.description,
+                        //     style:
+                        //         Theme.of(context).textTheme.bodySmall!.copyWith(
+                        //               fontFamilyFallback: ['Apple Color Emoji'],
+                        //               color: Theme.of(context)
+                        //                   .colorScheme
+                        //                   .background
+                        //                   .withOpacity(.7),
+                        //               fontSize: 14.5.sp,
+                        //             ),
+                        //     textAlign: TextAlign.center,
+                        //     maxLines: 2,
+                        //     overflow: TextOverflow.ellipsis,
+                        //   ),
+                        // ),
+                                        if (state.user?.extraDetailsDto?.followedBy.totalCount!=0)...[
                         Divider(
                           thickness: .1.w,
                           // color: Colors.white,
@@ -110,24 +120,26 @@ class UserProfile extends StatelessWidget {
                           },
                           child: Column(
                             children: [
-                              MutualFollowers(
-                                artistCommunityDto:
+
+                              
+                                MutualFollowers(
+                                  artistCommunityDto:
                                     state.user?.extraDetailsDto?.followedBy,
                               ),
                               SizedBox(
                                 height: 1.h,
                               ),
-                              SocialReach(
-                                  totalParties:
-                                      state.user?.extraDetailsDto?.totalParties,
-                                  totalFollowers: state
-                                      .user?.extraDetailsDto?.totalFollowers,
-                                  totalFriends: state
-                                      .user?.extraDetailsDto?.totalFriends),
+                              // SocialReach(
+                              //     totalParties:
+                              //         state.user?.extraDetailsDto?.totalParties,
+                              //     totalFollowers: state
+                              //         .user?.extraDetailsDto?.totalFollowers,
+                              //     totalFriends: state
+                              //         .user?.extraDetailsDto?.totalFriends),
                             ],
                           ),
                         )
-                      ],
+                      ]],
                     ),
                   ],
                 ),
@@ -223,8 +235,8 @@ class UserProfile extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return SizedBox(
-                          // color: colorS/cheme.surface,
+                        return Container(
+                         color: Colors.black,
                           width: 100.w,
                           height: 100.h,
                           child: Padding(
@@ -265,12 +277,12 @@ class UserProfile extends StatelessWidget {
                                     eyeStyle: QrEyeStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .secondaryContainer,
+                                            .background,
                                         eyeShape: QrEyeShape.square),
                                     dataModuleStyle: QrDataModuleStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .secondaryContainer,
+                                          .background,
                                       dataModuleShape: QrDataModuleShape.square,
                                     ),
                                   ),
@@ -381,6 +393,63 @@ class UserProfile extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class UserDescription extends StatelessWidget {
+  final String description;
+
+  const UserDescription({super.key, required this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    // Regex to match emojis and special symbols
+    final RegExp emojiRegx = emojiRegex();
+    
+    // Split the description into parts (text and emojis)
+    final List<String> parts = description.split(emojiRegx);
+    final Iterable<RegExpMatch> emojiMatches = emojiRegx.allMatches(description);
+    
+    final List<InlineSpan> spans = [];
+    int emojiIndex = 0;
+
+    for (int i = 0; i < parts.length; i++) {
+      // Add text part with color
+      if (parts[i].isNotEmpty) {
+        spans.add(TextSpan(
+          text: parts[i],
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            fontFamilyFallback: ['Apple Color Emoji'],
+            color: Theme.of(context).colorScheme.background.withOpacity(0.7),
+            fontSize: 14.5.sp,
+          ),
+        ));
+      }
+
+      // Add emojis after text parts
+      if (emojiIndex < emojiMatches.length) {
+        final emoji = emojiMatches.elementAt(emojiIndex).group(0);
+        spans.add(TextSpan(
+          text: emoji,
+          style:  TextStyle(
+            fontSize: 14.5.sp,
+          ),
+        ));
+        emojiIndex++;
+      }
+    }
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: description.isEmpty ? 0 : 1.h),
+      child: RichText(
+        text: TextSpan(
+          children: spans,
+        ),
+        textAlign: TextAlign.center,
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }

@@ -10,7 +10,7 @@ _$BulletDtoImpl _$$BulletDtoImplFromJson(Map<String, dynamic> json) =>
     _$BulletDtoImpl(
       text: json['text'] as String? ?? '',
       type: json['type'] as String? ?? '',
-      order: json['order'] as int? ?? 0,
+      order: (json['order'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$BulletDtoImplToJson(_$BulletDtoImpl instance) =>

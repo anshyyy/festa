@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -15,14 +18,17 @@ import '../../../domain/core/utils/image_provider.dart';
 import '../../../infrastructure/core/enum/image_type.enum.dart';
 
 class MediaGridViewer extends StatelessWidget {
-  
-  const MediaGridViewer(
-      {super.key,});
+  const MediaGridViewer({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print("state.isAtTop: ${state.isAtTop}");
+        print("state.isAtTabTop: ${state.isAtTabTop}");
+      },
       builder: (context, state) {
         return state.assets.isEmpty
             ? Container(
@@ -48,57 +54,74 @@ class MediaGridViewer extends StatelessWidget {
               )
             : Container(
                   color: Theme.of(context).colorScheme.surface,
-              child: Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
                   child: GridView.custom(
                     padding: EdgeInsets.zero,
-                    // shrinkWrap: true,
+                     shrinkWrap: true,
                     controller: state.scrollController,
+                   //  dragStartBehavior: DragStartBehavior.down,
                     scrollDirection: Axis.vertical,
-                    // physics:  const NeverScrollableScrollPhysics() ,
+                    physics: state.isAtTop
+                      ? const AlwaysScrollableScrollPhysics()
+                      : const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverQuiltedGridDelegate(
                       crossAxisCount: 3,
-                      mainAxisSpacing: 2.5.w,
-                      crossAxisSpacing: 1.h,
+                      mainAxisSpacing: 1.0.w,
+                      crossAxisSpacing: 0.5.h,
                       repeatPattern: QuiltedGridRepeatPattern.inverted,
                       pattern: const [
-                            QuiltedGridTile(2, 2),
-                            QuiltedGridTile(1, 1),
-                            QuiltedGridTile(1, 1),
-                          ],
+                        QuiltedGridTile(2, 2),
+                        QuiltedGridTile(1, 1),
+                        QuiltedGridTile(1, 1),
+                      ],
                     ),
                     childrenDelegate: SliverChildBuilderDelegate(
                         childCount: state.assets.length,
-                        (context, index) =>
-                            GestureDetector(
+                        (context, index) => GestureDetector(
                               onTap: () {
-                                      navigator<NavigationService>().navigateTo(
-                                          UserRoutes.mediaViewerWidgetScreen,
-                                          queryParams: {
-                                            'type': state.assets[index].type,
-                                            'url': state.assets[index].url,
-                                            'pubId':state.clubId.toString(),
-                                          });
-                                    },
+                                navigator<NavigationService>().navigateTo(
+                                    UserRoutes.mediaViewerWidgetScreen,
+                                    queryParams: {
+                                      'type': state.assets[index].type,
+                                      'url': state.assets[index].url,
+                                      'pubId': state.clubId.toString(),
+                                      'currentIndex': index.toString(),
+                                      'assets': jsonEncode(state.assets
+                                          .map((asset) => asset.toJson())
+                                          .toList()),
+                                    });
+                              },
                               child: state.assets[index].type != MediaType.VIDEO
                                   ? Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                                CustomImageProvider.getImageUrl(state.assets[index].url, ImageType.other)),
-                                            fit: BoxFit.cover)),
-                                  )
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          image: DecorationImage(
+                                              image:
+                                                  CachedNetworkImageProvider(
+                                                      CustomImageProvider
+                                                          .getImageUrl(
+                                                              state
+                                                                  .assets[index]
+                                                                  .url,
+                                                              ImageType.other)),
+                                              fit: BoxFit.cover)),
+                                    )
                                   : ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        state.assets[index].thumbnail,
+                                      child: CachedNetworkImage(
+                                        imageUrl: state
+                                                .assets[index].thumbnail.isEmpty
+                                            ? 'https://res.cloudinary.com/dltfyyjib/image/upload/v1727071693/iqdj1ow7d1quudbkk5bw.png'
+                                            : state.assets[index].thumbnail,
                                         fit: BoxFit.cover,
-                                      )),
+                                      ),
+                                    ),
                             )),
                   ),
                 ),
-            );
+              );
       },
     );
   }

@@ -24,6 +24,7 @@ class GenderSelectionScreen extends StatelessWidget {
     final appConfig = AppConfig.of(context)!;
     return BlocProvider(
       create: (context) => GenderSelectionCubit(GenderSelectionState.initial(
+        userGender: '',
         appStateNotifier: appStateNotifier,
         serverUrl: appConfig.serverUrl,
       )),

@@ -12,7 +12,7 @@ part of 'address_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AddressDto _$AddressDtoFromJson(Map<String, dynamic> json) {
   return _AddressDto.fromJson(json);
@@ -37,8 +37,12 @@ mixin _$AddressDto {
   @JsonKey(name: 'state', defaultValue: '')
   String get state => throw _privateConstructorUsedError;
 
+  /// Serializes this AddressDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AddressDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddressDtoCopyWith<AddressDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -71,6 +75,8 @@ class _$AddressDtoCopyWithImpl<$Res, $Val extends AddressDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AddressDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,6 +154,8 @@ class __$$AddressDtoImplCopyWithImpl<$Res>
       _$AddressDtoImpl _value, $Res Function(_$AddressDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AddressDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -261,12 +269,14 @@ class _$AddressDtoImpl implements _AddressDto {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, lat, lng, pinCode, city,
       vicinity, completeAddress, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddressDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddressDtoImplCopyWith<_$AddressDtoImpl> get copyWith =>
@@ -321,8 +331,11 @@ abstract class _AddressDto implements AddressDto {
   @override
   @JsonKey(name: 'state', defaultValue: '')
   String get state;
+
+  /// Create a copy of AddressDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddressDtoImplCopyWith<_$AddressDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

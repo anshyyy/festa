@@ -12,27 +12,41 @@ part of 'ticket_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TicketState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
+  bool get isCoverLoading => throw _privateConstructorUsedError;
+  bool get isAddCoverLoading => throw _privateConstructorUsedError;
   bool get noUse => throw _privateConstructorUsedError;
   bool get showTicketDetails => throw _privateConstructorUsedError;
   bool get showTicketHistory => throw _privateConstructorUsedError;
   UserRepository get userRepository => throw _privateConstructorUsedError;
+  Razorpay get razorpay => throw _privateConstructorUsedError;
+  String get razorPayApiKey => throw _privateConstructorUsedError;
   UserTicketsDto? get userTickets => throw _privateConstructorUsedError;
   int get currentPage => throw _privateConstructorUsedError;
+  bool get isPaymentSuccess => throw _privateConstructorUsedError;
+  bool get isPaymentFailure => throw _privateConstructorUsedError;
+  bool get isPaymentPending => throw _privateConstructorUsedError;
   WidgetsToImageController get widgetsToImageController =>
       throw _privateConstructorUsedError;
   bool get isShareEnabled => throw _privateConstructorUsedError;
   BookedTicketDetailsDto? get historyTicket =>
       throw _privateConstructorUsedError;
   bool get shoHistoryTicketDetails => throw _privateConstructorUsedError;
+  EventRepository get eventRepository => throw _privateConstructorUsedError;
+  CoverChargeDetails? get coverChargeDetails =>
+      throw _privateConstructorUsedError;
+  List<CoverBalanceHistoryDto> get coverHistory =>
+      throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TicketStateCopyWith<TicketState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,19 +61,30 @@ abstract class $TicketStateCopyWith<$Res> {
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool isCoverLoading,
+      bool isAddCoverLoading,
       bool noUse,
       bool showTicketDetails,
       bool showTicketHistory,
       UserRepository userRepository,
+      Razorpay razorpay,
+      String razorPayApiKey,
       UserTicketsDto? userTickets,
       int currentPage,
+      bool isPaymentSuccess,
+      bool isPaymentFailure,
+      bool isPaymentPending,
       WidgetsToImageController widgetsToImageController,
       bool isShareEnabled,
       BookedTicketDetailsDto? historyTicket,
-      bool shoHistoryTicketDetails});
+      bool shoHistoryTicketDetails,
+      EventRepository eventRepository,
+      CoverChargeDetails? coverChargeDetails,
+      List<CoverBalanceHistoryDto> coverHistory});
 
   $UserTicketsDtoCopyWith<$Res>? get userTickets;
   $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket;
+  $CoverChargeDetailsCopyWith<$Res>? get coverChargeDetails;
 }
 
 /// @nodoc
@@ -72,22 +97,34 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? isCoverLoading = null,
+    Object? isAddCoverLoading = null,
     Object? noUse = null,
     Object? showTicketDetails = null,
     Object? showTicketHistory = null,
     Object? userRepository = null,
+    Object? razorpay = null,
+    Object? razorPayApiKey = null,
     Object? userTickets = freezed,
     Object? currentPage = null,
+    Object? isPaymentSuccess = null,
+    Object? isPaymentFailure = null,
+    Object? isPaymentPending = null,
     Object? widgetsToImageController = null,
     Object? isShareEnabled = null,
     Object? historyTicket = freezed,
     Object? shoHistoryTicketDetails = null,
+    Object? eventRepository = null,
+    Object? coverChargeDetails = freezed,
+    Object? coverHistory = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -101,6 +138,14 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
       isFailure: null == isFailure
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCoverLoading: null == isCoverLoading
+          ? _value.isCoverLoading
+          : isCoverLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAddCoverLoading: null == isAddCoverLoading
+          ? _value.isAddCoverLoading
+          : isAddCoverLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       noUse: null == noUse
           ? _value.noUse
@@ -118,6 +163,14 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      razorpay: null == razorpay
+          ? _value.razorpay
+          : razorpay // ignore: cast_nullable_to_non_nullable
+              as Razorpay,
+      razorPayApiKey: null == razorPayApiKey
+          ? _value.razorPayApiKey
+          : razorPayApiKey // ignore: cast_nullable_to_non_nullable
+              as String,
       userTickets: freezed == userTickets
           ? _value.userTickets
           : userTickets // ignore: cast_nullable_to_non_nullable
@@ -126,6 +179,18 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
+      isPaymentSuccess: null == isPaymentSuccess
+          ? _value.isPaymentSuccess
+          : isPaymentSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPaymentFailure: null == isPaymentFailure
+          ? _value.isPaymentFailure
+          : isPaymentFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPaymentPending: null == isPaymentPending
+          ? _value.isPaymentPending
+          : isPaymentPending // ignore: cast_nullable_to_non_nullable
+              as bool,
       widgetsToImageController: null == widgetsToImageController
           ? _value.widgetsToImageController
           : widgetsToImageController // ignore: cast_nullable_to_non_nullable
@@ -142,9 +207,23 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
           ? _value.shoHistoryTicketDetails
           : shoHistoryTicketDetails // ignore: cast_nullable_to_non_nullable
               as bool,
+      eventRepository: null == eventRepository
+          ? _value.eventRepository
+          : eventRepository // ignore: cast_nullable_to_non_nullable
+              as EventRepository,
+      coverChargeDetails: freezed == coverChargeDetails
+          ? _value.coverChargeDetails
+          : coverChargeDetails // ignore: cast_nullable_to_non_nullable
+              as CoverChargeDetails?,
+      coverHistory: null == coverHistory
+          ? _value.coverHistory
+          : coverHistory // ignore: cast_nullable_to_non_nullable
+              as List<CoverBalanceHistoryDto>,
     ) as $Val);
   }
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserTicketsDtoCopyWith<$Res>? get userTickets {
@@ -157,6 +236,8 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
     });
   }
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket {
@@ -167,6 +248,21 @@ class _$TicketStateCopyWithImpl<$Res, $Val extends TicketState>
     return $BookedTicketDetailsDtoCopyWith<$Res>(_value.historyTicket!,
         (value) {
       return _then(_value.copyWith(historyTicket: value) as $Val);
+    });
+  }
+
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CoverChargeDetailsCopyWith<$Res>? get coverChargeDetails {
+    if (_value.coverChargeDetails == null) {
+      return null;
+    }
+
+    return $CoverChargeDetailsCopyWith<$Res>(_value.coverChargeDetails!,
+        (value) {
+      return _then(_value.copyWith(coverChargeDetails: value) as $Val);
     });
   }
 }
@@ -183,21 +279,33 @@ abstract class _$$TicketStateImplCopyWith<$Res>
       {bool isLoading,
       bool isSuccess,
       bool isFailure,
+      bool isCoverLoading,
+      bool isAddCoverLoading,
       bool noUse,
       bool showTicketDetails,
       bool showTicketHistory,
       UserRepository userRepository,
+      Razorpay razorpay,
+      String razorPayApiKey,
       UserTicketsDto? userTickets,
       int currentPage,
+      bool isPaymentSuccess,
+      bool isPaymentFailure,
+      bool isPaymentPending,
       WidgetsToImageController widgetsToImageController,
       bool isShareEnabled,
       BookedTicketDetailsDto? historyTicket,
-      bool shoHistoryTicketDetails});
+      bool shoHistoryTicketDetails,
+      EventRepository eventRepository,
+      CoverChargeDetails? coverChargeDetails,
+      List<CoverBalanceHistoryDto> coverHistory});
 
   @override
   $UserTicketsDtoCopyWith<$Res>? get userTickets;
   @override
   $BookedTicketDetailsDtoCopyWith<$Res>? get historyTicket;
+  @override
+  $CoverChargeDetailsCopyWith<$Res>? get coverChargeDetails;
 }
 
 /// @nodoc
@@ -208,22 +316,34 @@ class __$$TicketStateImplCopyWithImpl<$Res>
       _$TicketStateImpl _value, $Res Function(_$TicketStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? isLoading = null,
     Object? isSuccess = null,
     Object? isFailure = null,
+    Object? isCoverLoading = null,
+    Object? isAddCoverLoading = null,
     Object? noUse = null,
     Object? showTicketDetails = null,
     Object? showTicketHistory = null,
     Object? userRepository = null,
+    Object? razorpay = null,
+    Object? razorPayApiKey = null,
     Object? userTickets = freezed,
     Object? currentPage = null,
+    Object? isPaymentSuccess = null,
+    Object? isPaymentFailure = null,
+    Object? isPaymentPending = null,
     Object? widgetsToImageController = null,
     Object? isShareEnabled = null,
     Object? historyTicket = freezed,
     Object? shoHistoryTicketDetails = null,
+    Object? eventRepository = null,
+    Object? coverChargeDetails = freezed,
+    Object? coverHistory = null,
   }) {
     return _then(_$TicketStateImpl(
       isLoading: null == isLoading
@@ -237,6 +357,14 @@ class __$$TicketStateImplCopyWithImpl<$Res>
       isFailure: null == isFailure
           ? _value.isFailure
           : isFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCoverLoading: null == isCoverLoading
+          ? _value.isCoverLoading
+          : isCoverLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAddCoverLoading: null == isAddCoverLoading
+          ? _value.isAddCoverLoading
+          : isAddCoverLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       noUse: null == noUse
           ? _value.noUse
@@ -254,6 +382,14 @@ class __$$TicketStateImplCopyWithImpl<$Res>
           ? _value.userRepository
           : userRepository // ignore: cast_nullable_to_non_nullable
               as UserRepository,
+      razorpay: null == razorpay
+          ? _value.razorpay
+          : razorpay // ignore: cast_nullable_to_non_nullable
+              as Razorpay,
+      razorPayApiKey: null == razorPayApiKey
+          ? _value.razorPayApiKey
+          : razorPayApiKey // ignore: cast_nullable_to_non_nullable
+              as String,
       userTickets: freezed == userTickets
           ? _value.userTickets
           : userTickets // ignore: cast_nullable_to_non_nullable
@@ -262,6 +398,18 @@ class __$$TicketStateImplCopyWithImpl<$Res>
           ? _value.currentPage
           : currentPage // ignore: cast_nullable_to_non_nullable
               as int,
+      isPaymentSuccess: null == isPaymentSuccess
+          ? _value.isPaymentSuccess
+          : isPaymentSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPaymentFailure: null == isPaymentFailure
+          ? _value.isPaymentFailure
+          : isPaymentFailure // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isPaymentPending: null == isPaymentPending
+          ? _value.isPaymentPending
+          : isPaymentPending // ignore: cast_nullable_to_non_nullable
+              as bool,
       widgetsToImageController: null == widgetsToImageController
           ? _value.widgetsToImageController
           : widgetsToImageController // ignore: cast_nullable_to_non_nullable
@@ -278,6 +426,18 @@ class __$$TicketStateImplCopyWithImpl<$Res>
           ? _value.shoHistoryTicketDetails
           : shoHistoryTicketDetails // ignore: cast_nullable_to_non_nullable
               as bool,
+      eventRepository: null == eventRepository
+          ? _value.eventRepository
+          : eventRepository // ignore: cast_nullable_to_non_nullable
+              as EventRepository,
+      coverChargeDetails: freezed == coverChargeDetails
+          ? _value.coverChargeDetails
+          : coverChargeDetails // ignore: cast_nullable_to_non_nullable
+              as CoverChargeDetails?,
+      coverHistory: null == coverHistory
+          ? _value._coverHistory
+          : coverHistory // ignore: cast_nullable_to_non_nullable
+              as List<CoverBalanceHistoryDto>,
     ));
   }
 }
@@ -289,16 +449,27 @@ class _$TicketStateImpl implements _TicketState {
       {required this.isLoading,
       required this.isSuccess,
       required this.isFailure,
+      required this.isCoverLoading,
+      required this.isAddCoverLoading,
       required this.noUse,
       required this.showTicketDetails,
       required this.showTicketHistory,
       required this.userRepository,
+      required this.razorpay,
+      required this.razorPayApiKey,
       this.userTickets,
       required this.currentPage,
+      required this.isPaymentSuccess,
+      required this.isPaymentFailure,
+      required this.isPaymentPending,
       required this.widgetsToImageController,
       required this.isShareEnabled,
       this.historyTicket,
-      required this.shoHistoryTicketDetails});
+      required this.shoHistoryTicketDetails,
+      required this.eventRepository,
+      this.coverChargeDetails,
+      required final List<CoverBalanceHistoryDto> coverHistory})
+      : _coverHistory = coverHistory;
 
   @override
   final bool isLoading;
@@ -306,6 +477,10 @@ class _$TicketStateImpl implements _TicketState {
   final bool isSuccess;
   @override
   final bool isFailure;
+  @override
+  final bool isCoverLoading;
+  @override
+  final bool isAddCoverLoading;
   @override
   final bool noUse;
   @override
@@ -315,9 +490,19 @@ class _$TicketStateImpl implements _TicketState {
   @override
   final UserRepository userRepository;
   @override
+  final Razorpay razorpay;
+  @override
+  final String razorPayApiKey;
+  @override
   final UserTicketsDto? userTickets;
   @override
   final int currentPage;
+  @override
+  final bool isPaymentSuccess;
+  @override
+  final bool isPaymentFailure;
+  @override
+  final bool isPaymentPending;
   @override
   final WidgetsToImageController widgetsToImageController;
   @override
@@ -326,10 +511,21 @@ class _$TicketStateImpl implements _TicketState {
   final BookedTicketDetailsDto? historyTicket;
   @override
   final bool shoHistoryTicketDetails;
+  @override
+  final EventRepository eventRepository;
+  @override
+  final CoverChargeDetails? coverChargeDetails;
+  final List<CoverBalanceHistoryDto> _coverHistory;
+  @override
+  List<CoverBalanceHistoryDto> get coverHistory {
+    if (_coverHistory is EqualUnmodifiableListView) return _coverHistory;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_coverHistory);
+  }
 
   @override
   String toString() {
-    return 'TicketState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, noUse: $noUse, showTicketDetails: $showTicketDetails, showTicketHistory: $showTicketHistory, userRepository: $userRepository, userTickets: $userTickets, currentPage: $currentPage, widgetsToImageController: $widgetsToImageController, isShareEnabled: $isShareEnabled, historyTicket: $historyTicket, shoHistoryTicketDetails: $shoHistoryTicketDetails)';
+    return 'TicketState(isLoading: $isLoading, isSuccess: $isSuccess, isFailure: $isFailure, isCoverLoading: $isCoverLoading, isAddCoverLoading: $isAddCoverLoading, noUse: $noUse, showTicketDetails: $showTicketDetails, showTicketHistory: $showTicketHistory, userRepository: $userRepository, razorpay: $razorpay, razorPayApiKey: $razorPayApiKey, userTickets: $userTickets, currentPage: $currentPage, isPaymentSuccess: $isPaymentSuccess, isPaymentFailure: $isPaymentFailure, isPaymentPending: $isPaymentPending, widgetsToImageController: $widgetsToImageController, isShareEnabled: $isShareEnabled, historyTicket: $historyTicket, shoHistoryTicketDetails: $shoHistoryTicketDetails, eventRepository: $eventRepository, coverChargeDetails: $coverChargeDetails, coverHistory: $coverHistory)';
   }
 
   @override
@@ -343,6 +539,10 @@ class _$TicketStateImpl implements _TicketState {
                 other.isSuccess == isSuccess) &&
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
+            (identical(other.isCoverLoading, isCoverLoading) ||
+                other.isCoverLoading == isCoverLoading) &&
+            (identical(other.isAddCoverLoading, isAddCoverLoading) ||
+                other.isAddCoverLoading == isAddCoverLoading) &&
             (identical(other.noUse, noUse) || other.noUse == noUse) &&
             (identical(other.showTicketDetails, showTicketDetails) ||
                 other.showTicketDetails == showTicketDetails) &&
@@ -350,10 +550,20 @@ class _$TicketStateImpl implements _TicketState {
                 other.showTicketHistory == showTicketHistory) &&
             (identical(other.userRepository, userRepository) ||
                 other.userRepository == userRepository) &&
+            (identical(other.razorpay, razorpay) ||
+                other.razorpay == razorpay) &&
+            (identical(other.razorPayApiKey, razorPayApiKey) ||
+                other.razorPayApiKey == razorPayApiKey) &&
             (identical(other.userTickets, userTickets) ||
                 other.userTickets == userTickets) &&
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
+            (identical(other.isPaymentSuccess, isPaymentSuccess) ||
+                other.isPaymentSuccess == isPaymentSuccess) &&
+            (identical(other.isPaymentFailure, isPaymentFailure) ||
+                other.isPaymentFailure == isPaymentFailure) &&
+            (identical(other.isPaymentPending, isPaymentPending) ||
+                other.isPaymentPending == isPaymentPending) &&
             (identical(
                     other.widgetsToImageController, widgetsToImageController) ||
                 other.widgetsToImageController == widgetsToImageController) &&
@@ -363,27 +573,46 @@ class _$TicketStateImpl implements _TicketState {
                 other.historyTicket == historyTicket) &&
             (identical(
                     other.shoHistoryTicketDetails, shoHistoryTicketDetails) ||
-                other.shoHistoryTicketDetails == shoHistoryTicketDetails));
+                other.shoHistoryTicketDetails == shoHistoryTicketDetails) &&
+            (identical(other.eventRepository, eventRepository) ||
+                other.eventRepository == eventRepository) &&
+            (identical(other.coverChargeDetails, coverChargeDetails) ||
+                other.coverChargeDetails == coverChargeDetails) &&
+            const DeepCollectionEquality()
+                .equals(other._coverHistory, _coverHistory));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      isSuccess,
-      isFailure,
-      noUse,
-      showTicketDetails,
-      showTicketHistory,
-      userRepository,
-      userTickets,
-      currentPage,
-      widgetsToImageController,
-      isShareEnabled,
-      historyTicket,
-      shoHistoryTicketDetails);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isLoading,
+        isSuccess,
+        isFailure,
+        isCoverLoading,
+        isAddCoverLoading,
+        noUse,
+        showTicketDetails,
+        showTicketHistory,
+        userRepository,
+        razorpay,
+        razorPayApiKey,
+        userTickets,
+        currentPage,
+        isPaymentSuccess,
+        isPaymentFailure,
+        isPaymentPending,
+        widgetsToImageController,
+        isShareEnabled,
+        historyTicket,
+        shoHistoryTicketDetails,
+        eventRepository,
+        coverChargeDetails,
+        const DeepCollectionEquality().hash(_coverHistory)
+      ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TicketStateImplCopyWith<_$TicketStateImpl> get copyWith =>
@@ -392,19 +621,30 @@ class _$TicketStateImpl implements _TicketState {
 
 abstract class _TicketState implements TicketState {
   const factory _TicketState(
-      {required final bool isLoading,
-      required final bool isSuccess,
-      required final bool isFailure,
-      required final bool noUse,
-      required final bool showTicketDetails,
-      required final bool showTicketHistory,
-      required final UserRepository userRepository,
-      final UserTicketsDto? userTickets,
-      required final int currentPage,
-      required final WidgetsToImageController widgetsToImageController,
-      required final bool isShareEnabled,
-      final BookedTicketDetailsDto? historyTicket,
-      required final bool shoHistoryTicketDetails}) = _$TicketStateImpl;
+          {required final bool isLoading,
+          required final bool isSuccess,
+          required final bool isFailure,
+          required final bool isCoverLoading,
+          required final bool isAddCoverLoading,
+          required final bool noUse,
+          required final bool showTicketDetails,
+          required final bool showTicketHistory,
+          required final UserRepository userRepository,
+          required final Razorpay razorpay,
+          required final String razorPayApiKey,
+          final UserTicketsDto? userTickets,
+          required final int currentPage,
+          required final bool isPaymentSuccess,
+          required final bool isPaymentFailure,
+          required final bool isPaymentPending,
+          required final WidgetsToImageController widgetsToImageController,
+          required final bool isShareEnabled,
+          final BookedTicketDetailsDto? historyTicket,
+          required final bool shoHistoryTicketDetails,
+          required final EventRepository eventRepository,
+          final CoverChargeDetails? coverChargeDetails,
+          required final List<CoverBalanceHistoryDto> coverHistory}) =
+      _$TicketStateImpl;
 
   @override
   bool get isLoading;
@@ -412,6 +652,10 @@ abstract class _TicketState implements TicketState {
   bool get isSuccess;
   @override
   bool get isFailure;
+  @override
+  bool get isCoverLoading;
+  @override
+  bool get isAddCoverLoading;
   @override
   bool get noUse;
   @override
@@ -421,9 +665,19 @@ abstract class _TicketState implements TicketState {
   @override
   UserRepository get userRepository;
   @override
+  Razorpay get razorpay;
+  @override
+  String get razorPayApiKey;
+  @override
   UserTicketsDto? get userTickets;
   @override
   int get currentPage;
+  @override
+  bool get isPaymentSuccess;
+  @override
+  bool get isPaymentFailure;
+  @override
+  bool get isPaymentPending;
   @override
   WidgetsToImageController get widgetsToImageController;
   @override
@@ -433,7 +687,16 @@ abstract class _TicketState implements TicketState {
   @override
   bool get shoHistoryTicketDetails;
   @override
-  @JsonKey(ignore: true)
+  EventRepository get eventRepository;
+  @override
+  CoverChargeDetails? get coverChargeDetails;
+  @override
+  List<CoverBalanceHistoryDto> get coverHistory;
+
+  /// Create a copy of TicketState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TicketStateImplCopyWith<_$TicketStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

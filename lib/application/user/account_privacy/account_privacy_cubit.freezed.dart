@@ -12,7 +12,7 @@ part of 'account_privacy_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AccountPrivacyState {
@@ -23,7 +23,9 @@ mixin _$AccountPrivacyState {
   UserRepository get userRepository => throw _privateConstructorUsedError;
   UserDto? get user => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AccountPrivacyState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AccountPrivacyStateCopyWith<AccountPrivacyState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +57,8 @@ class _$AccountPrivacyStateCopyWithImpl<$Res, $Val extends AccountPrivacyState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AccountPrivacyState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -93,6 +97,8 @@ class _$AccountPrivacyStateCopyWithImpl<$Res, $Val extends AccountPrivacyState>
     ) as $Val);
   }
 
+  /// Create a copy of AccountPrivacyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDtoCopyWith<$Res>? get user {
@@ -134,6 +140,8 @@ class __$$AccountPrivacyImplCopyWithImpl<$Res>
       _$AccountPrivacyImpl _value, $Res Function(_$AccountPrivacyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AccountPrivacyState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -224,7 +232,9 @@ class _$AccountPrivacyImpl implements _AccountPrivacy {
   int get hashCode => Object.hash(runtimeType, isLoading, isSuccess, isFailure,
       isPrivate, userRepository, user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AccountPrivacyState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AccountPrivacyImplCopyWith<_$AccountPrivacyImpl> get copyWith =>
@@ -253,8 +263,11 @@ abstract class _AccountPrivacy implements AccountPrivacyState {
   UserRepository get userRepository;
   @override
   UserDto? get user;
+
+  /// Create a copy of AccountPrivacyState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AccountPrivacyImplCopyWith<_$AccountPrivacyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

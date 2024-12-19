@@ -9,22 +9,29 @@ import '../../widgets/gradient_button.dart';
 class TicketBookingWidget extends StatelessWidget {
   final void Function() onClick;
   final String startDate;
+  String? endDate;
   final double priceRangeStart;
   final double? priceRangeEnd;
-  const TicketBookingWidget(
+  final int? couponAmount;
+  final String? title;
+  TicketBookingWidget(
       {super.key,
       required this.onClick,
       required this.startDate,
+      this.endDate,
       required this.priceRangeStart,
-      this.priceRangeEnd});
+      this.title = "",
+      this.priceRangeEnd,
+      this.couponAmount});
 
   @override
   Widget build(BuildContext context) {
+    bool isValid = endDate != null && DateTime.parse(endDate!).isAfter(DateTime.now());
+ //   print("isvalid,$isValid");
     return Container(
       height: 12.5.h,
       width: 100.w,
       padding: EdgeInsets.only(left: 4.w, right: 4.w, bottom: 2.5.h),
-      color: Theme.of(context).colorScheme.background.withOpacity(.1),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +43,7 @@ class TicketBookingWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    StringExtension.formatDateTimeShort(
+                    StringExtension.formatDateTimeShortIST(
                         DateTime.parse(startDate)),
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.w600,
@@ -50,9 +57,12 @@ class TicketBookingWidget extends StatelessWidget {
                   children: [
                     Text(
                         // '${event.priceRangeStart.toIndianRupeeString()} ',
-                        priceRangeStart == 0
+                        (priceRangeStart) == 0
                             ? 'Free'
-                            : priceRangeStart.toIndianRupeeString(),
+                            : couponAmount == 0
+                                ? (priceRangeStart ?? 0).toIndianRupeeString()
+                                : ((priceRangeStart ?? 0) - (couponAmount ?? 0))
+                                    .toIndianRupeeString(),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontWeight: FontWeight.w600,
                             height: 1,
@@ -71,16 +81,18 @@ class TicketBookingWidget extends StatelessWidget {
                     //         fontSize: 14.5.sp)),
                   ],
                 ),
+
               ],
             ),
           ),
           Expanded(
               flex: 4,
               child: GradientButton(
-                text: EventDetailsScreenConstants.grabPasses,
-                onTap: onClick,
+                text:  isValid?((title=='') ?  EventDetailsScreenConstants.completePayment:title??''):"Expired",
+                onTap:  isValid?onClick:(){},
+                isEnabled: isValid,
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      fontSize: 16.sp,
+                      fontSize: (title=='')?16.sp: 17.sp,
                       color: Theme.of(context).colorScheme.background,
                       fontWeight: FontWeight.w600,
                     ),

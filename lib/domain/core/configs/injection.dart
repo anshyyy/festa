@@ -13,5 +13,8 @@ GetIt navigator = GetIt.instance;
 
 void setupLocator(
     GlobalKey<NavigatorState> navKey, AppStateNotifier appStateNotifier) {
-  navigator.registerFactory(() => NavigationService(navKey, appStateNotifier));
+  navigator.registerLazySingleton(
+      () => NavigationService(navKey, appStateNotifier));
 }
+
+

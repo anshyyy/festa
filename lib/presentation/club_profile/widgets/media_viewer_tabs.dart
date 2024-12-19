@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../application/club_profile/club_profile_cubit.dart';
+import 'club_menu_screen.dart';
 import 'events_calendar_builder.dart';
 import 'media_grid_widget.dart';
 
@@ -12,22 +13,20 @@ class MediaViewerTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ClubProfileCubit, ClubProfileState>(
-      listener: (context, state) {
-        
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return SizedBox(
-          height: 83.h,
-          child: DefaultTabController(
-            length: 2,
+            height: 90.h,
             child: Column(
               children: [
                 Container(
                   color: Theme.of(context).colorScheme.surface,
                   child: TabBar(
                     
-                    
+                    controller:
+                        state.tabController, // Provide custom TabController
                     labelColor: Theme.of(context).colorScheme.background,
+                    indicatorSize: TabBarIndicatorSize.tab,
                     labelStyle: Theme.of(context)
                         .textTheme
                         .bodySmall!
@@ -38,30 +37,36 @@ class MediaViewerTabs extends StatelessWidget {
                         Theme.of(context).textTheme.bodySmall!.copyWith(),
                     tabs: const [
                       Tab(
-                  
-                        child: Text('Photos'),
+                        child: Text('Gallery'),
                       ),
                       Tab(
                         child: Text('Events'),
                       ),
+                      Tab(
+                        child: Text('Menu'),
+                      )
                     ],
                   ),
                 ),
                 Expanded(
-                  child: TabBarView(children: [
-                    const MediaGridViewer(),
-                    EventsCalendarBuilder(
-                      clubId: state.clubId,
-                    )
-                  ]),
+                  child: TabBarView(
+                    
+                    controller: state
+                        .tabController,
+                    children: [
+                      const MediaGridViewer(),
+                      EventsCalendarBuilder(
+                        clubId: state.clubId,
+                      ),
+                      ClubMenuScreen(
+                        clubId: state.clubId,
+                      )
+                    ],
+                  ),
                 )
               ],
-            ),
-          ),
-        );
+            ));
       },
     );
   }
 }
-
-

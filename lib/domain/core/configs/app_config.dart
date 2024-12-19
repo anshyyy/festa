@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../infrastructure/auth/dtos/user_dto.dart';
 import '../../../infrastructure/core/dtos/location/location_dto.dart';
 import '../../../infrastructure/core/enum/profile_state.enum.dart';
+import '../services/storage_service/location_storage_service.dart';
 
 class AppStateNotifier extends ChangeNotifier {
   bool isAuthorized;
@@ -12,6 +13,7 @@ class AppStateNotifier extends ChangeNotifier {
   UserDto? user;
   bool goToTop;
   int? menuIndex;
+  LocationStorageService _locationStorageService = LocationStorageService();
 
   AppStateNotifier({
     required this.isAuthorized,
@@ -42,8 +44,7 @@ class AppStateNotifier extends ChangeNotifier {
     this.user = user;
     if (user != null) {
       profileState = user.fullName.isNotEmpty &&
-              user.dob.isNotEmpty &&
-              user.gender.isNotEmpty
+              user.dob.isNotEmpty
           ? ProfileStateEnum.completed
           : user.fullName.isNotEmpty && user.dob.isNotEmpty
               ? ProfileStateEnum.birthday
@@ -66,6 +67,12 @@ class AppStateNotifier extends ChangeNotifier {
 
   Future<void> updateAfterNetworkChange({required bool isOffline}) async {
     this.isOffline = isOffline;
+    notifyListeners();
+  }
+
+  Future<void>updateLocation({required LocationDto location}) async{
+    this.location = location;
+    await _locationStorageService.saveLocation(location);
     notifyListeners();
   }
 }

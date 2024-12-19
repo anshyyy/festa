@@ -12,7 +12,7 @@ part of 'event_ticket_detail_dto.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 EventTicketDetailDto _$EventTicketDetailDtoFromJson(Map<String, dynamic> json) {
   return _EventTicketDetailDto.fromJson(json);
@@ -32,19 +32,29 @@ mixin _$EventTicketDetailDto {
   int get bookedSeats => throw _privateConstructorUsedError;
   @JsonKey(name: 'totalCapacity', defaultValue: 0)
   int get totalCapacity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category', defaultValue: '')
+  String get category => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int get currentTicketsCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'isPaid', defaultValue: false)
   bool get isPaid => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coverCharge', defaultValue: 0)
+  num get coverCharge => throw _privateConstructorUsedError;
   @JsonKey(name: 'priceCurrency', defaultValue: '')
   String get priceCurrency => throw _privateConstructorUsedError;
   @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
   int get maxTicketsToBook => throw _privateConstructorUsedError;
   @JsonKey(name: 'noOfTickets', defaultValue: 0)
   int get noOfTickets => throw _privateConstructorUsedError;
+  @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+  bool get coverChargeEnabled => throw _privateConstructorUsedError;
 
+  /// Serializes this EventTicketDetailDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of EventTicketDetailDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EventTicketDetailDtoCopyWith<EventTicketDetailDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,11 +72,15 @@ abstract class $EventTicketDetailDtoCopyWith<$Res> {
       @JsonKey(name: 'price', defaultValue: 0) double price,
       @JsonKey(name: 'bookedSeats', defaultValue: 0) int bookedSeats,
       @JsonKey(name: 'totalCapacity', defaultValue: 0) int totalCapacity,
+      @JsonKey(name: 'category', defaultValue: '') String category,
       @JsonKey(defaultValue: 0) int currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) bool isPaid,
+      @JsonKey(name: 'coverCharge', defaultValue: 0) num coverCharge,
       @JsonKey(name: 'priceCurrency', defaultValue: '') String priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0) int maxTicketsToBook,
-      @JsonKey(name: 'noOfTickets', defaultValue: 0) int noOfTickets});
+      @JsonKey(name: 'noOfTickets', defaultValue: 0) int noOfTickets,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      bool coverChargeEnabled});
 }
 
 /// @nodoc
@@ -80,6 +94,8 @@ class _$EventTicketDetailDtoCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of EventTicketDetailDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,11 +105,14 @@ class _$EventTicketDetailDtoCopyWithImpl<$Res,
     Object? price = null,
     Object? bookedSeats = null,
     Object? totalCapacity = null,
+    Object? category = null,
     Object? currentTicketsCount = null,
     Object? isPaid = null,
+    Object? coverCharge = null,
     Object? priceCurrency = null,
     Object? maxTicketsToBook = null,
     Object? noOfTickets = null,
+    Object? coverChargeEnabled = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -120,6 +139,10 @@ class _$EventTicketDetailDtoCopyWithImpl<$Res,
           ? _value.totalCapacity
           : totalCapacity // ignore: cast_nullable_to_non_nullable
               as int,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       currentTicketsCount: null == currentTicketsCount
           ? _value.currentTicketsCount
           : currentTicketsCount // ignore: cast_nullable_to_non_nullable
@@ -128,6 +151,10 @@ class _$EventTicketDetailDtoCopyWithImpl<$Res,
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
               as bool,
+      coverCharge: null == coverCharge
+          ? _value.coverCharge
+          : coverCharge // ignore: cast_nullable_to_non_nullable
+              as num,
       priceCurrency: null == priceCurrency
           ? _value.priceCurrency
           : priceCurrency // ignore: cast_nullable_to_non_nullable
@@ -140,6 +167,10 @@ class _$EventTicketDetailDtoCopyWithImpl<$Res,
           ? _value.noOfTickets
           : noOfTickets // ignore: cast_nullable_to_non_nullable
               as int,
+      coverChargeEnabled: null == coverChargeEnabled
+          ? _value.coverChargeEnabled
+          : coverChargeEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -159,11 +190,15 @@ abstract class _$$EventTicketDetailDtoImplCopyWith<$Res>
       @JsonKey(name: 'price', defaultValue: 0) double price,
       @JsonKey(name: 'bookedSeats', defaultValue: 0) int bookedSeats,
       @JsonKey(name: 'totalCapacity', defaultValue: 0) int totalCapacity,
+      @JsonKey(name: 'category', defaultValue: '') String category,
       @JsonKey(defaultValue: 0) int currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) bool isPaid,
+      @JsonKey(name: 'coverCharge', defaultValue: 0) num coverCharge,
       @JsonKey(name: 'priceCurrency', defaultValue: '') String priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0) int maxTicketsToBook,
-      @JsonKey(name: 'noOfTickets', defaultValue: 0) int noOfTickets});
+      @JsonKey(name: 'noOfTickets', defaultValue: 0) int noOfTickets,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      bool coverChargeEnabled});
 }
 
 /// @nodoc
@@ -174,6 +209,8 @@ class __$$EventTicketDetailDtoImplCopyWithImpl<$Res>
       $Res Function(_$EventTicketDetailDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of EventTicketDetailDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -183,11 +220,14 @@ class __$$EventTicketDetailDtoImplCopyWithImpl<$Res>
     Object? price = null,
     Object? bookedSeats = null,
     Object? totalCapacity = null,
+    Object? category = null,
     Object? currentTicketsCount = null,
     Object? isPaid = null,
+    Object? coverCharge = null,
     Object? priceCurrency = null,
     Object? maxTicketsToBook = null,
     Object? noOfTickets = null,
+    Object? coverChargeEnabled = null,
   }) {
     return _then(_$EventTicketDetailDtoImpl(
       id: null == id
@@ -214,6 +254,10 @@ class __$$EventTicketDetailDtoImplCopyWithImpl<$Res>
           ? _value.totalCapacity
           : totalCapacity // ignore: cast_nullable_to_non_nullable
               as int,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
       currentTicketsCount: null == currentTicketsCount
           ? _value.currentTicketsCount
           : currentTicketsCount // ignore: cast_nullable_to_non_nullable
@@ -222,6 +266,10 @@ class __$$EventTicketDetailDtoImplCopyWithImpl<$Res>
           ? _value.isPaid
           : isPaid // ignore: cast_nullable_to_non_nullable
               as bool,
+      coverCharge: null == coverCharge
+          ? _value.coverCharge
+          : coverCharge // ignore: cast_nullable_to_non_nullable
+              as num,
       priceCurrency: null == priceCurrency
           ? _value.priceCurrency
           : priceCurrency // ignore: cast_nullable_to_non_nullable
@@ -234,6 +282,10 @@ class __$$EventTicketDetailDtoImplCopyWithImpl<$Res>
           ? _value.noOfTickets
           : noOfTickets // ignore: cast_nullable_to_non_nullable
               as int,
+      coverChargeEnabled: null == coverChargeEnabled
+          ? _value.coverChargeEnabled
+          : coverChargeEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -249,14 +301,17 @@ class _$EventTicketDetailDtoImpl implements _EventTicketDetailDto {
       @JsonKey(name: 'bookedSeats', defaultValue: 0) required this.bookedSeats,
       @JsonKey(name: 'totalCapacity', defaultValue: 0)
       required this.totalCapacity,
+      @JsonKey(name: 'category', defaultValue: '') required this.category,
       @JsonKey(defaultValue: 0) required this.currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) required this.isPaid,
+      @JsonKey(name: 'coverCharge', defaultValue: 0) required this.coverCharge,
       @JsonKey(name: 'priceCurrency', defaultValue: '')
       required this.priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
       required this.maxTicketsToBook,
-      @JsonKey(name: 'noOfTickets', defaultValue: 0)
-      required this.noOfTickets});
+      @JsonKey(name: 'noOfTickets', defaultValue: 0) required this.noOfTickets,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      required this.coverChargeEnabled});
 
   factory _$EventTicketDetailDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$EventTicketDetailDtoImplFromJson(json);
@@ -280,11 +335,17 @@ class _$EventTicketDetailDtoImpl implements _EventTicketDetailDto {
   @JsonKey(name: 'totalCapacity', defaultValue: 0)
   final int totalCapacity;
   @override
+  @JsonKey(name: 'category', defaultValue: '')
+  final String category;
+  @override
   @JsonKey(defaultValue: 0)
   final int currentTicketsCount;
   @override
   @JsonKey(name: 'isPaid', defaultValue: false)
   final bool isPaid;
+  @override
+  @JsonKey(name: 'coverCharge', defaultValue: 0)
+  final num coverCharge;
   @override
   @JsonKey(name: 'priceCurrency', defaultValue: '')
   final String priceCurrency;
@@ -294,10 +355,13 @@ class _$EventTicketDetailDtoImpl implements _EventTicketDetailDto {
   @override
   @JsonKey(name: 'noOfTickets', defaultValue: 0)
   final int noOfTickets;
+  @override
+  @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+  final bool coverChargeEnabled;
 
   @override
   String toString() {
-    return 'EventTicketDetailDto(id: $id, name: $name, description: $description, price: $price, bookedSeats: $bookedSeats, totalCapacity: $totalCapacity, currentTicketsCount: $currentTicketsCount, isPaid: $isPaid, priceCurrency: $priceCurrency, maxTicketsToBook: $maxTicketsToBook, noOfTickets: $noOfTickets)';
+    return 'EventTicketDetailDto(id: $id, name: $name, description: $description, price: $price, bookedSeats: $bookedSeats, totalCapacity: $totalCapacity, category: $category, currentTicketsCount: $currentTicketsCount, isPaid: $isPaid, coverCharge: $coverCharge, priceCurrency: $priceCurrency, maxTicketsToBook: $maxTicketsToBook, noOfTickets: $noOfTickets, coverChargeEnabled: $coverChargeEnabled)';
   }
 
   @override
@@ -314,18 +378,24 @@ class _$EventTicketDetailDtoImpl implements _EventTicketDetailDto {
                 other.bookedSeats == bookedSeats) &&
             (identical(other.totalCapacity, totalCapacity) ||
                 other.totalCapacity == totalCapacity) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.currentTicketsCount, currentTicketsCount) ||
                 other.currentTicketsCount == currentTicketsCount) &&
             (identical(other.isPaid, isPaid) || other.isPaid == isPaid) &&
+            (identical(other.coverCharge, coverCharge) ||
+                other.coverCharge == coverCharge) &&
             (identical(other.priceCurrency, priceCurrency) ||
                 other.priceCurrency == priceCurrency) &&
             (identical(other.maxTicketsToBook, maxTicketsToBook) ||
                 other.maxTicketsToBook == maxTicketsToBook) &&
             (identical(other.noOfTickets, noOfTickets) ||
-                other.noOfTickets == noOfTickets));
+                other.noOfTickets == noOfTickets) &&
+            (identical(other.coverChargeEnabled, coverChargeEnabled) ||
+                other.coverChargeEnabled == coverChargeEnabled));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -335,13 +405,18 @@ class _$EventTicketDetailDtoImpl implements _EventTicketDetailDto {
       price,
       bookedSeats,
       totalCapacity,
+      category,
       currentTicketsCount,
       isPaid,
+      coverCharge,
       priceCurrency,
       maxTicketsToBook,
-      noOfTickets);
+      noOfTickets,
+      coverChargeEnabled);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of EventTicketDetailDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EventTicketDetailDtoImplCopyWith<_$EventTicketDetailDtoImpl>
@@ -368,14 +443,20 @@ abstract class _EventTicketDetailDto implements EventTicketDetailDto {
       required final int bookedSeats,
       @JsonKey(name: 'totalCapacity', defaultValue: 0)
       required final int totalCapacity,
+      @JsonKey(name: 'category', defaultValue: '')
+      required final String category,
       @JsonKey(defaultValue: 0) required final int currentTicketsCount,
       @JsonKey(name: 'isPaid', defaultValue: false) required final bool isPaid,
+      @JsonKey(name: 'coverCharge', defaultValue: 0)
+      required final num coverCharge,
       @JsonKey(name: 'priceCurrency', defaultValue: '')
       required final String priceCurrency,
       @JsonKey(name: 'maxTicketsToBook', defaultValue: 0)
       required final int maxTicketsToBook,
       @JsonKey(name: 'noOfTickets', defaultValue: 0)
-      required final int noOfTickets}) = _$EventTicketDetailDtoImpl;
+      required final int noOfTickets,
+      @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+      required final bool coverChargeEnabled}) = _$EventTicketDetailDtoImpl;
 
   factory _EventTicketDetailDto.fromJson(Map<String, dynamic> json) =
       _$EventTicketDetailDtoImpl.fromJson;
@@ -399,11 +480,17 @@ abstract class _EventTicketDetailDto implements EventTicketDetailDto {
   @JsonKey(name: 'totalCapacity', defaultValue: 0)
   int get totalCapacity;
   @override
+  @JsonKey(name: 'category', defaultValue: '')
+  String get category;
+  @override
   @JsonKey(defaultValue: 0)
   int get currentTicketsCount;
   @override
   @JsonKey(name: 'isPaid', defaultValue: false)
   bool get isPaid;
+  @override
+  @JsonKey(name: 'coverCharge', defaultValue: 0)
+  num get coverCharge;
   @override
   @JsonKey(name: 'priceCurrency', defaultValue: '')
   String get priceCurrency;
@@ -414,7 +501,13 @@ abstract class _EventTicketDetailDto implements EventTicketDetailDto {
   @JsonKey(name: 'noOfTickets', defaultValue: 0)
   int get noOfTickets;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'coverChargeEnabled', defaultValue: false)
+  bool get coverChargeEnabled;
+
+  /// Create a copy of EventTicketDetailDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EventTicketDetailDtoImplCopyWith<_$EventTicketDetailDtoImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

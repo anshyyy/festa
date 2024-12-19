@@ -11,6 +11,8 @@ import '../../../domain/core/services/navigation_services/routers/route_name.dar
 import '../../../infrastructure/pub/dtos/pub_event/pub_event_dto.dart';
 import 'package:collection/collection.dart';
 
+import '../../widgets/snackbar_alert.dart';
+
 class EventCalender extends StatelessWidget {
   final DateTime startDate;
   final List<PubEventDto> lsOfEvents;
@@ -38,15 +40,23 @@ class EventCalender extends StatelessWidget {
               lastDay: endDate,
               focusedDay: startDate,
               headerStyle: HeaderStyle(
-                titleTextStyle:
-                    Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.background,
-                        ),
-                formatButtonVisible: false,
-                leftChevronVisible: false,
-                rightChevronVisible: false,
-              ),
+                  titleTextStyle:
+                      Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.background,
+                          ),
+                  formatButtonVisible: false,
+                  leftChevronVisible: true,
+                  titleCentered: true,
+                  rightChevronVisible: true,
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: Theme.of(context).primaryColor,
+                  )),
               calendarStyle: const CalendarStyle(
                 isTodayHighlighted: false,
                 outsideDaysVisible: false,
@@ -82,14 +92,23 @@ class EventCalender extends StatelessWidget {
                               queryParams: {
                                 'id': pubEventDto.id.toString(),
                               });
+                        } else {
+
+                          CustomScaffoldMessenger.clearSnackBars(context);
+                          CustomScaffoldMessenger.showSnackBar(
+                            context,
+                            message: "No Events Available for this date!!!",
+                          );
                         }
+                        return;
                       }
                     },
                     child: Container(
                       height: 3.5.h,
                       decoration: BoxDecoration(
+                          color: imageUrl.contains('.mp4') ?Theme.of(context).primaryColor:Colors.transparent,
                           shape: BoxShape.circle,
-                          image: imageUrl.isNotEmpty
+                          image: imageUrl.isNotEmpty && !imageUrl.contains('.mp4')
                               ? DecorationImage(
                                   fit: BoxFit.cover,
                                   image: CachedNetworkImageProvider(

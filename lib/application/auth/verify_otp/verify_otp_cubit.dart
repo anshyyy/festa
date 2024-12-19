@@ -1,9 +1,11 @@
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:timer_count_down/timer_controller.dart';
 
 import '../../../domain/auth/auth_repository.dart';
@@ -20,6 +22,7 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
   void coundownFinished() {
     emit(state.copyWith(showResendButton: true));
   }
+
 
   void emitFromAnywhere({
     required VerifyOtpState state,
@@ -68,31 +71,41 @@ class VerifyOtpCubit extends Cubit<VerifyOtpState> {
     });
   }
 
+  void updateOtp(String otp) {
+    state.otpController.text = otp;
+    emit(state.copyWith(isVerifyEnabled: true));
+  }
+
   void verifyOtp() async {
     emit(state.copyWith(isLoading: true));
+    try{
 
     Either<String, UserDto> response = await state.authRepository.verifyOtp(
       verificationCode: state.verificationCode!,
       code: state.otpController.text,
     );
-
     response.fold(
-      (l) => emit(state.copyWith(
+      (l) => emit(state.copyWith( 
         isLoading: false,
         isOTPVerificationSuccessful: false,
         isOTPVerificationFailed: true,
-        errorMessage: l,
-      )),
+          errorMessage: l,
+        ),
+      ),
       (r) {
-        return emit(state.copyWith(
+        return emit(
+          state.copyWith(
           isLoading: false,
           user: r,
           isOTPVerificationSuccessful: true,
           isOTPVerificationFailed: false,
           errorMessage: LoginScreenConstants.success,
-        ));
-      },
-    );
+            ),
+      );
+    });
+    } catch (e) {
+      print('error $e');
+    }
   }
 
   void onGoBack() {

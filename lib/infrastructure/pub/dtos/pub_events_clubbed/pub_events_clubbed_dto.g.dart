@@ -9,8 +9,9 @@ part of 'pub_events_clubbed_dto.dart';
 _$PubEventsClubbedDtoImpl _$$PubEventsClubbedDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$PubEventsClubbedDtoImpl(
-      eventMonths:
-          (json['eventMonths'] as List<dynamic>).map((e) => e as int).toList(),
+      eventMonths: (json['eventMonths'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
       events: (json['events'] as List<dynamic>?)
               ?.map((e) => PubEventDto.fromJson(e as Map<String, dynamic>))
               .toList() ??

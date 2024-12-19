@@ -24,8 +24,8 @@
             "type": "dart",
             "flutterMode": "debug",
             "args": [
-                "--flavor",
-                "production"
+                // "--flavor",
+                // "production"
             ]
         }
     ]

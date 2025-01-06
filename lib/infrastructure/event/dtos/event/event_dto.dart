@@ -6,8 +6,10 @@ import '../../../artist/dtos/artist/artist_dto.dart';
 import '../../../core/dtos/address/address_dto.dart';
 import '../../../core/dtos/asset/asset_dto.dart';
 import '../../../core/dtos/bullet/bullet_dto.dart';
+import '../../../core/dtos/cancellation_policy/cancellation_policy.dart';
 import '../../../core/dtos/event_rules/event_rules.dart';
 import '../../../core/dtos/faq/faq_dto.dart';
+import '../../../core/dtos/tnc/terms_and_condition.dart';
 import '../category/category_dto.dart';
 import '../event_activity/event_activity.dart';
 import '../event_ticket_category/event_ticket_category_dto.dart';
@@ -41,7 +43,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'foodAndBeverages', defaultValue: [])
     required List<BulletDto> foodAndBeverages,
     @JsonKey(name: 'termsAndConditions', defaultValue: [])
-    required List<BulletDto> termsAndConditions,
+    required List<TermsAndCondition> termsAndConditions,
     @JsonKey(name: 'faqs', defaultValue: []) required List<FAQDto> faqs,
     @JsonKey(name: 'isPaid', defaultValue: false) required bool isPaid,
     @JsonKey(name: 'totalCapacity', defaultValue: 0) required int totalCapacity,
@@ -54,7 +56,7 @@ class EventDto with _$EventDto {
     @JsonKey(name: 'address') AddressDto? address,    
     @JsonKey(name: 'pub') PubDto? pub,
     @JsonKey(defaultValue: false) required bool isApplied,
-    @JsonKey(name:'cancellationPolicy',defaultValue: '') required String cancellationPolicy,
+    @JsonKey(name:'cancellationPolicy') CancellationPolicy? cancellationPolicy,
     @JsonKey(name: 'isLiked', defaultValue: false) required bool isLiked,
     @JsonKey(name: 'isPaused', defaultValue: true) required bool isPaused,
     @JsonKey(name: 'expensiveRating', defaultValue: 0) required int expensiveRating,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -97,6 +98,8 @@ class IAuthRepository extends AuthRepository {
                 (value) => value.user,
               );
 
+      log("yoyoyo $user");
+
       UserDto userInfo = (await authentication())!;
       final String? fcmToken = await getFCMToken();
 
@@ -105,6 +108,7 @@ class IAuthRepository extends AuthRepository {
         addOrRemoveFCMTokenToServer(
             token: token!, fcmToken: fcmToken, isRemove: false);
       }
+
       return right(userInfo);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'invalid-verification-code') {

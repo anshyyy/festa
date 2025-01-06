@@ -313,10 +313,10 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                                               state.user!.id
                                                                   .toString()),
                                                       eyeStyle: QrEyeStyle(
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .colorScheme
-                                                              .background,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .background,
                                                           eyeShape: QrEyeShape
                                                               .square),
                                                       dataModuleStyle:
@@ -589,70 +589,61 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 3.w),
                                   child: GestureDetector(
-                                    onTap: ()async {
-
-
-                                                                                    var option = await showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                      'Logout',
-                                                      style: TextStyle(
-                                                          color: colorScheme
-                                                              .background,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 18.sp),
-                                                    ),
-                                                    content: Text(
-                                                      'Are you sure you want to log out?',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 15.sp),
-                                                    ),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          // Cancel logout and close the dialog
-                                                          navigator<
-                                                                  NavigationService>()
-                                                              .goBack(
-                                                                  responseObject:
-                                                                      'Cancel');
-                                                        },
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style: TextStyle(
-                                                              color: Colors.grey
-                                                                  .shade600),
-                                                        ),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          // Confirm logout and close the dialog
-                                                          navigator<
-                                                                  NavigationService>()
-                                                              .goBack(
-                                                                  responseObject:
-                                                                      'Logout');
-                                                        },
-                                                        child: Text('Logout'),
-                                                      ),
-                                                    ],
-                                                  );
+                                    onTap: () async {
+                                      var option = await showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            backgroundColor: colorScheme.primaryContainer,
+                                            title: Text(
+                                              'Logout',
+                                              style: TextStyle(
+                                                  color: colorScheme.background,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18.sp),
+                                            ),
+                                            content: Text(
+                                              'Are you sure you want to log out?',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 15.sp),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  // Cancel logout and close the dialog
+                                                  navigator<NavigationService>()
+                                                      .goBack(
+                                                          responseObject:
+                                                              'Cancel');
                                                 },
-                                              );
+                                                child: Text(
+                                                  'Cancel',
+                                                  style: TextStyle(
+                                                      color:
+                                                          Colors.grey.shade600),
+                                                ),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  // Confirm logout and close the dialog
+                                                  navigator<NavigationService>()
+                                                      .goBack(
+                                                          responseObject:
+                                                              'Logout');
+                                                },
+                                                child: Text('Logout'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
 
-                                      if(option == 'Logout'){
+                                      if (option == 'Logout') {
                                         AnalyticsService().logEvent(
-                                          eventName: 'logout', paras: {});
-                                         context.read<ProfileCubit>().logout();
-
+                                            eventName: 'logout', paras: {});
+                                        context.read<ProfileCubit>().logout();
                                       }
-
                                     },
                                     child: Row(
                                       children: [
@@ -697,9 +688,7 @@ class ProfileAndSettingsScreenConsumer extends StatelessWidget {
                                       suffixIcon: AssetConstants.arrowRight,
                                       onTap: currentMenu.navigationRoute.isEmpty
                                           ? null
-                                          : ()  {
-
-
+                                          : () {
                                               context
                                                   .read<ProfileCubit>()
                                                   .clearMenuSearch();

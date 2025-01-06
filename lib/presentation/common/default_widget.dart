@@ -6,17 +6,11 @@ class DefaultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text(
-          'DEFAULT ROUTE!',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.5,
-            color: Colors.black,
-          ),
-        ),
+      color: Colors.black,
+      child:  Center(
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.primary,
+        )
       ),
     );
   }

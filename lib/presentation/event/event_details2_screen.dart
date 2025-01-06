@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,11 @@ import '../../domain/core/services/analytics_service/analytics_service.dart';
 import '../../domain/core/services/navigation_services/navigation_service.dart';
 import '../../domain/core/services/navigation_services/routers/route_name.dart';
 import '../../domain/core/utils/image_provider.dart';
+import '../../infrastructure/core/dtos/cancellation_policy/cancellation_policy.dart';
+import '../../infrastructure/core/dtos/event_rules/event_rules.dart';
+import '../../infrastructure/core/dtos/tnc/terms_and_condition.dart';
 import '../../infrastructure/core/enum/image_type.enum.dart';
+import '../../infrastructure/event/dtos/event/event_dto.dart';
 import '../common/event_card.dart';
 import '../common/event_card2.dart';
 import '../core/open_maps_modal.dart';
@@ -106,15 +111,17 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
         return state.isLoading
             ? const Scaffold(body: EventDetailsShimmer())
             : Scaffold(
-                bottomNavigationBar: event!.eventTicketCategories.isEmpty
+                bottomNavigationBar: event?.eventTicketCategories.isEmpty ??
+                        false
                     ? const SizedBox()
                     : TicketBookingWidget(
-                        endDate: event.endDate,
+                        endDate: event?.endDate ?? '',
                         title: "Let's Go",
-                        startDate: event.startDate, // Provide a default value
-                        priceRangeStart: event.priceRangeStart ??
+                        startDate:
+                            event?.startDate ?? '', // Provide a default value
+                        priceRangeStart: event?.priceRangeStart ??
                             0, // Provide a default value
-                        priceRangeEnd: event.priceRangeEnd ?? 0,
+                        priceRangeEnd: event?.priceRangeEnd ?? 0,
                         onClick: () {
                           AnalyticsService()
                               .logEvent(eventName: 'Lets go', paras: {
@@ -144,27 +151,27 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                     actions: [
                       GestureDetector(
                         onTap: () {
-                          AnalyticsService()
-                              .logEvent(eventName: 'share_event', paras: {
-                            'event_id': state.event!.id.toString(),
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) => EventOptionsModalSheet(
+                                eventStartDate: event?.startDate ?? '',
+                                eventDescription: event?.description ?? '',
+                                eventCompleteAddress:
+                                    event?.address?.completeAddress ?? '',
+                                eventEndDate: event?.endDate ?? '',
+                                eventId: state.event?.id ?? 0,
+                                eventName: state.event?.name ?? "",
+                                artists: state.event?.artists ?? []),
+                          ).then((v) {
+                            context
+                                .read<EventDetailsCubit>()
+                                .updateArtists(artists: v['artists']);
                           });
-
-                          String formattedMessage =
-                              GenericHelpers().formatEventShareMessage(
-                            eventName: state.event!.name,
-                            artists: state.event!.artists,
-                            eventDateTime:
-                                DateTime.parse(state.event!.startDate),
-                            eventLocation: state.event!.address!.vicinity,
-                            eventCategory: AppConstants.event,
-                            eventId: state.event!.id.toString(),
-                          );
-
-                          Share.share(formattedMessage);
                         },
                         child: Padding(
                           padding: EdgeInsets.only(right: 5.w),
-                          child: SvgPicture.asset(AssetConstants.shareIcon2),
+                          child: SvgPicture.asset(AssetConstants.threeDotsIcon),
                         ),
                       )
                     ]),
@@ -175,7 +182,7 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         EventCard2(
-                          vKey: event.id.toString(),
+                          vKey: event?.id.toString() ?? '',
                           height: 45,
                           isVideoMute: isVideoMute,
                           isMutedNotifier: isMutedNotifier,
@@ -189,12 +196,12 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                             }
                           },
                           distance: state.eventDistance,
-                          event: event,
+                          event: event ?? '' as EventDto,
                           isLiked: state.isEventLiked,
                           onLike: () {
                             context
                                 .read<EventDetailsCubit>()
-                                .onEventLikedUnliked(eventId: event.id);
+                                .onEventLikedUnliked(eventId: event?.id ?? 0);
                           },
                         ),
                         Row(
@@ -220,7 +227,7 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                     )),
                             Text(' • '),
-                            Text('12+',
+                            Text('18+',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall!
@@ -298,36 +305,39 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (state.event!.categories.isNotEmpty) ...[
-                                Row(
-                                  children: state.event!.categories
-                                      .map((tag) => Container(
-                                          height: 3.3.h,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 2.w),
-                                          margin: EdgeInsets.only(right: 1.w),
-                                          decoration: BoxDecoration(
-                                              // color: colorScheme.surfaceVariant,
-                                              // gradient: RadialGradient(
-                                              //     radius: 1.7,
-                                              //     colors: [
-                                              //       Color(0xff111111),
-                                              //       Color(0xff2c2c2c),
-                                              //     ]),
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              border: Border.all(
-                                                  color: Color(0xff4d4d4d),
-                                                  width: 1.px)),
-                                          child: Center(
-                                            child: Text(tag.name,
-                                                style: TextStyle(
-                                                    color:
-                                                        colorScheme.background,
-                                                    fontSize: 15.sp,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
-                                          )))
-                                      .toList(),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: state.event!.categories
+                                        .map((tag) => Container(
+                                            height: 3.3.h,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 2.w),
+                                            margin: EdgeInsets.only(right: 1.w),
+                                            decoration: BoxDecoration(
+                                                // color: colorScheme.surfaceVariant,
+                                                // gradient: RadialGradient(
+                                                //     radius: 1.7,
+                                                //     colors: [
+                                                //       Color(0xff111111),
+                                                //       Color(0xff2c2c2c),
+                                                //     ]),
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                border: Border.all(
+                                                    color: Color(0xff4d4d4d),
+                                                    width: 1.px)),
+                                            child: Center(
+                                              child: Text(tag.name,
+                                                  style: TextStyle(
+                                                      color: colorScheme
+                                                          .background,
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                            )))
+                                        .toList(),
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 2.h,
@@ -442,7 +452,7 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                                                                           .completedEventsCount! >
                                                                       0
                                                               ? "${state.event!.pub!.completedEventsCount}+ events hosted"
-                                                              : "${state.event?.pub?.completedEventsCount ?? 0} event hosted",
+                                                              : '${(state.event?.pub?.completedEventsCount ?? 0) + 1} event hosted',
                                                           maxLines: 1,
                                                           overflow: TextOverflow
                                                               .ellipsis,
@@ -875,8 +885,7 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                             height: 2.h,
                           ),
                         ],
-                        if (state.event?.eventRules != null &&
-                            state.event!.eventRules.isNotEmpty) ...[
+                        if (state.event?.eventRules != null) ...[
                           Padding(
                             padding: EdgeInsets.only(left: 0.4.h),
                             child: Row(
@@ -889,20 +898,37 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18.sp),
                                 ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          decorationColor: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary,
-                                          color: colorScheme.onPrimary,
-                                          fontSize: 14.sp),
-                                    ),
-                                    SvgPicture.asset(AssetConstants.arrowRight)
-                                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      builder: (context) {
+                                        return RulesBottomSheet(
+                                          rules: state.event?.eventRules ?? [],
+                                          initialSelectedIndex: 0,
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'View All',
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationColor: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimary,
+                                            color: colorScheme.onPrimary,
+                                            fontSize: 14.sp),
+                                      ),
+                                      SvgPicture.asset(
+                                          AssetConstants.arrowRight)
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -918,15 +944,14 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                               itemCount: state.event?.eventRules.length ?? 0,
                               itemBuilder: (context, index) {
                                 final rule = state.event?.eventRules[index];
-                                print(rule);
+                                log('$rule');
                                 return Padding(
                                     padding: EdgeInsets.zero,
                                     child: Column(children: [
                                       RulesContainer(
                                           ruleName: rule?.name ?? '',
                                           isSelected: rule?.isAllowed ?? true,
-                                          ruleImage:
-                                              AssetConstants.dressRuleIcon),
+                                          ruleImage: rule?.imageUrl as String),
                                       SizedBox(height: 1.h),
                                       Row(
 
@@ -945,7 +970,7 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                             ),
                           ),
                         ],
-                        if (state.event!.cancellationPolicy.isNotEmpty) ...[
+                        if (state.event?.cancellationPolicy != null) ...[
                           Text(
                             'Cancellation Policy',
                             style: TextStyle(
@@ -965,16 +990,17 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                                 isScrollControlled: true,
                                 builder: (context) =>
                                     CancellationPolicyBottomSheet(
-                                        policy:
-                                            state.event?.cancellationPolicy ??
-                                                ''),
+                                        policy: state
+                                                .event?.cancellationPolicy ??
+                                            CancellationPolicy.defaultValue()),
                               );
                             },
                             child: Row(children: [
                               SizedBox(
                                   width: 90.w,
                                   child: Text(
-                                    state.event?.cancellationPolicy ?? '',
+                                    state.event?.cancellationPolicy?.intro ??
+                                        '',
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -990,8 +1016,7 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                             height: 1.h,
                           ),
                         ],
-                        if (state.event?.faqs != null &&
-                            state.event!.faqs!.isNotEmpty) ...[
+                        if (state.event?.faqs != null) ...[
                           Divider(
                             color: colorScheme.background.withOpacity(0.2),
                           ),
@@ -1019,9 +1044,39 @@ class EventDetailsScreenConsumer2 extends StatelessWidget {
                               fontSize: 18.sp,
                             ),
                           ),
-                          AnimatedEventDescription(
-                              description:
-                                  "Musk was born in Pretoria, South Africa, and briefly attended the University of Pretoria before immigrating to Canada at the age of 18, acquiring citizenship through his Canadian-born mother. Two years later, he matriculated at Queen's University at Kingston in Canada. Musk later transferred to the University of Pennsylvania and received bachelor's degrees in economics and physics. He moved to California in 1995 to attend Stanford University but never enrolled in classes, and with his brother Kimbal co-founded the online city guide software company Zip2. The startup was acquired by Compaq for 307 million in 1999. That same year, Musk co-founded X.com, a direct bank. X.com merged with Confinity in 2000 to form PayPal. In 2002, Musk acquired US citizenship, and that October eBay acquired PayPal for 1.5 billion. Using 100 million of the money he made from the sale of PayPal."),
+                          Text(
+                            state.event?.termsAndConditions[0].description ??
+                                '',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .background
+                                  .withOpacity(0.8),
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                backgroundColor: Colors.transparent,
+                                barrierColor: Colors.black.withOpacity(0.2),
+                                isScrollControlled: true,
+                                builder: (context) => TermsAndPolicyBottomSheet(
+                                    terms:
+                                        state.event?.termsAndConditions ?? []),
+                              );
+                            },
+                            child: Text(
+                              'Show More',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationColor:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  color: colorScheme.onPrimary,
+                                  fontSize: 15.sp),
+                            ),
+                          ),
                         ]
                       ],
                     ),
@@ -1493,11 +1548,12 @@ class RulesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    log("$ruleName");
     return Container(
       padding: EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 0.5.h),
       margin: EdgeInsets.only(right: 1.h),
-      height: 78,
-      width: 109,
+      height: 8.66.h,
+      width: 26.w,
       decoration: BoxDecoration(
           color: colorScheme.surface,
           border: Border.all(color: Color(0xff373737)),
@@ -1506,9 +1562,275 @@ class RulesContainer extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [SvgPicture.asset(AssetConstants.tickIcon)],
+            children: [
+              SvgPicture.asset(isSelected
+                  ? AssetConstants.tickIcon
+                  : AssetConstants.unTickIcon)
+            ],
           ),
-          Center(child: SvgPicture.asset(ruleImage))
+          SizedBox(
+              height: 4.44.h,
+              width: 4.44.h,
+              child: Center(
+                  child: CachedNetworkImage(
+                imageUrl: ruleImage,
+              )))
+        ],
+      ),
+    );
+  }
+}
+
+class TermsAndPolicyBottomSheet extends StatelessWidget {
+  final List<TermsAndCondition> terms;
+
+  const TermsAndPolicyBottomSheet({
+    super.key,
+    required this.terms,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      height: 70.h,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            colorScheme.surface.withOpacity(0.99),
+            colorScheme.surface.withOpacity(1),
+          ],
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Handle bar
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 0.6.h,
+                width: 15.w,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 1.h),
+
+          // Title
+          Text(
+            'Terms and Conditions',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.background,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 2.h),
+
+          // Terms List
+          Expanded(
+            child: ListView.builder(
+              itemCount: terms.length,
+              itemBuilder: (context, index) {
+                final term = terms[index];
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 1.5.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Term Title
+                      Text(
+                        '${term.order}. ${term.title}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .background
+                              .withOpacity(0.8),
+                          fontSize: 16.sp,
+                          height: 1.5,
+                        ),
+                      ),
+                      SizedBox(height: 0.5.h),
+
+                      // Term Description
+                      Text(
+                        term.description,
+                        style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .background
+                              .withOpacity(0.8),
+                          fontSize: 14.sp,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RulesBottomSheet extends StatefulWidget {
+  final List<EventRules> rules;
+  final int initialSelectedIndex;
+
+  const RulesBottomSheet({
+    Key? key,
+    required this.rules,
+    this.initialSelectedIndex = 0,
+  }) : super(key: key);
+
+  @override
+  State<RulesBottomSheet> createState() => _RulesBottomSheetState();
+}
+
+class _RulesBottomSheetState extends State<RulesBottomSheet> {
+  late int selectedRuleIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedRuleIndex = widget.initialSelectedIndex;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      height: 70.h, // Match the height from cancellation policy
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            colorScheme.surface.withOpacity(0.99),
+            colorScheme.surface.withOpacity(1),
+          ],
+        ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Handle bar - matching the cancellation policy style
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 0.6.h,
+                width: 15.w,
+                decoration: BoxDecoration(
+                  color: colorScheme.onPrimary,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 1.h),
+
+          // Title - matching the cancellation policy style
+          Text(
+            'Event Rules',
+            style: TextStyle(
+              color: colorScheme.background,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 2.h),
+
+          // Rules horizontal scrolling list
+          SizedBox(
+            height: 13.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.rules.length,
+              itemBuilder: (context, index) {
+                final rule = widget.rules[index];
+
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedRuleIndex = index;
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 2.w),
+                    child: Column(
+                      children: [
+                        RulesContainer(
+                          ruleName: rule.name,
+                          isSelected: rule.isAllowed,
+                          ruleImage: rule.imageUrl,
+                        ),
+                        Text(
+                          rule.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: colorScheme.background,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          SizedBox(height: 2.h),
+
+          // Selected rule details
+          if (widget.rules.isNotEmpty) ...[
+            Text(
+              widget.rules[selectedRuleIndex].name,
+              style: TextStyle(
+                color: colorScheme.background,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 1.h),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Text(
+                  widget.rules[selectedRuleIndex].description ??
+                      'No description available',
+                  style: TextStyle(
+                    color: colorScheme.background.withOpacity(0.8),
+                    fontSize: 14.sp,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

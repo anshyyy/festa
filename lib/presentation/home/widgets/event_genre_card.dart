@@ -19,36 +19,40 @@ class EventTypeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: CustomImageProvider.getImageUrl(image, ImageType.other),
-      imageBuilder: (context, imageProvider) => Container(
-        height: 22.w,
-        width: 22.w,
-        padding: EdgeInsets.only(bottom: 2.w, left: 1.w, right: 1.w),
-        decoration: BoxDecoration(
-            border: Border.all(
-                color: isSelected
-                    ? Theme.of(context).primaryColor
-                    : Theme.of(context).colorScheme.background.withOpacity(.2),
-                width:isSelected? .3.w: .3.w),
-            borderRadius: BorderRadius.circular(15),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: imageProvider,
-            )),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.background,
-                fontSize: 13.5.sp,
-                ),
+    return Container(
+      height: 22.w,
+      width: 22.w,
+      padding: EdgeInsets.only(bottom: 2.w, left: 1.w, right: 1.w,top: 1.h),
+      decoration: BoxDecoration(
+          border: Border.all(
+              color: isSelected
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).colorScheme.background.withOpacity(.2),
+              width: isSelected ? .3.w : .3.w),
+          borderRadius: BorderRadius.circular(15),
           ),
-        ),
+      child: Column(
+        children: [
+          CachedNetworkImage(
+            height: 40,
+            width: 40,
+            fit:BoxFit.cover,
+            imageUrl: image),
+          SizedBox(height: 0.5.h),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).colorScheme.background,
+                    fontSize: 13.5.sp,
+                  ),
+            ),
+          ),
+        ],
       ),
     );
   }

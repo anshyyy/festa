@@ -31,7 +31,8 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       termsAndConditions: (json['termsAndConditions'] as List<dynamic>?)
-              ?.map((e) => BulletDto.fromJson(e as Map<String, dynamic>))
+              ?.map(
+                  (e) => TermsAndCondition.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       faqs: (json['faqs'] as List<dynamic>?)
@@ -61,7 +62,10 @@ _$EventDtoImpl _$$EventDtoImplFromJson(Map<String, dynamic> json) =>
           ? null
           : PubDto.fromJson(json['pub'] as Map<String, dynamic>),
       isApplied: json['isApplied'] as bool? ?? false,
-      cancellationPolicy: json['cancellationPolicy'] as String? ?? '',
+      cancellationPolicy: json['cancellationPolicy'] == null
+          ? null
+          : CancellationPolicy.fromJson(
+              json['cancellationPolicy'] as Map<String, dynamic>),
       isLiked: json['isLiked'] as bool? ?? false,
       isPaused: json['isPaused'] as bool? ?? true,
       expensiveRating: (json['expensiveRating'] as num?)?.toInt() ?? 0,

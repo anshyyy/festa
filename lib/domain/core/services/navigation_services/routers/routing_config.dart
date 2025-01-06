@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -369,6 +370,7 @@ Route<dynamic> authorizedNavigation(RouteSettings settings) {
 
 Route<dynamic> commonNavigation(RouteSettings settings) {
   final routingData = settings.name!.getRoutingData;
+  log('routingData $routingData');
   switch (routingData.route) {
     case GeneralRoutes.noNetworkAtStart:
       return _getPageRoute(

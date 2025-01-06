@@ -345,7 +345,7 @@ class EventDetailsScreenConsumer extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              e.text,
+'',
                                               maxLines: 10,
                                               style: Theme.of(context)
                                                   .textTheme

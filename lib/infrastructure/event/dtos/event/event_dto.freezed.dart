@@ -47,7 +47,8 @@ mixin _$EventDto {
   @JsonKey(name: 'foodAndBeverages', defaultValue: [])
   List<BulletDto> get foodAndBeverages => throw _privateConstructorUsedError;
   @JsonKey(name: 'termsAndConditions', defaultValue: [])
-  List<BulletDto> get termsAndConditions => throw _privateConstructorUsedError;
+  List<TermsAndCondition> get termsAndConditions =>
+      throw _privateConstructorUsedError;
   @JsonKey(name: 'faqs', defaultValue: [])
   List<FAQDto> get faqs => throw _privateConstructorUsedError;
   @JsonKey(name: 'isPaid', defaultValue: false)
@@ -70,8 +71,9 @@ mixin _$EventDto {
   PubDto? get pub => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
   bool get isApplied => throw _privateConstructorUsedError;
-  @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-  String get cancellationPolicy => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cancellationPolicy')
+  CancellationPolicy? get cancellationPolicy =>
+      throw _privateConstructorUsedError;
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked => throw _privateConstructorUsedError;
   @JsonKey(name: 'isPaused', defaultValue: true)
@@ -120,7 +122,7 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'foodAndBeverages', defaultValue: [])
       List<BulletDto> foodAndBeverages,
       @JsonKey(name: 'termsAndConditions', defaultValue: [])
-      List<BulletDto> termsAndConditions,
+      List<TermsAndCondition> termsAndConditions,
       @JsonKey(name: 'faqs', defaultValue: []) List<FAQDto> faqs,
       @JsonKey(name: 'isPaid', defaultValue: false) bool isPaid,
       @JsonKey(name: 'totalCapacity', defaultValue: 0) int totalCapacity,
@@ -134,8 +136,8 @@ abstract class $EventDtoCopyWith<$Res> {
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
-      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-      String cancellationPolicy,
+      @JsonKey(name: 'cancellationPolicy')
+      CancellationPolicy? cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
       @JsonKey(name: 'isPaused', defaultValue: true) bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0) int expensiveRating,
@@ -149,6 +151,7 @@ abstract class $EventDtoCopyWith<$Res> {
 
   $AddressDtoCopyWith<$Res>? get address;
   $PubDtoCopyWith<$Res>? get pub;
+  $CancellationPolicyCopyWith<$Res>? get cancellationPolicy;
 }
 
 /// @nodoc
@@ -191,7 +194,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
-    Object? cancellationPolicy = null,
+    Object? cancellationPolicy = freezed,
     Object? isLiked = null,
     Object? isPaused = null,
     Object? expensiveRating = null,
@@ -256,7 +259,7 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
       termsAndConditions: null == termsAndConditions
           ? _value.termsAndConditions
           : termsAndConditions // ignore: cast_nullable_to_non_nullable
-              as List<BulletDto>,
+              as List<TermsAndCondition>,
       faqs: null == faqs
           ? _value.faqs
           : faqs // ignore: cast_nullable_to_non_nullable
@@ -301,10 +304,10 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
-      cancellationPolicy: null == cancellationPolicy
+      cancellationPolicy: freezed == cancellationPolicy
           ? _value.cancellationPolicy
           : cancellationPolicy // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CancellationPolicy?,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
@@ -363,6 +366,21 @@ class _$EventDtoCopyWithImpl<$Res, $Val extends EventDto>
       return _then(_value.copyWith(pub: value) as $Val);
     });
   }
+
+  /// Create a copy of EventDto
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CancellationPolicyCopyWith<$Res>? get cancellationPolicy {
+    if (_value.cancellationPolicy == null) {
+      return null;
+    }
+
+    return $CancellationPolicyCopyWith<$Res>(_value.cancellationPolicy!,
+        (value) {
+      return _then(_value.copyWith(cancellationPolicy: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -390,7 +408,7 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'foodAndBeverages', defaultValue: [])
       List<BulletDto> foodAndBeverages,
       @JsonKey(name: 'termsAndConditions', defaultValue: [])
-      List<BulletDto> termsAndConditions,
+      List<TermsAndCondition> termsAndConditions,
       @JsonKey(name: 'faqs', defaultValue: []) List<FAQDto> faqs,
       @JsonKey(name: 'isPaid', defaultValue: false) bool isPaid,
       @JsonKey(name: 'totalCapacity', defaultValue: 0) int totalCapacity,
@@ -404,8 +422,8 @@ abstract class _$$EventDtoImplCopyWith<$Res>
       @JsonKey(name: 'address') AddressDto? address,
       @JsonKey(name: 'pub') PubDto? pub,
       @JsonKey(defaultValue: false) bool isApplied,
-      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-      String cancellationPolicy,
+      @JsonKey(name: 'cancellationPolicy')
+      CancellationPolicy? cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false) bool isLiked,
       @JsonKey(name: 'isPaused', defaultValue: true) bool isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0) int expensiveRating,
@@ -421,6 +439,8 @@ abstract class _$$EventDtoImplCopyWith<$Res>
   $AddressDtoCopyWith<$Res>? get address;
   @override
   $PubDtoCopyWith<$Res>? get pub;
+  @override
+  $CancellationPolicyCopyWith<$Res>? get cancellationPolicy;
 }
 
 /// @nodoc
@@ -461,7 +481,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
     Object? address = freezed,
     Object? pub = freezed,
     Object? isApplied = null,
-    Object? cancellationPolicy = null,
+    Object? cancellationPolicy = freezed,
     Object? isLiked = null,
     Object? isPaused = null,
     Object? expensiveRating = null,
@@ -526,7 +546,7 @@ class __$$EventDtoImplCopyWithImpl<$Res>
       termsAndConditions: null == termsAndConditions
           ? _value.termsAndConditions
           : termsAndConditions // ignore: cast_nullable_to_non_nullable
-              as List<BulletDto>,
+              as List<TermsAndCondition>,
       faqs: null == faqs
           ? _value.faqs
           : faqs // ignore: cast_nullable_to_non_nullable
@@ -571,10 +591,10 @@ class __$$EventDtoImplCopyWithImpl<$Res>
           ? _value.isApplied
           : isApplied // ignore: cast_nullable_to_non_nullable
               as bool,
-      cancellationPolicy: null == cancellationPolicy
+      cancellationPolicy: freezed == cancellationPolicy
           ? _value.cancellationPolicy
           : cancellationPolicy // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CancellationPolicy?,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
@@ -642,8 +662,7 @@ class _$EventDtoImpl implements _EventDto {
       @JsonKey(name: 'address') this.address,
       @JsonKey(name: 'pub') this.pub,
       @JsonKey(defaultValue: false) required this.isApplied,
-      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-      required this.cancellationPolicy,
+      @JsonKey(name: 'cancellationPolicy') this.cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false) required this.isLiked,
       @JsonKey(name: 'isPaused', defaultValue: true) required this.isPaused,
       @JsonKey(name: 'expensiveRating', defaultValue: 0)
@@ -700,7 +719,7 @@ class _$EventDtoImpl implements _EventDto {
   final List<BulletDto> foodAndBeverages;
   @override
   @JsonKey(name: 'termsAndConditions', defaultValue: [])
-  final List<BulletDto> termsAndConditions;
+  final List<TermsAndCondition> termsAndConditions;
   @override
   @JsonKey(name: 'faqs', defaultValue: [])
   final List<FAQDto> faqs;
@@ -735,8 +754,8 @@ class _$EventDtoImpl implements _EventDto {
   @JsonKey(defaultValue: false)
   final bool isApplied;
   @override
-  @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-  final String cancellationPolicy;
+  @JsonKey(name: 'cancellationPolicy')
+  final CancellationPolicy? cancellationPolicy;
   @override
   @JsonKey(name: 'isLiked', defaultValue: false)
   final bool isLiked;
@@ -906,7 +925,7 @@ abstract class _EventDto implements EventDto {
       @JsonKey(name: 'foodAndBeverages', defaultValue: [])
       required final List<BulletDto> foodAndBeverages,
       @JsonKey(name: 'termsAndConditions', defaultValue: [])
-      required final List<BulletDto> termsAndConditions,
+      required final List<TermsAndCondition> termsAndConditions,
       @JsonKey(name: 'faqs', defaultValue: []) required final List<FAQDto> faqs,
       @JsonKey(name: 'isPaid', defaultValue: false) required final bool isPaid,
       @JsonKey(name: 'totalCapacity', defaultValue: 0)
@@ -924,8 +943,8 @@ abstract class _EventDto implements EventDto {
       @JsonKey(name: 'address') final AddressDto? address,
       @JsonKey(name: 'pub') final PubDto? pub,
       @JsonKey(defaultValue: false) required final bool isApplied,
-      @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-      required final String cancellationPolicy,
+      @JsonKey(name: 'cancellationPolicy')
+      final CancellationPolicy? cancellationPolicy,
       @JsonKey(name: 'isLiked', defaultValue: false)
       required final bool isLiked,
       @JsonKey(name: 'isPaused', defaultValue: true)
@@ -985,7 +1004,7 @@ abstract class _EventDto implements EventDto {
   List<BulletDto> get foodAndBeverages;
   @override
   @JsonKey(name: 'termsAndConditions', defaultValue: [])
-  List<BulletDto> get termsAndConditions;
+  List<TermsAndCondition> get termsAndConditions;
   @override
   @JsonKey(name: 'faqs', defaultValue: [])
   List<FAQDto> get faqs;
@@ -1020,8 +1039,8 @@ abstract class _EventDto implements EventDto {
   @JsonKey(defaultValue: false)
   bool get isApplied;
   @override
-  @JsonKey(name: 'cancellationPolicy', defaultValue: '')
-  String get cancellationPolicy;
+  @JsonKey(name: 'cancellationPolicy')
+  CancellationPolicy? get cancellationPolicy;
   @override
   @JsonKey(name: 'isLiked', defaultValue: false)
   bool get isLiked;

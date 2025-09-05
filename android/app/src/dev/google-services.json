@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "441317414729",
+    "project_id": "festa-dev-488fd",
+    "storage_bucket": "festa-dev-488fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441317414729:android:f762a8e5c5450fc8a42c98",
+        "android_client_info": {
+          "package_name": "com.festaworld.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441317414729-9vkds1ququsqkg6il7ds3dgi41lhl3ku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.festaworld.app.dev",
+            "certificate_hash": "7cbfba9975df4f4a2c3766d4120b8212343cf790"
+          }
+        },
+        {
+          "client_id": "441317414729-enmljhbcl0ohhnqupm2clqteuh8l9t6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJiyFqoCGtm4kMTGLNbD2LYYV55uFFkYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441317414729-enmljhbcl0ohhnqupm2clqteuh8l9t6p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "441317414729-4l0otjjh181hutdv3ipqjltss87153mt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.festaworld.app.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

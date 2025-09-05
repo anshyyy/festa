@@ -1,0 +1,447 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../../../../../infrastructure/core/dtos/asset/asset_dto.dart';
+import '../../../../../infrastructure/event/dtos/booked_ticket_details/booked_ticket_details_dto.dart';
+import '../../../../../infrastructure/event/dtos/event_booking_details/event_booking_details_dto.dart';
+import '../../../../../presentation/artist_profile/artist_profile_screen.dart';
+import '../../../../../presentation/artist_profile/widgets/artist_community_screen.dart';
+import '../../../../../presentation/auth/auth_screen.dart';
+import '../../../../../presentation/auth/login_with_phone_screen.dart';
+import '../../../../../presentation/auth/start_screen.dart';
+import '../../../../../presentation/auth/verify_otp_screen.dart';
+import '../../../../../presentation/basic_profile/basic_profile_screen.dart';
+import '../../../../../presentation/basic_profile/birthday_selection_screen.dart';
+import '../../../../../presentation/basic_profile/gender_selection_screen.dart';
+import '../../../../../presentation/basic_profile/set_your_location.dart';
+import '../../../../../presentation/basic_profile/username_screen.dart';
+import '../../../../../presentation/club_profile/club_profile_screen.dart';
+import '../../../../../presentation/club_profile/widgets/club_community_screen.dart';
+import '../../../../../presentation/club_profile/widgets/media_viewer_widget.dart';
+import '../../../../../presentation/common/default_widget.dart';
+import '../../../../../presentation/common/network_unavailable_screen.dart';
+import '../../../../../presentation/event/booking/book_ticket_screen.dart';
+import '../../../../../presentation/event/booking/book_ticket_screen2.dart';
+import '../../../../../presentation/event/booking/free_booking_screen.dart';
+import '../../../../../presentation/event/booking/payment_details_screen.dart';
+import '../../../../../presentation/event/booking/payment_status_screen.dart';
+import '../../../../../presentation/event/event_details2_screen.dart';
+import '../../../../../presentation/event/event_details_screen.dart';
+import '../../../../../presentation/main_nav/main_navigator.dart';
+import '../../../../../presentation/map/map_screen.dart';
+import '../../../../../presentation/notifications/notification_screen.dart';
+import '../../../../../presentation/ticket/cover/cover_screen.dart';
+import '../../../../../presentation/ticket/cover/cover_transaction_history.dart';
+import '../../../../../presentation/ticket/history_tickets/past_ticket_history.dart';
+import '../../../../../presentation/ticket/history_tickets/past_ticket_screen.dart';
+import '../../../../../presentation/ticket/review/review_screen.dart';
+import '../../../../../presentation/user/other_user_profile_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/account_privacy/account_privacy_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/account_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/block_account/block_account_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/date_of_birth/date_of_birth_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/delete_account/delete_account_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/email/email_details_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/email/email_otp_verification.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/email/email_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_details_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_otp_verification.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/phone/phone_screen.dart';
+import '../../../../../presentation/user/profile_settings/account_settings/username/username_settings_screen.dart';
+import '../../../../../presentation/user/profile_settings/edit_profile_screen/edit_profile_screen.dart';
+import '../../../../../presentation/user/profile_settings/edit_profile_screen/edit_profile_screen_new.dart';
+import '../../../../../presentation/user/profile_settings/personalise_your_experience/personalise_experience_screen.dart';
+import '../../../../../presentation/user/profile_settings/profile_and_settings.dart';
+import '../../../../../presentation/user/profile_settings/rewards_from_friends/rewards_friends_screen.dart';
+import '../../../../../presentation/user/widgets/user_community_screen.dart';
+import '../../../extensions/string_extension.dart';
+import 'route_name.dart';
+
+Route<dynamic> authorizedNavigation(RouteSettings settings) {
+  final routingData = settings.name!.getRoutingData;
+
+  switch (routingData.route) {
+    case AuthRoutes.basicInfoRoute:
+      return _getPageRoute(const BasicProfileScreen(), settings);
+
+    case AuthRoutes.birthdayRoute:
+      return _getPageRoute(const BirthdayScreen(), settings);
+
+    case AuthRoutes.genderRoute:
+      return _getPageRoute(const GenderSelectionScreen(), settings);
+
+    case AuthRoutes.usernameRoute:
+      return _getPageRoute(const UsernameScreen(), settings);
+
+    case AuthRoutes.locationSetupRoute:
+      return _getPageRoute(const SetYourLocation(), settings);
+
+    case UserRoutes.userCommunityScreenRoute:
+      final userId = routingData.queryParameters['userId'] ?? '0';
+      final username = routingData.queryParameters['username'] ?? '0';
+      return _getPageRoute(
+          UserCommunity(userId: int.parse(userId), username: username),
+          settings);
+
+    case UserRoutes.unblockAccountScreenRoute:
+      return _getPageRoute(const UnblockAccountScreen(), settings);
+
+    case UserRoutes.otherUserProfileRoute:
+      final userId = routingData.queryParameters['userId'] ?? '0';
+      return _getPageRoute(
+          OtherUserProfileScreen(userId: int.parse(userId)), settings);
+
+    case UserRoutes.profileAndSettingsRoute:
+      final email = routingData.queryParameters['email'] ?? '';
+      //("this is the $email");
+      return _getPageRoute(
+          ProfileAndSettingsScreen(providedEmail: email.toString()), settings);
+
+    case UserRoutes.personalizeExperienceRoute:
+      return _getPageRoute(const PersonalizeYourExperienceScreen(), settings);
+
+    // case UserRoutes.editProfileRoute:
+    //   final userId = routingData.queryParameters['userId'] ?? '0';
+
+    //   return _getPageRoute(
+    //       EditProfileScreen(
+    //         userId: int.parse(userId),
+    //       ),
+    //       settings);
+
+    case UserRoutes.editProfileRoute:
+      final userId = routingData.queryParameters['userId'] ?? '0';
+
+      return _getPageRoute(
+          EditProfileScreenNew(
+            userId: int.parse(userId),
+          ),
+          settings);
+
+    case UserRoutes.friendRewardsScreen:
+          final userId = routingData.queryParameters['userId'] ?? '0';
+
+      return _getPageRoute(
+          RewardsFriendsScreen(
+            userId: int.parse(userId),
+          ),
+          settings);
+    
+    case UserRoutes.accountSettingsRoute:
+      final userId = routingData.queryParameters['userId'] ?? '0';
+      final email = routingData.queryParameters['email'] ?? '';
+      return _getPageRoute(
+        AccountSettingScreen(
+          userId: int.parse(userId),
+          email: email,
+        ),
+        settings,
+      );
+
+    case UserRoutes.accountPrivacyRoute:
+      final isPrivateAccount =
+          routingData.queryParameters['isPrivateAccount']!.toLowerCase() ==
+              'true';
+      return _getPageRoute(
+          AccountPrivacyScreen(
+            isPrivateAccount: isPrivateAccount,
+          ),
+          settings);
+
+    case UserRoutes.emailScreenRoute:
+      return _getPageRoute(const EmailScreen(), settings);
+
+    case UserRoutes.emailOtpVerificationRoute:
+      return _getPageRoute(
+          EmailOtpVerification(
+              emailAddress: routingData.queryParameters['emailAddress'] ?? ''),
+          settings);
+
+    case UserRoutes.emailDetailsScreenRoute:
+      return _getPageRoute(
+          EmailDetailsScreen(
+              emailAddress: routingData.queryParameters['emailAddress'] ?? ''),
+          settings);
+
+    case UserRoutes.phoneScreenRoute:
+      return _getPageRoute(const PhoneScreen(), settings);
+
+    case UserRoutes.phoneOtpVerificationRoute:
+      return _getPageRoute(
+          PhoneOtpVerification(
+              phoneNumber: routingData.queryParameters['phoneNumber'] ?? ''),
+          settings);
+
+    case UserRoutes.phoneDetailsScreenRoute:
+      return _getPageRoute(
+          PhoneDetailsScreen(
+              phoneNumber: routingData.queryParameters['phoneNumber'] ?? ''),
+          settings);
+
+    case UserRoutes.usernameSettingsScreenRoute:
+      final fullname = routingData.queryParameters['fullname'];
+      return _getPageRoute(
+          UsernameSettingsScreen(
+            fullname: fullname!,
+          ),
+          settings);
+
+    case UserRoutes.dateOfBirthSettingsScreenRoute:
+      final dob = routingData.queryParameters['dob'] ?? '';
+      return _getPageRoute(
+          DateOfBirthSettingsScreen(
+            dob: dob,
+          ),
+          settings);
+
+    case UserRoutes.deleteAccountScreenRoute:
+      return _getPageRoute(const DeleteAccountScreen(), settings);
+
+    case UserRoutes.eventDetailsRoute:
+      return _getPageRoute(
+          EventDetailsScreen2(
+            isMutedNotifierValue: routingData.queryParameters['valueListener'] == 'true',
+            isVideoMute: routingData.queryParameters['isVideoMuted'] == 'true',
+            id: routingData.queryParameters['id'] ?? '',
+            distance: routingData.queryParameters['distance'] ?? '',
+          ),
+          settings);
+
+    case UserRoutes.bookingRoute:
+      final String eventId = routingData.queryParameters['eventId'] ?? '';
+      return _getPageRoute(
+          BookTicketScreen2(
+            eventId: int.parse(eventId),
+          ),
+          settings);
+
+    case UserRoutes.freeBookingRoute:
+      return _getPageRoute(const FreeBookingScreen(), settings);
+
+    case UserRoutes.paymentDetailsRoute:
+      return _getPageRoute(
+          PaymentDetails(
+            bookingDetails: settings.arguments as EventBookingDetailsDto,
+          ),
+          settings);
+
+    case UserRoutes.mapViewScreen:
+     return _getPageRoute(MapScreen(), settings);
+
+    case UserRoutes.paymentStatusScreenRoute:
+      final String eventId = routingData.queryParameters['eventId'] ?? '0';
+      final bool isPaymentSuccess =
+          routingData.queryParameters['isPaymentSuccess'] == 'true';
+      final bool isPaymentPending =
+          routingData.queryParameters['isPaymentPending'] == 'true';
+      final String numberOfTickets =
+          routingData.queryParameters['numberOfTickets'] ?? '0';
+      final String totalAmount =
+          routingData.queryParameters['totalAmount'] ?? '0';
+      final String? coverAmount = routingData.queryParameters['coverAmount'];
+      final String? bookingId = routingData.queryParameters['bookingId'];
+      final String? transactionId = routingData.queryParameters['transactionId'];
+      double? cover = double.parse(coverAmount ?? '0');
+      if (cover == 0) {
+        cover = null;
+      }
+      return _getPageRoute(
+          PaymentStatusScreen(
+            bookindId: int.parse(bookingId??'0'),
+            transactionId: transactionId??'',
+            isPaymentSuccess: isPaymentSuccess,
+            isPaymentPending: isPaymentPending,
+            numberOfTickets: int.parse(numberOfTickets),
+            eventId: int.parse(
+              eventId,
+            ),
+            totalAmount: double.parse(totalAmount),
+            coverAmount: cover,
+          ),
+          settings);
+
+    case UserRoutes.clubProfileRoute:
+      final clubId = routingData.queryParameters['id'] ?? '0';
+      return _getPageRoute(
+          ClubProfileScreen(
+            clubId: int.parse(clubId),
+          ),
+          settings);
+
+    case UserRoutes.clubCommunityScreenRoute:
+      final clubId = routingData.queryParameters['clubId'] ?? '0';
+      final clubName = routingData.queryParameters['clubName'] ?? '';
+      return _getPageRoute(
+          ClubCommunity(
+            clubId: int.parse(clubId),
+            clubName: clubName,
+          ),
+          settings);
+
+    case UserRoutes.artistProfileScreenRoute:
+      final artistId = routingData.queryParameters['id'] ?? '0';
+      return _getPageRoute(
+          ArtistProfileScreen(
+            artistId: int.parse(artistId),
+          ),
+          settings);
+
+    case UserRoutes.artistCommunityScreenRoute:
+      final artistId = routingData.queryParameters['artistId'] ?? '0';
+      final artistName = routingData.queryParameters['artistName'] ?? '0';
+      return _getPageRoute(
+          ArtistCommunity(
+            artistId: int.parse(artistId),
+            fullName: artistName,
+          ),
+          settings);
+
+    case UserRoutes.mainNavRoute:
+      return _getPageRoute(
+          MainNavigator(
+            routeIndex: routingData.queryParameters['routeIndex'] ?? '0',
+          ),
+          settings);
+
+    case UserRoutes.notificationsRoute:
+      return _getPageRoute(const NotificationsScreen(), settings);
+    case UserRoutes.coverTransactionHistory:
+      var bookingId =
+          int.parse(routingData.queryParameters['bookingId'] ?? '0');
+      return _getPageRoute(
+          CoverTransactionHistory(bookingId: bookingId), settings);
+    case UserRoutes.pastTickets:
+      return _getPageRoute(const PastTicketScreen(), settings);
+    case UserRoutes.ticketHistory:
+      final String? ticketJsonString = routingData.queryParameters['ticket'];
+      // Now you can use `ticket` as the original object
+      final bool isRecent = routingData.queryParameters['isRecent'] == 'true';
+      final BookedTicketDetailsDto ticket =
+          BookedTicketDetailsDto.fromJson(jsonDecode(ticketJsonString ?? ""));
+
+      return _getPageRoute(
+          PastTicketHistory(
+            ticket: ticket,
+            isRecent: isRecent,
+          ),
+          settings);
+
+    case UserRoutes.addCoverRoute:
+      var bookingId =
+          int.parse(routingData.queryParameters['bookingId'] ?? '0');
+      var eventId = int.parse(routingData.queryParameters['eventId'] ?? '0');
+      var transactionId =
+          routingData.queryParameters['transactionId'] as String;
+
+      return _getPageRoute(
+          CoverScreen(
+            bookingId: bookingId,
+            transactionId: transactionId,
+            eventId: eventId,
+          ),
+          settings);
+    case UserRoutes.reviewScreen:
+      final eventName = routingData.queryParameters['eventName'] ?? '0';
+      final eventTime = routingData.queryParameters['eventTime'] ?? '0';
+      final eventId = routingData.queryParameters['eventId'] ?? '0';
+      return _getPageRoute(
+          ReviewScreen(
+            eventName: eventName,
+            eventTime: eventTime,
+            eventId: eventId,
+          ),
+          settings);
+
+    case UserRoutes.mediaViewerWidgetScreen:
+      final type = routingData.queryParameters['type'] ?? 'image';
+      final url = routingData.queryParameters['url'] ?? '';
+      final pubId = routingData.queryParameters['pubId'] ?? '';
+      final String? assetsString = routingData.queryParameters['assets'];
+      final List<AssetDto> assets = assetsString != null
+          ? (jsonDecode(assetsString) as List)
+              .map((assetJson) =>
+                  AssetDto.fromJson(assetJson as Map<String, dynamic>))
+              .toList()
+          : [];
+
+      final currentIndex =
+          int.parse(routingData.queryParameters['currentIndex']!);
+      return _getPageRoute(
+          MediaViewerWidget(
+              type: type,
+              url: url,
+              pubId: int.parse(pubId),
+              assets: assets,
+              currentIndex: currentIndex),
+          settings);
+
+    default:
+      return commonNavigation(settings);
+  }
+}
+
+Route<dynamic> commonNavigation(RouteSettings settings) {
+  final routingData = settings.name!.getRoutingData;
+  log('routingData $routingData');
+  switch (routingData.route) {
+    case GeneralRoutes.noNetworkAtStart:
+      return _getPageRoute(
+          NetworkUnavailableScreen(
+            routeName: routingData.route,
+            queryParams: routingData.queryParameters,
+            arguments: settings.arguments,
+            isStartRoute: true,
+          ),
+          settings);
+
+    case GeneralRoutes.noNetwork:
+      return _getPageRoute(
+          NetworkUnavailableScreen(
+            routeName: routingData.route,
+            queryParams: routingData.queryParameters,
+            arguments: settings.arguments,
+          ),
+          settings);
+    case AuthRoutes.startRoute:
+      return _getPageRoute(const StarterScreen(), settings);
+
+    case AuthRoutes.authRoute:
+      return _getPageRoute(const AuthScreen(), settings);
+
+    case AuthRoutes.loginWithPhoneRoute:
+      return _getPageRoute(const LoginPhoneScreen(), settings);
+
+    case AuthRoutes.verifyOTPRoute:
+      final routeData = routingData.queryParameters;
+      final String verificationCode = routeData['verificationCode'] ?? '';
+      final String dialCode = routeData['dialCode'] ?? '';
+      final String phoneNumber = routeData['phoneNumber'] ?? '';
+
+      return _getPageRoute(
+          VerifyOtpScreen(
+            verificationCode: verificationCode,
+            dialCode: dialCode,
+            phoneNumber: phoneNumber.trim(),
+          ),
+          settings);
+
+    default:
+      return _getPageRoute(const DefaultWidget(), settings);
+  }
+}
+
+PageRoute _getPageRoute(
+  Widget child,
+  RouteSettings settings, {
+  bool mainRoute = false,
+}) {
+  //return CupertinoRoute(enterPage: child);
+  if (Platform.isIOS && !mainRoute) {
+    return CupertinoPageRoute(builder: (BuildContext context) => child);
+  } else {
+    return MaterialPageRoute(builder: (BuildContext context) => child);
+  }
+}
